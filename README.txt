@@ -1,30 +1,16 @@
-DIA A DIA DA ELO — VERSÃO 3 PWA
+DIA A DIA DA ELO — VERSÃO 4 PWA
 
-NOVIDADES
-- Novo banner oficial na tela inicial
-- Área Aventuras da Elo com 4 histórias completas
-- Leitor de histórias com páginas, swipe e progresso
-- Favoritos nas histórias
-- Clubinho da Elo com os 2 níveis e link oficial para membros
-- Link de assinatura protegido por controle dos responsáveis
-- Vídeos reais do canal via playlist de uploads do YouTube
-- Novo jogo "Toque no número"
-- Jogo da memória ampliado
-- Escolinha com mais perguntas
-- Sistema de conquistas/medalhas
-- Área dos Pais atualizada
-- Tela de abertura (splash)
-- Cache PWA atualizado para V3
+NOVIDADES DA V4
+- Aba Criar renovada: 6 desenhos da Elo em preto e branco para colorir.
+- Escolinha da Elo ampliada: 60 perguntas em 3 níveis, 10 por rodada sem repetição.
+- Ache a Estrela com estrela menor, 3 dificuldades e cronômetro.
+- Toque no Número corrigido: o alvo muda sozinho quando o tempo acaba e fica mais rápido.
+- Aba Assistir com as 13 playlists oficiais enviadas pelo canal.
+- Banner principal com enquadramento mais próximo e logo/Elo maiores.
+- História 04 corrigida: páginas 8 e 9 agora aparecem completas, sem cortar conteúdo.
+- Novas conquistas e pequenos ajustes de navegação.
+- Mantém o progresso e as estrelinhas salvos no aparelho.
 
-HISTÓRIAS
-1. A Mochila Desaparecida
-2. O Guarda-Chuva Rosa
-3. A Sementinha Misteriosa
-4. Elo e o Passarinho Perdido
-
-LINKS OFICIAIS
-Canal: https://www.youtube.com/@diaadiadaelo
-Membros: https://www.youtube.com/channel/UCBPBaYweoBPjr8XlfOz1dwQ/join
-
-IMPORTANTE
-Os arquivos das histórias estão compactados em 4 sprites WebP para facilitar o envio pelo celular e deixar o app mais leve.
+PUBLICAÇÃO
+Substitua os arquivos principais no mesmo repositório do GitHub Pages e envie as novas pastas/arquivos em assets.
+O service worker usa um cache novo (elo-v4-20260911), para forçar a atualização da versão instalada.
