@@ -1,22 +1,30 @@
-DIA A DIA DA ELO — VERSÃO 2 PWA
+DIA A DIA DA ELO — VERSÃO 3 PWA
 
-Novidades:
-- Logo oficial no app e no ícone
-- Fotos reais da Elo na interface
-- Visual infantil limpo/profissional (estilo B)
-- Canal oficial @diaadiadaelo integrado
-- Área dos Pais protegida
-- Missão do dia + progresso
-- Ache a estrela
-- Jogo da memória
-- Quiz / Escolinha da Elo
-- Desenho com o dedo
-- Estrelinhas salvas no aparelho
-- Sem anúncios, sem cadastro e sem coleta de dados
+NOVIDADES
+- Novo banner oficial na tela inicial
+- Área Aventuras da Elo com 4 histórias completas
+- Leitor de histórias com páginas, swipe e progresso
+- Favoritos nas histórias
+- Clubinho da Elo com os 2 níveis e link oficial para membros
+- Link de assinatura protegido por controle dos responsáveis
+- Vídeos reais do canal via playlist de uploads do YouTube
+- Novo jogo "Toque no número"
+- Jogo da memória ampliado
+- Escolinha com mais perguntas
+- Sistema de conquistas/medalhas
+- Área dos Pais atualizada
+- Tela de abertura (splash)
+- Cache PWA atualizado para V3
 
-Para atualizar o GitHub Pages:
-1. Substitua os arquivos index.html, app.js, manifest.webmanifest e sw.js.
-2. Na pasta assets, envie/substitua os arquivos da V2.
-3. Aguarde alguns minutos e atualize o app instalado.
+HISTÓRIAS
+1. A Mochila Desaparecida
+2. O Guarda-Chuva Rosa
+3. A Sementinha Misteriosa
+4. Elo e o Passarinho Perdido
 
-Canal oficial: https://www.youtube.com/@diaadiadaelo
+LINKS OFICIAIS
+Canal: https://www.youtube.com/@diaadiadaelo
+Membros: https://www.youtube.com/channel/UCBPBaYweoBPjr8XlfOz1dwQ/join
+
+IMPORTANTE
+Os arquivos das histórias estão compactados em 4 sprites WebP para facilitar o envio pelo celular e deixar o app mais leve.
