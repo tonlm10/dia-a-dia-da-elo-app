@@ -1,0 +1,35 @@
+DIA A DIA DA ELO — CHECKLIST PARA FUTURA PUBLICAÇÃO NA PLAY STORE
+Versão do app-base: 9.0
+
+1. CONCLUÍDO NESTA VERSÃO
+- Controle dos responsáveis com PIN de 4 dígitos.
+- Links externos protegidos pelo PIN.
+- Sem anúncios e sem cadastro infantil dentro do app.
+- Política de Privacidade dentro do app e em privacy.html.
+- Termos de Uso dentro do app e em terms.html.
+- Atualização/cache mais resistente a arquivos opcionais ausentes.
+- Jogos em tela cheia.
+- Quebra-cabeça bloqueia as peças ao ser concluído.
+- Jogo da memória com cartas ilustradas e níveis de 8, 16 e 32 cartas.
+- Conquistas removidas da Home e abertas em tela própria.
+- Pintura otimizada para reduzir uso de memória.
+
+2. ANTES DE ENVIAR À PLAY STORE
+- Gerar um aplicativo Android assinado em formato AAB.
+- Definir o identificador definitivo do pacote Android.
+- Hospedar a Política de Privacidade em uma URL pública estável.
+- Confirmar um contato público de privacidade do responsável/desenvolvedor.
+- Preparar ícone, screenshots e imagem de destaque da ficha da loja.
+- Preencher classificação indicativa, público-alvo/famílias e Segurança dos Dados conforme o comportamento final do app Android.
+- Testar em celulares Android de tamanhos diferentes.
+- Testar instalação limpa, atualização sobre versão anterior e funcionamento offline.
+
+3. TESTES IMPORTANTES DA VERSÃO 9.0
+- Criar e confirmar o PIN parental.
+- Testar YouTube, Instagram e Clube após PIN.
+- Testar memória nos 3 níveis.
+- Concluir um quebra-cabeça e confirmar que as peças ficam bloqueadas.
+- Testar colorir/Desfazer em várias áreas.
+- Abrir todas as playlists e confirmar os destinos.
+- Abrir todas as 4 histórias.
+- Confirmar versão 9.0 em Área dos Pais > Sobre o app.

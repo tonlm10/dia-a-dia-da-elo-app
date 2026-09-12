@@ -32,12 +32,23 @@ const starCount=document.getElementById('starCount');
 function renderStars(){starCount.textContent=stars;renderBadges()}
 function addStars(n=1,msg='Você ganhou uma estrelinha! ⭐'){stars+=n;localStorage.setItem('eloStars',stars);renderStars();toast(msg)}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove('show'),1900)}
-function openPanel(id,nav){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel')renderBadges();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer)}if(id==='createPanel'){renderColoringGallery();renderPalette()}}
-function openExternal(url){window.open(url,'_blank','noopener')}
-function adultGate(cb){const a=Math.floor(Math.random()*6)+4,b=Math.floor(Math.random()*5)+3;const r=prompt(`Área dos responsáveis 🔒
-Quanto é ${a} + ${b}?`);if(Number(r)===a+b)cb();else if(r!==null)toast('Resposta incorreta. Peça ajuda a um adulto.')}
-function openParents(){adultGate(()=>openPanel('parentsPanel','parents'))}
-function openMemberWithGate(){adultGate(()=>openExternal(MEMBER_URL))}
+function openPanel(id,nav){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer)}if(id==='createPanel'){renderColoringGallery();renderPalette()}}
+let parentPendingAction=null,parentPinBuffer='',parentPinMode='verify',parentPinFirst='';
+function launchExternal(url){const w=window.open(url,'_blank','noopener,noreferrer');if(!w)location.href=url}
+function hasParentPin(){return /^\d{4}$/.test(localStorage.getItem('eloParentPin')||'')}
+function parentUnlocked(){return sessionStorage.getItem('eloParentUnlocked')==='1'}
+function updatePinDots(){document.querySelectorAll('#pinDots .pinDot').forEach((d,i)=>d.classList.toggle('on',i<parentPinBuffer.length))}
+function showParentPin(message,mode='verify',action=null){parentPendingAction=action;parentPinMode=mode;parentPinBuffer='';parentPinFirst='';const modal=document.getElementById('parentPinModal');document.getElementById('pinTitle').textContent=mode.startsWith('setup')?'Criar PIN dos responsáveis':'Área dos responsáveis';document.getElementById('pinMessage').textContent=message;updatePinDots();modal.classList.remove('hidden');document.body.style.overflow='hidden'}
+function closeParentPin(){document.getElementById('parentPinModal').classList.add('hidden');document.body.style.overflow='';parentPinBuffer='';parentPendingAction=null;updatePinDots()}
+function finishParentAccess(){sessionStorage.setItem('eloParentUnlocked','1');const cb=parentPendingAction;document.getElementById('parentPinModal').classList.add('hidden');document.body.style.overflow='';parentPendingAction=null;parentPinBuffer='';updatePinDots();if(cb)cb()}
+function requestParentAccess(action,message='Digite o PIN de 4 dígitos dos responsáveis para continuar.'){if(parentUnlocked())return action();if(!hasParentPin())return showParentPin('Crie um PIN de 4 dígitos. Ele ficará salvo somente neste aparelho.','setup1',action);showParentPin(message,'verify',action)}
+function pinKey(n){if(parentPinBuffer.length>=4)return;parentPinBuffer+=n;updatePinDots();if(parentPinBuffer.length===4)processParentPin()}
+function pinBackspace(){parentPinBuffer=parentPinBuffer.slice(0,-1);updatePinDots()}
+function processParentPin(){if(parentPinBuffer.length!==4)return;const entered=parentPinBuffer;if(parentPinMode==='setup1'){parentPinFirst=entered;parentPinBuffer='';parentPinMode='setup2';document.getElementById('pinMessage').textContent='Repita o novo PIN para confirmar.';updatePinDots();return}if(parentPinMode==='setup2'){if(entered!==parentPinFirst){parentPinBuffer='';parentPinMode='setup1';parentPinFirst='';document.getElementById('pinMessage').textContent='Os PINs não coincidiram. Crie novamente um PIN de 4 dígitos.';updatePinDots();return}localStorage.setItem('eloParentPin',entered);finishParentAccess();toast('PIN dos responsáveis criado 🔐');return}if(parentPinMode==='change1'){parentPinFirst=entered;parentPinBuffer='';parentPinMode='change2';document.getElementById('pinMessage').textContent='Repita o novo PIN para confirmar.';updatePinDots();return}if(parentPinMode==='change2'){if(entered!==parentPinFirst){parentPinBuffer='';parentPinMode='change1';parentPinFirst='';document.getElementById('pinMessage').textContent='Os PINs não coincidiram. Tente novamente.';updatePinDots();return}localStorage.setItem('eloParentPin',entered);document.getElementById('parentPinModal').classList.add('hidden');document.body.style.overflow='';parentPinBuffer='';updatePinDots();toast('PIN alterado com sucesso 🔐');return}if(entered===localStorage.getItem('eloParentPin'))finishParentAccess();else{parentPinBuffer='';document.getElementById('pinMessage').textContent='PIN incorreto. Tente novamente.';updatePinDots()}}
+function changeParentPin(){parentPinBuffer='';parentPinFirst='';parentPinMode='change1';parentPendingAction=null;document.getElementById('pinTitle').textContent='Alterar PIN';document.getElementById('pinMessage').textContent='Digite um novo PIN de 4 dígitos.';updatePinDots();document.getElementById('parentPinModal').classList.remove('hidden');document.body.style.overflow='hidden'}
+function openExternal(url){requestParentAccess(()=>launchExternal(url),'Digite o PIN dos responsáveis para abrir este link externo.')}
+function openParents(){requestParentAccess(()=>openPanel('parentsPanel','parents'))}
+function openMemberWithGate(){openExternal(MEMBER_URL)}
 function openSubscribe(){openExternal(SUBSCRIBE_URL)}
 function openInstagram(){openExternal(INSTAGRAM_URL)}
 function openGame(id,title){clearInterval(findTimer);clearTimeout(tapTimer);document.getElementById('gameModalTitle').textContent=title;document.querySelectorAll('.gameSection').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('gameModal').classList.remove('hidden');document.body.style.overflow='hidden';if(id==='findGame')resetFind(true);if(id==='mazeGame')startMaze();if(id==='memoryGame')startMemory();if(id==='puzzleGame')startPuzzle(false);if(id==='tapGameSection')startTapGame()}
@@ -52,7 +63,7 @@ const dailyKey='eloDaily'+new Date().toDateString();
 if(localStorage.getItem(dailyKey))document.getElementById('dailyProgress').style.width='100%';
 function completeDaily(){if(localStorage.getItem(dailyKey))return toast('A missão de hoje já foi concluída 💗');localStorage.setItem(dailyKey,'1');document.getElementById('dailyProgress').style.width='100%';addStars(2,'Missão concluída! +2 ⭐')}
 
-function renderStoryStrip(){const box=document.getElementById('storyStrip');box.innerHTML=STORIES.map((s,i)=>`<button class="storyCard" onclick="openStory(${i})"><div class="storyThumb" style="background-image:url('assets/stories/${s.id}-cover.webp')"><span class="numBadge">${i+1}</span><span class="heartBadge">${favorites.includes(s.id)?'♥':'♡'}</span></div><div class="storyInfo"><b>${s.title}</b><small>${s.summary}</small></div></button>`).join('')}
+function renderStoryStrip(){const box=document.getElementById('storyStrip');if(!box)return;box.innerHTML=STORIES.map((s,i)=>`<button class="storyCard" onclick="openStory(${i})"><div class="storyThumb" style="background-image:url('assets/stories/${s.id}-cover.webp')"><span class="numBadge">${i+1}</span><span class="heartBadge">${favorites.includes(s.id)?'♥':'♡'}</span></div><div class="storyInfo"><b>${s.title}</b><small>${s.summary}</small></div></button>`).join('')}
 function renderLibrary(){const box=document.getElementById('libraryGrid');box.innerHTML=STORIES.map((s,i)=>`<article class="libCard"><div class="libCover" style="background-image:url('assets/stories/${s.id}-cover.webp')"><span class="numBadge">${i+1}</span><button class="fav ${favorites.includes(s.id)?'on':''}" onclick="toggleFav('${s.id}',event)">${favorites.includes(s.id)?'♥':'♡'}</button></div><div class="libBody"><h3>${s.title}</h3><p>${s.summary}</p><div class="libMeta"><small>📖 ${s.pages} páginas ${readStories.includes(s.id)?'• ✅ lida':''}</small><button class="btn" onclick="openStory(${i})">Ler</button></div></div></article>`).join('')}
 function toggleFav(id,e){e.stopPropagation();favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];localStorage.setItem('eloFavStories',JSON.stringify(favorites));renderLibrary();renderStoryStrip();toast(favorites.includes(id)?'Adicionada aos favoritos 💗':'Removida dos favoritos')}
 function openStory(i){currentStory=i;currentPage=0;openPanel('readerPanel','stories');renderReader()}
@@ -85,52 +96,52 @@ let mazeMap=[],mazePlayer={x:1,y:1},mazeGoal={x:MAZE_SIZE-2,y:MAZE_SIZE-2},mazeM
 function makeMaze(size=MAZE_SIZE){const grid=Array.from({length:size},()=>Array(size).fill('#'));const dirs=[[2,0],[-2,0],[0,2],[0,-2]];function dig(x,y){grid[y][x]='.';const order=shuffle(dirs);for(const [dx,dy] of order){const nx=x+dx,ny=y+dy;if(nx<=0||ny<=0||nx>=size-1||ny>=size-1||grid[ny][nx]!== '#')continue;grid[y+dy/2][x+dx/2]='.';dig(nx,ny)}}dig(1,1);grid[1][1]='S';grid[size-2][size-2]='G';return grid}
 function startMaze(){mazeMap=makeMaze();mazeMoves=0;mazeWon=false;mazeRewarded=false;for(let y=0;y<mazeMap.length;y++){for(let x=0;x<mazeMap[y].length;x++){if(mazeMap[y][x]==='S'){mazePlayer={x,y};mazeMap[y][x]='.'}if(mazeMap[y][x]==='G'){mazeGoal={x,y};mazeMap[y][x]='.'}}}document.getElementById('mazeBoard').style.gridTemplateColumns=`repeat(${MAZE_SIZE},1fr)`;document.getElementById('mazeMoves').textContent='Movimentos: 0';document.getElementById('mazeStatus').textContent='Encontre o unicórnio!';renderMaze()}
 function renderMaze(){const board=document.getElementById('mazeBoard');board.innerHTML='';mazeMap.forEach((row,y)=>row.forEach((cell,x)=>{const d=document.createElement('div');const isPlayer=mazePlayer.x===x&&mazePlayer.y===y,isGoal=mazeGoal.x===x&&mazeGoal.y===y;d.className='mazeCell '+(cell==='#'?'wall':'path')+(isPlayer?' player':'')+(isGoal?' goal':'');if(isPlayer)d.textContent='👧';else if(isGoal)d.textContent='🦄';else if(cell==='#'&&(x+y)%7===0)d.textContent='🌿';board.appendChild(d)}))}
-function moveMaze(dx,dy){if(!mazeMap.length||mazeWon)return;const nx=mazePlayer.x+dx,ny=mazePlayer.y+dy;if(ny<0||ny>=mazeMap.length||nx<0||nx>=mazeMap[0].length)return;if(mazeMap[ny][nx]==='#'){toast('Parede! Tente outro caminho 😊');return}mazePlayer={x:nx,y:ny};mazeMoves++;document.getElementById('mazeMoves').textContent='Movimentos: '+mazeMoves;renderMaze();if(nx===mazeGoal.x&&ny===mazeGoal.y){mazeWon=true;document.getElementById('mazeStatus').textContent='Elo chegou ao unicórnio! 🦄✨';if(!mazeRewarded){mazeRewarded=true;addStars(3,'Labirinto difícil concluído! +3 ⭐')}}else document.getElementById('mazeStatus').textContent='Continue procurando o caminho.'}
+function moveMaze(dx,dy){if(!mazeMap.length||mazeWon)return;const nx=mazePlayer.x+dx,ny=mazePlayer.y+dy;if(ny<0||ny>=mazeMap.length||nx<0||nx>=mazeMap[0].length)return;if(mazeMap[ny][nx]==='#'){toast('Parede! Tente outro caminho 😊');return}mazePlayer={x:nx,y:ny};mazeMoves++;document.getElementById('mazeMoves').textContent='Movimentos: '+mazeMoves;renderMaze();if(nx===mazeGoal.x&&ny===mazeGoal.y){mazeWon=true;document.getElementById('mazeStatus').textContent='Elo chegou ao unicórnio! 🦄✨';if(!mazeRewarded){mazeRewarded=true;localStorage.setItem('eloMazeWon','1');addStars(3,'Labirinto difícil concluído! +3 ⭐')}}else document.getElementById('mazeStatus').textContent='Continue procurando o caminho.'}
 let mazeTouchStart=null;
 const mazeBoard=document.getElementById('mazeBoard');
 mazeBoard.addEventListener('touchstart',e=>{const t=e.changedTouches[0];mazeTouchStart={x:t.clientX,y:t.clientY}},{passive:true});
 mazeBoard.addEventListener('touchend',e=>{if(!mazeTouchStart)return;const t=e.changedTouches[0],dx=t.clientX-mazeTouchStart.x,dy=t.clientY-mazeTouchStart.y;mazeTouchStart=null;if(Math.abs(dx)<20&&Math.abs(dy)<20)return;if(Math.abs(dx)>Math.abs(dy))moveMaze(dx>0?1:-1,0);else moveMaze(0,dy>0?1:-1)},{passive:true});
 window.addEventListener('keydown',e=>{if(!document.getElementById('gameModal').classList.contains('hidden')&&document.getElementById('mazeGame').classList.contains('active')){if(e.key==='ArrowUp')moveMaze(0,-1);if(e.key==='ArrowDown')moveMaze(0,1);if(e.key==='ArrowLeft')moveMaze(-1,0);if(e.key==='ArrowRight')moveMaze(1,0)}});
 
-// Memory game — 8 / 16 / 32 cards, all with Elo images
+// Memory game — 8 / 16 / 32 cards with illustrated Elo themes
 const MEMORY_IMAGES=[
- {src:'assets/memory/mem-01.webp'},
- {src:'assets/memory/mem-02.webp'},
- {src:'assets/memory/mem-03.webp'},
- {src:'assets/memory/mem-04.webp'},
- {src:'assets/memory/mem-05.webp'},
- {src:'assets/memory/mem-06.webp'},
- {src:'assets/memory/mem-07.webp'},
- {src:'assets/memory/mem-08.webp'},
- {src:'assets/memory/mem-09.webp'},
- {src:'assets/memory/mem-10.webp'},
- {src:'assets/memory/mem-11.webp'},
- {src:'assets/memory/mem-12.webp'},
- {src:'assets/memory/mem-13.webp'},
- {src:'assets/memory/mem-14.webp'},
- {src:'assets/memory/mem-15.webp'},
- {src:'assets/memory/mem-16.webp'}
+ {src:'assets/memory-cards/card-01.webp',label:'Vídeos'},
+ {src:'assets/memory-cards/card-02.webp',label:'Shorts'},
+ {src:'assets/memory-cards/card-03.webp',label:'Brincadeiras'},
+ {src:'assets/memory-cards/card-04.webp',label:'Culinária'},
+ {src:'assets/memory-cards/card-05.webp',label:'Escolinha'},
+ {src:'assets/memory-cards/card-06.webp',label:'Médica'},
+ {src:'assets/memory-cards/card-07.webp',label:'Viagem'},
+ {src:'assets/memory-cards/card-08.webp',label:'Shows'},
+ {src:'assets/memory-cards/card-09.webp',label:'Personagens'},
+ {src:'assets/memory-cards/card-10.webp',label:'Animais'},
+ {src:'assets/memory-cards/card-11.webp',label:'Esportes'},
+ {src:'assets/memory-cards/card-12.webp',label:'Diversão'},
+ {src:'assets/memory-cards/card-13.webp',label:'Pintura'},
+ {src:'assets/memory-cards/card-14.webp',label:'Leitura'},
+ {src:'assets/memory-cards/card-15.webp',label:'Música'},
+ {src:'assets/memory-cards/card-16.webp',label:'Aventuras'}
 ];
 const MEMORY_LEVELS={easy:4,medium:8,hard:16};
 let memoryLevel='easy',memoryOpen=[],memoryLock=false,matched=0,memoryMoves=0,memoryTotal=8;
 function setMemoryLevel(level,btn){memoryLevel=level;document.querySelectorAll('[data-memory]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startMemory()}
-function startMemory(){const pairs=MEMORY_LEVELS[memoryLevel];const chosen=shuffle(MEMORY_IMAGES).slice(0,pairs).map((x,i)=>({...x,key:'elo'+i}));const cards=shuffle(chosen.flatMap(x=>[x,x]));memoryTotal=cards.length;memoryOpen=[];memoryLock=false;matched=0;memoryMoves=0;const box=document.getElementById('memory');box.className='memory '+memoryLevel;box.style.gridTemplateColumns=memoryLevel==='hard'?'repeat(8,1fr)':'repeat(4,1fr)';box.innerHTML='';document.getElementById('memoryStatus').textContent='Encontre os pares!';document.getElementById('memoryMoves').textContent='Jogadas: 0';cards.forEach((card,i)=>{const b=document.createElement('button');b.className='mem';b.dataset.key=card.key;b.dataset.src=card.src;b.dataset.sprite=card.sprite||'';b.onclick=()=>flip(b);box.appendChild(b)})}
-function showMemImage(b){const d=document.createElement('div');d.className='memPic';d.style.backgroundImage=`url('${b.dataset.src}')`;if(b.dataset.sprite){d.style.backgroundSize='100% 1000%';d.style.backgroundPosition=`center ${(Number(b.dataset.sprite)-1)*(100/9)}%`}b.innerHTML='';b.appendChild(d)}
+function startMemory(){const pairs=MEMORY_LEVELS[memoryLevel];const chosen=shuffle(MEMORY_IMAGES).slice(0,pairs).map((x,i)=>({...x,key:'elo'+i}));const cards=shuffle(chosen.flatMap(x=>[x,x]));memoryTotal=cards.length;memoryOpen=[];memoryLock=false;matched=0;memoryMoves=0;const box=document.getElementById('memory');box.className='memory '+memoryLevel;box.style.gridTemplateColumns='repeat(4,1fr)';box.innerHTML='';document.getElementById('memoryStatus').textContent='Encontre os pares!';document.getElementById('memoryMoves').textContent='Jogadas: 0';cards.forEach(card=>{const b=document.createElement('button');b.className='mem';b.dataset.key=card.key;b.dataset.src=card.src;b.setAttribute('aria-label','Carta de memória fechada');b.onclick=()=>flip(b);box.appendChild(b)})}
+function showMemImage(b){const d=document.createElement('div');d.className='memPic';d.style.backgroundImage=`url('${b.dataset.src}')`;b.innerHTML='';b.appendChild(d)}
 function hideMemImage(b){b.innerHTML=''}
-function flip(b){if(memoryLock||b.classList.contains('done')||b.classList.contains('open'))return;b.classList.add('open');showMemImage(b);memoryOpen.push(b);if(memoryOpen.length===2){memoryLock=true;memoryMoves++;document.getElementById('memoryMoves').textContent='Jogadas: '+memoryMoves;setTimeout(()=>{const[a,c]=memoryOpen;if(a.dataset.key===c.dataset.key){a.classList.add('done');c.classList.add('done');matched+=2;if(matched===memoryTotal){document.getElementById('memoryStatus').textContent='Você encontrou todos! 🎉';addStars(memoryLevel==='hard'?5:memoryLevel==='medium'?3:2,'Memória completa! ⭐')}}else{a.classList.remove('open');c.classList.remove('open');hideMemImage(a);hideMemImage(c)}memoryOpen=[];memoryLock=false},650)}}
+function flip(b){if(memoryLock||b.classList.contains('done')||b.classList.contains('open'))return;b.classList.add('open');showMemImage(b);memoryOpen.push(b);if(memoryOpen.length===2){memoryLock=true;memoryMoves++;document.getElementById('memoryMoves').textContent='Jogadas: '+memoryMoves;setTimeout(()=>{const[a,c]=memoryOpen;if(a.dataset.key===c.dataset.key){a.classList.add('done');c.classList.add('done');matched+=2;if(matched===memoryTotal){document.getElementById('memoryStatus').textContent='Você encontrou todos! 🎉';if(memoryLevel==='hard')localStorage.setItem('eloMemoryHardWon','1');addStars(memoryLevel==='hard'?5:memoryLevel==='medium'?3:2,'Memória completa! ⭐');renderBadges()}}else{a.classList.remove('open');c.classList.remove('open');hideMemImage(a);hideMemImage(c)}memoryOpen=[];memoryLock=false},650)}}
 
 // Puzzle game — tap two pieces to swap them
 const PUZZLE_LEVELS={easy:3,medium:4,hard:5};
-const PUZZLE_IMAGES=MEMORY_IMAGES.slice(0,8).map(x=>x.src);
-let puzzleLevel='easy',puzzleImageIndex=0,puzzleOrder=[],puzzleSelected=-1,puzzleMoves=0,puzzleRewarded=false;
+const PUZZLE_IMAGES=Array.from({length:8},(_,i)=>`assets/memory/mem-${String(i+1).padStart(2,'0')}.webp`);
+let puzzleLevel='easy',puzzleImageIndex=0,puzzleOrder=[],puzzleSelected=-1,puzzleMoves=0,puzzleRewarded=false,puzzleComplete=false;
 function setPuzzleLevel(level,btn){puzzleLevel=level;document.querySelectorAll('[data-puzzle]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startPuzzle(false)}
 function renderPuzzleChoices(){const box=document.getElementById('puzzleChoices');if(!box)return;box.innerHTML=PUZZLE_IMAGES.slice(0,6).map((src,i)=>`<button class="puzzleChoice ${i===puzzleImageIndex?'on':''}" onclick="choosePuzzleImage(${i})"><img src="${src}" alt="Foto ${i+1} da Elo"></button>`).join('')}
 function choosePuzzleImage(i){puzzleImageIndex=i;startPuzzle(false)}
 function makePuzzleOrder(total){let a=Array.from({length:total},(_,i)=>i);do{a=shuffle(a)}while(a.every((v,i)=>v===i));return a}
-function startPuzzle(randomPhoto=false){const n=PUZZLE_LEVELS[puzzleLevel];if(randomPhoto)puzzleImageIndex=(puzzleImageIndex+1+Math.floor(Math.random()*(PUZZLE_IMAGES.length-1)))%PUZZLE_IMAGES.length;puzzleOrder=makePuzzleOrder(n*n);puzzleSelected=-1;puzzleMoves=0;puzzleRewarded=false;const prev=document.getElementById('puzzlePreview');if(prev)prev.src=PUZZLE_IMAGES[puzzleImageIndex];document.getElementById('puzzleStatus').textContent='Monte a foto!';document.getElementById('puzzleMoves').textContent='Jogadas: 0';renderPuzzleChoices();renderPuzzle()}
+function startPuzzle(randomPhoto=false){const n=PUZZLE_LEVELS[puzzleLevel];if(randomPhoto)puzzleImageIndex=(puzzleImageIndex+1+Math.floor(Math.random()*(PUZZLE_IMAGES.length-1)))%PUZZLE_IMAGES.length;puzzleOrder=makePuzzleOrder(n*n);puzzleSelected=-1;puzzleMoves=0;puzzleRewarded=false;puzzleComplete=false;const prev=document.getElementById('puzzlePreview');if(prev)prev.src=PUZZLE_IMAGES[puzzleImageIndex];document.getElementById('puzzleStatus').textContent='Monte a foto!';document.getElementById('puzzleMoves').textContent='Jogadas: 0';document.getElementById('puzzleCompleteNote').classList.add('hidden');renderPuzzleChoices();renderPuzzle()}
 function piecePosition(piece,n){const row=Math.floor(piece/n),col=piece%n;const x=n===1?0:(col/(n-1))*100,y=n===1?0:(row/(n-1))*100;return `${x}% ${y}%`}
-function renderPuzzle(){const n=PUZZLE_LEVELS[puzzleLevel],board=document.getElementById('puzzleBoard');if(!board)return;board.style.gridTemplateColumns=`repeat(${n},1fr)`;board.innerHTML='';puzzleOrder.forEach((piece,pos)=>{const b=document.createElement('button');b.className='puzzlePiece'+(puzzleSelected===pos?' selected':'')+(piece===pos?' correct':'');b.style.backgroundImage=`url('${PUZZLE_IMAGES[puzzleImageIndex]}')`;b.style.backgroundSize=`${n*100}% ${n*100}%`;b.style.backgroundPosition=piecePosition(piece,n);b.setAttribute('aria-label',`Peça ${pos+1}`);b.onclick=()=>tapPuzzlePiece(pos);board.appendChild(b)})}
-function tapPuzzlePiece(pos){if(puzzleSelected<0){puzzleSelected=pos;document.getElementById('puzzleStatus').textContent='Agora escolha onde colocar essa peça.';renderPuzzle();return}if(puzzleSelected===pos){puzzleSelected=-1;document.getElementById('puzzleStatus').textContent='Escolha uma peça.';renderPuzzle();return}const a=puzzleSelected;[puzzleOrder[a],puzzleOrder[pos]]=[puzzleOrder[pos],puzzleOrder[a]];puzzleSelected=-1;puzzleMoves++;document.getElementById('puzzleMoves').textContent='Jogadas: '+puzzleMoves;renderPuzzle();if(puzzleOrder.every((v,i)=>v===i)){document.getElementById('puzzleStatus').textContent='Quebra-cabeça completo! 🎉';if(!puzzleRewarded){puzzleRewarded=true;localStorage.setItem('eloPuzzleWon','1');addStars(puzzleLevel==='hard'?5:puzzleLevel==='medium'?3:2,'Quebra-cabeça completo! ⭐')}}else document.getElementById('puzzleStatus').textContent='Muito bem! Continue montando.'}
+function renderPuzzle(){const n=PUZZLE_LEVELS[puzzleLevel],board=document.getElementById('puzzleBoard');if(!board)return;board.style.gridTemplateColumns=`repeat(${n},1fr)`;board.classList.toggle('completed',puzzleComplete);board.innerHTML='';puzzleOrder.forEach((piece,pos)=>{const b=document.createElement('button');b.className='puzzlePiece'+(puzzleSelected===pos?' selected':'')+(piece===pos?' correct':'');b.style.backgroundImage=`url('${PUZZLE_IMAGES[puzzleImageIndex]}')`;b.style.backgroundSize=`${n*100}% ${n*100}%`;b.style.backgroundPosition=piecePosition(piece,n);b.setAttribute('aria-label',`Peça ${pos+1}`);b.disabled=puzzleComplete;b.onclick=()=>tapPuzzlePiece(pos);board.appendChild(b)})}
+function tapPuzzlePiece(pos){if(puzzleComplete)return;if(puzzleSelected<0){puzzleSelected=pos;document.getElementById('puzzleStatus').textContent='Agora escolha onde colocar essa peça.';renderPuzzle();return}if(puzzleSelected===pos){puzzleSelected=-1;document.getElementById('puzzleStatus').textContent='Escolha uma peça.';renderPuzzle();return}const a=puzzleSelected;[puzzleOrder[a],puzzleOrder[pos]]=[puzzleOrder[pos],puzzleOrder[a]];puzzleSelected=-1;puzzleMoves++;document.getElementById('puzzleMoves').textContent='Jogadas: '+puzzleMoves;const solved=puzzleOrder.every((v,i)=>v===i);if(solved){puzzleComplete=true;renderPuzzle();document.getElementById('puzzleStatus').textContent='Quebra-cabeça completo! 🎉';document.getElementById('puzzleCompleteNote').classList.remove('hidden');if(!puzzleRewarded){puzzleRewarded=true;localStorage.setItem('eloPuzzleWon','1');addStars(puzzleLevel==='hard'?5:puzzleLevel==='medium'?3:2,'Quebra-cabeça completo! ⭐');renderBadges()}}else{renderPuzzle();document.getElementById('puzzleStatus').textContent='Muito bem! Continue montando.'}}
 
 // Tap the number
 let tapTarget=1,tapScore=0,tapTimer=null,tapRound=0,tapDelay=2500;
@@ -160,6 +171,7 @@ function answerQuiz(i){const q=quizDeck[quizPos];if(i===q[2]){quizCorrect++;toas
 const COLORING=Array.from({length:10},(_,i)=>`assets/coloring/color-${i+1}.webp`);
 const PALETTE=['#ff6fae','#ff4f8b','#ff8aa8','#ffd866','#ffbf3f','#f28b4b','#ff6b6b','#a756f5','#7756d8','#5f7bff','#61c9ef','#00bcd4','#67c98e','#00b894','#5cc08a','#8d5a3b','#c97f53','#9ea7ad','#404040','#000000','#ffffff','#d4a5ff','#a3d8ff','#f7b2d9','#b8f2e6','#ffe8a3','#f1c0a8','#caffbf','#ffc6ff','#bde0fe'];
 let colorIndex=0,color='#ff6fae',baseTemplate=null,colorHistory=[];
+const COLOR_HISTORY_LIMIT=6;
 const canvas=document.getElementById('draw');
 const ctx=canvas.getContext('2d',{willReadFrequently:true});
 function renderColoringGallery(){const g=document.getElementById('coloringGallery');g.innerHTML=COLORING.map((src,i)=>`<button class="templateBtn ${i===colorIndex?'on':''}" onclick="openColoring(${i})"><img src="${src}" alt="Desenho ${i+1}"></button>`).join('');const c=document.getElementById('coloringCountText');if(c)c.textContent=`${COLORING.length} desenhos novos da Elo. Toque em um para abrir em tela cheia.`}
@@ -172,7 +184,7 @@ function chooseColoring(i,showModal=false){colorIndex=i;const img=new Image();im
 function getPointerPos(e){const r=canvas.getBoundingClientRect();return{x:Math.floor((e.clientX-r.left)*(canvas.width/r.width)),y:Math.floor((e.clientY-r.top)*(canvas.height/r.height))}}
 function hexToRgb(hex){const c=hex.replace('#','');const n=parseInt(c.length===3?c.split('').map(x=>x+x).join(''):c,16);return[(n>>16)&255,(n>>8)&255,n&255]}
 function colorMatch(d,i,target,tol=18){return Math.abs(d[i]-target[0])<=tol&&Math.abs(d[i+1]-target[1])<=tol&&Math.abs(d[i+2]-target[2])<=tol&&d[i+3]===target[3]}
-function fillAt(x,y){const image=ctx.getImageData(0,0,canvas.width,canvas.height),d=image.data,w=image.width,h=image.height;const start=(y*w+x)*4;const target=[d[start],d[start+1],d[start+2],d[start+3]];if(target[0]<30&&target[1]<30&&target[2]<30)return;const fill=hexToRgb(color);if(Math.abs(target[0]-fill[0])<4&&Math.abs(target[1]-fill[1])<4&&Math.abs(target[2]-fill[2])<4)return;colorHistory.push(ctx.getImageData(0,0,canvas.width,canvas.height));const stack=[[x,y]];while(stack.length){const [cx,cy]=stack.pop();if(cx<0||cy<0||cx>=w||cy>=h)continue;const idx=(cy*w+cx)*4;if(!colorMatch(d,idx,target))continue;d[idx]=fill[0];d[idx+1]=fill[1];d[idx+2]=fill[2];d[idx+3]=255;stack.push([cx+1,cy],[cx-1,cy],[cx,cy+1],[cx,cy-1])}ctx.putImageData(image,0,0)}
+function fillAt(x,y){const image=ctx.getImageData(0,0,canvas.width,canvas.height),d=image.data,w=image.width,h=image.height;const start=(y*w+x)*4;const target=[d[start],d[start+1],d[start+2],d[start+3]];if(target[0]<30&&target[1]<30&&target[2]<30)return;const fill=hexToRgb(color);if(Math.abs(target[0]-fill[0])<4&&Math.abs(target[1]-fill[1])<4&&Math.abs(target[2]-fill[2])<4)return;colorHistory.push(ctx.getImageData(0,0,w,h));if(colorHistory.length>COLOR_HISTORY_LIMIT)colorHistory.shift();const matches=(px,py)=>{if(px<0||py<0||px>=w||py>=h)return false;return colorMatch(d,(py*w+px)*4,target)};const paint=(px,py)=>{const i=(py*w+px)*4;d[i]=fill[0];d[i+1]=fill[1];d[i+2]=fill[2];d[i+3]=255};const stack=[[x,y]];while(stack.length){const [sx,sy]=stack.pop();if(!matches(sx,sy))continue;let lx=sx;while(lx>=0&&matches(lx,sy))lx--;lx++;let spanUp=false,spanDown=false;for(let px=lx;px<w&&matches(px,sy);px++){paint(px,sy);if(sy>0){if(matches(px,sy-1)){if(!spanUp){stack.push([px,sy-1]);spanUp=true}}else spanUp=false}if(sy<h-1){if(matches(px,sy+1)){if(!spanDown){stack.push([px,sy+1]);spanDown=true}}else spanDown=false}}}ctx.putImageData(image,0,0)}
 canvas.addEventListener('pointerdown',e=>{const p=getPointerPos(e);fillAt(p.x,p.y);e.preventDefault()});
 function undoColoring(){if(!colorHistory.length)return toast('Nada para desfazer 😊');ctx.putImageData(colorHistory.pop(),0,0)}
 function clearCanvas(){if(baseTemplate)drawBase();else{ctx.fillStyle='white';ctx.fillRect(0,0,canvas.width,canvas.height)}toast('Desenho limpo!')}
@@ -181,16 +193,19 @@ function saveColoring(){const a=document.createElement('a');a.download='colorind
 
 const ACH=[
  {icon:'⭐',name:'Primeira estrela',ok:()=>stars>=1},
- {icon:'🌈',name:'Explorador',ok:()=>stars>=10},
+ {icon:'🌈',name:'Exploradora',ok:()=>stars>=10},
  {icon:'👑',name:'Super Elo',ok:()=>stars>=25},
- {icon:'📚',name:'Leitor de Aventuras',ok:()=>readStories.length>=1},
+ {icon:'📚',name:'Leitora de Aventuras',ok:()=>readStories.length>=1},
  {icon:'🏆',name:'Mestre das Aventuras',ok:()=>readStories.length>=4},
  {icon:'🎨',name:'Artista do dia',ok:()=>!!localStorage.getItem('artReward'+new Date().toDateString())},
  {icon:'🧠',name:'Craque da Escolinha',ok:()=>stars>=40},
  {icon:'🧩',name:'Mestre do Quebra-cabeça',ok:()=>!!localStorage.getItem('eloPuzzleWon')},
- {icon:'🎯',name:'Olho de águia',ok:()=>findRounds>=3}
+ {icon:'🃏',name:'Mestra da Memória',ok:()=>!!localStorage.getItem('eloMemoryHardWon')},
+ {icon:'🦄',name:'Exploradora do Labirinto',ok:()=>!!localStorage.getItem('eloMazeWon')},
+ {icon:'🎯',name:'Olho de águia',ok:()=>findRounds>=3},
+ {icon:'💗',name:'Missão do dia',ok:()=>!!localStorage.getItem(dailyKey)}
 ];
-function renderBadges(){const html=ACH.map(x=>`<div class="badge ${x.ok()?'on':''}"><span>${x.icon}</span><strong>${x.name}</strong><small>${x.ok()?'Conquistada!':'Continue brincando'}</small></div>`).join('');document.getElementById('badgePreview').innerHTML=html;document.getElementById('allBadges').innerHTML=html}
+function renderBadges(){const unlocked=ACH.filter(x=>x.ok()).length;const html=ACH.map(x=>`<div class="badge ${x.ok()?'on':''}"><span>${x.icon}</span><strong>${x.name}</strong><small>${x.ok()?'Conquistada!':'Continue brincando'}</small></div>`).join('');const all=document.getElementById('allBadges');if(all)all.innerHTML=html;const home=document.getElementById('achievementCountHome');if(home)home.textContent=unlocked;const u=document.getElementById('achievementUnlocked');if(u)u.textContent=unlocked;const t=document.getElementById('achievementTotal');if(t)t.textContent=ACH.length}
 
 renderStars();
 renderStoryStrip();
@@ -205,10 +220,10 @@ renderBadges();
 window.addEventListener('load',()=>setTimeout(()=>{const s=document.getElementById('splash');s.style.opacity='0';setTimeout(()=>s.remove(),450)},700));
 if('serviceWorker' in navigator){
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
-    if(!sessionStorage.getItem('elo-v80-reloaded')){
-      sessionStorage.setItem('elo-v80-reloaded','1');
+    if(!sessionStorage.getItem('elo-v90-reloaded')){
+      sessionStorage.setItem('elo-v90-reloaded','1');
       location.reload();
     }
   });
-  navigator.serviceWorker.register('./sw.js?v=8.0',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
+  navigator.serviceWorker.register('./sw.js?v=9.0',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
 }
