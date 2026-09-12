@@ -1,0 +1,21 @@
+DIA A DIA DA ELO — ATUALIZAÇÃO v1.3 • INÍCIO DO RPG
+
+Substitua na raiz do GitHub:
+- index.html
+- app.js
+- sw.js
+- manifest.webmanifest
+
+Adicione a nova pasta:
+- games/rpg/
+  - index.html
+  - rpg.css
+  - rpg.js
+
+Não é necessário substituir as pastas de imagens/assets da versão anterior.
+
+RPG incluído: Elo e o Reino das Estrelas — Capítulo 1.
+Recursos: casa da Elo, TV, cozinha, quarto, guarda-roupa, vila, pousada, loja de itens,
+boutique de roupas com atributos, NPCs e diálogos, missão principal, campina, caverna,
+batalhas mágicas, experiência, níveis, moedas, inventário, roupas, salvamento automático,
+chefão do capítulo e 18 medalhas próprias do RPG.

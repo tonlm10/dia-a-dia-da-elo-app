@@ -1,6 +1,6 @@
-const CACHE='elo-official-v1-0-20260912';
+const CACHE='elo-official-v1-3-rpg-20260912';
 const CORE=[
-  './','./index.html','./app.js?v=1.0','./manifest.webmanifest','./privacy.html','./terms.html',
+  './','./index.html','./app.js?v=1.3-rpg','./manifest.webmanifest','./privacy.html','./terms.html','./games/rpg/index.html','./games/rpg/rpg.css','./games/rpg/rpg.js',
   './assets/logo-oficial.webp','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
   './assets/icons/icon-maskable-192.png','./assets/icons/icon-maskable-512.png','./assets/icons/apple-touch-icon.png'
 ];
