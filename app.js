@@ -167,4 +167,12 @@ renderColoringGallery();
 chooseColoring(0);
 renderBadges();
 window.addEventListener('load',()=>setTimeout(()=>{const s=document.getElementById('splash');s.style.opacity='0';setTimeout(()=>s.remove(),450)},700));
-if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(!sessionStorage.getItem('elo-v61-reloaded')){
+      sessionStorage.setItem('elo-v61-reloaded','1');
+      location.reload();
+    }
+  });
+  navigator.serviceWorker.register('./sw.js?v=6.1',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
+}
