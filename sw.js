@@ -1,6 +1,6 @@
-const CACHE='elo-official-v1-3-rpg-20260912';
+const CACHE='elo-official-v1-4-polish-20260912';
 const CORE=[
-  './','./index.html','./app.js?v=1.3-rpg','./manifest.webmanifest','./privacy.html','./terms.html','./games/rpg/index.html','./games/rpg/rpg.css','./games/rpg/rpg.js',
+  './','./index.html','./app.js?v=1.4-rpg','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html',
   './assets/logo-oficial.webp','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
   './assets/icons/icon-maskable-192.png','./assets/icons/icon-maskable-512.png','./assets/icons/apple-touch-icon.png'
 ];
@@ -27,7 +27,7 @@ self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
   const url=new URL(event.request.url);
   if(url.origin!==location.origin)return;
-  const networkFirst=event.request.mode==='navigate'||/\/(index\.html|app\.js|manifest\.webmanifest|privacy\.html|terms\.html)$/.test(url.pathname);
+  const networkFirst=event.request.mode==='navigate'||/\/(index\.html|app\.js|rpg\.html|manifest\.webmanifest|privacy\.html|terms\.html)$/.test(url.pathname);
   if(networkFirst){
     event.respondWith((async()=>{
       try{const res=await fetch(event.request,{cache:'no-store'});if(res.ok){const cache=await caches.open(CACHE);cache.put(event.request,res.clone())}return res}

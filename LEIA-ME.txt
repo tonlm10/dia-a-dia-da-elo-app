@@ -1,21 +1,22 @@
-DIA A DIA DA ELO — ATUALIZAÇÃO v1.3 • INÍCIO DO RPG
+DIA A DIA DA ELO — ATUALIZAÇÃO v1.4
 
-Substitua na raiz do GitHub:
+Substitua no GitHub:
 - index.html
 - app.js
 - sw.js
 - manifest.webmanifest
 
-Adicione a nova pasta:
-- games/rpg/
-  - index.html
-  - rpg.css
-  - rpg.js
+Adicione na raiz do repositório:
+- rpg.html
 
-Não é necessário substituir as pastas de imagens/assets da versão anterior.
+IMPORTANTE:
+O RPG agora abre pelo arquivo rpg.html na raiz. Isso elimina a dependência do caminho games/rpg/ que estava causando erro 404. A pasta games/rpg antiga pode permanecer; ela não será usada por esta versão.
 
-RPG incluído: Elo e o Reino das Estrelas — Capítulo 1.
-Recursos: casa da Elo, TV, cozinha, quarto, guarda-roupa, vila, pousada, loja de itens,
-boutique de roupas com atributos, NPCs e diálogos, missão principal, campina, caverna,
-batalhas mágicas, experiência, níveis, moedas, inventário, roupas, salvamento automático,
-chefão do capítulo e 18 medalhas próprias do RPG.
+Principais correções:
+- RPG em grande destaque na área Jogos.
+- Caça aos Unicórnios transformado em arena mais aberta, com espaço real para fugir.
+- Fantasma mais lento e menos perfeito no Fácil/Médio.
+- Trilha Encantada muito mais lenta e equilibrada, sobretudo no Fácil.
+- Elo da Trilha redesenhada com cabelo cacheado, rabo de cavalo e laço.
+- Botão Voltar do Android navega dentro do app; na Home pergunta se deseja sair.
+- Cache atualizado para v1.4.
