@@ -1,16 +1,17 @@
-DIA A DIA DA ELO — VERSÃO 4 PWA
+DIA A DIA DA ELO — VERSÃO 8.0 PWA
 
-NOVIDADES DA V4
-- Aba Criar renovada: 6 desenhos da Elo em preto e branco para colorir.
-- Escolinha da Elo ampliada: 60 perguntas em 3 níveis, 10 por rodada sem repetição.
-- Ache a Estrela com estrela menor, 3 dificuldades e cronômetro.
-- Toque no Número corrigido: o alvo muda sozinho quando o tempo acaba e fica mais rápido.
-- Aba Assistir com as 13 playlists oficiais enviadas pelo canal.
-- Banner principal com enquadramento mais próximo e logo/Elo maiores.
-- História 04 corrigida: páginas 8 e 9 agora aparecem completas, sem cortar conteúdo.
-- Novas conquistas e pequenos ajustes de navegação.
-- Mantém o progresso e as estrelinhas salvos no aparelho.
+Principais mudanças:
+- Cabeçalho simplificado e nome maior
+- 13 playlists reorganizadas e links corrigidos; removida a playlist “Especial” inventada
+- Botões oficiais de inscrição no YouTube e Instagram da Elo
+- Jogos agora abrem em tela cheia
+- Labirinto maior e aleatório (13x13), com becos sem saída
+- Ache a estrela com cenários mais cheios e estrela menor
+- Memória com fotos/imagens da Elo: Fácil 8 cartas, Médio 16, Difícil 32
+- Colorir: apenas 10 desenhos novos, 30 cores, preenchimento por toque e tela cheia
+- Service worker/cache atualizado para versão 8.0
 
-PUBLICAÇÃO
-Substitua os arquivos principais no mesmo repositório do GitHub Pages e envie as novas pastas/arquivos em assets.
-O service worker usa um cache novo (elo-v4-20260911), para forçar a atualização da versão instalada.
+Publicação: envie o conteúdo desta pasta para a raiz do repositório GitHub Pages.
+
+
+Versão 8.0: novo jogo Quebra-cabeça da Elo com fotos da Elo e níveis 3x3, 4x4 e 5x5.
