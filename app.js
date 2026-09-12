@@ -54,7 +54,7 @@ function openInstagram(){openExternal(INSTAGRAM_URL)}
 function openGame(id,title){clearInterval(findTimer);clearTimeout(tapTimer);document.getElementById('gameModalTitle').textContent=title;document.querySelectorAll('.gameSection').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('gameModal').classList.remove('hidden');document.body.style.overflow='hidden';if(id==='findGame')resetFind(true);if(id==='mazeGame')startMaze();if(id==='memoryGame')startMemory();if(id==='puzzleGame')startPuzzle(false);if(id==='tapGameSection')startTapGame()}
 function closeGame(){clearInterval(findTimer);clearTimeout(tapTimer);document.getElementById('gameModal').classList.add('hidden');document.body.style.overflow=''}
 function openColoring(i){chooseColoring(i,true)}
-function closeColoring(){document.getElementById('coloringModal').classList.add('hidden');document.body.style.overflow=''}
+function closeColoring(){document.getElementById('coloringModal').classList.add('hidden');document.body.style.overflow='';if(typeof resetColorZoom==='function')resetColorZoom()}
 
 const daily=[['Missão da Elo','Dê 5 pulinhos e faça uma pose engraçada!'],['Missão das cores','Ache 3 coisas cor-de-rosa perto de você.'],['Missão do sorriso','Faça alguém da família dar risada.'],['Missão movimento','Imite um sapinho por 10 segundos.'],['Missão desenho','Pinte um desenho da Elo e mostre para alguém.'],['Missão gentil','Faça uma gentileza para alguém da família.']];
 const d=daily[new Date().getDate()%daily.length];
@@ -116,7 +116,7 @@ const MEMORY_IMAGES=[
  {src:'assets/memory-cards/card-09.webp',label:'Personagens'},
  {src:'assets/memory-cards/card-10.webp',label:'Animais'},
  {src:'assets/memory-cards/card-11.webp',label:'Esportes'},
- {src:'assets/memory-cards/card-12.webp',label:'Diversão'},
+ {src:'assets/memory-cards/card-12.webp',label:'Unicórnio'},
  {src:'assets/memory-cards/card-13.webp',label:'Pintura'},
  {src:'assets/memory-cards/card-14.webp',label:'Leitura'},
  {src:'assets/memory-cards/card-15.webp',label:'Música'},
@@ -132,10 +132,10 @@ function flip(b){if(memoryLock||b.classList.contains('done')||b.classList.contai
 
 // Puzzle game — tap two pieces to swap them
 const PUZZLE_LEVELS={easy:3,medium:4,hard:5};
-const PUZZLE_IMAGES=Array.from({length:8},(_,i)=>`assets/memory/mem-${String(i+1).padStart(2,'0')}.webp`);
+const PUZZLE_IMAGES=Array.from({length:16},(_,i)=>`assets/puzzle/puzzle-${String(i+1).padStart(2,'0')}.webp`);
 let puzzleLevel='easy',puzzleImageIndex=0,puzzleOrder=[],puzzleSelected=-1,puzzleMoves=0,puzzleRewarded=false,puzzleComplete=false;
 function setPuzzleLevel(level,btn){puzzleLevel=level;document.querySelectorAll('[data-puzzle]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startPuzzle(false)}
-function renderPuzzleChoices(){const box=document.getElementById('puzzleChoices');if(!box)return;box.innerHTML=PUZZLE_IMAGES.slice(0,6).map((src,i)=>`<button class="puzzleChoice ${i===puzzleImageIndex?'on':''}" onclick="choosePuzzleImage(${i})"><img src="${src}" alt="Foto ${i+1} da Elo"></button>`).join('')}
+function renderPuzzleChoices(){const box=document.getElementById('puzzleChoices');if(!box)return;box.innerHTML=PUZZLE_IMAGES.map((src,i)=>`<button class="puzzleChoice ${i===puzzleImageIndex?'on':''}" onclick="choosePuzzleImage(${i})"><img src="${src}" alt="Foto ${i+1} da Elo"></button>`).join('')}
 function choosePuzzleImage(i){puzzleImageIndex=i;startPuzzle(false)}
 function makePuzzleOrder(total){let a=Array.from({length:total},(_,i)=>i);do{a=shuffle(a)}while(a.every((v,i)=>v===i));return a}
 function startPuzzle(randomPhoto=false){const n=PUZZLE_LEVELS[puzzleLevel];if(randomPhoto)puzzleImageIndex=(puzzleImageIndex+1+Math.floor(Math.random()*(PUZZLE_IMAGES.length-1)))%PUZZLE_IMAGES.length;puzzleOrder=makePuzzleOrder(n*n);puzzleSelected=-1;puzzleMoves=0;puzzleRewarded=false;puzzleComplete=false;const prev=document.getElementById('puzzlePreview');if(prev)prev.src=PUZZLE_IMAGES[puzzleImageIndex];document.getElementById('puzzleStatus').textContent='Monte a foto!';document.getElementById('puzzleMoves').textContent='Jogadas: 0';document.getElementById('puzzleCompleteNote').classList.add('hidden');renderPuzzleChoices();renderPuzzle()}
@@ -162,7 +162,7 @@ const QUESTIONS={
  ]
 };
 let quizLevel='easy',quizDeck=[],quizPos=0,quizCorrect=0;
-function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function startQuiz(level='easy'){quizLevel=level;document.querySelectorAll('.levelBtn').forEach(b=>b.classList.toggle('on',b.dataset.level===level));quizDeck=shuffle(QUESTIONS[level]).slice(0,10);quizPos=0;quizCorrect=0;renderQuiz()}
 function renderQuiz(){const box=document.getElementById('quiz');if(quizPos>=quizDeck.length){const reward=Math.max(1,Math.floor(quizCorrect/3));box.innerHTML=`<div class="quizEnd"><strong>${quizCorrect}/10 acertos 🎉</strong><p class="muted">Rodada concluída sem repetir perguntas.</p><button class="btn" onclick="startQuiz('${quizLevel}')">Nova rodada</button></div>`;addStars(reward,`Escolinha concluída! +${reward} ⭐`);return}const q=quizDeck[quizPos];box.innerHTML=`<div class="quizTop"><span class="quizProgress">Pergunta ${quizPos+1}/10 • ${q[3]}</span><span class="quizProgress">Acertos: ${quizCorrect}</span></div><div class="quiz-q">${q[0]}</div><div class="answers">${q[1].map((x,i)=>`<button class="ans" onclick="answerQuiz(${i})">${x}</button>`).join('')}</div>`}
 function answerQuiz(i){const q=quizDeck[quizPos];if(i===q[2]){quizCorrect++;toast('Acertou! ⭐');quizPos++;setTimeout(renderQuiz,250)}else toast('Quase! Tente outra resposta 😊')}
@@ -174,18 +174,31 @@ let colorIndex=0,color='#ff6fae',baseTemplate=null,colorHistory=[];
 const COLOR_HISTORY_LIMIT=6;
 const canvas=document.getElementById('draw');
 const ctx=canvas.getContext('2d',{willReadFrequently:true});
+const colorViewport=document.getElementById('colorViewport');
+const colorCanvasWrap=document.getElementById('colorCanvasWrap');
+let colorZoom=1,colorBaseDisplay=600,colorPointers=new Map(),colorGesture=null,colorDragMoved=false,colorDragStart=null;
 function renderColoringGallery(){const g=document.getElementById('coloringGallery');g.innerHTML=COLORING.map((src,i)=>`<button class="templateBtn ${i===colorIndex?'on':''}" onclick="openColoring(${i})"><img src="${src}" alt="Desenho ${i+1}"></button>`).join('');const c=document.getElementById('coloringCountText');if(c)c.textContent=`${COLORING.length} desenhos novos da Elo. Toque em um para abrir em tela cheia.`}
 function renderPalette(){const p=document.getElementById('palette');p.innerHTML=PALETTE.map(c=>`<button class="color ${color===c?'on':''}" style="background:${c}" onclick="setColor('${c}')" aria-label="cor"></button>`).join('')}
 function setColor(c){color=c;renderPalette();toast('Cor escolhida! Agora toque no desenho 🎨')}
 function fitImage(img){const ratio=Math.min(canvas.width/img.width,canvas.height/img.height);const w=img.width*ratio,h=img.height*ratio,x=(canvas.width-w)/2,y=(canvas.height-h)/2;ctx.drawImage(img,x,y,w,h)}
 function normalizeTemplate(){const image=ctx.getImageData(0,0,canvas.width,canvas.height),d=image.data;for(let i=0;i<d.length;i+=4){const lum=(d[i]+d[i+1]+d[i+2])/3;if(lum<215){d[i]=d[i+1]=d[i+2]=0;d[i+3]=255}else{d[i]=d[i+1]=d[i+2]=255;d[i+3]=255}}ctx.putImageData(image,0,0)}
 function drawBase(){ctx.fillStyle='white';ctx.fillRect(0,0,canvas.width,canvas.height);if(baseTemplate)fitImage(baseTemplate);normalizeTemplate();colorHistory=[]}
-function chooseColoring(i,showModal=false){colorIndex=i;const img=new Image();img.onload=()=>{baseTemplate=img;drawBase();renderColoringGallery();renderPalette();if(showModal){document.getElementById('coloringModal').classList.remove('hidden');document.body.style.overflow='hidden'}toast('Desenho pronto! Escolha uma cor e toque para pintar. 🖍️')};img.src=COLORING[i]}
-function getPointerPos(e){const r=canvas.getBoundingClientRect();return{x:Math.floor((e.clientX-r.left)*(canvas.width/r.width)),y:Math.floor((e.clientY-r.top)*(canvas.height/r.height))}}
+function chooseColoring(i,showModal=false){colorIndex=i;const img=new Image();img.onload=()=>{baseTemplate=img;drawBase();renderColoringGallery();renderPalette();if(showModal){document.getElementById('coloringModal').classList.remove('hidden');document.body.style.overflow='hidden';requestAnimationFrame(()=>resetColorZoom())}toast('Desenho pronto! Use zoom se precisar e toque para pintar. 🖍️')};img.src=COLORING[i]}
+function getPointerPos(e){const r=canvas.getBoundingClientRect();return{x:Math.max(0,Math.min(canvas.width-1,Math.floor((e.clientX-r.left)*(canvas.width/r.width)))),y:Math.max(0,Math.min(canvas.height-1,Math.floor((e.clientY-r.top)*(canvas.height/r.height))))}}
 function hexToRgb(hex){const c=hex.replace('#','');const n=parseInt(c.length===3?c.split('').map(x=>x+x).join(''):c,16);return[(n>>16)&255,(n>>8)&255,n&255]}
 function colorMatch(d,i,target,tol=18){return Math.abs(d[i]-target[0])<=tol&&Math.abs(d[i+1]-target[1])<=tol&&Math.abs(d[i+2]-target[2])<=tol&&d[i+3]===target[3]}
 function fillAt(x,y){const image=ctx.getImageData(0,0,canvas.width,canvas.height),d=image.data,w=image.width,h=image.height;const start=(y*w+x)*4;const target=[d[start],d[start+1],d[start+2],d[start+3]];if(target[0]<30&&target[1]<30&&target[2]<30)return;const fill=hexToRgb(color);if(Math.abs(target[0]-fill[0])<4&&Math.abs(target[1]-fill[1])<4&&Math.abs(target[2]-fill[2])<4)return;colorHistory.push(ctx.getImageData(0,0,w,h));if(colorHistory.length>COLOR_HISTORY_LIMIT)colorHistory.shift();const matches=(px,py)=>{if(px<0||py<0||px>=w||py>=h)return false;return colorMatch(d,(py*w+px)*4,target)};const paint=(px,py)=>{const i=(py*w+px)*4;d[i]=fill[0];d[i+1]=fill[1];d[i+2]=fill[2];d[i+3]=255};const stack=[[x,y]];while(stack.length){const [sx,sy]=stack.pop();if(!matches(sx,sy))continue;let lx=sx;while(lx>=0&&matches(lx,sy))lx--;lx++;let spanUp=false,spanDown=false;for(let px=lx;px<w&&matches(px,sy);px++){paint(px,sy);if(sy>0){if(matches(px,sy-1)){if(!spanUp){stack.push([px,sy-1]);spanUp=true}}else spanUp=false}if(sy<h-1){if(matches(px,sy+1)){if(!spanDown){stack.push([px,sy+1]);spanDown=true}}else spanDown=false}}}ctx.putImageData(image,0,0)}
-canvas.addEventListener('pointerdown',e=>{const p=getPointerPos(e);fillAt(p.x,p.y);e.preventDefault()});
+function updateZoomLabel(){const z=document.getElementById('zoomValue');if(z)z.textContent=Math.round(colorZoom*100)+'%'}
+function applyColorZoom(next,anchor=null){if(!colorViewport||!colorCanvasWrap)return;const oldZoom=colorZoom;const oldSize=colorBaseDisplay*oldZoom;colorZoom=Math.max(1,Math.min(4,next));colorBaseDisplay=Math.min(600,Math.max(280,colorViewport.clientWidth-8));const newSize=colorBaseDisplay*colorZoom;let ax=colorViewport.clientWidth/2,ay=colorViewport.clientHeight/2;if(anchor){ax=anchor.x;ay=anchor.y}const contentX=(colorViewport.scrollLeft+ax)/(oldSize||colorBaseDisplay),contentY=(colorViewport.scrollTop+ay)/(oldSize||colorBaseDisplay);colorCanvasWrap.style.width=newSize+'px';colorCanvasWrap.style.height=newSize+'px';canvas.style.width=newSize+'px';canvas.style.height=newSize+'px';updateZoomLabel();if(oldZoom!==colorZoom){requestAnimationFrame(()=>{colorViewport.scrollLeft=Math.max(0,contentX*newSize-ax);colorViewport.scrollTop=Math.max(0,contentY*newSize-ay)})}}
+function zoomColor(delta){applyColorZoom(colorZoom+delta)}
+function resetColorZoom(){colorZoom=1;colorViewport.scrollLeft=0;colorViewport.scrollTop=0;applyColorZoom(1);requestAnimationFrame(()=>{colorViewport.scrollLeft=0;colorViewport.scrollTop=0})}
+function pointerDistance(){const pts=[...colorPointers.values()];if(pts.length<2)return 0;return Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y)}
+function pointerMidpoint(){const pts=[...colorPointers.values()];if(pts.length<2)return{x:colorViewport.clientWidth/2,y:colorViewport.clientHeight/2};const r=colorViewport.getBoundingClientRect();return{x:(pts[0].x+pts[1].x)/2-r.left,y:(pts[0].y+pts[1].y)/2-r.top}}
+colorViewport.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;colorViewport.setPointerCapture?.(e.pointerId);colorPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(colorPointers.size===1){colorDragMoved=false;colorDragStart={x:e.clientX,y:e.clientY,scrollLeft:colorViewport.scrollLeft,scrollTop:colorViewport.scrollTop,target:e.target}}else if(colorPointers.size===2){colorGesture={dist:pointerDistance(),zoom:colorZoom,mid:pointerMidpoint()};colorDragMoved=true}e.preventDefault()});
+colorViewport.addEventListener('pointermove',e=>{if(!colorPointers.has(e.pointerId))return;colorPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(colorPointers.size>=2&&colorGesture){const d=pointerDistance();if(colorGesture.dist>0)applyColorZoom(colorGesture.zoom*(d/colorGesture.dist),pointerMidpoint());colorDragMoved=true;e.preventDefault();return}if(colorPointers.size===1&&colorDragStart&&colorZoom>1){const dx=e.clientX-colorDragStart.x,dy=e.clientY-colorDragStart.y;if(Math.hypot(dx,dy)>7)colorDragMoved=true;if(colorDragMoved){colorViewport.scrollLeft=colorDragStart.scrollLeft-dx;colorViewport.scrollTop=colorDragStart.scrollTop-dy;e.preventDefault()}}});
+function endColorPointer(e){const wasOnly=colorPointers.size===1;const shouldPaint=wasOnly&&!colorDragMoved&&colorDragStart?.target===canvas;if(shouldPaint){const p=getPointerPos(e);fillAt(p.x,p.y)}colorPointers.delete(e.pointerId);if(colorPointers.size<2)colorGesture=null;if(colorPointers.size===0){colorDragStart=null;colorDragMoved=false}e.preventDefault()}
+colorViewport.addEventListener('pointerup',endColorPointer);colorViewport.addEventListener('pointercancel',e=>{colorPointers.delete(e.pointerId);if(colorPointers.size<2)colorGesture=null;if(colorPointers.size===0){colorDragStart=null;colorDragMoved=false}});
+window.addEventListener('resize',()=>{if(!document.getElementById('coloringModal').classList.contains('hidden'))applyColorZoom(colorZoom)});
 function undoColoring(){if(!colorHistory.length)return toast('Nada para desfazer 😊');ctx.putImageData(colorHistory.pop(),0,0)}
 function clearCanvas(){if(baseTemplate)drawBase();else{ctx.fillStyle='white';ctx.fillRect(0,0,canvas.width,canvas.height)}toast('Desenho limpo!')}
 function rewardArt(){const key='artReward'+new Date().toDateString();if(localStorage.getItem(key))return toast('Você já ganhou a estrela da pintura hoje 💗');localStorage.setItem(key,'1');addStars(1,'Pintura concluída! ⭐')}
@@ -220,10 +233,10 @@ renderBadges();
 window.addEventListener('load',()=>setTimeout(()=>{const s=document.getElementById('splash');s.style.opacity='0';setTimeout(()=>s.remove(),450)},700));
 if('serviceWorker' in navigator){
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
-    if(!sessionStorage.getItem('elo-v90-reloaded')){
-      sessionStorage.setItem('elo-v90-reloaded','1');
+    if(!sessionStorage.getItem('elo-v1-reloaded')){
+      sessionStorage.setItem('elo-v1-reloaded','1');
       location.reload();
     }
   });
-  navigator.serviceWorker.register('./sw.js?v=9.0',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
+  navigator.serviceWorker.register('./sw.js?v=1.0',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
 }

@@ -3,17 +3,20 @@
   "name": "Dia a Dia da Elo",
   "short_name": "Dia a Dia da Elo",
   "lang": "pt-BR",
-  "start_url": "./?v=9.0",
+  "start_url": "./?app=1.0",
   "scope": "./",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone"],
+  "display_override": ["standalone"],
   "orientation": "portrait-primary",
   "background_color": "#fff8fc",
   "theme_color": "#ff67a8",
   "description": "Jogos, Escolinha, desenhos para colorir, histórias e conteúdos oficiais do Dia a Dia da Elo.",
-  "categories": ["education", "games", "kids"],
+  "categories": ["education", "games", "entertainment"],
+  "prefer_related_applications": false,
   "icons": [
-    {"src":"assets/icon-v90-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"assets/icon-v90-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {"src":"assets/icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"assets/icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"assets/icons/icon-maskable-192.png","sizes":"192x192","type":"image/png","purpose":"maskable"},
+    {"src":"assets/icons/icon-maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
   ]
 }

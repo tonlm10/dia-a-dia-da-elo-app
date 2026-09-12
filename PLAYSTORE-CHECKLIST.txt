@@ -1,35 +1,42 @@
-DIA A DIA DA ELO — CHECKLIST PARA FUTURA PUBLICAÇÃO NA PLAY STORE
-Versão do app-base: 9.0
+DIA A DIA DA ELO — PREPARAÇÃO PARA GOOGLE PLAY
+Base oficial: versão 1.0
 
-1. CONCLUÍDO NESTA VERSÃO
-- Controle dos responsáveis com PIN de 4 dígitos.
-- Links externos protegidos pelo PIN.
-- Sem anúncios e sem cadastro infantil dentro do app.
-- Política de Privacidade dentro do app e em privacy.html.
-- Termos de Uso dentro do app e em terms.html.
-- Atualização/cache mais resistente a arquivos opcionais ausentes.
-- Jogos em tela cheia.
-- Quebra-cabeça bloqueia as peças ao ser concluído.
-- Jogo da memória com cartas ilustradas e níveis de 8, 16 e 32 cartas.
-- Conquistas removidas da Home e abertas em tela própria.
-- Pintura otimizada para reduzir uso de memória.
+O QUE JÁ ESTÁ PREPARADO NA BASE WEB
+- Identidade visual e ícones oficiais.
+- Ícones comuns e maskable para Android/PWA.
+- Experiência infantil sem anúncios internos e sem cadastro infantil.
+- Controle dos responsáveis por PIN.
+- Links para YouTube, Instagram e membros protegidos por PIN.
+- Política de Privacidade pública em privacy.html.
+- Termos de Uso públicos em terms.html.
+- Progresso armazenado localmente no aparelho.
+- Jogos e atividades próprias, não apenas links externos.
+- Cache/offline para recursos locais já visitados/carregados.
+- Layout otimizado para celulares em orientação vertical.
 
-2. ANTES DE ENVIAR À PLAY STORE
-- Gerar um aplicativo Android assinado em formato AAB.
-- Definir o identificador definitivo do pacote Android.
-- Hospedar a Política de Privacidade em uma URL pública estável.
-- Confirmar um contato público de privacidade do responsável/desenvolvedor.
-- Preparar ícone, screenshots e imagem de destaque da ficha da loja.
-- Preencher classificação indicativa, público-alvo/famílias e Segurança dos Dados conforme o comportamento final do app Android.
-- Testar em celulares Android de tamanhos diferentes.
-- Testar instalação limpa, atualização sobre versão anterior e funcionamento offline.
+PARA PUBLICAR DE FATO NA PLAY STORE AINDA SERÁ NECESSÁRIO
+- Empacotar esta base em um aplicativo Android e gerar um AAB assinado.
+- Definir o package name definitivo do Android.
+- Definir versionCode/versionName do pacote Android.
+- Configurar o ícone adaptativo também no projeto Android nativo/wrapper.
+- Informar na Play Console a URL pública da Política de Privacidade.
+- Informar um e-mail público de suporte/privacidade do desenvolvedor.
+- Preencher Público-alvo/Famílias, Classificação indicativa e Segurança dos Dados conforme o pacote Android final.
+- Produzir screenshots e imagem de destaque da ficha da loja.
+- Testar o AAB em faixa de teste interno/fechado antes da produção.
 
-3. TESTES IMPORTANTES DA VERSÃO 9.0
-- Criar e confirmar o PIN parental.
-- Testar YouTube, Instagram e Clube após PIN.
-- Testar memória nos 3 níveis.
-- Concluir um quebra-cabeça e confirmar que as peças ficam bloqueadas.
-- Testar colorir/Desfazer em várias áreas.
-- Abrir todas as playlists e confirmar os destinos.
-- Abrir todas as 4 histórias.
-- Confirmar versão 9.0 em Área dos Pais > Sobre o app.
+TESTES DE ACEITAÇÃO DA VERSÃO 1.0
+- Confirmar versão 1.0 em Área dos Pais > Sobre o app.
+- Confirmar novo ícone após instalação limpa.
+- Testar todas as 13 playlists.
+- Testar PIN parental e os links externos.
+- Testar memória em 8, 16 e 32 cartas.
+- Confirmar as 16 artes corretas na memória.
+- Testar as 16 imagens do quebra-cabeça e os níveis 3x3, 4x4 e 5x5.
+- Concluir o quebra-cabeça e confirmar que as peças ficam bloqueadas.
+- Testar colorir em 100%, 200%, 300% e 400% de zoom.
+- Testar pintura por toque, arrasto com zoom, desfazer, limpar e salvar.
+- Testar labirinto por botões e gestos.
+- Abrir as 4 histórias e avançar/voltar páginas.
+- Testar instalação nova e atualização sobre versão anterior.
+- Testar com internet e sem internet.

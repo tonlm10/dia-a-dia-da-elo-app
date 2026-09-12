@@ -1,0 +1,11 @@
+DIA A DIA DA ELO — CHANGELOG
+
+1.0 — primeira versão oficial
+- 16 cartas novas e padronizadas no jogo da memória.
+- 16 imagens padronizadas no quebra-cabeça; imagens problemáticas removidas.
+- Quebra-cabeça exibe todas as 16 opções em faixa rolável e trava ao concluir.
+- Zoom de 100% a 400% na pintura, com pinça, botões +/-, arrasto e ajuste.
+- Novo conjunto de ícones oficiais e maskable.
+- Cache/service worker oficial 1.0.
+- Limpeza de assets antigos e duplicados.
+- Home, conquistas, controle parental, privacidade e termos consolidados.

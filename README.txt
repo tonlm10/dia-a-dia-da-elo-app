@@ -1,32 +1,45 @@
-DIA A DIA DA ELO — VERSÃO 9.0 PWA
+DIA A DIA DA ELO — VERSÃO OFICIAL 1.0
 
-Atualização de estabilização e preparação para futura Play Store.
+Esta é a primeira versão tratada como versão oficial do aplicativo.
 
-PRINCIPAIS MUDANÇAS
-- Home mais limpa: conquistas não ficam mais abertas na página principal.
-- Novo botão “Minhas Conquistas” com tela própria e contador de progresso.
-- Controle dos responsáveis por PIN de 4 dígitos.
-- YouTube, Instagram e área de membros protegidos pelo PIN para ações externas.
-- Política de Privacidade e Termos de Uso incluídos dentro do app e também como páginas públicas.
-- Service Worker refeito para que um arquivo opcional ausente não impeça a atualização inteira do app.
-- Jogo da memória com 16 cartas ilustradas da Elo e temas divertidos; Fácil 8, Médio 16, Difícil 32.
-- Memória difícil usa 4 colunas para manter as cartas legíveis no celular.
-- Quebra-cabeça trava automaticamente quando é concluído e mostra confirmação de sucesso.
-- Pintura continua com 30 cores e preenchimento por toque, agora com canvas 600x600 e histórico limitado para reduzir uso de memória.
-- Novas conquistas para Memória difícil e Labirinto.
-- Manifesto PWA atualizado para versão 9.0 e novos nomes de ícones.
+PRINCIPAIS RECURSOS
+- Home simplificada e organizada.
+- Vídeos e 13 playlists oficiais.
+- Jogos em tela cheia: Ache a Estrela, Labirinto, Memória, Quebra-cabeça e Toque no Número.
+- Jogo da memória com 16 artes ilustradas padronizadas da Elo; 8, 16 ou 32 cartas.
+- Quebra-cabeça com 16 imagens padronizadas, níveis 3x3, 4x4 e 5x5 e bloqueio automático ao concluir.
+- Escolinha com níveis Fácil, Médio e Desafio.
+- Área de colorir com 10 desenhos, 30 cores, preenchimento por toque, desfazer, salvar e zoom de 100% a 400%.
+- Aventuras da Elo com 4 histórias.
+- Sistema de pontos, missões e conquistas em tela própria.
+- Área dos responsáveis protegida por PIN de 4 dígitos.
+- Links externos protegidos pelo PIN.
+- Política de Privacidade e Termos de Uso públicos e dentro do app.
+- Service Worker com atualização resiliente: um arquivo opcional ausente não bloqueia todo o app.
+- Assets antigos e duplicados removidos.
+- Novos ícones oficiais, incluindo versões maskable para Android/PWA.
 
-PUBLICAÇÃO NO GITHUB PAGES
-Envie/substitua TODO o conteúdo desta pasta na raiz do repositório, inclusive:
+ATUALIZAÇÃO NO GITHUB PAGES
+1. Extraia o ZIP.
+2. Substitua TODO o conteúdo do repositório pelo conteúdo desta pasta, mantendo index.html na raiz.
+3. Faça commit.
+4. Aguarde GitHub Pages terminar o deploy.
+5. Confirme em Área dos Pais > Sobre o app: "Dia a Dia da Elo • versão 1.0."
+
+IMPORTANTE SOBRE O ÍCONE NO ANDROID
+O pacote inclui novos ícones oficiais em assets/icons e o manifest aponta somente para eles.
+Se o ícone antigo continuar na tela inicial após o site atualizar, o Android pode estar mantendo o ícone da instalação anterior em cache. Nesse caso, depois de confirmar a versão 1.0 no navegador, remova apenas a instalação/atalho antigo e instale novamente a partir da página atualizada. Os dados locais podem depender do método de instalação, portanto teste antes de limpar dados do navegador.
+
+ESTRUTURA PRINCIPAL
 - index.html
 - app.js
 - sw.js
 - manifest.webmanifest
 - privacy.html
 - terms.html
-- pasta assets inteira (incluindo assets/memory-cards)
-
-Depois do deploy, confirme em Área dos Pais > Sobre o app:
-Dia a Dia da Elo • versão 9.0 PWA.
-
-Consulte também PLAYSTORE-CHECKLIST.txt antes da futura publicação Android.
+- assets/
+  - icons/
+  - memory-cards/
+  - puzzle/
+  - coloring/
+  - stories/

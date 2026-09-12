@@ -1,0 +1,16 @@
+TESTES REALIZADOS — DIA A DIA DA ELO 1.0
+
+- Sintaxe de app.js: OK.
+- Sintaxe de sw.js: OK.
+- Manifesto JSON: OK.
+- Estrutura HTML principal: OK.
+- 16 cartas do jogo da memória presentes: OK.
+- 16 imagens do quebra-cabeça presentes: OK.
+- 10 desenhos para colorir presentes: OK.
+- 4 histórias + 4 capas presentes: OK.
+- Ícones 192/512 e maskable presentes: OK.
+- Arquivos públicos privacy.html e terms.html presentes: OK.
+- Smoke test HTTP dos arquivos principais: OK.
+- Referências locais verificadas sem arquivos faltando: OK.
+
+Observação: a aprovação na Google Play depende do empacotamento Android/AAB e da análise da Play Console, que é uma etapa posterior à base web 1.0.
