@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#7155c7">
+<title>Elo e o Reino das Estrelas</title>
+<link rel="stylesheet" href="rpg.css">
+</head>
+<body>
+<div id="rpgApp">
+  <header class="rpgTop">
+    <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>Capítulo 1 • A primeira estrela</span></div>
+    <button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
+  </header>
+
+  <main class="gameShell">
+    <div class="hud">
+      <div class="hudBox"><b>Nível</b><span id="hudLevel">1</span></div>
+      <div class="hudBox wide"><b>Energia</b><div class="bar"><i id="hpBar"></i></div><small id="hpText">30/30</small></div>
+      <div class="hudBox wide"><b>Experiência</b><div class="bar xp"><i id="xpBar"></i></div><small id="xpText">0/30</small></div>
+      <div class="hudBox"><b>Moedas</b><span id="coinText">0</span></div>
+    </div>
+    <div class="objective" id="objectiveBox"><span>📜</span><div><b>Objetivo</b><p id="objectiveText">Explore a casa da Elo.</p></div></div>
+    <div id="canvasFrame" class="canvasFrame">
+      <canvas id="world" width="960" height="540" aria-label="Mundo do RPG"></canvas>
+      <div id="locationTag" class="locationTag">Casa da Elo</div>
+      <div id="toastRpg" class="toastRpg"></div>
+    </div>
+
+    <div class="mobileControls" aria-label="Controles do jogo">
+      <div class="dpad">
+        <button data-dir="up">▲</button>
+        <button data-dir="left">◀</button>
+        <button data-dir="down">▼</button>
+        <button data-dir="right">▶</button>
+      </div>
+      <div class="actionBtns">
+        <button id="actionBtn" class="act primary"><span>A</span>Falar</button>
+        <button id="quickBtn" class="act"><span>B</span>Bolsa</button>
+      </div>
+    </div>
+  </main>
+
+  <div id="dialogOverlay" class="overlay hidden">
+    <div class="dialogCard">
+      <div class="portrait" id="dialogPortrait">👧</div>
+      <div class="dialogText"><b id="dialogName">Elo</b><p id="dialogLine"></p><div id="dialogChoices" class="choices"></div></div>
+    </div>
+  </div>
+
+  <div id="battleOverlay" class="overlay hidden battleOverlay">
+    <div class="battleCard">
+      <div class="battleHead"><div><span class="pill">BATALHA MÁGICA</span><h2 id="enemyName">Criatura</h2></div><button id="battleEscape" class="miniClose">×</button></div>
+      <canvas id="battleArt" width="620" height="240"></canvas>
+      <div class="enemyBar"><span>Energia do inimigo</span><div class="bar"><i id="enemyHpBar"></i></div><small id="enemyHpText"></small></div>
+      <p id="battleText" class="battleText">Escolha uma ação.</p>
+      <div class="battleActions">
+        <button data-battle="attack">✨ Ataque</button>
+        <button data-battle="magic">💖 Poder</button>
+        <button data-battle="defend">🛡️ Defender</button>
+        <button data-battle="item">🧪 Item</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="menuOverlay" class="overlay hidden panelOverlay">
+    <div class="panelCard">
+      <div class="panelHead"><h2>Menu da Elo</h2><button class="miniClose" data-close="menuOverlay">×</button></div>
+      <div class="statsGrid" id="statsGrid"></div>
+      <div class="tabs"><button class="tab on" data-tab="missions">Missões</button><button class="tab" data-tab="bag">Bolsa</button><button class="tab" data-tab="clothes">Roupas</button><button class="tab" data-tab="medals">Medalhas</button><button class="tab" data-tab="map">Mapa</button></div>
+      <div id="menuContent" class="menuContent"></div>
+      <div class="panelFooter"><button id="saveBtn" class="softBtn">💾 Salvar agora</button><button id="resetSaveBtn" class="softBtn danger">Recomeçar aventura</button></div>
+    </div>
+  </div>
+
+  <div id="shopOverlay" class="overlay hidden panelOverlay">
+    <div class="panelCard shopCard"><div class="panelHead"><h2 id="shopTitle">Loja</h2><button class="miniClose" data-close="shopOverlay">×</button></div><p id="shopSubtitle" class="muted"></p><div id="shopItems" class="shopItems"></div></div>
+  </div>
+
+  <div id="tvOverlay" class="overlay hidden panelOverlay">
+    <div class="panelCard tvCard"><div class="panelHead"><h2>📺 TV da Elo</h2><button class="miniClose" data-close="tvOverlay">×</button></div><div class="tvScreen"><div class="tvLogo">🌈 Dia a Dia da Elo 💗</div><div class="episodeRow"><span>🎬 Aventuras</span><span>🧁 Cozinha</span><span>🎨 Brincadeiras</span></div><p>A Elo pode assistir ao próprio canal na TV da casa. 😄</p></div><button id="watchChannelBtn" class="mainBtn">▶️ Assistir Dia a Dia da Elo</button><p class="parentNote">🔒 O YouTube abre somente com a autorização dos responsáveis no app principal.</p></div>
+  </div>
+
+  <div id="introOverlay" class="overlay storyOverlay">
+    <div class="storyCard">
+      <div class="storyStars">✨ ⭐ ✨</div>
+      <h1>Elo e o Reino das Estrelas</h1>
+      <p>Uma manhã, Elo acordou e percebeu que o brilho das estrelas mágicas da cidade estava desaparecendo.</p>
+      <p>Agora ela precisa explorar o mundo, fazer amigos, ficar mais forte e descobrir quem está escondendo a luz do Reino.</p>
+      <button id="startStoryBtn" class="mainBtn">Começar a aventura</button>
+      <button id="continueStoryBtn" class="softBtn hidden">Continuar meu jogo</button>
+    </div>
+  </div>
+</div>
+<script src="rpg.js"></script>
+</body>
+</html>
