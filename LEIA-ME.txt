@@ -1,12 +1,18 @@
-CORREÇÃO DE ATUALIZAÇÃO v1.6.2
+ATUALIZAÇÃO v1.6.3 — CORREÇÃO DO RPG
 
-Substitua na raiz do GitHub:
+Substitua estes arquivos na raiz do repositório:
 - index.html
 - app.js
 - sw.js
 - manifest.webmanifest
 - rpg.html
 
-Motivo: o app.js anterior ainda abria o RPG usando rpg.html?v=1.4 e o app instalado podia manter o iframe antigo em memória. Esta versão força rpg.html?v=1.6.2 e limpa o iframe ao sair do RPG.
-
-Depois do commit, aguarde o GitHub Pages concluir o deploy e abra o app novamente.
+Principais correções:
+- casa reorganizada com circulação mais larga e menos colisões
+- vila refeita para remover sobreposições e bugs visuais
+- prédios e praça reorganizados
+- caixa de colisão da Elo reduzida para facilitar andar
+- transição da porta principal reforçada
+- música ambiente estilo RPG clássico, gerada no próprio navegador
+- botão 🔊/🔇 dentro do RPG
+- cache forçado para v1.6.3

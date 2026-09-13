@@ -8,7 +8,7 @@
 <style>
 :root{--ink:#302546;--pink:#ff69a9;--purple:#7357c9;--paper:#fffafd;--muted:#796f86;--shadow:0 18px 42px rgba(55,37,86,.18)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f6f0ff;color:var(--ink);user-select:none}button{font:inherit}.hidden{display:none!important}#rpgApp{height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff4fa,#f1edff)}
-.rpgTop{height:72px;display:flex;align-items:center;gap:10px;padding:env(safe-area-inset-top) 12px 0;background:rgba(255,250,253,.96);box-shadow:0 4px 18px rgba(65,43,95,.08);z-index:5}.topBtn{width:46px;height:46px;border:0;border-radius:16px;background:#f0ebff;color:var(--purple);font-size:28px;font-weight:900}.gameTitle{flex:1;min-width:0}.gameTitle strong{display:block;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gameTitle span{display:block;font-size:11px;color:var(--purple);font-weight:800;margin-top:2px}
+.rpgTop{height:72px;display:flex;align-items:center;gap:10px;padding:env(safe-area-inset-top) 12px 0;background:rgba(255,250,253,.96);box-shadow:0 4px 18px rgba(65,43,95,.08);z-index:5}.topBtn{width:42px;height:42px;border:0;border-radius:16px;background:#f0ebff;color:var(--purple);font-size:28px;font-weight:900}.gameTitle{flex:1;min-width:0}.gameTitle strong{display:block;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gameTitle span{display:block;font-size:11px;color:var(--purple);font-weight:800;margin-top:2px}
 .gameShell{flex:1;min-height:0;display:flex;flex-direction:column;padding:8px 10px 10px;max-width:980px;width:100%;margin:auto}.hud{display:grid;grid-template-columns:70px 1fr 1fr 78px;gap:6px;margin-bottom:6px}.hudBox{background:white;border-radius:14px;padding:7px 8px;box-shadow:0 5px 16px rgba(55,37,86,.08);text-align:center;min-width:0}.hudBox b{display:block;font-size:9px;color:var(--muted);text-transform:uppercase}.hudBox span{font-weight:900;color:var(--purple)}.hudBox small{display:block;font-size:9px;color:var(--muted);margin-top:2px}.bar{height:8px;background:#eee7f7;border-radius:99px;overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#ff77ad,#ff4f86);transition:.25s}.bar.xp i{background:linear-gradient(90deg,#70d9f7,#7c68df)}
 .objective{display:flex;gap:8px;align-items:center;background:linear-gradient(90deg,#fff4d2,#fff0f8);border:1px solid rgba(255,190,84,.28);border-radius:15px;padding:7px 9px;margin-bottom:6px}.objective span{font-size:19px}.objective b{font-size:10px;color:#8757bd}.objective p{font-size:11px;margin:1px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70vw}
 .canvasFrame{position:relative;flex:1;min-height:0;border-radius:20px;overflow:hidden;background:#89d67e;box-shadow:var(--shadow);border:3px solid rgba(255,255,255,.9)}#world{display:block;width:100%;height:100%;image-rendering:pixelated;touch-action:none}.locationTag{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(48,37,70,.82);color:white;border-radius:999px;padding:6px 12px;font-size:11px;font-weight:900;pointer-events:none;transition:.25s}.toastRpg{position:absolute;left:50%;bottom:12px;transform:translate(-50%,20px);opacity:0;background:rgba(48,37,70,.92);color:white;padding:8px 13px;border-radius:999px;font-size:11px;font-weight:800;transition:.25s;pointer-events:none;max-width:86%;text-align:center}.toastRpg.show{opacity:1;transform:translate(-50%,0)}
@@ -26,8 +26,8 @@
 <div id="rpgApp">
   <header class="rpgTop">
     <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
-    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>Capítulo 1 • A primeira estrela • v1.6.2</span></div>
-    <button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>Capítulo 1 • A primeira estrela • v1.6.3</span></div>
+    <button id="musicBtn" class="topBtn" aria-label="Música">🔊</button><button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
   </header>
 
   <main class="gameShell">
@@ -179,61 +179,90 @@ function addEnemy(map,id,type,x,y){maps[map].enemies.push({id,type,x,y,w:38,h:38
 
 function buildWorld(){
  const h=maps.home;
- // Casa da Elo — versão mais completa: quarto, sala, entrada e cozinha bem definidos
- h.walls=[rect(0,0,h.w*TILE,26),rect(0,0,26,h.h*TILE),rect(h.w*TILE-26,0,26,h.h*TILE),rect(0,h.h*TILE-26,7.1*TILE,26),rect(10.1*TILE,h.h*TILE-26,7.9*TILE,26)];
- // Divisões internas
- addObj('home','roomWall',7*TILE,1*TILE,.28*TILE,2.0*TILE);addObj('home','roomWall',7*TILE,4.35*TILE,.28*TILE,1.15*TILE);
- addObj('home','roomWall',1*TILE,5.5*TILE,3.2*TILE,.28*TILE);addObj('home','roomWall',5.9*TILE,5.5*TILE,4.85*TILE,.28*TILE);addObj('home','roomWall',12.55*TILE,5.5*TILE,3.95*TILE,.28*TILE);
- addObj('home','roomWall',12.25*TILE,5.55*TILE,.28*TILE,1.1*TILE);addObj('home','roomWall',12.25*TILE,8.2*TILE,.28*TILE,1.5*TILE);
- // Portas visuais
- addObj('home','doorFrame',6.87*TILE,3.02*TILE,.56*TILE,1.3*TILE,{label:'Passagem para a sala'});
- addObj('home','doorFrame',4.2*TILE,5.35*TILE,1.7*TILE,.58*TILE,{label:'Entrada do quarto'});
- addObj('home','doorFrame',10.75*TILE,5.35*TILE,1.8*TILE,.58*TILE,{label:'Passagem da sala'});
- addObj('home','doorFrame',12.12*TILE,6.62*TILE,.55*TILE,1.55*TILE,{label:'Entrada da cozinha'});
- addObj('home','roomLabel',1.45*TILE,.95*TILE,0,0,{label:'QUARTO'});addObj('home','roomLabel',9.35*TILE,.95*TILE,0,0,{label:'SALA'});addObj('home','roomLabel',2.25*TILE,6.22*TILE,0,0,{label:'ENTRADA'});addObj('home','roomLabel',13.05*TILE,6.22*TILE,0,0,{label:'COZINHA'});
- // Quarto
- addObj('home','bed',1.2*TILE,1.35*TILE,2.8*TILE,1.9*TILE,{label:'Cama da Elo'});addObj('home','closet',4.7*TILE,1.35*TILE,1.35*TILE,1.95*TILE,{label:'Guarda-roupa'});addObj('home','sideTable',4.15*TILE,3.55*TILE,.9*TILE,.75*TILE,{label:'Criado-mudo'});addObj('home','picture',2.2*TILE,.95*TILE,1.3*TILE,.62*TILE,{label:'Quadro do quarto'});
- // Sala
- addObj('home','tv',13.15*TILE,1.25*TILE,2.15*TILE,.82*TILE,{label:'TV da Elo'});addObj('home','sofa',8.6*TILE,3.15*TILE,4.2*TILE,1.2*TILE,{label:'Sofá da sala'});addObj('home','coffeeTable',10.0*TILE,4.55*TILE,1.8*TILE,.78*TILE,{label:'Mesinha da sala'});addObj('home','rug',8.55*TILE,2.0*TILE,5.0*TILE,3.05*TILE);addObj('home','picture',9.05*TILE,.95*TILE,1.35*TILE,.62*TILE,{label:'Quadro da sala'});addObj('home','picture',11.0*TILE,.95*TILE,1.35*TILE,.62*TILE,{label:'Quadro da sala'});addObj('home','plant',15.08*TILE,2.5*TILE,.72*TILE,1.0*TILE,{label:'Planta da sala'});
- // Entrada / corredor
- addObj('home','console',2.0*TILE,7.0*TILE,2.25*TILE,.78*TILE,{label:'Aparador'});addObj('home','picture',2.15*TILE,6.15*TILE,1.5*TILE,.62*TILE,{label:'Quadro da entrada'});addObj('home','plant',5.05*TILE,7.55*TILE,.72*TILE,1.0*TILE,{label:'Vaso decorativo'});addObj('home','sideTable',5.95*TILE,8.25*TILE,1.0*TILE,.78*TILE,{label:'Sapateira'});
- // Cozinha
- addObj('home','table',13.0*TILE,7.15*TILE,2.8*TILE,1.35*TILE,{label:'Mesa da cozinha'});addObj('home','chair',12.6*TILE,6.72*TILE,.7*TILE,.78*TILE);addObj('home','chair',15.25*TILE,6.72*TILE,.7*TILE,.78*TILE);addObj('home','chair',12.6*TILE,8.2*TILE,.7*TILE,.78*TILE);addObj('home','chair',15.25*TILE,8.2*TILE,.7*TILE,.78*TILE);addObj('home','fridge',15.0*TILE,1.45*TILE,.98*TILE,1.65*TILE,{label:'Geladeira'});addObj('home','stove',13.6*TILE,1.65*TILE,1.15*TILE,1.05*TILE,{label:'Fogão'});addObj('home','console',13.0*TILE,3.2*TILE,2.4*TILE,.7*TILE,{label:'Bancada da cozinha'});
- // Porta principal e saída
- addObj('home','exitMat',7.15*TILE,9.76*TILE,2.9*TILE,.88*TILE,{label:'Saída da casa'});addObj('home','houseDoor',7.1*TILE,10.1*TILE,3.0*TILE,1.35*TILE,{label:'Porta principal',to:'city',spawn:{x:6.5*TILE,y:19.5*TILE}});
+ // Casa da Elo — planta simples, confortável e sem corredores apertados.
+ h.walls=[
+   rect(0,0,h.w*TILE,24),rect(0,0,24,h.h*TILE),rect(h.w*TILE-24,0,24,h.h*TILE),
+   rect(0,h.h*TILE-24,6.7*TILE,24),rect(10.3*TILE,h.h*TILE-24,7.7*TILE,24)
+ ];
+ // Quarto à esquerda, sala à direita, entrada central e cozinha no canto inferior direito.
+ // As paredes deixam passagens largas para o jogador não ficar preso.
+ addObj('home','roomWall',7*TILE,1*TILE,.24*TILE,1.75*TILE);
+ addObj('home','roomWall',7*TILE,4.65*TILE,.24*TILE,.85*TILE);
+ addObj('home','roomWall',1*TILE,5.5*TILE,2.75*TILE,.24*TILE);
+ addObj('home','roomWall',6.0*TILE,5.5*TILE,4.45*TILE,.24*TILE);
+ addObj('home','roomWall',13.0*TILE,5.5*TILE,3.5*TILE,.24*TILE);
+ addObj('home','roomWall',12.6*TILE,5.55*TILE,.24*TILE,.9*TILE);
+ addObj('home','roomWall',12.6*TILE,8.65*TILE,.24*TILE,.75*TILE);
+ addObj('home','doorFrame',6.88*TILE,2.75*TILE,.5*TILE,1.88*TILE,{label:'Passagem para a sala'});
+ addObj('home','doorFrame',3.75*TILE,5.36*TILE,2.25*TILE,.52*TILE,{label:'Entrada do quarto'});
+ addObj('home','doorFrame',10.45*TILE,5.36*TILE,2.55*TILE,.52*TILE,{label:'Passagem para a entrada'});
+ addObj('home','doorFrame',12.48*TILE,6.45*TILE,.52*TILE,2.2*TILE,{label:'Entrada da cozinha'});
+ addObj('home','roomLabel',1.35*TILE,.9*TILE,0,0,{label:'QUARTO'});
+ addObj('home','roomLabel',9.25*TILE,.9*TILE,0,0,{label:'SALA'});
+ addObj('home','roomLabel',2.0*TILE,6.15*TILE,0,0,{label:'ENTRADA'});
+ addObj('home','roomLabel',13.15*TILE,6.15*TILE,0,0,{label:'COZINHA'});
+ // Quarto: móveis nas paredes e centro livre.
+ addObj('home','bed',1.15*TILE,1.3*TILE,2.5*TILE,1.72*TILE,{label:'Cama da Elo'});
+ addObj('home','closet',5.15*TILE,1.3*TILE,1.15*TILE,1.72*TILE,{label:'Guarda-roupa'});
+ addObj('home','sideTable',4.05*TILE,1.55*TILE,.72*TILE,.68*TILE,{label:'Criado-mudo'});
+ addObj('home','picture',2.2*TILE,.88*TILE,1.4*TILE,.58*TILE,{label:'Quadro da Elo'});
+ // Sala: sofá grande, TV, mesa, tapete e decoração, mas com corredores largos.
+ addObj('home','tv',13.45*TILE,1.25*TILE,1.95*TILE,.74*TILE,{label:'TV da Elo'});
+ addObj('home','sofa',8.05*TILE,3.55*TILE,3.85*TILE,1.05*TILE,{label:'Sofá da sala'});
+ addObj('home','rug',8.0*TILE,2.15*TILE,4.6*TILE,2.7*TILE);
+ addObj('home','coffeeTable',10.0*TILE,2.75*TILE,1.55*TILE,.62*TILE,{label:'Mesinha da sala'});
+ addObj('home','picture',8.45*TILE,.92*TILE,1.25*TILE,.56*TILE,{label:'Quadro da sala'});
+ addObj('home','picture',10.0*TILE,.92*TILE,1.25*TILE,.56*TILE,{label:'Quadro da sala'});
+ addObj('home','plant',15.25*TILE,3.35*TILE,.6*TILE,.86*TILE,{label:'Planta da sala'});
+ // Entrada: funcional, bonita e quase livre para circulação.
+ addObj('home','console',1.55*TILE,7.0*TILE,1.9*TILE,.66*TILE,{label:'Aparador'});
+ addObj('home','picture',1.75*TILE,6.05*TILE,1.4*TILE,.56*TILE,{label:'Quadro da entrada'});
+ addObj('home','plant',4.5*TILE,7.35*TILE,.62*TILE,.88*TILE,{label:'Vaso decorativo'});
+ // Cozinha: objetos maiores, porém encostados nas bordas para não travar a passagem.
+ addObj('home','fridge',15.25*TILE,6.25*TILE,.92*TILE,1.48*TILE,{label:'Geladeira'});
+ addObj('home','stove',13.75*TILE,6.35*TILE,1.05*TILE,.88*TILE,{label:'Fogão'});
+ addObj('home','console',13.2*TILE,8.75*TILE,2.8*TILE,.62*TILE,{label:'Bancada da cozinha'});
+ addObj('home','table',13.25*TILE,7.45*TILE,2.25*TILE,1.0*TILE,{label:'Mesa da cozinha'});
+ addObj('home','chair',12.85*TILE,7.55*TILE,.56*TILE,.64*TILE);
+ addObj('home','chair',15.45*TILE,7.55*TILE,.56*TILE,.64*TILE);
+ // Saída ampla e fácil de alcançar.
+ addObj('home','exitMat',7.0*TILE,9.7*TILE,3.2*TILE,.78*TILE,{label:'Saída da casa'});
+ addObj('home','houseDoor',7.0*TILE,10.05*TILE,3.2*TILE,1.35*TILE,{label:'Porta principal',to:'city',spawn:{x:6*TILE,y:17.5*TILE}});
 
  const c=maps.city;
- // outer water/tree boundaries
+ // Vila refeita do zero com ruas largas e prédios sem sobreposição.
+ c.objects=[];c.npcs=[];c.enemies=[];
  for(let i=0;i<c.w;i++){addObj('city','tree',i*TILE,0,TILE,TILE);addObj('city','tree',i*TILE,(c.h-1)*TILE,TILE,TILE)}
  for(let j=1;j<c.h-1;j++){addObj('city','tree',0,j*TILE,TILE,TILE);addObj('city','tree',(c.w-1)*TILE,j*TILE,TILE,TILE)}
- // buildings
- addBuilding('city','Casa da Elo',4,14,6,6,'houseDoor',{to:'home',spawn:{x:8*TILE,y:9*TILE}},'#ffd4e5');
- addBuilding('city','Casa da Sofia',3,3,5,5,'houseDoor',{to:'neighbor',spawn:{x:6*TILE,y:6.5*TILE}},'#ffc9df');
- addBuilding('city','Casa Azul',33,4,5,5,'lockedDoor',{locked:true},'#b9dcff');
- addBuilding('city','Casa das Flores',3,21,6,4,'lockedDoor',{locked:true},'#ffe1a8');
- addBuilding('city','Pousada Lua',14,4,7,6,'innDoor',{shop:'inn'},'#cbb9ff');
- addBuilding('city','Loja Estrelinha',25,4,7,6,'itemDoor',{shop:'items'},'#a7e8d1');
- addBuilding('city','Boutique Arco-Íris',26,15,8,6,'clothesDoor',{shop:'clothes'},'#ffd5a6');
- addBuilding('city','Casa da Cidade',14,15,8,7,'hallDoor',{npcDoor:'guardian'},'#f9e7a8');
- addObj('city','fountain',9*TILE,7*TILE,3*TILE,3*TILE,{label:'Fonte das Estrelas'});
- // Praça principal e decoração da vila
- addObj('city','plaza',6.4*TILE,5.7*TILE,8.2*TILE,6.3*TILE,{label:'Praça das Estrelas'});
- addObj('city','bench',6.8*TILE,10.3*TILE,2.0*TILE,.65*TILE);addObj('city','bench',12.0*TILE,10.3*TILE,2.0*TILE,.65*TILE);
- addObj('city','lamp',7.2*TILE,5.7*TILE,.55*TILE,1.15*TILE);addObj('city','lamp',13.2*TILE,5.7*TILE,.55*TILE,1.15*TILE);addObj('city','lamp',7.2*TILE,11.0*TILE,.55*TILE,1.15*TILE);addObj('city','lamp',13.2*TILE,11.0*TILE,.55*TILE,1.15*TILE);
- addObj('city','flowerbed',8.1*TILE,5.9*TILE,1.3*TILE,.7*TILE);addObj('city','flowerbed',11.3*TILE,5.9*TILE,1.3*TILE,.7*TILE);addObj('city','flowerbed',8.1*TILE,11.0*TILE,1.3*TILE,.7*TILE);addObj('city','flowerbed',11.3*TILE,11.0*TILE,1.3*TILE,.7*TILE);
- addObj('city','stall',21.5*TILE,11.8*TILE,2.6*TILE,1.8*TILE,{label:'Barraca de frutas'});addObj('city','stall',24.6*TILE,11.8*TILE,2.6*TILE,1.8*TILE,{label:'Barraca de doces'});
- addObj('city','signpost',18.3*TILE,11.4*TILE,.75*TILE,1.4*TILE,{label:'Centro da Vila'});
- // Casas extras para a vila parecer maior
- addBuilding('city','Casa Rosa',34,18,4,5,'lockedDoor',{locked:true},'#ffc8de');
- addBuilding('city','Casa Verde',10,20,5,5,'lockedDoor',{locked:true},'#bfe7b7');
- addObj('city','sign',18.6*TILE,23.2*TILE,.7*TILE,.7*TILE,{label:'Saída para a Campina'});
- addObj('city','transition',16*TILE,25*TILE,7*TILE,TILE,{to:'meadow',spawn:{x:21*TILE,y:2.2*TILE}});
- addNpc('city','sofia','Sofia',8*TILE,12*TILE,'👧',['Oi, Elo! A cidade está tão quieta sem o brilho das estrelas.','Dizem que algumas luzes caíram na Campina Encantada.']);
- addNpc('city','lume','Sr. Lume',28*TILE,11.7*TILE,'🧑‍🔧',['Bem-vinda, Elo! Sempre tenha uma poção na bolsa antes de explorar.']);
- addNpc('city','lia','Lia',32*TILE,22*TILE,'👩‍🎨',['As roupas mágicas não são só bonitas: cada uma deixa você melhor em uma habilidade!']);
- addNpc('city','nina','Nina',4.8*TILE,8*TILE,'👧',['Eu vi um clarão vindo da caverna ontem à noite!']);
- addNpc('city','guardian','Guardião Sol',18*TILE,13.3*TILE,'🧙',['Elo, ainda bem que você veio! Precisamos da sua ajuda.']);
-
+ // Praça central e caminhos.
+ addObj('city','plaza',13*TILE,9*TILE,9*TILE,6*TILE,{label:'Praça das Estrelas'});
+ addObj('city','fountain',16*TILE,10.3*TILE,3*TILE,3*TILE,{label:'Fonte das Estrelas'});
+ addObj('city','bench',13.2*TILE,13.7*TILE,2.1*TILE,.62*TILE);addObj('city','bench',19.7*TILE,13.7*TILE,2.1*TILE,.62*TILE);
+ addObj('city','lamp',13.3*TILE,9.2*TILE,.5*TILE,1.1*TILE);addObj('city','lamp',21.1*TILE,9.2*TILE,.5*TILE,1.1*TILE);
+ addObj('city','flowerbed',14.2*TILE,9.4*TILE,1.5*TILE,.62*TILE);addObj('city','flowerbed',19.3*TILE,9.4*TILE,1.5*TILE,.62*TILE);
+ // Parte norte: três prédios espaçados.
+ addBuilding('city','Casa da Sofia',3,3,5,4,'houseDoor',{to:'neighbor',spawn:{x:6*TILE,y:6.5*TILE}},'#ffc9df');
+ addBuilding('city','Pousada Lua',12,3,6,4,'innDoor',{shop:'inn'},'#cbb9ff');
+ addBuilding('city','Loja Estrelinha',22,3,6,4,'itemDoor',{shop:'items'},'#a7e8d1');
+ addBuilding('city','Casa Azul',31,3,5,4,'lockedDoor',{locked:true},'#b9dcff');
+ // Parte sul: casa da Elo, prefeitura, boutique e outra casa.
+ addBuilding('city','Casa da Elo',3,16,6,5,'houseDoor',{to:'home',spawn:{x:8.2*TILE,y:8.8*TILE}},'#ffd4e5');
+ addBuilding('city','Casa da Cidade',12,16,7,5,'hallDoor',{npcDoor:'guardian'},'#f9e7a8');
+ addBuilding('city','Boutique Arco-Íris',22,16,7,5,'clothesDoor',{shop:'clothes'},'#ffd5a6');
+ addBuilding('city','Casa das Flores',32,16,5,5,'lockedDoor',{locked:true},'#ffe1a8');
+ // Barracas ficam ao lado da praça, sem bloquear a rua.
+ addObj('city','stall',8.8*TILE,9.5*TILE,2.2*TILE,1.55*TILE,{label:'Barraca de frutas'});
+ addObj('city','stall',24.0*TILE,9.5*TILE,2.2*TILE,1.55*TILE,{label:'Barraca de doces'});
+ addObj('city','signpost',17*TILE,14.8*TILE,.72*TILE,1.25*TILE,{label:'Centro da Vila'});
+ // Saída para a campina.
+ addObj('city','sign',17.2*TILE,23.0*TILE,.7*TILE,.7*TILE,{label:'Saída para a Campina'});
+ addObj('city','transition',14.5*TILE,25*TILE,10*TILE,TILE,{to:'meadow',spawn:{x:21*TILE,y:2.2*TILE}});
+ // NPCs em áreas livres.
+ addNpc('city','sofia','Sofia',8.7*TILE,8*TILE,'👧',['Oi, Elo! A Vila das Estrelas está tão bonita hoje!','Dizem que algumas luzes caíram na Campina Encantada.']);
+ addNpc('city','lume','Sr. Lume',27.5*TILE,12*TILE,'🧑‍🔧',['Bem-vinda, Elo! Sempre tenha uma poção na bolsa antes de explorar.']);
+ addNpc('city','lia','Lia',29.5*TILE,22.1*TILE,'👩‍🎨',['As roupas mágicas também deixam você melhor em uma habilidade!']);
+ addNpc('city','nina','Nina',7*TILE,13*TILE,'👧',['Eu vi um clarão vindo da caverna ontem à noite!']);
+ addNpc('city','guardian','Guardião Sol',18*TILE,15.2*TILE,'🧙',['Elo, ainda bem que você veio! Precisamos da sua ajuda.']);
  const nbh=maps.neighbor;
  nbh.walls=[rect(0,0,nbh.w*TILE,28),rect(0,0,28,nbh.h*TILE),rect(nbh.w*TILE-28,0,28,nbh.h*TILE),rect(0,nbh.h*TILE-28,4.8*TILE,28),rect(7.2*TILE,nbh.h*TILE-28,4.8*TILE,28)];
  addObj('neighbor','bed',1.2*TILE,1.3*TILE,2*TILE,1.4*TILE,{label:'Quarto da Sofia'});addObj('neighbor','table',5*TILE,2*TILE,2.2*TILE,1.3*TILE);addObj('neighbor','sofa',7.4*TILE,4.1*TILE,2.6*TILE,.9*TILE);addObj('neighbor','houseDoor',4.8*TILE,7.9*TILE,2.4*TILE,.8*TILE,{label:'Sair',to:'city',spawn:{x:5.5*TILE,y:9.2*TILE}});addNpc('neighbor','sofiaHome','Sofia',5.2*TILE,4.7*TILE,'👧',['Entra, Elo! Minha casa é pequena, mas adoro receber visitas.','Ouvi dizer que algumas casas da vila só vão abrir em capítulos futuros.','Se precisar de coragem, converse com todo mundo. Sempre aparece uma pista nova!']);
@@ -259,7 +288,7 @@ function addBuilding(map,label,gx,gy,gw,gh,doorType,doorExtra,color){addObj(map,
 function nearObj(map,x,y,r){return maps[map].objects.some(o=>Math.hypot(o.x-x,o.y-y)<r)}
 buildWorld();
 
-function loadSave(){try{const s=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(s&&typeof s==='object'){Object.assign(state,s);state.flags=state.flags||{};state.inventory=state.inventory||{potion:1,tea:0,apple:0};state.ownedOutfits=state.ownedOutfits||['starter'];state.discovered=state.discovered||['home'];state.talked=state.talked||[];state.medals=loadMedals();state.removedEnemies=state.removedEnemies||{};if(state.map==='home'&&(state.x<32||state.y<32||state.x>16.5*TILE||state.y>10.3*TILE||blocked(state.x,state.y))){state.x=8.4*TILE;state.y=8.5*TILE;}return true}}catch(e){}state.medals=loadMedals();return false}
+function loadSave(){try{const s=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(s&&typeof s==='object'){Object.assign(state,s);state.flags=state.flags||{};state.inventory=state.inventory||{potion:1,tea:0,apple:0};state.ownedOutfits=state.ownedOutfits||['starter'];state.discovered=state.discovered||['home'];state.talked=state.talked||[];state.medals=loadMedals();state.removedEnemies=state.removedEnemies||{};if(state.map==='home'&&(state.x<32||state.y<32||state.x>16.5*TILE||state.y>10.3*TILE||blocked(state.x,state.y))){state.x=8.1*TILE;state.y=8.7*TILE;}if(state.map==='city'&&(state.x<40||state.y<40||state.x>38*TILE||state.y>25*TILE||blocked(state.x,state.y))){state.x=10*TILE;state.y=12*TILE;}if(state.map==='neighbor'&&blocked(state.x,state.y)){state.x=6*TILE;state.y=6.4*TILE;}return true}}catch(e){}state.medals=loadMedals();return false}
 function saveGame(silent=false){state.lastSave=Date.now();localStorage.setItem(SAVE_KEY,JSON.stringify(state));localStorage.setItem(MEDAL_KEY,JSON.stringify(state.medals));if(!silent)toast('Jogo salvo 💾')}
 function loadMedals(){try{return JSON.parse(localStorage.getItem(MEDAL_KEY)||'[]')}catch(e){return[]}}
 function medal(id){if(state.medals.includes(id))return;state.medals.push(id);localStorage.setItem(MEDAL_KEY,JSON.stringify(state.medals));const m=RPG_MEDALS.find(x=>x.id===id);toast(`🏅 Medalha: ${m?.name||id}`);parent.postMessage({type:'rpg-medal',id},'*')}
@@ -286,8 +315,8 @@ function updateHud(){
 
 function changeMap(map,x,y){state.map=map;state.x=x;state.y=y;discover(map);$('#locationTag').textContent=maps[map].name;$('#locationTag').style.opacity='1';setTimeout(()=>$('#locationTag').style.opacity='.25',1800);medal('first-step');saveGame(true);updateHud()}
 
-function playerRect(nx=state.x,ny=state.y){return{x:nx+8,y:ny+11,w:30,h:35}}
-function solidObject(o){return['tree','building','fountain','pond','rock','crystal','bed','tv','sofa','table','fridge','stove','closet','roomWall','coffeeTable','chair','console','sideTable','bench','stall'].includes(o.type)}
+function playerRect(nx=state.x,ny=state.y){return{x:nx+13,y:ny+16,w:22,h:28}}
+function solidObject(o){return['tree','building','fountain','pond','rock','crystal','bed','tv','sofa','fridge','stove','closet','roomWall','stall'].includes(o.type)}
 function blocked(nx,ny){const map=maps[state.map],p=playerRect(nx,ny);if(nx<32||ny<32||nx>map.w*TILE-70||ny>map.h*TILE-78)return true;for(const w of map.walls){if(hit(p,w))return true}for(const o of map.objects){if(solidObject(o)&&hit(p,o))return true}return false}
 function hit(a,b,p=0){return a.x+p<b.x+b.w&&a.x+a.w-p>b.x&&a.y+p<b.y+b.h&&a.y+a.h-p>b.y}
 function distTo(o){const px=state.x+24,py=state.y+28,ox=o.x+o.w/2,oy=o.y+o.h/2;return Math.hypot(px-ox,py-oy)}
@@ -298,8 +327,16 @@ function update(dt){if(!state.started||battle||!$('#dialogOverlay').classList.co
  handleTransitions();updateEnemies(dt);if(Date.now()-state.lastSave>10000)saveGame(true);
 }
 function handleTransitions(){const map=maps[state.map],p=playerRect();
- if(state.map==='home'){const mainDoor=map.objects.find(o=>o.type==='houseDoor');if(mainDoor&&hit(p,{x:mainDoor.x-10,y:mainDoor.y-14,w:mainDoor.w+20,h:mainDoor.h+22},-2)){changeMap('city',6.5*TILE,19.5*TILE);return}}
- for(const o of map.objects){if((o.type==='transition'||o.type.endsWith('Door'))&&hit(p,o,-6)){if(o.type==='caveEntrance')continue;if(o.to){changeMap(o.to,o.spawn.x,o.spawn.y);return}}}
+ if(state.map==='home'){
+   const mainDoor=map.objects.find(o=>o.type==='houseDoor'&&o.to==='city');
+   if(mainDoor&&hit(p,{x:mainDoor.x-18,y:mainDoor.y-34,w:mainDoor.w+36,h:mainDoor.h+54},-2)){changeMap('city',6*TILE,17.5*TILE);return}
+ }
+ for(const o of map.objects){
+   if((o.type==='transition'||o.type.endsWith('Door'))&&hit(p,o,-8)){
+     if(o.type==='caveEntrance')continue;
+     if(o.to){changeMap(o.to,o.spawn.x,o.spawn.y);return}
+   }
+ }
  if(state.map==='meadow'){const cave=map.objects.find(o=>o.type==='caveEntrance');if(cave&&distTo(cave)<55&&state.quest>=3&&state.x>cave.x-20){changeMap('cave',4*TILE,17*TILE)}}
 }
 function enemyGone(e){const when=state.removedEnemies[e.id];if(!when)return false;if(e.type==='boss')return true;if(Date.now()-when>60000){delete state.removedEnemies[e.id];return false}return true}
@@ -419,11 +456,24 @@ function drawBattle(){if(!battle)return;const w=battleCanvas.width,h=battleCanva
 function drawBattleElo(x,y){bctx.save();bctx.translate(x,y);bctx.scale(1.45,1.45);bctx.fillStyle='#5b3527';for(const [cx,cy,rr] of [[0,-30,22],[-15,-31,10],[14,-32,10],[16,-51,11],[7,-58,10],[24,-48,9]]){bctx.beginPath();bctx.arc(cx,cy,rr,0,Math.PI*2);bctx.fill()}bctx.fillStyle='#ff70b3';bctx.beginPath();bctx.ellipse(10,-54,10,6,-.4,0,Math.PI*2);bctx.ellipse(24,-53,10,6,.4,0,Math.PI*2);bctx.fill();bctx.fillStyle='#efbd9b';bctx.beginPath();bctx.arc(0,-22,17,0,Math.PI*2);bctx.fill();bctx.fillStyle='#2f2544';bctx.beginPath();bctx.arc(-6,-23,2.5,0,Math.PI*2);bctx.arc(6,-23,2.5,0,Math.PI*2);bctx.fill();bctx.fillStyle=OUTFITS[state.outfit].color;bctx.beginPath();bctx.moveTo(-16,0);bctx.lineTo(16,0);bctx.lineTo(20,35);bctx.lineTo(-20,35);bctx.closePath();bctx.fill();bctx.fillStyle='#7550bd';bctx.fillRect(-16,30,32,16);bctx.fillStyle='#ffd65b';bctx.font='18px system-ui';bctx.fillText('★',-7,24);bctx.restore()}
 function drawBattleEnemy(x,y,type){const m=ENEMIES[type];bctx.save();bctx.translate(x,y);const scale=type==='boss'?2.6:2;bctx.scale(scale,scale);if(type==='slime'){bctx.fillStyle=m.color;bctx.beginPath();bctx.arc(0,0,22,Math.PI,0);bctx.lineTo(22,17);bctx.quadraticCurveTo(8,25,0,17);bctx.quadraticCurveTo(-8,25,-22,17);bctx.closePath();bctx.fill();bctx.fillStyle='#40344e';bctx.beginPath();bctx.arc(-7,1,2.5,0,Math.PI*2);bctx.arc(7,1,2.5,0,Math.PI*2);bctx.fill()}else drawGhostShape(bctx,m.color);bctx.restore()}
 
+
+// Música ambiente em estilo RPG clássico. É gerada pelo próprio navegador, sem arquivo externo.
+let musicCtx=null,musicGain=null,musicTimer=null,musicStep=0;
+let musicEnabled=localStorage.getItem('eloRpgMusic')!=='0';
+const MELODY=[523.25,659.25,783.99,659.25,587.33,698.46,880,698.46,523.25,659.25,783.99,987.77,880,783.99,659.25,587.33];
+const BASS=[130.81,130.81,146.83,146.83,174.61,174.61,146.83,146.83];
+function musicTone(freq,dur=.20,vol=.05,type='triangle',delay=0){if(!musicCtx||!musicGain||!musicEnabled)return;const t=musicCtx.currentTime+delay,o=musicCtx.createOscillator(),g=musicCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.018);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.connect(g);g.connect(musicGain);o.start(t);o.stop(t+dur+.04)}
+function musicTick(){if(!musicEnabled||!musicCtx)return;const note=MELODY[musicStep%MELODY.length],bass=BASS[Math.floor(musicStep/2)%BASS.length];musicTone(note,.23,.055,'triangle');if(musicStep%2===0)musicTone(bass,.42,.032,'sine');if(musicStep%4===0)musicTone(note/2,.16,.018,'square',.02);musicStep++}
+function ensureMusic(){if(!musicEnabled)return;try{if(!musicCtx){musicCtx=new (window.AudioContext||window.webkitAudioContext)();musicGain=musicCtx.createGain();musicGain.gain.value=.32;musicGain.connect(musicCtx.destination)}if(musicCtx.state==='suspended')musicCtx.resume();if(!musicTimer){musicTick();musicTimer=setInterval(musicTick,285)}}catch(e){}}
+function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null}if(musicCtx&&musicCtx.state==='running')musicCtx.suspend().catch(()=>{})}
+function toggleMusic(){musicEnabled=!musicEnabled;localStorage.setItem('eloRpgMusic',musicEnabled?'1':'0');const b=$('#musicBtn');if(b)b.textContent=musicEnabled?'🔊':'🔇';if(musicEnabled){ensureMusic();toast('Música ligada 🎵')}else{stopMusic();toast('Música desligada')}}
+function updateMusicButton(){const b=$('#musicBtn');if(b)b.textContent=musicEnabled?'🔊':'🔇'}
 function loop(ts){const dt=Math.min(.035,(ts-last)/1000||.016);last=ts;update(dt);draw();raf=requestAnimationFrame(loop)}
 
 function bind(){
+ updateMusicButton();$('#musicBtn').onclick=toggleMusic;document.addEventListener('pointerdown',ensureMusic,{once:true,capture:true});document.addEventListener('keydown',ensureMusic,{once:true,capture:true});
  $$('.dpad button').forEach(b=>{const d=b.dataset.dir;const on=e=>{e.preventDefault();input[d]=true},off=e=>{e.preventDefault();input[d]=false};b.addEventListener('pointerdown',on);b.addEventListener('pointerup',off);b.addEventListener('pointercancel',off);b.addEventListener('pointerleave',off)});
- $('#actionBtn').onclick=action;$('#quickBtn').onclick=()=>openMenu('bag');$('#menuBtn').onclick=()=>openMenu('missions');$('#closeRpg').onclick=()=>{saveGame(true);parent.postMessage({type:'rpg-close'},'*')};
+ $('#actionBtn').onclick=action;$('#quickBtn').onclick=()=>openMenu('bag');$('#menuBtn').onclick=()=>openMenu('missions');$('#closeRpg').onclick=()=>{saveGame(true);stopMusic();parent.postMessage({type:'rpg-close'},'*')};
  $('#watchChannelBtn').onclick=()=>{medal('tv-fan');closeOverlay('tvOverlay');toast('A Elo curtiu o programa! 📺💗')};
  $$('.miniClose,[data-close]').forEach(b=>b.onclick=()=>closeOverlay(b.dataset.close||b.closest('.overlay').id));
  $$('.tab').forEach(b=>b.onclick=()=>renderMenu(b.dataset.tab));$('#saveBtn').onclick=()=>saveGame();$('#resetSaveBtn').onclick=()=>{if(confirm('Quer mesmo recomeçar o RPG desde o início?')){localStorage.removeItem(SAVE_KEY);localStorage.removeItem(MEDAL_KEY);location.reload()}};
