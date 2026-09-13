@@ -1,9 +1,6 @@
-ATUALIZAÇÃO v2.0.1 — NARRAÇÃO DAS HISTÓRIAS
+DIA A DIA DA ELO — ATUALIZAÇÃO v2.1
 
-Corrige a leitura em voz das historinhas.
-
-Agora o botão "🔊 Ler esta página" lê o conteúdo da página atual da história, e não apenas o título da tela.
-A narração foi adicionada página por página para as 4 histórias atuais.
+NOVIDADE PRINCIPAL: ESCOLINHA DA ELO — INGLÊS
 
 Substitua na raiz do projeto:
 - index.html
@@ -11,4 +8,20 @@ Substitua na raiz do projeto:
 - sw.js
 - manifest.webmanifest
 
-Não precisa alterar os arquivos de imagens das histórias.
+O restante dos arquivos e assets permanece igual.
+
+A v2.1 adiciona:
+- Inglês separado por 3 faixas etárias: 3–5, 6–8 e 9–11 anos.
+- 5 mundos iniciais: Cores, Números, Frutas, Animais e Saudações.
+- Áudio em inglês (en-US) para cada palavra/expressão.
+- Atividades de ouvir e escolher.
+- Atividades de escrever em inglês para as faixas maiores.
+- Palavras embaralhadas e completar frases.
+- Revisão inteligente priorizando palavras menos dominadas.
+- Progresso por palavra: Novo > Aprendendo > Praticando > Dominei.
+- Medalha para cada mundo concluído.
+- Certificado interno Inglês da Elo — Nível 1 ao concluir os cinco mundos.
+- Progresso separado por perfil infantil e incluído no backup do perfil.
+- Medalhas do Inglês integradas ao Livro de Conquistas.
+
+Observação: a pronúncia usa a voz de inglês disponível no próprio aparelho.
