@@ -1,11 +1,23 @@
-ATUALIZAÇÃO v1.7.6 — PORTAS E HUD DE BATALHA
+DIA A DIA DA ELO — ATUALIZAÇÃO v2.0
 
-Correções:
-- dentro de casas, loja, pousada e casa do mago, a saída agora só acontece ao apertar A perto da porta/saída;
-- ficar parado ao entrar não devolve mais a Elo automaticamente para fora;
-- o aviso perto da porta mostra “A • Sair” nos interiores;
-- Energia e Magia da Elo aparecem no topo da janela de batalha, antes da arte da luta;
-- janela de batalha agora permite rolagem em telas menores;
-- cache e links atualizados para v1.7.6.
+Substitua na raiz do GitHub:
+- index.html
+- app.js
+- rpg.html
+- sw.js
+- manifest.webmanifest
 
-Substitua: index.html, app.js, rpg.html, sw.js e manifest.webmanifest.
+NOVIDADES PRINCIPAIS
+- Perfis locais (até 4), cada um com progresso separado.
+- Migração automática do progresso atual para o primeiro perfil.
+- Livro de Conquistas por perfil.
+- Leitura em voz dos textos visíveis da tela (Web Speech API).
+- Tutorial inicial e tutoriais dos jogos/RPG.
+- Área dos Pais com texto maior, alto contraste, botões maiores e redução de animações.
+- Lembrete suave de tempo de uso diário.
+- Backup e restauração do progresso do perfil em arquivo JSON.
+- Save e medalhas do RPG separados por perfil.
+- Cache renovado para v2.0.
+
+IMPORTANTE
+Os perfis são locais: não criam conta e não enviam nome da criança para um servidor. O PIN dos responsáveis e as preferências gerais continuam no aparelho.

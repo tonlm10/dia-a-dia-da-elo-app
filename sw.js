@@ -1,6 +1,6 @@
-const CACHE='elo-official-v1-7-6-20260913';
+const CACHE='elo-official-v2-0-20260913';
 const CORE=[
-  './','./index.html','./app.js?v=1.7.6','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html?v=1.7.6',
+  './','./index.html','./app.js?v=2.0','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html?v=2.0',
   './assets/logo-oficial.webp','./assets/rpg-cover-v1-5.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
   './assets/icons/icon-maskable-192.png','./assets/icons/icon-maskable-512.png','./assets/icons/apple-touch-icon.png'
 ];
@@ -31,7 +31,7 @@ self.addEventListener('fetch',event=>{
   if(networkFirst){
     event.respondWith((async()=>{
       try{const res=await fetch(event.request,{cache:'no-store'});if(res.ok){const cache=await caches.open(CACHE);cache.put(event.request,res.clone())}return res}
-      catch(_){const hit=await caches.match(event.request);if(hit)return hit;if(event.request.mode==='navigate')return caches.match('./index.html');return new Response('',{status:504,statusText:'Offline'})}
+      catch(_){const hit=await caches.match(event.request);if(hit)return hit;if(url.pathname.endsWith('/rpg.html')||url.pathname.endsWith('rpg.html')){const r=await caches.match('./rpg.html?v=2.0')||await caches.match('./rpg.html');if(r)return r}if(event.request.mode==='navigate')return caches.match('./index.html');return new Response('',{status:504,statusText:'Offline'})}
     })());
     return;
   }

@@ -26,7 +26,7 @@
 <div id="rpgApp">
   <header class="rpgTop">
     <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
-    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v1.7.6</span></div>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v2.0</span></div>
     <button id="musicBtn" class="topBtn" aria-label="Música">🔊</button><button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
   </header>
 
@@ -127,7 +127,7 @@
 'use strict';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const canvas=$('#world'),ctx=canvas.getContext('2d'),battleCanvas=$('#battleArt'),bctx=battleCanvas.getContext('2d');
-const TILE=48,SAVE_KEY='eloRpgSaveV1',MEDAL_KEY='eloRpgMedals';
+const TILE=48;const PROFILE_ID=new URLSearchParams(location.search).get('profile')||localStorage.getItem('eloActiveProfileId')||'elo';const SAVE_KEY=`eloProfile:${PROFILE_ID}:eloRpgSaveV1`,MEDAL_KEY=`eloProfile:${PROFILE_ID}:eloRpgMedals`;
 const input={up:false,down:false,left:false,right:false};
 let raf=0,last=0,toastTimer=0,dialogCb=null,battle=null,currentShop='';
 let playerMoving=false,walkPhase=0,walkFrame=0,portalExitRequired=false;
