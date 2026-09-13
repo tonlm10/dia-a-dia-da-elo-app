@@ -26,7 +26,7 @@ function applyA11y(){const a=getA11y(),b=document.body;if(!b)return;b.classList.
 function setA11y(k,v){const a=getA11y();a[k]=!!v;localStorage.setItem(A11Y_KEY,JSON.stringify(a));applyA11y();toast('Preferência atualizada 💗')}
 function toggleSpeech(){const a=getA11y();a.speech=!a.speech;localStorage.setItem(A11Y_KEY,JSON.stringify(a));if(!a.speech&&'speechSynthesis'in window)speechSynthesis.cancel();applyA11y();toast(a.speech?'Leitura em voz ligada 🔊':'Leitura em voz desligada 🔇')}
 function speakText(txt){if(!getA11y().speech||!('speechSynthesis'in window))return toast('Leitura em voz está desligada.');speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(txt||'').replace(/\s+/g,' ').trim());u.lang='pt-BR';u.rate=.95;u.pitch=1.05;speechSynthesis.speak(u)}
-function readCurrentScreen(){const panel=document.querySelector('.panel.active');if(!panel)return;const txt=[...panel.querySelectorAll('h1,h2,h3,p,.muted,.quiz-q')].filter(x=>x.offsetParent!==null).map(x=>x.textContent.trim()).filter(Boolean).slice(0,18).join('. ');speakText(txt||'Tela atual do Dia a Dia da Elo.')}
+function readCurrentScreen(){const panel=document.querySelector('.panel.active');if(!panel)return;if(panel.id==='readerPanel')return readStoryPage();const txt=[...panel.querySelectorAll('h1,h2,h3,p,.muted,.quiz-q')].filter(x=>x.offsetParent!==null).map(x=>x.textContent.trim()).filter(Boolean).slice(0,18).join('. ');speakText(txt||'Tela atual do Dia a Dia da Elo.')}
 
 const LIMIT_KEY='eloDailyLimitV2';
 function dayKey(){const d=new Date();return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`}
@@ -74,6 +74,57 @@ const STORIES=[
  {id:'story3',title:'A Sementinha Misteriosa',summary:'Paciência, cuidado e descobertas.',moral:'Com amor e paciência, pequenas sementes viram grandes belezas.',pages:10},
  {id:'story4',title:'Elo e o Passarinho Perdido',summary:'Empatia e respeito aos animais.',moral:'Ajudar também é saber dar espaço.',pages:10}
 ];
+const STORY_PAGE_TEXTS={
+ story1:[
+  'As Aventuras da Elo. A Mochila Desaparecida.',
+  'Bom dia, Elo! Está na hora de acordar para ir à escola!',
+  'Bom dia, papai! Já estou acordando!',
+  'Ué... Cadê minha mochila?',
+  'Calma, Elo. Vamos procurar juntos! Elo respondeu: Vamos!',
+  'Não está aqui...',
+  'Também não está aqui...',
+  'Será que ficou lá fora? Vamos ver!',
+  'Papai... Acho que encontrei!',
+  'Agora posso ir para a escola! Que bom que encontramos! Lição da Elo: quando guardamos nossas coisas sempre no mesmo lugar, fica muito mais fácil encontrá-las quando precisamos.'
+ ],
+ story2:[
+  'O Guarda-Chuva Rosa. Em uma manhã chuvosa, a Elo estava pronta para ir à escola quando encontrou um lindo guarda-chuva rosa perto da porta de casa.',
+  'Quando abriu o guarda-chuva, pequenas estrelinhas brilhantes apareceram ao seu redor. Tudo parecia um pouco mais colorido e mágico.',
+  'A Elo saiu de casa com o seu guarda-chuva rosa e foi caminhando pela rua. Ela adorava ver as gotinhas dançando no chão.',
+  'A Elo abriu o seu guarda-chuva e continuou caminhando, pulando nas poças d’água e rindo sem parar. A manhã chuvosa ficou ainda mais divertida!',
+  'A Elo pulava nas poças, girava o guarda-chuva e ria sem parar. Era como se a chuva tivesse trazido um dia cheio de magia só para ela!',
+  'A Elo olhou para o céu e viu um arco-íris lindo aparecendo entre as nuvens. Ela sorriu e pensou: Que dia especial! A chuva pode ser mágica!',
+  'A Elo pulou nas poças, fez cócegas na chuva e correu feliz pelo parque. Cada gotinha era como um lembrete de que a vida fica mais bonita quando a gente sorri.',
+  'De repente, Elo encontrou uma senhora que parecia procurar alguma coisa. Ela estava um pouco preocupada e olhava para todos os lados. Você perdeu um guarda-chuva? perguntou Elo.',
+  'Era dela! Elo entregou o guarda-chuva, e a senhora abriu um grande sorriso. Muito obrigada! disse ela. Elo ficou feliz por ter ajudado.',
+  'Naquele dia, Elo descobriu que fazer o que é certo deixa o mundo um pouquinho mais bonito. Gentileza também é uma grande aventura!'
+ ],
+ story3:[
+  'As Aventuras da Elo. A Sementinha Misteriosa.',
+  'Elo estava brincando no quintal quando viu algo pequeno brilhando no chão. Ela se aproximou e encontrou uma sementinha!',
+  'Ela pegou a sementinha na mão e ficou pensativa. O que será que vai nascer? pensou Elo.',
+  'Elo decidiu plantar a sementinha em um vasinho com muito carinho. Vamos ver o que vai nascer!',
+  'Elo cuidou da sementinha com muito carinho. Ela regou todos os dias, com amor e atenção. Com cuidado, tudo pode crescer!',
+  'No outro dia, Elo correu para olhar sua sementinha... Mas ainda não tinha nascido nada. Elo ficou um pouquinho triste.',
+  'Depois de alguns dias, Elo viu um pequenininho brotinho saindo da terra! Elo ficou muito feliz!',
+  'Elo continuou cuidando todos os dias com muito carinho e atenção. O brotinho foi crescendo mais e mais!',
+  'Até que um dia... Nasceu uma linda flor colorida! Elo ficou encantada com a surpresa! Toda a espera valeu a pena!',
+  'Elo aprendeu que, com amor, paciência e cuidado, pequenas sementes podem se transformar em grandes belezas! E assim, Elo e sua flor viveram muitas aventuras juntas!'
+ ],
+ story4:[
+  'Elo e o Passarinho Perdido.',
+  'Elo estava brincando no quintal quando ouviu um Piu! Piu! vindo perto das flores. Ela foi investigar para saber o que era.',
+  'Elo encontrou um pequeno passarinho no chão. Ele parecia assustado e não conseguia voar. Será que ele está perdido? pensou Elo.',
+  'Elo olhou com cuidado e percebeu outros passarinhos voando nas árvores. Talvez a família dele esteja procurando por ele! pensou Elo.',
+  'Elo se afastou um pouquinho e ficou bem quietinha para não assustá-lo. O passarinho olhou para ela e fez: Piu! Piu! novamente.',
+  'De repente, outro passarinho apareceu em um galho próximo. Elo percebeu a aproximação e ficou animada: Olha! Acho que vieram procurar você!',
+  'O passarinho conseguiu subir para um galho baixo. Elo observou tudo com alegria, mantendo distância para não assustar. Ela sabia que estava fazendo a coisa certa.',
+  'O passarinho foi para o ninho, onde sua mamãe o esperava com carinho. Ele deu pulinhos e contou tudo o que viu, sabendo que sempre teria um lugar seguro para voltar. Elo sorriu, feliz por ter presenciado aquele momento especial!',
+  'Os passarinhos voam juntos pelo céu. Elo acena sorrindo: Tchau, amiguinho!',
+  'Moral da história: Elo aprendeu que ajudar também significa saber respeitar os animais e dar espaço quando eles precisam.'
+ ]
+};
+function readStoryPage(){const s=STORIES[currentStory];if(!s)return;const pages=STORY_PAGE_TEXTS[s.id]||[];const txt=pages[currentPage]||`${s.title}. Página ${currentPage+1}.`;speakText(txt)}
 
 let stars=Number(pget('eloStars')||0),currentStory=0,currentPage=0;
 let favorites=JSON.parse(pget('eloFavStories')||'[]');
@@ -134,8 +185,8 @@ function renderLibrary(){const box=document.getElementById('libraryGrid');box.in
 function toggleFav(id,e){e.stopPropagation();favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];pset('eloFavStories',JSON.stringify(favorites));renderLibrary();renderStoryStrip();toast(favorites.includes(id)?'Adicionada aos favoritos 💗':'Removida dos favoritos')}
 function openStory(i){currentStory=i;currentPage=0;openPanel('readerPanel','stories');renderReader()}
 function renderReader(){const s=STORIES[currentStory],page=document.getElementById('storyPage');document.getElementById('readerTitle').textContent=s.title;page.style.backgroundImage=`url('assets/stories/${s.id}.webp')`;page.style.backgroundRepeat='no-repeat';page.style.backgroundSize=`100% ${s.pages*100}%`;page.style.backgroundPosition=`center ${currentPage*(100/(s.pages-1))}%`;document.getElementById('pageCounter').textContent=`Página ${currentPage+1} de ${s.pages}`;document.getElementById('readerMoral').textContent=currentPage===s.pages-1?'✨ '+s.moral:'';document.getElementById('readerDots').innerHTML=Array.from({length:s.pages},(_,i)=>`<i class="dot ${i===currentPage?'on':''}"></i>`).join('');if(currentPage===s.pages-1&&!readStories.includes(s.id)){readStories.push(s.id);pset('eloReadStories',JSON.stringify(readStories));addStars(3,'História concluída! +3 ⭐');renderLibrary()}}
-function nextPage(){const s=STORIES[currentStory];if(currentPage<s.pages-1){currentPage++;renderReader()}else toast('Fim da história 💗')}
-function prevPage(){if(currentPage>0){currentPage--;renderReader()}else toast('Você está na primeira página')}
+function nextPage(){const s=STORIES[currentStory];if('speechSynthesis'in window)speechSynthesis.cancel();if(currentPage<s.pages-1){currentPage++;renderReader()}else toast('Fim da história 💗')}
+function prevPage(){if('speechSynthesis'in window)speechSynthesis.cancel();if(currentPage>0){currentPage--;renderReader()}else toast('Você está na primeira página')}
 let touchX=0;
 document.getElementById('storyPage').addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});
 document.getElementById('storyPage').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX;if(dx<-45)nextPage();if(dx>45)prevPage()},{passive:true});

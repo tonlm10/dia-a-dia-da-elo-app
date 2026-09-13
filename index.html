@@ -69,7 +69,7 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:7px 12px calc(7px 
   <div class="sectionHead"><h2>Missão e família</h2><small>Um pouquinho por dia ✨</small></div>
   <div class="missionRow"><div class="miniCard pink"><h3>🏆 Missão do dia</h3><p id="dailyText">Faça algo divertido hoje!</p><div class="progress"><i id="dailyProgress"></i></div><button class="smallBtn" style="margin-top:10px" onclick="completeDaily()">Consegui!</button></div><div class="miniCard lilac"><h3>👨‍👩‍👧 Área dos Pais</h3><p>Dicas, segurança e links oficiais.</p><button class="smallBtn" onclick="openParents()">Entrar</button></div></div>
 
-  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v2.0</div>
+  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v2.0.1</div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -122,7 +122,7 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:7px 12px calc(7px 
 
 <section id="readerPanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2 id="readerTitle">Aventura</h2></div>
-  <div class="readerBox"><div id="storyPage" class="storyPage"></div><div class="readerMeta"><b id="pageCounter">Página 1 de 10</b><span id="readerMoral" class="muted"></span></div><div id="readerDots" class="dots"></div><div class="readerBtns"><button class="btn secondary" onclick="prevPage()">← Anterior</button><button class="btn" onclick="nextPage()">Próxima →</button></div><button class="btn secondary full" style="margin-top:8px" onclick="readCurrentScreen()">🔊 Ler textos desta tela</button></div>
+  <div class="readerBox"><div id="storyPage" class="storyPage"></div><div class="readerMeta"><b id="pageCounter">Página 1 de 10</b><span id="readerMoral" class="muted"></span></div><div id="readerDots" class="dots"></div><div class="readerBtns"><button class="btn secondary" onclick="prevPage()">← Anterior</button><button class="btn" onclick="nextPage()">Próxima →</button></div><button class="btn secondary full" style="margin-top:8px" onclick="readStoryPage()">🔊 Ler esta página</button></div>
 </section>
 
 <section id="clubPanel" class="panel">
@@ -144,7 +144,7 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:7px 12px calc(7px 
   <div class="card"><h3>Links oficiais 🔒</h3><p class="muted">Abertura de YouTube, Instagram e Clube da Elo é uma ação dos responsáveis.</p><div class="row"><button class="btn" onclick="openSubscribe()">Inscrever no YouTube</button><button class="btn secondary" onclick="openExternal(MEMBER_URL)">Página de membros</button><button class="btn secondary" onclick="openInstagram()">Instagram da Elo</button></div></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão 2.0.</p><p class="muted">Inclui perfis locais, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão 2.0.1.</p><p class="muted">Inclui perfis locais, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="privacyPanel" class="panel">
@@ -196,6 +196,6 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:7px 12px calc(7px 
 <div id="exitConfirm" class="exitConfirm hidden" role="dialog" aria-modal="true" aria-labelledby="exitTitle"><div class="exitCard"><div class="exitIcon">👋</div><h3 id="exitTitle">Deseja sair do app?</h3><p>Você está na página principal.</p><div class="exitActions"><button class="exitNo" onclick="cancelAppExit()">Não, continuar</button><button class="exitYes" onclick="confirmAppExit()">Sim, sair</button></div></div></div>
 <nav><div class="navin"><button class="navbtn active" data-nav="home" onclick="openPanel('homePanel','home')"><strong>🏠</strong>Início</button><button class="navbtn" data-nav="watch" onclick="openPanel('watchPanel','watch')"><strong>▶️</strong>Assistir</button><button class="navbtn" data-nav="play" onclick="openPanel('playPanel','play')"><strong>🎮</strong>Jogar</button><button class="navbtn" data-nav="learn" onclick="openPanel('learnPanel','learn')"><strong>📚</strong>Aprender</button><button class="navbtn" data-nav="create" onclick="openPanel('createPanel','create')"><strong>🎨</strong>Criar</button></div></nav>
 <div id="toast" class="toast">Muito bem! ⭐</div>
-<script src="app.js?v=2.0"></script>
+<script src="app.js?v=2.0.1"></script>
 </body>
 </html>
