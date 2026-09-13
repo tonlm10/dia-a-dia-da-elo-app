@@ -26,7 +26,7 @@
 <div id="rpgApp">
   <header class="rpgTop">
     <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
-    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>Capítulo 1 • A primeira estrela • v1.6.3</span></div>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>Capítulo 1 • A primeira estrela • v1.6.4</span></div>
     <button id="musicBtn" class="topBtn" aria-label="Música">🔊</button><button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
   </header>
 
@@ -227,7 +227,7 @@ function buildWorld(){
  addObj('home','chair',15.45*TILE,7.55*TILE,.56*TILE,.64*TILE);
  // Saída ampla e fácil de alcançar.
  addObj('home','exitMat',7.0*TILE,9.7*TILE,3.2*TILE,.78*TILE,{label:'Saída da casa'});
- addObj('home','houseDoor',7.0*TILE,10.05*TILE,3.2*TILE,1.35*TILE,{label:'Porta principal',to:'city',spawn:{x:6*TILE,y:17.5*TILE}});
+ addObj('home','houseDoor',7.0*TILE,10.05*TILE,3.2*TILE,1.35*TILE,{label:'Porta principal',to:'city',spawn:{x:6*TILE,y:22.15*TILE}});
 
  const c=maps.city;
  // Vila refeita do zero com ruas largas e prédios sem sobreposição.
@@ -313,7 +313,28 @@ function updateHud(){
  $('#hudLevel').textContent=state.level;$('#hpText').textContent=`${Math.max(0,state.hp)}/${state.maxHp}`;$('#hpBar').style.width=`${Math.max(0,state.hp/state.maxHp*100)}%`;$('#xpText').textContent=`${state.xp}/${state.nextXp}`;$('#xpBar').style.width=`${state.xp/state.nextXp*100}%`;$('#coinText').textContent=state.coins;$('#objectiveText').textContent=currentObjective();
 }
 
-function changeMap(map,x,y){state.map=map;state.x=x;state.y=y;discover(map);$('#locationTag').textContent=maps[map].name;$('#locationTag').style.opacity='1';setTimeout(()=>$('#locationTag').style.opacity='.25',1800);medal('first-step');saveGame(true);updateHud()}
+function findSafeSpawn(x,y){
+ if(!blocked(x,y))return{x,y};
+ const step=TILE*.45;
+ for(let ring=1;ring<=12;ring++){
+   const r=ring*step;
+   for(let i=0;i<24;i++){
+     const a=(Math.PI*2*i)/24;
+     const nx=x+Math.cos(a)*r,ny=y+Math.sin(a)*r;
+     if(!blocked(nx,ny))return{x:nx,y:ny};
+   }
+ }
+ if(state.map==='city')return{x:10*TILE,y:12*TILE};
+ if(state.map==='home')return{x:8.1*TILE,y:8.7*TILE};
+ if(state.map==='neighbor')return{x:6*TILE,y:6.4*TILE};
+ return{x:Math.max(TILE,x),y:Math.max(TILE,y)};
+}
+function changeMap(map,x,y){
+ state.map=map;
+ const safe=findSafeSpawn(x,y);
+ state.x=safe.x;state.y=safe.y;
+ discover(map);$('#locationTag').textContent=maps[map].name;$('#locationTag').style.opacity='1';setTimeout(()=>$('#locationTag').style.opacity='.25',1800);medal('first-step');saveGame(true);updateHud()
+}
 
 function playerRect(nx=state.x,ny=state.y){return{x:nx+13,y:ny+16,w:22,h:28}}
 function solidObject(o){return['tree','building','fountain','pond','rock','crystal','bed','tv','sofa','fridge','stove','closet','roomWall','stall'].includes(o.type)}

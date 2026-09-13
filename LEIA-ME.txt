@@ -1,18 +1,15 @@
-ATUALIZAÇÃO v1.6.3 — CORREÇÃO DO RPG
+ATUALIZAÇÃO v1.6.4 — CORREÇÃO DE MOVIMENTO NA VILA
 
-Substitua estes arquivos na raiz do repositório:
+Substitua na raiz do projeto:
 - index.html
 - app.js
+- rpg.html
 - sw.js
 - manifest.webmanifest
-- rpg.html
 
-Principais correções:
-- casa reorganizada com circulação mais larga e menos colisões
-- vila refeita para remover sobreposições e bugs visuais
-- prédios e praça reorganizados
-- caixa de colisão da Elo reduzida para facilitar andar
-- transição da porta principal reforçada
-- música ambiente estilo RPG clássico, gerada no próprio navegador
-- botão 🔊/🔇 dentro do RPG
-- cache forçado para v1.6.3
+Correções principais:
+- corrigido o ponto de saída da Casa da Elo: a personagem estava nascendo DENTRO da área sólida da casa;
+- a Elo agora aparece do lado de fora da porta, em área livre;
+- adicionada busca automática por posição livre ao mudar de mapa, evitando ficar presa dentro de casas, árvores ou outros objetos;
+- saves antigos que deixarem a Elo presa continuam sendo reposicionados para uma área segura;
+- cache e iframe atualizados para v1.6.4.
