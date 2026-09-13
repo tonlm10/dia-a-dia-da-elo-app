@@ -1,30 +1,18 @@
-ATUALIZAÇÃO v1.7.3 — POLIMENTO DE JOGABILIDADE DO RPG
+DIA A DIA DA ELO — v1.7.4
+HOTFIX DAS PORTAS / ENTRADAS
 
-Substitua na raiz do projeto:
+Substitua na raiz do GitHub:
 - index.html
 - app.js
 - rpg.html
 - sw.js
 - manifest.webmanifest
 
-Principais melhorias:
-- Chefões continuam difíceis e não foram enfraquecidos; agora exibem nível recomendado.
-- MP máximo cresce com o nível e a quantidade de usos do Poder nunca diminui ao evoluir.
-  Nível 1: 12 MP / 4 usos do Poder.
-  Nível 4: 35 MP / 7 usos.
-  Nível 7: 70 MP / 10 usos.
-  Nível 10: 117 MP / 13 usos.
-- Barra de MP visível no HUD durante exploração.
-- Bolsa em batalha: o jogador escolhe exatamente qual item usar.
-- Cristais, Runas e Chamas podem ser conseguidos por exploração, baús ou batalhas.
-- Terceira Runa e terceira Chama adicionadas aos mapas para não obrigar batalha.
-- Pousada, Loja de Itens e Loja de Roupas agora têm interiores visitáveis e padronizados.
-- Novos atendentes dentro dos estabelecimentos.
-- NPCs ganharam sprites pixelados diferentes por personagem.
-- Sofia não conta duas vezes na medalha de conversas.
-- Música muda entre casa/vila, floresta, caverna, templo, batalha e chefões.
-- Efeitos sonoros para portas, itens, baús, ataques, magia, dano, vitória, derrota e subida de nível.
-- Cache atualizado para v1.7.3.
-
-IMPORTANTE:
-A atualização preserva o mesmo SAVE_KEY do RPG para manter o progresso salvo.
+Correções:
+- casas visitáveis entram automaticamente ao encostar na porta;
+- botão A também entra, com prioridade para portas;
+- pousada, loja e boutique entram corretamente;
+- área de detecção da porta ampliada para não exigir posição exata;
+- bloqueio de transição evita sair e entrar novamente instantaneamente;
+- indicador próximo da porta mostra "A • Entrar";
+- distância de interação passou a usar os pés da Elo, compatível com o sprite atual.

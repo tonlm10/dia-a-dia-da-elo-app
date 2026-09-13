@@ -26,7 +26,7 @@
 <div id="rpgApp">
   <header class="rpgTop">
     <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
-    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v1.7.3</span></div>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v1.7.4</span></div>
     <button id="musicBtn" class="topBtn" aria-label="Música">🔊</button><button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
   </header>
 
@@ -453,6 +453,7 @@ function updateHud(){
  $('#hudLevel').textContent=state.level;$('#hpText').textContent=`${Math.max(0,state.hp)}/${state.maxHp}`;$('#hpBar').style.width=`${Math.max(0,state.hp/state.maxHp*100)}%`;$('#mpText').textContent=`${state.mp}/${state.maxMp}`;$('#mpBar').style.width=`${Math.max(0,state.mp/state.maxMp*100)}%`;$('#xpText').textContent=`${state.xp}/${state.nextXp}`;$('#xpBar').style.width=`${Math.max(0,state.xp/state.nextXp*100)}%`;$('#coinText').textContent=state.coins;$('#objectiveText').textContent=currentObjective();
 }
 
+let transitionLockUntil=0;
 function findSafeSpawn(x,y){
  if(!blocked(x,y))return{x,y};
  const step=TILE*.45;
@@ -471,38 +472,73 @@ function findSafeSpawn(x,y){
  return{x:Math.max(TILE,x),y:Math.max(TILE,y)};
 }
 function changeMap(map,x,y){
- state.map=map;sfx('door');musicStep=0;if(map==='home'){x=8.15*TILE;y=8.20*TILE}
+ state.map=map;sfx('door');musicStep=0;transitionLockUntil=Date.now()+650;if(map==='home'){x=8.15*TILE;y=8.20*TILE}
  const safe=findSafeSpawn(x,y);state.x=safe.x;state.y=safe.y;discover(map);$('#locationTag').textContent=maps[map].name;$('#locationTag').style.opacity='1';setTimeout(()=>$('#locationTag').style.opacity='.25',1800);medal('first-step');saveGame(true);updateHud()
 }
 function playerRect(nx=state.x,ny=state.y){return{x:nx+15,y:ny+58,w:18,h:20}}
 function solidObject(o){return['tree','building','fountain','pond','rock','crystal','bed','tv','sofa','table','chair','console','coffeeTable','sideTable','fridge','stove','closet','roomWall','stall','magicShelf','cauldron','manaCrystal','potionTable'].includes(o.type)}
 function blocked(nx,ny){const map=maps[state.map],p=playerRect(nx,ny);if(nx<24||ny<10||nx>map.w*TILE-62||ny>map.h*TILE-88)return true;for(const w of map.walls){if(hit(p,w))return true}for(const o of map.objects){if(solidObject(o)&&hit(p,o))return true}const pn={x:nx+12,y:ny+22,w:24,h:50};for(const n of map.npcs){const body={x:n.x+5,y:n.y+4,w:26,h:42};if(hit(pn,body,1))return true}return false}
 function hit(a,b,p=0){return a.x+p<b.x+b.w&&a.x+a.w-p>b.x&&a.y+p<b.y+b.h&&a.y+a.h-p>b.y}
-function distTo(o){const px=state.x+24,py=state.y+28,ox=o.x+o.w/2,oy=o.y+o.h/2;return Math.hypot(px-ox,py-oy)}
+function distTo(o){const px=state.x+24,py=state.y+66,ox=o.x+(o.w||34)/2,oy=o.y+(o.h||44)/2;return Math.hypot(px-ox,py-oy)}
+function isDoor(o){return !!o&&typeof o.type==='string'&&o.type.endsWith('Door')}
+function doorZone(o){return{x:o.x-18,y:o.y-30,w:o.w+36,h:o.h+66}}
+function useDoor(o){
+ if(!o)return false;
+ if(o.locked||o.type==='lockedDoor'){dialog('Elo','Essa casa está trancada. Talvez ela abra em um próximo capítulo. 🔒');return true}
+ if(o.to){changeMap(o.to,o.spawn.x,o.spawn.y);return true}
+ if(o.shop==='inn'){enterService('inn');return true}
+ if(o.shop==='items'){enterService('items');return true}
+ if(o.shop==='clothes'){enterService('clothes');return true}
+ if(o.npcDoor){const n=Object.values(maps).flatMap(m=>m.npcs).find(x=>x.id===o.npcDoor);if(n){talkNpc(n);return true}}
+ return false
+}
 
 function update(dt){if(!state.started||battle||!$('#dialogOverlay').classList.contains('hidden')||!$('#menuOverlay').classList.contains('hidden')||!$('#shopOverlay').classList.contains('hidden')||!$('#tvOverlay').classList.contains('hidden')){playerMoving=false;return;}
  const st=stats(),speed=(125+st.spd*5)*dt;let dx=0,dy=0;if(input.up){dy-=speed;state.dir='up'}if(input.down){dy+=speed;state.dir='down'}if(input.left){dx-=speed;state.dir='left'}if(input.right){dx+=speed;state.dir='right'}if(dx&&dy){dx*=.707;dy*=.707}
  let moved=false;if(dx&&!blocked(state.x+dx,state.y)){state.x+=dx;moved=true}if(dy&&!blocked(state.x,state.y+dy)){state.y+=dy;moved=true}playerMoving=moved;if(playerMoving){walkPhase+=dt*9;walkFrame=Math.floor(walkPhase)%4}else{walkFrame=0;walkPhase=0}
  handleTransitions();updateEnemies(dt);if(Date.now()-state.lastSave>10000)saveGame(true);
 }
-function handleTransitions(){const map=maps[state.map],p=playerRect();
- if(state.map==='home'){const mainDoor=map.objects.find(o=>o.type==='houseDoor'&&o.to==='city');if(mainDoor&&hit(p,{x:mainDoor.x-18,y:mainDoor.y-18,w:mainDoor.w+36,h:58},-2)){changeMap('city',6*TILE,22.15*TILE);return}}
+function handleTransitions(){
+ if(Date.now()<transitionLockUntil)return;
+ const map=maps[state.map],p=playerRect();
+ if(state.map==='home'){
+   const mainDoor=map.objects.find(o=>o.type==='houseDoor'&&o.to==='city');
+   if(mainDoor&&hit(p,doorZone(mainDoor),-2)){useDoor(mainDoor);return}
+ }
  for(const o of map.objects){
    if(o.type==='caveEntrance')continue;
-   if(o.type==='serviceExit'&&hit(p,{x:o.x-8,y:o.y-10,w:o.w+16,h:o.h+20},-4)){returnFromService();return}
-   if(o.type.endsWith('Door')&&o.to){const zone={x:o.x-12,y:o.y+o.h*.15,w:o.w+24,h:52};if(hit(p,zone,-2)){changeMap(o.to,o.spawn.x,o.spawn.y);return}}
-   if(o.type==='transition'&&hit(p,o,-8)){if(o.requiresQuest!=null&&state.quest<o.requiresQuest){const now=Date.now();if(now-(state.flags.lastGateToast||0)>1400){toast(o.lockedText||'Esse caminho ainda não está liberado.');state.flags.lastGateToast=now}continue}if(o.to){changeMap(o.to,o.spawn.x,o.spawn.y);return}}
+   if(o.type==='serviceExit'&&hit(p,{x:o.x-12,y:o.y-18,w:o.w+24,h:o.h+36},-3)){returnFromService();return}
+   if(isDoor(o)&&!o.locked&&(o.to||o.shop==='inn'||o.shop==='items'||o.shop==='clothes')&&hit(p,doorZone(o),-2)){
+     if(useDoor(o))return;
+   }
+   if(o.type==='transition'&&hit(p,o,-8)){
+     if(o.requiresQuest!=null&&state.quest<o.requiresQuest){const now=Date.now();if(now-(state.flags.lastGateToast||0)>1400){toast(o.lockedText||'Esse caminho ainda não está liberado.');state.flags.lastGateToast=now}continue}
+     if(o.to){changeMap(o.to,o.spawn.x,o.spawn.y);return}
+   }
  }
- if(state.map==='meadow'){const cave=map.objects.find(o=>o.type==='caveEntrance');if(cave&&distTo(cave)<62&&state.quest>=3){changeMap('cave',4*TILE,17*TILE)}}
+ if(state.map==='meadow'){const cave=map.objects.find(o=>o.type==='caveEntrance');if(cave&&distTo(cave)<76&&state.quest>=3){changeMap('cave',4*TILE,17*TILE)}}
 }
 function enemyGone(e){if(e.id==='forestBoss'&&state.quest<7)return true;if(e.id==='bridgeBoss'&&state.quest<10)return true;if(e.id==='finalBoss'&&state.quest<13)return true;const when=state.removedEnemies[e.id];if(!when)return false;if(ENEMIES[e.type]?.boss)return true;if(Date.now()-when>60000){delete state.removedEnemies[e.id];return false}return true}
 function updateEnemies(dt){const map=maps[state.map];for(const e of map.enemies){if(enemyGone(e))continue;e.t+=dt;const player=playerRect();const d=Math.hypot((state.x+24)-(e.x+19),(state.y+28)-(e.y+19));if(d<230&&!ENEMIES[e.type].boss){const vx=((state.x-e.x)/Math.max(1,d))*22*dt,vy=((state.y-e.y)/Math.max(1,d))*22*dt;e.x+=vx;e.y+=vy}else{e.x=e.homeX+Math.sin(e.t*.8)*16;e.y=e.homeY+Math.cos(e.t*.55)*12}if(d<44){startBattle(e);return}}
 }
 
-function action(){if(!state.started||battle)return;const map=maps[state.map];let candidates=[];for(const o of map.objects){if((o.type==='questPickup'||o.type==='treasureChest')&&state.flags['collected_'+o.id])continue;if(distTo(o)<88)candidates.push({kind:'object',o,d:distTo(o)})}for(const n of map.npcs){const d=Math.hypot(state.x+24-(n.x+17),state.y+28-(n.y+22));if(d<90)candidates.push({kind:'npc',o:n,d})}candidates.sort((a,b)=>a.d-b.d);if(!candidates.length){toast('Não há nada para interagir aqui.');return}const c=candidates[0];if(c.kind==='npc')talkNpc(c.o);else interactObject(c.o)}
+function action(){
+ if(!state.started||battle)return;
+ const map=maps[state.map];let candidates=[];
+ for(const o of map.objects){
+   if((o.type==='questPickup'||o.type==='treasureChest')&&state.flags['collected_'+o.id])continue;
+   const d=distTo(o),door=isDoor(o);
+   if((door&&d<135)||(!door&&o.type!=='building'&&d<92))candidates.push({kind:'object',o,d,priority:door?0:2});
+ }
+ for(const n of map.npcs){const d=distTo(n);if(d<96)candidates.push({kind:'npc',o:n,d,priority:1})}
+ candidates.sort((a,b)=>a.priority-b.priority||a.d-b.d);
+ if(!candidates.length){toast('Não há nada para interagir aqui.');return}
+ const c=candidates[0];if(c.kind==='npc')talkNpc(c.o);else if(isDoor(c.o)){if(!useDoor(c.o)&&c.o.label)toast(c.o.label)}else interactObject(c.o)
+}
 function enterService(type){const target=type==='inn'?'innInterior':type==='items'?'itemShopInterior':'clothesShopInterior';state.returnPortal={map:state.map,x:state.x,y:state.y};changeMap(target,6.3*TILE,7.25*TILE)}
 function returnFromService(){const r=state.returnPortal||{map:'city',x:10*TILE,y:12*TILE};state.returnPortal=null;changeMap(r.map,r.x,r.y+18)}
 function interactObject(o){
+ if(isDoor(o)){if(useDoor(o))return}
  if(o.to){if(o.requiresQuest!=null&&state.quest<o.requiresQuest){toast(o.lockedText||'Esse caminho ainda não está liberado.');return}changeMap(o.to,o.spawn.x,o.spawn.y);return}
  if(o.type==='tv'){medal('tv-fan');state.flags.tv=true;checkHomeExplorer();$('#tvOverlay').classList.remove('hidden');return}
  if(o.type==='fridge'||o.type==='stove'){heal(10);state.mp=Math.min(state.maxMp,state.mp+4);updateHud();medal('good-meal');state.flags.kitchen=true;checkHomeExplorer();dialog('Elo','Hummm! A refeição recuperou energia e +4 MP. 🍎✨');return}
@@ -636,7 +672,11 @@ function drawPlayer(cam){
   ctx.fillStyle='#f4b5d0';ctx.fillRect(12,86+step*.5,12,5);ctx.fillRect(28,86-step*.5,12,5);ctx.fillStyle=purple;ctx.fillRect(39,45,9,17);ctx.fillStyle='#ffd65b';ctx.fillRect(42,51,3,3);
  }
  ctx.restore()}
-function drawMiniLabel(cam){const nearest=[...maps[state.map].objects.filter(o=>o.label&&!((o.type==='questPickup'||o.type==='treasureChest')&&state.flags['collected_'+o.id])),...maps[state.map].npcs].map(o=>({o,d:distTo(o)})).sort((a,b)=>a.d-b.d)[0];if(nearest&&nearest.d<110){const text=nearest.o.name||nearest.o.label;ctx.save();ctx.fillStyle='rgba(48,37,70,.82)';roundRect(ctx,canvas.width/2-110,canvas.height-42,220,28,14);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 12px system-ui';ctx.textAlign='center';ctx.fillText(`A • ${text}`,canvas.width/2,canvas.height-23);ctx.restore()}}
+function drawMiniLabel(cam){
+ const list=[...maps[state.map].objects.filter(o=>o.label&&!((o.type==='questPickup'||o.type==='treasureChest')&&state.flags['collected_'+o.id])),...maps[state.map].npcs]
+   .map(o=>({o,d:distTo(o),priority:isDoor(o)?0:(o.name?1:2)})).filter(v=>v.d<(isDoor(v.o)?140:110)).sort((a,b)=>a.priority-b.priority||a.d-b.d);
+ const nearest=list[0];if(nearest){let text=nearest.o.name||nearest.o.label;if(isDoor(nearest.o)&&!nearest.o.locked)text='Entrar';ctx.save();ctx.fillStyle='rgba(48,37,70,.82)';roundRect(ctx,canvas.width/2-110,canvas.height-42,220,28,14);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 12px system-ui';ctx.textAlign='center';ctx.fillText(`A • ${text}`,canvas.width/2,canvas.height-23);ctx.restore()}
+}
 function roundRect(g,x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r)}
 
 function drawBattle(){if(!battle)return;const w=battleCanvas.width,h=battleCanvas.height;bctx.clearRect(0,0,w,h);const grad=bctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#b9e6ff');grad.addColorStop(1,'#ffe6f2');bctx.fillStyle=grad;bctx.fillRect(0,0,w,h);bctx.fillStyle='#8bd67e';bctx.fillRect(0,h-58,w,58);drawBattleElo(105,110);drawBattleEnemy(485,110,battle.type)}
