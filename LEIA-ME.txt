@@ -1,15 +1,30 @@
-ATUALIZAÇÃO v1.6.4 — CORREÇÃO DE MOVIMENTO NA VILA
+DIA A DIA DA ELO — ATUALIZAÇÃO v1.7
 
-Substitua na raiz do projeto:
+Substitua estes arquivos na RAIZ do seu repositório:
 - index.html
 - app.js
 - rpg.html
 - sw.js
 - manifest.webmanifest
 
-Correções principais:
-- corrigido o ponto de saída da Casa da Elo: a personagem estava nascendo DENTRO da área sólida da casa;
-- a Elo agora aparece do lado de fora da porta, em área livre;
-- adicionada busca automática por posição livre ao mudar de mapa, evitando ficar presa dentro de casas, árvores ou outros objetos;
-- saves antigos que deixarem a Elo presa continuam sendo reposicionados para uma área segura;
-- cache e iframe atualizados para v1.6.4.
+Não precisa mexer na pasta assets nesta atualização.
+
+PRINCIPAIS MUDANÇAS DO RPG
+- Floresta, caverna e novos mapas têm SAÍDAS visíveis.
+- NPCs deixaram de ser emojis no mapa e agora são personagens pixelados.
+- Casas comuns ficaram padronizadas e sem nome escrito na fachada.
+- Loja, pousada e loja de roupas usam símbolos visuais padronizados em todas as vilas.
+- Entrada da Casa da Elo corrigida: ao entrar, Elo nasce dentro da casa, perto da porta.
+- Continuação da história após a primeira estrela.
+- Novo Bosque Sussurrante.
+- Nova Vila do Mercado.
+- Nova Ponte Antiga.
+- Novo Templo das Estrelas.
+- Novas missões: Runas da Folha, Golem da Ponte e Chamas Estelares.
+- Novos chefes: Cervo das Sombras, Golem de Pedra e Sombra da Noite.
+- Final da Jornada das Estrelas e novas medalhas.
+- Saves antigos da v1.6 são migrados para continuar a partir do Capítulo 2 quando aplicável.
+- Cache e carregamento do RPG atualizados para v1.7.
+
+IMPORTANTE
+Depois do commit, aguarde o GitHub Pages terminar o deploy. O app deve mostrar “v1.7” no rodapé e o RPG deve mostrar “A Jornada das Estrelas • v1.7”.
