@@ -1,15 +1,12 @@
-DIA A DIA DA ELO — RPG v1.6.1 FINAL
+CORREÇÃO DE ATUALIZAÇÃO v1.6.2
 
-Substitua apenas o arquivo rpg.html na raiz do repositório.
+Substitua na raiz do GitHub:
+- index.html
+- app.js
+- sw.js
+- manifest.webmanifest
+- rpg.html
 
-Nesta revisão:
-- casa com sala, quarto, entrada/corredor e cozinha mais completos;
-- sofá, mesinha, quadros, plantas, aparador, mesa maior e cadeiras;
-- porta principal mais visível e área de saída ampliada;
-- Vila das Estrelas mais rica visualmente;
-- praça central, bancos, postes, canteiros, barracas e placas;
-- novas casas trancadas para capítulos futuros;
-- casas externas com telhados, janelas e detalhes melhores;
-- personagem da Elo agora anima braços e pernas enquanto anda;
-- animações diferentes conforme a direção: cima, baixo, esquerda e direita;
-- parada sem balanço exagerado.
+Motivo: o app.js anterior ainda abria o RPG usando rpg.html?v=1.4 e o app instalado podia manter o iframe antigo em memória. Esta versão força rpg.html?v=1.6.2 e limpa o iframe ao sair do RPG.
+
+Depois do commit, aguarde o GitHub Pages concluir o deploy e abra o app novamente.
