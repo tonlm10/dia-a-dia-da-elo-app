@@ -16,9 +16,9 @@
 .overlay{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:rgba(31,20,48,.48);padding:14px}.dialogCard{width:min(760px,96vw);background:#fff;border-radius:22px;padding:16px;box-shadow:var(--shadow);display:grid;grid-template-columns:74px 1fr;gap:12px;align-items:start}.portrait{width:74px;height:74px;border-radius:20px;background:linear-gradient(145deg,#ffe3f0,#ebe6ff);display:grid;place-items:center;font-size:38px}.dialogText b{font-size:18px}.dialogText p{margin:7px 0 12px;line-height:1.45;font-size:14px}.choices{display:flex;gap:8px;flex-wrap:wrap}.choices button,.softBtn,.mainBtn{border:0;border-radius:14px;padding:10px 13px;font-weight:900}.choices button,.softBtn{background:#efebff;color:var(--purple)}.mainBtn{background:linear-gradient(145deg,#ff79af,#ff5899);color:#fff;box-shadow:0 8px 18px rgba(255,88,153,.22)}
 .panelOverlay{place-items:end center}.panelCard{width:min(780px,100%);max-height:88vh;overflow:auto;background:#fffafd;border-radius:28px 28px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -12px 40px rgba(39,22,65,.22)}.panelHead,.battleHead{display:flex;justify-content:space-between;align-items:center;gap:10px}.panelHead h2,.battleHead h2{margin:0}.miniClose{border:0;width:38px;height:38px;border-radius:50%;background:#eee9ff;color:var(--purple);font-size:22px;font-weight:900}.statsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}.statsGrid div{background:#f7f4ff;border-radius:14px;padding:9px;text-align:center}.statsGrid b{display:block;font-size:9px;color:var(--muted)}.statsGrid span{font-weight:900;color:var(--purple)}.tabs{display:flex;gap:6px;overflow:auto;padding:2px 0 10px}.tab{border:0;border-radius:999px;padding:8px 11px;background:#f0ecff;color:var(--purple);font-weight:800;white-space:nowrap}.tab.on{background:var(--pink);color:white}.menuContent{min-height:180px}.listCard{display:flex;align-items:center;justify-content:space-between;gap:10px;background:white;border:1px solid #eee5f5;border-radius:16px;padding:11px;margin-bottom:8px}.listCard .ico{font-size:28px}.listCard .grow{flex:1}.listCard b{display:block}.listCard small{color:var(--muted)}.panelFooter{display:flex;gap:8px;justify-content:center;margin-top:12px}.danger{color:#c74468!important;background:#ffe9f0!important}.medalGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.medal{border-radius:16px;padding:10px;background:#f5f3f8;filter:grayscale(1);opacity:.55;text-align:center}.medal.on{background:linear-gradient(145deg,#fff3c6,#ffe9f5);filter:none;opacity:1}.medal span{display:block;font-size:30px}.medal b{font-size:11px;display:block}.medal small{font-size:9px;color:var(--muted)}
 .shopItems{display:grid;grid-template-columns:1fr 1fr;gap:10px}.shopItem{border:1px solid #eee5f5;border-radius:18px;padding:13px;background:#fff}.shopItem .shopIcon{font-size:34px}.shopItem h3{font-size:15px;margin:6px 0 3px}.shopItem p{font-size:11px;color:var(--muted);min-height:32px}.shopItem button{width:100%;border:0;border-radius:12px;padding:9px;background:#f0ebff;color:var(--purple);font-weight:900}.shopItem button:disabled{opacity:.45}.muted,.parentNote{color:var(--muted);font-size:12px}.tvScreen{border-radius:18px;background:linear-gradient(145deg,#211c35,#594383);color:white;padding:18px;text-align:center;box-shadow:inset 0 0 0 4px #2d2542;margin:10px 0 14px}.tvLogo{font-size:22px;font-weight:900}.episodeRow{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:14px 0}.episodeRow span{background:rgba(255,255,255,.14);padding:7px 9px;border-radius:11px;font-size:11px}
-.battleOverlay{place-items:center}.battleCard{width:min(700px,96vw);background:#fffafd;border-radius:26px;padding:16px;box-shadow:var(--shadow)}.pill{display:inline-block;background:#eee7ff;color:var(--purple);padding:5px 9px;border-radius:99px;font-size:9px;font-weight:900}.battleCard canvas{display:block;width:100%;height:auto;border-radius:18px;background:linear-gradient(#c9e9ff,#fbe8ff);margin:10px 0}.eloBattleStatus{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 10px}.eloBattleBox{background:#f8f5ff;border-radius:14px;padding:9px 10px;border:1px solid #eee8f7}.eloBattleBox strong{display:block;font-size:11px;color:#5f4a86;margin-bottom:4px}.eloBattleBox small{display:block;font-size:11px;color:#594d68;margin-top:3px;font-weight:800}.enemyBar{font-size:11px;color:var(--muted)}.battleText{min-height:38px;background:#f7f4ff;border-radius:14px;padding:10px;font-weight:700}.battleActions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.battleActions button{border:0;border-radius:14px;padding:12px;background:#f0ebff;color:var(--purple);font-weight:900}
+.battleOverlay{place-items:center}.battleCard{width:min(700px,96vw);max-height:94vh;overflow-y:auto;background:#fffafd;border-radius:26px;padding:16px;box-shadow:var(--shadow)}.pill{display:inline-block;background:#eee7ff;color:var(--purple);padding:5px 9px;border-radius:99px;font-size:9px;font-weight:900}.battleCard canvas{display:block;width:100%;height:auto;border-radius:18px;background:linear-gradient(#c9e9ff,#fbe8ff);margin:10px 0}.eloBattleStatus{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 10px;position:relative;z-index:2}.eloBattleStatus::before{content:'STATUS DA ELO';grid-column:1/-1;font-size:10px;font-weight:1000;color:#7054bd;letter-spacing:.4px;margin-bottom:-2px}.eloBattleBox{background:#f8f5ff;border-radius:14px;padding:9px 10px;border:1px solid #eee8f7}.eloBattleBox strong{display:block;font-size:11px;color:#5f4a86;margin-bottom:4px}.eloBattleBox small{display:block;font-size:11px;color:#594d68;margin-top:3px;font-weight:800}.enemyBar{font-size:11px;color:var(--muted)}.battleText{min-height:38px;background:#f7f4ff;border-radius:14px;padding:10px;font-weight:700}.battleActions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.battleActions button{border:0;border-radius:14px;padding:12px;background:#f0ebff;color:var(--purple);font-weight:900}
 .storyOverlay{background:radial-gradient(circle at 50% 20%,rgba(255,255,255,.45),rgba(42,28,69,.78)),linear-gradient(145deg,#7b60d8,#ff78b1)}.storyCard{width:min(620px,94vw);background:rgba(255,250,253,.96);border-radius:30px;padding:26px;text-align:center;box-shadow:var(--shadow)}.storyStars{font-size:34px}.storyCard h1{font-size:28px;margin:8px 0;color:#6c4fbd}.storyCard p{line-height:1.5;color:#5d536a}.storyCard .mainBtn,.storyCard .softBtn{width:100%;margin-top:8px}
-@media(max-width:560px){.rpgTop{height:64px}.gameTitle strong{font-size:15px}.hud{grid-template-columns:48px 1fr 1fr 1fr 58px}.hudBox{padding:6px 5px}.mobileControls{height:128px}.statsGrid{grid-template-columns:repeat(2,1fr)}.shopItems{grid-template-columns:1fr 1fr}.medalGrid{grid-template-columns:repeat(3,1fr)}.dialogCard{grid-template-columns:58px 1fr;padding:13px}.portrait{width:58px;height:58px;font-size:30px}.objective p{max-width:72vw}.panelCard{max-height:92vh}}
+@media(max-width:560px){.rpgTop{height:64px}.gameTitle strong{font-size:15px}.hud{grid-template-columns:48px 1fr 1fr 1fr 58px}.hudBox{padding:6px 5px}.mobileControls{height:128px}.statsGrid{grid-template-columns:repeat(2,1fr)}.shopItems{grid-template-columns:1fr 1fr}.medalGrid{grid-template-columns:repeat(3,1fr)}.dialogCard{grid-template-columns:58px 1fr;padding:13px}.portrait{width:58px;height:58px;font-size:30px}.objective p{max-width:72vw}.panelCard{max-height:92vh}.battleCard{padding:13px;max-height:95vh}.battleCard canvas{margin:7px 0;height:auto}.eloBattleStatus{gap:6px}.eloBattleBox{padding:8px}.eloBattleBox strong{font-size:10px}.eloBattleBox small{font-size:10px}}
 
 </style>
 </head>
@@ -26,7 +26,7 @@
 <div id="rpgApp">
   <header class="rpgTop">
     <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
-    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v1.7.5</span></div>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v1.7.6</span></div>
     <button id="musicBtn" class="topBtn" aria-label="Música">🔊</button><button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
   </header>
 
@@ -69,11 +69,11 @@
   <div id="battleOverlay" class="overlay hidden battleOverlay">
     <div class="battleCard">
       <div class="battleHead"><div><span class="pill">BATALHA MÁGICA</span><h2 id="enemyName">Criatura</h2></div><button id="battleEscape" class="miniClose">×</button></div>
-      <canvas id="battleArt" width="620" height="240"></canvas>
       <div class="eloBattleStatus">
         <div class="eloBattleBox"><strong>💗 Energia da Elo</strong><div class="bar"><i id="battleHpBar"></i></div><small id="battleHpText">30/30</small></div>
         <div class="eloBattleBox"><strong id="battleMpLabel">💙 Magia da Elo</strong><div class="bar mp"><i id="battleMpBar"></i></div><small id="battleMpText">12/12 MP</small></div>
       </div>
+      <canvas id="battleArt" width="620" height="210"></canvas>
       <div class="enemyBar"><span>👾 Energia do inimigo</span><div class="bar"><i id="enemyHpBar"></i></div><small id="enemyHpText"></small></div>
       <p id="battleText" class="battleText">Escolha uma ação.</p>
       <div class="battleActions">
@@ -484,6 +484,8 @@ function blocked(nx,ny){const map=maps[state.map],p=playerRect(nx,ny);if(nx<24||
 function hit(a,b,p=0){return a.x+p<b.x+b.w&&a.x+a.w-p>b.x&&a.y+p<b.y+b.h&&a.y+a.h-p>b.y}
 function distTo(o){const px=state.x+24,py=state.y+66,ox=o.x+(o.w||34)/2,oy=o.y+(o.h||44)/2;return Math.hypot(px-ox,py-oy)}
 function isDoor(o){return !!o&&typeof o.type==='string'&&o.type.endsWith('Door')}
+const INTERIOR_MAPS=new Set(['home','neighbor','wizardHouse','innInterior','itemShopInterior','clothesShopInterior']);
+function isInteriorMap(){return INTERIOR_MAPS.has(state.map)}
 function doorZone(o){return{x:o.x-18,y:o.y-30,w:o.w+36,h:o.h+66}}
 function useDoor(o){
  if(!o)return false;
@@ -513,15 +515,13 @@ function touchingPortalNow(){
 }
 function handleTransitions(){
  if(Date.now()<transitionLockUntil)return;
+ // Dentro de casas/lojas/pousada, sair exige apertar A.
+ // Assim a Elo nunca é expulsa do interior só por ficar parada perto da porta.
+ if(isInteriorMap())return;
  if(portalExitRequired){if(touchingPortalNow())return;portalExitRequired=false}
  const map=maps[state.map],p=playerRect();
- if(state.map==='home'){
-   const mainDoor=map.objects.find(o=>o.type==='houseDoor'&&o.to==='city');
-   if(mainDoor&&hit(p,doorZone(mainDoor),-2)){useDoor(mainDoor);return}
- }
  for(const o of map.objects){
    if(o.type==='caveEntrance')continue;
-   if(o.type==='serviceExit'&&hit(p,{x:o.x-12,y:o.y-18,w:o.w+24,h:o.h+36},-3)){returnFromService();return}
    if(isDoor(o)&&!o.locked&&(o.to||o.shop==='inn'||o.shop==='items'||o.shop==='clothes')&&hit(p,doorZone(o),-2)){
      if(useDoor(o))return;
    }
@@ -689,7 +689,7 @@ function drawPlayer(cam){
 function drawMiniLabel(cam){
  const list=[...maps[state.map].objects.filter(o=>o.label&&!((o.type==='questPickup'||o.type==='treasureChest')&&state.flags['collected_'+o.id])),...maps[state.map].npcs]
    .map(o=>({o,d:distTo(o),priority:isDoor(o)?0:(o.name?1:2)})).filter(v=>v.d<(isDoor(v.o)?140:110)).sort((a,b)=>a.priority-b.priority||a.d-b.d);
- const nearest=list[0];if(nearest){let text=nearest.o.name||nearest.o.label;if(isDoor(nearest.o)&&!nearest.o.locked)text='Entrar';ctx.save();ctx.fillStyle='rgba(48,37,70,.82)';roundRect(ctx,canvas.width/2-110,canvas.height-42,220,28,14);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 12px system-ui';ctx.textAlign='center';ctx.fillText(`A • ${text}`,canvas.width/2,canvas.height-23);ctx.restore()}
+ const nearest=list[0];if(nearest){let text=nearest.o.name||nearest.o.label;if(isDoor(nearest.o)&&!nearest.o.locked)text=isInteriorMap()?'Sair':'Entrar';if(nearest.o.type==='serviceExit')text='Sair';ctx.save();ctx.fillStyle='rgba(48,37,70,.82)';roundRect(ctx,canvas.width/2-110,canvas.height-42,220,28,14);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 12px system-ui';ctx.textAlign='center';ctx.fillText(`A • ${text}`,canvas.width/2,canvas.height-23);ctx.restore()}
 }
 function roundRect(g,x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r)}
 

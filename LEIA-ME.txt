@@ -1,14 +1,11 @@
-ATUALIZAÇÃO v1.7.5 — BATALHA E PORTAS
-
-Substitua na raiz do projeto:
-- index.html
-- app.js
-- rpg.html
-- sw.js
-- manifest.webmanifest
+ATUALIZAÇÃO v1.7.6 — PORTAS E HUD DE BATALHA
 
 Correções:
-- batalha mostra Energia e Magia da Elo ao mesmo tempo;
-- entrar em uma casa e ficar parado não expulsa mais a Elo de volta para fora;
-- a saída automática só volta a funcionar depois que a Elo se afasta da porta e retorna;
-- cache atualizado para v1.7.5.
+- dentro de casas, loja, pousada e casa do mago, a saída agora só acontece ao apertar A perto da porta/saída;
+- ficar parado ao entrar não devolve mais a Elo automaticamente para fora;
+- o aviso perto da porta mostra “A • Sair” nos interiores;
+- Energia e Magia da Elo aparecem no topo da janela de batalha, antes da arte da luta;
+- janela de batalha agora permite rolagem em telas menores;
+- cache e links atualizados para v1.7.6.
+
+Substitua: index.html, app.js, rpg.html, sw.js e manifest.webmanifest.
