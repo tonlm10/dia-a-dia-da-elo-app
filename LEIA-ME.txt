@@ -1,30 +1,22 @@
-DIA A DIA DA ELO — ATUALIZAÇÃO v1.7
+ATUALIZAÇÃO v1.7.2 — CASA DO MAGO + MP/PODER
 
-Substitua estes arquivos na RAIZ do seu repositório:
+Substitua na raiz do projeto:
 - index.html
 - app.js
 - rpg.html
 - sw.js
 - manifest.webmanifest
 
-Não precisa mexer na pasta assets nesta atualização.
-
-PRINCIPAIS MUDANÇAS DO RPG
-- Floresta, caverna e novos mapas têm SAÍDAS visíveis.
-- NPCs deixaram de ser emojis no mapa e agora são personagens pixelados.
-- Casas comuns ficaram padronizadas e sem nome escrito na fachada.
-- Loja, pousada e loja de roupas usam símbolos visuais padronizados em todas as vilas.
-- Entrada da Casa da Elo corrigida: ao entrar, Elo nasce dentro da casa, perto da porta.
-- Continuação da história após a primeira estrela.
-- Novo Bosque Sussurrante.
-- Nova Vila do Mercado.
-- Nova Ponte Antiga.
-- Novo Templo das Estrelas.
-- Novas missões: Runas da Folha, Golem da Ponte e Chamas Estelares.
-- Novos chefes: Cervo das Sombras, Golem de Pedra e Sombra da Noite.
-- Final da Jornada das Estrelas e novas medalhas.
-- Saves antigos da v1.6 são migrados para continuar a partir do Capítulo 2 quando aplicável.
-- Cache e carregamento do RPG atualizados para v1.7.
-
-IMPORTANTE
-Depois do commit, aguarde o GitHub Pages terminar o deploy. O app deve mostrar “v1.7” no rodapé e o RPG deve mostrar “A Jornada das Estrelas • v1.7”.
+Principais mudanças:
+- a casa do mago agora é realmente visitável; apertar A na porta entra na casa;
+- interior de um cômodo decorado com caldeirão, cristais, círculo mágico e estantes de poções;
+- Guardião Sol conversa com a Elo dentro da própria casa;
+- 4 novas poções de MP: +5, +12, +25 e recuperação total;
+- poções mágicas são vendidas dentro da casa do mago;
+- o Poder evolui com o nível: aumenta dano e também aumenta o custo de MP;
+- nível 1–3: Poder do Coração • 3 MP;
+- nível 4–6: Estrela Rosa • 5 MP;
+- nível 7–9: Explosão Estelar • 7 MP;
+- nível 10+: Supernova do Coração • 9 MP;
+- MP máximo continua aumentando +2 a cada nível;
+- saves anteriores são preservados.
