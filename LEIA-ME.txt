@@ -1,22 +1,18 @@
-ATUALIZAÇÃO v1.5 FINAL — SUBSTITUA / ADICIONE ESTES ARQUIVOS
+ATUALIZAÇÃO PARCIAL v1.6
 
-Na raiz do repositório, substitua:
+Substitua somente:
 - index.html
 - app.js
 - rpg.html
 - sw.js
 - manifest.webmanifest
 
-Dentro de assets, adicione:
-- rpg-cover-v1-5.png
+Não precisa mexer na pasta assets.
 
-Principais mudanças:
-- capa oficial colorida do RPG e destaque na área Jogos
-- TV do RPG agora é uma tela interna que simula o canal, sem abrir YouTube
-- casa da Elo com cômodos visualmente separados e porta de saída funcional
-- vila com Casa da Sofia visitável e outras casas trancadas
-- personagem da Elo padronizada entre RPG e Trilha Encantada
-- botão Pular responde no toque (pointerdown), com ritmo mais confortável
-- gráficos da Trilha mais vivos
-- área Assistir mostra "Último vídeo do canal" e remove o botão Ler Aventuras
-- cache/service worker atualizado para forçar a v1.5
+Mudanças principais:
+- Casa do RPG com portas mais largas e saída corrigida
+- Visual do RPG aproximado de RPG 16-bit clássico
+- Chefão da Trilha alterna ataque e janela de vulnerabilidade
+- Ao zerar vidas na Trilha, volta para a fase 1 com 3 vidas
+- Removido botão Iniciar aventura
+- Inscreva-se e Instagram removidos da Home e mantidos somente na Área dos Pais
