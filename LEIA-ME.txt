@@ -1,4 +1,4 @@
-ATUALIZAÇÃO v1.7.2 — CASA DO MAGO + MP/PODER
+ATUALIZAÇÃO v1.7.3 — POLIMENTO DE JOGABILIDADE DO RPG
 
 Substitua na raiz do projeto:
 - index.html
@@ -7,16 +7,24 @@ Substitua na raiz do projeto:
 - sw.js
 - manifest.webmanifest
 
-Principais mudanças:
-- a casa do mago agora é realmente visitável; apertar A na porta entra na casa;
-- interior de um cômodo decorado com caldeirão, cristais, círculo mágico e estantes de poções;
-- Guardião Sol conversa com a Elo dentro da própria casa;
-- 4 novas poções de MP: +5, +12, +25 e recuperação total;
-- poções mágicas são vendidas dentro da casa do mago;
-- o Poder evolui com o nível: aumenta dano e também aumenta o custo de MP;
-- nível 1–3: Poder do Coração • 3 MP;
-- nível 4–6: Estrela Rosa • 5 MP;
-- nível 7–9: Explosão Estelar • 7 MP;
-- nível 10+: Supernova do Coração • 9 MP;
-- MP máximo continua aumentando +2 a cada nível;
-- saves anteriores são preservados.
+Principais melhorias:
+- Chefões continuam difíceis e não foram enfraquecidos; agora exibem nível recomendado.
+- MP máximo cresce com o nível e a quantidade de usos do Poder nunca diminui ao evoluir.
+  Nível 1: 12 MP / 4 usos do Poder.
+  Nível 4: 35 MP / 7 usos.
+  Nível 7: 70 MP / 10 usos.
+  Nível 10: 117 MP / 13 usos.
+- Barra de MP visível no HUD durante exploração.
+- Bolsa em batalha: o jogador escolhe exatamente qual item usar.
+- Cristais, Runas e Chamas podem ser conseguidos por exploração, baús ou batalhas.
+- Terceira Runa e terceira Chama adicionadas aos mapas para não obrigar batalha.
+- Pousada, Loja de Itens e Loja de Roupas agora têm interiores visitáveis e padronizados.
+- Novos atendentes dentro dos estabelecimentos.
+- NPCs ganharam sprites pixelados diferentes por personagem.
+- Sofia não conta duas vezes na medalha de conversas.
+- Música muda entre casa/vila, floresta, caverna, templo, batalha e chefões.
+- Efeitos sonoros para portas, itens, baús, ataques, magia, dano, vitória, derrota e subida de nível.
+- Cache atualizado para v1.7.3.
+
+IMPORTANTE:
+A atualização preserva o mesmo SAVE_KEY do RPG para manter o progresso salvo.
