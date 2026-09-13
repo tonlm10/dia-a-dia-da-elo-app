@@ -1,7 +1,6 @@
-DIA A DIA DA ELO — v1.7.4
-HOTFIX DAS PORTAS / ENTRADAS
+ATUALIZAÇÃO v1.7.5 — BATALHA E PORTAS
 
-Substitua na raiz do GitHub:
+Substitua na raiz do projeto:
 - index.html
 - app.js
 - rpg.html
@@ -9,10 +8,7 @@ Substitua na raiz do GitHub:
 - manifest.webmanifest
 
 Correções:
-- casas visitáveis entram automaticamente ao encostar na porta;
-- botão A também entra, com prioridade para portas;
-- pousada, loja e boutique entram corretamente;
-- área de detecção da porta ampliada para não exigir posição exata;
-- bloqueio de transição evita sair e entrar novamente instantaneamente;
-- indicador próximo da porta mostra "A • Entrar";
-- distância de interação passou a usar os pés da Elo, compatível com o sprite atual.
+- batalha mostra Energia e Magia da Elo ao mesmo tempo;
+- entrar em uma casa e ficar parado não expulsa mais a Elo de volta para fora;
+- a saída automática só volta a funcionar depois que a Elo se afasta da porta e retorna;
+- cache atualizado para v1.7.5.
