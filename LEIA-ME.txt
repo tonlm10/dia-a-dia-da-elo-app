@@ -1,22 +1,13 @@
-DIA A DIA DA ELO — ATUALIZAÇÃO v2.1.1
+ATUALIZAÇÃO v2.1.2 — NÚMEROS PARA 3–5 ANOS
 
-Substitua na raiz do projeto:
+Mudança:
+- No Inglês, faixa 3–5 anos, o mundo Números agora mostra os algarismos (1, 2, 3...)
+  em vez de bolinhas.
+- Continua sem exigir leitura: o app fala o número em inglês e a criança toca no número correto.
+- Tocar no próprio número durante a aprendizagem continua pronunciando a palavra em inglês.
+
+Substitua:
 - index.html
 - app.js
 - sw.js
 - manifest.webmanifest
-
-MELHORIAS
-- Desafios da Elo ficam recolhidos e abrem ao tocar no cartão.
-- Faixa 3–5 anos refeita para funcionar sem leitura nas atividades.
-- O app fala a palavra em inglês automaticamente e a criança escolhe pela imagem/cor/quantidade.
-- Cores aparecem como círculos coloridos.
-- Números aparecem como quantidades de pontos, sem palavras.
-- Frutas e animais aparecem por figuras.
-- Saudações usam situações visuais.
-- Erro na faixa 3–5 não revela texto: a palavra é repetida e a criança tenta novamente.
-- Acerto avança automaticamente.
-- Nos cartões de aprendizado, basta tocar na própria cor, número, fruta, animal ou figura para ouvir a pronúncia.
-- Telas finais de 3–5 usam principalmente ícones e voz.
-
-O progresso atual é preservado.

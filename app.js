@@ -445,7 +445,7 @@ function rewardArt(){const key='artReward'+new Date().toDateString();if(pget(key
 function saveColoring(){const a=document.createElement('a');a.download='colorindo-com-a-elo.png';a.href=canvas.toDataURL('image/png');a.click();toast('Imagem pronta para salvar 💗')}
 
 
-// ===== v2.1.1 • Escolinha da Elo — Inglês por faixa etária =====
+// ===== v2.1.2 • Escolinha da Elo — números visuais 3–5 =====
 const ENGLISH_AGES={
  '3-5':{label:'3–5 anos',short:'Descobrir',desc:'Ouvir, ver e tocar',types:['listenKid']},
  '6-8':{label:'6–8 anos',short:'Praticar',desc:'Ouvir, ler e escrever',types:['listen','choose','write','scramble']},
@@ -472,7 +472,7 @@ const ENGLISH_WORLD_ORDER=['colors','numbers','fruits','animals','greetings'];
 const ENGLISH_COLOR_HEX={red:'#ef4444',blue:'#3b82f6',yellow:'#facc15',green:'#22c55e',pink:'#ff76b8',purple:'#8b5cf6',orange:'#f97316',black:'#1f2937',white:'#ffffff'};
 const ENGLISH_NUMBER_VALUE={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10};
 const ENGLISH_GREETING_VISUAL={'hello':'👋🙂','goodbye':'👋🚪','please':'🙏🙂','thank-you':'🎁💗','good-morning':'☀️😊','good-night':'🌙😴','how-are-you':'🙂❓','im-fine':'😊👍'};
-function englishKidVisual(item,world=englishWorldId){if(world==='colors')return `<span class="kidColorSwatch" style="background:${ENGLISH_COLOR_HEX[item.id]||'#ddd'}"></span>`;if(world==='numbers'){const n=ENGLISH_NUMBER_VALUE[item.id]||1;return `<span class="kidCountDots">${Array.from({length:n},()=>'<i></i>').join('')}</span>`}if(world==='greetings')return `<span class="kidVisualSeq">${ENGLISH_GREETING_VISUAL[item.id]||item.emoji}</span>`;return `<span class="kidChoiceEmoji">${item.emoji}</span>`}
+function englishKidVisual(item,world=englishWorldId){if(world==='colors')return `<span class="kidColorSwatch" style="background:${ENGLISH_COLOR_HEX[item.id]||'#ddd'}"></span>`;if(world==='numbers'){const n=ENGLISH_NUMBER_VALUE[item.id]||1;return `<span class="kidNumberVisual">${n}</span>`}if(world==='greetings')return `<span class="kidVisualSeq">${ENGLISH_GREETING_VISUAL[item.id]||item.emoji}</span>`;return `<span class="kidChoiceEmoji">${item.emoji}</span>`}
 let englishAge=pget('englishAge')||'6-8',englishWorldId=null,englishSession=[],englishPos=0,englishCorrect=0,englishAnswered=false,englishMode='learn';
 function getEnglishProgress(){try{const p=JSON.parse(pget('englishProgressV1')||'{}');return Object.assign({mastery:{},completed:[],certificate:false},p)}catch(_){return{mastery:{},completed:[],certificate:false}}}
 function saveEnglishProgress(v){pset('englishProgressV1',JSON.stringify(v))}
