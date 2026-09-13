@@ -1,18 +1,15 @@
-ATUALIZAÇÃO PARCIAL v1.6
+DIA A DIA DA ELO — RPG v1.6.1 FINAL
 
-Substitua somente:
-- index.html
-- app.js
-- rpg.html
-- sw.js
-- manifest.webmanifest
+Substitua apenas o arquivo rpg.html na raiz do repositório.
 
-Não precisa mexer na pasta assets.
-
-Mudanças principais:
-- Casa do RPG com portas mais largas e saída corrigida
-- Visual do RPG aproximado de RPG 16-bit clássico
-- Chefão da Trilha alterna ataque e janela de vulnerabilidade
-- Ao zerar vidas na Trilha, volta para a fase 1 com 3 vidas
-- Removido botão Iniciar aventura
-- Inscreva-se e Instagram removidos da Home e mantidos somente na Área dos Pais
+Nesta revisão:
+- casa com sala, quarto, entrada/corredor e cozinha mais completos;
+- sofá, mesinha, quadros, plantas, aparador, mesa maior e cadeiras;
+- porta principal mais visível e área de saída ampliada;
+- Vila das Estrelas mais rica visualmente;
+- praça central, bancos, postes, canteiros, barracas e placas;
+- novas casas trancadas para capítulos futuros;
+- casas externas com telhados, janelas e detalhes melhores;
+- personagem da Elo agora anima braços e pernas enquanto anda;
+- animações diferentes conforme a direção: cima, baixo, esquerda e direita;
+- parada sem balanço exagerado.
