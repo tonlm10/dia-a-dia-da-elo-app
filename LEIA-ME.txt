@@ -1,22 +1,8 @@
-DIA A DIA DA ELO — ATUALIZAÇÃO v1.4
+ATUALIZAÇÃO PARCIAL — RPG COM CAPA NOVA
 
-Substitua no GitHub:
+Substitua apenas estes arquivos/pastas no seu projeto:
 - index.html
-- app.js
-- sw.js
-- manifest.webmanifest
-
-Adicione na raiz do repositório:
 - rpg.html
+- assets/rpg-cover-v1-5.png
 
-IMPORTANTE:
-O RPG agora abre pelo arquivo rpg.html na raiz. Isso elimina a dependência do caminho games/rpg/ que estava causando erro 404. A pasta games/rpg antiga pode permanecer; ela não será usada por esta versão.
-
-Principais correções:
-- RPG em grande destaque na área Jogos.
-- Caça aos Unicórnios transformado em arena mais aberta, com espaço real para fugir.
-- Fantasma mais lento e menos perfeito no Fácil/Médio.
-- Trilha Encantada muito mais lenta e equilibrada, sobretudo no Fácil.
-- Elo da Trilha redesenhada com cabelo cacheado, rabo de cavalo e laço.
-- Botão Voltar do Android navega dentro do app; na Home pergunta se deseja sair.
-- Cache atualizado para v1.4.
+Depois envie para o GitHub e aguarde o GitHub Pages atualizar.
