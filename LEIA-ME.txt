@@ -1,8 +1,22 @@
-ATUALIZAÇÃO PARCIAL — RPG COM CAPA NOVA
+ATUALIZAÇÃO v1.5 FINAL — SUBSTITUA / ADICIONE ESTES ARQUIVOS
 
-Substitua apenas estes arquivos/pastas no seu projeto:
+Na raiz do repositório, substitua:
 - index.html
+- app.js
 - rpg.html
-- assets/rpg-cover-v1-5.png
+- sw.js
+- manifest.webmanifest
 
-Depois envie para o GitHub e aguarde o GitHub Pages atualizar.
+Dentro de assets, adicione:
+- rpg-cover-v1-5.png
+
+Principais mudanças:
+- capa oficial colorida do RPG e destaque na área Jogos
+- TV do RPG agora é uma tela interna que simula o canal, sem abrir YouTube
+- casa da Elo com cômodos visualmente separados e porta de saída funcional
+- vila com Casa da Sofia visitável e outras casas trancadas
+- personagem da Elo padronizada entre RPG e Trilha Encantada
+- botão Pular responde no toque (pointerdown), com ritmo mais confortável
+- gráficos da Trilha mais vivos
+- área Assistir mostra "Último vídeo do canal" e remove o botão Ler Aventuras
+- cache/service worker atualizado para forçar a v1.5
