@@ -1,0 +1,38 @@
+name: Importar ZIP do app
+
+on:
+  push:
+    paths:
+      - 'app-upload.zip'
+
+permissions:
+  contents: write
+
+jobs:
+  importar:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extrair pacote
+        run: |
+          rm -rf /tmp/elo-app
+          mkdir -p /tmp/elo-app
+          unzip -q -o app-upload.zip -d /tmp/elo-app
+
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.github' ! -name 'app-upload.zip' -exec rm -rf {} +
+
+          cp -a /tmp/elo-app/. .
+
+          rm -f app-upload.zip
+
+      - name: Salvar conteúdo organizado
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          git commit -m "Atualizar app pelo ZIP" || exit 0
+          git push
