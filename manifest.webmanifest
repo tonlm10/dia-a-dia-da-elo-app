@@ -3,7 +3,7 @@
   "name": "Dia a Dia da Elo",
   "short_name": "Dia a Dia da Elo",
   "lang": "pt-BR",
-  "start_url": "./?app=3.0.2",
+  "start_url": "./?app=3.0.3",
   "scope": "./",
   "display": "standalone",
   "display_override": [
@@ -12,7 +12,7 @@
   "orientation": "portrait-primary",
   "background_color": "#fff8fc",
   "theme_color": "#ff67a8",
-  "description": "Dia a Dia da Elo v3.0.2 — Mundo da Elo vivo, guarda-roupa ilustrado, Modo Família com mímica, quarto, jogos, Escolinha, histórias, criação, coleções e RPG completo.",
+  "description": "Dia a Dia da Elo v3.0.3 — personalização avançada, cabelos, novos looks, quarto compacto, quebra-cabeça sem duplicatas, Modo Família e RPG completo.",
   "categories": [
     "education",
     "games",

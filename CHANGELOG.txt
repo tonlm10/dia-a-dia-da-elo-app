@@ -18,3 +18,12 @@
 
 3.0.0 — A MAIOR ATUALIZAÇÃO DO DIA A DIA DA ELO
 - Mundo da Elo, coleções, quarto, guarda-roupa, modo família, histórias interativas, surpresa semanal e demais recursos consolidados.
+
+
+v3.0.3
+- Guarda-roupa ampliado com novos cabelos, roupas, acessórios, maquiagem e looks temáticos.
+- Correção do encaixe das calças na personagem.
+- Quarto e guarda-roupa reorganizados para manter visualização e opções na mesma tela, reduzindo rolagem.
+- Quebra-cabeça com 16 imagens visualmente diferentes.
+- Trilha Encantada ampliada e área de toque maior.
+- RPG completo preservado sem alterações.
