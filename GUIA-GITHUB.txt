@@ -1,20 +1,22 @@
-COMO SUBSTITUIR O APP NO GITHUB SEM DESCOMPACTAR O ZIP
+ATUALIZAR O DIA A DIA DA ELO PELO GITHUB
 
-IMPORTANTE: o site do GitHub não extrai ZIP automaticamente. Por isso este pacote inclui um GitHub Action que faz a extração sozinho.
+O repositório já possui o workflow “Importar ZIP do app”.
 
-CONFIGURAÇÃO ÚNICA (só na primeira vez)
-1. No repositório, crie este arquivo exatamente:
-   .github/workflows/importar-app.yml
-2. Cole nele o conteúdo do arquivo importar-app.yml que acompanha esta entrega e faça Commit.
-3. Em Settings > Actions > General > Workflow permissions, deixe "Read and write permissions" habilitado, se essa opção aparecer.
-4. NÃO apague a pasta .github. Você pode apagar os demais arquivos antigos se quiser, mas não é necessário: o instalador substitui tudo automaticamente.
+PARA INSTALAR A V3.0.0
+1. Use o arquivo chamado exatamente app-upload.zip.
+2. Abra a RAIZ do repositório no GitHub.
+3. Add file > Upload files.
+4. Envie SOMENTE app-upload.zip.
+5. Faça Commit direto na branch main.
+6. Abra Actions e aguarde “Importar ZIP do app” ficar verde (Success).
+7. A automação extrai a nova versão, preserva .github, remove arquivos antigos do app, remove app-upload.zip e cria o commit automático.
+8. Aguarde o GitHub Pages concluir a publicação.
 
-PARA ATUALIZAR O APP
-1. Renomeie o ZIP completo recebido para exatamente: app-upload.zip
-2. No GitHub, na raiz do repositório: Add file > Upload files.
-3. Envie SOMENTE app-upload.zip e faça Commit.
-4. Abra a aba Actions e aguarde "Importar ZIP do app" ficar verde.
-5. A automação extrai o ZIP, organiza pastas, remove arquivos antigos e apaga o próprio app-upload.zip.
-6. Aguarde o GitHub Pages publicar a nova versão.
+NÃO É NECESSÁRIO
+- descompactar o ZIP;
+- criar pastas manualmente;
+- enviar centenas de arquivos individualmente;
+- apagar a pasta .github.
 
-A partir daí, toda próxima atualização poderá ser feita do mesmo jeito: só enviar um novo app-upload.zip.
+BACKUP
+O arquivo dia-a-dia-da-elo-v3.0.0-completo.zip é o backup completo da versão oficial e não é o arquivo que deve ser enviado ao atualizador automático.

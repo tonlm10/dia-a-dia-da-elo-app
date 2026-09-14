@@ -1,11 +1,43 @@
-2.2.1
-- RPG completo restaurado a partir da versão clássica v1.7.6.
-- Mapas completos, cidades, saídas, interiores, missões, batalhas, lojas e menus da bolsa restaurados.
-- Colisão com casas e objetos restaurada: Elo não atravessa prédios.
-- NPCs voltam a ter cabelos/visuais próprios.
-- Elo mantém o visual melhorado, com rabo de cavalo baixo nas quatro direções.
-- Botão A agora mostra Falar, Entrar, Sair, Abrir, Pegar, Dormir etc. conforme a ação.
-- Portas de casas/lojas exigem o botão A; transições entre regiões continuam automáticas.
-- Salvamento do RPG separado por perfil, com migração compatível com saves antigos.
-- Objetivo do RPG agora pode quebrar linha sem ser cortado.
-- Trilha Encantada mantém estrela = 1 ponto e unicórnio = 2 pontos.
+3.0.0 — A MAIOR ATUALIZAÇÃO DO DIA A DIA DA ELO
+
+UNIVERSO
+- Nova Home “Mundo da Elo” com 8 locais navegáveis.
+- Elo passa a funcionar como guia do aplicativo.
+- Segredos escondidos e colecionáveis.
+
+PERSONALIZAÇÃO
+- Quarto da Elo personalizável.
+- Guarda-roupa com visuais desbloqueáveis por progresso.
+- Coleções de estrelas, laços, unicórnios, arco-íris e adesivos.
+
+CRIATIVIDADE E HISTÓRIAS
+- Atividades abertas de pizza, bolo, brinquedo e bichinho.
+- Histórias interativas com escolhas e finais diferentes.
+- Biblioteca tradicional preservada.
+
+APRENDIZADO
+- Escolinha em rodadas curtas de 5 desafios.
+- Dificuldade automática conforme desempenho.
+- Faixa 3–5 prioriza áudio, imagem e toque, sem depender de leitura.
+- Inglês continua separado em 3–5, 6–8 e 9–11 anos, com progresso independente.
+- Correção responsiva das medalhas de Inglês no Livro de Conquistas em telas pequenas.
+
+ENTRETENIMENTO E FAMÍLIA
+- Assistir passa a ter apresentação de “Cinema da Elo”.
+- Modo Família no mesmo aparelho.
+- Surpresa semanal sem streak diário nem perda de prêmio.
+
+PAIS E SEGURANÇA
+- Perfis, PIN, backup e controles anteriores preservados.
+- Painel dos Pais ampliado com indicadores da v3.
+- Links externos permanecem na área protegida dos responsáveis.
+
+RPG
+- RPG completo restaurado na 2.2.1 foi preservado byte a byte.
+- Nenhum mapa, sistema, loja, NPC, chefe, menu ou progressão foi removido.
+
+TÉCNICO
+- Versão centralizada em 3.0.0.
+- v3.css e v3.js separam a nova camada da atualização sem desmontar a base estável.
+- Service Worker atualizado com estratégia segura e limpeza de caches antigos.
+- Asset da capa interna do RPG incluído no pacote para eliminar referência ausente.

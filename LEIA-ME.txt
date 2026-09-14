@@ -1,15 +1,17 @@
-DIA A DIA DA ELO — VERSÃO 2.2.1 COMPLETA
+DIA A DIA DA ELO — V3.0.0
 
-Esta versão mantém todas as melhorias da 2.2.0 e restaura o RPG completo clássico.
+ARQUIVO PARA ATUALIZAR O GITHUB:
+app-upload.zip
 
-DESTAQUES
-- RPG com mapas completos, cidades, saídas, casas, lojas, missões, batalhas, roupas, medalhas e bolsa completa.
-- Elo não atravessa casas/prédios.
-- NPCs possuem cabelo e visual próprio.
-- Elo com rabo de cavalo baixo na frente, laterais e costas.
-- Botão A contextual.
-- Salvamento separado por perfil.
-- Trilha: estrela vale 1 e unicórnio vale 2.
+COMO USAR
+1. Abra a raiz do repositório no GitHub.
+2. Add file > Upload files.
+3. Envie SOMENTE app-upload.zip.
+4. Faça Commit direto na main.
+5. Aguarde “Importar ZIP do app” concluir com sucesso na aba Actions.
+6. Depois aguarde o GitHub Pages publicar a versão.
 
-ATUALIZAÇÃO PELO GITHUB
-Envie somente app-upload.zip na raiz do repositório. O workflow Importar ZIP do app organiza tudo automaticamente.
+O workflow existente preserva .git e .github, substitui o aplicativo, remove o ZIP e salva a atualização automaticamente.
+
+VERSÃO: 3.0.0
+RPG BASE: restaurado v1.7.6, preservado sem simplificação.

@@ -1,13 +1,52 @@
-TESTES ESTÁTICOS DA VERSÃO 2.2.1
+DIA A DIA DA ELO v3.0.0 — VALIDAÇÃO FINAL
 
-1. Pacote completo contém index.html, app.js, styles.css, manifest, service worker e rpg.html.
-2. JavaScript principal passou em verificação de sintaxe.
-3. JavaScript embutido do RPG passou em verificação de sintaxe.
-4. RPG contém mapas home, city, meadow, cave, forest, market, bridge, temple e interiores.
-5. RPG contém transições/saídas entre regiões e colisão com building.
-6. Menu do RPG contém Missões, Bolsa, Roupas, Medalhas e Mapa.
-7. NPCs usam perfis com cor de cabelo própria.
-8. Salvamento do RPG usa o perfil ativo e migração de save legado.
-9. Trilha mantém collectible star/unicorn e pontuação 1/2.
+A versão só foi preparada para entrega depois da correção do último problema conhecido: medalhas de Inglês largas demais em telas pequenas.
 
-Ainda é necessário teste manual no telefone para movimentação, entradas/saídas, progresso salvo e aparência em diferentes tamanhos de tela.
+TESTES DE NAVEGADOR / FUNCIONAIS
+- 85 de 85 verificações aprovadas.
+- Inicialização e versão 3.0.0.
+- Abertura de painéis antigos e novos.
+- Mundo da Elo e 8 locais.
+- Coleções e segredos sem recompensa duplicada.
+- Quarto e Guarda-roupa.
+- 4 atividades criativas.
+- 3 atividades do Modo Família.
+- 3 histórias interativas e finais.
+- Surpresa semanal sem duplicação.
+- Escolinha 3–5 e faixas maiores.
+- Inglês 3–5 sem pistas escritas nas respostas.
+- Inglês 6–8 e 9–11.
+- Progresso de Inglês independente por idade.
+- Área dos Pais ampliada.
+- Funções antigas de Memória, Puzzle, Trilha, Caça, Labirinto, Histórias, Colorir, Pais e Backup continuam disponíveis.
+- Zero exceções JavaScript no teste.
+- Zero erros de console no teste.
+
+RESPONSIVIDADE
+Testada em larguras de 320, 360, 390, 412 e 768 px.
+- Sem rolagem horizontal na Home.
+- Botões do Mundo permanecem dentro do mapa.
+- Medalhas de Inglês não estouram a largura.
+- Grade das medalhas adapta para 3 e 2 colunas em telas pequenas.
+
+TESTES ESTÁTICOS / REGRESSÃO
+- 295 de 295 verificações aprovadas.
+- Sem IDs HTML duplicados.
+- Manifest válido e ícones com dimensões corretas.
+- Todas as referências de assets verificadas.
+- Todas as imagens do pacote abertas/validadas.
+- 8 capas de jogos, 16 cartas de memória, 16 puzzles, 10 desenhos para colorir e 4 histórias + 4 capas conferidos.
+- JavaScript principal, v3, Service Worker e RPG passaram em verificação de sintaxe.
+- Arquivos do cache principal existem.
+- Zoom global desabilitado.
+- Links YouTube/Instagram ausentes da Home infantil e presentes na Área dos Pais.
+- Trilha mantém estrela = 1 e unicórnio = 2.
+- Desafios da Escolinha iniciam recolhidos.
+
+REGRESSÃO DO RPG
+- SHA-256 do rpg.html final comparado ao rpg.html restaurado da 2.2.1: idêntico.
+- 13 mapas/interiores essenciais conferidos.
+- Missões, Bolsa, Roupas, Medalhas, Mapa, lojas, itens, equipamentos, inimigos, batalhas, XP, moedas, HP, MP, NPCs, chefes, transições e salvamento conferidos.
+
+TOTAL ANTES DA VALIDAÇÃO DO ZIP FINAL
+380 verificações aprovadas (85 de navegador + 295 estáticas), além da inspeção do pacote final compactado.

@@ -1,4 +1,4 @@
-const APP_VERSION=self.ELO_APP_VERSION||'2.2.1';
+const APP_VERSION=self.ELO_APP_VERSION||'3.0.0';
 
 // ===== v2.0 • Perfis locais, acessibilidade, tempo saudável, tutorial e backup =====
 const V2_PROFILES_KEY='eloProfilesV2',V2_ACTIVE_KEY='eloActiveProfileId',V2_MIGRATION_KEY='eloProfilesV2Migrated';
@@ -582,4 +582,4 @@ if('serviceWorker' in navigator){
   navigator.serviceWorker.register('./sw.js?v='+encodeURIComponent(APP_VERSION),{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
 }
 
-window.addEventListener('DOMContentLoaded',()=>{applyA11y();renderProfileManager();renderParentV2();renderV2Album();setTimeout(()=>showTutorialOnce('welcome-v220',`Bem-vindo à versão ${APP_VERSION}!`,['Agora cada criança pode ter seu próprio perfil e progresso.','O botão 🔊 liga ou desliga a leitura em voz. Nas atividades infantis, toque nos elementos para ouvir.','Os responsáveis podem ajustar acessibilidade, tempo saudável e criar backups.','Seu progresso antigo foi preservado no primeiro perfil.','Para 3–5 anos, o Inglês agora funciona por áudio e toque, sem exigir leitura.']),850)});
+window.addEventListener('DOMContentLoaded',()=>{applyA11y();renderProfileManager();renderParentV2();renderV2Album()});
