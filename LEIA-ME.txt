@@ -1,22 +1,16 @@
-ATUALIZAÇÃO v2.1.4 — Jogos com cara de card + puzzle ilustrado
+ATUALIZAÇÃO v2.1.5 — correções nos jogos e no zoom
 
 Copie o conteúdo desta pasta para a raiz do repositório do app no GitHub.
 Substitua os arquivos quando o GitHub perguntar.
 
-Arquivos atualizados:
-- index.html
-- app.js
-- sw.js
-- manifest.webmanifest
-- assets/game-covers/
-- assets/puzzle/
-
 Mudanças desta versão:
-- área Jogos da Elo refeita com capas/cartões individuais
-- selo premium removido da Trilha Encantada
-- card do RPG com a Elo de rabo de cavalo
-- quebra-cabeça agora usa imagens ilustradas da Elo (sem foto real)
-- 16 imagens novas para o quebra-cabeça
+- bloqueio do zoom da página no app
+- texto de abertura da pasta Jogos ajustado
+- correções visuais nos cards da pasta Jogos
+- correção do card do RPG dentro do app
+- novas imagens limpas para o Quebra-cabeça
+- capas corrigidas para Quebra-cabeça, Toque no número e Trilha Encantada
 
-Depois de subir no GitHub, feche o app e abra novamente.
-Se o visual antigo continuar, limpe o cache do navegador/PWA e atualize outra vez.
+Pastas usadas nesta atualização:
+- assets/game-covers
+- assets/puzzle

@@ -2,12 +2,12 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
 <meta name="theme-color" content="#ff67a8" />
 <meta name="description" content="Dia a Dia da Elo — vídeos, playlists, jogos com capas, Escolinha, colorir e Aventuras da Elo." />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<link rel="manifest" href="manifest.webmanifest?v=2.1.4" />
+<link rel="manifest" href="manifest.webmanifest?v=2.1.5" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 <title>Dia a Dia da Elo</title>
@@ -66,6 +66,9 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:6px 10px calc(6px 
 .engKidChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kidChoice{border:0;border-radius:22px;min-height:130px;background:#f7f4ff;display:grid;place-items:center;padding:12px;box-shadow:0 7px 18px rgba(72,45,102,.07)}.kidChoice.good{background:#dff9ee;outline:3px solid #83d6b6}.kidChoice.bad{background:#ffe7ed;outline:3px solid #f0a1b7}.kidChoiceEmoji{font-size:64px;line-height:1}.kidColorSwatch{display:block;width:74px;height:74px;border-radius:50%;border:5px solid #fff;box-shadow:0 0 0 2px rgba(60,45,80,.12),0 7px 18px rgba(60,45,80,.12)}.kidNumberVisual{display:grid;place-items:center;width:92px;height:92px;border-radius:28px;background:linear-gradient(145deg,#fff2f8,#eee9ff);font-size:64px;line-height:1;font-weight:1000;color:#6f54c2;box-shadow:0 8px 20px rgba(72,45,102,.12)}.kidFeedback{font-size:60px;text-align:center;padding:10px 0}.kidVisualSeq{font-size:48px;letter-spacing:2px;white-space:nowrap}.engKidMode .engActivityTop .engPill{font-size:12px}.engKidMode .smallBtn{font-size:0;width:48px;height:48px;border-radius:50%}.engKidMode .smallBtn:after{content:'✕';font-size:22px}.engKidMode{padding:5px 0}.engKidMode .engActivityTop{margin-bottom:4px}
 @media(max-width:390px){.engKidChoices{gap:8px}.kidChoice{min-height:116px;padding:8px}.kidChoiceEmoji{font-size:56px}.kidColorSwatch{width:65px;height:65px}.kidNumberVisual{width:82px;height:82px;font-size:58px}.schoolChallengesHero{padding:15px}}
 
+
+/* v2.1.5 • correções visuais dos cards de jogos + bloqueio de zoom da página */
+html,body{-webkit-text-size-adjust:100%}#playPanel .gameLaunchGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}#playPanel .gameLaunch{border:0;border-radius:26px;padding:0;text-align:left;box-shadow:var(--shadow);color:var(--ink);background:#fff;overflow:hidden;display:flex;flex-direction:column;position:relative}#playPanel .gameLaunch .gameCover{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#f5efff}#playPanel .gameLaunch .gameInfo{padding:14px 16px 18px;display:flex;flex-direction:column;gap:6px;min-height:126px;position:relative}#playPanel .gameLaunch b{display:block;font-size:17px;line-height:1.08;padding-right:34px;max-width:none;text-shadow:none}#playPanel .gameLaunch small{display:block;color:var(--muted)!important;font-size:12px;line-height:1.28;max-width:none;text-shadow:none;margin-top:0}#playPanel .gameLaunch .gameArrow{position:absolute;right:14px;bottom:14px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#ffe6f3;color:var(--pinkDark);font-size:22px;font-weight:900}#playPanel .gameLaunch .gameTag{display:inline-block;align-self:flex-start;background:#f0ebff;color:#6f54c2;border-radius:999px;padding:6px 10px;font-size:10px;font-weight:900;letter-spacing:.2px;text-transform:uppercase}#playPanel .gameLaunch.full{grid-column:1/-1}#playPanel .gameLaunch.full .gameCover{aspect-ratio:16/9}#playPanel .gameLaunch.rpgLaunch{background:#fff!important;color:var(--ink)!important;min-height:unset!important;border:0!important;box-shadow:var(--shadow)!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;padding:0!important}#playPanel .gameLaunch.rpgLaunch::before,#playPanel .gameLaunch.rpgLaunch::after{display:none!important;content:none!important}#playPanel .gameLaunch.rpgLaunch>*{position:static!important;z-index:auto!important}#playPanel .gameLaunch.rpgLaunch .gameInfo{padding:16px 16px 18px!important}#playPanel .gameLaunch.rpgLaunch b{font-size:19px!important;color:var(--ink)!important}#playPanel .gameLaunch.rpgLaunch small{font-size:13px!important;color:var(--muted)!important}#playPanel .rpgFeatures{display:flex;gap:7px;flex-wrap:wrap;margin-top:2px}#playPanel .rpgFeatures span{background:#f0ebff!important;border:1px solid #e2dbff!important;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;color:#6c50bb!important;backdrop-filter:none!important}#playPanel .rpgLaunch .gico{display:none!important}@media(max-width:560px){#playPanel .gameLaunchGrid{grid-template-columns:1fr 1fr;gap:12px}#playPanel .gameLaunch .gameInfo{padding:12px 14px 16px}#playPanel .gameLaunch b{font-size:15px}#playPanel .gameLaunch small{font-size:11px}#playPanel .gameLaunch .gameArrow{width:30px;height:30px;font-size:20px}#playPanel .gameLaunch.full .gameCover{aspect-ratio:16/9}#playPanel .gameLaunch.rpgLaunch b{font-size:18px!important}#playPanel .rpgFeatures span{font-size:9px;padding:5px 8px}}
 </style>
 </head>
 <body>
@@ -91,7 +94,7 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:6px 10px calc(6px 
   <div class="sectionHead"><h2>Missão e família</h2><small>Um pouquinho por dia ✨</small></div>
   <div class="missionRow"><div class="miniCard pink"><h3>🏆 Missão do dia</h3><p id="dailyText">Faça algo divertido hoje!</p><div class="progress"><i id="dailyProgress"></i></div><button class="smallBtn" style="margin-top:10px" onclick="completeDaily()">Consegui!</button></div><div class="miniCard lilac"><h3>👨‍👩‍👧 Área dos Pais</h3><p>Dicas, segurança e links oficiais.</p><button class="smallBtn" onclick="openParents()">Entrar</button></div></div>
 
-  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v2.1.4</div>
+  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v2.1.5</div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -114,7 +117,7 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:6px 10px calc(6px 
 
 <section id="playPanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Jogos da Elo</h2></div>
-  <div class="card"><p class="muted">Agora cada jogo tem sua própria capa para a área ficar com cara de coleção de jogos. Toque em um card para jogar.</p><div class="gameLaunchGrid">
+  <div class="card"><p class="muted">Bem-vinda à pasta de jogos da Elo. Aqui tem aventura, memória, labirinto, quebra-cabeça e outros desafios divertidos para brincar.</p><div class="gameLaunchGrid">
     <button class="gameLaunch rpgLaunch full" onclick="openRpg()"><img class="gameCover" src="assets/game-covers/rpg-cover-v2.webp" alt="Elo e o Reino das Estrelas"><div class="gameInfo"><span class="gameTag">Jogo principal • RPG</span><b>Elo e o Reino das Estrelas</b><small>Explore o mundo, converse com personagens, cumpra missões, evolua, compre roupas e enfrente inimigos em um RPG clássico.</small><div class="rpgFeatures"><span>🏠 Casa da Elo</span><span>🏘️ Cidades</span><span>⚔️ Batalhas</span><span>👗 Roupas</span><span>🏅 Muitas medalhas</span></div><span class="gameArrow">›</span></div></button>
     <button class="gameLaunch" onclick="openGame('findGame','Ache a estrela ⭐')"><img class="gameCover" src="assets/game-covers/find-cover.webp" alt="Ache a estrela"><div class="gameInfo"><b>Ache a estrela</b><small>Encontre a estrela escondida no cenário.</small><span class="gameArrow">›</span></div></button>
     <button class="gameLaunch" onclick="openGame('mazeGame','Labirinto da Elo 🦄')"><img class="gameCover" src="assets/game-covers/maze-cover.webp" alt="Labirinto da Elo"><div class="gameInfo"><b>Labirinto da Elo</b><small>Ajude a Elo a chegar ao unicórnio.</small><span class="gameArrow">›</span></div></button>
