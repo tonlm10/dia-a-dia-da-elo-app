@@ -1,19 +1,22 @@
-ATUALIZAÇÃO v2.1.3 — NOVA TELA INICIAL COM A ELO
+ATUALIZAÇÃO v2.1.4 — Jogos com cara de card + puzzle ilustrado
 
-Mudanças:
-- “Aprender” foi substituído por “Escolinha da Elo”.
-- Os cartões principais agora usam ilustrações personalizadas da Elo.
-- Foram removidas as segundas linhas de texto dos cartões: fica apenas a ilustração e o título.
-- A barra inferior também recebeu ícones personalizados da Elo.
-- Livro de Conquistas recebeu ilustração própria e ficou com apenas o título na tela inicial.
-- Mantidas todas as funções e melhorias da v2.1.2, inclusive atividades 3–5 anos por áudio e números em algarismos.
+Copie o conteúdo desta pasta para a raiz do repositório do app no GitHub.
+Substitua os arquivos quando o GitHub perguntar.
 
-PARA ATUALIZAR
-Substitua estes arquivos/pastas no projeto atual:
+Arquivos atualizados:
 - index.html
 - app.js
 - sw.js
 - manifest.webmanifest
-- assets/home-icons/  (copie a pasta inteira)
+- assets/game-covers/
+- assets/puzzle/
 
-Depois publique novamente usando o mesmo processo que você já vinha usando.
+Mudanças desta versão:
+- área Jogos da Elo refeita com capas/cartões individuais
+- selo premium removido da Trilha Encantada
+- card do RPG com a Elo de rabo de cavalo
+- quebra-cabeça agora usa imagens ilustradas da Elo (sem foto real)
+- 16 imagens novas para o quebra-cabeça
+
+Depois de subir no GitHub, feche o app e abra novamente.
+Se o visual antigo continuar, limpe o cache do navegador/PWA e atualize outra vez.

@@ -1,11 +1,12 @@
-const CACHE='elo-official-v2-1-3-20260913';
+const CACHE='elo-official-v2-1-4-20260914';
 const CORE=[
-  './','./index.html','./app.js?v=2.1.3','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html?v=2.0',
+  './','./index.html','./app.js?v=2.1.4','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html?v=2.0',
   './assets/logo-oficial.webp','./assets/rpg-cover-v1-5.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
   './assets/icons/icon-maskable-192.png','./assets/icons/icon-maskable-512.png','./assets/icons/apple-touch-icon.png'
 ];
 const OPTIONAL=[
   './assets/channel-banner-v5.webp','./assets/member-promo.webp','./assets/aventuras-icon.webp',
+  './assets/game-covers/rpg-cover-v2.webp','./assets/game-covers/find-cover.webp','./assets/game-covers/maze-cover.webp','./assets/game-covers/chase-cover.webp','./assets/game-covers/memory-cover.webp','./assets/game-covers/puzzle-cover.webp','./assets/game-covers/tap-cover.webp','./assets/game-covers/trail-cover.webp',
   './assets/home-icons/home-nav.webp','./assets/home-icons/watch-card.webp','./assets/home-icons/watch-nav.webp',
   './assets/home-icons/play-card.webp','./assets/home-icons/play-nav.webp','./assets/home-icons/learn-card.webp','./assets/home-icons/learn-nav.webp',
   './assets/home-icons/create-card.webp','./assets/home-icons/create-nav.webp','./assets/home-icons/stories-card.webp',
