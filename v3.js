@@ -1,4 +1,4 @@
-/* Dia a Dia da Elo — v3.0.1: Mundo da Elo renovado */
+/* Dia a Dia da Elo — v3.0.2: Mundo vivo, guarda-roupa completo e mímica */
 (function(){
 'use strict';
 const V3_KEY='eloV3WorldState';
@@ -12,10 +12,23 @@ const ROOM_DECOR=[
  {id:'rugHeart',kind:'rug',icon:'💗',name:'Tapete Coração',need:0},{id:'rugRainbow',kind:'rug',icon:'🌈',name:'Tapete Arco-íris',need:14},{id:'rugCloud',kind:'rug',icon:'☁️',name:'Tapete Nuvem',need:32},
  {id:'unicorn',kind:'toy',icon:'🦄',name:'Unicórnio',need:0,value:'🦄'},{id:'teddy',kind:'toy',icon:'🧸',name:'Ursinho',need:15,value:'🧸'},{id:'cat',kind:'toy',icon:'🐱',name:'Gatinho',need:30,value:'🐱'}
 ];
-const OUTFITS=[
- {id:'pink',icon:'🎀',name:'Look Rosa',need:0,badge:'🎀'},{id:'rainbow',icon:'🌈',name:'Look Arco-íris',need:10,badge:'🌈'},{id:'unicorn',icon:'🦄',name:'Fantasia Unicórnio',need:22,badge:'🦄'},{id:'artist',icon:'🎨',name:'Elo Artista',need:38,badge:'🎨'},{id:'star',icon:'⭐',name:'Elo Estrela',need:55,badge:'⭐'},{id:'adventure',icon:'🧭',name:'Elo Aventureira',need:75,badge:'🧭'}
+const WARDROBE_CATEGORIES=[
+ {id:'top',name:'Camisetas',icon:'👚'},{id:'bottom',name:'Shorts, saias e calças',icon:'🩳'},{id:'dress',name:'Vestidos',icon:'👗'},{id:'shoes',name:'Sapatos',icon:'👟'},{id:'hair',name:'Laços e tiaras',icon:'🎀'},{id:'earrings',name:'Brincos',icon:'💎'},{id:'ring',name:'Anéis',icon:'💍'},{id:'bracelet',name:'Pulseiras',icon:'⌚'},{id:'necklace',name:'Colares',icon:'📿'},{id:'makeup',name:'Maquiagem',icon:'💄'}
 ];
-function defaultV3(){return{collections:{stars:0,bows:0,unicorns:0,rainbows:0,stickers:0},secrets:[],room:{wall:'wallPink',art:'rainbow',bed:'bedPink',rug:'rugHeart',toy:'unicorn'},outfit:'pink',weekly:{key:'',opened:false},creativeDone:[],interactiveDone:[],familyRounds:0,schoolProgress:{colors:0,numbers:0,shapes:0,animals:0}}}
+const WARDROBE_ITEMS=[
+ {id:'teePink',cat:'top',name:'Camiseta Rosa',need:0,cls:'top-pink',thumb:'shirt pink'},{id:'teeLilac',cat:'top',name:'Camiseta Lilás',need:8,cls:'top-lilac',thumb:'shirt lilac'},{id:'teeRainbow',cat:'top',name:'Camiseta Arco-íris',need:22,cls:'top-rainbow',thumb:'shirt rainbow'},
+ {id:'shortDenim',cat:'bottom',name:'Shorts Jeans',need:0,cls:'bottom-shorts',thumb:'short denim'},{id:'skirtPink',cat:'bottom',name:'Saia Rosa',need:10,cls:'bottom-skirt',thumb:'skirt rose'},{id:'pantsBlue',cat:'bottom',name:'Calça Azul',need:24,cls:'bottom-pants',thumb:'pants blue'},
+ {id:'noneDress',cat:'dress',name:'Sem vestido',need:0,cls:'dress-none',thumb:'none'},{id:'dressPink',cat:'dress',name:'Vestido Rosa',need:16,cls:'dress-pink',thumb:'dress pink'},{id:'dressStar',cat:'dress',name:'Vestido Estrelas',need:36,cls:'dress-star',thumb:'dress star'},
+ {id:'shoePink',cat:'shoes',name:'Tênis Rosa',need:0,cls:'shoes-pink',thumb:'shoes pink'},{id:'shoeWhite',cat:'shoes',name:'Tênis Branco',need:12,cls:'shoes-white',thumb:'shoes white'},{id:'shoeBoot',cat:'shoes',name:'Botinha Lilás',need:30,cls:'shoes-boot',thumb:'shoes purple'},
+ {id:'bowPink',cat:'hair',name:'Laço Rosa',need:0,cls:'hair-bow-pink',thumb:'bow pink'},{id:'bowLilac',cat:'hair',name:'Laço Lilás',need:12,cls:'hair-bow-lilac',thumb:'bow lilac'},{id:'tiaraStar',cat:'hair',name:'Tiara Estrela',need:35,cls:'hair-tiara-star',thumb:'tiara star'},
+ {id:'noneEarring',cat:'earrings',name:'Sem brinco',need:0,cls:'ear-none',thumb:'none'},{id:'earHeart',cat:'earrings',name:'Brinco Coração',need:14,cls:'ear-heart',thumb:'ear heart'},{id:'earStar',cat:'earrings',name:'Brinco Estrela',need:30,cls:'ear-star',thumb:'ear star'},
+ {id:'noneRing',cat:'ring',name:'Sem anel',need:0,cls:'ring-none',thumb:'none'},{id:'ringPink',cat:'ring',name:'Anel Rosa',need:18,cls:'ring-pink',thumb:'ring pink'},{id:'ringStar',cat:'ring',name:'Anel Estrela',need:38,cls:'ring-star',thumb:'ring star'},
+ {id:'noneBracelet',cat:'bracelet',name:'Sem pulseira',need:0,cls:'bracelet-none',thumb:'none'},{id:'braceletPink',cat:'bracelet',name:'Pulseira Rosa',need:10,cls:'bracelet-pink',thumb:'bracelet pink'},{id:'braceletRainbow',cat:'bracelet',name:'Pulseira Arco-íris',need:28,cls:'bracelet-rainbow',thumb:'bracelet rainbow'},
+ {id:'noneNecklace',cat:'necklace',name:'Sem colar',need:0,cls:'necklace-none',thumb:'none'},{id:'neckHeart',cat:'necklace',name:'Colar Coração',need:16,cls:'neck-heart',thumb:'necklace heart'},{id:'neckStar',cat:'necklace',name:'Colar Estrela',need:34,cls:'neck-star',thumb:'necklace star'},
+ {id:'makeupSoft',cat:'makeup',name:'Natural',need:0,cls:'makeup-soft',thumb:'makeup soft'},{id:'makeupPink',cat:'makeup',name:'Rosa Suave',need:20,cls:'makeup-pink',thumb:'makeup pink'},{id:'makeupParty',cat:'makeup',name:'Brilho de Festa',need:42,cls:'makeup-party',thumb:'makeup party'}
+];
+let wardrobeCategory='top';
+function defaultV3(){return{collections:{stars:0,bows:0,unicorns:0,rainbows:0,stickers:0},secrets:[],room:{wall:'wallPink',art:'rainbow',bed:'bedPink',rug:'rugHeart',toy:'unicorn'},outfit:'pink',wardrobe:{top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',earrings:'noneEarring',ring:'noneRing',bracelet:'noneBracelet',necklace:'noneNecklace',makeup:'makeupSoft'},weekly:{key:'',opened:false},creativeDone:[],interactiveDone:[],familyRounds:0,schoolProgress:{colors:0,numbers:0,shapes:0,animals:0}}}
 function v3Load(){try{return Object.assign(defaultV3(),JSON.parse(pget(V3_KEY)||'{}'))}catch(_){return defaultV3()}}
 function v3Save(v){pset(V3_KEY,JSON.stringify(v));renderV3Counters()}
 function v3Total(v=v3Load()){return Object.values(v.collections||{}).reduce((a,b)=>a+Number(b||0),0)}
@@ -45,13 +58,23 @@ function renderRoom(){
  if(toyEl){toyEl.className=`roomToy toy-${toy?.id||'unicorn'}`;toyEl.textContent=toy?.value||'🦄'}
  if(bedEl)bedEl.className=`roomBed ${bed?.id==='bedBlue'?'bed-blue':bed?.id==='bedStar'?'bed-star':'bed-pink'}`;
  if(rugEl)rugEl.className=`roomRug ${rug?.id==='rugRainbow'?'rug-rainbow':rug?.id==='rugCloud'?'rug-cloud':'rug-heart'}`;
+ applyWardrobeToDoll(document.getElementById('roomEloDoll'),v);
  grid.innerHTML=ROOM_DECOR.map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')"><span>${unlock?it.icon:'🔒'}</span><b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`Libera com ${it.need} ⭐`}</small></button>`}).join('');
 }window.renderRoom=renderRoom;
 window.selectRoomDecor=function(id){const it=ROOM_DECOR.find(x=>x.id===id);if(!it)return;if(!roomUnlocked(it))return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load();v.room[it.kind]=it.id;v3Save(v);renderRoom();if(typeof speakText==='function'&&getActiveProfile().ageRange==='3-5')speakText(it.name)};
 
-function renderWardrobe(){const grid=document.getElementById('wardrobeGrid');if(!grid)return;const v=v3Load(),active=OUTFITS.find(x=>x.id===v.outfit)||OUTFITS[0];const p=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');if(p)p.textContent=`👧${active.badge}`;if(n)n.textContent=active.name;grid.innerHTML=OUTFITS.map(o=>{const unlocked=stars>=o.need,on=v.outfit===o.id;return `<button class="wardrobeItem ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipV3Outfit('${o.id}')"><span>${unlocked?o.icon:'🔒'}</span><b>${o.name}</b><small>${unlocked?(on?'Vestindo':'Vestir'):`Libera com ${o.need} ⭐`}</small></button>`}).join('')}
+function wardrobeItem(id){return WARDROBE_ITEMS.find(x=>x.id===id)}
+function wardrobeDefaults(){return defaultV3().wardrobe}
+function normalizeWardrobe(v){v.wardrobe=Object.assign({},wardrobeDefaults(),v.wardrobe||{});return v.wardrobe}
+function applyWardrobeToDoll(doll,v){if(!doll)return;const w=normalizeWardrobe(v);const all=WARDROBE_ITEMS.map(x=>x.cls).filter(Boolean);doll.classList.remove(...all);for(const id of Object.values(w)){const it=wardrobeItem(id);if(it?.cls)doll.classList.add(it.cls)};if(w.dress&&w.dress!=='noneDress')doll.classList.add('wearing-dress');else doll.classList.remove('wearing-dress')}
+function garmentThumb(it){if(it.thumb==='none')return '<span class="garmentThumb none"><i></i></span>';const parts=it.thumb.split(' '),shape=parts[0],tone=parts.slice(1).join('-');return `<span class="garmentThumb ${shape} ${tone}"><i></i><b></b></span>`}
+window.selectWardrobeCategory=function(cat){if(!WARDROBE_CATEGORIES.some(x=>x.id===cat))return;wardrobeCategory=cat;renderWardrobe()};
+function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),roomDoll=document.getElementById('roomEloDoll'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);applyWardrobeToDoll(roomDoll,v);if(n){const selected=WARDROBE_CATEGORIES.map(c=>wardrobeItem(w[c.id])?.name).filter(Boolean);n.textContent=selected.slice(0,2).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=stars>=it.need,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`Libera com ${it.need} ⭐`}</small></button>`}).join('')}
 window.renderWardrobe=renderWardrobe;
-window.equipV3Outfit=function(id){const o=OUTFITS.find(x=>x.id===id);if(!o)return;if(stars<o.need)return toast(`Este look libera com ${o.need} estrelas ⭐`);const v=v3Load();v.outfit=id;v3Save(v);renderWardrobe();toast(`${o.name} equipado! 👗`)};
+window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;if(stars<it.need)return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();toast(`${it.name} escolhido! ✨`)};
+window.resetV3Wardrobe=function(){const v=v3Load();v.wardrobe=wardrobeDefaults();v3Save(v);renderWardrobe();toast('Look original restaurado 💗')};
+// Compatibilidade com botões/estado antigos
+window.equipV3Outfit=function(){openPanel('wardrobePanel','home')};
 
 const CREATIVE={pizza:{title:'Monte sua pizza',main:'🍕',choices:['🍅','🧀','🌽','🫒','🍄','🥦']},cake:{title:'Decore o bolo',main:'🎂',choices:['🍓','⭐','🌈','💗','🍒','🍫']},toy:{title:'Monte um brinquedo maluco',main:'🤖',choices:['⚙️','🛞','🚀','🎀','⭐','🧲']},pet:{title:'Cuide do bichinho',main:'🐶',choices:['🥣','🦴','🫧','🎾','💗','🎀']}};
 let creativeType='pizza',creativeItems=[];
@@ -66,10 +89,26 @@ const FAMILY={
  coop:['Encontrem juntos 3 coisas redondas perto de vocês.','Façam uma torre com 5 objetos seguros.','Inventem juntos um cumprimento engraçado.','Escolham uma música e façam uma dança de 20 segundos.'],
  draw:['Uma pessoa desenha uma cabeça e passa para a outra completar o corpo.','Um escolhe um animal e o outro acrescenta um cenário.','Façam juntos um desenho usando apenas círculos e linhas.','Cada pessoa acrescenta 3 detalhes ao mesmo desenho.']
 };
-let familyType='',familyTurn=1;
-window.startFamilyGame=function(type){familyType=type;familyTurn=1;renderFamilyPrompt()};
-function renderFamilyPrompt(){const box=document.getElementById('familyGameBox');if(!box||!FAMILY[familyType])return;const arr=FAMILY[familyType],prompt=arr[Math.floor(Math.random()*arr.length)];box.innerHTML=`<span class="familyTurn">${familyType==='coop'?'JUNTOS':`VEZ ${familyTurn}`}</span><div class="familyPrompt">${prompt}</div><button class="btn" onclick="nextFamilyPrompt()">Conseguimos! ⭐</button>`}
-window.nextFamilyPrompt=function(){const v=v3Load();v.familyRounds=Number(v.familyRounds||0)+1;v3Save(v);familyTurn=familyTurn===1?2:1;if(v.familyRounds===3){addCollectible('rainbows',1,'Família unida! Novo arco-íris 🌈');addStars(1,'Brincadeira em família! +1 ⭐')}renderFamilyPrompt()};
+const MIME_CATEGORIES={
+ mix:{name:'Misturado',icon:'🎭'},animals:{name:'Animais',icon:'🐾'},actions:{name:'Ações',icon:'🏃'},jobs:{name:'Profissões',icon:'🧑‍🚒'},objects:{name:'Objetos',icon:'🧸'},food:{name:'Comidas',icon:'🍕'},sports:{name:'Esportes',icon:'⚽'},characters:{name:'Personagens',icon:'🦄'}
+};
+const MIME_PROMPTS=[
+ ['animals','Elefante'],['animals','Gato'],['animals','Macaco'],['animals','Pinguim'],['animals','Cachorro'],['animals','Coelho'],
+ ['actions','Escovar os dentes'],['actions','Tomar banho'],['actions','Dormir'],['actions','Dançar'],['actions','Cozinhar'],['actions','Andar de bicicleta'],
+ ['jobs','Bombeiro'],['jobs','Professor'],['jobs','Médico'],['jobs','Cozinheiro'],['jobs','Fotógrafo'],['jobs','Cantor'],
+ ['objects','Avião'],['objects','Guarda-chuva'],['objects','Relógio'],['objects','Telefone'],['objects','Vassoura'],['objects','Violão'],
+ ['food','Pizza'],['food','Sorvete'],['food','Banana'],['food','Macarrão'],['food','Bolo'],['food','Pipoca'],
+ ['sports','Futebol'],['sports','Natação'],['sports','Basquete'],['sports','Vôlei'],['sports','Corrida'],['sports','Ginástica'],
+ ['characters','Princesa'],['characters','Unicórnio'],['characters','Robô'],['characters','Super-herói'],['characters','Pirata'],['characters','Mago']
+];
+let familyType='',familyTurn=1,mimeCategory='mix',mimeRevealed=false;
+window.startFamilyGame=function(type){familyType=type;familyTurn=1;mimeRevealed=false;renderFamilyPrompt()};
+window.setMimeCategory=function(cat){if(!MIME_CATEGORIES[cat])return;mimeCategory=cat;mimeRevealed=false;renderFamilyPrompt()};
+function randomMime(){const pool=MIME_PROMPTS.filter(x=>mimeCategory==='mix'||x[0]===mimeCategory);return pool[Math.floor(Math.random()*pool.length)]||MIME_PROMPTS[0]}
+window.revealMimePrompt=function(){mimeRevealed=true;renderFamilyPrompt(true)};
+function renderFamilyPrompt(keep=false){const box=document.getElementById('familyGameBox');if(!box)return;if(familyType==='mime'){let saved=box.dataset.mimePrompt;if(!keep||!saved){const p=randomMime();saved=p[1];box.dataset.mimePrompt=saved}const cats=Object.entries(MIME_CATEGORIES).map(([id,c])=>`<button class="mimeCat ${mimeCategory===id?'on':''}" onclick="setMimeCategory('${id}')"><span>${c.icon}</span>${c.name}</button>`).join('');box.innerHTML=`<div class="mimeHeader"><span class="familyTurn">VEZ ${familyTurn}</span><b>🎭 Mímica</b></div><div class="mimeCats">${cats}</div>${mimeRevealed?`<div class="mimePrompt"><small>SEM FALAR, FAÇA:</small><strong>${saved}</strong><span>Agora esconda a tela de quem vai adivinhar 😉</span></div><div class="mimeActions"><button class="btn" onclick="nextFamilyPrompt()">Conseguiu! ⭐</button><button class="btn secondary" onclick="newMimePrompt()">Outra mímica</button></div>`:`<div class="mimeHidden"><span>🙈</span><b>Só quem vai fazer a mímica olha agora.</b><button class="btn" onclick="revealMimePrompt()">Mostrar mímica</button></div>`}`;return}if(!FAMILY[familyType]){box.innerHTML='<p class="muted">Escolha uma brincadeira acima.</p>';return}const arr=FAMILY[familyType],prompt=arr[Math.floor(Math.random()*arr.length)];box.innerHTML=`<span class="familyTurn">${familyType==='coop'?'JUNTOS':`VEZ ${familyTurn}`}</span><div class="familyPrompt">${prompt}</div><button class="btn" onclick="nextFamilyPrompt()">Conseguimos! ⭐</button>`}
+window.newMimePrompt=function(){mimeRevealed=false;const box=document.getElementById('familyGameBox');if(box)box.dataset.mimePrompt='';renderFamilyPrompt()};
+window.nextFamilyPrompt=function(){const v=v3Load();v.familyRounds=Number(v.familyRounds||0)+1;v3Save(v);familyTurn=familyTurn===1?2:1;if(v.familyRounds===3){addCollectible('rainbows',1,'Família unida! Novo arco-íris 🌈');addStars(1,'Brincadeira em família! +1 ⭐')}mimeRevealed=false;const box=document.getElementById('familyGameBox');if(box)box.dataset.mimePrompt='';renderFamilyPrompt()};
 
 const INTERACTIVE=[
  {id:'forest',icon:'🌳🦄',title:'O Caminho do Unicórnio',start:'Elo encontra duas trilhas perto da floresta. Qual caminho ela escolhe?',choices:[['🌸 Trilha das flores','flowers'],['🌙 Trilha brilhante','moon']],nodes:{flowers:{text:'As flores começam a mexer. Elo encontra um passarinho que precisa de ajuda.',choices:[['🐦 Ajudar o passarinho','kind'],['🔎 Procurar o unicórnio','search']]},moon:{text:'Pequenas estrelas iluminam o caminho até uma ponte mágica.',choices:[['🌉 Atravessar a ponte','brave'],['🎵 Chamar com uma música','song']]},kind:{end:'Elo ajuda o passarinho e ele mostra um atalho. No fim, ela encontra o unicórnio! 💗'},search:{end:'Elo segue pegadas brilhantes e encontra o unicórnio escondido entre as árvores! 🦄'},brave:{end:'Do outro lado da ponte, o unicórnio esperava por uma amiga corajosa. ✨'},song:{end:'O unicórnio reconhece a música e aparece dançando. 🎵🦄'}}},
@@ -118,6 +157,6 @@ window.addStars=function(n=1,msg){const before=stars;oldAddStars(n,msg);const af
 const oldRenderParentV2=window.renderParentV2;
 window.renderParentV2=function(){oldRenderParentV2();renderParentV3()};
 
-function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent='3.0.1');renderHomeContinue();if(!pget('tutorial-v301'))setTimeout(()=>showTutorialOnce('v301','Mundo da Elo renovado! 🌈',['A tela inicial agora é um mundo para explorar. Toque nos lugares para entrar.','Procure pequenos segredos escondidos pelo mapa. Eles entram nas suas coleções.','Decore o quarto, escolha roupas, crie coisas e brinque no Modo Família.','A Escolinha tem rodadas curtas e ajusta a dificuldade automaticamente.','A Surpresa da Semana é só uma descoberta divertida: não existe sequência diária nem prêmio perdido.']),950)}
+function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent='3.0.2');renderHomeContinue();if(!pget('tutorial-v302'))setTimeout(()=>showTutorialOnce('v302','Mundo da Elo ganhou vida! 🌈',['A tela inicial agora é um mundo para explorar. Toque nos lugares para entrar.','Procure pequenos segredos escondidos pelo mapa. Eles entram nas suas coleções.','Decore o quarto, escolha roupas, crie coisas e brinque no Modo Família.','A Escolinha tem rodadas curtas e ajusta a dificuldade automaticamente.','A Surpresa da Semana é só uma descoberta divertida: não existe sequência diária nem prêmio perdido.']),950)}
 window.addEventListener('DOMContentLoaded',initV3);
 })();

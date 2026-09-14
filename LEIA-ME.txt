@@ -1,14 +1,12 @@
-DIA A DIA DA ELO — V3.0.1
+DIA A DIA DA ELO — V3.0.2
 
-ATUALIZAÇÃO VISUAL
-- Home totalmente redesenhada com artes próprias dos locais.
-- Mundo da Elo mais vivo, com céu, caminhos, paisagem, Elo-guia, microanimações e destaques.
-- Área Continuar lembra o último local visitado do perfil.
-- Quarto da Elo totalmente refeito com janela, cortinas, cama, armário, mesa, estante, tapete e decoração.
-- Novas opções de cama e tapete desbloqueáveis.
-- Texto continua escrito “Elo”; a leitura em voz pronuncia “Elô”.
-- RPG completo restaurado continua preservado.
+ATUALIZAÇÃO PRINCIPAL
+- Mundo da Elo mais vivo e integrado ao cenário.
+- Guarda-roupa completo com peças ilustradas e combinações por perfil.
+- Modo Família com nova brincadeira de Mímica.
+- Escrita continua Elo; voz em português pronuncia Elô.
+- RPG completo preservado.
 
-PARA ATUALIZAR PELO GITHUB
-Envie somente app-upload.zip na raiz do repositório e faça Commit na main.
+INSTALAÇÃO AUTOMÁTICA
+Envie app-upload.zip na RAIZ do repositório e faça o commit na main.
 O workflow Importar ZIP do app substitui os arquivos automaticamente.

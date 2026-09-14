@@ -1,11 +1,19 @@
-3.0.1 — REDESIGN VISUAL
+3.0.2 — MUNDO VIVO + GUARDA-ROUPA + MÍMICA
+- Home refeita como um pequeno mundo ilustrado, com construções integradas ao cenário, lago, ponte, árvores, flores e microanimações.
+- Guarda-roupa reconstruído com personagem ilustrada e peças visuais: camisetas, shorts, saias, calças, vestidos, sapatos, laços/tiaras, brincos, anéis, pulseiras, colares e maquiagem.
+- Look salvo separadamente por perfil e refletido também no Quarto da Elo.
+- Modo Família ganhou Mímica, com categorias e alternância de vez.
+- Pronúncia continua exibindo Elo e falando Elô.
+- RPG completo preservado sem alteração.
+
+3.0.2 — REDESIGN VISUAL
 - Nova Home / Mundo da Elo com ilustrações, caminhos, paisagem e Elo como guia.
 - Novo card Continuar de onde parou.
 - Surpresa semanal e ações principais ganharam mais destaque.
 - Quarto da Elo redesenhado do zero.
 - Cama e tapete passam a fazer parte da personalização.
 - Pronúncia TTS: “Elo” é falado como “Elô”, sem alterar a escrita.
-- Cache/versão atualizados para 3.0.1.
+- Cache/versão atualizados para 3.0.2.
 - RPG completo preservado sem simplificação.
 
 3.0.0 — A MAIOR ATUALIZAÇÃO DO DIA A DIA DA ELO

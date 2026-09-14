@@ -1,45 +1,17 @@
-DIA A DIA DA ELO v3.0.1 — TESTES DA ATUALIZAÇÃO VISUAL
+DIA A DIA DA ELO v3.0.2 — TESTES DA ATUALIZAÇÃO
 
-38/38 verificações automatizadas aprovadas.
+33 verificações automatizadas aprovadas:
+- HTML sem IDs duplicados.
+- IDs essenciais da Home, Quarto, Guarda-roupa e Modo Família presentes.
+- Referências locais de imagens, scripts e CSS válidas.
+- Manifest JSON válido e apontando para v3.0.2.
+- version.js, app.js, sw.js e index.html consistentes com v3.0.2.
+- Arquivos CORE do Service Worker existentes.
+- Mímica e categorias presentes.
+- Camiseta, shorts, saia, vestido, calça, brinco, anel, pulseira, colar e maquiagem presentes.
+- Regra de voz: escrita Elo / fala Elô preservada.
+- Sintaxe de app.js e v3.js validada pelo Node.js.
+- rpg.html comparado por SHA-256 com a base v3.0.1: idêntico, sem alterações.
 
-OK — version.js 3.0.1
-OK — manifest start 3.0.1
-OK — app fallback 3.0.1
-OK — sw fallback 3.0.1
-OK — ids únicos
-OK — 8 locais ilustrados
-OK — Elo guia do mapa
-OK — Continuar presente
-OK — Quarto presente
-OK — quarto .roomWindow
-OK — quarto .roomWallArt
-OK — quarto .roomShelf
-OK — quarto .roomWardrobe
-OK — quarto .roomBed
-OK — quarto .roomDesk
-OK — quarto .roomRug
-OK — quarto .roomToy
-OK — quarto .roomPlant
-OK — quarto .roomGuide
-OK — referências locais do index existem
-OK — TTS escreve não, fala Elô
-OK — English TTS preservado
-OK — último lugar por perfil
-OK — camas personalizáveis
-OK — tapetes personalizáveis
-OK — css braces balance
-OK — css .premiumWorld
-OK — css .artPlace
-OK — css .homeHighlights
-OK — css .room-premium
-OK — css .roomWindow
-OK — css .roomBed
-OK — css .roomWardrobe
-OK — RPG idêntico à base v3.0.0
-OK — SW core existe
-OK — node syntax app.js
-OK — node syntax v3.js
-OK — rpg script 0 syntax
-
-Observação: o RPG foi comparado por SHA-256 com a base oficial v3.0.0 e permaneceu idêntico.
-A Home e o Quarto receberam alterações em HTML/CSS/JS; a fala “Elô” é aplicada apenas no texto enviado ao TTS, sem alterar a escrita na interface.
+Observação:
+A atualização preserva saves/progresso e mantém o RPG completo sem reconstrução.
