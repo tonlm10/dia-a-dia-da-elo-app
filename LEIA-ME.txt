@@ -1,13 +1,13 @@
-ATUALIZAÇÃO v2.1.6 — capas corrigidas e RPG ajustado
+ATUALIZAÇÃO v2.1.7 — cabelo da Elo no RPG corrigido
 
 Copie o conteúdo desta pasta para a raiz do repositório do app no GitHub.
 Substitua os arquivos quando o GitHub perguntar.
 
-Mudanças desta versão:
-- capa do Quebra-cabeça refeita para não ficar cortada
-- capa da Trilha Encantada refeita para não ficar cortada
-- nova capa do RPG com cabelo da Elo corrigido
-- atualização de cache/versão para forçar recarregamento
+Mudança principal:
+- cabelo da Elo dentro do RPG ajustado para um rabo de cavalo para trás/lateral, sem ficar apontado para cima
 
-Pastas usadas:
-- assets/game-covers
+Arquivos atualizados:
+- app.js
+- index.html
+- sw.js
+- manifest.webmanifest

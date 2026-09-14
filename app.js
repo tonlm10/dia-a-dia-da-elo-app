@@ -371,14 +371,17 @@ function drawBossProjectile(ctx,p){ctx.save(); if(p.type==='ghost'){ctx.font='30
 function drawMagicHeart(ctx,x,y,size){ctx.save();ctx.translate(x,y);ctx.fillStyle='#ff6fae';ctx.beginPath();ctx.moveTo(0,size*.28);ctx.bezierCurveTo(0,-size*.05,-size*.42,-size*.06,-size*.42,size*.22);ctx.bezierCurveTo(-size*.42,size*.45,-size*.12,size*.62,0,size*.8);ctx.bezierCurveTo(size*.12,size*.62,size*.42,size*.45,size*.42,size*.22);ctx.bezierCurveTo(size*.42,-size*.06,0,-size*.05,0,size*.28);ctx.fill();ctx.restore()}
 function drawGhostBoss(ctx,b,flash){ctx.save();ctx.translate(b.x,b.y+Math.sin(b.float)*10);ctx.globalAlpha=.96;ctx.fillStyle=flash?'#ffd0f2':'#f1e6ff';ctx.beginPath();ctx.arc(58,40,34,Math.PI,0);ctx.lineTo(92,92);for(let i=0;i<5;i++)ctx.quadraticCurveTo(84-i*14,102,77-i*14,92);ctx.lineTo(24,92);for(let i=0;i<4;i++)ctx.quadraticCurveTo(18+i*12,102,12+i*12,92);ctx.closePath();ctx.fill();ctx.fillStyle='#6d59b8';ctx.beginPath();ctx.arc(45,42,6,0,Math.PI*2);ctx.arc(71,42,6,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#c77be8';ctx.lineWidth=4;ctx.beginPath();ctx.arc(58,58,14,.2,Math.PI-.2);ctx.stroke();ctx.font='28px system-ui';ctx.fillText('👑',46,16);ctx.restore()}
 function drawPlayerElo(ctx,p,blink){ctx.save();ctx.translate(p.x,p.y);ctx.globalAlpha=blink?.45:1;
- // cabelo cacheado alto e volumoso, inspirado na personagem da capa
+ // cabelo com rabo de cavalo para trás (não para cima)
  ctx.fillStyle='#5b3527';
- for(const [cx,cy,r] of [[28,17,19],[15,17,9],[42,16,10],[42,2,10],[48,-6,10],[42,-14,9],[33,-11,9],[52,3,8]]){ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill()}
- // laço rosa
- ctx.fillStyle='#ff70b3';ctx.beginPath();ctx.ellipse(37,-6,9,6,-.4,0,Math.PI*2);ctx.ellipse(50,-5,9,6,.4,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ff4f9d';ctx.beginPath();ctx.arc(44,-5,4,0,Math.PI*2);ctx.fill();
+ // rabo de cavalo cacheado para trás/na lateral
+ for(const [cx,cy,r] of [[9,20,10],[5,29,8],[12,33,9],[18,30,8],[7,11,7],[16,12,7],[2,22,6]]){ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill()}
+ // topo e lateral do cabelo junto à cabeça
+ for(const [cx,cy,r] of [[24,13,11],[31,12,10],[37,15,8],[20,18,8]]){ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill()}
+ // laço rosa preso no rabo de cavalo
+ ctx.fillStyle='#ff70b3';ctx.beginPath();ctx.ellipse(12,12,7,5,-.25,0,Math.PI*2);ctx.ellipse(22,12,7,5,.25,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ff4f9d';ctx.beginPath();ctx.arc(17,12,3.5,0,Math.PI*2);ctx.fill();
  // rosto
  ctx.fillStyle='#efbd9b';ctx.beginPath();ctx.arc(29,25,17,0,Math.PI*2);ctx.fill();ctx.fillStyle='#2f2544';ctx.beginPath();ctx.arc(23,24,2.6,0,Math.PI*2);ctx.arc(35,24,2.6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(22.2,23.2,.8,0,Math.PI*2);ctx.arc(34.2,23.2,.8,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#d57da4';ctx.lineWidth=2;ctx.beginPath();ctx.arc(29,31,7,.15,Math.PI-.15);ctx.stroke();
- // camiseta e vestido/short roxo-rosa da capa
+ // camiseta e vestido/short roxo-rosa
  ctx.fillStyle='#ff78ad';ctx.beginPath();ctx.moveTo(17,42);ctx.quadraticCurveTo(29,38,41,42);ctx.lineTo(45,62);ctx.lineTo(13,62);ctx.closePath();ctx.fill();ctx.fillStyle='#7a4fc5';ctx.beginPath();ctx.moveTo(13,61);ctx.lineTo(45,61);ctx.lineTo(40,78);ctx.lineTo(18,78);ctx.closePath();ctx.fill();ctx.fillStyle='#ffd65b';ctx.font='13px system-ui';ctx.fillText('★',25,58);
  // mochila lateral
  ctx.fillStyle='#8e4fbe';ctx.beginPath();ctx.roundRect(42,47,13,20,4);ctx.fill();ctx.fillStyle='#ffd65b';ctx.font='10px system-ui';ctx.fillText('★',44,61);

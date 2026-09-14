@@ -7,7 +7,7 @@
 <meta name="description" content="Dia a Dia da Elo — vídeos, playlists, jogos com capas, Escolinha, colorir e Aventuras da Elo." />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<link rel="manifest" href="manifest.webmanifest?v=2.1.6" />
+<link rel="manifest" href="manifest.webmanifest?v=2.1.7" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 <title>Dia a Dia da Elo</title>
@@ -67,7 +67,7 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:6px 10px calc(6px 
 @media(max-width:390px){.engKidChoices{gap:8px}.kidChoice{min-height:116px;padding:8px}.kidChoiceEmoji{font-size:56px}.kidColorSwatch{width:65px;height:65px}.kidNumberVisual{width:82px;height:82px;font-size:58px}.schoolChallengesHero{padding:15px}}
 
 
-/* v2.1.6 • correções visuais dos cards de jogos + bloqueio de zoom da página */
+/* v2.1.7 • correções visuais dos cards de jogos + bloqueio de zoom da página */
 html,body{-webkit-text-size-adjust:100%}#playPanel .gameLaunchGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}#playPanel .gameLaunch{border:0;border-radius:26px;padding:0;text-align:left;box-shadow:var(--shadow);color:var(--ink);background:#fff;overflow:hidden;display:flex;flex-direction:column;position:relative}#playPanel .gameLaunch .gameCover{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#f5efff}#playPanel .gameLaunch .gameInfo{padding:14px 16px 18px;display:flex;flex-direction:column;gap:6px;min-height:126px;position:relative}#playPanel .gameLaunch b{display:block;font-size:17px;line-height:1.08;padding-right:34px;max-width:none;text-shadow:none}#playPanel .gameLaunch small{display:block;color:var(--muted)!important;font-size:12px;line-height:1.28;max-width:none;text-shadow:none;margin-top:0}#playPanel .gameLaunch .gameArrow{position:absolute;right:14px;bottom:14px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#ffe6f3;color:var(--pinkDark);font-size:22px;font-weight:900}#playPanel .gameLaunch .gameTag{display:inline-block;align-self:flex-start;background:#f0ebff;color:#6f54c2;border-radius:999px;padding:6px 10px;font-size:10px;font-weight:900;letter-spacing:.2px;text-transform:uppercase}#playPanel .gameLaunch.full{grid-column:1/-1}#playPanel .gameLaunch.full .gameCover{aspect-ratio:16/9}#playPanel .gameLaunch.rpgLaunch{background:#fff!important;color:var(--ink)!important;min-height:unset!important;border:0!important;box-shadow:var(--shadow)!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;padding:0!important}#playPanel .gameLaunch.rpgLaunch::before,#playPanel .gameLaunch.rpgLaunch::after{display:none!important;content:none!important}#playPanel .gameLaunch.rpgLaunch>*{position:static!important;z-index:auto!important}#playPanel .gameLaunch.rpgLaunch .gameInfo{padding:16px 16px 18px!important}#playPanel .gameLaunch.rpgLaunch b{font-size:19px!important;color:var(--ink)!important}#playPanel .gameLaunch.rpgLaunch small{font-size:13px!important;color:var(--muted)!important}#playPanel .rpgFeatures{display:flex;gap:7px;flex-wrap:wrap;margin-top:2px}#playPanel .rpgFeatures span{background:#f0ebff!important;border:1px solid #e2dbff!important;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;color:#6c50bb!important;backdrop-filter:none!important}#playPanel .rpgLaunch .gico{display:none!important}@media(max-width:560px){#playPanel .gameLaunchGrid{grid-template-columns:1fr 1fr;gap:12px}#playPanel .gameLaunch .gameInfo{padding:12px 14px 16px}#playPanel .gameLaunch b{font-size:15px}#playPanel .gameLaunch small{font-size:11px}#playPanel .gameLaunch .gameArrow{width:30px;height:30px;font-size:20px}#playPanel .gameLaunch.full .gameCover{aspect-ratio:16/9}#playPanel .gameLaunch.rpgLaunch b{font-size:18px!important}#playPanel .rpgFeatures span{font-size:9px;padding:5px 8px}}
 </style>
 </head>
@@ -94,7 +94,7 @@ html,body{-webkit-text-size-adjust:100%}#playPanel .gameLaunchGrid{display:grid;
   <div class="sectionHead"><h2>Missão e família</h2><small>Um pouquinho por dia ✨</small></div>
   <div class="missionRow"><div class="miniCard pink"><h3>🏆 Missão do dia</h3><p id="dailyText">Faça algo divertido hoje!</p><div class="progress"><i id="dailyProgress"></i></div><button class="smallBtn" style="margin-top:10px" onclick="completeDaily()">Consegui!</button></div><div class="miniCard lilac"><h3>👨‍👩‍👧 Área dos Pais</h3><p>Dicas, segurança e links oficiais.</p><button class="smallBtn" onclick="openParents()">Entrar</button></div></div>
 
-  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v2.1.6</div>
+  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v2.1.7</div>
 </section>
 
 <section id="achievementsPanel" class="panel">
