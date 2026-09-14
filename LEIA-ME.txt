@@ -1,10 +1,10 @@
-ATUALIZAÇÃO v2.1.7 — cabelo da Elo no RPG corrigido
+ATUALIZAÇÃO v2.1.8 — inglês automático + cabelo baixo da Elo
 
-Copie o conteúdo desta pasta para a raiz do repositório do app no GitHub.
-Substitua os arquivos quando o GitHub perguntar.
+Copie o conteúdo desta pasta para a raiz do repositório do app no GitHub e substitua os arquivos existentes.
 
-Mudança principal:
-- cabelo da Elo dentro do RPG ajustado para um rabo de cavalo para trás/lateral, sem ficar apontado para cima
+O que foi ajustado:
+- Inglês níveis 2 e 3: ao acertar, a atividade agora passa automaticamente para a próxima, igual ao nível 1.
+- Desenho da Elo no jogo com personagem desenhada em app.js ajustado com cabelo baixo/rabo de cavalo para trás e para baixo.
 
 Arquivos atualizados:
 - app.js

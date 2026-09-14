@@ -3,7 +3,7 @@
   "name": "Dia a Dia da Elo",
   "short_name": "Dia a Dia da Elo",
   "lang": "pt-BR",
-  "start_url": "./?app=2.1.7",
+  "start_url": "./?app=2.1.8",
   "scope": "./",
   "display": "standalone",
   "display_override": [
