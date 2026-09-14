@@ -1,48 +1,8 @@
-const CACHE='elo-official-v2-1-8-20260914';
-const CORE=[
-  './','./index.html','./app.js?v=2.1.8','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html?v=2.0',
-  './assets/logo-oficial.webp','./assets/rpg-cover-v1-5.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
-  './assets/icons/icon-maskable-192.png','./assets/icons/icon-maskable-512.png','./assets/icons/apple-touch-icon.png'
-];
-const OPTIONAL=[
-  './assets/channel-banner-v5.webp','./assets/member-promo.webp','./assets/aventuras-icon.webp',
-  './assets/game-covers/rpg-cover-v2.webp','./assets/game-covers/find-cover.webp','./assets/game-covers/maze-cover.webp','./assets/game-covers/chase-cover.webp','./assets/game-covers/memory-cover.webp','./assets/game-covers/puzzle-cover.webp','./assets/game-covers/tap-cover.webp','./assets/game-covers/trail-cover.webp',
-  './assets/home-icons/home-nav.webp','./assets/home-icons/watch-card.webp','./assets/home-icons/watch-nav.webp',
-  './assets/home-icons/play-card.webp','./assets/home-icons/play-nav.webp','./assets/home-icons/learn-card.webp','./assets/home-icons/learn-nav.webp',
-  './assets/home-icons/create-card.webp','./assets/home-icons/create-nav.webp','./assets/home-icons/stories-card.webp',
-  './assets/home-icons/club-card.webp','./assets/home-icons/achievements-card.webp',
-  './assets/stories/story1-cover.webp','./assets/stories/story2-cover.webp','./assets/stories/story3-cover.webp','./assets/stories/story4-cover.webp',
-  './assets/stories/story1.webp','./assets/stories/story2.webp','./assets/stories/story3.webp','./assets/stories/story4.webp',
-  ...Array.from({length:16},(_,i)=>`./assets/memory-cards/card-${String(i+1).padStart(2,'0')}.webp`),
-  ...Array.from({length:16},(_,i)=>`./assets/puzzle/puzzle-${String(i+1).padStart(2,'0')}.webp`),
-  ...Array.from({length:10},(_,i)=>`./assets/coloring/color-${i+1}.webp`)
-];
-async function cacheIndividually(cache,urls){
-  await Promise.allSettled(urls.map(async url=>{
-    try{const res=await fetch(url,{cache:'reload'});if(res.ok)await cache.put(url,res.clone())}catch(_){/* one asset never blocks the whole app */}
-  }));
-}
-self.addEventListener('install',event=>{
-  event.waitUntil((async()=>{const cache=await caches.open(CACHE);await cacheIndividually(cache,CORE);await cacheIndividually(cache,OPTIONAL);await self.skipWaiting()})());
-});
-self.addEventListener('activate',event=>{
-  event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim()})());
-});
-self.addEventListener('fetch',event=>{
-  if(event.request.method!=='GET')return;
-  const url=new URL(event.request.url);
-  if(url.origin!==location.origin)return;
-  const networkFirst=event.request.mode==='navigate'||/\/(index\.html|app\.js|rpg\.html|manifest\.webmanifest|privacy\.html|terms\.html)$/.test(url.pathname);
-  if(networkFirst){
-    event.respondWith((async()=>{
-      try{const res=await fetch(event.request,{cache:'no-store'});if(res.ok){const cache=await caches.open(CACHE);cache.put(event.request,res.clone())}return res}
-      catch(_){const hit=await caches.match(event.request);if(hit)return hit;if(url.pathname.endsWith('/rpg.html')||url.pathname.endsWith('rpg.html')){const r=await caches.match('./rpg.html?v=2.0')||await caches.match('./rpg.html');if(r)return r}if(event.request.mode==='navigate')return caches.match('./index.html');return new Response('',{status:504,statusText:'Offline'})}
-    })());
-    return;
-  }
-  event.respondWith((async()=>{
-    const hit=await caches.match(event.request);if(hit)return hit;
-    try{const res=await fetch(event.request);if(res.ok){const cache=await caches.open(CACHE);cache.put(event.request,res.clone())}return res}
-    catch(_){return new Response('',{status:504,statusText:'Offline'})}
-  })());
-});
+importScripts('./version.js');
+const APP_VERSION=self.ELO_APP_VERSION||'2.2.0';
+const CACHE=`elo-official-${APP_VERSION}`;
+const CORE=['./','./index.html','./version.js','./styles.css','./app.js','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html','./assets/logo-oficial.webp','./assets/icons/icon-192.png','./assets/icons/icon-512.png','./assets/icons/icon-maskable-192.png','./assets/icons/icon-maskable-512.png','./assets/icons/apple-touch-icon.png'];
+async function addSafe(cache,urls){await Promise.allSettled(urls.map(async u=>{try{const r=await fetch(u,{cache:'reload'});if(r.ok)await cache.put(u,r.clone())}catch(_){}}))}
+self.addEventListener('install',e=>e.waitUntil((async()=>{const c=await caches.open(CACHE);await addSafe(c,CORE);await self.skipWaiting()})()));
+self.addEventListener('activate',e=>e.waitUntil((async()=>{const ks=await caches.keys();await Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim()})()));
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const u=new URL(e.request.url);if(u.origin!==location.origin)return;const fresh=e.request.mode==='navigate'||/\/(index\.html|app\.js|version\.js|rpg\.html|manifest\.webmanifest|privacy\.html|terms\.html)$/.test(u.pathname);if(fresh){e.respondWith((async()=>{try{const r=await fetch(e.request,{cache:'no-store'});if(r.ok){const c=await caches.open(CACHE);c.put(e.request,r.clone())}return r}catch(_){return (await caches.match(e.request))||(e.request.mode==='navigate'?await caches.match('./index.html'):new Response('',{status:504}))}})());return}e.respondWith((async()=>{const hit=await caches.match(e.request);if(hit)return hit;try{const r=await fetch(e.request);if(r.ok){const c=await caches.open(CACHE);c.put(e.request,r.clone())}return r}catch(_){return new Response('',{status:504})}})())});

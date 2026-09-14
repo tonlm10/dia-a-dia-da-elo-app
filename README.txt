@@ -1,45 +1,24 @@
-DIA A DIA DA ELO — VERSÃO OFICIAL 1.0
+DIA A DIA DA ELO — VERSÃO 2.2.0 COMPLETA
 
-Esta é a primeira versão tratada como versão oficial do aplicativo.
+Este pacote contém TODO o conteúdo necessário para substituir o repositório do GitHub Pages.
 
-PRINCIPAIS RECURSOS
-- Home simplificada e organizada.
-- Vídeos e 13 playlists oficiais.
-- Jogos em tela cheia: Ache a Estrela, Labirinto, Memória, Quebra-cabeça e Toque no Número.
-- Jogo da memória com 16 artes ilustradas padronizadas da Elo; 8, 16 ou 32 cartas.
-- Quebra-cabeça com 16 imagens padronizadas, níveis 3x3, 4x4 e 5x5 e bloqueio automático ao concluir.
-- Escolinha com níveis Fácil, Médio e Desafio.
-- Área de colorir com 10 desenhos, 30 cores, preenchimento por toque, desfazer, salvar e zoom de 100% a 400%.
-- Aventuras da Elo com 4 histórias.
-- Sistema de pontos, missões e conquistas em tela própria.
-- Área dos responsáveis protegida por PIN de 4 dígitos.
-- Links externos protegidos pelo PIN.
-- Política de Privacidade e Termos de Uso públicos e dentro do app.
-- Service Worker com atualização resiliente: um arquivo opcional ausente não bloqueia todo o app.
-- Assets antigos e duplicados removidos.
-- Novos ícones oficiais, incluindo versões maskable para Android/PWA.
+PRINCIPAIS MELHORIAS
+- Trilha Encantada: estrela vale 1 ponto de coleta; unicórnio vale 2.
+- RPG completo incluído em rpg.html, com personagem em quatro direções e rabo de cavalo baixo.
+- Objetivo do RPG não fica cortado e o botão A muda entre Falar, Entrar, Abrir e Pegar.
+- Inglês 3–5, 6–8 e 9–11 com progresso, medalhas e certificados independentes.
+- Acerto no Inglês avança automaticamente para a próxima questão.
+- Escolinha 3–5 usa áudio + figuras, sem exigir leitura; faixas maiores recebem desafios adequados.
+- Faixa etária fica salva em cada perfil.
+- Criar/apagar/alterar perfil exige PIN dos responsáveis.
+- PIN parental reloca ao sair da Área dos Pais e também expira após 5 minutos.
+- Painel dos pais mostra progresso local, uso semanal e atividade mais acessada.
+- Backup pode substituir o perfil atual ou criar um novo perfil.
+- Saída do RPG encerra o iframe para não continuar rodando em segundo plano.
+- Textos do quebra-cabeça padronizados para imagem, não foto.
+- Botão flutuante Ler removido para não cobrir jogos/cards.
+- Service Worker mais leve: baixa assets grandes sob demanda e guarda em cache conforme uso.
+- Versionamento centralizado em version.js.
 
-ATUALIZAÇÃO NO GITHUB PAGES
-1. Extraia o ZIP.
-2. Substitua TODO o conteúdo do repositório pelo conteúdo desta pasta, mantendo index.html na raiz.
-3. Faça commit.
-4. Aguarde GitHub Pages terminar o deploy.
-5. Confirme em Área dos Pais > Sobre o app: "Dia a Dia da Elo • versão 1.0."
-
-IMPORTANTE SOBRE O ÍCONE NO ANDROID
-O pacote inclui novos ícones oficiais em assets/icons e o manifest aponta somente para eles.
-Se o ícone antigo continuar na tela inicial após o site atualizar, o Android pode estar mantendo o ícone da instalação anterior em cache. Nesse caso, depois de confirmar a versão 1.0 no navegador, remova apenas a instalação/atalho antigo e instale novamente a partir da página atualizada. Os dados locais podem depender do método de instalação, portanto teste antes de limpar dados do navegador.
-
-ESTRUTURA PRINCIPAL
-- index.html
-- app.js
-- sw.js
-- manifest.webmanifest
-- privacy.html
-- terms.html
-- assets/
-  - icons/
-  - memory-cards/
-  - puzzle/
-  - coloring/
-  - stories/
+GITHUB
+O ZIP de upload automático se chama app-upload.zip. Veja GUIA-GITHUB.txt.
