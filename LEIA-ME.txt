@@ -1,17 +1,14 @@
-DIA A DIA DA ELO — V3.0.0
+DIA A DIA DA ELO — V3.0.1
 
-ARQUIVO PARA ATUALIZAR O GITHUB:
-app-upload.zip
+ATUALIZAÇÃO VISUAL
+- Home totalmente redesenhada com artes próprias dos locais.
+- Mundo da Elo mais vivo, com céu, caminhos, paisagem, Elo-guia, microanimações e destaques.
+- Área Continuar lembra o último local visitado do perfil.
+- Quarto da Elo totalmente refeito com janela, cortinas, cama, armário, mesa, estante, tapete e decoração.
+- Novas opções de cama e tapete desbloqueáveis.
+- Texto continua escrito “Elo”; a leitura em voz pronuncia “Elô”.
+- RPG completo restaurado continua preservado.
 
-COMO USAR
-1. Abra a raiz do repositório no GitHub.
-2. Add file > Upload files.
-3. Envie SOMENTE app-upload.zip.
-4. Faça Commit direto na main.
-5. Aguarde “Importar ZIP do app” concluir com sucesso na aba Actions.
-6. Depois aguarde o GitHub Pages publicar a versão.
-
-O workflow existente preserva .git e .github, substitui o aplicativo, remove o ZIP e salva a atualização automaticamente.
-
-VERSÃO: 3.0.0
-RPG BASE: restaurado v1.7.6, preservado sem simplificação.
+PARA ATUALIZAR PELO GITHUB
+Envie somente app-upload.zip na raiz do repositório e faça Commit na main.
+O workflow Importar ZIP do app substitui os arquivos automaticamente.

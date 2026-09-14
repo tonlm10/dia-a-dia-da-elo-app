@@ -3,7 +3,7 @@
   "name": "Dia a Dia da Elo",
   "short_name": "Dia a Dia da Elo",
   "lang": "pt-BR",
-  "start_url": "./?app=3.0.0",
+  "start_url": "./?app=3.0.1",
   "scope": "./",
   "display": "standalone",
   "display_override": [
@@ -12,7 +12,7 @@
   "orientation": "portrait-primary",
   "background_color": "#fff8fc",
   "theme_color": "#ff67a8",
-  "description": "Dia a Dia da Elo v3 — Mundo da Elo com jogos, Escolinha adaptativa, inglês, histórias, criação, coleções, quarto, Modo Família, conquistas e RPG.",
+  "description": "Dia a Dia da Elo v3.0.1 — Mundo da Elo renovado, quarto ilustrado, jogos, Escolinha adaptativa, histórias, criação, coleções, família e RPG.",
   "categories": [
     "education",
     "games",

@@ -1,4 +1,4 @@
-/* Dia a Dia da Elo — v3.0.0: Mundo da Elo */
+/* Dia a Dia da Elo — v3.0.1: Mundo da Elo renovado */
 (function(){
 'use strict';
 const V3_KEY='eloV3WorldState';
@@ -7,31 +7,46 @@ const V3_COLLECTIONS={
 };
 const ROOM_DECOR=[
  {id:'wallPink',kind:'wall',icon:'🩷',name:'Parede Rosa',need:0,className:''},{id:'wallBlue',kind:'wall',icon:'🩵',name:'Parede Céu',need:10,className:'wall-blue'},{id:'wallStars',kind:'wall',icon:'🌌',name:'Parede Estrelas',need:25,className:'wall-stars'},
- {id:'rainbow',kind:'art',icon:'🌈',name:'Quadro Arco-íris',need:0,value:'🌈'},{id:'stars',kind:'art',icon:'⭐',name:'Quadro Estrelas',need:18,value:'🌟✨'},{id:'heart',kind:'art',icon:'💗',name:'Quadro Coração',need:35,value:'💗'},
+ {id:'rainbow',kind:'art',icon:'🌈',name:'Quadro Arco-íris',need:0},{id:'stars',kind:'art',icon:'⭐',name:'Quadro Estrelas',need:18},{id:'heart',kind:'art',icon:'💗',name:'Quadro Coração',need:35},
+ {id:'bedPink',kind:'bed',icon:'🛏️',name:'Cama Rosa',need:0},{id:'bedBlue',kind:'bed',icon:'🩵',name:'Cama Céu',need:20},{id:'bedStar',kind:'bed',icon:'⭐',name:'Cama Estrela',need:45},
+ {id:'rugHeart',kind:'rug',icon:'💗',name:'Tapete Coração',need:0},{id:'rugRainbow',kind:'rug',icon:'🌈',name:'Tapete Arco-íris',need:14},{id:'rugCloud',kind:'rug',icon:'☁️',name:'Tapete Nuvem',need:32},
  {id:'unicorn',kind:'toy',icon:'🦄',name:'Unicórnio',need:0,value:'🦄'},{id:'teddy',kind:'toy',icon:'🧸',name:'Ursinho',need:15,value:'🧸'},{id:'cat',kind:'toy',icon:'🐱',name:'Gatinho',need:30,value:'🐱'}
 ];
 const OUTFITS=[
  {id:'pink',icon:'🎀',name:'Look Rosa',need:0,badge:'🎀'},{id:'rainbow',icon:'🌈',name:'Look Arco-íris',need:10,badge:'🌈'},{id:'unicorn',icon:'🦄',name:'Fantasia Unicórnio',need:22,badge:'🦄'},{id:'artist',icon:'🎨',name:'Elo Artista',need:38,badge:'🎨'},{id:'star',icon:'⭐',name:'Elo Estrela',need:55,badge:'⭐'},{id:'adventure',icon:'🧭',name:'Elo Aventureira',need:75,badge:'🧭'}
 ];
-function defaultV3(){return{collections:{stars:0,bows:0,unicorns:0,rainbows:0,stickers:0},secrets:[],room:{wall:'wallPink',art:'rainbow',toy:'unicorn'},outfit:'pink',weekly:{key:'',opened:false},creativeDone:[],interactiveDone:[],familyRounds:0,schoolProgress:{colors:0,numbers:0,shapes:0,animals:0}}}
+function defaultV3(){return{collections:{stars:0,bows:0,unicorns:0,rainbows:0,stickers:0},secrets:[],room:{wall:'wallPink',art:'rainbow',bed:'bedPink',rug:'rugHeart',toy:'unicorn'},outfit:'pink',weekly:{key:'',opened:false},creativeDone:[],interactiveDone:[],familyRounds:0,schoolProgress:{colors:0,numbers:0,shapes:0,animals:0}}}
 function v3Load(){try{return Object.assign(defaultV3(),JSON.parse(pget(V3_KEY)||'{}'))}catch(_){return defaultV3()}}
 function v3Save(v){pset(V3_KEY,JSON.stringify(v));renderV3Counters()}
 function v3Total(v=v3Load()){return Object.values(v.collections||{}).reduce((a,b)=>a+Number(b||0),0)}
 function addCollectible(type,n=1,message){const v=v3Load();if(!(type in V3_COLLECTIONS))return;v.collections[type]=Math.min(V3_COLLECTIONS[type].goal,Number(v.collections[type]||0)+n);v3Save(v);if(message)toast(message);renderCollection();renderRoom();renderWardrobe();}
-function renderV3Counters(){const v=v3Load(),el=document.getElementById('collectionHomeCount');if(el)el.textContent=`${v3Total(v)} itens`;const wk=document.getElementById('weeklySurpriseStatus');if(wk)wk.textContent=v.weekly?.opened&&v.weekly.key===weekKey()?'aberta ✓':'da semana';}
+const WORLD_META={room:{title:'Quarto da Elo',sub:'Continue decorando seu cantinho'},school:{title:'Escolinha da Elo',sub:'Continue aprendendo brincando'},play:{title:'Jogos da Elo',sub:'Escolha uma nova brincadeira'},rpg:{title:'Reino das Estrelas',sub:'Continue sua aventura no RPG'},creative:{title:'Ateliê da Elo',sub:'Crie, pinte e invente'},cinema:{title:'Cinema da Elo',sub:'Veja vídeos e playlists'},library:{title:'Biblioteca',sub:'Continue uma história'},club:{title:'Clubinho da Elo',sub:'Veja o espaço especial'}};
+function renderHomeContinue(){const id=pget('v3LastPlace')||'',m=WORLD_META[id],t=document.getElementById('continueTitle'),s=document.getElementById('continueSub');if(t)t.textContent=m?.title||'Escolha uma aventura';if(s)s.textContent=m?.sub||'O app lembra seu último lugar.'}
+function renderV3Counters(){const v=v3Load(),el=document.getElementById('collectionHomeCount');if(el)el.textContent=`${v3Total(v)} itens`;const wk=document.getElementById('weeklySurpriseStatus');if(wk)wk.textContent=v.weekly?.opened&&v.weekly.key===weekKey()?'Já descoberta ✓':'Toque para abrir';renderHomeContinue();}
 window.renderV3Counters=renderV3Counters;
+window.openContinueSpot=function(){const p=pget('v3LastPlace');if(p&&WORLD_META[p])openWorldPlace(p);else eloGuideSay('Escolha um lugar no mapa e eu vou lembrar para você continuar depois!')};
 
 window.eloGuideSay=function(text){const b=document.getElementById('eloGuideText');if(b)b.textContent=text;if(typeof speakText==='function')speakText(text)};
 window.worldPlaceSpeak=function(text){if(getActiveProfile().ageRange==='3-5'&&typeof speakText==='function')speakText(text)};
-window.openWorldPlace=function(place){const map={room:['roomPanel','home','Vamos para casa! Você pode decorar o quarto e trocar o visual da Elo.'],school:['learnPanel','learn','Hora de aprender brincando!'],play:['playPanel','play','Escolha um jogo e divirta-se!'],rpg:['rpg',null,'O portal do Reino das Estrelas está aberto!'],creative:['createPanel','create','Vamos criar alguma coisa bem legal!'],cinema:['watchPanel','watch','Pegue a pipoca! O Cinema da Elo vai começar.'],library:['storiesPanel','stories','Na biblioteca, cada história é uma aventura.'],club:['clubPanel','club','Bem-vinda ao Clubinho da Elo!']};const a=map[place];if(!a)return;eloGuideSay(a[2]);if(a[0]==='rpg')setTimeout(()=>openRpg(),180);else setTimeout(()=>openPanel(a[0],a[1]),140)};
+window.openWorldPlace=function(place){const map={room:['roomPanel','home','Vamos para casa! Você pode decorar o quarto e trocar o visual da Elo.'],school:['learnPanel','learn','Hora de aprender brincando!'],play:['playPanel','play','Escolha um jogo e divirta-se!'],rpg:['rpg',null,'O portal do Reino das Estrelas está aberto!'],creative:['createPanel','create','Vamos criar alguma coisa bem legal!'],cinema:['watchPanel','watch','Pegue a pipoca! O Cinema da Elo vai começar.'],library:['storiesPanel','stories','Na biblioteca, cada história é uma aventura.'],club:['clubPanel','club','Bem-vinda ao Clubinho da Elo!']};const a=map[place];if(!a)return;pset('v3LastPlace',place);renderHomeContinue();eloGuideSay(a[2]);if(a[0]==='rpg')setTimeout(()=>openRpg(),180);else setTimeout(()=>openPanel(a[0],a[1]),140)};
 window.findWorldSecret=function(id){const typeMap={star:'stars',unicorn:'unicorns',bow:'bows'},v=v3Load();if(v.secrets.includes(id))return toast('Você já encontrou este segredo 💗');v.secrets.push(id);v3Save(v);addCollectible(typeMap[id],1,`Segredo encontrado! ${V3_COLLECTIONS[typeMap[id]].icon}`);addStars(1,'Você encontrou um segredo! +1 ⭐')};
 
 function renderCollection(){const root=document.getElementById('collectionGrid');if(!root)return;const v=v3Load();root.innerHTML=Object.entries(V3_COLLECTIONS).map(([id,c])=>{const n=Number(v.collections[id]||0),pct=Math.round(n/c.goal*100);return `<div class="collectionCard"><span>${c.icon}</span><b>${c.name}</b><small>${n}/${c.goal}</small><div class="collectionMeter"><i style="width:${pct}%"></i></div></div>`}).join('')}
 window.renderCollection=renderCollection;
 
 function roomUnlocked(item){return stars>=item.need}
-function renderRoom(){const room=document.getElementById('eloRoom'),grid=document.getElementById('roomDecorGrid');if(!room||!grid)return;const v=v3Load();room.classList.remove('wall-blue','wall-stars');const wall=ROOM_DECOR.find(x=>x.id===v.room.wall);if(wall?.className)room.classList.add(wall.className);const art=ROOM_DECOR.find(x=>x.id===v.room.art),toy=ROOM_DECOR.find(x=>x.id===v.room.toy);const artEl=room.querySelector('.roomWallArt'),toyEl=room.querySelector('.roomToy');if(artEl)artEl.textContent=art?.value||'🌈';if(toyEl)toyEl.textContent=toy?.value||'🦄';grid.innerHTML=ROOM_DECOR.map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')"><span>${unlock?it.icon:'🔒'}</span><b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`Libera com ${it.need} ⭐`}</small></button>`}).join('')}
-window.renderRoom=renderRoom;
+function renderRoom(){
+ const room=document.getElementById('eloRoom'),grid=document.getElementById('roomDecorGrid');if(!room||!grid)return;
+ const v=v3Load();v.room=v.room||{};v.room.wall=v.room.wall||'wallPink';v.room.art=v.room.art||'rainbow';v.room.bed=v.room.bed||'bedPink';v.room.rug=v.room.rug||'rugHeart';v.room.toy=v.room.toy||'unicorn';
+ room.classList.remove('wall-blue','wall-stars');const wall=ROOM_DECOR.find(x=>x.id===v.room.wall);if(wall?.className)room.classList.add(wall.className);
+ const art=ROOM_DECOR.find(x=>x.id===v.room.art),toy=ROOM_DECOR.find(x=>x.id===v.room.toy),bed=ROOM_DECOR.find(x=>x.id===v.room.bed),rug=ROOM_DECOR.find(x=>x.id===v.room.rug);
+ const artEl=room.querySelector('.roomWallArt'),toyEl=room.querySelector('.roomToy'),bedEl=room.querySelector('.roomBed'),rugEl=room.querySelector('.roomRug');
+ if(artEl)artEl.className=`roomWallArt art-${art?.id||'rainbow'}`;
+ if(toyEl){toyEl.className=`roomToy toy-${toy?.id||'unicorn'}`;toyEl.textContent=toy?.value||'🦄'}
+ if(bedEl)bedEl.className=`roomBed ${bed?.id==='bedBlue'?'bed-blue':bed?.id==='bedStar'?'bed-star':'bed-pink'}`;
+ if(rugEl)rugEl.className=`roomRug ${rug?.id==='rugRainbow'?'rug-rainbow':rug?.id==='rugCloud'?'rug-cloud':'rug-heart'}`;
+ grid.innerHTML=ROOM_DECOR.map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')"><span>${unlock?it.icon:'🔒'}</span><b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`Libera com ${it.need} ⭐`}</small></button>`}).join('');
+}window.renderRoom=renderRoom;
 window.selectRoomDecor=function(id){const it=ROOM_DECOR.find(x=>x.id===id);if(!it)return;if(!roomUnlocked(it))return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load();v.room[it.kind]=it.id;v3Save(v);renderRoom();if(typeof speakText==='function'&&getActiveProfile().ageRange==='3-5')speakText(it.name)};
 
 function renderWardrobe(){const grid=document.getElementById('wardrobeGrid');if(!grid)return;const v=v3Load(),active=OUTFITS.find(x=>x.id===v.outfit)||OUTFITS[0];const p=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');if(p)p.textContent=`👧${active.badge}`;if(n)n.textContent=active.name;grid.innerHTML=OUTFITS.map(o=>{const unlocked=stars>=o.need,on=v.outfit===o.id;return `<button class="wardrobeItem ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipV3Outfit('${o.id}')"><span>${unlocked?o.icon:'🔒'}</span><b>${o.name}</b><small>${unlocked?(on?'Vestindo':'Vestir'):`Libera com ${o.need} ⭐`}</small></button>`}).join('')}
@@ -103,6 +118,6 @@ window.addStars=function(n=1,msg){const before=stars;oldAddStars(n,msg);const af
 const oldRenderParentV2=window.renderParentV2;
 window.renderParentV2=function(){oldRenderParentV2();renderParentV3()};
 
-function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent='3.0.0');if(!pget('tutorial-v300'))setTimeout(()=>showTutorialOnce('v300','Bem-vindo ao Mundo da Elo! 🌈',['A tela inicial agora é um mundo para explorar. Toque nos lugares para entrar.','Procure pequenos segredos escondidos pelo mapa. Eles entram nas suas coleções.','Decore o quarto, escolha roupas, crie coisas e brinque no Modo Família.','A Escolinha tem rodadas curtas e ajusta a dificuldade automaticamente.','A Surpresa da Semana é só uma descoberta divertida: não existe sequência diária nem prêmio perdido.']),950)}
+function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent='3.0.1');renderHomeContinue();if(!pget('tutorial-v301'))setTimeout(()=>showTutorialOnce('v301','Mundo da Elo renovado! 🌈',['A tela inicial agora é um mundo para explorar. Toque nos lugares para entrar.','Procure pequenos segredos escondidos pelo mapa. Eles entram nas suas coleções.','Decore o quarto, escolha roupas, crie coisas e brinque no Modo Família.','A Escolinha tem rodadas curtas e ajusta a dificuldade automaticamente.','A Surpresa da Semana é só uma descoberta divertida: não existe sequência diária nem prêmio perdido.']),950)}
 window.addEventListener('DOMContentLoaded',initV3);
 })();

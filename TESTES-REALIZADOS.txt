@@ -1,52 +1,45 @@
-DIA A DIA DA ELO v3.0.0 — VALIDAÇÃO FINAL
+DIA A DIA DA ELO v3.0.1 — TESTES DA ATUALIZAÇÃO VISUAL
 
-A versão só foi preparada para entrega depois da correção do último problema conhecido: medalhas de Inglês largas demais em telas pequenas.
+38/38 verificações automatizadas aprovadas.
 
-TESTES DE NAVEGADOR / FUNCIONAIS
-- 85 de 85 verificações aprovadas.
-- Inicialização e versão 3.0.0.
-- Abertura de painéis antigos e novos.
-- Mundo da Elo e 8 locais.
-- Coleções e segredos sem recompensa duplicada.
-- Quarto e Guarda-roupa.
-- 4 atividades criativas.
-- 3 atividades do Modo Família.
-- 3 histórias interativas e finais.
-- Surpresa semanal sem duplicação.
-- Escolinha 3–5 e faixas maiores.
-- Inglês 3–5 sem pistas escritas nas respostas.
-- Inglês 6–8 e 9–11.
-- Progresso de Inglês independente por idade.
-- Área dos Pais ampliada.
-- Funções antigas de Memória, Puzzle, Trilha, Caça, Labirinto, Histórias, Colorir, Pais e Backup continuam disponíveis.
-- Zero exceções JavaScript no teste.
-- Zero erros de console no teste.
+OK — version.js 3.0.1
+OK — manifest start 3.0.1
+OK — app fallback 3.0.1
+OK — sw fallback 3.0.1
+OK — ids únicos
+OK — 8 locais ilustrados
+OK — Elo guia do mapa
+OK — Continuar presente
+OK — Quarto presente
+OK — quarto .roomWindow
+OK — quarto .roomWallArt
+OK — quarto .roomShelf
+OK — quarto .roomWardrobe
+OK — quarto .roomBed
+OK — quarto .roomDesk
+OK — quarto .roomRug
+OK — quarto .roomToy
+OK — quarto .roomPlant
+OK — quarto .roomGuide
+OK — referências locais do index existem
+OK — TTS escreve não, fala Elô
+OK — English TTS preservado
+OK — último lugar por perfil
+OK — camas personalizáveis
+OK — tapetes personalizáveis
+OK — css braces balance
+OK — css .premiumWorld
+OK — css .artPlace
+OK — css .homeHighlights
+OK — css .room-premium
+OK — css .roomWindow
+OK — css .roomBed
+OK — css .roomWardrobe
+OK — RPG idêntico à base v3.0.0
+OK — SW core existe
+OK — node syntax app.js
+OK — node syntax v3.js
+OK — rpg script 0 syntax
 
-RESPONSIVIDADE
-Testada em larguras de 320, 360, 390, 412 e 768 px.
-- Sem rolagem horizontal na Home.
-- Botões do Mundo permanecem dentro do mapa.
-- Medalhas de Inglês não estouram a largura.
-- Grade das medalhas adapta para 3 e 2 colunas em telas pequenas.
-
-TESTES ESTÁTICOS / REGRESSÃO
-- 295 de 295 verificações aprovadas.
-- Sem IDs HTML duplicados.
-- Manifest válido e ícones com dimensões corretas.
-- Todas as referências de assets verificadas.
-- Todas as imagens do pacote abertas/validadas.
-- 8 capas de jogos, 16 cartas de memória, 16 puzzles, 10 desenhos para colorir e 4 histórias + 4 capas conferidos.
-- JavaScript principal, v3, Service Worker e RPG passaram em verificação de sintaxe.
-- Arquivos do cache principal existem.
-- Zoom global desabilitado.
-- Links YouTube/Instagram ausentes da Home infantil e presentes na Área dos Pais.
-- Trilha mantém estrela = 1 e unicórnio = 2.
-- Desafios da Escolinha iniciam recolhidos.
-
-REGRESSÃO DO RPG
-- SHA-256 do rpg.html final comparado ao rpg.html restaurado da 2.2.1: idêntico.
-- 13 mapas/interiores essenciais conferidos.
-- Missões, Bolsa, Roupas, Medalhas, Mapa, lojas, itens, equipamentos, inimigos, batalhas, XP, moedas, HP, MP, NPCs, chefes, transições e salvamento conferidos.
-
-TOTAL ANTES DA VALIDAÇÃO DO ZIP FINAL
-380 verificações aprovadas (85 de navegador + 295 estáticas), além da inspeção do pacote final compactado.
+Observação: o RPG foi comparado por SHA-256 com a base oficial v3.0.0 e permaneceu idêntico.
+A Home e o Quarto receberam alterações em HTML/CSS/JS; a fala “Elô” é aplicada apenas no texto enviado ao TTS, sem alterar a escrita na interface.

@@ -1,4 +1,4 @@
-const APP_VERSION=self.ELO_APP_VERSION||'3.0.0';
+const APP_VERSION=self.ELO_APP_VERSION||'3.0.1';
 
 // ===== v2.0 • Perfis locais, acessibilidade, tempo saudável, tutorial e backup =====
 const V2_PROFILES_KEY='eloProfilesV2',V2_ACTIVE_KEY='eloActiveProfileId',V2_MIGRATION_KEY='eloProfilesV2Migrated';
@@ -30,7 +30,7 @@ function getA11y(){try{return Object.assign({large:false,contrast:false,reduce:f
 function applyA11y(){const a=getA11y(),b=document.body;if(!b)return;b.classList.toggle('a11y-large',!!a.large);b.classList.toggle('a11y-contrast',!!a.contrast);b.classList.toggle('a11y-reduce',!!a.reduce);b.classList.toggle('a11y-big',!!a.big);document.querySelectorAll('[data-a11y]').forEach(el=>{const k=el.dataset.a11y;if(el.type==='checkbox')el.checked=!!a[k]});const sb=document.getElementById('speechBtn');if(sb)sb.textContent=a.speech?'🔊':'🔇'}
 function setA11y(k,v){const a=getA11y();a[k]=!!v;localStorage.setItem(A11Y_KEY,JSON.stringify(a));applyA11y();toast('Preferência atualizada 💗')}
 function toggleSpeech(){const a=getA11y();a.speech=!a.speech;localStorage.setItem(A11Y_KEY,JSON.stringify(a));if(!a.speech&&'speechSynthesis'in window)speechSynthesis.cancel();applyA11y();toast(a.speech?'Leitura em voz ligada 🔊':'Leitura em voz desligada 🔇')}
-function speakText(txt){if(!getA11y().speech||!('speechSynthesis'in window))return toast('Leitura em voz está desligada.');speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(txt||'').replace(/\s+/g,' ').trim());u.lang='pt-BR';u.rate=.95;u.pitch=1.05;speechSynthesis.speak(u)}
+function speakText(txt){if(!getA11y().speech||!('speechSynthesis'in window))return toast('Leitura em voz está desligada.');speechSynthesis.cancel();const spoken=String(txt||'').replace(/\bElo\b/g,'Elô').replace(/\s+/g,' ').trim();const u=new SpeechSynthesisUtterance(spoken);u.lang='pt-BR';u.rate=.95;u.pitch=1.05;speechSynthesis.speak(u)}
 function readCurrentScreen(){const panel=document.querySelector('.panel.active');if(!panel)return;if(panel.id==='readerPanel')return readStoryPage();const txt=[...panel.querySelectorAll('h1,h2,h3,p,.muted,.quiz-q')].filter(x=>x.offsetParent!==null).map(x=>x.textContent.trim()).filter(Boolean).slice(0,18).join('. ');speakText(txt||'Tela atual do Dia a Dia da Elo.')}
 
 const LIMIT_KEY='eloDailyLimitV2';

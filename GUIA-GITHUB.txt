@@ -1,22 +1,9 @@
-ATUALIZAR O DIA A DIA DA ELO PELO GITHUB
+ATUALIZAÇÃO AUTOMÁTICA — V3.0.1
 
-O repositório já possui o workflow “Importar ZIP do app”.
+1. Baixe app-upload.zip.
+2. Envie app-upload.zip para a RAIZ do repositório.
+3. Commit direto na main.
+4. Aguarde o workflow “Importar ZIP do app” concluir.
+5. O ZIP é removido automaticamente e os arquivos da nova versão são publicados.
 
-PARA INSTALAR A V3.0.0
-1. Use o arquivo chamado exatamente app-upload.zip.
-2. Abra a RAIZ do repositório no GitHub.
-3. Add file > Upload files.
-4. Envie SOMENTE app-upload.zip.
-5. Faça Commit direto na branch main.
-6. Abra Actions e aguarde “Importar ZIP do app” ficar verde (Success).
-7. A automação extrai a nova versão, preserva .github, remove arquivos antigos do app, remove app-upload.zip e cria o commit automático.
-8. Aguarde o GitHub Pages concluir a publicação.
-
-NÃO É NECESSÁRIO
-- descompactar o ZIP;
-- criar pastas manualmente;
-- enviar centenas de arquivos individualmente;
-- apagar a pasta .github.
-
-BACKUP
-O arquivo dia-a-dia-da-elo-v3.0.0-completo.zip é o backup completo da versão oficial e não é o arquivo que deve ser enviado ao atualizador automático.
+Não descompacte o arquivo manualmente no GitHub.
