@@ -1,19 +1,13 @@
-TESTES DA VERSÃO 2.2.0
+TESTES ESTÁTICOS DA VERSÃO 2.2.1
 
-- app.js validado com node --check.
-- JavaScript interno do rpg.html validado com node --check.
-- manifest.webmanifest validado como JSON.
-- referências locais de index.html/styles.css verificadas: nenhum arquivo ausente.
-- integridade dos ZIPs validada com unzip -t.
-- rpg.html presente no pacote completo.
-- workflow .github/workflows/importar-app.yml presente.
+1. Pacote completo contém index.html, app.js, styles.css, manifest, service worker e rpg.html.
+2. JavaScript principal passou em verificação de sintaxe.
+3. JavaScript embutido do RPG passou em verificação de sintaxe.
+4. RPG contém mapas home, city, meadow, cave, forest, market, bridge, temple e interiores.
+5. RPG contém transições/saídas entre regiões e colisão com building.
+6. Menu do RPG contém Missões, Bolsa, Roupas, Medalhas e Mapa.
+7. NPCs usam perfis com cor de cabelo própria.
+8. Salvamento do RPG usa o perfil ativo e migração de save legado.
+9. Trilha mantém collectible star/unicorn e pontuação 1/2.
 
-Testes manuais recomendados após publicar:
-1. Criar perfil e escolher faixa etária.
-2. Testar Escolinha 3–5 com áudio e toque.
-3. Testar Inglês nas três faixas e confirmar progresso separado.
-4. Testar Trilha: estrela +1 e unicórnio +2.
-5. Entrar no RPG e verificar frente, costas e laterais da Elo.
-6. Sair do RPG e confirmar que o áudio/processamento para.
-7. Testar PIN, criar/apagar perfil e backup.
-8. Fechar/reabrir o PWA para confirmar cache da v2.2.0.
+Ainda é necessário teste manual no telefone para movimentação, entradas/saídas, progresso salvo e aparência em diferentes tamanhos de tela.

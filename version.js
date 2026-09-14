@@ -1,1 +1,1 @@
-self.ELO_APP_VERSION='2.2.0';
+self.ELO_APP_VERSION='2.2.1';

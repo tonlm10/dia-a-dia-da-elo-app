@@ -1,5 +1,5 @@
 importScripts('./version.js');
-const APP_VERSION=self.ELO_APP_VERSION||'2.2.0';
+const APP_VERSION=self.ELO_APP_VERSION||'2.2.1';
 const CACHE=`elo-official-${APP_VERSION}`;
 const CORE=['./','./index.html','./version.js','./styles.css','./app.js','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html','./assets/logo-oficial.webp','./assets/icons/icon-192.png','./assets/icons/icon-512.png','./assets/icons/icon-maskable-192.png','./assets/icons/icon-maskable-512.png','./assets/icons/apple-touch-icon.png'];
 async function addSafe(cache,urls){await Promise.allSettled(urls.map(async u=>{try{const r=await fetch(u,{cache:'reload'});if(r.ok)await cache.put(u,r.clone())}catch(_){}}))}

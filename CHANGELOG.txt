@@ -1,12 +1,11 @@
-2.2.0
-- Pacote completo consolidado.
-- RPG incluído e redesenhado com cabelo baixo em 4 direções.
-- Trilha: unicórnio vale 2; estrela vale 1.
-- Inglês com progresso separado por idade e avanço automático.
-- Escolinha 3–5 por áudio e toque.
-- Perfis com faixa etária e proteção parental para alterações.
-- PIN com expiração e relock.
-- Dashboard parental local.
-- Backup seguro com substituir/criar novo perfil.
-- Correções de navegação, cache, quebra-cabeça e versão.
-- Workflow para importar ZIP no GitHub.
+2.2.1
+- RPG completo restaurado a partir da versão clássica v1.7.6.
+- Mapas completos, cidades, saídas, interiores, missões, batalhas, lojas e menus da bolsa restaurados.
+- Colisão com casas e objetos restaurada: Elo não atravessa prédios.
+- NPCs voltam a ter cabelos/visuais próprios.
+- Elo mantém o visual melhorado, com rabo de cavalo baixo nas quatro direções.
+- Botão A agora mostra Falar, Entrar, Sair, Abrir, Pegar, Dormir etc. conforme a ação.
+- Portas de casas/lojas exigem o botão A; transições entre regiões continuam automáticas.
+- Salvamento do RPG separado por perfil, com migração compatível com saves antigos.
+- Objetivo do RPG agora pode quebrar linha sem ser cortado.
+- Trilha Encantada mantém estrela = 1 ponto e unicórnio = 2 pontos.
