@@ -1,13 +1,19 @@
-ATUALIZAÇÃO v2.1.2 — NÚMEROS PARA 3–5 ANOS
+ATUALIZAÇÃO v2.1.3 — NOVA TELA INICIAL COM A ELO
 
-Mudança:
-- No Inglês, faixa 3–5 anos, o mundo Números agora mostra os algarismos (1, 2, 3...)
-  em vez de bolinhas.
-- Continua sem exigir leitura: o app fala o número em inglês e a criança toca no número correto.
-- Tocar no próprio número durante a aprendizagem continua pronunciando a palavra em inglês.
+Mudanças:
+- “Aprender” foi substituído por “Escolinha da Elo”.
+- Os cartões principais agora usam ilustrações personalizadas da Elo.
+- Foram removidas as segundas linhas de texto dos cartões: fica apenas a ilustração e o título.
+- A barra inferior também recebeu ícones personalizados da Elo.
+- Livro de Conquistas recebeu ilustração própria e ficou com apenas o título na tela inicial.
+- Mantidas todas as funções e melhorias da v2.1.2, inclusive atividades 3–5 anos por áudio e números em algarismos.
 
-Substitua:
+PARA ATUALIZAR
+Substitua estes arquivos/pastas no projeto atual:
 - index.html
 - app.js
 - sw.js
 - manifest.webmanifest
+- assets/home-icons/  (copie a pasta inteira)
+
+Depois publique novamente usando o mesmo processo que você já vinha usando.

@@ -546,7 +546,7 @@ if('serviceWorker' in navigator){
       location.reload();
     }
   });
-  navigator.serviceWorker.register('./sw.js?v=2.1.1',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
+  navigator.serviceWorker.register('./sw.js?v=2.1.3',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
 }
 
 window.addEventListener('DOMContentLoaded',()=>{applyA11y();renderProfileManager();renderParentV2();renderV2Album();setTimeout(()=>showTutorialOnce('welcome-v211','Bem-vindo à versão 2.1.1!',['Agora cada criança pode ter seu próprio perfil e progresso.','Use o botão 🔊 para ouvir os textos visíveis da tela.','Os responsáveis podem ajustar acessibilidade, tempo saudável e criar backups.','Seu progresso antigo foi preservado no primeiro perfil.','Para 3–5 anos, o Inglês agora funciona por áudio e toque, sem exigir leitura.']),850)});

@@ -1,11 +1,15 @@
-const CACHE='elo-official-v2-1-2-20260913';
+const CACHE='elo-official-v2-1-3-20260913';
 const CORE=[
-  './','./index.html','./app.js?v=2.1.2','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html?v=2.0',
+  './','./index.html','./app.js?v=2.1.3','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html?v=2.0',
   './assets/logo-oficial.webp','./assets/rpg-cover-v1-5.png','./assets/icons/icon-192.png','./assets/icons/icon-512.png',
   './assets/icons/icon-maskable-192.png','./assets/icons/icon-maskable-512.png','./assets/icons/apple-touch-icon.png'
 ];
 const OPTIONAL=[
   './assets/channel-banner-v5.webp','./assets/member-promo.webp','./assets/aventuras-icon.webp',
+  './assets/home-icons/home-nav.webp','./assets/home-icons/watch-card.webp','./assets/home-icons/watch-nav.webp',
+  './assets/home-icons/play-card.webp','./assets/home-icons/play-nav.webp','./assets/home-icons/learn-card.webp','./assets/home-icons/learn-nav.webp',
+  './assets/home-icons/create-card.webp','./assets/home-icons/create-nav.webp','./assets/home-icons/stories-card.webp',
+  './assets/home-icons/club-card.webp','./assets/home-icons/achievements-card.webp',
   './assets/stories/story1-cover.webp','./assets/stories/story2-cover.webp','./assets/stories/story3-cover.webp','./assets/stories/story4-cover.webp',
   './assets/stories/story1.webp','./assets/stories/story2.webp','./assets/stories/story3.webp','./assets/stories/story4.webp',
   ...Array.from({length:16},(_,i)=>`./assets/memory-cards/card-${String(i+1).padStart(2,'0')}.webp`),
