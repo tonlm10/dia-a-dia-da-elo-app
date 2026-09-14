@@ -1,3 +1,10 @@
+ATUALIZAÇÃO v3.0.4 — CORREÇÃO DE ENTREGA
+
+IMPORTANTE: envie para a RAIZ do GitHub o arquivo chamado EXATAMENTE app-upload.zip.
+O workflow “Importar ZIP do app” monitora esse nome.
+
+Esta revisão também força a troca do cache antigo da v3.0.3 para v3.0.4.
+
 DIA A DIA DA ELO — V3.0.2
 
 ATUALIZAÇÃO PRINCIPAL

@@ -1,4 +1,4 @@
-/* Dia a Dia da Elo — v3.0.3: personalização avançada, quarto compacto e jogos refinados */
+/* Dia a Dia da Elo — v3.0.4: menu inicial clássico, quarto ampliado e ajustes visuais */
 (function(){
 'use strict';
 const V3_KEY='eloV3WorldState';
@@ -6,11 +6,31 @@ const V3_COLLECTIONS={
   stars:{icon:'⭐',name:'Estrelas',goal:12},bows:{icon:'🎀',name:'Laços',goal:6},unicorns:{icon:'🦄',name:'Unicórnios',goal:5},rainbows:{icon:'🌈',name:'Arco-íris',goal:5},stickers:{icon:'✨',name:'Adesivos',goal:12}
 };
 const ROOM_DECOR=[
- {id:'wallPink',kind:'wall',icon:'🩷',name:'Parede Rosa',need:0,className:''},{id:'wallBlue',kind:'wall',icon:'🩵',name:'Parede Céu',need:10,className:'wall-blue'},{id:'wallStars',kind:'wall',icon:'🌌',name:'Parede Estrelas',need:25,className:'wall-stars'},
- {id:'rainbow',kind:'art',icon:'🌈',name:'Quadro Arco-íris',need:0},{id:'stars',kind:'art',icon:'⭐',name:'Quadro Estrelas',need:18},{id:'heart',kind:'art',icon:'💗',name:'Quadro Coração',need:35},
- {id:'bedPink',kind:'bed',icon:'🛏️',name:'Cama Rosa',need:0},{id:'bedBlue',kind:'bed',icon:'🩵',name:'Cama Céu',need:20},{id:'bedStar',kind:'bed',icon:'⭐',name:'Cama Estrela',need:45},
- {id:'rugHeart',kind:'rug',icon:'💗',name:'Tapete Coração',need:0},{id:'rugRainbow',kind:'rug',icon:'🌈',name:'Tapete Arco-íris',need:14},{id:'rugCloud',kind:'rug',icon:'☁️',name:'Tapete Nuvem',need:32},
- {id:'unicorn',kind:'toy',icon:'🦄',name:'Unicórnio',need:0,value:'🦄'},{id:'teddy',kind:'toy',icon:'🧸',name:'Ursinho',need:15,value:'🧸'},{id:'cat',kind:'toy',icon:'🐱',name:'Gatinho',need:30,value:'🐱'}
+ {id:'wallPink',kind:'wall',icon:'🩷',name:'Parede Rosa',need:0,className:''},
+ {id:'wallBlue',kind:'wall',icon:'🩵',name:'Parede Céu',need:10,className:'wall-blue'},
+ {id:'wallPeach',kind:'wall',icon:'🍑',name:'Parede Pêssego',need:18,className:'wall-peach'},
+ {id:'wallStars',kind:'wall',icon:'🌌',name:'Parede Estrelas',need:25,className:'wall-stars'},
+ {id:'noneArt',kind:'art',icon:'🚫',name:'Sem quadro',need:0},
+ {id:'rainbow',kind:'art',icon:'🌈',name:'Quadro Arco-íris',need:0},
+ {id:'flowers',kind:'art',icon:'🌸',name:'Quadro Flores',need:16},
+ {id:'stars',kind:'art',icon:'⭐',name:'Quadro Estrelas',need:18},
+ {id:'clouds',kind:'art',icon:'☁️',name:'Quadro Nuvens',need:28},
+ {id:'heart',kind:'art',icon:'💗',name:'Quadro Coração',need:35},
+ {id:'bedPink',kind:'bed',icon:'🛏️',name:'Cama Rosa',need:0},
+ {id:'bedBlue',kind:'bed',icon:'🩵',name:'Cama Céu',need:20},
+ {id:'bedLilac',kind:'bed',icon:'💜',name:'Cama Lilás',need:30},
+ {id:'bedStar',kind:'bed',icon:'⭐',name:'Cama Estrela',need:45},
+ {id:'noneRug',kind:'rug',icon:'🚫',name:'Sem tapete',need:0},
+ {id:'rugHeart',kind:'rug',icon:'💗',name:'Tapete Coração',need:0},
+ {id:'rugRainbow',kind:'rug',icon:'🌈',name:'Tapete Arco-íris',need:14},
+ {id:'rugCloud',kind:'rug',icon:'☁️',name:'Tapete Nuvem',need:32},
+ {id:'noneToy',kind:'toy',icon:'🚫',name:'Sem brinquedo',need:0,shape:'none'},
+ {id:'unicorn',kind:'toy',icon:'🦄',name:'Unicórnio de pelúcia',need:0,shape:'unicorn'},
+ {id:'teddy',kind:'toy',icon:'🧸',name:'Ursinho',need:15,shape:'teddy'},
+ {id:'ball',kind:'toy',icon:'⚽',name:'Bola colorida',need:18,shape:'ball'},
+ {id:'cat',kind:'toy',icon:'🐱',name:'Gatinho',need:30,shape:'cat'},
+ {id:'blocks',kind:'toy',icon:'🧱',name:'Blocos',need:36,shape:'blocks'},
+ {id:'rocket',kind:'toy',icon:'🚀',name:'Foguete',need:42,shape:'rocket'}
 ];
 const WARDROBE_CATEGORIES=[
  {id:'hairstyle',name:'Cabelos',icon:'💇‍♀️'},{id:'top',name:'Camisetas',icon:'👚'},{id:'bottom',name:'Shorts, saias e calças',icon:'🩳'},{id:'dress',name:'Vestidos',icon:'👗'},{id:'shoes',name:'Sapatos',icon:'👟'},{id:'hair',name:'Laços e tiaras',icon:'🎀'},{id:'earrings',name:'Brincos',icon:'💎'},{id:'ring',name:'Anéis',icon:'💍'},{id:'bracelet',name:'Pulseiras',icon:'⌚'},{id:'necklace',name:'Colares',icon:'📿'},{id:'makeup',name:'Maquiagem',icon:'💄'}
@@ -61,13 +81,13 @@ window.selectRoomCategory=function(kind){roomDecorCategory=kind;renderRoom()};
 function renderRoom(){
  const room=document.getElementById('eloRoom'),grid=document.getElementById('roomDecorGrid');if(!room||!grid)return;
  const v=v3Load();v.room=v.room||{};v.room.wall=v.room.wall||'wallPink';v.room.art=v.room.art||'rainbow';v.room.bed=v.room.bed||'bedPink';v.room.rug=v.room.rug||'rugHeart';v.room.toy=v.room.toy||'unicorn';
- room.classList.remove('wall-blue','wall-stars');const wall=ROOM_DECOR.find(x=>x.id===v.room.wall);if(wall?.className)room.classList.add(wall.className);
+ room.classList.remove('wall-blue','wall-peach','wall-stars');const wall=ROOM_DECOR.find(x=>x.id===v.room.wall);if(wall?.className)room.classList.add(wall.className);
  const art=ROOM_DECOR.find(x=>x.id===v.room.art),toy=ROOM_DECOR.find(x=>x.id===v.room.toy),bed=ROOM_DECOR.find(x=>x.id===v.room.bed),rug=ROOM_DECOR.find(x=>x.id===v.room.rug);
  const artEl=room.querySelector('.roomWallArt'),toyEl=room.querySelector('.roomToy'),bedEl=room.querySelector('.roomBed'),rugEl=room.querySelector('.roomRug');
- if(artEl)artEl.className=`roomWallArt art-${art?.id||'rainbow'}`;
- if(toyEl){toyEl.className=`roomToy toy-${toy?.id||'unicorn'}`;toyEl.textContent=toy?.value||'🦄'}
- if(bedEl)bedEl.className=`roomBed ${bed?.id==='bedBlue'?'bed-blue':bed?.id==='bedStar'?'bed-star':'bed-pink'}`;
- if(rugEl)rugEl.className=`roomRug ${rug?.id==='rugRainbow'?'rug-rainbow':rug?.id==='rugCloud'?'rug-cloud':'rug-heart'}`;
+ if(artEl)artEl.className=`roomWallArt ${!art||art.id==='noneArt'?'hidden':''} art-${art?.id||'rainbow'}`.trim();
+ if(toyEl){const shape=toy?.shape||'unicorn';toyEl.className=`roomToy ${shape==='none'?'hidden':''} toy-${shape}`.trim();toyEl.textContent='';}
+ if(bedEl)bedEl.className=`roomBed ${bed?.id==='bedBlue'?'bed-blue':bed?.id==='bedLilac'?'bed-lilac':bed?.id==='bedStar'?'bed-star':'bed-pink'}`;
+ if(rugEl)rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rug?.id==='rugRainbow'?'rug-rainbow':rug?.id==='rugCloud'?'rug-cloud':'rug-heart'}`.trim();
  applyWardrobeToDoll(document.getElementById('roomEloDoll'),v);
  const tabs=document.getElementById('roomDecorTabs');if(tabs){const kinds=[['wall','🎨','Parede'],['art','🖼️','Quadros'],['bed','🛏️','Camas'],['rug','🧶','Tapetes'],['toy','🧸','Brinquedos']];tabs.innerHTML=kinds.map(([id,ic,name])=>`<button class="roomDecorTab ${roomDecorCategory===id?'on':''}" onclick="selectRoomCategory('${id}')"><span>${ic}</span>${name}</button>`).join('')}grid.innerHTML=ROOM_DECOR.filter(it=>it.kind===roomDecorCategory).map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')"><span>${unlock?it.icon:'🔒'}</span><b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');
 }window.renderRoom=renderRoom;
@@ -169,6 +189,6 @@ window.addStars=function(n=1,msg){const before=stars;oldAddStars(n,msg);const af
 const oldRenderParentV2=window.renderParentV2;
 window.renderParentV2=function(){oldRenderParentV2();renderParentV3()};
 
-function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent='3.0.3');renderHomeContinue();if(!pget('tutorial-v303'))setTimeout(()=>showTutorialOnce('v303','Personalização ficou ainda melhor! ✨',['Troque o cabelo, combine mais roupas e experimente looks temáticos.','Quarto e guarda-roupa agora mantêm a visualização e as opções juntas, com menos rolagem.','O quebra-cabeça ganhou 16 imagens diferentes.','Na Trilha Encantada, a área de jogo ficou maior e mais fácil de tocar.']),950)}
+function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent='3.0.4');renderHomeContinue();if(!pget('tutorial-v304'))setTimeout(()=>showTutorialOnce('v304','A casa da Elo ficou mais organizada! ✨',['O menu inicial voltou a ficar mais direto, com botões grandes para entrar em cada área.','O quarto ganhou mais opções de decoração e agora dá para deixar sem quadro, sem tapete ou sem brinquedo.','As calças da Elo foram ajustadas para encaixar melhor no corpo.','Os brinquedos do quarto ficaram mais bonitos, sem depender apenas de emoji.']),950)}
 window.addEventListener('DOMContentLoaded',initV3);
 })();

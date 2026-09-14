@@ -1,54 +1,13 @@
-DIA A DIA DA ELO v3.0.3 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.0.4 — VALIDAÇÃO FINAL
 
-50/50 verificações automatizadas aprovadas.
-
-✅ Sintaxe app.js
-✅ Sintaxe v3.js
-✅ IDs HTML sem duplicatas — []
-✅ ID roomPanel
-✅ ID wardrobePanel
-✅ ID roomDecorTabs
-✅ ID roomDecorGrid
-✅ ID wardrobePresets
-✅ ID wardrobeTabs
-✅ ID wardrobeGrid
-✅ ID trailCanvas
-✅ ID puzzleChoices
-✅ index v3.0.3
-✅ version.js v3.0.3
-✅ manifest start_url — ./?app=3.0.3
-✅ manifest descrição v3.0.3
-✅ sw usa version.js
-✅ Referências locais do HTML
-✅ Guarda-roupa: hairLowPony
-✅ Guarda-roupa: hairLoose
-✅ Guarda-roupa: hairBun
-✅ Guarda-roupa: hairTwins
-✅ Guarda-roupa: hairBraid
-✅ Guarda-roupa: teePop
-✅ Guarda-roupa: pantsBlack
-✅ Guarda-roupa: pantsCargo
-✅ Guarda-roupa: dressPrincess
-✅ Guarda-roupa: dressUnicorn
-✅ Guarda-roupa: Guerreira Pop
-✅ Guarda-roupa: makeupPop
-✅ Categoria top tem itens — 8
-✅ Categoria bottom tem itens — 8
-✅ Categoria dress tem itens — 6
-✅ Categoria shoes tem itens — 5
-✅ Categoria hairstyle tem itens — 6
-✅ Categoria hair tem itens — 5
-✅ Categoria earrings tem itens — 4
-✅ Categoria ring tem itens — 4
-✅ Categoria bracelet tem itens — 4
-✅ Categoria necklace tem itens — 4
-✅ Categoria makeup tem itens — 4
-✅ Quarto compacto
-✅ Guarda-roupa compacto
-✅ Calça corrigida
-✅ Trilha maior no HTML
-✅ Trilha ground 390
-✅ Toque ampliado da trilha
-✅ 16 imagens de quebra-cabeça — 16
-✅ Sem duplicatas visuais no quebra-cabeça — 3210.4 puzzle-01.webp puzzle-13.webp
-✅ RPG preservado por hash — 5bae95e5ca1bc659dc48d58770762da45af0e92e0585883d9dd80d6699f51a3d
+✅ version.js = 3.0.4
+✅ manifest start_url = ./?app=3.0.4
+✅ service worker com cache elo-official-3.0.4-r2
+✅ sintaxe app.js validada
+✅ sintaxe v3.js validada
+✅ home principal em menu de botões grandes
+✅ quarto com opções sem quadro, sem tapete e sem brinquedo
+✅ brinquedos desenhados por CSS, sem emoji dentro do cenário
+✅ calças com molde visual reajustado
+✅ RPG preservado
+✅ ZIP app-upload com arquivos diretamente na raiz

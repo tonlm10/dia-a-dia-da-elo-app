@@ -21,42 +21,30 @@
 
 <section id="homePanel" class="panel home active">
   <div class="worldIntro premiumIntro">
-    <div class="eloGuideCard premiumGuide" onclick="eloGuideSay('Oi! Eu sou a Elo. Escolha um lugar e vamos brincar juntas!')">
+    <div class="eloGuideCard premiumGuide" onclick="eloGuideSay('Oi! Eu sou a Elo. Escolha um botão e vamos brincar juntas!')">
       <div class="guidePortrait"><img src="assets/home-icons/home-card.webp" alt="Elo"></div>
-      <div><small>MUNDO DA ELO</small><h2>Oi! Vamos brincar?</h2><p id="eloGuideText">Toque em um lugar e descubra o que tem por lá 💗</p></div>
+      <div><small>MENU PRINCIPAL</small><h2>Oi! Vamos brincar?</h2><p id="eloGuideText">Agora o início ficou mais direto: escolha um botão grande e entre na brincadeira 💗</p></div>
       <div class="scorePillV3">⭐ <span id="starCount">0</span></div>
     </div>
   </div>
-
-  <div class="eloWorld premiumWorld world302" aria-label="Mapa vivo do Mundo da Elo">
-    <div class="worldSkyDecor" aria-hidden="true"><i class="sun"></i><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="hill h1"></i><i class="hill h2"></i></div>
-    <div class="worldPond" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="worldPath pathMain" aria-hidden="true"></div><div class="worldPath pathCross" aria-hidden="true"></div>
-    <div class="worldBridge" aria-hidden="true"></div>
-    <div class="worldTrees" aria-hidden="true"><i class="tree t1"></i><i class="tree t2"></i><i class="tree t3"></i><i class="tree t4"></i><i class="tree t5"></i></div>
-    <div class="worldFlowers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="worldButterfly b1" aria-hidden="true"></div><div class="worldButterfly b2" aria-hidden="true"></div>
-
-    <button class="worldPlace livingPlace wp-library" onclick="openWorldPlace('library')" onpointerdown="worldPlaceSpeak('Biblioteca de Aventuras')"><span class="worldBuilding libraryBuilding"><i class="roof"></i><i class="door"></i><i class="window w1"></i><i class="window w2"></i><i class="books"></i></span><span class="placeSign"><b>Biblioteca</b><small>Histórias</small></span></button>
-    <button class="worldPlace livingPlace wp-club" onclick="openWorldPlace('club')" onpointerdown="worldPlaceSpeak('Clubinho da Elo')"><span class="worldBuilding clubBuilding"><i class="roof"></i><i class="door"></i><i class="window w1"></i><i class="window w2"></i><i class="crown"></i></span><span class="placeSign"><b>Clube</b><small>Descobertas</small></span></button>
-    <button class="worldPlace livingPlace wp-home" onclick="openWorldPlace('room')" onpointerdown="worldPlaceSpeak('Casa da Elo')"><span class="worldBuilding homeBuilding"><i class="roof"></i><i class="chimney"></i><i class="smoke s1"></i><i class="smoke s2"></i><i class="door"></i><i class="window w1"></i><i class="window w2"></i></span><span class="placeSign"><b>Casa</b><small>Meu quarto</small></span></button>
-    <button class="worldPlace livingPlace wp-school" onclick="openWorldPlace('school')" onpointerdown="worldPlaceSpeak('Escolinha da Elo')"><span class="worldBuilding schoolBuilding"><i class="roof"></i><i class="bell"></i><i class="door"></i><i class="window w1"></i><i class="window w2"></i></span><span class="placeSign"><b>Escolinha</b><small>Aprender</small></span></button>
-    <button class="worldPlace livingPlace wp-cinema" onclick="openWorldPlace('cinema')" onpointerdown="worldPlaceSpeak('Cinema da Elo')"><span class="worldBuilding cinemaBuilding"><i class="marquee">CINEMA</i><i class="door"></i><i class="poster p1"></i><i class="poster p2"></i></span><span class="placeSign"><b>Cinema</b><small>Vídeos</small></span></button>
-    <button class="worldPlace livingPlace wp-play" onclick="openWorldPlace('play')" onpointerdown="worldPlaceSpeak('Parque de jogos')"><span class="worldBuilding playBuilding"><i class="tent"></i><i class="flag f1"></i><i class="flag f2"></i><i class="ball"></i></span><span class="placeSign"><b>Jogos</b><small>Parque</small></span></button>
-    <button class="worldPlace livingPlace wp-rpg" onclick="openWorldPlace('rpg')" onpointerdown="worldPlaceSpeak('Castelo do Reino das Estrelas')"><span class="worldBuilding castleBuilding"><i class="tower left"></i><i class="tower right"></i><i class="keep"></i><i class="door"></i><i class="flag"></i></span><span class="placeSign"><b>Castelo</b><small>RPG</small></span></button>
-    <button class="worldPlace livingPlace wp-create" onclick="openWorldPlace('creative')" onpointerdown="worldPlaceSpeak('Ateliê da Elo')"><span class="worldBuilding atelierBuilding"><i class="roof"></i><i class="door"></i><i class="window w1"></i><i class="palette"></i></span><span class="placeSign"><b>Ateliê</b><small>Criar</small></span></button>
-
-    <button class="worldElo worldElo302" onclick="eloGuideSay('Eu estou aqui! Escolha um lugar para a nossa próxima aventura.')" aria-label="Falar com a Elo"><img src="assets/home-icons/home-card.webp" alt="Elo"><span>Oi!</span></button>
-    <button class="worldSecret secret-star" aria-label="Segredo" onclick="findWorldSecret('star')">✨</button>
-    <button class="worldSecret secret-unicorn" aria-label="Segredo" onclick="findWorldSecret('unicorn')">🦄</button>
-    <button class="worldSecret secret-bow" aria-label="Segredo" onclick="findWorldSecret('bow')">🎀</button>
+  <div class="classicHomeHero"><div><small>DIA A DIA DA ELO</small><h2>Escolha onde brincar</h2><p>Menu mais simples, com acesso rápido às áreas favoritas da Elo.</p></div><button class="smallBtn" onclick="eloGuideSay('Oi! Eu sou a Elo. Escolha um botão e vamos brincar!')">🔊 Ouvir Elo</button></div>
+  <div class="classicHomeMenu" aria-label="Menu principal da Elo">
+    <button class="classicHomeCard" onclick="openPanel('watchPanel','watch')"><img src="assets/home-icons/watch-card.webp" alt="Assistir"><div><b>Assistir</b><small>Cinema da Elo e playlists do canal.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('playPanel','play')"><img src="assets/home-icons/play-card.webp" alt="Jogos"><div><b>Jogos</b><small>Memória, quebra-cabeça, trilha e mais.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('learnPanel','learn')"><img src="assets/home-icons/learn-card.webp" alt="Escolinha da Elo"><div><b>Escolinha da Elo</b><small>Aprender brincando, com voz e desafios.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('createPanel','create')"><img src="assets/home-icons/create-card.webp" alt="Criar"><div><b>Criar</b><small>Ateliê, desenhos e brincadeiras criativas.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('roomPanel','home')"><img src="assets/home-icons/home-card.webp" alt="Quarto da Elo"><div><b>Quarto da Elo</b><small>Decore o quarto e organize tudo do seu jeito.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('wardrobePanel','home')"><span class="cardIcon">👗</span><div><b>Guarda-roupa</b><small>Troque cabelo, roupas, acessórios e make.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('familyPanel','home')"><span class="cardIcon">👨‍👩‍👧</span><div><b>Modo Família</b><small>Mímica, desenho em dupla e desafios.</small></div></button>
+    <button class="classicHomeCard rpgCard" onclick="openRpg()"><img src="assets/game-covers/rpg-cover-v2.webp" alt="Castelo da Elo"><div><b>Castelo da Elo</b><small>Entre no RPG e viva a aventura principal.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('storiesPanel','stories')"><img src="assets/home-icons/stories-card.webp" alt="Biblioteca"><div><b>Biblioteca</b><small>Histórias, aventuras e leitura divertida.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('clubPanel','club')"><img src="assets/home-icons/club-card.webp" alt="Clube"><div><b>Clube</b><small>Descobertas e conteúdos especiais da Elo.</small></div></button>
   </div>
   <div class="homeHighlights">
     <button class="homeHighlight continueCard" onclick="openContinueSpot()"><span class="hhIcon">▶</span><div><small>CONTINUAR</small><b id="continueTitle">Escolha uma aventura</b><p id="continueSub">O app lembra seu último lugar.</p></div><i>›</i></button>
     <button class="homeHighlight surpriseCard" onclick="openWeeklySurprise()"><span class="hhIcon">🎁</span><div><small>SURPRESA DA SEMANA</small><b>Uma descoberta especial</b><p id="weeklySurpriseStatus">da semana</p></div><i>›</i></button>
-    <button class="homeHighlight roomCard" onclick="openWorldPlace('room')"><span class="hhIcon">🏠</span><div><small>MEU ESPAÇO</small><b>Quarto da Elo</b><p>Decore, troque itens e deixe do seu jeito.</p></div><i>›</i></button>
+    <button class="homeHighlight roomCard" onclick="openPanel('roomPanel','home')"><span class="hhIcon">🏠</span><div><small>MEU ESPAÇO</small><b>Quarto da Elo</b><p>Decore, troque itens e deixe do seu jeito.</p></div><i>›</i></button>
   </div>
-
   <div class="v3QuickGrid premiumQuick">
     <button onclick="openPanel('collectionPanel','home')"><span>🧺</span><b>Coleções</b><small id="collectionHomeCount">0 itens</small></button>
     <button onclick="openPanel('wardrobePanel','home')"><span>👗</span><b>Guarda-roupa</b><small>Vista a Elo</small></button>
@@ -64,7 +52,7 @@
     <button onclick="openPanel('achievementsPanel','achievements')"><span>🏅</span><b>Conquistas</b><small>Medalhas e estrelas</small></button>
   </div>
   <div class="missionRow v3MissionRow"><div class="miniCard pink"><h3>🌟 Missão leve</h3><p id="dailyText">Faça algo divertido hoje!</p><div class="progress"><i id="dailyProgress"></i></div><button class="smallBtn" style="margin-top:10px" onclick="completeDaily()">Consegui!</button></div><div class="miniCard lilac"><h3>🔐 Área dos Pais</h3><p>Segurança, progresso e configurações.</p><button class="smallBtn" onclick="openParents()">Entrar</button></div></div>
-  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.0.3</span></div>
+  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.0.4</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -151,7 +139,7 @@
   <div class="card"><h3>Links oficiais 🔒</h3><p class="muted">Abertura de YouTube, Instagram e Clube da Elo é uma ação dos responsáveis.</p><div class="row"><button class="btn" onclick="openSubscribe()">Inscrever no YouTube</button><button class="btn secondary" onclick="openExternal(MEMBER_URL)">Página de membros</button><button class="btn secondary" onclick="openInstagram()">Instagram da Elo</button></div></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.0.3</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.0.4</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -171,9 +159,9 @@
     <div class="roomBed bed-pink"><div class="head"></div><div class="pillow"></div><div class="blanket"></div><div class="bedLeg l"></div><div class="bedLeg r"></div></div>
     <div class="roomDesk"><div class="lamp"></div><div class="book"></div></div>
     <div class="roomRug rug-heart"></div>
-    <div class="roomToy toy-unicorn">🦄</div>
+    <div class="roomToy toy-unicorn"></div>
     <div class="roomPlant"><i></i><i></i><i></i><b></b></div>
-    <button class="roomGuide roomGuide302" onclick="eloGuideSay('Meu quarto ficou lindo! Você pode trocar a parede, o quadro, o tapete, a cama e os brinquedos.')"><div id="roomEloDoll" class="eloDoll mini" aria-hidden="true"><span class="dollHairBack"></span><span class="dollHead"><i class="eye e1"></i><i class="eye e2"></i><i class="mouth"></i><i class="blush bl1"></i><i class="blush bl2"></i></span><span class="dollHairFront"></span><span class="dollBow"></span><span class="dollNecklace"></span><span class="dollBody"><i class="dollTop"></i><i class="dollBottom"></i><i class="dollDress"></i><i class="arm a1"></i><i class="arm a2"></i></span><span class="leg l1"></span><span class="leg l2"></span><span class="shoe sh1"></span><span class="shoe sh2"></span><span class="dollBracelet"></span><span class="dollEarring er1"></span><span class="dollEarring er2"></span></div><span>Oi!</span></button>
+    <button class="roomGuide roomGuide302" onclick="eloGuideSay('Meu quarto ficou lindo! Você pode trocar a parede, o quadro, o tapete, a cama e os brinquedos — e também tirar itens se quiser.')"><div id="roomEloDoll" class="eloDoll mini" aria-hidden="true"><span class="dollHairBack"></span><span class="dollHead"><i class="eye e1"></i><i class="eye e2"></i><i class="mouth"></i><i class="blush bl1"></i><i class="blush bl2"></i></span><span class="dollHairFront"></span><span class="dollBow"></span><span class="dollNecklace"></span><span class="dollBody"><i class="dollTop"></i><i class="dollBottom"></i><i class="dollDress"></i><i class="arm a1"></i><i class="arm a2"></i></span><span class="leg l1"></span><span class="leg l2"></span><span class="shoe sh1"></span><span class="shoe sh2"></span><span class="dollBracelet"></span><span class="dollEarring er1"></span><span class="dollEarring er2"></span></div><span>Oi!</span></button>
   </div>
   <div class="roomControlDock"><div class="roomControlHead"><b>Decorar ✨</b><button class="smallBtn" onclick="openPanel('wardrobePanel','home')">👗 Vestir Elo</button></div><div id="roomDecorTabs" class="roomDecorTabs"></div><div id="roomDecorGrid" class="decorGrid decorGridCompact"></div></div>
 </section>
