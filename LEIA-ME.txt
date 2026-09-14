@@ -1,16 +1,13 @@
-ATUALIZAÇÃO v2.1.5 — correções nos jogos e no zoom
+ATUALIZAÇÃO v2.1.6 — capas corrigidas e RPG ajustado
 
 Copie o conteúdo desta pasta para a raiz do repositório do app no GitHub.
 Substitua os arquivos quando o GitHub perguntar.
 
 Mudanças desta versão:
-- bloqueio do zoom da página no app
-- texto de abertura da pasta Jogos ajustado
-- correções visuais nos cards da pasta Jogos
-- correção do card do RPG dentro do app
-- novas imagens limpas para o Quebra-cabeça
-- capas corrigidas para Quebra-cabeça, Toque no número e Trilha Encantada
+- capa do Quebra-cabeça refeita para não ficar cortada
+- capa da Trilha Encantada refeita para não ficar cortada
+- nova capa do RPG com cabelo da Elo corrigido
+- atualização de cache/versão para forçar recarregamento
 
-Pastas usadas nesta atualização:
+Pastas usadas:
 - assets/game-covers
-- assets/puzzle
