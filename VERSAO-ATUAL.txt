@@ -1,2 +1,2 @@
-Versão atual do app: 3.1.21
-Ajuste da Elo no quarto: mais à frente, pernas corrigidas e cadeira removida.
+Versão atual do app: 3.1.22
+Elo reposicionada no quarto para a área marcada pelo X vermelho.

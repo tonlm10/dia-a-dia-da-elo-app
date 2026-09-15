@@ -1,32 +1,36 @@
-v3.1.21
+v3.1.22
+- Quarto da Elo: Elo movida para a posição indicada pelo X vermelho.
+- Quarto da Elo: novo ajuste das pernas e sapatos para evitar sobreposição.
+
+v3.1.22
 - Quarto da Elo: Elo posicionada mais para frente, entre a faixa branca da parede e o tapete.
 - Quarto da Elo: novo ajuste forte das pernas e dos sapatos para evitar efeito de uma perna só.
 - Quarto da Elo: cadeira removida novamente.
 
-v3.1.21
+v3.1.22
 - Quarto da Elo: Elo avançada um pouco mais para frente, sem pisar no tapete.
 - Quarto da Elo: ajuste fino das pernas para reduzir o problema visual de uma perna só.
 - Quarto da Elo: cadeira removida novamente.
 - Menu principal: ao tocar em “Oi! Vamos brincar?”, toca a voz enviada da Elo (App1.m4a).
 
-v3.1.21
+v3.1.22
 - Quarto da Elo: guarda-roupa movido para o fundo/parede esquerda.
 - Quarto da Elo: Elo avançada um pouco para frente sem pisar no tapete.
 - Quarto da Elo: correção forte nas pernas para evitar aparência de uma perna só.
 - Quarto da Elo: cadeira continua removida.
 
-v3.1.21
+v3.1.22
 - Quarto da Elo: guarda-roupa aumentado mais uma vez para ficar proporcional.
 - Quarto da Elo: Elo reposicionada para a área livre do quarto, evitando conflito visual com a cama.
 - Quarto da Elo: leve aumento de escala para destacar o corpo completo.
 
-v3.1.21
+v3.1.22
 - Quarto da Elo: guarda-roupa aumentado e reposicionado ao fundo, encostado na parede esquerda.
 - Quarto da Elo: remoção da cadeira/mesa lateral para deixar a cena limpa.
 - Quarto da Elo: Elo refeita para usar a mesma base visual do guarda-roupa, com pernas, pés e acessórios alinhados como no closet.
 - Ajuste fino de posição e escala da Elo no quarto.
 
-v3.1.21
+v3.1.22
 - Guarda-roupa reposicionado ainda mais ao fundo, encostado visualmente na parede.
 - Círculo/bolha em volta da Elo removido do quarto.
 - Elo do quarto refinada: pernas e sapatos realinhados para evitar peça fora do corpo.
