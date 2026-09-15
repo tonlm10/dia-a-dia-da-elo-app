@@ -1,3 +1,19 @@
+3.1.1 — BICHINHO DA ELO APRIMORADO
+
+- Modo Família agora usa ícone ilustrado com a Elo, pai e mãe.
+- Pernas da Elo no Quarto foram reproporcionadas.
+- Acessórios do bichinho ficam na cabeça.
+- Ovo agora precisa de 5 cuidados e há 5 minutos de espera entre cuidados.
+- Ações do bichinho reorganizadas: Comida, Dormir, Banho, Higiene, Brincar, Carinho e Estudar.
+- Novo sistema Estudo/Inteligência com nota de 0 a 10. A nota cai com o tempo e sobe ao estudar.
+- Fome, energia, higiene, diversão, carinho e estudo diminuem gradualmente com o tempo.
+- Bichinho aparece sujo quando a higiene cai.
+- Bichinho fica com aparência cansada quando a energia está baixa.
+- Ao dormir, os olhos fecham e a tela fica com luz apagada.
+- Cooldown de 45 segundos por ação evita spam de botões.
+- Saves antigos do bichinho são preservados e migrados automaticamente.
+- RPG preservado sem alterações.
+
 3.1.0 — BICHINHO DA ELO + MENU REFINADO
 - Novo Bichinho da Elo inspirado nos antigos bichinhos virtuais: ovo, nascimento, crescimento e cuidados.
 - Ações: comida, banho, brincar, dormir e carinho.

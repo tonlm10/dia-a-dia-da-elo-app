@@ -3,7 +3,7 @@
   "name": "Dia a Dia da Elo",
   "short_name": "Dia a Dia da Elo",
   "lang": "pt-BR",
-  "start_url": "./?app=3.1.0",
+  "start_url": "./?app=3.1.1",
   "scope": "./",
   "display": "standalone",
   "display_override": [
@@ -12,7 +12,7 @@
   "orientation": "portrait-primary",
   "background_color": "#fff8fc",
   "theme_color": "#ff67a8",
-  "description": "Dia a Dia da Elo v3.1.0 — Bichinho da Elo estilo bichinho virtual, menu inicial refinado, quarto corrigido, guarda-roupa, Modo Família e RPG completo.",
+  "description": "Dia a Dia da Elo v3.1.1 — Bichinho da Elo aprimorado com estudo, necessidades que mudam com o tempo, cooldowns, estados visuais, Modo Família ilustrado, quarto e RPG completo.",
   "categories": [
     "education",
     "games",
