@@ -449,3 +449,41 @@
   .roomPlant{left:70%!important;transform:scale(.54)!important}
   .roomToy{left:60%!important;bottom:6%!important;width:32px!important;height:32px!important}
 }
+
+/* v3.1.10 correções finais do quarto */
+/* trazer as pernas de volta e manter os pés alinhados */
+#roomEloDoll .leg,.roomGuide302 .eloDoll .leg{display:block!important;top:205px!important;height:44px!important;width:8px!important;border-radius:7px!important;z-index:2!important}
+#roomEloDoll .l1,.roomGuide302 .eloDoll .l1{left:60px!important}
+#roomEloDoll .l2,.roomGuide302 .eloDoll .l2{right:60px!important}
+#roomEloDoll .shoe,.roomGuide302 .eloDoll .shoe{display:block!important;top:247px!important;width:14px!important;height:9px!important;border-radius:9px 9px 5px 5px!important;z-index:4!important}
+#roomEloDoll .sh1,.roomGuide302 .eloDoll .sh1{left:56px!important}
+#roomEloDoll .sh2,.roomGuide302 .eloDoll .sh2{right:56px!important}
+#roomEloDoll.wearing-dress .dollDress,.roomGuide302 .eloDoll.wearing-dress .dollDress{height:126px!important}
+/* guarda-roupa mais ao fundo/parede */
+.roomWardrobe{left:1.5%!important;bottom:12%!important;width:18.5%!important;height:33%!important;z-index:1!important}
+/* separar brinquedo e vaso da planta */
+.roomPlant{left:71%!important;bottom:7%!important;width:30px!important;height:48px!important;transform:scale(.58)!important;transform-origin:bottom left!important;z-index:2!important}
+.roomToy{left:53%!important;right:auto!important;bottom:5%!important;width:36px!important;height:36px!important;z-index:3!important}
+.roomRug{left:43%!important;bottom:1.5%!important;width:34%!important;height:13%!important;z-index:1!important}
+@media(max-width:520px){
+  #roomEloDoll .leg,.roomGuide302 .eloDoll .leg{top:204px!important;height:42px!important;width:8px!important}
+  #roomEloDoll .l1,.roomGuide302 .eloDoll .l1{left:60px!important}
+  #roomEloDoll .l2,.roomGuide302 .eloDoll .l2{right:60px!important}
+  #roomEloDoll .shoe,.roomGuide302 .eloDoll .shoe{top:245px!important;width:13px!important;height:8px!important}
+  #roomEloDoll .sh1,.roomGuide302 .eloDoll .sh1{left:57px!important}
+  #roomEloDoll .sh2,.roomGuide302 .eloDoll .sh2{right:57px!important}
+  .roomWardrobe{left:1.5%!important;bottom:11%!important;width:18.5%!important;height:32%!important}
+  .roomPlant{left:70%!important;bottom:7%!important;transform:scale(.54)!important}
+  .roomToy{left:54%!important;bottom:5%!important;width:33px!important;height:33px!important}
+}
+@media(max-width:390px){
+  #roomEloDoll .leg,.roomGuide302 .eloDoll .leg{top:203px!important;height:40px!important;width:7px!important}
+  #roomEloDoll .l1,.roomGuide302 .eloDoll .l1{left:61px!important}
+  #roomEloDoll .l2,.roomGuide302 .eloDoll .l2{right:61px!important}
+  #roomEloDoll .shoe,.roomGuide302 .eloDoll .shoe{top:243px!important;width:12px!important;height:8px!important}
+  #roomEloDoll .sh1,.roomGuide302 .eloDoll .sh1{left:58px!important}
+  #roomEloDoll .sh2,.roomGuide302 .eloDoll .sh2{right:58px!important}
+  .roomWardrobe{left:1%!important;width:18%!important;height:31%!important}
+  .roomPlant{left:69%!important;transform:scale(.5)!important}
+  .roomToy{left:55%!important;bottom:5%!important;width:31px!important;height:31px!important}
+}
