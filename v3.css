@@ -145,3 +145,7 @@
 .petCreature.studySparkle:after{content:'✦ 📚 ✦';position:absolute;right:-28px;top:20px;color:#fff7a6;font-size:19px;animation:sparkle .8s ease;white-space:nowrap;text-shadow:0 2px 5px rgba(80,50,120,.25)}
 @media(max-width:520px){.petStats{grid-template-columns:repeat(3,1fr)!important}.petStat{padding:6px 3px}.petActionsSix{grid-template-columns:repeat(3,1fr)!important}.petActions button{min-height:58px}.petAccessory{font-size:27px!important}.roomGuide302 .eloDoll .leg{height:60px!important}}
 @media(max-width:390px){.petStats{grid-template-columns:repeat(3,1fr)!important}.petActionsSix{grid-template-columns:repeat(3,1fr)!important}.petActions button{padding:7px 2px}.petActions button b{font-size:7px}.petActions button small{font-size:6px}}
+
+/* v3.1.1 final — ações completas do bichinho */
+.petCooldownText{margin-top:7px;text-align:center;font-size:10px;font-weight:900;color:#76569a}.petActionsSeven{grid-template-columns:repeat(4,1fr)!important}.petActions button small{display:block;margin-top:3px;font-size:7px;color:var(--muted)}.petActions button.cooling,.petActions button:disabled{opacity:.58;filter:saturate(.65)}
+@media(max-width:520px){.petActionsSeven{grid-template-columns:repeat(3,1fr)!important}}
