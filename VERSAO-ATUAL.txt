@@ -1,2 +1,2 @@
-Versão: 3.1.19
-Status: atualização do Quarto da Elo com mini personagem e brinquedos refeitos.
+Versão atual do app: 3.1.20
+Correções no quarto da Elo e voz da Elo no menu principal.

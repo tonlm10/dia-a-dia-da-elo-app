@@ -1,11 +1,11 @@
-v3.1.19
+v3.1.20
 
 - Revisão manual das strings de versão para evitar divergência de cache.
 - Reconstrução CSS do Quarto da Elo (mini personagem, guarda-roupa, tapete e brinquedos).
 - Cards de brinquedos trocados para miniaturas próprias, sem emoji.
-- Conferência do version.js, app.js, sw.js, manifest e index com a mesma versão 3.1.19.
+- Conferência do version.js, app.js, sw.js, manifest e index com a mesma versão 3.1.20.
 
-DIA A DIA DA ELO v3.1.19 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.20 — TESTES DA ATUALIZAÇÃO
 - roomEloDoll com pernas, pés e acessórios alinhados por CSS único no final do arquivo.
 - Brinquedos do quarto renderizados por CSS dedicado.
 - Guarda-roupa posicionado junto à parede esquerda.
