@@ -1,4 +1,4 @@
-DIA A DIA DA ELO v3.1.2
+DIA A DIA DA ELO v3.1.1
 Bichinho da Elo + refinamentos do menu e quarto.
 
 Envie app-upload.zip na raiz do GitHub para disparar o workflow automático.
