@@ -1,3 +1,12 @@
+v3.1.15
+- Tratamento especial no Quarto da Elo.
+- Guarda-roupa reposicionado mais ao fundo, encostado na parede.
+- Planta removida da cena para não atrapalhar a decoração.
+- Elo do quarto realinhada com a mesma base visual do guarda-roupa.
+- Pernas, sapatos e acessórios reposicionados para evitar peças “voando”.
+- Brinquedos refeitos com desenho próprio (sem emoji) tanto na cena quanto nos cards.
+- Ajustes finais de cache/versionamento.
+
 v3.1.14
 - Ajuste visual das pernas da Elo no quarto e no guarda-roupa, com shorts e calças mais proporcionais.
 - Bichinho com botões independentes: cada cuidado bloqueia apenas quando sua barra chega a 100%.

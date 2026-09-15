@@ -1,2 +1,2 @@
-Versão: 3.1.14
+Versão: 3.1.15
 Status: atualização do Quarto da Elo com mini personagem e brinquedos refeitos.
