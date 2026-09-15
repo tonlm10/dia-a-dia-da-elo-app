@@ -1,11 +1,12 @@
-DIA A DIA DA ELO v3.3.0 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.3.1 — TESTES DA ATUALIZAÇÃO
 
-- Sintaxe JavaScript: app.js, v3.js, pet.js, sw.js e script principal do RPG.
-- ROOM_DECOR e WARDROBE_ITEMS comparados com v3.2.4: dados de itens e bloqueios preservados.
-- Conferência de IDs duplicados no index.html.
-- Conferência de arquivos locais referenciados no index, manifest e service worker.
-- Quarto: objetos interativos adicionados sem alterar itens desbloqueáveis.
-- Perfil 3–5: apresentação por voz adicionada uma vez por área por sessão.
-- RPG: botão Caminho apenas orienta; não altera missão, save ou progressão.
-- Clubinho comercial removido do menu infantil e mantido na Área dos Pais.
-- Arquivos auxiliares/ativos não usados removidos da distribuição.
+- Sintaxe validada em app.js, v3.js, pet.js, sw.js e JavaScript interno do RPG.
+- IDs do index.html conferidos sem duplicação.
+- Contador de estrelas existe uma única vez e agora fica no cabeçalho.
+- Perfil continua acessível por botão próprio, separado visualmente das estrelas.
+- Seletor de perfis passou a usar o histórico do app para fechar corretamente com Voltar.
+- Lógica de Voltar revisada: telas internas retornam pelo histórico; no menu principal abre confirmação de saída.
+- “Não, continuar” fecha a confirmação e permanece no menu principal.
+- “Sim, sair” percorre entradas internas do histórico até sair da página/app quando o ambiente permite.
+- ROOM_DECOR e WARDROBE_ITEMS comparados com v3.3.0 por hash: nenhum item, estrela exigida ou bloqueio foi alterado.
+- test_room.html removido do pacote de distribuição.

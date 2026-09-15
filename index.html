@@ -11,24 +11,23 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 <title>Dia a Dia da Elo</title>
-<link rel="stylesheet" href="styles.css?v=3.3.0">
-<link rel="stylesheet" href="v3.css?v=3.3.0">
-<link rel="stylesheet" href="polish.css?v=3.3.0">
+<link rel="stylesheet" href="styles.css?v=3.3.1">
+<link rel="stylesheet" href="v3.css?v=3.3.1">
+<link rel="stylesheet" href="polish.css?v=3.3.1">
 </head>
 <body>
 <div id="splash"><div class="splashCard"><img src="assets/icons/icon-192.png" alt="Dia a Dia da Elo"><h2>Dia a Dia da Elo</h2><p>Brincar • Aprender • Criar</p></div></div>
 <div class="app">
-<header><div class="brand"><img class="brandLogo" src="assets/logo-oficial.webp" alt="Dia a Dia da Elo"><div><h1>Dia a Dia da Elo</h1><div class="handle">@diaadiadaelo</div></div><div class="brandActions"><button id="profileChip" class="profileChip" onclick="openProfileChooser()" aria-label="Trocar perfil"><span>🌟</span><b>Elo</b><small>trocar</small></button><button id="speechBtn" class="iconBtn" onclick="toggleSpeech()" aria-label="Leitura em voz">🔊</button></div></div></header>
+<header><div class="brand compactBrand"><img class="brandLogo" src="assets/logo-oficial.webp" alt="Dia a Dia da Elo"><div class="brandText"><h1>Dia a Dia da Elo</h1><div class="handle">@diaadiadaelo</div></div><div class="brandActions"><button id="profileChip" class="profileChip profileCompact" onclick="openProfileChooser()" aria-label="Trocar perfil"><span>👤</span><b>Elo</b><small>perfil</small></button><div class="headerStars" aria-label="Estrelas conquistadas">⭐ <span id="starCount">0</span></div><button id="speechBtn" class="iconBtn" onclick="toggleSpeech()" aria-label="Leitura em voz">🔊</button></div></div></header>
 
 <section id="homePanel" class="panel home active">
-  <div class="worldIntro premiumIntro">
-    <div class="eloGuideCard premiumGuide" onclick="eloGuideSay('Oi! Eu sou a Elo. Escolha um botão e vamos brincar juntas!','intro')">
-      <div class="guidePortrait"><img src="assets/home-icons/home-card.webp" alt="Elo"></div>
-      <div><small>MENU PRINCIPAL</small><h2>Oi! Vamos brincar?</h2><p id="eloGuideText">Agora o início ficou mais direto: escolha um botão grande e entre na brincadeira 💗</p></div>
-      <div class="scorePillV3">⭐ <span id="starCount">0</span></div>
-    </div>
+  <div class="homeWelcomeWrap">
+    <button class="homeWelcome" onclick="eloGuideSay('Oi! Eu sou a Elo. Vamos brincar juntas!','intro')" aria-label="Ouvir a Elo">
+      <img src="assets/home-icons/home-card.webp" alt="Elo">
+      <div><h2>Oi! Vamos brincar? 💗</h2><p>Toque em mim para ouvir a Elo.</p></div>
+    </button>
   </div>
-  <div class="classicHomeHero"><div><small>DIA A DIA DA ELO</small><h2>Escolha onde brincar</h2><p>Escolha uma aventura. ⭐ As estrelas conquistadas liberam roupas e decorações novas.</p></div><button class="smallBtn" onclick="eloGuideSay('Oi! Eu sou a Elo. Escolha um botão e vamos brincar!','intro')">🔊 Ouvir Elo</button></div>
+  <div class="homeChoose"><h2>Escolha onde brincar</h2><p>Ganhe ⭐ e libere roupas e novidades!</p></div>
   <div class="classicHomeMenu" aria-label="Menu principal da Elo">
     <button class="classicHomeCard" onclick="openPanel('watchPanel','watch')"><img src="assets/home-icons/watch-card.webp" alt="Assistir"><div><b>Assistir</b><small>Cinema da Elo e playlists do canal.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('playPanel','play')"><img src="assets/home-icons/play-card.webp" alt="Jogos"><div><b>Jogos</b><small>Memória, quebra-cabeça, trilha e mais.</small></div></button>
@@ -49,7 +48,7 @@
     <button onclick="openPanel('achievementsPanel','achievements')"><span>🏅</span><b>Conquistas</b><small>Medalhas e estrelas</small></button>
   </div>
   <div class="missionRow v3MissionRow"><div class="miniCard pink"><h3>🌟 Missão leve</h3><p id="dailyText">Faça algo divertido hoje!</p><div class="progress"><i id="dailyProgress"></i></div><button class="smallBtn" style="margin-top:10px" onclick="completeDaily()">Consegui!</button></div><div class="miniCard lilac"><h3>🔐 Área dos Pais</h3><p>Segurança, progresso e configurações.</p><button class="smallBtn" onclick="openParents()">Entrar</button></div></div>
-  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.3.0</span></div>
+  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.3.1</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -138,7 +137,7 @@
   <div class="card parentClubCard"><h3>Clubinho da Elo 👑</h3><p class="muted">Informações de assinatura e valores ficam somente na Área dos Pais.</p><button class="btn secondary" onclick="openPanel('clubPanel','parents')">Ver planos e benefícios</button></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.3.0</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.3.1</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -284,6 +283,6 @@
 <div id="exitConfirm" class="exitConfirm hidden" role="dialog" aria-modal="true" aria-labelledby="exitTitle"><div class="exitCard"><div class="exitIcon">👋</div><h3 id="exitTitle">Deseja sair do app?</h3><p>Você está na página principal.</p><div class="exitActions"><button class="exitNo" onclick="cancelAppExit()">Não, continuar</button><button class="exitYes" onclick="confirmAppExit()">Sim, sair</button></div></div></div>
 <nav><div class="navin"><button class="navbtn active" data-nav="home" onclick="openPanel('homePanel','home')"><img class="navEloIcon" src="assets/home-icons/home-nav.webp" alt="">Início</button><button class="navbtn" data-nav="watch" onclick="openPanel('watchPanel','watch')"><img class="navEloIcon" src="assets/home-icons/watch-nav.webp" alt="">Assistir</button><button class="navbtn" data-nav="play" onclick="openPanel('playPanel','play')"><img class="navEloIcon" src="assets/home-icons/play-nav.webp" alt="">Jogar</button><button class="navbtn" data-nav="learn" onclick="openPanel('learnPanel','learn')"><img class="navEloIcon" src="assets/home-icons/learn-nav.webp" alt="">Escolinha da Elo</button><button class="navbtn" data-nav="create" onclick="openPanel('createPanel','create')"><img class="navEloIcon" src="assets/home-icons/create-nav.webp" alt="">Criar</button></div></nav>
 <div id="toast" class="toast">Muito bem! ⭐</div>
-<script src="version.js?v=3.3.0"></script><script src="app.js?v=3.3.0"></script><script src="v3.js?v=3.3.0"></script><script src="pet.js?v=3.3.0"></script>
+<script src="version.js?v=3.3.1"></script><script src="app.js?v=3.3.1"></script><script src="v3.js?v=3.3.1"></script><script src="pet.js?v=3.3.1"></script>
 </body>
 </html>

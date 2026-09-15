@@ -1,3 +1,13 @@
+v3.3.1
+- Cabeçalho compactado: perfil separado visualmente das estrelas, contador ⭐ no topo e botão de voz mantido.
+- Home simplificada: removidos textos repetidos, botão Ouvir Elo duplicado e contador flutuante.
+- Cartão “Oi! Vamos brincar?” agora é curto e tocável para ouvir a voz da Elo.
+- Botão Voltar do Android navega apenas dentro do app até o menu principal.
+- No menu principal, Voltar sempre abre a confirmação de saída.
+- “Não, continuar” mantém o usuário no menu principal; “Sim, sair” percorre o histórico interno e sai do app quando o ambiente permite.
+- Seletor de perfis agora participa do histórico e fecha corretamente com o botão Voltar.
+- Itens bloqueados, preços em estrelas e regras de desbloqueio não foram alterados.
+
 v3.3.0
 - Quarto mais vivo: janela, cama, brinquedo, quadro, prateleira e guarda-roupa agora respondem ao toque.
 - Perfis 3–5 anos recebem apresentações curtas em voz nas áreas principais, uma vez por sessão.
