@@ -1,4 +1,4 @@
-DIA A DIA DA ELO v3.2.2 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.2.3 — TESTES DA ATUALIZAÇÃO
 
 - Sintaxe validada em app.js, v3.js, pet.js e sw.js.
 - Script interno do RPG extraído e validado pelo Node.js.

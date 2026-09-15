@@ -1,4 +1,4 @@
-Dia a Dia da Elo — v3.2.2
+Dia a Dia da Elo — v3.2.3
 
 Atualização principal:
 - RPG com progressão mais longa e menos retornos obrigatórios ao Guardião Sol.

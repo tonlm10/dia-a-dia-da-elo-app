@@ -1,2 +1,2 @@
-Versão atual do app: 3.2.2
-Correções de direção da Elo no RPG, tamanho/solo na Trilha Encantada e migração correta das novas missões.
+Versão atual do app: 3.2.3
+Correção definitiva da ancoragem dos pés da Elo na Trilha Encantada em telas de celular.

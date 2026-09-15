@@ -1,4 +1,4 @@
-const APP_VERSION=self.ELO_APP_VERSION||'3.2.2';
+const APP_VERSION=self.ELO_APP_VERSION||'3.2.3';
 
 // ===== v2.0 • Perfis locais, acessibilidade, tempo saudável, tutorial e backup =====
 const V2_PROFILES_KEY='eloProfilesV2',V2_ACTIVE_KEY='eloActiveProfileId',V2_MIGRATION_KEY='eloProfilesV2Migrated';
@@ -346,9 +346,14 @@ function syncTrailEloClone(){
  const wanted=[...source.classList].filter(c=>c!=='trailEloClone').join(' ');
  const current=[...doll.classList].filter(c=>c!=='trailEloClone').join(' ');
  if(current!==wanted)doll.className=wanted+' trailEloClone';
- const ratio=(trailCanvas.clientWidth||trailCanvas.width)/trailCanvas.width,p=s.player;
- const avatarScale=.35*ratio;
- const footX=(p.x+p.w/2)*ratio,footY=(p.y+p.h+38)*ratio;// +38 leva os pés para o topo visível do chão desenhado
+ const ratioX=(trailCanvas.clientWidth||trailCanvas.width)/trailCanvas.width;
+ const ratioY=(trailCanvas.clientHeight||trailCanvas.height)/trailCanvas.height;
+ const p=s.player;
+ const avatarScale=.35*ratioX;
+ // O canvas pode ficar mais alto no celular por causa do min-height. X e Y precisam de escalas separadas.
+ // O topo da faixa de chão visível é ground+38 no canvas; os pés da Elo são ancorados exatamente ali.
+ const footX=(p.x+p.w/2)*ratioX;
+ const footY=(p.y+p.h+38)*ratioY;
  doll.style.left=(footX-75*avatarScale)+'px';
  doll.style.top=(footY-303*avatarScale)+'px';
  doll.style.transform=`scale(${avatarScale})`;
