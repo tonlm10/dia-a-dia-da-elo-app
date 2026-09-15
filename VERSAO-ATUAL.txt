@@ -1,2 +1,2 @@
-Versão atual do app: 3.1.20
-Correções no quarto da Elo e voz da Elo no menu principal.
+Versão atual do app: 3.1.21
+Ajuste da Elo no quarto: mais à frente, pernas corrigidas e cadeira removida.

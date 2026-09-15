@@ -831,7 +831,7 @@
 }
 
 
-/* ===== v3.1.20 extra fine tuning do Quarto da Elo ===== */
+/* ===== v3.1.21 extra fine tuning do Quarto da Elo ===== */
 .roomGuide302{left:50.8%!important;top:36.4%!important;width:78px!important;height:86px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;padding:0!important}
 .roomGuide302>span{display:none!important}
 .roomGuide302:before,.roomGuide302:after{display:none!important;content:none!important}
@@ -861,7 +861,7 @@
 @media(max-width:520px){.roomGuide302{left:50.6%!important;top:36.2%!important;width:74px!important;height:82px!important}.roomGuide302 #roomEloDoll{transform:scale(.255)!important;left:2px!important;top:0!important}.roomWardrobe{left:5%!important;bottom:21%!important;width:14%!important;height:23%!important}.roomDesk{left:19.5%!important;bottom:12.1%!important;width:11.5%!important}.roomRug{left:38%!important;width:40%!important} }
 
 
-/* ===== v3.1.20 correção especial do Quarto da Elo ===== */
+/* ===== v3.1.21 correção especial do Quarto da Elo ===== */
 .roomWardrobe{left:4.8%!important;bottom:13.4%!important;width:17.8%!important;height:30.5%!important;z-index:1!important;border-width:5px!important;box-shadow:0 5px 12px rgba(79,50,76,.10)!important}
 .roomDesk{display:none!important}
 .roomGuide302{left:49.4%!important;top:37.2%!important;width:44px!important;height:88px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;padding:0!important;z-index:4!important}
@@ -904,7 +904,7 @@
 @media(max-width:520px){.roomWardrobe{left:4.6%!important;bottom:13.2%!important;width:18.5%!important;height:30.5%!important}.roomGuide302{left:49.2%!important;top:37.0%!important;width:44px!important;height:88px!important}#roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.268)!important}}
 
 
-/* ===== v3.1.20 ajuste de proporção e posicionamento ===== */
+/* ===== v3.1.21 ajuste de proporção e posicionamento ===== */
 .roomWardrobe{left:2.8%!important;bottom:12.8%!important;width:20.5%!important;height:34%!important;z-index:1!important}
 .roomGuide302{left:43.8%!important;top:36.2%!important;width:52px!important;height:94px!important;z-index:5!important}
 #roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.295)!important;left:0!important;top:0!important}
@@ -913,7 +913,7 @@
 @media(max-width:520px){.roomWardrobe{left:2.5%!important;bottom:12.6%!important;width:21%!important;height:34%!important}.roomGuide302{left:43.5%!important;top:36%!important;width:52px!important;height:94px!important}#roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.292)!important}.roomToy{left:57%!important;bottom:5.8%!important;width:64px!important;height:54px!important}}
 
 
-/* ===== v3.1.20 correção final de posição do quarto ===== */
+/* ===== v3.1.21 correção final de posição do quarto ===== */
 .roomWardrobe{left:2.8%!important;bottom:34%!important;width:17%!important;height:27%!important;z-index:1!important;box-shadow:0 4px 10px rgba(79,50,76,.10)!important}
 .roomDesk{display:none!important}
 .roomGuide302{left:45.8%!important;top:36.2%!important;width:58px!important;height:102px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;z-index:5!important}
@@ -948,7 +948,7 @@
 @media(max-width:520px){.roomWardrobe{left:2.6%!important;bottom:33.5%!important;width:17.2%!important;height:27%!important}.roomGuide302{left:45.5%!important;top:36%!important;width:58px!important;height:102px!important}#roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.3)!important}}
 
 
-/* ===== v3.1.20 correções finas do Quarto da Elo + voz no menu ===== */
+/* ===== v3.1.21 correções finas do Quarto da Elo + voz no menu ===== */
 .roomDesk{display:none!important}
 .roomGuide302{left:43.8%!important;top:37.6%!important;width:74px!important;height:124px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;z-index:6!important}
 .roomGuide302>span{left:50%!important;transform:translateX(-50%)!important;bottom:-6px!important;font-size:12px!important;background:transparent!important;padding:0!important;box-shadow:none!important}
@@ -979,3 +979,37 @@
 #roomEloDoll.bottom-pants .sh1,#roomEloDoll.bottom-pants-black .sh1,#roomEloDoll.bottom-pants-cargo .sh1,.roomGuide302 .eloDoll.bottom-pants .sh1,.roomGuide302 .eloDoll.bottom-pants-black .sh1,.roomGuide302 .eloDoll.bottom-pants-cargo .sh1{left:45px!important}
 #roomEloDoll.bottom-pants .sh2,#roomEloDoll.bottom-pants-black .sh2,#roomEloDoll.bottom-pants-cargo .sh2,.roomGuide302 .eloDoll.bottom-pants .sh2,.roomGuide302 .eloDoll.bottom-pants-black .sh2,.roomGuide302 .eloDoll.bottom-pants-cargo .sh2{left:76px!important}
 @media(max-width:520px){.roomGuide302{left:43.2%!important;top:37.4%!important;width:72px!important;height:122px!important}#roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.336)!important}}
+
+
+/* ===== v3.1.21 ajuste solicitado: Elo mais à frente + pernas corrigidas ===== */
+.roomDesk{display:none!important}
+.roomGuide302{left:50.6%!important;top:41.8%!important;width:92px!important;height:110px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;padding:0!important;z-index:6!important}
+.roomGuide302>span,.roomGuide302:before,.roomGuide302:after{display:none!important;content:none!important}
+.roomGuide302 #roomEloDoll,#roomEloDoll,.roomGuide302 .eloDoll{position:absolute!important;left:6px!important;top:-4px!important;width:150px!important;height:325px!important;transform:scale(.305)!important;transform-origin:top left!important}
+/* corpo e acessórios alinhados */
+#roomEloDoll .dollBow,.roomGuide302 .eloDoll .dollBow{left:93px!important;top:13px!important;z-index:10!important}
+#roomEloDoll.hair-tiara-star .dollBow,.roomGuide302 .eloDoll.hair-tiara-star .dollBow{left:49px!important;top:20px!important}
+#roomEloDoll.hair-tiara-pearl .dollBow,.roomGuide302 .eloDoll.hair-tiara-pearl .dollBow{left:50px!important;top:18px!important}
+#roomEloDoll.hair-pop .dollBow,.roomGuide302 .eloDoll.hair-pop .dollBow{left:96px!important;top:18px!important}
+#roomEloDoll .dollEarring,#roomEloDoll .dollNecklace,#roomEloDoll .dollBracelet,#roomEloDoll .dollRing,.roomGuide302 .eloDoll .dollEarring,.roomGuide302 .eloDoll .dollNecklace,.roomGuide302 .eloDoll .dollBracelet,.roomGuide302 .eloDoll .dollRing{z-index:10!important}
+/* pernas do quarto: duas pernas fixas e encaixadas sob o corpo */
+#roomEloDoll .dollBody,.roomGuide302 .eloDoll .dollBody{z-index:5!important}
+#roomEloDoll .dollTop,#roomEloDoll .dollBottom,#roomEloDoll .dollDress,.roomGuide302 .eloDoll .dollTop,.roomGuide302 .eloDoll .dollBottom,.roomGuide302 .eloDoll .dollDress{z-index:5!important}
+#roomEloDoll .leg,.roomGuide302 .eloDoll .leg{display:block!important;position:absolute!important;top:206px!important;width:18px!important;height:76px!important;border-radius:10px!important;background:#e9ac7c!important;z-index:6!important}
+#roomEloDoll .l1,.roomGuide302 .eloDoll .l1{left:52px!important;right:auto!important}
+#roomEloDoll .l2,.roomGuide302 .eloDoll .l2{left:76px!important;right:auto!important}
+#roomEloDoll .shoe,.roomGuide302 .eloDoll .shoe{display:block!important;position:absolute!important;top:279px!important;width:23px!important;height:15px!important;border-radius:12px 12px 7px 7px!important;z-index:7!important}
+#roomEloDoll .sh1,.roomGuide302 .eloDoll .sh1{left:46px!important;right:auto!important}
+#roomEloDoll .sh2,.roomGuide302 .eloDoll .sh2{left:70px!important;right:auto!important}
+/* saias, shorts e vestidos sem engolir as pernas */
+#roomEloDoll.bottom-shorts .dollBottom,#roomEloDoll.bottom-shorts-pink .dollBottom,.roomGuide302 .eloDoll.bottom-shorts .dollBottom,.roomGuide302 .eloDoll.bottom-shorts-pink .dollBottom{left:13px!important;top:54px!important;width:50px!important;height:58px!important;clip-path:polygon(4% 0,96% 0,92% 100%,58% 100%,50% 56%,42% 100%,8% 100%)!important}
+#roomEloDoll.bottom-skirt .dollBottom,#roomEloDoll.bottom-skirt-lilac .dollBottom,.roomGuide302 .eloDoll.bottom-skirt .dollBottom,.roomGuide302 .eloDoll.bottom-skirt-lilac .dollBottom{left:8px!important;top:54px!important;width:60px!important;height:61px!important;clip-path:polygon(18% 0,82% 0,100% 100%,0 100%)!important}
+#roomEloDoll.wearing-dress .leg,.roomGuide302 .eloDoll.wearing-dress .leg{top:214px!important;height:68px!important}
+#roomEloDoll.wearing-dress .shoe,.roomGuide302 .eloDoll.wearing-dress .shoe{top:279px!important}
+#roomEloDoll.wearing-dress .dollTop,#roomEloDoll.wearing-dress .dollBottom,.roomGuide302 .eloDoll.wearing-dress .dollTop,.roomGuide302 .eloDoll.wearing-dress .dollBottom{opacity:0!important}
+#roomEloDoll.wearing-dress .dollDress,.roomGuide302 .eloDoll.wearing-dress .dollDress{display:block!important}
+/* calças: manter duas pernas e sapatos visíveis corretamente */
+#roomEloDoll.bottom-pants .dollBottom,#roomEloDoll.bottom-pants-black .dollBottom,#roomEloDoll.bottom-pants-cargo .dollBottom,.roomGuide302 .eloDoll.bottom-pants .dollBottom,.roomGuide302 .eloDoll.bottom-pants-black .dollBottom,.roomGuide302 .eloDoll.bottom-pants-cargo .dollBottom{left:12px!important;top:55px!important;width:52px!important;height:110px!important;clip-path:polygon(10% 0,90% 0,87% 100%,61% 100%,53% 52%,47% 52%,39% 100%,13% 100%)!important;border-radius:12px 12px 8px 8px!important}
+#roomEloDoll.bottom-pants .leg,#roomEloDoll.bottom-pants-black .leg,#roomEloDoll.bottom-pants-cargo .leg,.roomGuide302 .eloDoll.bottom-pants .leg,.roomGuide302 .eloDoll.bottom-pants-black .leg,.roomGuide302 .eloDoll.bottom-pants-cargo .leg{display:none!important}
+#roomEloDoll.bottom-pants .shoe,#roomEloDoll.bottom-pants-black .shoe,#roomEloDoll.bottom-pants-cargo .shoe,.roomGuide302 .eloDoll.bottom-pants .shoe,.roomGuide302 .eloDoll.bottom-pants-black .shoe,.roomGuide302 .eloDoll.bottom-pants-cargo .shoe{top:281px!important}
+@media(max-width:520px){.roomGuide302{left:50.2%!important;top:41.6%!important;width:90px!important;height:108px!important}.roomGuide302 #roomEloDoll,#roomEloDoll,.roomGuide302 .eloDoll{left:5px!important;top:-3px!important;transform:scale(.298)!important}}

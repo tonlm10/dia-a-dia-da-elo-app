@@ -1,4 +1,4 @@
-const APP_VERSION=self.ELO_APP_VERSION||'3.1.20';
+const APP_VERSION=self.ELO_APP_VERSION||'3.1.21';
 
 // ===== v2.0 • Perfis locais, acessibilidade, tempo saudável, tutorial e backup =====
 const V2_PROFILES_KEY='eloProfilesV2',V2_ACTIVE_KEY='eloActiveProfileId',V2_MIGRATION_KEY='eloProfilesV2Migrated';
