@@ -487,3 +487,42 @@
   .roomPlant{left:69%!important;transform:scale(.5)!important}
   .roomToy{left:55%!important;bottom:5%!important;width:31px!important;height:31px!important}
 }
+
+/* v3.1.12 ajuste definitivo do quarto da Elo */
+/* remover o vaso/planta do quarto */
+.roomPlant{display:none!important}
+/* guarda-roupa mais junto à parede */
+.roomWardrobe{left:2%!important;bottom:11%!important;width:18%!important;height:32%!important;z-index:1!important}
+/* mesa e brinquedo organizados sem sobreposição */
+.roomDesk{left:25%!important;bottom:14%!important;width:13%!important;height:15%!important;transform:scale(.72)!important;transform-origin:bottom left!important;z-index:2!important}
+.roomRug{left:42%!important;bottom:1.8%!important;width:33%!important;height:12.5%!important;z-index:1!important}
+.roomToy{left:54%!important;right:auto!important;bottom:5%!important;width:36px!important;height:36px!important;z-index:3!important}
+/* restaurar a mini Elo do quarto com as mesmas proporções da Elo do guarda-roupa */
+#roomEloDoll{position:absolute!important;left:6px!important;top:-4px!important;transform:scale(.285)!important;transform-origin:top left!important;width:150px!important;height:325px!important}
+#roomEloDoll .dollBody{left:37px!important;top:111px!important;width:76px!important;height:117px!important}
+#roomEloDoll .dollBody .dollTop{left:10px!important;top:0!important;width:56px!important;height:62px!important;border-radius:18px 18px 9px 9px!important;z-index:2!important}
+#roomEloDoll .dollBody .dollBottom{left:13px!important;top:54px!important;width:50px!important;height:52px!important;z-index:2!important}
+#roomEloDoll .dollBody .dollDress{left:3px!important;top:0!important;width:70px!important;height:108px!important;z-index:4!important}
+#roomEloDoll.bottom-shorts .dollBottom,#roomEloDoll.bottom-shorts-pink .dollBottom{left:13px!important;top:53px!important;width:50px!important;height:64px!important;clip-path:polygon(4% 0,96% 0,92% 100%,58% 100%,50% 56%,42% 100%,8% 100%)!important;border-radius:10px 10px 8px 8px!important;z-index:3!important}
+#roomEloDoll.bottom-pants .dollBottom,#roomEloDoll.bottom-pants-black .dollBottom,#roomEloDoll.bottom-pants-cargo .dollBottom{left:12px!important;top:53px!important;width:52px!important;height:102px!important;clip-path:polygon(10% 0,90% 0,87% 100%,61% 100%,53% 52%,47% 52%,39% 100%,13% 100%)!important;border-radius:10px 10px 7px 7px!important;z-index:3!important}
+#roomEloDoll.wearing-dress .dollDress{display:block!important;left:3px!important;top:0!important;width:70px!important;height:108px!important;z-index:4!important}
+#roomEloDoll.wearing-dress .dollTop,#roomEloDoll.wearing-dress .dollBottom{opacity:0!important}
+#roomEloDoll .leg{display:block!important;top:211px!important;width:20px!important;height:82px!important;border-radius:10px!important;z-index:1!important;background:#e9ac7c!important}
+#roomEloDoll .l1{left:49px!important}
+#roomEloDoll .l2{right:49px!important}
+#roomEloDoll .shoe{display:block!important;top:282px!important;width:31px!important;height:21px!important;border-radius:16px 16px 8px 8px!important;z-index:4!important}
+#roomEloDoll .sh1{left:39px!important}
+#roomEloDoll .sh2{right:39px!important}
+@media(max-width:520px){
+  #roomEloDoll{left:5px!important;top:-3px!important;transform:scale(.275)!important}
+  .roomWardrobe{left:2%!important;bottom:10%!important;width:18%!important;height:31%!important}
+  .roomDesk{left:24%!important;bottom:14%!important;width:12%!important;transform:scale(.69)!important}
+  .roomToy{left:55%!important;bottom:5%!important;width:34px!important;height:34px!important}
+  .roomRug{left:43%!important;width:31%!important;height:12%!important}
+}
+@media(max-width:390px){
+  #roomEloDoll{left:4px!important;top:-2px!important;transform:scale(.265)!important}
+  .roomWardrobe{left:2%!important;bottom:10%!important;width:17%!important;height:30%!important}
+  .roomDesk{left:23%!important;width:12%!important;transform:scale(.65)!important}
+  .roomToy{left:56%!important;bottom:5%!important;width:31px!important;height:31px!important}
+}
