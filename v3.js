@@ -89,11 +89,18 @@ function renderRoom(){
  if(bedEl)bedEl.className=`roomBed ${bed?.id==='bedBlue'?'bed-blue':bed?.id==='bedLilac'?'bed-lilac':bed?.id==='bedStar'?'bed-star':'bed-pink'}`;
  if(rugEl)rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rug?.id==='rugRainbow'?'rug-rainbow':rug?.id==='rugCloud'?'rug-cloud':'rug-heart'}`.trim();
  applyWardrobeToDoll(document.getElementById('roomEloDoll'),v);
- const tabs=document.getElementById('roomDecorTabs');if(tabs){const kinds=[['wall','🎨','Parede'],['art','🖼️','Quadros'],['bed','🛏️','Camas'],['rug','🧶','Tapetes'],['toy','🧸','Brinquedos']];tabs.innerHTML=kinds.map(([id,ic,name])=>`<button class="roomDecorTab ${roomDecorCategory===id?'on':''}" onclick="selectRoomCategory('${id}')"><span>${ic}</span>${name}</button>`).join('')}grid.innerHTML=ROOM_DECOR.filter(it=>it.kind===roomDecorCategory).map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')"><span>${unlock?it.icon:'🔒'}</span><b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');
+ const tabs=document.getElementById('roomDecorTabs');if(tabs){const kinds=[['wall','🎨','Parede'],['art','🖼️','Quadros'],['bed','🛏️','Camas'],['rug','🧶','Tapetes'],['toy','🧸','Brinquedos']];tabs.innerHTML=kinds.map(([id,ic,name])=>`<button class="roomDecorTab ${roomDecorCategory===id?'on':''}" onclick="selectRoomCategory('${id}')"><span>${ic}</span>${name}</button>`).join('')}grid.innerHTML=ROOM_DECOR.filter(it=>it.kind===roomDecorCategory).map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')">${unlock?roomDecorThumb(it):'<span>🔒</span>'}<b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');
 }window.renderRoom=renderRoom;
 window.selectRoomDecor=function(id){const it=ROOM_DECOR.find(x=>x.id===id);if(!it)return;if(!roomUnlocked(it))return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load();v.room[it.kind]=it.id;v3Save(v);renderRoom();if(typeof speakText==='function'&&getActiveProfile().ageRange==='3-5')speakText(it.name)};
 
 function wardrobeItem(id){return WARDROBE_ITEMS.find(x=>x.id===id)}
+function roomDecorThumb(it){
+ if(!it) return '';
+ if(it.kind!=='toy') return `<span>${it.icon}</span>`;
+ const shape=it.shape||'none';
+ if(shape==='none') return '<span>🚫</span>';
+ return `<span class="roomToyThumb toy-${shape}" aria-hidden="true"></span>`;
+}
 function wardrobeDefaults(){return defaultV3().wardrobe}
 function normalizeWardrobe(v){v.wardrobe=Object.assign({},wardrobeDefaults(),v.wardrobe||{});return v.wardrobe}
 function applyWardrobeToDoll(doll,v){if(!doll)return;const w=normalizeWardrobe(v);const all=WARDROBE_ITEMS.map(x=>x.cls).filter(Boolean);doll.classList.remove(...all);for(const id of Object.values(w)){const it=wardrobeItem(id);if(it?.cls)doll.classList.add(it.cls)};if(w.dress&&w.dress!=='noneDress')doll.classList.add('wearing-dress');else doll.classList.remove('wearing-dress')}
@@ -189,6 +196,6 @@ window.addStars=function(n=1,msg){const before=stars;oldAddStars(n,msg);const af
 const oldRenderParentV2=window.renderParentV2;
 window.renderParentV2=function(){oldRenderParentV2();renderParentV3()};
 
-function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent=APP_VERSION);renderHomeContinue();if(!pget('tutorial-v304'))setTimeout(()=>showTutorialOnce('v304','A casa da Elo ficou mais organizada! ✨',['O menu inicial voltou a ficar mais direto, com botões grandes para entrar em cada área.','O quarto ganhou mais opções de decoração e agora dá para deixar sem quadro, sem tapete ou sem brinquedo.','As calças da Elo foram ajustadas para encaixar melhor no corpo.','Os brinquedos do quarto ficaram mais bonitos, sem depender apenas de emoji.']),950)}
+function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent=APP_VERSION);renderHomeContinue();if(!pget('tutorial-v304'))setTimeout(()=>showTutorialOnce('v304','A casa da Elo ficou mais organizada! ✨',['O menu inicial voltou a ficar mais direto, com botões grandes para entrar em cada área.','O quarto ganhou mais opções de decoração e agora dá para deixar sem quadro, sem tapete ou sem brinquedo.','As calças da Elo foram ajustadas para encaixar melhor no corpo.','Os brinquedos do quarto ficaram desenhados em estilo próprio, sem depender de emoji.']),950)}
 window.addEventListener('DOMContentLoaded',initV3);
 })();

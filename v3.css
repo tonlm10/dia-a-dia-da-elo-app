@@ -582,3 +582,188 @@
   #roomEloDoll{left:6px!important;top:-2px!important;transform:scale(.265)!important}
   .roomToy{left:57%!important;width:39px!important;height:39px!important}
 }
+
+
+/* v3.1.14 — reconstrução profissional do Quarto da Elo */
+.roomPlant{display:none!important}
+.room-premium{overflow:hidden!important}
+.roomWardrobe{
+  left:5%!important;
+  bottom:12.5%!important;
+  width:17%!important;
+  height:31%!important;
+  z-index:1!important;
+}
+.roomDesk{
+  left:24%!important;
+  bottom:11%!important;
+  width:14%!important;
+  height:17%!important;
+  transform:scale(.78)!important;
+  transform-origin:bottom left!important;
+  z-index:2!important;
+}
+.roomRug{
+  left:39%!important;
+  bottom:2.5%!important;
+  width:43%!important;
+  height:13.5%!important;
+  z-index:1!important;
+}
+.roomGuide302{
+  width:88px!important;
+  height:88px!important;
+  left:47.5%!important;
+  top:33%!important;
+  background:#f7d9e7!important;
+  border:5px solid #fff!important;
+  box-shadow:0 10px 24px rgba(72,45,102,.16)!important;
+  overflow:visible!important;
+}
+.roomGuide302>span{bottom:-3px!important}
+#roomEloDoll{
+  position:absolute!important;
+  left:16px!important;
+  top:3px!important;
+  width:150px!important;
+  height:325px!important;
+  transform:scale(.31)!important;
+  transform-origin:top left!important;
+}
+/* mini Elo exatamente na mesma base do guarda-roupa */
+#roomEloDoll .dollHairBack{left:34px!important;top:22px!important;width:82px!important;height:96px!important;border-radius:45% 45% 40% 40%!important;background:#6e3d27!important;box-shadow:-18px 48px 0 -5px #6e3d27,18px 48px 0 -5px #6e3d27!important}
+#roomEloDoll .dollHead{left:39px!important;top:33px!important;width:72px!important;height:78px!important;border-radius:48% 48% 45% 45%!important;background:#f1b884!important;z-index:2!important}
+#roomEloDoll .dollHairFront{left:37px!important;top:22px!important;width:78px!important;height:43px!important;z-index:3!important;border-radius:50% 50% 20% 20%!important;background:#6e3d27!important;clip-path:polygon(0 0,100% 0,100% 70%,77% 52%,62% 76%,42% 47%,24% 71%,0 58%)!important}
+#roomEloDoll .dollBow{left:93px!important;top:13px!important;width:33px!important;height:25px!important;z-index:9!important}
+#roomEloDoll .dollBody{left:37px!important;top:111px!important;width:76px!important;height:117px!important;z-index:3!important}
+#roomEloDoll .dollBody .dollTop{left:10px!important;top:0!important;width:56px!important;height:62px!important;border-radius:18px 18px 9px 9px!important;z-index:2!important}
+#roomEloDoll .dollBody .dollBottom{left:13px!important;top:54px!important;width:50px!important;height:52px!important;z-index:2!important}
+#roomEloDoll .dollBody .dollDress{left:3px!important;top:0!important;width:70px!important;height:108px!important;z-index:5!important}
+#roomEloDoll .leg{display:block!important;top:211px!important;width:20px!important;height:82px!important;border-radius:10px!important;background:#e9ac7c!important;z-index:1!important}
+#roomEloDoll .l1{left:49px!important;right:auto!important}
+#roomEloDoll .l2{left:81px!important;right:auto!important}
+#roomEloDoll .shoe{display:block!important;top:282px!important;width:31px!important;height:21px!important;border-radius:16px 16px 8px 8px!important;z-index:6!important}
+#roomEloDoll .sh1{left:39px!important;right:auto!important}
+#roomEloDoll .sh2{left:80px!important;right:auto!important}
+#roomEloDoll.bottom-skirt .dollBottom,#roomEloDoll.bottom-skirt-lilac .dollBottom{left:8px!important;top:54px!important;width:60px!important;height:63px!important;clip-path:polygon(18% 0,82% 0,100% 100%,0 100%)!important;border-radius:10px 10px 6px 6px!important;z-index:4!important}
+#roomEloDoll.bottom-shorts .dollBottom,#roomEloDoll.bottom-shorts-pink .dollBottom{left:13px!important;top:54px!important;width:50px!important;height:52px!important;clip-path:polygon(4% 0,96% 0,92% 100%,58% 100%,50% 56%,42% 100%,8% 100%)!important;border-radius:10px 10px 8px 8px!important;z-index:4!important}
+#roomEloDoll.bottom-pants .dollBottom,#roomEloDoll.bottom-pants-black .dollBottom,#roomEloDoll.bottom-pants-cargo .dollBottom{left:12px!important;top:55px!important;width:52px!important;height:112px!important;clip-path:polygon(10% 0,90% 0,87% 100%,61% 100%,53% 52%,47% 52%,39% 100%,13% 100%)!important;border-radius:12px 12px 8px 8px!important;z-index:3!important}
+#roomEloDoll.wearing-dress .dollTop,#roomEloDoll.wearing-dress .dollBottom{opacity:0!important}
+#roomEloDoll.wearing-dress .dollDress{display:block!important}
+#roomEloDoll .dollBracelet{z-index:8!important}
+#roomEloDoll .dollRing{z-index:9!important}
+#roomEloDoll .dollEarring{z-index:8!important}
+#roomEloDoll .dollNecklace{z-index:7!important}
+
+/* brinquedos desenhados, sem emoji */
+.roomToy,.roomToyThumb{font-size:0!important;box-sizing:border-box}
+.roomToy{
+  left:58%!important;
+  right:auto!important;
+  bottom:6.2%!important;
+  width:62px!important;
+  height:52px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  z-index:4!important;
+}
+.roomToy:before,.roomToy:after,.roomToyThumb:before,.roomToyThumb:after{content:'';position:absolute;box-sizing:border-box}
+.roomToy.hidden{display:none!important}
+.roomToy.toy-unicorn:before{
+  left:8px; top:15px; width:40px; height:25px;
+  background:#fff; border-radius:18px 20px 16px 16px;
+  box-shadow:18px -5px 0 -5px #fff, 1px 14px 0 -8px #fff, 16px 14px 0 -8px #fff;
+}
+.roomToy.toy-unicorn:after{
+  left:31px; top:4px; width:20px; height:22px;
+  background:linear-gradient(180deg,#8fe0fb 0 30%,#b591ef 30% 65%,#ffd86c 65% 100%);
+  clip-path:polygon(22% 100%,0 36%,28% 0,50% 42%,76% 0,100% 38%,80% 100%,62% 85%,44% 100%);
+  border-radius:0 0 12px 12px;
+}
+.roomToy.toy-teddy:before{
+  left:10px; top:10px; width:38px; height:30px;
+  background:#c7926c; border-radius:46% 46% 42% 42%;
+  box-shadow:-8px -8px 0 -3px #c7926c,8px -8px 0 -3px #c7926c,0 15px 0 -1px #d8a27c;
+}
+.roomToy.toy-teddy:after{
+  left:20px; top:22px; width:18px; height:14px;
+  background:#f6dfc8; border-radius:50%;
+  box-shadow:-7px -10px 0 -5px #6e4a35,7px -10px 0 -5px #6e4a35;
+}
+.roomToy.toy-ball:before{
+  left:11px; top:7px; width:34px; height:34px; border-radius:50%;
+  background:radial-gradient(circle at 30% 28%,#fff 0 10%,#ff79aa 11% 32%,#ffd968 33% 54%,#7bd8bb 55% 76%,#76c8ff 77% 100%);
+  box-shadow:0 6px 10px rgba(93,66,128,.12);
+}
+.roomToy.toy-ball:after{display:none!important}
+.roomToy.toy-cat:before{
+  left:11px; top:11px; width:37px; height:29px;
+  background:#f4bf97;
+  clip-path:polygon(0 34%,16% 0,32% 19%,50% 10%,68% 19%,84% 0,100% 34%,100% 100%,0 100%);
+  border-radius:45% 45% 40% 40%;
+}
+.roomToy.toy-cat:after{
+  left:19px; top:31px; width:21px; height:10px;
+  border-bottom:3px solid #996047; border-radius:50%;
+}
+.roomToy.toy-blocks:before{
+  left:9px; top:16px; width:16px; height:16px; background:#ff7ca9; border-radius:4px;
+  box-shadow:18px -8px 0 #ffd45d,29px 9px 0 #79c8ff,8px 14px 0 #89d88e;
+}
+.roomToy.toy-blocks:after{display:none!important}
+.roomToy.toy-rocket:before{
+  left:20px; top:6px; width:20px; height:34px;
+  background:linear-gradient(180deg,#f0e9ff,#b79bef);
+  clip-path:polygon(50% 0,100% 24%,100% 78%,72% 100%,28% 100%,0 78%,0 24%);
+  border-radius:50% 50% 40% 40%;
+}
+.roomToy.toy-rocket:after{
+  left:24px; top:37px; width:12px; height:13px;
+  background:linear-gradient(180deg,#ffd869,#ff9a5a);
+  clip-path:polygon(50% 100%,0 0,100% 0);
+}
+/* miniaturas dos brinquedos nos cards */
+.roomToyThumb{
+  position:relative; display:block; width:44px; height:38px; margin:0 auto 8px;
+}
+.roomToyThumb.toy-unicorn:before,.roomToyThumb.toy-unicorn:after,
+.roomToyThumb.toy-teddy:before,.roomToyThumb.toy-teddy:after,
+.roomToyThumb.toy-ball:before,.roomToyThumb.toy-ball:after,
+.roomToyThumb.toy-cat:before,.roomToyThumb.toy-cat:after,
+.roomToyThumb.toy-blocks:before,.roomToyThumb.toy-blocks:after,
+.roomToyThumb.toy-rocket:before,.roomToyThumb.toy-rocket:after{transform:scale(.72);transform-origin:top left}
+.roomToyThumb.toy-unicorn:before{left:2px;top:12px;width:40px;height:25px;background:#fff;border-radius:18px 20px 16px 16px;box-shadow:18px -5px 0 -5px #fff, 1px 14px 0 -8px #fff, 16px 14px 0 -8px #fff}
+.roomToyThumb.toy-unicorn:after{left:23px;top:3px;width:20px;height:22px;background:linear-gradient(180deg,#8fe0fb 0 30%,#b591ef 30% 65%,#ffd86c 65% 100%);clip-path:polygon(22% 100%,0 36%,28% 0,50% 42%,76% 0,100% 38%,80% 100%,62% 85%,44% 100%);border-radius:0 0 12px 12px}
+.roomToyThumb.toy-teddy:before{left:4px;top:8px;width:38px;height:30px;background:#c7926c;border-radius:46% 46% 42% 42%;box-shadow:-8px -8px 0 -3px #c7926c,8px -8px 0 -3px #c7926c,0 15px 0 -1px #d8a27c}
+.roomToyThumb.toy-teddy:after{left:14px;top:20px;width:18px;height:14px;background:#f6dfc8;border-radius:50%;box-shadow:-7px -10px 0 -5px #6e4a35,7px -10px 0 -5px #6e4a35}
+.roomToyThumb.toy-ball:before{left:10px;top:5px;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fff 0 10%,#ff79aa 11% 32%,#ffd968 33% 54%,#7bd8bb 55% 76%,#76c8ff 77% 100%)}
+.roomToyThumb.toy-ball:after{display:none!important}
+.roomToyThumb.toy-cat:before{left:6px;top:9px;width:32px;height:24px;background:#f4bf97;clip-path:polygon(0 34%,16% 0,32% 19%,50% 10%,68% 19%,84% 0,100% 34%,100% 100%,0 100%);border-radius:45% 45% 40% 40%}
+.roomToyThumb.toy-cat:after{left:14px;top:24px;width:18px;height:8px;border-bottom:3px solid #996047;border-radius:50%}
+.roomToyThumb.toy-blocks:before{left:7px;top:14px;width:12px;height:12px;background:#ff7ca9;border-radius:3px;box-shadow:13px -6px 0 #ffd45d,22px 7px 0 #79c8ff,6px 10px 0 #89d88e}
+.roomToyThumb.toy-blocks:after{display:none!important}
+.roomToyThumb.toy-rocket:before{left:15px;top:4px;width:14px;height:24px;background:linear-gradient(180deg,#f0e9ff,#b79bef);clip-path:polygon(50% 0,100% 24%,100% 78%,72% 100%,28% 100%,0 78%,0 24%);border-radius:50% 50% 40% 40%}
+.roomToyThumb.toy-rocket:after{left:18px;top:27px;width:9px;height:10px;background:linear-gradient(180deg,#ffd869,#ff9a5a);clip-path:polygon(50% 100%,0 0,100% 0)}
+
+/* cards mais estáveis */
+.decorItem .roomToyThumb{margin-top:2px}
+.decorItem b{display:block!important}
+
+@media(max-width:520px){
+  .roomGuide302{width:82px!important;height:82px!important;left:47%!important;top:34%!important}
+  #roomEloDoll{left:13px!important;top:3px!important;transform:scale(.29)!important}
+  .roomWardrobe{left:4%!important;bottom:12%!important;width:18%!important;height:30%!important}
+  .roomDesk{left:23%!important;bottom:11%!important;width:13%!important;transform:scale(.74)!important}
+  .roomRug{left:39%!important;width:42%!important;height:13%!important}
+  .roomToy{left:59%!important;bottom:6.3%!important;width:58px!important;height:48px!important}
+}
+@media(max-width:390px){
+  .roomGuide302{width:76px!important;height:76px!important;left:46.5%!important;top:34.5%!important}
+  #roomEloDoll{left:12px!important;top:4px!important;transform:scale(.27)!important}
+  .roomWardrobe{left:4%!important;bottom:12%!important;width:19%!important;height:29%!important}
+  .roomDesk{left:22%!important;bottom:11%!important;width:13%!important;transform:scale(.69)!important}
+  .roomRug{left:38%!important;width:44%!important;height:12.5%!important}
+  .roomToy{left:58%!important;bottom:6.4%!important;width:52px!important;height:44px!important}
+}

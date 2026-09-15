@@ -1,3 +1,2 @@
-Dia a Dia da Elo
-Versão: 3.1.13
-Pacote preparado para importação pelo GitHub.
+Versão: 3.1.14
+Status: atualização do Quarto da Elo com mini personagem e brinquedos refeitos.
