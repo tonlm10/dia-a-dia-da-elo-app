@@ -1,24 +1,11 @@
-DIA A DIA DA ELO v3.1.2 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.3 — TESTES DA ATUALIZAÇÃO
 
-Verificações concluídas antes da entrega:
-- Arquivos essenciais presentes.
-- JavaScript de app.js, v3.js e pet.js com sintaxe válida no Node.js.
-- Teste em navegador headless do Bichinho com 6 indicadores e porcentagens.
-- Ordem dos indicadores confirmada: Fome/Diversão, Energia/Carinho, Higiene/Estudo.
-- Botões de Comida, Dormir/Luz, Banho, Higiene, Brincar, Carinho e Estudar bloqueados quando o atributo correspondente chega a 100%.
-- Luz apagada coloca o bichinho em modo dormindo e escurece o cenário; acender a luz acorda novamente.
-- Estados de fome, sujeira, cansaço, estudo baixo e tristeza aplicados corretamente.
-- Classes de animação verificadas para comer, banho, escovar dentes, brincar e estudar.
-- Cooldown do ovo e dos cuidados preservado.
-- Barras continuam mudando com o tempo pelo timestamp salvo.
-- Ajustes das pernas aplicados no Quarto e no Guarda-roupa.
-- Nenhum ID HTML duplicado.
-- Referências locais principais do HTML e arquivos de assets utilizadas pelo app verificadas.
-- 16 arquivos distintos do quebra-cabeça confirmados.
-- Trilha Encantada preservada, incluindo salto por toque na área do jogo.
-- Versão 3.1.2 consistente em version.js, manifest, service worker, app.js, v3.js e interface.
-- Cache do Service Worker renovado para elo-official-3.1.2-r2.
-- rpg.html comparado por SHA-256 com a base íntegra da v3.1.1: idêntico.
-  SHA-256: 5bae95e5ca1bc659dc48d58770762da45af0e92e0585883d9dd80d6699f51a3d
-
-Observação: foi feito teste lógico/estrutural e renderização automatizada em viewport de celular. Depois do deploy no GitHub/PWA, o cache antigo pode exigir fechar e abrir o app uma vez para o Service Worker novo assumir o controle.
+- Validação de sintaxe: app.js, v3.js e pet.js sem erro de parsing no Node.
+- Versão 3.1.3 consistente em version.js, manifest, service worker, app.js, v3.js e interface.
+- Cache do Service Worker renovado para elo-official-3.1.3-r1.
+- RPG preservado sem alteração.
+- Bichinho: botão de comida continua funcionando até 100%; demais botões independentes.
+- Bichinho: botão de reiniciar disponível para voltar ao ovo.
+- Bichinho: evolução configurada para Bebê, Jovem, Adulto e Idoso.
+- Quarto e guarda-roupa: pernas, shorts, calças e sapatos com proporção ajustada.
+- Barras do bichinho reposicionadas para as laterais.

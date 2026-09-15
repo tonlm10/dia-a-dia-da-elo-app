@@ -3,7 +3,7 @@
   "name": "Dia a Dia da Elo",
   "short_name": "Dia a Dia da Elo",
   "lang": "pt-BR",
-  "start_url": "./?app=3.1.2",
+  "start_url": "./?app=3.1.3",
   "scope": "./",
   "display": "standalone",
   "display_override": [
@@ -12,7 +12,7 @@
   "orientation": "portrait-primary",
   "background_color": "#fff8fc",
   "theme_color": "#ff67a8",
-  "description": "Dia a Dia da Elo v3.1.2 — Bichinho da Elo com necessidades ao redor do personagem e porcentagens, luz para dormir/acordar, botões bloqueados em 100%, animações de cuidados, novas reações visuais, pernas da Elo ajustadas e RPG completo.",
+  "description": "Dia a Dia da Elo v3.1.3 — Bichinho da Elo com necessidades ao redor do personagem e porcentagens, luz para dormir/acordar, botões bloqueados em 100%, animações de cuidados, novas reações visuais, pernas da Elo ajustadas e RPG completo.",
   "categories": [
     "education",
     "games",

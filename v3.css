@@ -227,3 +227,42 @@
  #petPanel .petStats{grid-template-columns:58px 118px 58px!important;left:3px!important;right:3px!important}.petStatHead{grid-template-columns:auto 1fr}.petStatHead em{grid-column:1/-1;text-align:right;margin-top:-2px}
  #petPanel .petBubble{font-size:9px!important;max-width:82%}
 }
+
+
+/* v3.1.3 ajustes finais */
+#wardrobeElo .leg,#roomEloDoll .leg{top:203px!important;width:16px!important;height:60px!important;border-radius:10px 10px 9px 9px!important}
+#wardrobeElo .l1,#roomEloDoll .l1{left:52px!important}
+#wardrobeElo .l2,#roomEloDoll .l2{right:52px!important}
+#wardrobeElo .shoe,#roomEloDoll .shoe{top:258px!important;width:28px!important;height:18px!important;border-radius:16px 16px 8px 8px!important}
+#wardrobeElo .sh1,#roomEloDoll .sh1{left:43px!important}
+#wardrobeElo .sh2,#roomEloDoll .sh2{right:43px!important}
+#wardrobeElo.bottom-shorts .dollBottom,#wardrobeElo.bottom-shorts-pink .dollBottom,
+#roomEloDoll.bottom-shorts .dollBottom,#roomEloDoll.bottom-shorts-pink .dollBottom{left:13px!important;top:53px!important;width:50px!important;height:64px!important;clip-path:polygon(4% 0,96% 0,92% 100%,58% 100%,50% 56%,42% 100%,8% 100%)!important;border-radius:10px 10px 8px 8px!important}
+#wardrobeElo.bottom-pants .dollBottom,#wardrobeElo.bottom-pants-black .dollBottom,#wardrobeElo.bottom-pants-cargo .dollBottom,
+#roomEloDoll.bottom-pants .dollBottom,#roomEloDoll.bottom-pants-black .dollBottom,#roomEloDoll.bottom-pants-cargo .dollBottom{left:12px!important;top:53px!important;width:52px!important;height:102px!important;clip-path:polygon(10% 0,90% 0,87% 100%,61% 100%,53% 52%,47% 52%,39% 100%,13% 100%)!important;border-radius:10px 10px 7px 7px!important}
+.roomGuide302 .eloDoll .leg{top:205px!important;height:56px!important;width:14px!important;border-radius:8px!important}
+.roomGuide302 .eloDoll .l1{left:53px!important}.roomGuide302 .eloDoll .l2{right:53px!important}
+.roomGuide302 .eloDoll .shoe{top:258px!important;width:23px!important;height:15px!important}.roomGuide302 .eloDoll .sh1{left:46px!important}.roomGuide302 .eloDoll .sh2{right:46px!important}
+.petActionHelper{display:flex;justify-content:flex-end;margin-top:7px}
+.petResetBtn{font-size:9px!important;padding:7px 10px!important}
+#petPanel .petStats{inset:24px 4px 66px!important;grid-template-columns:70px 118px 70px!important;grid-template-rows:repeat(3,1fr)!important;gap:6px 4px!important}
+#petPanel .petStat:nth-child(1),#petPanel .petStat:nth-child(3),#petPanel .petStat:nth-child(5){justify-self:start!important}
+#petPanel .petStat:nth-child(2),#petPanel .petStat:nth-child(4),#petPanel .petStat:nth-child(6){justify-self:end!important}
+#petPanel .petStat{width:70px!important;z-index:7!important}
+#petPanel .petCreature{z-index:6!important}
+#petPanel .petBubble{z-index:10!important}
+@media(max-width:520px){
+ #petPanel .petScreen{height:302px!important}
+ #petPanel .petStats{inset:22px 3px 68px!important;grid-template-columns:66px 112px 66px!important;gap:4px 3px!important}
+ #petPanel .petStat{width:66px!important;padding:4px 4px!important}
+ #petPanel .petCreature{transform:translate(-50%,-50%) scale(.82)!important}
+ #petPanel .petCreature.stage-young{transform:translate(-50%,-50%) scale(.88)!important}
+ #petPanel .petCreature.stage-adult{transform:translate(-50%,-50%) scale(.92)!important}
+ #petPanel .petCreature.stage-elder{transform:translate(-50%,-50%) scale(.97)!important}
+}
+@media(max-width:390px){
+ #petPanel .petStats{grid-template-columns:62px 104px 62px!important;left:2px!important;right:2px!important;inset:21px 2px 70px!important}
+ #petPanel .petStat{width:62px!important;padding:4px 3px!important}
+ .petStatHead span{font-size:11px!important}.petStatHead b,.petStatHead em{font-size:6px!important}
+ .petResetBtn{font-size:8px!important;padding:6px 8px!important}
+}

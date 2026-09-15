@@ -1,3 +1,13 @@
+v3.1.3
+- Ajuste visual das pernas da Elo no quarto e no guarda-roupa, com shorts e calças mais proporcionais.
+- Bichinho com botões independentes: cada cuidado bloqueia apenas quando sua barra chega a 100%.
+- Removido o bloqueio geral por contagem entre cuidados do bichinho nascido.
+- Barras de Diversão, Carinho e Estudo reposicionadas para ficar mais para os lados do personagem.
+- Novo botão para reiniciar e voltar ao ovo.
+- Evolução definida e exibida no app: Ovo -> Bebê -> Jovem -> Adulto -> Idoso.
+- O ovo nasce com 5 cuidados válidos, com intervalo de 5 minutos entre cuidados.
+- Próximas fases mostram quanto tempo e quantos cuidados faltam.
+
 3.1.0 — BICHINHO DA ELO + MENU REFINADO
 - Novo Bichinho da Elo inspirado nos antigos bichinhos virtuais: ovo, nascimento, crescimento e cuidados.
 - Ações: comida, banho, brincar, dormir e carinho.
@@ -56,7 +66,7 @@ v3.1.1
 - Ao dormir, a luz do cenário apaga e o bichinho fecha os olhos.
 - Ações reorganizadas: comida, dormir, banho, higiene, brincar, carinho e estudar.
 
-v3.1.2
+v3.1.3
 - Ajuste adicional das pernas da Elo no Quarto e no Guarda-roupa.
 - Necessidades do Bichinho reorganizadas ao redor do personagem com porcentagem visível.
 - Luz apagada faz o bichinho dormir; luz acesa faz acordar.

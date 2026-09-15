@@ -1,10 +1,9 @@
-/* Dia a Dia da Elo — Bichinho da Elo v3 • integrado à v3.1.2 */
+/* Dia a Dia da Elo — Bichinho da Elo v4 • integrado à v3.1.3 */
 (function(){
 'use strict';
 const PET_KEY='eloVirtualPetV1';
 const EGG_CARE_GOAL=5;
 const EGG_COOLDOWN_MS=5*60*1000;
-const CARE_COOLDOWN_MS=30*1000;
 const SPECIES={
  unicorn:{label:'Unicórnio',defaultName:'Luma'},
  cat:{label:'Gatinho',defaultName:'Pipoca'},
@@ -19,28 +18,45 @@ const ACCESSORIES=[
 ];
 const ACTION_TARGET={feed:'hunger',sleep:'energy',bath:'clean',hygiene:'clean',play:'fun',love:'love',study:'study'};
 const ACTION_LABEL={feed:'Fome',sleep:'Energia',bath:'Higiene',hygiene:'Higiene',play:'Diversão',love:'Carinho',study:'Estudo'};
+const EVOLUTION_STAGES=[
+ {key:'baby',label:'Bebê',minAgeMs:0,minCare:0,nextAgeMs:24*60*60*1000,nextCare:12,nextLabel:'Jovem'},
+ {key:'young',label:'Jovem',minAgeMs:24*60*60*1000,minCare:12,nextAgeMs:3*24*60*60*1000,nextCare:28,nextLabel:'Adulto'},
+ {key:'adult',label:'Adulto',minAgeMs:3*24*60*60*1000,minCare:28,nextAgeMs:7*24*60*60*1000,nextCare:50,nextLabel:'Idoso'},
+ {key:'elder',label:'Idoso',minAgeMs:7*24*60*60*1000,minCare:50,nextAgeMs:null,nextCare:null,nextLabel:null}
+];
 function defaultPet(){return{
- stage:'egg',species:null,name:'Ovinho misterioso',eggCare:0,careCount:0,
+ stage:'egg',species:null,name:'Ovinho misterioso',eggCare:0,careCount:0,bornAt:0,
  hunger:86,energy:86,clean:86,fun:86,love:90,study:80,
- accessory:'none',lastSeen:Date.now(),lastEggCareAt:0,lastCareAt:0,
+ accessory:'none',lastSeen:Date.now(),lastEggCareAt:0,
  lightsOff:false,sleepUntil:0,sleepStartedAt:0,
  rewards:{hatch:false,care10:false,care20:false}
 }}
 function clamp(n){return Math.max(0,Math.min(100,Math.round(Number(n)||0)))}
+function pnow(){return Date.now()}
 function rawLoad(){
  try{
    const saved=JSON.parse(pget(PET_KEY)||'{}');
    const p=Object.assign(defaultPet(),saved);
-   if(!Object.prototype.hasOwnProperty.call(saved,'lightsOff') && Number(saved.sleepUntil||0)>Date.now())p.lightsOff=true;
+   if(!Object.prototype.hasOwnProperty.call(saved,'lightsOff') && Number(saved.sleepUntil||0)>pnow())p.lightsOff=true;
+   if(p.stage!=='egg' && !p.bornAt)p.bornAt=Number(saved.lastSeen||saved.lastCareAt||pnow());
    p.hunger=clamp(p.hunger);p.energy=clamp(p.energy);p.clean=clamp(p.clean);p.fun=clamp(p.fun);p.love=clamp(p.love);p.study=clamp(p.study);
    return p;
  }catch(_){return defaultPet()}
 }
-function savePet(p,stamp=true){if(stamp)p.lastSeen=Date.now();pset(PET_KEY,JSON.stringify(p));return p}
-function isSleeping(p,now=Date.now()){return p.lightsOff===true || Number(p.sleepUntil||0)>now}
+function savePet(p,stamp=true){if(stamp)p.lastSeen=pnow();pset(PET_KEY,JSON.stringify(p));return p}
+function isSleeping(p,now=pnow()){return p.lightsOff===true || Number(p.sleepUntil||0)>now}
+function getPetAgeMs(p,now=pnow()){return p.stage==='egg'?0:Math.max(0, now-Number(p.bornAt||now))}
+function formatDuration(ms){
+ const min=Math.max(0,Math.ceil(ms/60000));
+ if(min<60)return `${min} min`;
+ const h=Math.floor(min/60),m=min%60;
+ if(h<48)return `${h}h${m?` ${m}min`:''}`;
+ const d=Math.floor(h/24),hr=h%24;
+ return `${d} dia${d>1?'s':''}${hr?` e ${hr}h`:''}`;
+}
 function applyGentleDecay(p){
  if(p.stage==='egg')return p;
- const now=Date.now(),last=Number(p.lastSeen||now),mins=Math.max(0,(now-last)/60000);
+ const now=pnow(),last=Number(p.lastSeen||now),mins=Math.max(0,(now-last)/60000);
  if(mins<1)return p;
  const capped=Math.min(mins,72*60);
  if(isSleeping(p,now)){
@@ -63,10 +79,26 @@ function applyGentleDecay(p){
 }
 function loadPet(){return applyGentleDecay(rawLoad())}
 function stageInfo(p){
- if(p.stage==='egg')return{key:'egg',label:'Ovinho',next:EGG_CARE_GOAL,pct:Math.min(100,p.eggCare/EGG_CARE_GOAL*100)};
- if(p.careCount<8)return{key:'baby',label:'Filhote',next:8,pct:p.careCount/8*100};
- if(p.careCount<20)return{key:'young',label:'Jovem',next:20,pct:(p.careCount-8)/12*100};
- return{key:'friend',label:'Companheiro',next:20,pct:100};
+ if(p.stage==='egg')return{key:'egg',label:'Ovinho',pct:Math.min(100,p.eggCare/EGG_CARE_GOAL*100),egg:true};
+ const ageMs=getPetAgeMs(p);
+ let current=EVOLUTION_STAGES[0];
+ for(const st of EVOLUTION_STAGES){
+   if(ageMs>=st.minAgeMs && Number(p.careCount||0)>=st.minCare)current=st;
+ }
+ if(!current.nextLabel)return {key:current.key,label:current.label,pct:100,nextLabel:null,remainingCare:0,remainingAgeMs:0};
+ const careStart=current.minCare, careEnd=current.nextCare;
+ const ageStart=current.minAgeMs, ageEnd=current.nextAgeMs;
+ const carePct=((Number(p.careCount||0)-careStart)/Math.max(1,careEnd-careStart))*100;
+ const agePct=((ageMs-ageStart)/Math.max(1,ageEnd-ageStart))*100;
+ return {
+   key:current.key,
+   label:current.label,
+   pct:Math.max(0,Math.min(100,Math.round((carePct+agePct)/2))),
+   nextLabel:current.nextLabel,
+   remainingCare:Math.max(0, careEnd-Number(p.careCount||0)),
+   remainingAgeMs:Math.max(0, ageEnd-ageMs),
+   currentAgeMs:ageMs
+ };
 }
 function petGrade(p){return Math.max(0,Math.min(10,(Number(p.study||0)/10))).toFixed(1).replace('.',',')}
 function moodText(p){
@@ -82,19 +114,16 @@ function moodText(p){
  if(avg>58)return `${p.name} está tranquilo. Escolha um cuidado quando precisar.`;
  return `${p.name} quer um pouco de atenção 💗`;
 }
-function speciesPick(){const pid=typeof activeProfileId!=='undefined'?activeProfileId:'elo';const seed=(Date.now()+String(pid).split('').reduce((a,c)=>a+c.charCodeAt(0),0))%4;return Object.keys(SPECIES)[seed]}
+function speciesPick(){const pid=typeof activeProfileId!=='undefined'?activeProfileId:'elo';const seed=(pnow()+String(pid).split('').reduce((a,c)=>a+c.charCodeAt(0),0))%4;return Object.keys(SPECIES)[seed]}
 function rewardCareMilestones(p){
  if(p.careCount>=10&&!p.rewards.care10){p.rewards.care10=true;if(typeof addStars==='function')addStars(1,'Seu bichinho cresceu com seus cuidados! +1 ⭐')}
  if(p.careCount>=20&&!p.rewards.care20){p.rewards.care20=true;if(typeof addStars==='function')addStars(2,'Virou um grande companheiro! +2 ⭐')}
 }
 function visualAccessory(id){return id==='bow'?'🎀':id==='star'?'⭐':id==='crown'?'👑':''}
-function formatWait(ms){const sec=Math.max(0,Math.ceil(ms/1000)),m=Math.floor(sec/60),s=sec%60;return m>0?`${m}:${String(s).padStart(2,'0')}`:`0:${String(s).padStart(2,'0')}`}
-function eggWait(p){return Math.max(0,EGG_COOLDOWN_MS-(Date.now()-Number(p.lastEggCareAt||0)))}
-function careWait(p){return Math.max(0,CARE_COOLDOWN_MS-(Date.now()-Number(p.lastCareAt||0)))}
+function eggWait(p){return Math.max(0,EGG_COOLDOWN_MS-(pnow()-Number(p.lastEggCareAt||0)))}
 function isActionFull(p,action){const key=ACTION_TARGET[action];return !!key && clamp(p[key])>=100}
 function renderStats(p){
  const box=document.getElementById('petStats');if(!box)return;
- // Ordem visual pedida: Fome/Diversão, Energia/Carinho, Higiene/Estudo.
  const arr=[['🥣','Fome',p.hunger],['🎾','Diversão',p.fun],['⚡','Energia',p.energy],['💗','Carinho',p.love],['🫧','Higiene',p.clean],['📚','Estudo',p.study]];
  box.innerHTML=arr.map(([ic,n,v])=>`<div class="petStat"><div class="petStatHead"><span>${ic}</span><b>${n}</b><em>${clamp(v)}%</em></div><div class="petMeter"><i style="width:${clamp(v)}%"></i></div></div>`).join('');
  const grade=document.getElementById('petGrade');if(grade)grade.textContent=`📚 Nota: ${petGrade(p)} • ${p.study>=80?'Muito inteligente!':p.study>=60?'Indo bem':p.study>=40?'Hora de praticar':'Vamos estudar um pouquinho'}`;
@@ -102,13 +131,22 @@ function renderStats(p){
 function renderAccessories(p){const box=document.getElementById('petAccessoryGrid');if(!box)return;box.innerHTML=ACCESSORIES.map(a=>{const ok=p.careCount>=a.need,on=p.accessory===a.id;return `<button class="petAccessoryBtn ${on?'on':''} ${ok?'':'locked'}" onclick="choosePetAccessory('${a.id}')"><span>${ok?a.icon:'🔒'}</span><b>${a.name}</b>${ok?'':`<small>${a.need} cuidados</small>`}</button>`}).join('')}
 function renderEggCooldown(p){
  const btn=document.getElementById('eggCareButton'),txt=document.getElementById('eggCooldownText');if(!btn||!txt)return;
- const wait=eggWait(p),can=wait<=0;
- btn.disabled=!can;btn.classList.toggle('cooling',!can);
- txt.textContent=can?'Aquecer e fazer carinho':`Próximo cuidado em ${formatWait(wait)}`;
+ const wait=eggWait(p),can=wait<=0; btn.disabled=!can;btn.classList.toggle('cooling',!can);
+ txt.textContent=can?'Aquecer e fazer carinho':`Próximo cuidado em ${formatDuration(wait)}`;
 }
-function renderCareCooldown(p){
- const el=document.getElementById('petCareCooldown'),wait=careWait(p),sleeping=isSleeping(p);
- if(el)el.textContent=sleeping?'🌙 Luz apagada • dormindo':wait>0?`⏱️ Próximo cuidado em ${formatWait(wait)}`:'Pronto para cuidar 💗';
+function renderCareStatus(p,st){
+ const el=document.getElementById('petCareCooldown');if(!el)return;
+ if(isSleeping(p)){el.textContent='🌙 Luz apagada • dormindo';return}
+ if(st.nextLabel){
+   const care=st.remainingCare>0?`${st.remainingCare} cuidado${st.remainingCare>1?'s':''}`:'cuidados completos';
+   const time=st.remainingAgeMs>0?formatDuration(st.remainingAgeMs):'tempo completo';
+   el.textContent=`Próxima fase: ${st.nextLabel} • faltam ${care} e ${time}`;
+ }else{
+   el.textContent='Fase final: Idoso 💗 Continue cuidando com carinho.';
+ }
+}
+function renderCareButtons(p){
+ const sleeping=isSleeping(p);
  document.querySelectorAll('[data-pet-action]').forEach(btn=>{
    const action=btn.dataset.petAction;
    const b=btn.querySelector('b'),sm=btn.querySelector('small'),icon=btn.querySelector('span');
@@ -117,12 +155,11 @@ function renderCareCooldown(p){
      if(sleeping){
        if(b)b.textContent='Acender luz';if(sm)sm.textContent='Acordar';if(icon)icon.textContent='💡';btn.disabled=false;return;
      }
-     if(b)b.textContent='Apagar luz';if(sm)sm.textContent='Dormir';if(icon)icon.textContent='🌙';
+     if(b)b.textContent='Apagar luz';if(sm)sm.textContent='Dormir';if(icon)icon.textContent='🌙';btn.disabled=false;
    }
    const full=isActionFull(p,action);
-   btn.disabled=(sleeping&&action!=='sleep')||(!sleeping&&wait>0)||(!sleeping&&full);
-   if(full&&!sleeping){btn.classList.add('petFull');btn.title=`${ACTION_LABEL[action]} já está em 100%`;}
-   else btn.removeAttribute('title');
+   btn.disabled=(sleeping&&action!=='sleep')||(!sleeping&&full);
+   if(full&&!sleeping){btn.classList.add('petFull');btn.title=`${ACTION_LABEL[action]} já está em 100%`;}else btn.removeAttribute('title');
  });
 }
 function applyVisualState(p,creature,screen){
@@ -158,6 +195,7 @@ function startPetAnimation(action){
 function renderPet(){
  const p=loadPet(),st=stageInfo(p),egg=document.getElementById('petEgg'),creature=document.getElementById('petCreature'),eggBox=document.getElementById('petEggControls'),care=document.getElementById('petCareArea'),bubble=document.getElementById('petBubble'),stage=document.getElementById('petStageLabel'),name=document.getElementById('petNameLabel'),rename=document.getElementById('petRenameBtn'),screen=document.querySelector('#petPanel .petScreen'),stats=document.getElementById('petStats');if(!egg||!creature)return;
  stage.textContent=st.label;name.textContent=p.name;rename.style.visibility=p.stage==='egg'?'hidden':'visible';
+ const reset=document.getElementById('petResetBtn');if(reset)reset.style.visibility=p.stage==='egg'?'hidden':'visible';
  if(p.stage==='egg'){
    screen?.classList.remove('petNight');egg.classList.remove('hidden');creature.className='petCreature hidden';eggBox.classList.remove('hidden');care.classList.add('hidden');stats?.classList.add('hidden');clearActionFx();
    document.getElementById('eggCareText').textContent=`${p.eggCare}/${EGG_CARE_GOAL} cuidados`;
@@ -167,19 +205,25 @@ function renderPet(){
  }
  egg.classList.add('hidden');eggBox.classList.add('hidden');care.classList.remove('hidden');stats?.classList.remove('hidden');creature.className=`petCreature species-${p.species} stage-${st.key}`;
  document.getElementById('petAccessory').textContent=visualAccessory(p.accessory);
- applyVisualState(p,creature,screen);bubble.textContent=moodText(p);renderStats(p);renderAccessories(p);renderCareCooldown(p);
- document.getElementById('petGrowthText').textContent=st.key==='friend'?'Companheiro completo ✨':`Crescimento • ${st.label}`;
- document.getElementById('petGrowthSub').textContent=st.key==='friend'?`${p.careCount} cuidados e muitas brincadeiras.`:`${p.careCount}/${st.next} cuidados para a próxima fase.`;
+ applyVisualState(p,creature,screen);bubble.textContent=moodText(p);renderStats(p);renderAccessories(p);renderCareButtons(p);renderCareStatus(p,st);
+ document.getElementById('petGrowthText').textContent=`Crescimento • ${st.label}`;
+ if(st.nextLabel){
+   const careTxt=st.remainingCare>0?`${st.remainingCare} cuidado${st.remainingCare>1?'s':''}`:'cuidados completos';
+   const timeTxt=st.remainingAgeMs>0?formatDuration(st.remainingAgeMs):'tempo completo';
+   document.getElementById('petGrowthSub').textContent=`Próxima fase: ${st.nextLabel}. Faltam ${careTxt} e ${timeTxt}.`;
+ }else{
+   document.getElementById('petGrowthSub').textContent=`Seu companheiro chegou à fase Idoso com ${p.careCount} cuidados e muito carinho.`;
+ }
  document.getElementById('petGrowthBar').style.width=`${st.pct}%`;
 }
 window.renderPet=renderPet;
 window.openPet=function(){openPanel('petPanel','home');renderPet()};
 window.careForEgg=function(){
  const p=rawLoad();if(p.stage!=='egg')return renderPet();
- const wait=eggWait(p);if(wait>0){toast(`Espere ${formatWait(wait)} para cuidar do ovo novamente 💗`);return}
- p.lastEggCareAt=Date.now();p.eggCare=Math.min(EGG_CARE_GOAL,Number(p.eggCare||0)+1);
+ const wait=eggWait(p);if(wait>0){toast(`Espere ${formatDuration(wait)} para cuidar do ovo novamente 💗`);return}
+ p.lastEggCareAt=pnow();p.eggCare=Math.min(EGG_CARE_GOAL,Number(p.eggCare||0)+1);
  if(p.eggCare>=EGG_CARE_GOAL){
-   p.stage='baby';p.species=speciesPick();p.name=SPECIES[p.species].defaultName;p.hunger=p.energy=p.clean=p.fun=p.love=92;p.study=80;p.lastCareAt=0;p.lightsOff=false;p.sleepUntil=0;
+   p.stage='baby';p.species=speciesPick();p.name=SPECIES[p.species].defaultName;p.hunger=p.energy=p.clean=p.fun=p.love=92;p.study=80;p.lightsOff=false;p.sleepUntil=0;p.bornAt=pnow();
    if(!p.rewards.hatch){p.rewards.hatch=true;if(typeof addStars==='function')addStars(2,'Seu bichinho nasceu! +2 ⭐')}
    savePet(p);renderPet();const label=SPECIES[p.species].label;toast(`Nasceu um ${label}! 💗`);if(typeof speakText==='function')setTimeout(()=>speakText(`Que surpresa! Nasceu ${p.name}, seu novo ${label}.`),180);return;
  }
@@ -187,12 +231,11 @@ window.careForEgg=function(){
 };
 window.petAction=function(action){
  const p=loadPet();if(p.stage==='egg')return careForEgg();
- const now=Date.now(),sleeping=isSleeping(p,now);
+ const now=pnow(),sleeping=isSleeping(p,now);
  if(action==='sleep'&&sleeping){
-   p.lightsOff=false;p.sleepUntil=0;p.sleepStartedAt=0;p.lastCareAt=0;savePet(p);clearActionFx();renderPet();toast(`${p.name} acordou! A luz foi acesa ☀️`);return;
+   p.lightsOff=false;p.sleepUntil=0;p.sleepStartedAt=0;savePet(p);clearActionFx();renderPet();toast(`${p.name} acordou! A luz foi acesa ☀️`);return;
  }
  if(sleeping)return toast(`${p.name} está dormindo. Acenda a luz para acordar 🌙`);
- const wait=careWait(p);if(wait>0)return toast(`Espere ${formatWait(wait)} para fazer outro cuidado 💗`);
  if(isActionFull(p,action))return toast(`${ACTION_LABEL[action]} já está em 100% ✨`);
  let msg='',anim='';
  if(action==='feed'){p.hunger=clamp(p.hunger+24);p.energy=clamp(p.energy+3);msg='Que delícia! 🥣';anim='feed'}
@@ -202,11 +245,20 @@ window.petAction=function(action){
  else if(action==='sleep'){p.lightsOff=true;p.sleepStartedAt=now;p.sleepUntil=0;p.energy=clamp(p.energy+4);p.hunger=clamp(p.hunger-1);msg='Boa noite! A luz foi apagada 🌙'}
  else if(action==='study'){p.study=clamp(p.study+20);p.energy=clamp(p.energy-5);p.fun=clamp(p.fun-2);msg=`Estudo concluído! Nota ${petGrade(p)} 📚`;anim='study'}
  else {p.love=clamp(p.love+24);p.fun=clamp(p.fun+5);msg='Carinho recebido! 💗';anim='love'}
- p.lastCareAt=now;p.careCount=Number(p.careCount||0)+1;rewardCareMilestones(p);savePet(p);renderPet();if(anim)startPetAnimation(anim);const bubble=document.getElementById('petBubble');if(bubble)bubble.textContent=msg;toast(msg);
+ p.careCount=Number(p.careCount||0)+1;rewardCareMilestones(p);savePet(p);renderPet();if(anim)startPetAnimation(anim);const bubble=document.getElementById('petBubble');if(bubble)bubble.textContent=msg;toast(msg);
 };
+window.resetPetProgress=function(){if(!confirm('Deseja reiniciar o bichinho e voltar para o ovo?'))return;savePet(defaultPet());clearActionFx();renderPet();toast('Tudo pronto! O bichinho voltou para o ovo 🥚')};
 window.renamePet=function(){const p=loadPet();if(p.stage==='egg')return;const val=(prompt('Qual será o nome do seu bichinho?',p.name)||'').trim().slice(0,16);if(!val)return;p.name=val;savePet(p);renderPet();toast(`Agora ele se chama ${val} 💗`)};
 window.choosePetAccessory=function(id){const p=loadPet(),a=ACCESSORIES.find(x=>x.id===id);if(!a)return;if(p.careCount<a.need)return toast(`Libera com ${a.need} cuidados 💗`);p.accessory=id;savePet(p);renderPet();toast(`${a.name} escolhido! ✨`)};
-window.petSpeakStatus=function(){const p=loadPet();if(typeof speakText!=='function')return;if(p.stage==='egg')speakText('Este é um ovinho misterioso. Cuide dele cinco vezes, respeitando o tempo entre os cuidados, para descobrir quem vai nascer.');else speakText(`${p.name} é seu bichinho virtual. ${moodText(p)} A nota dele é ${petGrade(p)}.`)};
+window.petSpeakStatus=function(){
+ const p=loadPet();if(typeof speakText!=='function')return;
+ if(p.stage==='egg')return speakText('Este é um ovinho misterioso. Cuide dele cinco vezes, respeitando o tempo entre os cuidados, para descobrir quem vai nascer.');
+ const st=stageInfo(p);
+ let evo='';
+ if(st.nextLabel)evo=`Ele está na fase ${st.label} e a próxima fase será ${st.nextLabel}.`;
+ else evo=`Ele já chegou à fase idoso.`;
+ speakText(`${p.name} é seu bichinho virtual. ${moodText(p)} ${evo} A nota dele é ${petGrade(p)}.`);
+};
 const oldOpenPanelPet=window.openPanel;
 window.openPanel=function(id,nav,fromHistory=false){oldOpenPanelPet(id,nav,fromHistory);if(id==='petPanel')renderPet()};
 let petTicker=null;
