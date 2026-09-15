@@ -1,4 +1,4 @@
-const APP_VERSION=self.ELO_APP_VERSION||'3.1.5';
+const APP_VERSION=self.ELO_APP_VERSION||'3.1.6';
 
 // ===== v2.0 • Perfis locais, acessibilidade, tempo saudável, tutorial e backup =====
 const V2_PROFILES_KEY='eloProfilesV2',V2_ACTIVE_KEY='eloActiveProfileId',V2_MIGRATION_KEY='eloProfilesV2Migrated';
@@ -312,7 +312,7 @@ function flip(b){if(memoryLock||b.classList.contains('done')||b.classList.contai
 // Puzzle game — tap two pieces to swap them
 const PUZZLE_LEVELS={easy:3,medium:4,hard:5};
 // 16 artes visualmente únicas (v3.0.3)
-const PUZZLE_IMAGES=Array.from({length:16},(_,i)=>`assets/puzzle/puzzle-${String(i+1).padStart(2,'0')}.webp`);
+const PUZZLE_IMAGES=Array.from({length:16},(_,i)=>i+1).filter(n=>![6,8,14].includes(n)).map(n=>`assets/puzzle/puzzle-${String(n).padStart(2,'0')}.webp`);
 let puzzleLevel='easy',puzzleImageIndex=0,puzzleOrder=[],puzzleSelected=-1,puzzleMoves=0,puzzleRewarded=false,puzzleComplete=false;
 function setPuzzleLevel(level,btn){puzzleLevel=level;document.querySelectorAll('[data-puzzle]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startPuzzle(false)}
 function renderPuzzleChoices(){const box=document.getElementById('puzzleChoices');if(!box)return;box.innerHTML=PUZZLE_IMAGES.map((src,i)=>`<button class="puzzleChoice ${i===puzzleImageIndex?'on':''}" onclick="choosePuzzleImage(${i})"><img src="${src}" alt="Imagem ${i+1} da Elo"></button>`).join('')}
