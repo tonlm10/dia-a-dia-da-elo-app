@@ -1,4 +1,10 @@
-v3.2.0
+v3.2.1
+- RPG: Elo agora muda visualmente de direção ao andar para cima, baixo, esquerda e direita.
+- RPG: saves que terminaram a versão antiga voltam ao início das novas missões do Caminho Celeste; Portão Norte volta a ficar trancado até a volta pela rota final.
+- RPG: conclusão legítima das novas missões passa a ser marcada para não ser desfeita depois.
+- Trilha Encantada: Elo aumentada e ancorada pelos pés ao chão; roupa continua sincronizada com o guarda-roupa.
+
+v3.2.1
 - RPG expandido para uma jornada progressiva: menos retornos ao mago e novos NPCs que encaminham Elo para a próxima região.
 - Novo Caminho Celeste com 3 Fragmentos do Céu e Farol das Estrelas.
 - Novo Portão Norte na Vila das Estrelas: começa trancado, é usado no retorno final e depois fica aberto para subir e descer.

@@ -1,4 +1,4 @@
-const APP_VERSION=self.ELO_APP_VERSION||'3.2.0';
+const APP_VERSION=self.ELO_APP_VERSION||'3.2.1';
 
 // ===== v2.0 • Perfis locais, acessibilidade, tempo saudável, tutorial e backup =====
 const V2_PROFILES_KEY='eloProfilesV2',V2_ACTIVE_KEY='eloActiveProfileId',V2_MIGRATION_KEY='eloProfilesV2Migrated';
@@ -346,9 +346,13 @@ function syncTrailEloClone(){
  const wanted=[...source.classList].filter(c=>c!=='trailEloClone').join(' ');
  const current=[...doll.classList].filter(c=>c!=='trailEloClone').join(' ');
  if(current!==wanted)doll.className=wanted+' trailEloClone';
- const ratio=(trailCanvas.clientWidth||trailCanvas.width)/trailCanvas.width,avatarScale=.245*ratio,p=s.player;
- const left=(p.x+(p.w-150*.245)/2)*ratio,top=(p.y-3)*ratio;
- doll.style.left=left+'px';doll.style.top=top+'px';doll.style.transform=`scale(${avatarScale})`;doll.style.opacity=(p.inv>0&&Math.floor(p.inv)%4<2)?'.45':'1';
+ const ratio=(trailCanvas.clientWidth||trailCanvas.width)/trailCanvas.width,p=s.player;
+ const avatarScale=.35*ratio;
+ const footX=(p.x+p.w/2)*ratio,footY=(p.y+p.h)*ratio;
+ doll.style.left=(footX-75*avatarScale)+'px';
+ doll.style.top=(footY-303*avatarScale)+'px';
+ doll.style.transform=`scale(${avatarScale})`;
+ doll.style.opacity=(p.inv>0&&Math.floor(p.inv)%4<2)?'.45':'1';
 }
 
 function setTrailLevel(level,btn){trailLevel=level;document.querySelectorAll('[data-trail]').forEach(x=>x.classList.remove('on'));if(btn)btn.classList.add('on');restartTrailRun()}

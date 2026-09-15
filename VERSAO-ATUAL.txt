@@ -1,2 +1,2 @@
-Versão atual do app: 3.2.0
-Atualização principal: expansão do RPG e unificação da Elo entre guarda-roupa, quarto, RPG e Trilha Encantada.
+Versão atual do app: 3.2.1
+Correções de direção da Elo no RPG, tamanho/solo na Trilha Encantada e migração correta das novas missões.

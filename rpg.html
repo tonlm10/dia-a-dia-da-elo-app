@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#7155c7">
 <title>Elo e o Reino das Estrelas</title>
-<link rel="stylesheet" href="v3.css?v=3.2.0">
+<link rel="stylesheet" href="v3.css?v=3.2.1">
 <style>
 :root{--ink:#302546;--pink:#ff69a9;--purple:#7357c9;--paper:#fffafd;--muted:#796f86;--shadow:0 18px 42px rgba(55,37,86,.18)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f6f0ff;color:var(--ink);user-select:none}button{font:inherit}.hidden{display:none!important}#rpgApp{height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff4fa,#f1edff)}
@@ -20,7 +20,26 @@
 .battleOverlay{place-items:center}.battleCard{width:min(700px,96vw);max-height:94vh;overflow-y:auto;background:#fffafd;border-radius:26px;padding:16px;box-shadow:var(--shadow)}.pill{display:inline-block;background:#eee7ff;color:var(--purple);padding:5px 9px;border-radius:99px;font-size:9px;font-weight:900}.battleCard canvas{display:block;width:100%;height:auto;border-radius:18px;background:linear-gradient(#c9e9ff,#fbe8ff);margin:10px 0}.eloBattleStatus{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 10px;position:relative;z-index:2}.eloBattleStatus::before{content:'STATUS DA ELO';grid-column:1/-1;font-size:10px;font-weight:1000;color:#7054bd;letter-spacing:.4px;margin-bottom:-2px}.eloBattleBox{background:#f8f5ff;border-radius:14px;padding:9px 10px;border:1px solid #eee8f7}.eloBattleBox strong{display:block;font-size:11px;color:#5f4a86;margin-bottom:4px}.eloBattleBox small{display:block;font-size:11px;color:#594d68;margin-top:3px;font-weight:800}.enemyBar{font-size:11px;color:var(--muted)}.battleText{min-height:38px;background:#f7f4ff;border-radius:14px;padding:10px;font-weight:700}.battleActions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.battleActions button{border:0;border-radius:14px;padding:12px;background:#f0ebff;color:var(--purple);font-weight:900}
 .storyOverlay{background:radial-gradient(circle at 50% 20%,rgba(255,255,255,.45),rgba(42,28,69,.78)),linear-gradient(145deg,#7b60d8,#ff78b1)}.storyCard{width:min(620px,94vw);background:rgba(255,250,253,.96);border-radius:30px;padding:26px;text-align:center;box-shadow:var(--shadow)}.storyStars{font-size:34px}.storyCard h1{font-size:28px;margin:8px 0;color:#6c4fbd}.storyCard p{line-height:1.5;color:#5d536a}.storyCard .mainBtn,.storyCard .softBtn{width:100%;margin-top:8px}
 
-.rpgEloLayer{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}.rpgEloLayer .rpgEloClone{position:absolute!important;width:150px!important;height:325px!important;transform-origin:top left!important;will-change:left,top,transform;filter:drop-shadow(0 5px 4px rgba(44,28,54,.18))}.battleVisual{position:relative;margin:10px 0}.battleVisual #battleArt{margin:0;position:relative;z-index:1}.battleEloLayer{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;border-radius:18px}.battleEloLayer .rpgBattleClone{position:absolute!important;width:150px!important;height:325px!important;transform-origin:top left!important;filter:drop-shadow(0 6px 5px rgba(44,28,54,.18))}
+.rpgEloLayer{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}.rpgEloLayer .rpgEloClone{position:absolute!important;width:150px!important;height:325px!important;transform-origin:top left!important;will-change:left,top,transform;filter:drop-shadow(0 5px 4px rgba(44,28,54,.18))}
+/* v3.2.1 — direção visual da Elo mantendo exatamente o look do guarda-roupa */
+.rpgEloClone.rpg-dir-up .dollHead .eye,.rpgEloClone.rpg-dir-up .dollHead .mouth,.rpgEloClone.rpg-dir-up .dollHead .blush{opacity:0!important}
+.rpgEloClone.rpg-dir-up .dollHairFront{left:34px!important;top:24px!important;width:82px!important;height:80px!important;border-radius:48% 48% 40% 40%!important;clip-path:none!important;z-index:4!important}
+.rpgEloClone.rpg-dir-up .dollEarring,.rpgEloClone.rpg-dir-up .dollNecklace{opacity:0!important}
+.rpgEloClone.rpg-dir-left .dollHead,.rpgEloClone.rpg-dir-right .dollHead{transform:scaleX(.78);transform-origin:50% 50%}
+.rpgEloClone.rpg-dir-left .dollHairBack,.rpgEloClone.rpg-dir-right .dollHairBack,.rpgEloClone.rpg-dir-left .dollHairFront,.rpgEloClone.rpg-dir-right .dollHairFront{transform:scaleX(.84);transform-origin:50% 50%}
+.rpgEloClone.rpg-dir-left .dollBody,.rpgEloClone.rpg-dir-right .dollBody{transform:scaleX(.82);transform-origin:50% 0}
+.rpgEloClone.rpg-dir-left .e1,.rpgEloClone.rpg-dir-right .e1,.rpgEloClone.rpg-dir-left .er1,.rpgEloClone.rpg-dir-right .er1{opacity:0!important}
+.rpgEloClone.rpg-dir-left .e2,.rpgEloClone.rpg-dir-right .e2{right:14px!important}
+.rpgEloClone.rpg-dir-left .dollHead .mouth,.rpgEloClone.rpg-dir-right .dollHead .mouth{left:36px!important;width:11px!important}
+.rpgEloClone.rpg-dir-left .l1,.rpgEloClone.rpg-dir-right .l1{left:56px!important;right:auto!important}
+.rpgEloClone.rpg-dir-left .l2,.rpgEloClone.rpg-dir-right .l2{left:70px!important;right:auto!important;opacity:.88}
+.rpgEloClone.rpg-dir-left .sh1,.rpgEloClone.rpg-dir-right .sh1{left:50px!important;right:auto!important}
+.rpgEloClone.rpg-dir-left .sh2,.rpgEloClone.rpg-dir-right .sh2{left:67px!important;right:auto!important;opacity:.9}
+.rpgEloClone.rpg-walking .l1{transform:rotate(calc(var(--rpg-walk,0) * 5deg));transform-origin:50% 0}
+.rpgEloClone.rpg-walking .l2{transform:rotate(calc(var(--rpg-walk,0) * -5deg));transform-origin:50% 0}
+.rpgEloClone.rpg-walking .a1{transform:rotate(calc(5deg + var(--rpg-walk,0) * -5deg))!important;transform-origin:50% 0}
+.rpgEloClone.rpg-walking .a2{transform:rotate(calc(-5deg + var(--rpg-walk,0) * 5deg))!important;transform-origin:50% 0}
+.battleVisual{position:relative;margin:10px 0}.battleVisual #battleArt{margin:0;position:relative;z-index:1}.battleEloLayer{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;border-radius:18px}.battleEloLayer .rpgBattleClone{position:absolute!important;width:150px!important;height:325px!important;transform-origin:top left!important;filter:drop-shadow(0 6px 5px rgba(44,28,54,.18))}
 @media(max-width:560px){.rpgTop{height:64px}.gameTitle strong{font-size:15px}.hud{grid-template-columns:48px 1fr 1fr 1fr 58px}.hudBox{padding:6px 5px}.mobileControls{height:128px}.statsGrid{grid-template-columns:repeat(2,1fr)}.shopItems{grid-template-columns:1fr 1fr}.medalGrid{grid-template-columns:repeat(3,1fr)}.dialogCard{grid-template-columns:58px 1fr;padding:13px}.portrait{width:58px;height:58px;font-size:30px}.objective p{max-width:72vw}.panelCard{max-height:92vh}.battleCard{padding:13px;max-height:95vh}.battleCard canvas{margin:7px 0;height:auto}.eloBattleStatus{gap:6px}.eloBattleBox{padding:8px}.eloBattleBox strong{font-size:10px}.eloBattleBox small{font-size:10px}}
 
 </style>
@@ -29,7 +48,7 @@
 <div id="rpgApp">
   <header class="rpgTop">
     <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
-    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v3.2.0</span></div>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v3.2.1</span></div>
     <button id="musicBtn" class="topBtn" aria-label="Música">🔊</button><button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
   </header>
 
@@ -206,7 +225,7 @@ function maxMpForLevel(lv){const t=magicTierForLevel(lv);return t.cost*(Number(l
 
 const state={
  started:false,map:'home',x:8*TILE,y:8*TILE,dir:'down',level:1,xp:0,nextXp:30,hp:30,maxHp:30,mp:12,maxMp:12,atk:6,def:2,mag:5,spd:4,coins:15,
- outfit:'starter',ownedOutfits:['starter'],inventory:{potion:1,tea:0,apple:0},quest:0,starCrystals:0,forestRunes:0,starFlames:0,skyShards:0,defeated:0,chapterComplete:false,discovered:['home'],talked:[],flags:{rpg320Migrated:true},medals:[],removedEnemies:{},returnPortal:null,lastSave:0
+ outfit:'starter',ownedOutfits:['starter'],inventory:{potion:1,tea:0,apple:0},quest:0,starCrystals:0,forestRunes:0,starFlames:0,skyShards:0,defeated:0,chapterComplete:false,discovered:['home'],talked:[],flags:{rpg320Migrated:true,rpg321StoryFixed:true},medals:[],removedEnemies:{},returnPortal:null,lastSave:0
 };
 
 const RPG_V3_KEY=RPG_PREFIX+'eloV3WorldState';
@@ -611,9 +630,25 @@ function loadSave(){try{
    }
    state.flags=state.flags||{};state.inventory={potion:1,tea:0,manaSmall:0,manaMedium:0,manaLarge:0,manaFull:0,apple:0,...(state.inventory||{})};state.ownedOutfits=state.ownedOutfits||['starter'];state.discovered=state.discovered||['home'];state.talked=(state.talked||[]).map(id=>id==='sofiaHome'?'sofia':id);state.talked=[...new Set(state.talked)];state.medals=loadMedals();state.removedEnemies=state.removedEnemies||{};state.returnPortal=state.returnPortal||null;state.forestRunes=Number(state.forestRunes||0);state.starFlames=Number(state.starFlames||0);state.skyShards=Number(state.skyShards||0);const levelMp=maxMpForLevel(Number(state.level||1));state.maxMp=Math.max(Number(state.maxMp||0),levelMp);state.mp=Math.min(state.maxMp,Math.max(0,Number(state.mp??state.maxMp)));
    if(!state.flags.rpg320Migrated){
-     // Saves que já tinham encerrado a versão antiga continuam concluídos, agora com o Portão Norte aberto.
-     if(state.chapterComplete||Number(state.quest)>=15){state.quest=19;state.chapterComplete=true;state.flags.northGateUnlocked=true;state.flags.beaconLit=true;state.skyShards=3;if(!state.discovered.includes('starRoad'))state.discovered.push('starRoad');for(const id of ['skyroad','homecoming','final'])if(!state.medals.includes(id))state.medals.push(id)}
+     // Quem concluiu a história antiga deve começar a continuação nova, não pulá-la.
+     if(state.chapterComplete||Number(state.quest)>=15){
+       state.quest=14;state.chapterComplete=false;state.flags.northGateUnlocked=false;state.flags.beaconLit=false;state.skyShards=0;
+       state.discovered=state.discovered.filter(id=>id!=='starRoad');state.medals=state.medals.filter(id=>!['skyroad','homecoming','final'].includes(id));
+       for(const k of Object.keys(state.flags))if(k.startsWith('collected_sky-shard'))delete state.flags[k];
+       state.map='temple';state.x=17*TILE;state.y=20.6*TILE;
+     }
      state.flags.rpg320Migrated=true;
+   }
+   // v3.2.0 marcou saves antigos como se tivessem concluído as missões novas. Corrigir uma única vez.
+   if(!state.flags.rpg321StoryFixed){
+     const autoCompletedBy320=Number(state.quest)>=19&&state.chapterComplete&&!state.flags.completedNewJourneyNaturally;
+     if(autoCompletedBy320){
+       state.quest=14;state.chapterComplete=false;state.flags.northGateUnlocked=false;state.flags.beaconLit=false;state.skyShards=0;
+       state.discovered=state.discovered.filter(id=>id!=='starRoad');state.medals=state.medals.filter(id=>!['skyroad','homecoming','final'].includes(id));
+       for(const k of Object.keys(state.flags))if(k.startsWith('collected_sky-shard'))delete state.flags[k];
+       state.map='temple';state.x=17*TILE;state.y=20.6*TILE;state.returnPortal=null;
+     }
+     state.flags.rpg321StoryFixed=true;
    }
    if(!maps[state.map]){state.map='home';state.x=8.35*TILE;state.y=9.05*TILE}
    const safe=findSafeSpawn(state.x,state.y);state.x=safe.x;state.y=safe.y;
@@ -798,7 +833,7 @@ function talkNpc(n){if(!n)return;const talkId=n.id==='sofiaHome'?'sofia':n.id;if
  if(n.id==='nilo'){if(state.quest===9){state.quest=10;saveGame(true);updateHud();dialog('Mestre Nilo','A Ponte Antiga foi tomada por um Golem de Pedra. Liberte a passagem e continue para o outro lado.','npc');return}if(state.quest===10){dialog('Mestre Nilo','O Golem ainda bloqueia a Ponte Antiga. Vá preparada.','npc');return}dialog('Mestre Nilo','Você já abriu o caminho. Continue seguindo em frente.','npc');return}
  if(n.id==='brisa'){if(state.quest===11){state.quest=12;medal('chapter3');saveGame(true);updateHud();dialog('Brisa','A ponte está livre! Continue daqui mesmo para o Templo das Estrelas. Lá existem três Chamas Estelares.','npc');return}dialog('Brisa','O Templo das Estrelas fica logo ao sul.','npc');return}
  if(n.id==='lumina'){if(state.quest===14){state.quest=15;saveGame(true);updateHud();dialog('Lumina','Você chegou ao Caminho Celeste. Reúna três Fragmentos do Céu. Eles vão reacender o Farol das Estrelas e mostrar a volta para casa.','npc');return}if(state.quest===15){dialog('Lumina',`Você já encontrou ${state.skyShards}/3 Fragmentos do Céu. Continue pelo caminho.`,'npc');return}if(state.quest===16){dialog('Lumina','Os três fragmentos estão com você. Siga ao sul e ative o Farol das Estrelas.','npc');return}dialog('Lumina','O Farol mostra o caminho de volta para a sua vila.','npc');return}
- if((n.id==='sofia'||n.id==='sofiaHome')&&state.quest===18){state.quest=19;state.chapterComplete=true;state.flags.northGateUnlocked=true;medal('final');addCoins(100);saveGame(true);updateHud();dialog('Sofia','Elo! Você voltou pelo Portão Norte! O reino inteiro está brilhando outra vez. E agora esse novo caminho ficou aberto para sempre. 🌠','npc');return}
+ if((n.id==='sofia'||n.id==='sofiaHome')&&state.quest===18){state.quest=19;state.chapterComplete=true;state.flags.northGateUnlocked=true;state.flags.completedNewJourneyNaturally=true;medal('final');addCoins(100);saveGame(true);updateHud();dialog('Sofia','Elo! Você voltou pelo Portão Norte! O reino inteiro está brilhando outra vez. E agora esse novo caminho ficou aberto para sempre. 🌠','npc');return}
  const lines=n.lines||['Olá, Elo!'];dialog(n.name,lines[Math.floor(Math.random()*lines.length)],'npc')
 }
 function guardianDialog(){
@@ -886,7 +921,20 @@ const RPG_DOLL_MARKUP=`<span class="dollHairBack"></span><span class="dollHead">
 const RPG_WARDROBE_CLASS={hairCurly:'style-curly',hairLowPony:'style-lowpony',hairLoose:'style-loose',hairSidePony:'style-sidepony',hairBun:'style-bun',hairHalfBun:'style-halfbun',hairTwins:'style-twins',hairBraid:'style-braid',teePink:'top-pink',teeMint:'top-mint',teeLilac:'top-lilac',teeRainbow:'top-rainbow',teeHeart:'top-heart',teeSun:'top-sun',teeStarry:'top-starry',teeGame:'top-game',teePop:'top-pop',teeSport:'top-sport',shortDenim:'bottom-shorts',shortPink:'bottom-shorts-pink',skirtPink:'bottom-skirt',skirtBlue:'bottom-skirt-blue',skirtLilac:'bottom-skirt-lilac',leggingsPink:'bottom-leggings-pink',pantsBlue:'bottom-pants',pantsBlack:'bottom-pants-black',pantsCargo:'bottom-pants-cargo',skirtPop:'bottom-pop',noneDress:'dress-none',dressPink:'dress-pink',dressRainbow:'dress-rainbow',dressStar:'dress-star',dressGarden:'dress-garden',dressPrincess:'dress-princess',dressUnicorn:'dress-unicorn',dressPop:'dress-pop',shoePink:'shoes-pink',shoeWhite:'shoes-white',shoeLilac:'shoes-lilac',sandalGold:'shoes-sandal-gold',shoeBoot:'shoes-boot',shoeBlack:'shoes-black',shoeCyan:'shoes-cyan',bowPink:'hair-bow-pink',bowBlue:'hair-bow-blue',bowLilac:'hair-bow-lilac',tiaraFlower:'hair-tiara-flower',tiaraStar:'hair-tiara-star',tiaraPearl:'hair-tiara-pearl',headPop:'hair-pop',noneEarring:'ear-none',earHeart:'ear-heart',earFlower:'ear-flower',earStar:'ear-star',earMoon:'ear-moon',noneRing:'ring-none',ringPink:'ring-pink',ringHeart:'ring-heart',ringStar:'ring-star',ringMoon:'ring-moon',noneBracelet:'bracelet-none',braceletPink:'bracelet-pink',braceletPearl:'bracelet-pearl',braceletRainbow:'bracelet-rainbow',braceletPop:'bracelet-pop',noneNecklace:'necklace-none',neckHeart:'neck-heart',neckRainbow:'neck-rainbow',neckStar:'neck-star',neckMoon:'neck-moon',makeupSoft:'makeup-soft',makeupPeach:'makeup-peach',makeupPink:'makeup-pink',makeupParty:'makeup-party',makeupPop:'makeup-pop'};
 function fallbackRpgDoll(extraClass){const d=document.createElement('div');d.innerHTML=RPG_DOLL_MARKUP;const look=readRpgWardrobeAppearance(),w=look.wardrobe||{};d.className='eloDoll '+extraClass+' '+Object.values(w).map(id=>RPG_WARDROBE_CLASS[id]||'').filter(Boolean).join(' ')+(w.dress&&w.dress!=='noneDress'?' wearing-dress':'');d.setAttribute('aria-hidden','true');return d}
 function ensureRpgDoll(mountId,extraClass){const mount=document.getElementById(mountId);if(!mount)return null;const source=rpgWardrobeSource();let d=mount.firstElementChild;if(!d){d=source?source.cloneNode(true):fallbackRpgDoll(extraClass);d.removeAttribute('id');mount.replaceChildren(d)}if(source){d.className=source.className+' '+extraClass}else if(!d.classList.contains(extraClass))d.classList.add(extraClass);d.removeAttribute('id');d.setAttribute('aria-hidden','true');return d}
-function syncRpgWorldAvatar(cam){const d=ensureRpgDoll('rpgEloLayer','rpgEloClone');if(!d)return;const rx=canvas.clientWidth/canvas.width||1,ry=canvas.clientHeight/canvas.height||1,r=Math.min(rx,ry),scale=.29*r,footX=(state.x-cam.x+24)*rx,footY=(state.y-cam.y+80)*ry,bob=(playerMoving?Math.abs(Math.sin(walkPhase*Math.PI/2))*1.5:0)*ry;d.style.left=(footX-75*scale)+'px';d.style.top=(footY-bob-303*scale)+'px';d.style.transform=`scale(${scale})`;d.style.opacity='1'}
+function syncRpgWorldAvatar(cam){
+ const d=ensureRpgDoll('rpgEloLayer','rpgEloClone');if(!d)return;
+ const rx=canvas.clientWidth/canvas.width||1,ry=canvas.clientHeight/canvas.height||1,r=Math.min(rx,ry),scale=.29*r;
+ const footX=(state.x-cam.x+24)*rx,footY=(state.y-cam.y+80)*ry,bob=(playerMoving?Math.abs(Math.sin(walkPhase*Math.PI/2))*1.5:0)*ry;
+ const dir=['up','down','left','right'].includes(state.dir)?state.dir:'down';
+ d.classList.remove('rpg-dir-up','rpg-dir-down','rpg-dir-left','rpg-dir-right','rpg-walking');
+ d.classList.add('rpg-dir-'+dir);if(playerMoving)d.classList.add('rpg-walking');
+ d.style.setProperty('--rpg-walk',playerMoving?Math.sin(walkPhase*Math.PI/2).toFixed(3):'0');
+ const mirror=dir==='left';
+ d.style.left=((mirror?footX+75*scale:footX-75*scale))+'px';
+ d.style.top=(footY-bob-303*scale)+'px';
+ d.style.transform=mirror?`scale(${-scale},${scale})`:`scale(${scale})`;
+ d.style.opacity='1';
+}
 function syncRpgBattleAvatar(){const d=ensureRpgDoll('battleEloLayer','rpgBattleClone');if(!d)return;const rx=battleCanvas.clientWidth/battleCanvas.width||1,scale=.47*rx;d.style.left=(72*rx)+'px';d.style.top=(22*rx)+'px';d.style.transform=`scale(${scale})`;d.style.opacity='1'}
 function drawPlayer(cam){syncRpgWorldAvatar(cam)}
 function drawMiniLabel(cam){
