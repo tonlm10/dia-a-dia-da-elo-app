@@ -1,2 +1,2 @@
-Versão atual do app: 3.2.4
-Trilha Encantada: Poder liberado durante toda a luta contra o chefão.
+Versão atual do app: 3.3.0
+Atualização de polimento infantil, quarto interativo, narração 3–5 anos, guia de caminho no RPG e limpeza de distribuição.

@@ -1,4 +1,4 @@
-/* Dia a Dia da Elo — v3.2.4: RPG expandido, personagem unificada e refinamentos gerais */
+/* Dia a Dia da Elo — v3.3.0: RPG expandido, personagem unificada e refinamentos gerais */
 (function(){
 'use strict';
 const V3_KEY='eloV3WorldState';
@@ -80,7 +80,7 @@ function renderV3Counters(){const v=v3Load(),el=document.getElementById('collect
 window.renderV3Counters=renderV3Counters;
 window.openContinueSpot=function(){const p=pget('v3LastPlace');if(p&&WORLD_META[p])openWorldPlace(p);else eloGuideSay('Escolha um lugar no mapa e eu vou lembrar para você continuar depois!')};
 
-window.playEloVoice=function(clip){const map={intro:'assets/audio/elo-intro.m4a'};const src=map[clip];if(!src)return false;try{let a=window.__eloVoiceAudio;if(!a){a=new Audio();a.preload='auto';window.__eloVoiceAudio=a}a.pause();a.currentTime=0;a.src=`${src}?v=${(self.ELO_APP_VERSION||'3.2.4')}`;a.play().catch(()=>{});return true}catch(_){return false}};
+window.playEloVoice=function(clip){const map={intro:'assets/audio/elo-intro.m4a'};const src=map[clip];if(!src)return false;try{let a=window.__eloVoiceAudio;if(!a){a=new Audio();a.preload='auto';window.__eloVoiceAudio=a}a.pause();a.currentTime=0;a.src=`${src}?v=${(self.ELO_APP_VERSION||'3.3.0')}`;a.play().catch(()=>{});return true}catch(_){return false}};
 window.eloGuideSay=function(text,clip=''){const b=document.getElementById('eloGuideText');if(b)b.textContent=text;const played=clip?window.playEloVoice(clip):false;if(!played&&typeof speakText==='function')speakText(text)};
 window.worldPlaceSpeak=function(text){if(getActiveProfile().ageRange==='3-5'&&typeof speakText==='function')speakText(text)};
 window.openWorldPlace=function(place){const map={room:['roomPanel','home','Vamos para casa! Você pode decorar o quarto e trocar o visual da Elo.'],school:['learnPanel','learn','Hora de aprender brincando!'],play:['playPanel','play','Escolha um jogo e divirta-se!'],rpg:['rpg',null,'O portal do Reino das Estrelas está aberto!'],creative:['createPanel','create','Vamos criar alguma coisa bem legal!'],cinema:['watchPanel','watch','Pegue a pipoca! O Cinema da Elo vai começar.'],library:['storiesPanel','stories','Na biblioteca, cada história é uma aventura.'],club:['clubPanel','club','Bem-vinda ao Clubinho da Elo!']};const a=map[place];if(!a)return;pset('v3LastPlace',place);renderHomeContinue();eloGuideSay(a[2]);if(a[0]==='rpg')setTimeout(()=>openRpg(),180);else setTimeout(()=>openPanel(a[0],a[1]),140)};
@@ -105,6 +105,19 @@ function syncRoomElo(v){
  }
  applyWardrobeToDoll(doll,v);
 }
+
+window.roomInteract=function(kind){
+ const room=document.getElementById('eloRoom');if(!room)return;
+ const pulse=(selector,cls)=>{const el=room.querySelector(selector);if(!el)return;el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls);setTimeout(()=>el.classList.remove(cls),900)};
+ if(kind==='window'){
+   const night=room.classList.toggle('room-night');eloGuideSay(night?'Olha! Ficou de noite. As estrelas apareceram na minha janela!':'Bom dia! O sol voltou para o meu quarto.');
+ }else if(kind==='bed'){pulse('.roomBed','roomBedPlay');eloGuideSay('Minha cama é bem confortável. Hora de descansar um pouquinho!');
+ }else if(kind==='toy'){pulse('.roomToy','roomToyPlay');eloGuideSay('Vamos brincar! Eu adoro meus brinquedos.');
+ }else if(kind==='art'){pulse('.roomWallArt','roomArtPlay');eloGuideSay('Eu gosto muito desse quadro. Ele deixa meu quarto mais alegre!');
+ }else if(kind==='shelf'){pulse('.roomShelf','roomShelfPlay');eloGuideSay('Aqui eu guardo meus livrinhos e coisas especiais.');
+ }else if(kind==='wardrobe'){eloGuideSay('Vamos escolher meu look!');setTimeout(()=>openPanel('wardrobePanel','home'),220)}
+};
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target?.classList?.contains('roomInteractive')){e.preventDefault();e.target.click()}});
 function renderRoom(){
  const room=document.getElementById('eloRoom'),grid=document.getElementById('roomDecorGrid');if(!room||!grid)return;
  const v=v3Load();v.room=v.room||{};v.room.wall=v.room.wall||'wallPink';v.room.art=v.room.art||'rainbow';v.room.bed=v.room.bed||'bedPink';v.room.rug=v.room.rug||'rugHeart';v.room.toy=v.room.toy||'unicorn';

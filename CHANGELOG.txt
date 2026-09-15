@@ -1,28 +1,32 @@
+v3.3.0
+- Quarto mais vivo: janela, cama, brinquedo, quadro, prateleira e guarda-roupa agora respondem ao toque.
+- Perfis 3–5 anos recebem apresentações curtas em voz nas áreas principais, uma vez por sessão.
+- RPG ganhou “✨ Caminho”, uma ajuda opcional que explica para onde seguir sem completar a missão pela criança.
+- Clubinho/valores saiu do menu infantil e ficou concentrado na Área dos Pais.
+- Tutorial da Trilha corrigido para refletir que o Poder funciona durante toda a batalha do chefão.
+- Política e Termos atualizados para a versão atual.
+- test_room.html e três imagens de quebra-cabeça já removidas do app foram retirados do pacote.
+- Nenhum item bloqueado, custo em estrelas ou requisito do quarto/guarda-roupa foi alterado.
+- Novas melhorias visuais foram isoladas em polish.css para reduzir novos remendos no v3.css legado.
+
 v3.2.4
-- Trilha Encantada: botão Poder agora funciona durante toda a luta contra o chefão.
+- Trilha Encantada: botão Poder passou a funcionar durante toda a luta contra o chefão.
 - O chefão pode receber dano mesmo enquanto está atacando.
-- Não é mais obrigatório pular para usar o Poder.
-- Os intervalos sem tiros continuam indicados apenas como o momento mais seguro para atacar.
+- Os intervalos sem tiros ficaram como momento mais seguro, não obrigatório.
 
-v3.2.4
-- Trilha Encantada: corrigida a causa real da Elo flutuar em telas estreitas.
-- O canvas usa escalas horizontal e vertical diferentes no celular por causa da altura mínima; agora a posição da Elo usa ratioX para X e ratioY para Y.
-- Os pés são ancorados exatamente na faixa de chão visível do cenário.
+v3.2.3
+- Trilha Encantada: corrigida a ancoragem vertical da Elo em telas estreitas.
+- Os pés passaram a ser posicionados pela escala vertical do canvas.
 
-v3.2.4
-- RPG: Elo agora muda visualmente de direção ao andar para cima, baixo, esquerda e direita.
-- RPG: saves que terminaram a versão antiga voltam ao início das novas missões do Caminho Celeste; Portão Norte volta a ficar trancado até a volta pela rota final.
-- RPG: conclusão legítima das novas missões passa a ser marcada para não ser desfeita depois.
-- Trilha Encantada: Elo aumentada e ancorada pelos pés ao chão; roupa continua sincronizada com o guarda-roupa.
+v3.2.1
+- RPG: Elo passou a mudar visualmente de direção ao andar.
+- Saves antigos foram corrigidos para não pular as missões novas do Caminho Celeste.
+- Trilha Encantada recebeu a Elo sincronizada com o guarda-roupa.
 
-v3.2.4
-- RPG expandido para uma jornada progressiva: menos retornos ao mago e novos NPCs que encaminham Elo para a próxima região.
-- Novo Caminho Celeste com 3 Fragmentos do Céu e Farol das Estrelas.
-- Novo Portão Norte na Vila das Estrelas: começa trancado, é usado no retorno final e depois fica aberto para subir e descer.
-- Elo do RPG clonada diretamente da Elo do guarda-roupa, inclusive roupa e acessórios escolhidos.
-- Trilha Encantada também passou a usar a mesma Elo do guarda-roupa.
-- Bônus do RPG separados visualmente do guarda-roupa para não sobrescrever o look escolhido.
-- Revisão geral: corrigidos os novos estilos de paredes, camas e tapetes do quarto que não estavam sendo aplicados corretamente.
+v3.2.0
+- RPG expandido para uma jornada progressiva, com menos retornos ao mago.
+- Novo Caminho Celeste, Fragmentos do Céu, Farol das Estrelas e Portão Norte.
+- Elo do RPG passou a usar o visual escolhido no guarda-roupa.
 - Bichinho virtual preservado sem alterações.
 
 --- Histórico anterior preservado no projeto de origem ---

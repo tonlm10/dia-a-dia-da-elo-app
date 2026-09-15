@@ -11,8 +11,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 <title>Dia a Dia da Elo</title>
-<link rel="stylesheet" href="styles.css?v=3.2.4">
-<link rel="stylesheet" href="v3.css?v=3.2.4">
+<link rel="stylesheet" href="styles.css?v=3.3.0">
+<link rel="stylesheet" href="v3.css?v=3.3.0">
+<link rel="stylesheet" href="polish.css?v=3.3.0">
 </head>
 <body>
 <div id="splash"><div class="splashCard"><img src="assets/icons/icon-192.png" alt="Dia a Dia da Elo"><h2>Dia a Dia da Elo</h2><p>Brincar • Aprender • Criar</p></div></div>
@@ -27,7 +28,7 @@
       <div class="scorePillV3">⭐ <span id="starCount">0</span></div>
     </div>
   </div>
-  <div class="classicHomeHero"><div><small>DIA A DIA DA ELO</small><h2>Escolha onde brincar</h2><p>Menu mais simples, com acesso rápido às áreas favoritas da Elo.</p></div><button class="smallBtn" onclick="eloGuideSay('Oi! Eu sou a Elo. Escolha um botão e vamos brincar!','intro')">🔊 Ouvir Elo</button></div>
+  <div class="classicHomeHero"><div><small>DIA A DIA DA ELO</small><h2>Escolha onde brincar</h2><p>Escolha uma aventura. ⭐ As estrelas conquistadas liberam roupas e decorações novas.</p></div><button class="smallBtn" onclick="eloGuideSay('Oi! Eu sou a Elo. Escolha um botão e vamos brincar!','intro')">🔊 Ouvir Elo</button></div>
   <div class="classicHomeMenu" aria-label="Menu principal da Elo">
     <button class="classicHomeCard" onclick="openPanel('watchPanel','watch')"><img src="assets/home-icons/watch-card.webp" alt="Assistir"><div><b>Assistir</b><small>Cinema da Elo e playlists do canal.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('playPanel','play')"><img src="assets/home-icons/play-card.webp" alt="Jogos"><div><b>Jogos</b><small>Memória, quebra-cabeça, trilha e mais.</small></div></button>
@@ -38,7 +39,6 @@
     <button class="classicHomeCard" onclick="openPanel('familyPanel','home')"><span class="homeVisualIcon familyVisual"><img src="assets/home-icons/family-card.webp" alt="Elo com pai e mãe"><i>💗</i></span><div><b>Modo Família</b><small>Mímica, desenho em dupla e desafios.</small></div></button>
     <button class="classicHomeCard" onclick="openPet()"><span class="homeVisualIcon petVisual"><img src="assets/home-icons/home-card.webp" alt="Bichinho da Elo"><i>🐾</i></span><div><b>Bichinho da Elo</b><small>Cuide, brinque, dê banho e acompanhe seu crescimento.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('storiesPanel','stories')"><img src="assets/home-icons/stories-card.webp" alt="Biblioteca"><div><b>Biblioteca</b><small>Histórias, aventuras e leitura divertida.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('clubPanel','club')"><img src="assets/home-icons/club-card.webp" alt="Clube"><div><b>Clube</b><small>Descobertas e conteúdos especiais da Elo.</small></div></button>
   </div>
   <div class="homeHighlights">
     <button class="homeHighlight continueCard" onclick="openContinueSpot()"><span class="hhIcon">▶</span><div><small>CONTINUAR</small><b id="continueTitle">Escolha uma aventura</b><p id="continueSub">O app lembra seu último lugar.</p></div><i>›</i></button>
@@ -49,7 +49,7 @@
     <button onclick="openPanel('achievementsPanel','achievements')"><span>🏅</span><b>Conquistas</b><small>Medalhas e estrelas</small></button>
   </div>
   <div class="missionRow v3MissionRow"><div class="miniCard pink"><h3>🌟 Missão leve</h3><p id="dailyText">Faça algo divertido hoje!</p><div class="progress"><i id="dailyProgress"></i></div><button class="smallBtn" style="margin-top:10px" onclick="completeDaily()">Consegui!</button></div><div class="miniCard lilac"><h3>🔐 Área dos Pais</h3><p>Segurança, progresso e configurações.</p><button class="smallBtn" onclick="openParents()">Entrar</button></div></div>
-  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.2.4</span></div>
+  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.3.0</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -130,13 +130,15 @@
   <div class="card"><h3>Perfis infantis 👧🧒</h3><p class="muted">Até 4 perfis locais, cada um com suas próprias estrelas, histórias, medalhas e progresso do RPG. Nenhum nome é enviado para a internet.</p><div id="profileList" class="profileList"></div></div>
   <div class="card"><h3>Progresso neste aparelho 📊</h3><div id="parentProgressDashboard"></div><div id="v3ParentProgress" class="v3ParentProgress"></div></div>
   <div class="card"><h3>Tempo saudável ⏱️</h3><p class="muted">Lembrete suave para descansar os olhos. Não bloqueia a criança automaticamente.</p><div class="settingRow"><span>Uso de hoje</span><strong id="usageToday">0 min</strong></div><div class="settingRow"><span>Lembrar após</span><select id="dailyLimitSelect" onchange="setDailyLimit(this.value)"><option value="0">Sem lembrete</option><option value="30">30 minutos</option><option value="45">45 minutos</option><option value="60">60 minutos</option><option value="90">90 minutos</option></select></div></div>
+  <div class="card youngVoiceInfo"><h3>Experiência por idade 🔊</h3><p class="muted">Em perfis de 3–5 anos, a Elo apresenta em voz as principais áreas na primeira abertura da sessão, reduzindo a dependência de leitura.</p></div>
   <div class="card"><h3>Acessibilidade ♿</h3><div class="settingRow"><label for="aLarge">Texto maior</label><input id="aLarge" data-a11y="large" type="checkbox" onchange="setA11y('large',this.checked)"></div><div class="settingRow"><label for="aContrast">Alto contraste</label><input id="aContrast" data-a11y="contrast" type="checkbox" onchange="setA11y('contrast',this.checked)"></div><div class="settingRow"><label for="aBig">Botões maiores</label><input id="aBig" data-a11y="big" type="checkbox" onchange="setA11y('big',this.checked)"></div><div class="settingRow"><label for="aReduce">Reduzir animações</label><input id="aReduce" data-a11y="reduce" type="checkbox" onchange="setA11y('reduce',this.checked)"></div><div class="row" style="margin-top:10px"><button class="btn secondary" onclick="readCurrentScreen()">🔊 Testar leitura em voz</button></div></div>
   <div class="card"><h3>Backup do progresso 💾</h3><p class="muted">Salve o progresso do perfil atual em um arquivo e restaure depois neste ou em outro aparelho.</p><div class="row"><button class="btn secondary" onclick="exportProfileBackup()">Exportar backup</button><button class="btn secondary" onclick="triggerImportBackup('replace')">Substituir perfil</button><button class="btn secondary" onclick="triggerImportBackup('new')">Restaurar como novo perfil</button><input id="backupInput" type="file" accept="application/json,.json" class="hidden" onchange="importProfileBackup(this)"></div></div>
   <div class="card"><h3>Experiência infantil segura</h3><p class="muted">Sem anúncios, sem conta online infantil e sem compras dentro do app. Estrelinhas, favoritos e progresso ficam armazenados localmente no aparelho.</p></div>
   <div class="card"><h3>Links oficiais 🔒</h3><p class="muted">Abertura de YouTube, Instagram e Clube da Elo é uma ação dos responsáveis.</p><div class="row"><button class="btn" onclick="openSubscribe()">Inscrever no YouTube</button><button class="btn secondary" onclick="openExternal(MEMBER_URL)">Página de membros</button><button class="btn secondary" onclick="openInstagram()">Instagram da Elo</button></div></div>
+  <div class="card parentClubCard"><h3>Clubinho da Elo 👑</h3><p class="muted">Informações de assinatura e valores ficam somente na Área dos Pais.</p><button class="btn secondary" onclick="openPanel('clubPanel','parents')">Ver planos e benefícios</button></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.2.4</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.3.0</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -146,19 +148,20 @@
 
 <section id="roomPanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Quarto da Elo 🏠</h2></div>
-  <div class="roomIntro"><div><small>MEU CANTINHO</small><h3>Decore do seu jeito</h3><p>Itens novos aparecem conforme você brinca, aprende e explora.</p></div><button onclick="eloGuideSay('Este é o meu quarto! Toque nas opções abaixo para decorar do seu jeito.')">🔊</button></div>
+  <div class="roomIntro"><div><small>MEU CANTINHO</small><h3>Decore do seu jeito</h3><p>Itens novos aparecem conforme você brinca, aprende e explora. Toque nos móveis e objetos para ver a Elo reagir.</p></div><button onclick="eloGuideSay('Este é o meu quarto! Toque nas opções abaixo para decorar do seu jeito.')">🔊</button></div>
   <div id="eloRoom" class="eloRoom room-premium">
     <div class="roomCeilingGlow"></div>
-    <div class="roomWindow"><div class="windowSky"><i></i><i></i></div><div class="curtain left"></div><div class="curtain right"></div></div>
-    <div class="roomWallArt art-rainbow"></div>
-    <div class="roomShelf"><i></i><i></i><i></i><i></i></div>
-    <div class="roomWardrobe"><span></span><span></span></div>
-    <div class="roomBed bed-pink"><div class="head"></div><div class="pillow"></div><div class="blanket"></div><div class="bedLeg l"></div><div class="bedLeg r"></div></div>
+    <div class="roomWindow roomInteractive" role="button" tabindex="0" aria-label="Janela do quarto" onclick="roomInteract('window')"><div class="windowSky"><i></i><i></i></div><div class="curtain left"></div><div class="curtain right"></div></div>
+    <div class="roomWallArt art-rainbow roomInteractive" role="button" tabindex="0" aria-label="Quadro do quarto" onclick="roomInteract('art')"></div>
+    <div class="roomShelf roomInteractive" role="button" tabindex="0" aria-label="Prateleira do quarto" onclick="roomInteract('shelf')"><i></i><i></i><i></i><i></i></div>
+    <div class="roomWardrobe roomInteractive" role="button" tabindex="0" aria-label="Abrir guarda-roupa" onclick="roomInteract('wardrobe')"><span></span><span></span></div>
+    <div class="roomBed bed-pink roomInteractive" role="button" tabindex="0" aria-label="Cama da Elo" onclick="roomInteract('bed')"><div class="head"></div><div class="pillow"></div><div class="blanket"></div><div class="bedLeg l"></div><div class="bedLeg r"></div></div>
     <div class="roomDesk"><div class="lamp"></div><div class="book"></div></div>
     <div class="roomRug rug-heart"></div>
-    <div class="roomToy toy-unicorn"></div>
+    <div class="roomToy toy-unicorn roomInteractive" role="button" tabindex="0" aria-label="Brinquedo do quarto" onclick="roomInteract('toy')"></div>
     <button class="roomEloSpot" onclick="eloGuideSay('Meu quarto ficou lindo! Você pode trocar a parede, o quadro, o tapete, a cama e os brinquedos — e também tirar itens se quiser.')" aria-label="Elo no quarto"><div id="roomEloMount"></div></button>
   </div>
+  <div class="roomPlayHint">✨ Dica: toque na janela, cama, brinquedo, quadro, prateleira e guarda-roupa.</div>
   <div class="roomControlDock"><div class="roomControlHead"><b>Decorar ✨</b><div class="roomHeadActions"><button class="smallBtn" onclick="openPet()">🐾 Bichinho</button><button class="smallBtn" onclick="openPanel('wardrobePanel','home')">👗 Vestir Elo</button></div></div><div id="roomDecorTabs" class="roomDecorTabs"></div><div id="roomDecorGrid" class="decorGrid decorGridCompact"></div></div>
 </section>
 
@@ -234,7 +237,7 @@
 
 <section id="privacyPanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Política de Privacidade</h2></div>
-  <div class="card privacyText"><p><strong>Última atualização:</strong> setembro de 2026.</p><h3>Dados no aparelho</h3><p>O Dia a Dia da Elo não exige conta online infantil. Perfis locais, pontos, conquistas, favoritos, histórias lidas, missões e preferências são gravados somente no dispositivo, salvo quando um responsável exporta manualmente um backup.</p><h3>Serviços externos</h3><p>O app pode exibir conteúdo incorporado do YouTube e, mediante acesso dos responsáveis, abrir páginas oficiais do YouTube e Instagram. Ao sair do app, passam a valer as políticas desses serviços.</p><h3>Publicidade e compras</h3><p>Esta versão do app não exibe anúncios e não realiza compras diretamente dentro do aplicativo. Links de assinatura ou ações externas ficam protegidos pela área dos responsáveis.</p><h3>Crianças e segurança</h3><p>O aplicativo foi projetado para entretenimento e aprendizagem em família. Não há chat interno, envio de mensagens entre usuários nem formulário para coleta de dados pessoais de crianças.</p><h3>Controle local</h3><p>Os responsáveis podem remover os dados locais limpando os dados do site/aplicativo no dispositivo. O PIN parental também fica apenas no aparelho.</p></div>
+  <div class="card privacyText"><p><strong>Última atualização:</strong> setembro de 2026.</p><h3>Dados no aparelho</h3><p>O Dia a Dia da Elo não exige conta online infantil. Perfis locais, pontos, conquistas, favoritos, histórias lidas, missões e preferências são gravados somente no dispositivo, salvo quando um responsável exporta manualmente um backup.</p><h3>Serviços externos</h3><p>O app pode exibir conteúdo incorporado do YouTube e, mediante acesso dos responsáveis, abrir páginas oficiais do YouTube e Instagram. Ao sair do app, passam a valer as políticas desses serviços.</p><h3>Publicidade e compras</h3><p>Esta versão do app não exibe anúncios e não realiza compras diretamente dentro do aplicativo. Links de assinatura, valores e ações externas ficam concentrados e protegidos na Área dos Pais.</p><h3>Crianças e segurança</h3><p>O aplicativo foi projetado para entretenimento e aprendizagem em família. Não há chat interno, envio de mensagens entre usuários nem formulário para coleta de dados pessoais de crianças.</p><h3>Controle local</h3><p>Os responsáveis podem remover os dados locais limpando os dados do site/aplicativo no dispositivo. O PIN parental também fica apenas no aparelho.</p></div>
 </section>
 
 <section id="termsPanel" class="panel">
@@ -281,6 +284,6 @@
 <div id="exitConfirm" class="exitConfirm hidden" role="dialog" aria-modal="true" aria-labelledby="exitTitle"><div class="exitCard"><div class="exitIcon">👋</div><h3 id="exitTitle">Deseja sair do app?</h3><p>Você está na página principal.</p><div class="exitActions"><button class="exitNo" onclick="cancelAppExit()">Não, continuar</button><button class="exitYes" onclick="confirmAppExit()">Sim, sair</button></div></div></div>
 <nav><div class="navin"><button class="navbtn active" data-nav="home" onclick="openPanel('homePanel','home')"><img class="navEloIcon" src="assets/home-icons/home-nav.webp" alt="">Início</button><button class="navbtn" data-nav="watch" onclick="openPanel('watchPanel','watch')"><img class="navEloIcon" src="assets/home-icons/watch-nav.webp" alt="">Assistir</button><button class="navbtn" data-nav="play" onclick="openPanel('playPanel','play')"><img class="navEloIcon" src="assets/home-icons/play-nav.webp" alt="">Jogar</button><button class="navbtn" data-nav="learn" onclick="openPanel('learnPanel','learn')"><img class="navEloIcon" src="assets/home-icons/learn-nav.webp" alt="">Escolinha da Elo</button><button class="navbtn" data-nav="create" onclick="openPanel('createPanel','create')"><img class="navEloIcon" src="assets/home-icons/create-nav.webp" alt="">Criar</button></div></nav>
 <div id="toast" class="toast">Muito bem! ⭐</div>
-<script src="version.js?v=3.2.4"></script><script src="app.js?v=3.2.4"></script><script src="v3.js?v=3.2.4"></script><script src="pet.js?v=3.2.4"></script>
+<script src="version.js?v=3.3.0"></script><script src="app.js?v=3.3.0"></script><script src="v3.js?v=3.3.0"></script><script src="pet.js?v=3.3.0"></script>
 </body>
 </html>

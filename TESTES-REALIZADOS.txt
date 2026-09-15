@@ -1,6 +1,11 @@
-DIA A DIA DA ELO v3.2.4 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.3.0 — TESTES DA ATUALIZAÇÃO
 
-- Sintaxe de app.js, v3.js, pet.js e sw.js conferida.
-- Poder do chefão permitido durante ataque e intervalo.
-- Poder permitido com a Elo no chão ou no ar.
-- Projéteis de Poder causam dano ao chefão em qualquer padrão de ataque.
+- Sintaxe JavaScript: app.js, v3.js, pet.js, sw.js e script principal do RPG.
+- ROOM_DECOR e WARDROBE_ITEMS comparados com v3.2.4: dados de itens e bloqueios preservados.
+- Conferência de IDs duplicados no index.html.
+- Conferência de arquivos locais referenciados no index, manifest e service worker.
+- Quarto: objetos interativos adicionados sem alterar itens desbloqueáveis.
+- Perfil 3–5: apresentação por voz adicionada uma vez por área por sessão.
+- RPG: botão Caminho apenas orienta; não altera missão, save ou progressão.
+- Clubinho comercial removido do menu infantil e mantido na Área dos Pais.
+- Arquivos auxiliares/ativos não usados removidos da distribuição.
