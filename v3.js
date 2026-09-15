@@ -1,4 +1,4 @@
-/* Dia a Dia da Elo — v3.1.0: bichinho virtual, menu refinado e correções visuais */
+/* Dia a Dia da Elo — v3.2.0: RPG expandido, personagem unificada e refinamentos gerais */
 (function(){
 'use strict';
 const V3_KEY='eloV3WorldState';
@@ -80,7 +80,7 @@ function renderV3Counters(){const v=v3Load(),el=document.getElementById('collect
 window.renderV3Counters=renderV3Counters;
 window.openContinueSpot=function(){const p=pget('v3LastPlace');if(p&&WORLD_META[p])openWorldPlace(p);else eloGuideSay('Escolha um lugar no mapa e eu vou lembrar para você continuar depois!')};
 
-window.playEloVoice=function(clip){const map={intro:'assets/audio/elo-intro.m4a'};const src=map[clip];if(!src)return false;try{let a=window.__eloVoiceAudio;if(!a){a=new Audio();a.preload='auto';window.__eloVoiceAudio=a}a.pause();a.currentTime=0;a.src=`${src}?v=${(self.ELO_APP_VERSION||'3.1.24')}`;a.play().catch(()=>{});return true}catch(_){return false}};
+window.playEloVoice=function(clip){const map={intro:'assets/audio/elo-intro.m4a'};const src=map[clip];if(!src)return false;try{let a=window.__eloVoiceAudio;if(!a){a=new Audio();a.preload='auto';window.__eloVoiceAudio=a}a.pause();a.currentTime=0;a.src=`${src}?v=${(self.ELO_APP_VERSION||'3.2.0')}`;a.play().catch(()=>{});return true}catch(_){return false}};
 window.eloGuideSay=function(text,clip=''){const b=document.getElementById('eloGuideText');if(b)b.textContent=text;const played=clip?window.playEloVoice(clip):false;if(!played&&typeof speakText==='function')speakText(text)};
 window.worldPlaceSpeak=function(text){if(getActiveProfile().ageRange==='3-5'&&typeof speakText==='function')speakText(text)};
 window.openWorldPlace=function(place){const map={room:['roomPanel','home','Vamos para casa! Você pode decorar o quarto e trocar o visual da Elo.'],school:['learnPanel','learn','Hora de aprender brincando!'],play:['playPanel','play','Escolha um jogo e divirta-se!'],rpg:['rpg',null,'O portal do Reino das Estrelas está aberto!'],creative:['createPanel','create','Vamos criar alguma coisa bem legal!'],cinema:['watchPanel','watch','Pegue a pipoca! O Cinema da Elo vai começar.'],library:['storiesPanel','stories','Na biblioteca, cada história é uma aventura.'],club:['clubPanel','club','Bem-vinda ao Clubinho da Elo!']};const a=map[place];if(!a)return;pset('v3LastPlace',place);renderHomeContinue();eloGuideSay(a[2]);if(a[0]==='rpg')setTimeout(()=>openRpg(),180);else setTimeout(()=>openPanel(a[0],a[1]),140)};
@@ -108,13 +108,13 @@ function syncRoomElo(v){
 function renderRoom(){
  const room=document.getElementById('eloRoom'),grid=document.getElementById('roomDecorGrid');if(!room||!grid)return;
  const v=v3Load();v.room=v.room||{};v.room.wall=v.room.wall||'wallPink';v.room.art=v.room.art||'rainbow';v.room.bed=v.room.bed||'bedPink';v.room.rug=v.room.rug||'rugHeart';v.room.toy=v.room.toy||'unicorn';
- room.classList.remove('wall-blue','wall-peach','wall-stars');const wall=ROOM_DECOR.find(x=>x.id===v.room.wall);if(wall?.className)room.classList.add(wall.className);
+ const wallClasses=ROOM_DECOR.filter(x=>x.kind==='wall').map(x=>x.className).filter(Boolean);room.classList.remove(...wallClasses);const wall=ROOM_DECOR.find(x=>x.id===v.room.wall);if(wall?.className)room.classList.add(wall.className);
  const art=ROOM_DECOR.find(x=>x.id===v.room.art),toy=ROOM_DECOR.find(x=>x.id===v.room.toy),bed=ROOM_DECOR.find(x=>x.id===v.room.bed),rug=ROOM_DECOR.find(x=>x.id===v.room.rug);
  const artEl=room.querySelector('.roomWallArt'),toyEl=room.querySelector('.roomToy'),bedEl=room.querySelector('.roomBed'),rugEl=room.querySelector('.roomRug');
  if(artEl)artEl.className=`roomWallArt ${!art||art.id==='noneArt'?'hidden':''} art-${art?.id||'rainbow'}`.trim();
  if(toyEl){const shape=toy?.shape||'unicorn';toyEl.className=`roomToy ${shape==='none'?'hidden':''} toy-${shape}`.trim();toyEl.textContent='';}
- if(bedEl)bedEl.className=`roomBed ${bed?.id==='bedBlue'?'bed-blue':bed?.id==='bedLilac'?'bed-lilac':bed?.id==='bedStar'?'bed-star':'bed-pink'}`;
- if(rugEl)rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rug?.id==='rugRainbow'?'rug-rainbow':rug?.id==='rugCloud'?'rug-cloud':'rug-heart'}`.trim();
+ if(bedEl){const bedClass={bedBlue:'bed-blue',bedLilac:'bed-lilac',bedStar:'bed-star',bedMint:'bed-mint',bedPeach:'bed-peach'}[bed?.id]||'bed-pink';bedEl.className=`roomBed ${bedClass}`;}
+ if(rugEl){const rugClass={rugRainbow:'rug-rainbow',rugCloud:'rug-cloud',rugFlower:'rug-flower',rugStar:'rug-star'}[rug?.id]||'rug-heart';rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rugClass}`.trim();}
  syncRoomElo(v);
  const tabs=document.getElementById('roomDecorTabs');if(tabs){const kinds=[['wall','🎨','Parede'],['art','🖼️','Quadros'],['bed','🛏️','Camas'],['rug','🧶','Tapetes'],['toy','🧸','Brinquedos']];tabs.innerHTML=kinds.map(([id,ic,name])=>`<button class="roomDecorTab ${roomDecorCategory===id?'on':''}" onclick="selectRoomCategory('${id}')"><span>${ic}</span>${name}</button>`).join('')}grid.innerHTML=ROOM_DECOR.filter(it=>it.kind===roomDecorCategory).map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')">${unlock?roomDecorThumb(it):'<span>🔒</span>'}<b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');
 }window.renderRoom=renderRoom;
