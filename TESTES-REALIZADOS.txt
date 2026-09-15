@@ -1,11 +1,10 @@
-DIA A DIA DA ELO v3.1.3 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.4 — TESTES DA ATUALIZAÇÃO
 
 - Validação de sintaxe: app.js, v3.js e pet.js sem erro de parsing no Node.
-- Versão 3.1.3 consistente em version.js, manifest, service worker, app.js, v3.js e interface.
-- Cache do Service Worker renovado para elo-official-3.1.3-r1.
+- Versão 3.1.4 consistente em version.js, manifest, service worker, app.js, v3.js e interface.
+- Cache do Service Worker renovado para elo-official-3.1.4-r1.
 - RPG preservado sem alteração.
-- Bichinho: botão de comida continua funcionando até 100%; demais botões independentes.
-- Bichinho: botão de reiniciar disponível para voltar ao ovo.
-- Bichinho: evolução configurada para Bebê, Jovem, Adulto e Idoso.
-- Quarto e guarda-roupa: pernas, shorts, calças e sapatos com proporção ajustada.
-- Barras do bichinho reposicionadas para as laterais.
+- Quarto: Elo, brinquedo e vaso reposicionados.
+- Guarda-roupa: calças e shorts cobrindo melhor as pernas.
+- Bichinho: cartões laterais mais afastados do personagem.
+- Bichinho: escovação visual reposicionada para a boca.

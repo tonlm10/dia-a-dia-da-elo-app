@@ -266,3 +266,56 @@
  .petStatHead span{font-size:11px!important}.petStatHead b,.petStatHead em{font-size:6px!important}
  .petResetBtn{font-size:8px!important;padding:6px 8px!important}
 }
+
+
+/* v3.1.4 ajustes finos de quarto, roupas e bichinho */
+/* Elo: pernas mais discretas e roupas cobrindo melhor */
+#wardrobeElo .leg,#roomEloDoll .leg{top:205px!important;width:12px!important;height:58px!important;border-radius:8px 8px 8px 8px!important}
+#wardrobeElo .l1,#roomEloDoll .l1{left:56px!important}
+#wardrobeElo .l2,#roomEloDoll .l2{right:56px!important}
+#wardrobeElo .shoe,#roomEloDoll .shoe{top:257px!important;width:26px!important;height:17px!important;border-radius:15px 15px 8px 8px!important}
+#wardrobeElo .sh1,#roomEloDoll .sh1{left:44px!important}
+#wardrobeElo .sh2,#roomEloDoll .sh2{right:44px!important}
+#wardrobeElo.bottom-shorts .dollBottom,#wardrobeElo.bottom-shorts-pink .dollBottom,
+#roomEloDoll.bottom-shorts .dollBottom,#roomEloDoll.bottom-shorts-pink .dollBottom{left:10px!important;top:52px!important;width:56px!important;height:72px!important;clip-path:polygon(5% 0,95% 0,92% 100%,58% 100%,50% 58%,42% 100%,8% 100%)!important;border-radius:10px 10px 8px 8px!important;z-index:5!important}
+#wardrobeElo.bottom-pants .dollBottom,#wardrobeElo.bottom-pants-black .dollBottom,#wardrobeElo.bottom-pants-cargo .dollBottom,
+#roomEloDoll.bottom-pants .dollBottom,#roomEloDoll.bottom-pants-black .dollBottom,#roomEloDoll.bottom-pants-cargo .dollBottom{left:9px!important;top:52px!important;width:58px!important;height:110px!important;clip-path:polygon(8% 0,92% 0,89% 100%,60% 100%,53% 54%,47% 54%,40% 100%,11% 100%)!important;border-radius:10px 10px 8px 8px!important;z-index:5!important}
+.roomGuide302 .eloDoll .leg{top:206px!important;height:54px!important;width:11px!important;border-radius:7px!important}
+.roomGuide302 .eloDoll .l1{left:56px!important}.roomGuide302 .eloDoll .l2{right:56px!important}
+.roomGuide302 .eloDoll .shoe{top:257px!important;width:21px!important;height:14px!important}.roomGuide302 .eloDoll .sh1{left:47px!important}.roomGuide302 .eloDoll .sh2{right:47px!important}
+
+/* Quarto: tirar excesso de coisas sobre o tapete */
+.roomToy{right:13%!important;bottom:8%!important;width:50px!important;height:50px!important;z-index:3!important}
+.roomPlant{left:18%!important;bottom:13%!important;width:42px!important;height:64px!important;transform:scale(.86)!important;transform-origin:bottom left!important}
+.roomDesk .lamp{left:18%!important;top:-45px!important}.roomDesk .book{right:18%!important;top:-18px!important;width:36px!important}
+
+/* Bichinho: caixas mais para os lados */
+#petPanel .petStats{inset:22px 4px 68px!important;grid-template-columns:62px 146px 62px!important;gap:6px 4px!important}
+#petPanel .petStat{width:62px!important;padding:4px 4px!important}
+#petPanel .petCreature{transform:translate(-50%,-50%) scale(.84)!important}
+#petPanel .petCreature.stage-young{transform:translate(-50%,-50%) scale(.90)!important}
+#petPanel .petCreature.stage-adult{transform:translate(-50%,-50%) scale(.95)!important}
+#petPanel .petCreature.stage-elder{transform:translate(-50%,-50%) scale(1)!important}
+
+/* Escovação perto da boca */
+.petActionFx.fx-hygiene i{left:92px!important;top:76px!important;right:auto!important;bottom:auto!important;width:58px!important;height:8px!important;transform:rotate(-8deg)!important}
+.petActionFx.fx-hygiene i:before{left:-18px!important;top:-4px!important}
+.petActionFx.fx-hygiene i:after{left:-7px!important;top:-10px!important}
+
+@media(max-width:520px){
+ #petPanel .petStats{inset:20px 2px 70px!important;grid-template-columns:58px 142px 58px!important;gap:4px 2px!important}
+ #petPanel .petStat{width:58px!important;padding:4px 3px!important}
+ #petPanel .petCreature{transform:translate(-50%,-50%) scale(.78)!important}
+ #petPanel .petCreature.stage-young{transform:translate(-50%,-50%) scale(.84)!important}
+ #petPanel .petCreature.stage-adult{transform:translate(-50%,-50%) scale(.89)!important}
+ #petPanel .petCreature.stage-elder{transform:translate(-50%,-50%) scale(.94)!important}
+ .petActionFx.fx-hygiene i{left:88px!important;top:74px!important;width:54px!important}
+ .roomToy{right:12%!important;bottom:7%!important}
+ .roomPlant{left:16%!important;bottom:12%!important}
+}
+@media(max-width:390px){
+ #petPanel .petStats{inset:20px 2px 70px!important;grid-template-columns:54px 130px 54px!important;gap:3px 2px!important}
+ #petPanel .petStat{width:54px!important;padding:3px 2px!important}
+ .petStatHead span{font-size:10px!important}.petStatHead b,.petStatHead em{font-size:6px!important}
+ .petActionFx.fx-hygiene i{left:82px!important;top:72px!important;width:52px!important}
+}
