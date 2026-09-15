@@ -319,3 +319,57 @@
  .petStatHead span{font-size:10px!important}.petStatHead b,.petStatHead em{font-size:6px!important}
  .petActionFx.fx-hygiene i{left:82px!important;top:72px!important;width:52px!important}
 }
+
+
+/* v3.1.5 ajustes finais de quarto e alinhamento do bichinho */
+/* Quarto: Elo no quarto com pernas embutidas na roupa */
+#roomEloDoll .dollBody{height:124px!important}
+#roomEloDoll .leg{top:204px!important;width:10px!important;height:48px!important;border-radius:7px!important;z-index:1!important}
+#roomEloDoll .l1{left:58px!important}
+#roomEloDoll .l2{right:58px!important}
+#roomEloDoll .shoe{top:252px!important;width:20px!important;height:13px!important;border-radius:12px 12px 7px 7px!important}
+#roomEloDoll .sh1{left:48px!important}
+#roomEloDoll .sh2{right:48px!important}
+#roomEloDoll.bottom-shorts .dollBottom,#roomEloDoll.bottom-shorts-pink .dollBottom{left:10px!important;top:52px!important;width:56px!important;height:76px!important;z-index:5!important}
+#roomEloDoll.bottom-pants .dollBottom,#roomEloDoll.bottom-pants-black .dollBottom,#roomEloDoll.bottom-pants-cargo .dollBottom{left:8px!important;top:52px!important;width:60px!important;height:118px!important;z-index:5!important}
+.roomGuide302 .eloDoll .leg{top:204px!important;width:10px!important;height:48px!important;border-radius:7px!important}
+.roomGuide302 .eloDoll .l1{left:58px!important}.roomGuide302 .eloDoll .l2{right:58px!important}
+.roomGuide302 .eloDoll .shoe{top:252px!important;width:20px!important;height:13px!important}.roomGuide302 .eloDoll .sh1{left:48px!important}.roomGuide302 .eloDoll .sh2{right:48px!important}
+
+/* Quarto: retirar amontoado do tapete */
+.roomRug{left:42%!important;bottom:2%!important;width:34%!important;height:16%!important}
+.roomDesk{left:31%!important;bottom:15%!important;width:17%!important;height:16%!important;transform:scale(.88)!important;transform-origin:bottom left!important;z-index:2!important}
+.roomPlant{left:74%!important;bottom:12%!important;width:38px!important;height:58px!important;transform:scale(.78)!important;transform-origin:bottom left!important;z-index:2!important}
+.roomToy{left:54%!important;right:auto!important;bottom:6%!important;width:44px!important;height:44px!important;z-index:3!important}
+
+/* Bichinho: cartões da direita no canto final */
+#petPanel .petStats{grid-template-columns:62px 150px 62px!important;inset:22px 2px 68px!important}
+#petPanel .petStat:nth-child(2),#petPanel .petStat:nth-child(4),#petPanel .petStat:nth-child(6){justify-self:end!important;transform:translateX(18px)!important}
+#petPanel .petStat:nth-child(1),#petPanel .petStat:nth-child(3),#petPanel .petStat:nth-child(5){justify-self:start!important;transform:translateX(-2px)!important}
+
+@media(max-width:520px){
+ #roomEloDoll .leg,.roomGuide302 .eloDoll .leg{top:205px!important;height:46px!important;width:9px!important}
+ #roomEloDoll .l1,.roomGuide302 .eloDoll .l1{left:59px!important}
+ #roomEloDoll .l2,.roomGuide302 .eloDoll .l2{right:59px!important}
+ #roomEloDoll .shoe,.roomGuide302 .eloDoll .shoe{top:251px!important;width:18px!important;height:12px!important}
+ #roomEloDoll .sh1,.roomGuide302 .eloDoll .sh1{left:49px!important}
+ #roomEloDoll .sh2,.roomGuide302 .eloDoll .sh2{right:49px!important}
+ .roomRug{left:43%!important;width:33%!important;height:15%!important}
+ .roomDesk{left:30%!important;bottom:15%!important;width:16%!important;transform:scale(.82)!important}
+ .roomPlant{left:73%!important;bottom:12%!important;transform:scale(.72)!important}
+ .roomToy{left:55%!important;bottom:6%!important;width:40px!important;height:40px!important}
+ #petPanel .petStats{grid-template-columns:58px 146px 58px!important;inset:20px 0 70px!important}
+ #petPanel .petStat:nth-child(2),#petPanel .petStat:nth-child(4),#petPanel .petStat:nth-child(6){transform:translateX(14px)!important}
+}
+@media(max-width:390px){
+ #roomEloDoll .leg,.roomGuide302 .eloDoll .leg{top:205px!important;height:44px!important;width:8px!important}
+ #roomEloDoll .l1,.roomGuide302 .eloDoll .l1{left:60px!important}
+ #roomEloDoll .l2,.roomGuide302 .eloDoll .l2{right:60px!important}
+ #roomEloDoll .shoe,.roomGuide302 .eloDoll .shoe{top:249px!important;width:16px!important;height:11px!important}
+ #roomEloDoll .sh1,.roomGuide302 .eloDoll .sh1{left:50px!important}
+ #roomEloDoll .sh2,.roomGuide302 .eloDoll .sh2{right:50px!important}
+ .roomPlant{left:72%!important;bottom:12%!important}
+ .roomToy{left:56%!important;bottom:6%!important}
+ #petPanel .petStats{grid-template-columns:54px 132px 54px!important}
+ #petPanel .petStat:nth-child(2),#petPanel .petStat:nth-child(4),#petPanel .petStat:nth-child(6){transform:translateX(10px)!important}
+}

@@ -1,10 +1,8 @@
-DIA A DIA DA ELO v3.1.4 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.5 — TESTES DA ATUALIZAÇÃO
 
 - Validação de sintaxe: app.js, v3.js e pet.js sem erro de parsing no Node.
-- Versão 3.1.4 consistente em version.js, manifest, service worker, app.js, v3.js e interface.
-- Cache do Service Worker renovado para elo-official-3.1.4-r1.
+- Versão 3.1.5 consistente em version.js, manifest, service worker, app.js, v3.js e interface.
+- Cache do Service Worker renovado para elo-official-3.1.5-r1.
 - RPG preservado sem alteração.
-- Quarto: Elo, brinquedo e vaso reposicionados.
-- Guarda-roupa: calças e shorts cobrindo melhor as pernas.
-- Bichinho: cartões laterais mais afastados do personagem.
-- Bichinho: escovação visual reposicionada para a boca.
+- Quarto: Elo no quarto, vaso, brinquedo, tapete e mesa reposicionados.
+- Bichinho: blocos do lado direito enviados mais para o canto final.
