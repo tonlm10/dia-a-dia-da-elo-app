@@ -209,23 +209,64 @@ const RPG_LOOK_BOTTOM={shortDenim:'#6e91d8',shortPink:'#ff8eb6',skirtPink:'#ff87
 const RPG_LOOK_DRESS={dressPink:'#ff86b6',dressStar:'#8f7ae8',dressPrincess:'#ffd47e',dressUnicorn:'#8fd4ff',dressPop:'#ff5ea3'};
 const RPG_LOOK_SHOES={shoePink:'#f5b1d3',shoeWhite:'#f7f5ff',shoeBoot:'#9f87de',shoeBlack:'#463f58',shoeCyan:'#67cfe5'};
 const RPG_LOOK_BOW={bowPink:'#ff70b3',bowLilac:'#bf9cff',tiaraStar:'#f7d56a',tiaraPearl:'#f2f0ff',headPop:'#ff5ea3'};
+const RPG_HAIR_COLOR='#6e3d27',RPG_SKIN_COLOR='#f1b884',RPG_EYE_COLOR='#503222',RPG_MOUTH_COLOR='#b75d65';
 function readRpgWardrobeAppearance(){
   try{
     const raw=JSON.parse(localStorage.getItem(RPG_V3_KEY)||'{}');
-    const w={hairstyle:'hairCurly',top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',...(raw.wardrobe||{})};
+    const w={hairstyle:'hairCurly',top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',earrings:'noneEarring',ring:'noneRing',bracelet:'noneBracelet',necklace:'noneNecklace',makeup:'makeupSoft',...(raw.wardrobe||{})};
     const dressOn=w.dress&&w.dress!=='noneDress';
     const top=dressOn?(RPG_LOOK_DRESS[w.dress]||'#ff78ad'):(RPG_LOOK_TOP[w.top]||'#ff78ad');
     const bottom=dressOn?(RPG_LOOK_DRESS[w.dress]||'#ff78ad'):(RPG_LOOK_BOTTOM[w.bottom]||'#7a4fc5');
     const shoe=RPG_LOOK_SHOES[w.shoes]||'#f5b1d3';
     const bow=RPG_LOOK_BOW[w.hair]||'#ff70b3';
-    const accent=dressOn&&w.dress==='dressPrincess'?'#f4a94d':'#ffd65b';
-    return {top,bottom,shoe,bow,accent,isDress:dressOn,hairstyle:w.hairstyle||'hairCurly'};
+    const accent=(dressOn&&w.dress==='dressPrincess')?'#f4a94d':'#ffd65b';
+    return {wardrobe:w,top,bottom,shoe,bow,accent,isDress:dressOn,hairstyle:w.hairstyle||'hairCurly'};
   }catch(_){
-    return {top:'#ff78ad',bottom:'#7a4fc5',shoe:'#f5b1d3',bow:'#ff70b3',accent:'#ffd65b',isDress:false,hairstyle:'hairCurly'};
+    const w={hairstyle:'hairCurly',top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',earrings:'noneEarring',ring:'noneRing',bracelet:'noneBracelet',necklace:'noneNecklace',makeup:'makeupSoft'};
+    return {wardrobe:w,top:'#ff78ad',bottom:'#6e91d8',shoe:'#f5b1d3',bow:'#ff70b3',accent:'#ffd65b',isDress:false,hairstyle:'hairCurly'};
   }
 }
 let __rpgWardrobeCache=null,__rpgWardrobeCacheAt=0;
 function getRpgWardrobeAppearance(){const now=Date.now();if(!__rpgWardrobeCache||now-__rpgWardrobeCacheAt>1200){__rpgWardrobeCache=readRpgWardrobeAppearance();__rpgWardrobeCacheAt=now}return __rpgWardrobeCache}
+function fillRoundRect(g,x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r);g.fill()}
+function drawRpgHairAccessory(g,look){const w=look.wardrobe||{};const id=w.hair||'bowPink';if(id==='bowPink'||id==='bowLilac'||id==='headPop'){const color=id==='bowLilac'?'#bf9cff':(id==='headPop'?'#ff5ea3':'#ff70b3');g.fillStyle=color;g.beginPath();g.ellipse(10,-48,6,5,-.3,0,Math.PI*2);g.ellipse(18,-47,6,5,.3,0,Math.PI*2);g.fill();g.beginPath();g.arc(14,-47,2.8,0,Math.PI*2);g.fill()}else if(id==='tiaraStar'){g.strokeStyle='#c89b35';g.lineWidth=2.6;g.beginPath();g.arc(0,-46,16,Math.PI*1.1,Math.PI*1.9);g.stroke();g.fillStyle='#ffd75d';g.font='900 12px system-ui';g.textAlign='center';g.fillText('★',0,-51);g.textAlign='left'}else if(id==='tiaraPearl'){g.strokeStyle='#d8c68d';g.lineWidth=2.2;g.beginPath();g.arc(0,-46,16,Math.PI*1.08,Math.PI*1.92);g.stroke();g.fillStyle='#f5f2ff';for(const px of[-8,-2,4,10]){g.beginPath();g.arc(px,-47,1.9,0,Math.PI*2);g.fill()}}}
+function drawRpgHair(g,look){const hair=RPG_HAIR_COLOR;const style=(look.wardrobe||{}).hairstyle||'hairCurly';g.fillStyle=hair;
+  if(style==='hairTwins'){g.beginPath();g.ellipse(-22,-14,11,16,-.22,0,Math.PI*2);g.ellipse(22,-14,11,16,.22,0,Math.PI*2);g.fill();g.beginPath();g.ellipse(-18,4,8,12,-.18,0,Math.PI*2);g.ellipse(18,4,8,12,.18,0,Math.PI*2);g.fill()}
+  else if(style==='hairLowPony'){g.beginPath();g.ellipse(0,-10,24,26,0,0,Math.PI*2);g.fill();g.beginPath();g.ellipse(18,9,9,18,.22,0,Math.PI*2);g.fill()}
+  else if(style==='hairLoose'){g.beginPath();g.ellipse(0,-7,25,29,0,0,Math.PI*2);g.fill();g.beginPath();g.ellipse(-16,8,10,18,-.18,0,Math.PI*2);g.ellipse(16,8,10,18,.18,0,Math.PI*2);g.fill()}
+  else if(style==='hairBun'){g.beginPath();g.ellipse(0,-10,22,24,0,0,Math.PI*2);g.fill();g.beginPath();g.arc(0,-46,11,0,Math.PI*2);g.fill();g.beginPath();g.ellipse(-15,8,9,14,-.1,0,Math.PI*2);g.ellipse(15,8,9,14,.1,0,Math.PI*2);g.fill()}
+  else if(style==='hairBraid'){g.beginPath();g.ellipse(0,-10,23,24,0,0,Math.PI*2);g.fill();g.fillRect(-4,6,8,28);for(let yy=10;yy<34;yy+=7){g.fillStyle='#835039';g.beginPath();g.moveTo(-4,yy);g.lineTo(0,yy+4);g.lineTo(4,yy);g.lineTo(0,yy-4);g.closePath();g.fill();g.fillStyle=hair}}
+  else {g.beginPath();g.ellipse(0,-10,23,24,0,0,Math.PI*2);g.fill();g.beginPath();g.ellipse(-18,1,10,16,-.25,0,Math.PI*2);g.ellipse(18,1,10,16,.25,0,Math.PI*2);g.fill()}
+  g.fillStyle=hair;g.beginPath();g.moveTo(-20,-48);g.lineTo(20,-48);g.lineTo(20,-28);g.lineTo(11,-34);g.lineTo(4,-24);g.lineTo(-2,-34);g.lineTo(-10,-25);g.lineTo(-20,-33);g.closePath();g.fill();
+}
+function drawRpgClothing(g,look,step){const w=look.wardrobe||{};const topId=w.top||'teePink',bottomId=w.bottom||'shortDenim',dressId=w.dress||'noneDress';const armShift=step*0.28;g.fillStyle=RPG_SKIN_COLOR;fillRoundRect(g,-21,-10+armShift,7,28,5);fillRoundRect(g,14,-10-armShift,7,28,5);
+  if(dressId!=='noneDress'){
+    if(dressId==='dressUnicorn'){const grd=g.createLinearGradient(0,-10,0,29);grd.addColorStop(0,'#ff9ec0');grd.addColorStop(.25,'#ffd56b');grd.addColorStop(.5,'#72d5a8');grd.addColorStop(.75,'#71c9ef');grd.addColorStop(1,'#a185e6');g.fillStyle=grd}
+    else if(dressId==='dressPrincess'){g.fillStyle='#ffd47e'}
+    else if(dressId==='dressStar'){g.fillStyle='#8f7ae8'}
+    else if(dressId==='dressPop'){g.fillStyle='#ff5ea3'}
+    else g.fillStyle='#ff86b6';
+    g.beginPath();g.moveTo(-10,-8);g.lineTo(10,-8);g.lineTo(18,2);g.lineTo(24,28);g.lineTo(-24,28);g.lineTo(-18,2);g.closePath();g.fill();
+    if(dressId==='dressStar'||dressId==='dressPrincess'||dressId==='dressPop'){g.fillStyle=look.accent||'#ffd65b';g.font='900 10px system-ui';g.textAlign='center';g.fillText(dressId==='dressPrincess'?'👑':'★',0,7);g.textAlign='left'}
+  }else{
+    if(topId==='teeRainbow'){const grd=g.createLinearGradient(0,-14,0,10);grd.addColorStop(0,'#ff7aaa');grd.addColorStop(.25,'#ffd35b');grd.addColorStop(.5,'#70d0a5');grd.addColorStop(.75,'#6fc5ed');grd.addColorStop(1,'#9b7add');g.fillStyle=grd}
+    else if(topId==='teeLilac'){g.fillStyle='#a991e8'}
+    else if(topId==='teeSun'){g.fillStyle='#f4bf59'}
+    else if(topId==='teeGame'){g.fillStyle='#7e6ae0'}
+    else if(topId==='teePop'){g.fillStyle='#ff5ea3'}
+    else if(topId==='teeSport'){g.fillStyle='#5fc4c6'}
+    else if(topId==='teeHeart'){g.fillStyle='#ff6ea6'}
+    else g.fillStyle='#ff85b4';
+    fillRoundRect(g,-15,-12,30,28,8);
+    g.fillStyle='#ffe05e';g.font='900 11px system-ui';g.textAlign='center';g.fillText(topId==='teeHeart'?'♥':(topId==='teeSun'?'☀':'★'),0,4);g.textAlign='left';
+    if(bottomId==='skirtPink'||bottomId==='skirtLilac'||bottomId==='skirtPop'){g.fillStyle=bottomId==='skirtLilac'?'#a78cec':(bottomId==='skirtPop'?'#ff5ea3':'#ff87b7');g.beginPath();g.moveTo(-13,14);g.lineTo(13,14);g.lineTo(18,29);g.lineTo(-18,29);g.closePath();g.fill()}
+    else if(bottomId==='shortPink'||bottomId==='shortDenim'){g.fillStyle=bottomId==='shortPink'?'#ff8eb6':'#6e91d8';g.beginPath();g.moveTo(-13,14);g.lineTo(13,14);g.lineTo(11,31);g.lineTo(4,31);g.lineTo(0,23);g.lineTo(-4,31);g.lineTo(-11,31);g.closePath();g.fill()}
+    else {g.fillStyle=bottomId==='pantsBlack'?'#3d3950':(bottomId==='pantsCargo'?'#9a83d9':'#6d8fd7');g.beginPath();g.moveTo(-13,14);g.lineTo(13,14);g.lineTo(11,43);g.lineTo(3,43);g.lineTo(0,27);g.lineTo(-3,43);g.lineTo(-11,43);g.closePath();g.fill()}
+  }
+}
+function drawRpgFace(g,look){g.fillStyle=RPG_SKIN_COLOR;g.beginPath();g.ellipse(0,-30,18,20,0,0,Math.PI*2);g.fill();g.fillStyle=RPG_EYE_COLOR;g.beginPath();g.ellipse(-6,-31,2.3,3.1,0,0,Math.PI*2);g.ellipse(6,-31,2.3,3.1,0,0,Math.PI*2);g.fill();g.fillStyle='rgba(235,99,120,.25)';g.beginPath();g.ellipse(-12,-20,5,3,0,0,Math.PI*2);g.ellipse(12,-20,5,3,0,0,Math.PI*2);g.fill();g.strokeStyle=RPG_MOUTH_COLOR;g.lineWidth=2;g.beginPath();g.arc(0,-13,5,.15,Math.PI-.15);g.stroke();const w=look.wardrobe||{};if(w.earrings==='earStar'){g.fillStyle='#ffd55a';g.font='900 8px system-ui';g.fillText('★',-18,-10);g.fillText('★',14,-10)}}
+function drawRpgFeet(g,look,step){const w=look.wardrobe||{};const dressOn=(w.dress||'noneDress')!=='noneDress';const bottomId=w.bottom||'shortDenim';const shoe=look.shoe||'#f5b1d3';g.fillStyle=RPG_SKIN_COLOR;let legTop=dressOn||bottomId.startsWith('skirt')?17:30;let legH=dressOn||bottomId.startsWith('skirt')?20:(bottomId.startsWith('pants')?6:15);g.fillRect(-9,legTop,6,legH+step*.2);g.fillRect(3,legTop,6,legH-step*.2);g.fillStyle=shoe;fillRoundRect(g,-12,legTop+legH-1,11,6,5);fillRoundRect(g,1,legTop+legH-1,11,6,5);if((w.bracelet||'noneBracelet')!=='noneBracelet'){g.strokeStyle=(w.bracelet==='braceletRainbow')?'#7e68d1':'#ff77ad';g.lineWidth=2;g.beginPath();g.arc(-18,11,3.3,0,Math.PI*2);g.stroke()}if((w.ring||'noneRing')==='ringStar'){g.fillStyle='#ffd55a';g.font='900 7px system-ui';g.fillText('★',16,17)}if((w.necklace||'noneNecklace')==='neckHeart'){g.fillStyle='#ff69a8';g.font='900 8px system-ui';g.textAlign='center';g.fillText('♥',0,-3);g.textAlign='left'}else if((w.necklace||'noneNecklace')==='neckStar'){g.fillStyle='#ffd359';g.font='900 8px system-ui';g.textAlign='center';g.fillText('★',0,-3);g.textAlign='left'}}
+function drawRpgWardrobeElo(g,look,{x=0,y=0,scale=1,step=0,shadow=true}={}){g.save();g.translate(x,y);g.scale(scale,scale);if(shadow){g.fillStyle='rgba(38,24,45,.20)';g.beginPath();g.ellipse(0,48,20,6,0,0,Math.PI*2);g.fill()}drawRpgHair(g,look);drawRpgFace(g,look);drawRpgHairAccessory(g,look);drawRpgClothing(g,look,step);drawRpgFeet(g,look,step);g.restore()}
 
 const maps={
  home:{name:'Casa da Elo',w:18,h:12,bg:'#f7d8e7',floor:'#f7eadf',walls:[],objects:[],npcs:[],enemies:[]},
@@ -704,28 +745,9 @@ function drawGhostShape(g,color){g.fillStyle=color;g.beginPath();g.arc(0,-4,15,M
 function drawForestShape(g,color){g.fillStyle=color;g.fillRect(-14,-8,28,22);g.fillStyle='#2e633a';g.fillRect(-19,-4,8,14);g.fillRect(11,-4,8,14);g.fillStyle='#e8df7a';g.fillRect(-6,-1,4,4);g.fillRect(4,-1,4,4);g.fillStyle='#3b693e';g.fillRect(-4,-16,8,9)}
 function drawGolemShape(g,color){g.fillStyle=color;g.fillRect(-14,-16,28,28);g.fillRect(-21,-8,8,22);g.fillRect(13,-8,8,22);g.fillStyle='#c2b59e';g.fillRect(-8,-9,6,5);g.fillRect(3,-9,6,5);g.fillStyle='#60564e';g.fillRect(-10,11,8,9);g.fillRect(3,11,8,9)}
 function drawPlayer(cam){
- const sx=Math.round(state.x-cam.x)+24,sy=Math.round(state.y-cam.y)+45,o=OUTFITS[state.outfit]||OUTFITS.starter,look=getRpgWardrobeAppearance();
- const dir=state.dir||'down',phase=playerMoving?Math.sin(walkPhase*Math.PI/2):0,step=playerMoving?phase*3.5:0,bob=playerMoving?Math.abs(phase)*1.2:0;
- const hair='#5b3527',skin='#efbd9b',topColor=look.top||o.color||'#ff78ad',bottomColor=look.bottom||'#7a4fc5',shoeColor=look.shoe||'#f5b1d3',bowColor=look.bow||'#ff70b3',accent=look.accent||'#ffd65b';
- ctx.save();ctx.translate(sx,sy-bob);ctx.scale(.9,.9);if(dir==='left')ctx.scale(-1,1);const side=dir==='left'||dir==='right',back=dir==='up';
- ctx.fillStyle='rgba(38,24,45,.20)';ctx.beginPath();ctx.ellipse(0,31,20,6,0,0,Math.PI*2);ctx.fill();
- ctx.fillStyle=skin;ctx.fillRect(-10,12,7,22+step*.2);ctx.fillRect(4,12,7,22-step*.2);ctx.fillStyle=shoeColor;ctx.fillRect(-12,29+step*.2,11,5);ctx.fillRect(2,29-step*.2,11,5);
- ctx.fillStyle=bottomColor;ctx.fillRect(-14,-3,28,22);ctx.fillStyle=topColor;ctx.fillRect(-16,-23,32,25);ctx.fillStyle=accent;ctx.font='14px system-ui';ctx.textAlign='center';ctx.fillText('★',0,-5);ctx.textAlign='left';
- if(side){
-   ctx.fillStyle=hair;ctx.beginPath();ctx.ellipse(-18,-35,12,16,-.55,0,Math.PI*2);ctx.ellipse(-28,-28,10,14,-.35,0,Math.PI*2);ctx.ellipse(-30,-17,8,11,-.15,0,Math.PI*2);ctx.fill();
-   ctx.fillStyle=bowColor;ctx.beginPath();ctx.ellipse(-13,-41,7,5,-.3,0,Math.PI*2);ctx.ellipse(-4,-40,7,5,.3,0,Math.PI*2);ctx.fill();ctx.fillStyle=bowColor;ctx.beginPath();ctx.arc(-8,-40,3,0,Math.PI*2);ctx.fill();
-   ctx.fillStyle=hair;ctx.beginPath();ctx.arc(0,-38,19,0,Math.PI*2);ctx.fill();ctx.fillStyle=skin;ctx.beginPath();ctx.arc(5,-34,15,0,Math.PI*2);ctx.fill();ctx.fillStyle='#2f2544';ctx.beginPath();ctx.arc(12,-36,2.5,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#d57da4';ctx.lineWidth=2;ctx.beginPath();ctx.arc(10,-29,5,.3,2.3);ctx.stroke();
- }else if(back){
-   ctx.fillStyle=skin;ctx.beginPath();ctx.arc(0,-34,15,0,Math.PI*2);ctx.fill();ctx.fillStyle=hair;ctx.beginPath();ctx.arc(0,-39,20,Math.PI,Math.PI*2);ctx.lineTo(19,-34);ctx.quadraticCurveTo(14,-24,0,-22);ctx.quadraticCurveTo(-14,-24,-19,-34);ctx.closePath();ctx.fill();
-   ctx.fillStyle=bowColor;ctx.beginPath();ctx.ellipse(-7,-22,7,5,-.3,0,Math.PI*2);ctx.ellipse(7,-22,7,5,.3,0,Math.PI*2);ctx.fill();ctx.fillStyle=bowColor;ctx.beginPath();ctx.arc(0,-22,3.2,0,Math.PI*2);ctx.fill();
-   ctx.fillStyle=hair;ctx.beginPath();ctx.ellipse(0,-10,12,22,0,0,Math.PI*2);ctx.ellipse(-7,3,7,15,-.15,0,Math.PI*2);ctx.ellipse(7,3,7,15,.15,0,Math.PI*2);ctx.fill();
- }else{
-   ctx.fillStyle=hair;ctx.beginPath();ctx.ellipse(-18,-29,12,18,-.45,0,Math.PI*2);ctx.ellipse(-23,-18,8,12,-.25,0,Math.PI*2);ctx.fill();
-   ctx.fillStyle=bowColor;ctx.beginPath();ctx.ellipse(-12,-40,7,5,-.3,0,Math.PI*2);ctx.ellipse(-3,-40,7,5,.3,0,Math.PI*2);ctx.fill();ctx.fillStyle=bowColor;ctx.beginPath();ctx.arc(-7,-40,3,0,Math.PI*2);ctx.fill();
-   ctx.fillStyle=hair;ctx.beginPath();ctx.arc(0,-38,20,0,Math.PI*2);ctx.fill();ctx.fillStyle=skin;ctx.beginPath();ctx.arc(0,-33,15,0,Math.PI*2);ctx.fill();ctx.fillStyle='#2f2544';ctx.beginPath();ctx.arc(-6,-35,2.3,0,Math.PI*2);ctx.arc(6,-35,2.3,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-6.6,-35.7,.7,0,Math.PI*2);ctx.arc(5.4,-35.7,.7,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#d57da4';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,-28,6,.15,Math.PI-.15);ctx.stroke();
- }
- ctx.fillStyle=skin;ctx.fillRect(-21,-19+step*.28,6,20);ctx.fillRect(15,-19-step*.28,6,20);ctx.fillStyle=bottomColor;ctx.fillRect(side?14:15,-16,8,17);ctx.fillStyle=accent;ctx.fillRect(side?17:18,-10,3,3);
- ctx.restore()
+ const sx=Math.round(state.x-cam.x)+24,sy=Math.round(state.y-cam.y)+45,look=getRpgWardrobeAppearance();
+ const phase=playerMoving?Math.sin(walkPhase*Math.PI/2):0,step=playerMoving?phase*2.4:0,bob=playerMoving?Math.abs(phase)*1.5:0;
+ drawRpgWardrobeElo(ctx,look,{x:sx,y:sy-6-bob,scale:.86,step,shadow:true});
 }
 function drawMiniLabel(cam){
  const list=[...maps[state.map].objects.filter(o=>o.label&&!((o.type==='questPickup'||o.type==='treasureChest')&&state.flags['collected_'+o.id])),...maps[state.map].npcs]
@@ -736,7 +758,7 @@ function drawMiniLabel(cam){
 function roundRect(g,x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r)}
 
 function drawBattle(){if(!battle)return;const w=battleCanvas.width,h=battleCanvas.height;bctx.clearRect(0,0,w,h);const grad=bctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#b9e6ff');grad.addColorStop(1,'#ffe6f2');bctx.fillStyle=grad;bctx.fillRect(0,0,w,h);bctx.fillStyle='#8bd67e';bctx.fillRect(0,h-58,w,58);drawBattleElo(105,110);drawBattleEnemy(485,110,battle.type)}
-function drawBattleElo(x,y){bctx.save();bctx.translate(x,y);bctx.scale(1.45,1.45);const look=getRpgWardrobeAppearance(),hair='#5b3527',skin='#efbd9b',topColor=look.top||OUTFITS[state.outfit].color,bottomColor=look.bottom||'#7550bd',bowColor=look.bow||'#ff70b3',accent=look.accent||'#ffd65b';bctx.fillStyle=hair;bctx.beginPath();bctx.ellipse(-18,-25,12,18,-.45,0,Math.PI*2);bctx.ellipse(-24,-13,8,12,-.2,0,Math.PI*2);bctx.fill();bctx.fillStyle=bowColor;bctx.beginPath();bctx.ellipse(-12,-36,7,5,-.3,0,Math.PI*2);bctx.ellipse(-3,-36,7,5,.3,0,Math.PI*2);bctx.fill();bctx.fillStyle=hair;bctx.beginPath();bctx.arc(0,-34,20,0,Math.PI*2);bctx.fill();bctx.fillStyle=skin;bctx.beginPath();bctx.arc(0,-29,15,0,Math.PI*2);bctx.fill();bctx.fillStyle='#2f2544';bctx.beginPath();bctx.arc(-6,-31,2.5,0,Math.PI*2);bctx.arc(6,-31,2.5,0,Math.PI*2);bctx.fill();bctx.fillStyle=topColor;bctx.beginPath();bctx.moveTo(-16,-7);bctx.lineTo(16,-7);bctx.lineTo(20,12);bctx.lineTo(-20,12);bctx.closePath();bctx.fill();bctx.fillStyle=bottomColor;bctx.fillRect(-16,11,32,20);bctx.fillStyle=accent;bctx.font='18px system-ui';bctx.fillText('★',-7,8);bctx.restore()}
+function drawBattleElo(x,y){const look=getRpgWardrobeAppearance();drawRpgWardrobeElo(bctx,look,{x,y:y+6,scale:1.45,step:0,shadow:false})}
 function drawBattleEnemy(x,y,type){const m=ENEMIES[type];bctx.save();bctx.translate(x,y);const scale=m.boss?(type==='finalBoss'?2.8:2.45):2;bctx.scale(scale,scale);if(type==='slime'){bctx.fillStyle=m.color;bctx.beginPath();bctx.arc(0,0,22,Math.PI,0);bctx.lineTo(22,17);bctx.quadraticCurveTo(8,25,0,17);bctx.quadraticCurveTo(-8,25,-22,17);bctx.closePath();bctx.fill();bctx.fillStyle='#40344e';bctx.beginPath();bctx.arc(-7,1,2.5,0,Math.PI*2);bctx.arc(7,1,2.5,0,Math.PI*2);bctx.fill()}else if(type==='golem')drawGolemShape(bctx,m.color);else if(type==='thorn'||type==='moss')drawForestShape(bctx,m.color);else drawGhostShape(bctx,m.color);bctx.restore()}
 
 

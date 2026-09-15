@@ -1,4 +1,4 @@
-v3.1.6
+v3.1.7
 - Ajuste visual das pernas da Elo no quarto e no guarda-roupa, com shorts e calças mais proporcionais.
 - Bichinho com botões independentes: cada cuidado bloqueia apenas quando sua barra chega a 100%.
 - Removido o bloqueio geral por contagem entre cuidados do bichinho nascido.
@@ -66,7 +66,7 @@ v3.1.1
 - Ao dormir, a luz do cenário apaga e o bichinho fecha os olhos.
 - Ações reorganizadas: comida, dormir, banho, higiene, brincar, carinho e estudar.
 
-v3.1.6
+v3.1.7
 - Ajuste adicional das pernas da Elo no Quarto e no Guarda-roupa.
 - Necessidades do Bichinho reorganizadas ao redor do personagem com porcentagem visível.
 - Luz apagada faz o bichinho dormir; luz acesa faz acordar.

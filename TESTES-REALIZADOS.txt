@@ -1,10 +1,7 @@
-DIA A DIA DA ELO v3.1.6 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.7 — TESTES DA ATUALIZAÇÃO
 
 - Validação de sintaxe: app.js, v3.js e pet.js sem erro de parsing no Node.
-- Versão 3.1.6 consistente em version.js, manifest, service worker, app.js, v3.js, rpg.html e interface.
-- Cache do Service Worker renovado para elo-official-3.1.6-r1.
-- Quarto: Elo no quarto com pernas ocultadas e roupa alongada.
-- Quarto: planta, mesa, tapete e brinquedo reorganizados.
-- Bichinho: cartões de status reposicionados.
-- RPG: leitura do guarda-roupa do app para aparência visual da Elo.
-- Quebra-cabeça: lista de imagens reduzida, removendo puzzle-06, puzzle-08 e puzzle-14.
+- rpg.html atualizado sem alteração de estrutura do jogo fora da aparência da Elo.
+- Quarto: pés da Elo reposicionados para não ficarem soltos fora da roupa.
+- RPG: leitura do guarda-roupa confirmada para desenhar a Elo com o mesmo visual do app.
+- Bichinho virtual preservado, sem ajustes adicionais.
