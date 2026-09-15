@@ -149,3 +149,6 @@
 /* v3.1.1 final — ações completas do bichinho */
 .petCooldownText{margin-top:7px;text-align:center;font-size:10px;font-weight:900;color:#76569a}.petActionsSeven{grid-template-columns:repeat(4,1fr)!important}.petActions button small{display:block;margin-top:3px;font-size:7px;color:var(--muted)}.petActions button.cooling,.petActions button:disabled{opacity:.58;filter:saturate(.65)}
 @media(max-width:520px){.petActionsSeven{grid-template-columns:repeat(3,1fr)!important}}
+
+/* v3.1.2 — correção visual forçada */
+.roomGuide302 .eloDoll .leg{top:218px!important;width:26px!important;height:54px!important;border-radius:13px!important}.roomGuide302 .eloDoll .l1{left:44px!important}.roomGuide302 .eloDoll .l2{right:44px!important}.roomGuide302 .eloDoll .shoe{top:260px!important;width:35px!important;height:23px!important}.roomGuide302 .eloDoll .sh1{left:36px!important}.roomGuide302 .eloDoll .sh2{right:36px!important}.petAccessory{top:5px!important}.petAccessory.acc-bow{top:10px!important;left:62%!important}.petAccessory.acc-star{top:9px!important;left:61%!important}.petAccessory.acc-crown{top:-12px!important;left:50%!important}.petCreature.species-unicorn .petAccessory.acc-crown{top:-20px!important}.petCreature.species-bunny .petAccessory.acc-crown{top:-28px!important}

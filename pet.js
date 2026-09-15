@@ -1,4 +1,4 @@
-/* Dia a Dia da Elo — Bichinho da Elo v1.1 • integrado à v3.1.1 */
+/* Dia a Dia da Elo — Bichinho da Elo v1.2 • integrado à v3.1.2 */
 (function(){
 'use strict';
 const PET_KEY='eloVirtualPetV1';

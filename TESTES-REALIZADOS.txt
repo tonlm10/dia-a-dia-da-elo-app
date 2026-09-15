@@ -1,25 +1,21 @@
-DIA A DIA DA ELO v3.1.1 — VALIDAÇÃO DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.2 — VALIDAÇÃO DA ATUALIZAÇÃO
 
-Validação automática executada antes da compactação.
-
-RESULTADOS
-- 53/53 verificações estruturais aprovadas.
-- Sintaxe JavaScript validada com node --check em app.js, v3.js e pet.js.
-- Simulação lógica do Bichinho aprovada: {"ok":true,"eggGoal":5,"stage":"baby","species":"unicorn","studyAfter":60,"decayed":{"hunger":46,"energy":68,"clean":64,"fun":65,"love":78,"study":72},"sleepMinutes":10,"actions":["feed","sleep","bath","hygiene","play","love","study"]}
-- Ovo: 5 cuidados necessários; clique repetido imediato é bloqueado pelo cooldown.
-- Cooldown do ovo: 5 minutos entre cuidados.
-- Ações do bichinho presentes: comida, dormir, banho, higiene, brincar, carinho e estudar.
-- Cooldown individual das ações: 45 segundos.
-- Estudo/nota: aumenta ao estudar e diminui com o tempo.
-- Necessidades: fome, energia, higiene, diversão, carinho e estudo diminuem com o tempo.
-- Estados visuais incluídos: sujo, cansado e dormindo com tela escurecida.
-- Acessórios reposicionados para a cabeça.
-- Ícone do Modo Família trocado por arte com Elo, pai e mãe; arquivo 512x512 validado.
-- Home sem menu Castelo da Elo e sem Meu Espaço repetido.
-- Pernas da Elo no Quarto reproporcionadas por regra específica do personagem em miniatura.
-- 16 arquivos de quebra-cabeça encontrados e 16 hashes distintos.
-- Todas as referências locais de HTML/CSS verificadas: nenhum arquivo faltando.
-- RPG comparado por SHA-256 com a v3.1.0 e preservado sem alteração.
-- version.js, index.html, app.js, manifest e Service Worker conferidos em v3.1.1.
-
-Observação: os testes acima cobrem estrutura, sintaxe, integridade e simulação da lógica do bichinho. O pacote mantém os saves locais da versão anterior e migra automaticamente os novos campos do bichinho.
+Validações executadas antes do pacote:
+- Referências locais de scripts, CSS e imagens conferidas: nenhuma ausente.
+- version.js, manifest, index e Service Worker conferidos em v3.1.2.
+- Cache do Service Worker alterado para uma revisão nova, forçando atualização.
+- app.js, v3.js e pet.js aprovados no verificador de sintaxe do Node.js.
+- Ovo configurado para 5 cuidados, com 5 minutos entre cuidados.
+- Ações do bichinho com cooldown próprio para evitar spam.
+- Estudo/nota presente e com redução pelo tempo.
+- Fome, energia, higiene, diversão e carinho diminuem com o tempo.
+- Estado sujo ativado pela higiene baixa.
+- Estado cansado ativado pela energia baixa.
+- Estado dormindo ativa olhos fechados e cenário escuro.
+- Acessórios posicionados na cabeça do bichinho.
+- Ordem das ações: Comida, Dormir, Banho, Higiene, Brincar, Carinho e Estudar.
+- Ícone próprio do Modo Família presente.
+- Castelo da Elo removido da Home; RPG continua dentro de Jogos.
+- Meu Espaço repetido removido da Home.
+- Pernas da Elo no quarto receberam novo ajuste visual.
+- RPG comparado por SHA-256 com a base v3.1.0 e preservado sem alteração.

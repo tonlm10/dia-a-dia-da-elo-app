@@ -1,3 +1,16 @@
+3.1.2 — PACOTE CORRIGIDO E ATUALIZAÇÃO FORÇADA
+- Todas as melhorias planejadas do Bichinho da Elo foram realmente empacotadas nesta versão.
+- Ovo exige 5 cuidados, com intervalo de 5 minutos entre cuidados.
+- Ações do bichinho têm intervalo próprio para impedir cliques repetidos.
+- Barras diminuem conforme o tempo passa.
+- Estudar adiciona nota/inteligência, que também cai com o tempo sem estudo.
+- Estados visuais: sujo, cansado e dormindo com tela escura.
+- Acessórios reposicionados na cabeça.
+- Ações reorganizadas em Comida, Dormir, Banho, Higiene, Brincar, Carinho e Estudar.
+- Pernas da Elo no quarto ajustadas novamente.
+- Ícone do Modo Família usa arte própria com Elo, pai e mãe.
+- Cache alterado para forçar a substituição da versão anterior.
+
 3.1.1 — BICHINHO DA ELO APRIMORADO
 
 - Modo Família agora usa ícone ilustrado com a Elo, pai e mãe.
