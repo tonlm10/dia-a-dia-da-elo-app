@@ -1,23 +1,20 @@
-DIA A DIA DA ELO v3.1.2 — VALIDAÇÃO DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.1 — TESTES DA ATUALIZAÇÃO
 
-40 verificações estruturais aprovadas, incluindo:
-- IDs únicos no HTML.
-- Estrutura do Bichinho completa.
-- Barras laterais com Fome, Energia, Higiene, Diversão, Carinho e Estudo.
-- Porcentagens e nota de estudo presentes.
-- Botões Comida, Banho, Higiene, Brincar, Carinho, Dormir/Acordar e Estudar.
-- Estado de sono com luz apagada.
-- Estado visual sujo com higiene baixa.
-- Estado visual cansado com energia baixa.
-- Acessório reposicionado na cabeça.
-- Ovo com 6 cuidados e intervalo de 2 minutos entre cuidados válidos.
-- Nova geometria das calças e correção das pernas no quarto.
-- Ícone do Modo Família com Elo, pai e mãe.
-- Arquivos locais referenciados presentes.
-- Versão 3.1.2 consistente em index, app, v3, pet, Service Worker e manifest.
-- Sintaxe de app.js, v3.js, pet.js e sw.js validada pelo Node.js.
-- Teste de lógica do Bichinho aprovado: cooldown do ovo, nascimento, estudo, sono/acordar e queda dos indicadores com o tempo.
-- rpg.html comparado por SHA-256 com a versão anterior: idêntico.
+35 verificações estruturais/automatizadas aprovadas:
+- Arquivos essenciais presentes.
+- JavaScript de app.js, v3.js e pet.js com sintaxe válida no Node.js.
+- Ícone próprio do Modo Família presente.
+- Ovo configurado para 5 cuidados.
+- Intervalo de 5 minutos entre cuidados do ovo.
+- Pequeno intervalo entre cuidados regulares para evitar spam.
+- Ações Dormir, Banho, Higiene e Estudar presentes.
+- Sistema de estudo/nota presente.
+- Barras com redução por tempo sem cuidado.
+- Estados visuais sujo, cansado e dormindo presentes.
+- Cenário noturno/luz apagada quando o bichinho dorme.
+- Versão 3.1.1 consistente em version.js, manifest, service worker e interface.
+- Nenhum ID HTML duplicado.
+- Todas as referências locais principais do HTML existem.
+- RPG comparado por SHA-256 com a base preservada: idêntico.
 
-RPG SHA-256:
-5bae95e5ca1bc659dc48d58770762da45af0e92e0585883d9dd80d6699f51a3d
+Observação: os testes acima são estruturais e de sintaxe. A experiência visual final deve ser conferida no aparelho após o deploy, pois tamanho de tela, navegador/PWA e cache podem alterar renderização.

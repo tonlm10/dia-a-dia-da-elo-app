@@ -35,7 +35,7 @@
     <button class="classicHomeCard" onclick="openPanel('createPanel','create')"><img src="assets/home-icons/create-card.webp" alt="Criar"><div><b>Criar</b><small>Ateliê, desenhos e brincadeiras criativas.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('roomPanel','home')"><img src="assets/home-icons/home-card.webp" alt="Quarto da Elo"><div><b>Quarto da Elo</b><small>Decore o quarto e organize tudo do seu jeito.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('wardrobePanel','home')"><span class="homeVisualIcon wardrobeVisual"><img src="assets/home-icons/create-card.webp" alt="Guarda-roupa da Elo"><i>👗</i></span><div><b>Guarda-roupa</b><small>Troque cabelo, roupas, acessórios e make.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('familyPanel','home')"><span class="homeVisualIcon familyVisual"><img src="assets/home-icons/family-card.webp" alt="Elo com o pai e a mãe"></span><div><b>Modo Família</b><small>Mímica, desenho em dupla e desafios.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('familyPanel','home')"><span class="homeVisualIcon familyVisual"><img src="assets/home-icons/family-card.webp" alt="Elo com pai e mãe"><i>💗</i></span><div><b>Modo Família</b><small>Mímica, desenho em dupla e desafios.</small></div></button>
     <button class="classicHomeCard" onclick="openPet()"><span class="homeVisualIcon petVisual"><img src="assets/home-icons/home-card.webp" alt="Bichinho da Elo"><i>🐾</i></span><div><b>Bichinho da Elo</b><small>Cuide, brinque, dê banho e acompanhe seu crescimento.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('storiesPanel','stories')"><img src="assets/home-icons/stories-card.webp" alt="Biblioteca"><div><b>Biblioteca</b><small>Histórias, aventuras e leitura divertida.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('clubPanel','club')"><img src="assets/home-icons/club-card.webp" alt="Clube"><div><b>Clube</b><small>Descobertas e conteúdos especiais da Elo.</small></div></button>
@@ -49,7 +49,7 @@
     <button onclick="openPanel('achievementsPanel','achievements')"><span>🏅</span><b>Conquistas</b><small>Medalhas e estrelas</small></button>
   </div>
   <div class="missionRow v3MissionRow"><div class="miniCard pink"><h3>🌟 Missão leve</h3><p id="dailyText">Faça algo divertido hoje!</p><div class="progress"><i id="dailyProgress"></i></div><button class="smallBtn" style="margin-top:10px" onclick="completeDaily()">Consegui!</button></div><div class="miniCard lilac"><h3>🔐 Área dos Pais</h3><p>Segurança, progresso e configurações.</p><button class="smallBtn" onclick="openParents()">Entrar</button></div></div>
-  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.1.2</span></div>
+  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.1.1</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -136,7 +136,7 @@
   <div class="card"><h3>Links oficiais 🔒</h3><p class="muted">Abertura de YouTube, Instagram e Clube da Elo é uma ação dos responsáveis.</p><div class="row"><button class="btn" onclick="openSubscribe()">Inscrever no YouTube</button><button class="btn secondary" onclick="openExternal(MEMBER_URL)">Página de membros</button><button class="btn secondary" onclick="openInstagram()">Instagram da Elo</button></div></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.1.2</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.1.1</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -186,9 +186,8 @@
   <div class="petIntro"><div><small>MEU COMPANHEIRO</small><h3>Um bichinho virtual para cuidar</h3><p>Ele cresce com carinho e brincadeiras. Não morre e não perde progresso se você ficar um tempo sem entrar.</p></div><button class="smallBtn" onclick="petSpeakStatus()">🔊</button></div>
   <div class="petDevice">
     <div class="petDeviceTop"><span id="petStageLabel">Ovinho</span><b id="petNameLabel">Ovinho misterioso</b><button id="petRenameBtn" class="petMiniBtn" onclick="renamePet()">✏️</button></div>
-    <div id="petScreen" class="petScreen">
+    <div class="petScreen">
       <div class="petScreenBg"><i></i><i></i><i></i></div>
-      <div id="petStats" class="petStats petStatsAround hidden"></div>
       <div id="petEgg" class="petEgg"><span></span></div>
       <div id="petCreature" class="petCreature hidden">
         <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
@@ -198,20 +197,22 @@
       <div id="petBubble" class="petBubble">Cuide do ovo para descobrir quem vai nascer! 💗</div>
     </div>
     <div id="petEggControls" class="petEggControls">
-      <div class="eggProgress"><b id="eggCareText">0/6 cuidados</b><div><i id="eggCareBar"></i></div></div>
-      <div id="eggCooldownText" class="eggCooldownText">Pode cuidar agora 💗</div>
-      <button class="petAction primary" onclick="careForEgg()"><span>💗</span><b>Cuidar do ovo</b><small>Aquecer e fazer carinho</small></button>
+      <div class="eggProgress"><b id="eggCareText">0/5 cuidados</b><div><i id="eggCareBar"></i></div></div>
+      <button id="eggCareButton" class="petAction primary" onclick="careForEgg()"><span>💗</span><b>Cuidar do ovo</b><small id="eggCooldownText">Aquecer e fazer carinho</small></button>
     </div>
     <div id="petCareArea" class="hidden">
+      <div id="petStats" class="petStats"></div>
+      <div id="petGrade" class="petGrade">📚 Nota: 8,0</div>
       <div class="petActions">
-        <button data-pet-action="feed" onclick="petAction('feed')"><span>🥣</span><b>Comida</b><small>Pronto</small></button>
-        <button data-pet-action="bath" onclick="petAction('bath')"><span>🚿</span><b>Banho</b><small>Pronto</small></button>
-        <button data-pet-action="hygiene" onclick="petAction('hygiene')"><span>🪥</span><b>Higiene</b><small>Pronto</small></button>
-        <button data-pet-action="play" onclick="petAction('play')"><span>🎾</span><b>Brincar</b><small>Pronto</small></button>
-        <button data-pet-action="love" onclick="petAction('love')"><span>💗</span><b>Carinho</b><small>Pronto</small></button>
-        <button id="petSleepButton" data-pet-action="sleep" onclick="petAction('sleep')"><span>🌙</span><b>Dormir</b><small>Apagar luz</small></button>
-        <button data-pet-action="study" onclick="petAction('study')"><span>📚</span><b>Estudar</b><small>Pronto</small></button>
+        <button data-pet-action="feed" onclick="petAction('feed')"><span>🥣</span><b>Comida</b><small>Fome</small></button>
+        <button data-pet-action="sleep" onclick="petAction('sleep')"><span>🌙</span><b>Dormir</b><small>Energia</small></button>
+        <button data-pet-action="bath" onclick="petAction('bath')"><span>🚿</span><b>Banho</b><small>Higiene</small></button>
+        <button data-pet-action="hygiene" onclick="petAction('hygiene')"><span>🪥</span><b>Higiene</b><small>Limpar</small></button>
+        <button data-pet-action="play" onclick="petAction('play')"><span>🎾</span><b>Brincar</b><small>Diversão</small></button>
+        <button data-pet-action="love" onclick="petAction('love')"><span>💗</span><b>Carinho</b><small>Carinho</small></button>
+        <button data-pet-action="study" onclick="petAction('study')"><span>📚</span><b>Estudar</b><small>Nota</small></button>
       </div>
+      <div id="petCareCooldown" class="petCareCooldown">Pronto para cuidar 💗</div>
       <div class="petGrowth"><div><b id="petGrowthText">Crescimento</b><small id="petGrowthSub">Cada cuidado ajuda seu amigo a crescer.</small></div><div class="petGrowthBar"><i id="petGrowthBar"></i></div></div>
       <div class="petAccessories"><b>Acessórios</b><div id="petAccessoryGrid"></div></div>
     </div>
