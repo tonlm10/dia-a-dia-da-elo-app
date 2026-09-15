@@ -379,7 +379,7 @@
 /* Quarto: esconder pernas do boneco e alongar a roupa para evitar pernas fora do corpo */
 #roomEloDoll{transform:scale(.295)!important;left:8px!important;top:-4px!important}
 #roomEloDoll .leg{display:none!important}
-#roomEloDoll .shoe{top:237px!important;width:18px!important;height:12px!important;border-radius:12px 12px 7px 7px!important;z-index:6!important}
+#roomEloDoll .shoe{top:228px!important;width:18px!important;height:12px!important;border-radius:12px 12px 7px 7px!important;z-index:6!important}
 #roomEloDoll .sh1{left:47px!important}
 #roomEloDoll .sh2{right:47px!important}
 #roomEloDoll .dollBody{height:126px!important}
@@ -400,7 +400,7 @@
 
 @media(max-width:520px){
  #roomEloDoll{left:7px!important;top:-3px!important;transform:scale(.285)!important}
- #roomEloDoll .shoe{top:235px!important;width:17px!important;height:11px!important}
+ #roomEloDoll .shoe{top:226px!important;width:17px!important;height:11px!important}
  #roomEloDoll .sh1{left:48px!important}#roomEloDoll .sh2{right:48px!important}
  #roomEloDoll.bottom-shorts .dollBottom,#roomEloDoll.bottom-shorts-pink .dollBottom{height:82px!important}
  #roomEloDoll.bottom-pants .dollBottom,#roomEloDoll.bottom-pants-black .dollBottom,#roomEloDoll.bottom-pants-cargo .dollBottom{height:126px!important}
@@ -414,7 +414,7 @@
 }
 @media(max-width:390px){
  #roomEloDoll{left:6px!important;top:-2px!important;transform:scale(.275)!important}
- #roomEloDoll .shoe{top:232px!important;width:16px!important;height:10px!important}
+ #roomEloDoll .shoe{top:223px!important;width:16px!important;height:10px!important}
  #roomEloDoll .sh1{left:49px!important}#roomEloDoll .sh2{right:49px!important}
  #roomEloDoll.bottom-shorts .dollBottom,#roomEloDoll.bottom-shorts-pink .dollBottom{height:78px!important}
  #roomEloDoll.bottom-pants .dollBottom,#roomEloDoll.bottom-pants-black .dollBottom,#roomEloDoll.bottom-pants-cargo .dollBottom{height:120px!important}

@@ -1,7 +1,7 @@
-DIA A DIA DA ELO v3.1.7 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.8 — TESTES DA ATUALIZAÇÃO
 
-- Validação de sintaxe: app.js, v3.js e pet.js sem erro de parsing no Node.
-- rpg.html atualizado sem alteração de estrutura do jogo fora da aparência da Elo.
-- Quarto: pés da Elo reposicionados para não ficarem soltos fora da roupa.
-- RPG: leitura do guarda-roupa confirmada para desenhar a Elo com o mesmo visual do app.
-- Bichinho virtual preservado, sem ajustes adicionais.
+- RPG: movimento agora respeita state.dir, com desenho diferente para frente, costas e lado.
+- Batalha permanece usando a Elo frontal.
+- Quarto: pés reposicionados por CSS para reduzir o efeito de soltos fora das pernas.
+- Bichinho virtual não foi alterado.
+- app.js, v3.js e pet.js validados sem erro de parsing no Node.
