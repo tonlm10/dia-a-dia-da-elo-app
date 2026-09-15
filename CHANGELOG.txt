@@ -1,4 +1,4 @@
-v3.1.8
+v3.1.10
 - Ajuste visual das pernas da Elo no quarto e no guarda-roupa, com shorts e calças mais proporcionais.
 - Bichinho com botões independentes: cada cuidado bloqueia apenas quando sua barra chega a 100%.
 - Removido o bloqueio geral por contagem entre cuidados do bichinho nascido.

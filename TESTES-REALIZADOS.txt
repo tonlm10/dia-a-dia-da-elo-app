@@ -1,4 +1,4 @@
-DIA A DIA DA ELO v3.1.8 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.10 — TESTES DA ATUALIZAÇÃO
 
 - RPG: movimento agora respeita state.dir, com desenho diferente para frente, costas e lado.
 - Batalha permanece usando a Elo frontal.
