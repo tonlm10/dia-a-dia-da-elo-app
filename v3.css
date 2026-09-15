@@ -425,3 +425,27 @@
  #petPanel .petStat:nth-child(1),#petPanel .petStat:nth-child(3),#petPanel .petStat:nth-child(5){transform:translateX(15px)!important}
  #petPanel .petStat:nth-child(2),#petPanel .petStat:nth-child(4),#petPanel .petStat:nth-child(6){transform:translateX(20px)!important}
 }
+
+/* v3.1.9 ajustes finais solicitados: quarto da Elo */
+/* esconder pés soltos do avatar pequeno no quarto */
+#roomEloDoll .shoe,.roomGuide302 .eloDoll .shoe{display:none!important}
+/* aproximar o guarda-roupa da parede e reduzir sensação de estar à frente */
+.roomWardrobe{left:3%!important;bottom:11%!important;width:20%!important;height:34%!important;z-index:1!important}
+/* reorganizar móveis e objetos do quarto */
+.roomDesk{left:28%!important;bottom:15%!important;width:14%!important;height:15%!important;transform:scale(.76)!important;transform-origin:bottom left!important;z-index:2!important}
+.roomPlant{left:72%!important;bottom:8%!important;width:32px!important;height:50px!important;transform:scale(.62)!important;transform-origin:bottom left!important;z-index:2!important}
+.roomRug{left:45%!important;bottom:2%!important;width:32%!important;height:13%!important;z-index:1!important}
+.roomToy{left:58%!important;right:auto!important;bottom:6%!important;width:38px!important;height:38px!important;z-index:3!important}
+@media(max-width:520px){
+  .roomWardrobe{left:3%!important;bottom:10%!important;width:20%!important;height:33%!important}
+  .roomDesk{left:27%!important;bottom:15%!important;width:13%!important;transform:scale(.72)!important}
+  .roomPlant{left:71%!important;bottom:8%!important;transform:scale(.58)!important}
+  .roomRug{left:46%!important;width:31%!important;height:12%!important}
+  .roomToy{left:59%!important;bottom:6%!important;width:35px!important;height:35px!important}
+}
+@media(max-width:390px){
+  .roomWardrobe{left:3%!important;bottom:10%!important;width:19%!important;height:32%!important}
+  .roomDesk{left:26%!important;transform:scale(.68)!important}
+  .roomPlant{left:70%!important;transform:scale(.54)!important}
+  .roomToy{left:60%!important;bottom:6%!important;width:32px!important;height:32px!important}
+}
