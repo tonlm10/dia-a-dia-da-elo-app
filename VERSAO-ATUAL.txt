@@ -1,2 +1,2 @@
-Versão atual do app: 3.1.23
-Elo do quarto agora é uma cópia literal da Elo do guarda-roupa, sem CSS separado para pernas/acessórios.
+Versão atual do app: 3.1.24
+Expansão de conteúdo no Quarto da Elo e no Guarda-roupa da Elo.

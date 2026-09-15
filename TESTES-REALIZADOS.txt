@@ -1,11 +1,9 @@
-v3.1.23
+v3.1.24
 
-- Revisão manual das strings de versão para evitar divergência de cache.
-- Reconstrução CSS do Quarto da Elo (mini personagem, guarda-roupa, tapete e brinquedos).
-- Cards de brinquedos trocados para miniaturas próprias, sem emoji.
-- Conferência do version.js, app.js, sw.js, manifest e index com a mesma versão 3.1.23.
+DIA A DIA DA ELO v3.1.24 — TESTES DA ATUALIZAÇÃO
 
-DIA A DIA DA ELO v3.1.23 — TESTES DA ATUALIZAÇÃO
-- roomEloDoll com pernas, pés e acessórios alinhados por CSS único no final do arquivo.
-- Brinquedos do quarto renderizados por CSS dedicado.
-- Guarda-roupa posicionado junto à parede esquerda.
+- Conferência do version.js, app.js, sw.js, manifest e index com a mesma versão 3.1.24.
+- Revisão estrutural do ROOM_DECOR com novos itens em todas as categorias.
+- Revisão estrutural do WARDROBE_ITEMS com novas peças em todas as categorias.
+- Verificação de presença das novas classes CSS do quarto e do guarda-roupa.
+- Ajuste do renderWardrobe para sincronizar a Elo do quarto via clone do guarda-roupa.

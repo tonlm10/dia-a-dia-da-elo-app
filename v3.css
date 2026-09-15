@@ -831,7 +831,7 @@
 }
 
 
-/* ===== v3.1.23 extra fine tuning do Quarto da Elo ===== */
+/* ===== v3.1.24 extra fine tuning do Quarto da Elo ===== */
 .roomGuide302{left:50.8%!important;top:36.4%!important;width:78px!important;height:86px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;padding:0!important}
 .roomGuide302>span{display:none!important}
 .roomGuide302:before,.roomGuide302:after{display:none!important;content:none!important}
@@ -861,7 +861,7 @@
 @media(max-width:520px){.roomGuide302{left:50.6%!important;top:36.2%!important;width:74px!important;height:82px!important}.roomGuide302 #roomEloDoll{transform:scale(.255)!important;left:2px!important;top:0!important}.roomWardrobe{left:5%!important;bottom:21%!important;width:14%!important;height:23%!important}.roomDesk{left:19.5%!important;bottom:12.1%!important;width:11.5%!important}.roomRug{left:38%!important;width:40%!important} }
 
 
-/* ===== v3.1.23 correção especial do Quarto da Elo ===== */
+/* ===== v3.1.24 correção especial do Quarto da Elo ===== */
 .roomWardrobe{left:4.8%!important;bottom:13.4%!important;width:17.8%!important;height:30.5%!important;z-index:1!important;border-width:5px!important;box-shadow:0 5px 12px rgba(79,50,76,.10)!important}
 .roomDesk{display:none!important}
 .roomGuide302{left:49.4%!important;top:37.2%!important;width:44px!important;height:88px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;padding:0!important;z-index:4!important}
@@ -904,7 +904,7 @@
 @media(max-width:520px){.roomWardrobe{left:4.6%!important;bottom:13.2%!important;width:18.5%!important;height:30.5%!important}.roomGuide302{left:49.2%!important;top:37.0%!important;width:44px!important;height:88px!important}#roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.268)!important}}
 
 
-/* ===== v3.1.23 ajuste de proporção e posicionamento ===== */
+/* ===== v3.1.24 ajuste de proporção e posicionamento ===== */
 .roomWardrobe{left:2.8%!important;bottom:12.8%!important;width:20.5%!important;height:34%!important;z-index:1!important}
 .roomGuide302{left:43.8%!important;top:36.2%!important;width:52px!important;height:94px!important;z-index:5!important}
 #roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.295)!important;left:0!important;top:0!important}
@@ -913,7 +913,7 @@
 @media(max-width:520px){.roomWardrobe{left:2.5%!important;bottom:12.6%!important;width:21%!important;height:34%!important}.roomGuide302{left:43.5%!important;top:36%!important;width:52px!important;height:94px!important}#roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.292)!important}.roomToy{left:57%!important;bottom:5.8%!important;width:64px!important;height:54px!important}}
 
 
-/* ===== v3.1.23 correção final de posição do quarto ===== */
+/* ===== v3.1.24 correção final de posição do quarto ===== */
 .roomWardrobe{left:2.8%!important;bottom:34%!important;width:17%!important;height:27%!important;z-index:1!important;box-shadow:0 4px 10px rgba(79,50,76,.10)!important}
 .roomDesk{display:none!important}
 .roomGuide302{left:45.8%!important;top:36.2%!important;width:58px!important;height:102px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;z-index:5!important}
@@ -948,7 +948,7 @@
 @media(max-width:520px){.roomWardrobe{left:2.6%!important;bottom:33.5%!important;width:17.2%!important;height:27%!important}.roomGuide302{left:45.5%!important;top:36%!important;width:58px!important;height:102px!important}#roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.3)!important}}
 
 
-/* ===== v3.1.23 correções finas do Quarto da Elo + voz no menu ===== */
+/* ===== v3.1.24 correções finas do Quarto da Elo + voz no menu ===== */
 .roomDesk{display:none!important}
 .roomGuide302{left:43.8%!important;top:37.6%!important;width:74px!important;height:124px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;z-index:6!important}
 .roomGuide302>span{left:50%!important;transform:translateX(-50%)!important;bottom:-6px!important;font-size:12px!important;background:transparent!important;padding:0!important;box-shadow:none!important}
@@ -981,7 +981,7 @@
 @media(max-width:520px){.roomGuide302{left:43.2%!important;top:37.4%!important;width:72px!important;height:122px!important}#roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.336)!important}}
 
 
-/* ===== v3.1.23 ajuste solicitado: Elo mais à frente + pernas corrigidas ===== */
+/* ===== v3.1.24 ajuste solicitado: Elo mais à frente + pernas corrigidas ===== */
 .roomDesk{display:none!important}
 .roomGuide302{left:50.6%!important;top:41.8%!important;width:92px!important;height:110px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;padding:0!important;z-index:6!important}
 .roomGuide302>span,.roomGuide302:before,.roomGuide302:after{display:none!important;content:none!important}
@@ -1015,7 +1015,7 @@
 @media(max-width:520px){.roomGuide302{left:50.2%!important;top:41.6%!important;width:90px!important;height:108px!important}.roomGuide302 #roomEloDoll,#roomEloDoll,.roomGuide302 .eloDoll{left:5px!important;top:-3px!important;transform:scale(.298)!important}}
 
 
-/* ===== v3.1.23 ajuste fino: Elo no X vermelho ===== */
+/* ===== v3.1.24 ajuste fino: Elo no X vermelho ===== */
 .roomGuide302{left:34.8%!important;top:44.2%!important;width:94px!important;height:112px!important;z-index:6!important}
 .roomGuide302 #roomEloDoll,#roomEloDoll,.roomGuide302 .eloDoll{left:7px!important;top:-4px!important;transform:scale(.308)!important;transform-origin:top left!important}
 /* duas pernas mais separadas e alinhadas sob o shorts */
@@ -1032,7 +1032,7 @@
 @media(max-width:520px){.roomGuide302{left:34.1%!important;top:44.0%!important;width:92px!important;height:110px!important}.roomGuide302 #roomEloDoll,#roomEloDoll,.roomGuide302 .eloDoll{transform:scale(.302)!important}}
 
 
-/* ===== v3.1.23 — Elo do quarto é clone literal da Elo do guarda-roupa ===== */
+/* ===== v3.1.24 — Elo do quarto é clone literal da Elo do guarda-roupa ===== */
 .roomEloSpot{
   position:absolute!important;
   left:34.8%!important;
@@ -1081,3 +1081,74 @@
   .roomEloSpot{left:34.2%!important;top:44.0%!important;width:56px!important;height:106px!important}
   .roomEloSpot .roomEloClone{transform:scale(.302)!important}
 }
+
+
+/* ===== v3.1.24 — expansão do quarto e do guarda-roupa ===== */
+.eloRoom.wall-mint,.room-premium.wall-mint{background:linear-gradient(180deg,#eafcf4 0 66%,#d8aa79 66% 100%)}
+.eloRoom.wall-lavender,.room-premium.wall-lavender{background:linear-gradient(180deg,#f2ecff 0 66%,#d8aa79 66% 100%)}
+.eloRoom.wall-lavender .roomCeilingGlow,.room-premium.wall-lavender .roomCeilingGlow{display:block;opacity:.55}
+
+.art-butterflies{background:linear-gradient(180deg,#ecfbff,#fff8fc)}
+.art-butterflies:before{content:'🦋  🦋';left:14%;top:26%;font-size:24px}
+.art-butterflies:after{content:'✦';right:14%;bottom:14%;font-size:18px;color:#8fc7ff}
+.art-castle{background:linear-gradient(180deg,#ecf8ff,#fff0fb)}
+.art-castle:before{left:18%;bottom:18%;width:56%;height:46%;background:#ffd9ef;clip-path:polygon(0 100%,0 40%,10% 40%,10% 26%,22% 26%,22% 40%,40% 40%,40% 16%,56% 16%,56% 40%,74% 40%,74% 26%,86% 26%,86% 40%,100% 40%,100% 100%);border-radius:4px}
+.art-castle:after{left:43%;bottom:18%;width:14%;height:18%;border-radius:8px 8px 0 0;background:#fff6fb}
+
+.roomBed.bed-mint .blanket{background:linear-gradient(180deg,#bdf0d6,#82d7b0)}
+.roomBed.bed-mint .head{background:#8bd0ad;border-color:#68b48e}
+.roomBed.bed-peach .blanket{background:linear-gradient(180deg,#ffd0b0,#f0ad7c)}
+.roomBed.bed-peach .head{background:#f5b084;border-color:#d79367}
+
+.rug-flower{background:radial-gradient(circle at 50% 50%,#ffd969 0 13%,transparent 14%),radial-gradient(circle at 50% 24%,#ff9bc3 0 18%,transparent 19%),radial-gradient(circle at 77% 38%,#ff9bc3 0 18%,transparent 19%),radial-gradient(circle at 68% 73%,#ff9bc3 0 18%,transparent 19%),radial-gradient(circle at 32% 73%,#ff9bc3 0 18%,transparent 19%),radial-gradient(circle at 23% 38%,#ff9bc3 0 18%,transparent 19%),#ffeff6;border-radius:50%}
+.rug-star{background:#ffd972;clip-path:polygon(50% 0,61% 35%,100% 35%,69% 57%,82% 100%,50% 74%,18% 100%,31% 57%,0 35%,39% 35%)}
+
+.roomToy.toy-bunny,.roomToyThumb.toy-bunny{background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'%3E%3Cellipse cx='36' cy='18' rx='10' ry='19' fill='%23ffe7f4'/%3E%3Cellipse cx='60' cy='18' rx='10' ry='19' fill='%23ffe7f4'/%3E%3Cellipse cx='36' cy='18' rx='5' ry='13' fill='%23ffb7d3'/%3E%3Cellipse cx='60' cy='18' rx='5' ry='13' fill='%23ffb7d3'/%3E%3Ccircle cx='50' cy='38' r='23' fill='%23fff8fb'/%3E%3Ccircle cx='41' cy='36' r='2.4' fill='%235c3a2c'/%3E%3Ccircle cx='59' cy='36' r='2.4' fill='%235c3a2c'/%3E%3Ccircle cx='50' cy='43' r='3.2' fill='%23ff95b9'/%3E%3Cpath d='M44 49c4 3 8 3 12 0' stroke='%23b06a80' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Cellipse cx='39' cy='65' rx='11' ry='7' fill='%23ffe7f4'/%3E%3Cellipse cx='61' cy='65' rx='11' ry='7' fill='%23ffe7f4'/%3E%3C/svg%3E")!important}
+.roomToy.toy-drum,.roomToyThumb.toy-drum{background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'%3E%3Cellipse cx='50' cy='42' rx='27' ry='18' fill='%23ff9fbe'/%3E%3Cellipse cx='50' cy='34' rx='27' ry='18' fill='%23fff6fb' stroke='%23ff9fbe' stroke-width='4'/%3E%3Cpath d='M23 34v8M77 34v8' stroke='%23b86f8d' stroke-width='4'/%3E%3Cpath d='M36 14l14 14M64 14L50 28' stroke='%23c49863' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='36' cy='14' r='3' fill='%23ffd36f'/%3E%3Ccircle cx='64' cy='14' r='3' fill='%23ffd36f'/%3E%3C/svg%3E")!important}
+.roomToy.toy-kite,.roomToyThumb.toy-kite{background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'%3E%3Cpath d='M50 10l24 22-24 22-24-22z' fill='%237dc8ff'/%3E%3Cpath d='M50 10l24 22-24 22z' fill='%23ff9ac2'/%3E%3Cpath d='M50 10v44M26 32h48' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M50 54c10 6 10 12 0 18 10-3 13 2 18 8' stroke='%23c8966a' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Cpath d='M51 63l7 5-7 5-7-5zM64 73l7 5-7 5-7-5z' fill='%23ffd66d'/%3E%3C/svg%3E")!important}
+
+/* thumbs extras */
+.garmentThumb.hairstyle.sidepony:after{content:'';position:absolute;right:5px;top:27px;width:24px;height:40px;border-radius:40% 60% 60% 40%;background:#6e3d27;transform:rotate(28deg)}
+.garmentThumb.hairstyle.halfbun:after{content:'';position:absolute;left:28px;top:2px;width:22px;height:22px;border-radius:50%;background:#6e3d27;box-shadow:-8px 18px 0 10px #6e3d27,8px 18px 0 10px #6e3d27}
+.eloDoll.style-sidepony .dollHairBack{left:30px;width:84px;box-shadow:30px 60px 0 -12px #6e3d27,-16px 52px 0 -8px #6e3d27}
+.eloDoll.style-halfbun .dollHairBack{left:32px;width:84px;height:104px;box-shadow:0 -24px 0 -13px #6e3d27,-15px 46px 0 -10px #6e3d27,15px 46px 0 -10px #6e3d27}
+.eloDoll.style-halfbun .dollHairFront{clip-path:polygon(0 0,100% 0,100% 68%,78% 48%,62% 78%,40% 47%,22% 71%,0 56%)}
+
+.garmentThumb.shirt.mint:before{background:#7ed9bf}
+.garmentThumb.shirt.starry:before{background:#8b72d1}
+.garmentThumb.shirt.starry:after{content:'✦';position:absolute;left:34px;top:30px;color:#ffe180;font-size:18px}
+.garmentThumb.skirt.blue:before{background:#7eb9ef}
+.garmentThumb.pants.pink:before{background:#f598c2}
+.garmentThumb.dress.rainbow:before{background:linear-gradient(#ff7aaa 0 20%,#ffd35b 20% 40%,#70d0a5 40% 60%,#6fc5ed 60% 80%,#9b7add 80%)}
+.garmentThumb.dress.garden:before{background:radial-gradient(circle at 35% 32%,#fff 0 4%,transparent 5%),radial-gradient(circle at 62% 60%,#fff 0 4%,transparent 5%),#89d7a5}
+.garmentThumb.shoes.lilac:before,.garmentThumb.shoes.lilac:after{background:#ab90ea}
+.garmentThumb.shoes.gold:before,.garmentThumb.shoes.gold:after{background:#ffd56c}
+.garmentThumb.shoes.gold:before,.garmentThumb.shoes.gold:after{height:15px;bottom:18px;border-radius:15px}
+.garmentThumb.bow.blue:before,.garmentThumb.bow.blue:after{background:#75c7ff}
+.garmentThumb.tiara.flower:before{content:'';position:absolute;left:13px;top:27px;width:56px;height:27px;border:6px solid #7dc7aa;border-bottom:0;border-radius:50% 50% 0 0}
+.garmentThumb.tiara.flower:after{content:'✿';position:absolute;left:31px;top:12px;color:#ff8fb8;font-size:22px}
+.garmentThumb.ear.flower:before,.garmentThumb.ear.flower:after{width:17px;height:17px;border-radius:50%;background:radial-gradient(circle,#ffd86b 0 22%,transparent 23%),radial-gradient(circle at 50% 0,#ff9ac1 0 28%,transparent 29%),radial-gradient(circle at 100% 50%,#ff9ac1 0 28%,transparent 29%),radial-gradient(circle at 50% 100%,#ff9ac1 0 28%,transparent 29%),radial-gradient(circle at 0 50%,#ff9ac1 0 28%,transparent 29%)}
+.garmentThumb.ring.heart:after{content:'♥';position:absolute;left:32px;top:7px;color:#ff73aa;font-size:22px}
+.garmentThumb.bracelet.pearl:before{border-color:#f2e6f8}
+.garmentThumb.necklace.rainbow:before{border-color:#8c72d1;border-top-color:transparent}
+.garmentThumb.necklace.rainbow:after{content:'🌈';position:absolute;left:26px;top:35px;font-size:18px}
+.garmentThumb.makeup.peach:before{background:radial-gradient(circle at 25% 48%,rgba(255,170,170,.35) 0 14%,transparent 15%),radial-gradient(circle at 75% 48%,rgba(255,170,170,.35) 0 14%,transparent 15%),#fbe9e3}
+.garmentThumb.makeup.peach:after{background:#f48d92}
+
+/* doll extras */
+.eloDoll.top-mint .dollTop{background:#7dd8be}.eloDoll.top-starry .dollTop{background:#8a74d1}.eloDoll.top-starry .dollTop:after{content:'✦';left:21px;top:18px;color:#ffe27a}
+.eloDoll.bottom-skirt-blue .dollBottom{background:#7eb9ef;clip-path:polygon(18% 0,82% 0,100% 100%,0 100%)}
+.eloDoll.bottom-leggings-pink .dollBottom{left:12px;top:55px;width:52px;height:112px;background:#f496c0;clip-path:polygon(10% 0,90% 0,87% 100%,61% 100%,53% 52%,47% 52%,39% 100%,13% 100%);border-radius:12px 12px 8px 8px;z-index:3}
+.eloDoll.dress-rainbow .dollDress{background:linear-gradient(#ff7aaa 0 20%,#ffd35b 20% 40%,#70d0a5 40% 60%,#6fc5ed 60% 80%,#9b7add 80%)}
+.eloDoll.dress-garden .dollDress{background:radial-gradient(circle at 35% 40%,#fff 0 4%,transparent 5%),radial-gradient(circle at 67% 64%,#fff 0 4%,transparent 5%),#89d7a5}
+.eloDoll.shoes-lilac .shoe{background:#ab90ea}.eloDoll.shoes-sandal-gold .shoe{background:#ffd56c;height:15px;top:286px;border-radius:12px}
+.eloDoll.hair-bow-blue .dollBow:before,.eloDoll.hair-bow-blue .dollBow:after{background:#75c7ff}
+.eloDoll.hair-tiara-flower .dollBow{left:49px;top:20px;width:52px;height:23px;border:5px solid #7dc7aa;border-bottom:0;border-radius:50% 50% 0 0}
+.eloDoll.hair-tiara-flower .dollBow:before{content:'✿';left:15px;top:-17px;width:auto;height:auto;background:none;color:#ff8fb8;font-size:20px;transform:none}
+.eloDoll.hair-tiara-flower .dollBow:after{display:none}
+.eloDoll.ear-flower .dollEarring{display:block;background:radial-gradient(circle,#ffd86b 0 22%,transparent 23%),radial-gradient(circle at 50% 0,#ff9ac1 0 28%,transparent 29%),radial-gradient(circle at 100% 50%,#ff9ac1 0 28%,transparent 29%),radial-gradient(circle at 50% 100%,#ff9ac1 0 28%,transparent 29%),radial-gradient(circle at 0 50%,#ff9ac1 0 28%,transparent 29%);border-radius:50%}
+.eloDoll.ring-heart .dollRing{display:block;border-color:#ff75ab}
+.eloDoll.ring-heart .dollRing:after{content:'♥';position:absolute;left:-5px;top:-11px;color:#ff75ab;font-size:10px}
+.eloDoll.bracelet-pearl .dollBracelet{display:block;background:linear-gradient(90deg,#fff,#f4e8fa,#fff)}
+.eloDoll.neck-rainbow .dollNecklace{display:block;border-color:#8d72d0}.eloDoll.neck-rainbow .dollNecklace:after{content:'🌈';position:absolute;left:5px;bottom:-13px;font-size:14px}
+.eloDoll.makeup-peach .blush{background:rgba(255,156,144,.35)}.eloDoll.makeup-peach .mouth{border-bottom-color:#d77474}
