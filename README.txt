@@ -1,4 +1,4 @@
-Dia a Dia da Elo — v3.1.22
+Dia a Dia da Elo — v3.1.23
 
 Atualização do Bichinho da Elo:
 - Ovo com nascimento mais lento e intervalo entre cuidados.
