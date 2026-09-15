@@ -1,15 +1,6 @@
-DIA A DIA DA ELO v3.2.3 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.2.4 — TESTES DA ATUALIZAÇÃO
 
-- Sintaxe validada em app.js, v3.js, pet.js e sw.js.
-- Script interno do RPG extraído e validado pelo Node.js.
-- Teste de execução do mundo do RPG com todos os mapas construídos sem erro.
-- Verificada a existência do Portão Norte, bloqueio inicial, Caminho Celeste, Farol das Estrelas e três Fragmentos do Céu.
-- Testado o fluxo de missões: Pipo (4→5), Luma (8→9), Brisa (11→12), Lumina (14→15), fragmentos (15→16), retorno (17→18) e Sofia (18→19).
-- Testada a migração de saves antigos já concluídos para a nova conclusão com Portão Norte aberto.
-- Testado que saves novos no meio do Caminho Celeste não são marcados como concluídos por engano.
-- Verificada a cópia literal da Elo do guarda-roupa no Quarto, RPG e Trilha Encantada.
-- Verificados IDs duplicados em index.html e rpg.html: nenhum encontrado.
-- Verificados caminhos locais de imagens, áudio, scripts e CSS: nenhum arquivo referenciado ausente.
-- Confirmado que os quebra-cabeças 06, 08 e 14 continuam excluídos da lista do jogo.
-- Revisão geral detectou e corrigiu o mapeamento visual das novas paredes, camas e tapetes do quarto.
-- pet.js comparado com a base anterior e mantido sem alterações funcionais.
+- Sintaxe de app.js, v3.js, pet.js e sw.js conferida.
+- Poder do chefão permitido durante ataque e intervalo.
+- Poder permitido com a Elo no chão ou no ar.
+- Projéteis de Poder causam dano ao chefão em qualquer padrão de ataque.

@@ -3,7 +3,7 @@
   "name": "Dia a Dia da Elo",
   "short_name": "Dia a Dia da Elo",
   "lang": "pt-BR",
-  "start_url": "./?app=3.2.3",
+  "start_url": "./?app=3.2.4",
   "scope": "./",
   "display": "standalone",
   "display_override": [
@@ -12,7 +12,7 @@
   "orientation": "portrait-primary",
   "background_color": "#fff8fc",
   "theme_color": "#ff67a8",
-  "description": "Dia a Dia da Elo v3.2.3 — RPG expandido com novas missões e Caminho Celeste, Portão Norte liberado ao final, Elo sincronizada com o guarda-roupa no quarto, RPG e Trilha Encantada, além de correções gerais de decoração e interface.",
+  "description": "Dia a Dia da Elo v3.2.4 — RPG expandido com novas missões e Caminho Celeste, Portão Norte liberado ao final, Elo sincronizada com o guarda-roupa no quarto, RPG e Trilha Encantada, além de correções gerais de decoração e interface.",
   "categories": [
     "education",
     "games",

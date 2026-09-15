@@ -1,15 +1,21 @@
-v3.2.3
+v3.2.4
+- Trilha Encantada: botão Poder agora funciona durante toda a luta contra o chefão.
+- O chefão pode receber dano mesmo enquanto está atacando.
+- Não é mais obrigatório pular para usar o Poder.
+- Os intervalos sem tiros continuam indicados apenas como o momento mais seguro para atacar.
+
+v3.2.4
 - Trilha Encantada: corrigida a causa real da Elo flutuar em telas estreitas.
 - O canvas usa escalas horizontal e vertical diferentes no celular por causa da altura mínima; agora a posição da Elo usa ratioX para X e ratioY para Y.
 - Os pés são ancorados exatamente na faixa de chão visível do cenário.
 
-v3.2.3
+v3.2.4
 - RPG: Elo agora muda visualmente de direção ao andar para cima, baixo, esquerda e direita.
 - RPG: saves que terminaram a versão antiga voltam ao início das novas missões do Caminho Celeste; Portão Norte volta a ficar trancado até a volta pela rota final.
 - RPG: conclusão legítima das novas missões passa a ser marcada para não ser desfeita depois.
 - Trilha Encantada: Elo aumentada e ancorada pelos pés ao chão; roupa continua sincronizada com o guarda-roupa.
 
-v3.2.3
+v3.2.4
 - RPG expandido para uma jornada progressiva: menos retornos ao mago e novos NPCs que encaminham Elo para a próxima região.
 - Novo Caminho Celeste com 3 Fragmentos do Céu e Farol das Estrelas.
 - Novo Portão Norte na Vila das Estrelas: começa trancado, é usado no retorno final e depois fica aberto para subir e descer.
