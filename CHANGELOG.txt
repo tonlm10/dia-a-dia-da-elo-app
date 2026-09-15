@@ -1,55 +1,16 @@
-3.1.1 — BICHINHO DA ELO APRIMORADO
-- Ovo agora exige 5 cuidados válidos e intervalo de 2 minutos entre eles.
-- Ações do bichinho têm tempo de espera para evitar cliques repetidos.
-- Nova ação Estudar, com barra de estudo e nota de 0 a 10.
-- Fome, energia, higiene, diversão, carinho e estudo diminuem com o tempo.
-- Visual sujo quando a higiene está baixa, cansado quando falta energia e ambiente escuro durante o sono.
-- Acessórios reposicionados para a cabeça.
-- Botões de banho, higiene, dormir e estudar reorganizados com as demais ações.
-- Ícone do Modo Família agora mostra Elo com pai e mãe.
-- Pernas da Elo no quarto corrigidas.
-- RPG completo preservado sem alteração.
+3.1.2 — BICHINHO REORGANIZADO + PERNAS CORRIGIDAS
 
-3.1.0 — BICHINHO DA ELO + MENU REFINADO
-- Novo Bichinho da Elo inspirado nos antigos bichinhos virtuais: ovo, nascimento, crescimento e cuidados.
-- Ações: comida, banho, brincar, dormir e carinho.
-- Indicadores de fome, energia, higiene, diversão e carinho.
-- O bichinho não morre e não perde progresso por ausência; a redução dos indicadores é suave e limitada.
-- Quatro espécies possíveis no nascimento: unicórnio, gatinho, cachorrinho e coelhinho.
-- Nome personalizável e acessórios desbloqueáveis conforme os cuidados.
-- Menu Castelo da Elo removido da Home; o RPG continua dentro de Jogos.
-- Card repetido Meu Espaço removido; Quarto da Elo permanece como entrada principal.
-- Guarda-roupa e Modo Família agora usam cartões ilustrados no mesmo padrão visual das outras áreas.
-- Brinquedo do quarto reposicionado para não ficar junto da Elo.
-- Acesso ao Bichinho também pelo Quarto da Elo.
-- RPG preservado sem alterações.
-
-3.0.2 — MUNDO VIVO + GUARDA-ROUPA + MÍMICA
-- Home refeita como um pequeno mundo ilustrado, com construções integradas ao cenário, lago, ponte, árvores, flores e microanimações.
-- Guarda-roupa reconstruído com personagem ilustrada e peças visuais: camisetas, shorts, saias, calças, vestidos, sapatos, laços/tiaras, brincos, anéis, pulseiras, colares e maquiagem.
-- Look salvo separadamente por perfil e refletido também no Quarto da Elo.
-- Modo Família ganhou Mímica, com categorias e alternância de vez.
-- Pronúncia continua exibindo Elo e falando Elô.
-- RPG completo preservado sem alteração.
-
-3.0.2 — REDESIGN VISUAL
-- Nova Home / Mundo da Elo com ilustrações, caminhos, paisagem e Elo como guia.
-- Novo card Continuar de onde parou.
-- Surpresa semanal e ações principais ganharam mais destaque.
-- Quarto da Elo redesenhado do zero.
-- Cama e tapete passam a fazer parte da personalização.
-- Pronúncia TTS: “Elo” é falado como “Elô”, sem alterar a escrita.
-- Cache/versão atualizados para 3.0.2.
-- RPG completo preservado sem simplificação.
-
-3.0.0 — A MAIOR ATUALIZAÇÃO DO DIA A DIA DA ELO
-- Mundo da Elo, coleções, quarto, guarda-roupa, modo família, histórias interativas, surpresa semanal e demais recursos consolidados.
-
-
-v3.0.3
-- Guarda-roupa ampliado com novos cabelos, roupas, acessórios, maquiagem e looks temáticos.
-- Correção do encaixe das calças na personagem.
-- Quarto e guarda-roupa reorganizados para manter visualização e opções na mesma tela, reduzindo rolagem.
-- Quebra-cabeça com 16 imagens visualmente diferentes.
-- Trilha Encantada ampliada e área de toque maior.
-- RPG completo preservado sem alterações.
+- Barras do Bichinho agora ficam nas laterais do personagem, com porcentagem:
+  esquerda: Fome, Energia, Higiene; direita: Diversão, Carinho, Estudo.
+- Abaixo do Bichinho ficam as ações: Comida, Banho, Higiene, Brincar, Carinho, Dormir/Acordar e Estudar.
+- Dormir agora apaga a luz e mantém o Bichinho dormindo; tocar novamente acorda e acende a luz.
+- Estudo tem nota de 0 a 10, sobe ao estudar e cai gradualmente com o tempo.
+- Fome, energia, higiene, diversão, carinho e estudo mudam com o tempo.
+- Bichinho fica visualmente sujo com higiene baixa e cansado com energia baixa.
+- Acessório reposicionado para a cabeça.
+- Ovo exige 6 cuidados e intervalo de 2 minutos entre cuidados válidos.
+- Botões de cuidado têm proteção contra cliques repetidos.
+- Calças redesenhadas para cobrir as pernas corretamente.
+- Pernas da Elo no quarto ficaram mais curtas e proporcionais.
+- Ícone do Modo Família usa Elo com pai e mãe.
+- RPG preservado sem alteração.

@@ -1,18 +1,23 @@
-DIA A DIA DA ELO v3.1.1 — VALIDAÇÃO DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.2 — VALIDAÇÃO DA ATUALIZAÇÃO
 
-Validações executadas antes da compactação:
-- Sintaxe de app.js, v3.js e pet.js validada pelo Node.js.
-- 26 verificações estruturais aprovadas: IDs essenciais, referências locais, ícone do Modo Família, versão 3.1.1, manifest, Service Worker, estados visuais, correção das pernas e arquivos necessários.
-- Teste de lógica do bichinho em ambiente simulado: primeiro cuidado do ovo, bloqueio de clique repetido, nascimento após 5 cuidados válidos, ação Estudar, cooldown de Estudar, queda das barras pelo tempo, estado Dormindo, estado Sujo e estado Cansado.
-- O ovo exige 5 cuidados válidos, com 2 minutos entre um cuidado e outro.
-- As ações do bichinho têm cooldown individual para evitar spam.
-- Estudo/nota varia com o tempo e com a ação Estudar.
-- Fome, energia, higiene, diversão, carinho e estudo diminuem com o passar do tempo.
-- Acessório do bichinho reposicionado para a cabeça.
-- Tela do bichinho escurece durante o sono.
-- Ícone do Modo Família trocado para Elo com pai e mãe.
-- Pernas da Elo no quarto receberam ajuste específico.
-- RPG comparado por SHA-256 com a v3.1.0 e permaneceu idêntico.
+40 verificações estruturais aprovadas, incluindo:
+- IDs únicos no HTML.
+- Estrutura do Bichinho completa.
+- Barras laterais com Fome, Energia, Higiene, Diversão, Carinho e Estudo.
+- Porcentagens e nota de estudo presentes.
+- Botões Comida, Banho, Higiene, Brincar, Carinho, Dormir/Acordar e Estudar.
+- Estado de sono com luz apagada.
+- Estado visual sujo com higiene baixa.
+- Estado visual cansado com energia baixa.
+- Acessório reposicionado na cabeça.
+- Ovo com 6 cuidados e intervalo de 2 minutos entre cuidados válidos.
+- Nova geometria das calças e correção das pernas no quarto.
+- Ícone do Modo Família com Elo, pai e mãe.
+- Arquivos locais referenciados presentes.
+- Versão 3.1.2 consistente em index, app, v3, pet, Service Worker e manifest.
+- Sintaxe de app.js, v3.js, pet.js e sw.js validada pelo Node.js.
+- Teste de lógica do Bichinho aprovado: cooldown do ovo, nascimento, estudo, sono/acordar e queda dos indicadores com o tempo.
+- rpg.html comparado por SHA-256 com a versão anterior: idêntico.
 
-SHA-256 do rpg.html preservado:
+RPG SHA-256:
 5bae95e5ca1bc659dc48d58770762da45af0e92e0585883d9dd80d6699f51a3d
