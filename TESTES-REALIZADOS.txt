@@ -1,7 +1,9 @@
-DIA A DIA DA ELO v3.1.10 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.1.11 — CORREÇÃO DE ATUALIZAÇÃO
 
-- RPG: movimento agora respeita state.dir, com desenho diferente para frente, costas e lado.
-- Batalha permanece usando a Elo frontal.
-- Quarto: pés reposicionados por CSS para reduzir o efeito de soltos fora das pernas.
-- Bichinho virtual não foi alterado.
-- app.js, v3.js e pet.js validados sem erro de parsing no Node.
+- version.js em 3.1.11.
+- index.html em 3.1.11.
+- manifest.webmanifest em 3.1.11.
+- app.js em 3.1.11.
+- Service Worker em 3.1.11 com cache r3.
+- JS, CSS e manifest carregados com ?v=3.1.11 para impedir reutilização do cache HTTP antigo do navegador.
+- Nenhuma alteração funcional feita no bichinho ou nos jogos.
