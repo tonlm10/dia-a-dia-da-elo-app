@@ -1,4 +1,15 @@
-v3.1.16
+v3.1.18
+- Quarto da Elo: guarda-roupa aumentado mais uma vez para ficar proporcional.
+- Quarto da Elo: Elo reposicionada para a área livre do quarto, evitando conflito visual com a cama.
+- Quarto da Elo: leve aumento de escala para destacar o corpo completo.
+
+v3.1.18
+- Quarto da Elo: guarda-roupa aumentado e reposicionado ao fundo, encostado na parede esquerda.
+- Quarto da Elo: remoção da cadeira/mesa lateral para deixar a cena limpa.
+- Quarto da Elo: Elo refeita para usar a mesma base visual do guarda-roupa, com pernas, pés e acessórios alinhados como no closet.
+- Ajuste fino de posição e escala da Elo no quarto.
+
+v3.1.18
 - Guarda-roupa reposicionado ainda mais ao fundo, encostado visualmente na parede.
 - Círculo/bolha em volta da Elo removido do quarto.
 - Elo do quarto refinada: pernas e sapatos realinhados para evitar peça fora do corpo.

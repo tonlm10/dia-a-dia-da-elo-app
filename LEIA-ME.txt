@@ -1,4 +1,4 @@
-DIA A DIA DA ELO — v3.1.16
+DIA A DIA DA ELO — v3.1.18
 
 ATUALIZAÇÃO PRINCIPAL
 - Bichinho da Elo estilo bichinho virtual/Tamagotchi, com ovo, nascimento e crescimento.
