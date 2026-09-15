@@ -1,3 +1,10 @@
+v3.1.16
+- Guarda-roupa reposicionado ainda mais ao fundo, encostado visualmente na parede.
+- Círculo/bolha em volta da Elo removido do quarto.
+- Elo do quarto refinada: pernas e sapatos realinhados para evitar peça fora do corpo.
+- Acessórios do quarto reposicionados para ficar alinhados ao rosto/cabelo e ao corpo.
+- Ajuste fino de composição no Quarto da Elo.
+
 v3.1.15
 - Tratamento especial no Quarto da Elo.
 - Guarda-roupa reposicionado mais ao fundo, encostado na parede.

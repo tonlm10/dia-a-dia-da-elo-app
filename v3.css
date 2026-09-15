@@ -829,3 +829,33 @@
   #roomEloDoll,.roomGuide302 .eloDoll{left:15px!important;top:4px!important;transform:scale(.285)!important}
   .roomToy{left:58%!important;bottom:6.4%!important;width:58px!important;height:48px!important}
 }
+
+
+/* ===== v3.1.16 extra fine tuning do Quarto da Elo ===== */
+.roomGuide302{left:50.8%!important;top:36.4%!important;width:78px!important;height:86px!important;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;padding:0!important}
+.roomGuide302>span{display:none!important}
+.roomGuide302:before,.roomGuide302:after{display:none!important;content:none!important}
+.roomWardrobe{left:5%!important;bottom:21%!important;width:13%!important;height:23%!important;z-index:1!important}
+.roomDesk{left:18.8%!important;bottom:12.2%!important;width:11.2%!important;height:14.5%!important;transform:scale(.7)!important;z-index:2!important}
+.roomRug{left:37.5%!important;bottom:3.8%!important;width:41%!important;height:11.5%!important;z-index:1!important}
+.roomGuide302 #roomEloDoll{transform:scale(.27)!important;left:2px!important;top:0!important}
+#roomEloDoll,.roomGuide302 .eloDoll{transform-origin:top left!important}
+#roomEloDoll .leg,.roomGuide302 .eloDoll .leg{top:210px!important;width:16px!important;height:66px!important;border-radius:9px!important;z-index:1!important}
+#roomEloDoll .l1,.roomGuide302 .eloDoll .l1{left:58px!important;right:auto!important}
+#roomEloDoll .l2,.roomGuide302 .eloDoll .l2{left:74px!important;right:auto!important}
+#roomEloDoll .shoe,.roomGuide302 .eloDoll .shoe{top:272px!important;width:23px!important;height:15px!important;border-radius:12px 12px 7px 7px!important;z-index:6!important}
+#roomEloDoll .sh1,.roomGuide302 .eloDoll .sh1{left:52px!important;right:auto!important}
+#roomEloDoll .sh2,.roomGuide302 .eloDoll .sh2{left:70px!important;right:auto!important}
+#roomEloDoll .dollBow,.roomGuide302 .eloDoll .dollBow{left:86px!important;top:19px!important;width:22px!important;height:16px!important;z-index:9!important}
+#roomEloDoll.hair-bow-lilac .dollBow:before,#roomEloDoll.hair-bow-lilac .dollBow:after,.roomGuide302 .eloDoll.hair-bow-lilac .dollBow:before,.roomGuide302 .eloDoll.hair-bow-lilac .dollBow:after{width:14px!important;height:16px!important}
+#roomEloDoll.hair-pop .dollBow,.roomGuide302 .eloDoll.hair-pop .dollBow{left:87px!important;top:27px!important;width:17px!important;height:14px!important}
+#roomEloDoll.hair-tiara-star .dollBow,.roomGuide302 .eloDoll.hair-tiara-star .dollBow{left:52px!important;top:20px!important;width:48px!important;height:20px!important;border-width:4px!important}
+#roomEloDoll.hair-tiara-star .dollBow:before,.roomGuide302 .eloDoll.hair-tiara-star .dollBow:before{left:15px!important;top:-15px!important;font-size:18px!important}
+#roomEloDoll.hair-tiara-pearl .dollBow,.roomGuide302 .eloDoll.hair-tiara-pearl .dollBow{left:53px!important;top:18px!important;width:46px!important;height:18px!important}
+#roomEloDoll .dollBracelet,.roomGuide302 .eloDoll .dollBracelet{left:34px!important;top:183px!important;width:13px!important;height:6px!important}
+#roomEloDoll .dollRing,.roomGuide302 .eloDoll .dollRing{right:35px!important;top:193px!important;width:6px!important;height:6px!important}
+#roomEloDoll .dollEarring,.roomGuide302 .eloDoll .dollEarring{top:83px!important;width:7px!important;height:7px!important}
+#roomEloDoll .er1,.roomGuide302 .eloDoll .er1{left:40px!important}
+#roomEloDoll .er2,.roomGuide302 .eloDoll .er2{right:40px!important}
+#roomEloDoll .dollNecklace,.roomGuide302 .eloDoll .dollNecklace{left:61px!important;top:116px!important;width:27px!important;height:20px!important;border-width:2px!important}
+@media(max-width:520px){.roomGuide302{left:50.6%!important;top:36.2%!important;width:74px!important;height:82px!important}.roomGuide302 #roomEloDoll{transform:scale(.255)!important;left:2px!important;top:0!important}.roomWardrobe{left:5%!important;bottom:21%!important;width:14%!important;height:23%!important}.roomDesk{left:19.5%!important;bottom:12.1%!important;width:11.5%!important}.roomRug{left:38%!important;width:40%!important} }
