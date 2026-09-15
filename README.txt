@@ -1,3 +1,8 @@
+DIA A DIA DA ELO v3.1.0
+Bichinho da Elo + refinamentos do menu e quarto.
+
+Envie app-upload.zip na raiz do GitHub para disparar o workflow automático.
+
 DIA A DIA DA ELO — VERSÃO 3.0.2
 
 Aplicativo infantil do projeto Dia a Dia da Elo.

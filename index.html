@@ -34,25 +34,22 @@
     <button class="classicHomeCard" onclick="openPanel('learnPanel','learn')"><img src="assets/home-icons/learn-card.webp" alt="Escolinha da Elo"><div><b>Escolinha da Elo</b><small>Aprender brincando, com voz e desafios.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('createPanel','create')"><img src="assets/home-icons/create-card.webp" alt="Criar"><div><b>Criar</b><small>Ateliê, desenhos e brincadeiras criativas.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('roomPanel','home')"><img src="assets/home-icons/home-card.webp" alt="Quarto da Elo"><div><b>Quarto da Elo</b><small>Decore o quarto e organize tudo do seu jeito.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('wardrobePanel','home')"><span class="cardIcon">👗</span><div><b>Guarda-roupa</b><small>Troque cabelo, roupas, acessórios e make.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('familyPanel','home')"><span class="cardIcon">👨‍👩‍👧</span><div><b>Modo Família</b><small>Mímica, desenho em dupla e desafios.</small></div></button>
-    <button class="classicHomeCard rpgCard" onclick="openRpg()"><img src="assets/game-covers/rpg-cover-v2.webp" alt="Castelo da Elo"><div><b>Castelo da Elo</b><small>Entre no RPG e viva a aventura principal.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('wardrobePanel','home')"><span class="homeVisualIcon wardrobeVisual"><img src="assets/home-icons/create-card.webp" alt="Guarda-roupa da Elo"><i>👗</i></span><div><b>Guarda-roupa</b><small>Troque cabelo, roupas, acessórios e make.</small></div></button>
+    <button class="classicHomeCard" onclick="openPanel('familyPanel','home')"><span class="homeVisualIcon familyVisual"><img src="assets/home-icons/club-card.webp" alt="Modo Família"><i>💗</i></span><div><b>Modo Família</b><small>Mímica, desenho em dupla e desafios.</small></div></button>
+    <button class="classicHomeCard" onclick="openPet()"><span class="homeVisualIcon petVisual"><img src="assets/home-icons/home-card.webp" alt="Bichinho da Elo"><i>🐾</i></span><div><b>Bichinho da Elo</b><small>Cuide, brinque, dê banho e acompanhe seu crescimento.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('storiesPanel','stories')"><img src="assets/home-icons/stories-card.webp" alt="Biblioteca"><div><b>Biblioteca</b><small>Histórias, aventuras e leitura divertida.</small></div></button>
     <button class="classicHomeCard" onclick="openPanel('clubPanel','club')"><img src="assets/home-icons/club-card.webp" alt="Clube"><div><b>Clube</b><small>Descobertas e conteúdos especiais da Elo.</small></div></button>
   </div>
   <div class="homeHighlights">
     <button class="homeHighlight continueCard" onclick="openContinueSpot()"><span class="hhIcon">▶</span><div><small>CONTINUAR</small><b id="continueTitle">Escolha uma aventura</b><p id="continueSub">O app lembra seu último lugar.</p></div><i>›</i></button>
     <button class="homeHighlight surpriseCard" onclick="openWeeklySurprise()"><span class="hhIcon">🎁</span><div><small>SURPRESA DA SEMANA</small><b>Uma descoberta especial</b><p id="weeklySurpriseStatus">da semana</p></div><i>›</i></button>
-    <button class="homeHighlight roomCard" onclick="openPanel('roomPanel','home')"><span class="hhIcon">🏠</span><div><small>MEU ESPAÇO</small><b>Quarto da Elo</b><p>Decore, troque itens e deixe do seu jeito.</p></div><i>›</i></button>
   </div>
-  <div class="v3QuickGrid premiumQuick">
+  <div class="v3QuickGrid premiumQuick compactQuick">
     <button onclick="openPanel('collectionPanel','home')"><span>🧺</span><b>Coleções</b><small id="collectionHomeCount">0 itens</small></button>
-    <button onclick="openPanel('wardrobePanel','home')"><span>👗</span><b>Guarda-roupa</b><small>Vista a Elo</small></button>
-    <button onclick="openPanel('familyPanel','home')"><span>👨‍👩‍👧</span><b>Modo Família</b><small>Brinquem juntos</small></button>
     <button onclick="openPanel('achievementsPanel','achievements')"><span>🏅</span><b>Conquistas</b><small>Medalhas e estrelas</small></button>
   </div>
   <div class="missionRow v3MissionRow"><div class="miniCard pink"><h3>🌟 Missão leve</h3><p id="dailyText">Faça algo divertido hoje!</p><div class="progress"><i id="dailyProgress"></i></div><button class="smallBtn" style="margin-top:10px" onclick="completeDaily()">Consegui!</button></div><div class="miniCard lilac"><h3>🔐 Área dos Pais</h3><p>Segurança, progresso e configurações.</p><button class="smallBtn" onclick="openParents()">Entrar</button></div></div>
-  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.0.4</span></div>
+  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.1.0</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -139,7 +136,7 @@
   <div class="card"><h3>Links oficiais 🔒</h3><p class="muted">Abertura de YouTube, Instagram e Clube da Elo é uma ação dos responsáveis.</p><div class="row"><button class="btn" onclick="openSubscribe()">Inscrever no YouTube</button><button class="btn secondary" onclick="openExternal(MEMBER_URL)">Página de membros</button><button class="btn secondary" onclick="openInstagram()">Instagram da Elo</button></div></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.0.4</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.1.0</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -163,7 +160,7 @@
     <div class="roomPlant"><i></i><i></i><i></i><b></b></div>
     <button class="roomGuide roomGuide302" onclick="eloGuideSay('Meu quarto ficou lindo! Você pode trocar a parede, o quadro, o tapete, a cama e os brinquedos — e também tirar itens se quiser.')"><div id="roomEloDoll" class="eloDoll mini" aria-hidden="true"><span class="dollHairBack"></span><span class="dollHead"><i class="eye e1"></i><i class="eye e2"></i><i class="mouth"></i><i class="blush bl1"></i><i class="blush bl2"></i></span><span class="dollHairFront"></span><span class="dollBow"></span><span class="dollNecklace"></span><span class="dollBody"><i class="dollTop"></i><i class="dollBottom"></i><i class="dollDress"></i><i class="arm a1"></i><i class="arm a2"></i></span><span class="leg l1"></span><span class="leg l2"></span><span class="shoe sh1"></span><span class="shoe sh2"></span><span class="dollBracelet"></span><span class="dollEarring er1"></span><span class="dollEarring er2"></span></div><span>Oi!</span></button>
   </div>
-  <div class="roomControlDock"><div class="roomControlHead"><b>Decorar ✨</b><button class="smallBtn" onclick="openPanel('wardrobePanel','home')">👗 Vestir Elo</button></div><div id="roomDecorTabs" class="roomDecorTabs"></div><div id="roomDecorGrid" class="decorGrid decorGridCompact"></div></div>
+  <div class="roomControlDock"><div class="roomControlHead"><b>Decorar ✨</b><div class="roomHeadActions"><button class="smallBtn" onclick="openPet()">🐾 Bichinho</button><button class="smallBtn" onclick="openPanel('wardrobePanel','home')">👗 Vestir Elo</button></div></div><div id="roomDecorTabs" class="roomDecorTabs"></div><div id="roomDecorGrid" class="decorGrid decorGridCompact"></div></div>
 </section>
 
 <section id="wardrobePanel" class="panel">
@@ -181,6 +178,41 @@
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Brincadeiras de Criar ✨</h2></div>
   <div class="creativeTabs"><button onclick="selectCreative('pizza')">🍕 Pizza</button><button onclick="selectCreative('cake')">🎂 Bolo</button><button onclick="selectCreative('toy')">🧸 Brinquedo</button><button onclick="selectCreative('pet')">🐶 Bichinho</button></div>
   <div id="creativeWorkspace" class="creativeWorkspace"></div>
+</section>
+
+
+<section id="petPanel" class="panel">
+  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Bichinho da Elo 🐾</h2></div>
+  <div class="petIntro"><div><small>MEU COMPANHEIRO</small><h3>Um bichinho virtual para cuidar</h3><p>Ele cresce com carinho e brincadeiras. Não morre e não perde progresso se você ficar um tempo sem entrar.</p></div><button class="smallBtn" onclick="petSpeakStatus()">🔊</button></div>
+  <div class="petDevice">
+    <div class="petDeviceTop"><span id="petStageLabel">Ovinho</span><b id="petNameLabel">Ovinho misterioso</b><button id="petRenameBtn" class="petMiniBtn" onclick="renamePet()">✏️</button></div>
+    <div class="petScreen">
+      <div class="petScreenBg"><i></i><i></i><i></i></div>
+      <div id="petEgg" class="petEgg"><span></span></div>
+      <div id="petCreature" class="petCreature hidden">
+        <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
+        <span class="petBody"></span><span class="petHead"><i class="petEye e1"></i><i class="petEye e2"></i><i class="petMouth"></i><i class="petCheek c1"></i><i class="petCheek c2"></i></span>
+        <span id="petAccessory" class="petAccessory"></span>
+      </div>
+      <div id="petBubble" class="petBubble">Cuide do ovo para descobrir quem vai nascer! 💗</div>
+    </div>
+    <div id="petEggControls" class="petEggControls">
+      <div class="eggProgress"><b id="eggCareText">0/3 cuidados</b><div><i id="eggCareBar"></i></div></div>
+      <button class="petAction primary" onclick="careForEgg()"><span>💗</span><b>Cuidar do ovo</b><small>Aquecer e fazer carinho</small></button>
+    </div>
+    <div id="petCareArea" class="hidden">
+      <div id="petStats" class="petStats"></div>
+      <div class="petActions">
+        <button onclick="petAction('feed')"><span>🥣</span><b>Comida</b></button>
+        <button onclick="petAction('bath')"><span>🫧</span><b>Banho</b></button>
+        <button onclick="petAction('play')"><span>🎾</span><b>Brincar</b></button>
+        <button onclick="petAction('sleep')"><span>🌙</span><b>Dormir</b></button>
+        <button onclick="petAction('love')"><span>💗</span><b>Carinho</b></button>
+      </div>
+      <div class="petGrowth"><div><b id="petGrowthText">Crescimento</b><small id="petGrowthSub">Cada cuidado ajuda seu amigo a crescer.</small></div><div class="petGrowthBar"><i id="petGrowthBar"></i></div></div>
+      <div class="petAccessories"><b>Acessórios</b><div id="petAccessoryGrid"></div></div>
+    </div>
+  </div>
 </section>
 
 <section id="familyPanel" class="panel">
@@ -244,6 +276,6 @@
 <div id="exitConfirm" class="exitConfirm hidden" role="dialog" aria-modal="true" aria-labelledby="exitTitle"><div class="exitCard"><div class="exitIcon">👋</div><h3 id="exitTitle">Deseja sair do app?</h3><p>Você está na página principal.</p><div class="exitActions"><button class="exitNo" onclick="cancelAppExit()">Não, continuar</button><button class="exitYes" onclick="confirmAppExit()">Sim, sair</button></div></div></div>
 <nav><div class="navin"><button class="navbtn active" data-nav="home" onclick="openPanel('homePanel','home')"><img class="navEloIcon" src="assets/home-icons/home-nav.webp" alt="">Início</button><button class="navbtn" data-nav="watch" onclick="openPanel('watchPanel','watch')"><img class="navEloIcon" src="assets/home-icons/watch-nav.webp" alt="">Assistir</button><button class="navbtn" data-nav="play" onclick="openPanel('playPanel','play')"><img class="navEloIcon" src="assets/home-icons/play-nav.webp" alt="">Jogar</button><button class="navbtn" data-nav="learn" onclick="openPanel('learnPanel','learn')"><img class="navEloIcon" src="assets/home-icons/learn-nav.webp" alt="">Escolinha da Elo</button><button class="navbtn" data-nav="create" onclick="openPanel('createPanel','create')"><img class="navEloIcon" src="assets/home-icons/create-nav.webp" alt="">Criar</button></div></nav>
 <div id="toast" class="toast">Muito bem! ⭐</div>
-<script src="version.js"></script><script src="app.js"></script><script src="v3.js"></script>
+<script src="version.js"></script><script src="app.js"></script><script src="v3.js"></script><script src="pet.js"></script>
 </body>
 </html>

@@ -1,13 +1,23 @@
-DIA A DIA DA ELO v3.0.4 — VALIDAÇÃO FINAL
+DIA A DIA DA ELO v3.1.0 — VALIDAÇÃO DA ATUALIZAÇÃO
 
-✅ version.js = 3.0.4
-✅ manifest start_url = ./?app=3.0.4
-✅ service worker com cache elo-official-3.0.4-r2
-✅ sintaxe app.js validada
-✅ sintaxe v3.js validada
-✅ home principal em menu de botões grandes
-✅ quarto com opções sem quadro, sem tapete e sem brinquedo
-✅ brinquedos desenhados por CSS, sem emoji dentro do cenário
-✅ calças com molde visual reajustado
-✅ RPG preservado
-✅ ZIP app-upload com arquivos diretamente na raiz
+Validações executadas antes de compactar:
+- 31 verificações estruturais aprovadas.
+- HTML sem IDs duplicados.
+- Referências locais de scripts, imagens e folhas de estilo verificadas.
+- version.js, index.html, app.js, manifest e Service Worker conferidos em v3.1.0.
+- Sintaxe de app.js, v3.js, pet.js e sw.js validada pelo Node.js.
+- manifest.webmanifest validado como JSON.
+- Menu Castelo da Elo confirmado como removido da Home; RPG permanece em Jogos.
+- Card repetido Meu Espaço confirmado como removido.
+- Guarda-roupa e Modo Família confirmados com cartões ilustrados.
+- Bichinho da Elo presente na Home e no Quarto.
+- Lógica do bichinho testada em execução: 3 cuidados chocam o ovo, espécie é criada, cinco tipos de cuidado atualizam os indicadores e os valores permanecem dentro dos limites esperados.
+- Brinquedo do quarto reposicionado para uma faixa inferior diferente da posição da Elo.
+- Opções Sem quadro, Sem tapete e Sem brinquedo preservadas.
+- RPG comparado por SHA-256 com a base anterior e confirmado idêntico.
+
+RPG SHA-256 preservado:
+5bae95e5ca1bc659dc48d58770762da45af0e92e0585883d9dd80d6699f51a3d
+
+Observação:
+A validação automática reduz regressões conhecidas, mas não é uma garantia absoluta de inexistência de bugs em todos os aparelhos/navegadores.

@@ -1,19 +1,14 @@
-ATUALIZAÇÃO v3.0.4 — CORREÇÃO DE ENTREGA
-
-IMPORTANTE: envie para a RAIZ do GitHub o arquivo chamado EXATAMENTE app-upload.zip.
-O workflow “Importar ZIP do app” monitora esse nome.
-
-Esta revisão também força a troca do cache antigo da v3.0.3 para v3.0.4.
-
-DIA A DIA DA ELO — V3.0.2
+DIA A DIA DA ELO — v3.1.0
 
 ATUALIZAÇÃO PRINCIPAL
-- Mundo da Elo mais vivo e integrado ao cenário.
-- Guarda-roupa completo com peças ilustradas e combinações por perfil.
-- Modo Família com nova brincadeira de Mímica.
-- Escrita continua Elo; voz em português pronuncia Elô.
+- Bichinho da Elo estilo bichinho virtual/Tamagotchi, com ovo, nascimento e crescimento.
+- Alimentar, dar banho, brincar, dormir e dar carinho.
+- Sem morte, sem punição por ficar dias sem entrar e sem sequência diária obrigatória.
+- Menu inicial mais limpo: Castelo removido da Home e Meu Espaço removido por duplicidade.
+- Guarda-roupa e Modo Família com cartões ilustrados no padrão das demais áreas.
+- Brinquedo do quarto reposicionado para não sobrepor a Elo.
 - RPG completo preservado.
 
 INSTALAÇÃO AUTOMÁTICA
-Envie app-upload.zip na RAIZ do repositório e faça o commit na main.
-O workflow Importar ZIP do app substitui os arquivos automaticamente.
+Envie o arquivo app-upload.zip na RAIZ do repositório e faça o commit na main.
+O workflow “Importar ZIP do app” substitui os arquivos automaticamente.

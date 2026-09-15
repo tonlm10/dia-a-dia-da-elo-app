@@ -1,3 +1,17 @@
+3.1.0 — BICHINHO DA ELO + MENU REFINADO
+- Novo Bichinho da Elo inspirado nos antigos bichinhos virtuais: ovo, nascimento, crescimento e cuidados.
+- Ações: comida, banho, brincar, dormir e carinho.
+- Indicadores de fome, energia, higiene, diversão e carinho.
+- O bichinho não morre e não perde progresso por ausência; a redução dos indicadores é suave e limitada.
+- Quatro espécies possíveis no nascimento: unicórnio, gatinho, cachorrinho e coelhinho.
+- Nome personalizável e acessórios desbloqueáveis conforme os cuidados.
+- Menu Castelo da Elo removido da Home; o RPG continua dentro de Jogos.
+- Card repetido Meu Espaço removido; Quarto da Elo permanece como entrada principal.
+- Guarda-roupa e Modo Família agora usam cartões ilustrados no mesmo padrão visual das outras áreas.
+- Brinquedo do quarto reposicionado para não ficar junto da Elo.
+- Acesso ao Bichinho também pelo Quarto da Elo.
+- RPG preservado sem alterações.
+
 3.0.2 — MUNDO VIVO + GUARDA-ROUPA + MÍMICA
 - Home refeita como um pequeno mundo ilustrado, com construções integradas ao cenário, lago, ponte, árvores, flores e microanimações.
 - Guarda-roupa reconstruído com personagem ilustrada e peças visuais: camisetas, shorts, saias, calças, vestidos, sapatos, laços/tiaras, brincos, anéis, pulseiras, colares e maquiagem.
