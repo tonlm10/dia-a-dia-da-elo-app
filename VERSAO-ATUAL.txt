@@ -1,2 +1,2 @@
-Versão atual do app: 3.3.1
-Cabeçalho/home simplificados e navegação Voltar/Sair corrigida.
+Versão atual do app: 3.3.2
+Correção do botão Recomeçar aventura do RPG: reinício completo na Casa da Elo.
