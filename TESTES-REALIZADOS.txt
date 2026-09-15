@@ -1,4 +1,11 @@
-DIA A DIA DA ELO v3.1.12 — TESTES DA ATUALIZAÇÃO
+v3.1.13
+- Conferência interna de versão em version.js, app.js, index.html, privacy.html, terms.html e rpg.html.
+- Conferência das referências com ?v=3.1.13 para evitar cache antigo.
+- Conferência da remoção do vaso no quarto.
+- Conferência das regras finais da mini Elo do quarto (corpo, pernas, sapatos e acessório).
+- Conferência do tratamento especial dos brinquedos do quarto, com correspondência visual por item.
+
+DIA A DIA DA ELO v3.1.13 — TESTES DA ATUALIZAÇÃO
 
 - RPG: movimento agora respeita state.dir, com desenho diferente para frente, costas e lado.
 - Batalha permanece usando a Elo frontal.
