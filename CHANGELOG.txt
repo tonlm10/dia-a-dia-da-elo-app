@@ -1,3 +1,11 @@
+v3.5.2
+- Cinema: prateleiras horizontais agora mantêm a posição enquanto títulos e playlists carregam.
+- Cinema: adição de botões laterais para avançar/voltar nas prateleiras.
+- Cinema: removido o contexto de playlist ao abrir um vídeo específico, evitando voltar ao primeiro vídeo da lista.
+- Cinema: Shorts passam a usar toda a largura disponível do modal em proporção 9:16.
+- Cinema: vídeos comuns e iframe ocupam 100% da área de reprodução disponível.
+- Cinema: host do player recebeu dimensões explícitas para evitar player menor que o contêiner.
+
 v3.5.1
 - Labirinto: Elo agora fica centralizada exatamente no quadrado do jogador.
 - Caça aos Unicórnios: mesma correção de posicionamento da Elo.

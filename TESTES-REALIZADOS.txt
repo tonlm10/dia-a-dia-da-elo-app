@@ -1,9 +1,8 @@
-DIA A DIA DA ELO v3.5.1 — TESTES
+DIA A DIA DA ELO v3.5.2 — TESTES
 
-- Sintaxe de app.js e v3.js.
-- Conferência da versão 3.5.1 e cache r16.
-- Labirinto e Caça: personagem usa transform único (translate + scale), evitando deslocamento para fora da célula.
-- Cinema: catálogo de cada playlist usa player temporário independente e aguarda estado CUED antes de ler IDs.
-- IDs repetidos na mesma playlist são removidos.
-- Metadados/títulos são lidos individualmente sem iniciar reprodução.
-- Player de visualização usa iframe oficial do YouTube com playsinline e fullscreen.
+- Sintaxe de app.js, v3.js, pet.js e service worker.
+- Conferência da versão 3.5.2 e cache r17.
+- Verificação de preservação do scroll horizontal das prateleiras durante re-render.
+- Verificação de player de vídeo específico sem parâmetro de playlist.
+- Verificação de modo Short 9:16 ocupando 100% da largura do modal.
+- Verificação de host/iframe com largura e altura 100%.

@@ -1,2 +1,2 @@
-Versão atual do app: 3.5.1
-Correções do Labirinto/Caça aos Unicórnios e Cinema da Elo.
+Versão atual do app: 3.5.2
+Correções de navegação horizontal e dimensionamento do Cinema da Elo.
