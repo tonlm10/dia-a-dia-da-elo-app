@@ -1,2 +1,2 @@
-Versão atual do app: 3.3.2
-Correção do botão Recomeçar aventura do RPG: reinício completo na Casa da Elo.
+Versão atual do app: 3.3.3
+Correção da direção horizontal da Elo no RPG para todos os looks do guarda-roupa.

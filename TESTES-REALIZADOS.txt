@@ -1,4 +1,4 @@
-DIA A DIA DA ELO v3.3.2 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.3.3 — TESTES DA ATUALIZAÇÃO
 
 - Sintaxe validada em app.js, v3.js, pet.js, sw.js e JavaScript interno do RPG.
 - IDs do index.html conferidos sem duplicação.

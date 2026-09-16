@@ -1,9 +1,16 @@
-v3.3.2
+v3.3.3
+- RPG: revisão completa da orientação horizontal da Elo com qualquer look do guarda-roupa.
+- Perfil lateral ficou mais explícito (olho, blush, boca e nariz apontam para o sentido do movimento).
+- Cabelos assimétricos (rabo baixo, rabo lateral e trança) agora ficam atrás da cabeça ao andar para os lados.
+- Laços e presilha lateral também acompanham corretamente a direção.
+- Auditoria confirmou os 75 itens do guarda-roupa mapeados no RPG.
+
+v3.3.3
 - RPG: botão “Recomeçar aventura” agora apaga corretamente o save atual e qualquer save legado.
 - RPG: ao reiniciar, a Elo volta imediatamente para a Casa da Elo no nível 1, missão 0, moedas e inventário iniciais.
 - Guarda-roupa escolhido no app é preservado, pois não faz parte do progresso do RPG.
 
-v3.3.2
+v3.3.3
 - Cabeçalho compactado: perfil separado visualmente das estrelas, contador ⭐ no topo e botão de voz mantido.
 - Home simplificada: removidos textos repetidos, botão Ouvir Elo duplicado e contador flutuante.
 - Cartão “Oi! Vamos brincar?” agora é curto e tocável para ouvir a voz da Elo.
