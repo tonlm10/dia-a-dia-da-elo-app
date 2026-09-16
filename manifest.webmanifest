@@ -3,7 +3,7 @@
   "name": "Dia a Dia da Elo",
   "short_name": "Dia a Dia da Elo",
   "lang": "pt-BR",
-  "start_url": "./?app=3.4.0",
+  "start_url": "./?app=3.5.0",
   "scope": "./",
   "display": "standalone",
   "display_override": [
@@ -12,7 +12,7 @@
   "orientation": "portrait-primary",
   "background_color": "#fff8fc",
   "theme_color": "#ff67a8",
-  "description": "Dia a Dia da Elo v3.4.0 — universo infantil com RPG expandido, jogos, histórias, aprendizado, quarto interativo, guarda-roupa, bichinho e recursos familiares com proteção dos responsáveis.",
+  "description": "Dia a Dia da Elo v3.5.0 — universo infantil com RPG expandido, Cinema da Elo integrado, jogos com personagem sincronizada ao guarda-roupa, histórias, aprendizado, quarto interativo e recursos familiares.",
   "categories": [
     "education",
     "games",

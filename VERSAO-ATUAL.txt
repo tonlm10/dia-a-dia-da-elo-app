@@ -1,2 +1,2 @@
-Versão atual do app: 3.4.0
-RPG Definitivo: gráficos, NPCs, monstros, chefões, IA, batalhas, guia visual, missões secundárias, casas visitáveis e pós-jogo.
+Versão atual do app: 3.5.0
+Atualização integrada: Cinema da Elo dentro do app + Elo unificada no Labirinto e Caça aos Unicórnios + criaturas redesenhadas + correção de orientação da Trilha Encantada.

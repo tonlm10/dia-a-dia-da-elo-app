@@ -1,12 +1,42 @@
-DIA A DIA DA ELO v3.4.0 — TESTES DA ATUALIZAÇÃO RPG DEFINITIVO
+DIA A DIA DA ELO v3.5.0 — TESTES E VALIDAÇÕES
 
-- Sintaxe validada com Node para app.js, v3.js, pet.js, sw.js e todo o JavaScript interno do rpg.html.
-- Teste de execução do RPG em ambiente simulado com DOM e Canvas: inicialização concluída sem erro.
-- Renderização lógica testada nos 16 mapas, incluindo Casa Azul e Casa das Flores.
-- Renderização lógica testada para os 11 inimigos originais e o Guardião do Desafio do pós-jogo.
-- Ciclos de batalha testados para Sombra Nublada, Cervo das Sombras, Golem de Pedra, Sombra da Noite e Guardião do Desafio.
-- Menu de missões, guia visual, missões secundárias, novos objetos e NPCs carregados sem erro no teste de execução.
-- Compatibilidade de save preservada: a atualização adiciona estruturas novas sem apagar o progresso existente.
-- Regras da campanha principal, Portão Norte, reinício da aventura e visual da Elo vindo do guarda-roupa foram preservados.
+1. Sintaxe validada com Node:
+- app.js
+- v3.js
+- pet.js
+- sw.js
+- JavaScript interno do rpg.html
 
-Observação: o teste automatizado valida sintaxe e execução lógica. O teste visual final em cada aparelho/tamanho de tela continua sendo recomendado após publicar no GitHub Pages.
+2. Estrutura HTML:
+- Sem IDs duplicados.
+- Todos os arquivos locais referenciados diretamente no index.html existem.
+- Novos elementos do Cinema, Labirinto e Caça aos Unicórnios conferidos.
+
+3. Guarda-roupa / quarto:
+- ROOM_DECOR idêntico à v3.4.0.
+- WARDROBE_ITEMS idêntico à v3.4.0.
+- WARDROBE_PRESETS idêntico à v3.4.0.
+- Nenhum requisito de estrelas ou item bloqueado foi alterado.
+
+4. Jogos:
+- Labirinto usa clone da Elo atual do guarda-roupa.
+- Caça aos Unicórnios usa clone da Elo atual do guarda-roupa.
+- Unicórnio vetorial próprio incluído em assets/game-ui/unicorn.svg.
+- Fantasminha vetorial próprio incluído em assets/game-ui/ghost.svg.
+- Trilha Encantada força perfil visual voltado para a direita, com tratamento dos penteados assimétricos.
+- Unicórnio coletável da Trilha usa a nova arte vetorial.
+
+5. Cinema da Elo:
+- Playlists convertidas em categorias/prateleiras.
+- Catálogo tenta descobrir os IDs dos vídeos via YouTube IFrame Player API, sem chave de API.
+- Thumbnails são exibidas por ID de vídeo quando disponíveis.
+- Player oficial do YouTube abre dentro do app, sem autoplay, com opção de tela cheia.
+- Shorts usam apresentação vertical.
+- Fallback de playlist embutida configurado caso o catálogo não consiga carregar os IDs.
+- O funcionamento do catálogo depende de conexão com a internet e disponibilidade do YouTube.
+
+6. Versionamento/cache:
+- version.js: 3.5.0
+- manifest: 3.5.0
+- service worker: cache r15
+- novo CSS games-v350.css incluído no cache principal.

@@ -1,14 +1,14 @@
-DIA A DIA DA ELO — v3.4.0
+DIA A DIA DA ELO v3.5.0
 
-ATUALIZAÇÃO PRINCIPAL
-- Bichinho da Elo estilo bichinho virtual/Tamagotchi, com ovo, nascimento e crescimento.
-- Alimentar, dar banho, brincar, dormir e dar carinho.
-- Sem morte, sem punição por ficar dias sem entrar e sem sequência diária obrigatória.
-- Menu inicial mais limpo: Castelo removido da Home e Meu Espaço removido por duplicidade.
-- Guarda-roupa e Modo Família com cartões ilustrados no padrão das demais áreas.
-- Brinquedo do quarto reposicionado para não sobrepor a Elo.
-- RPG completo preservado.
+Para atualizar pelo workflow do GitHub, envie o arquivo com o nome exato:
+app-upload.zip
 
-INSTALAÇÃO AUTOMÁTICA
-Envie o arquivo app-upload.zip na RAIZ do repositório e faça o commit na main.
-O workflow “Importar ZIP do app” substitui os arquivos automaticamente.
+Conteúdo do ZIP fica diretamente na raiz, sem pasta externa.
+
+Destaques da v3.5.0:
+- Cinema da Elo em formato de catálogo, com vídeos e Shorts dentro do app.
+- Labirinto com a mesma Elo do guarda-roupa e unicórnio redesenhado.
+- Caça aos Unicórnios com a mesma Elo, unicórnios redesenhados e fantasminha próprio.
+- Trilha Encantada com revisão da direção visual da personagem e novo unicórnio.
+
+Nenhum item bloqueado ou requisito de estrelas do quarto/guarda-roupa foi alterado.

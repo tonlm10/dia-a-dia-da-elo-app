@@ -1,4 +1,13 @@
-v3.4.0 — RPG Definitivo
+v3.5.0
+- Cinema da Elo reconstruído em formato de catálogo: playlists viram categorias e os vídeos/Shorts aparecem em prateleiras com thumbnails.
+- Reprodução do YouTube ocorre dentro do app, sem autoplay, com player compacto e opção de tela cheia.
+- Labirinto da Elo agora clona a personagem atual do guarda-roupa e usa unicórnio vetorial redesenhado.
+- Caça aos Unicórnios agora clona a mesma Elo do guarda-roupa, usa unicórnios redesenhados e fantasminha vetorial próprio.
+- Trilha Encantada: revisão da orientação da Elo em corrida para impedir aparência de estar andando de costas com penteados/roupas assimétricos.
+- Trilha Encantada: unicórnios coletáveis passam a usar a nova arte vetorial.
+- Itens bloqueados, preços em estrelas e regras de desbloqueio do quarto/guarda-roupa não foram alterados.
+
+v3.5.0 — RPG Definitivo
 - Monstros redesenhados com 11 identidades visuais e comportamentos diferentes.
 - Chefões com ataques especiais avisados, defesa estratégica, escudo do Golem e duas fases na Sombra da Noite.
 - Cenários de batalha específicos por bioma e novos efeitos visuais.
@@ -11,19 +20,19 @@ v3.4.0 — RPG Definitivo
 - Pós-jogo com Guardião do Desafio reaparecendo no Caminho Celeste.
 - Compatibilidade preservada com saves existentes e com a Elo sincronizada ao guarda-roupa.
 
-v3.4.0
+v3.5.0
 - RPG: revisão completa da orientação horizontal da Elo com qualquer look do guarda-roupa.
 - Perfil lateral ficou mais explícito (olho, blush, boca e nariz apontam para o sentido do movimento).
 - Cabelos assimétricos (rabo baixo, rabo lateral e trança) agora ficam atrás da cabeça ao andar para os lados.
 - Laços e presilha lateral também acompanham corretamente a direção.
 - Auditoria confirmou os 75 itens do guarda-roupa mapeados no RPG.
 
-v3.4.0
+v3.5.0
 - RPG: botão “Recomeçar aventura” agora apaga corretamente o save atual e qualquer save legado.
 - RPG: ao reiniciar, a Elo volta imediatamente para a Casa da Elo no nível 1, missão 0, moedas e inventário iniciais.
 - Guarda-roupa escolhido no app é preservado, pois não faz parte do progresso do RPG.
 
-v3.4.0
+v3.5.0
 - Cabeçalho compactado: perfil separado visualmente das estrelas, contador ⭐ no topo e botão de voz mantido.
 - Home simplificada: removidos textos repetidos, botão Ouvir Elo duplicado e contador flutuante.
 - Cartão “Oi! Vamos brincar?” agora é curto e tocável para ouvir a voz da Elo.
