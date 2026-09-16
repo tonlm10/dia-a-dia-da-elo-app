@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#7155c7">
 <title>Elo e o Reino das Estrelas</title>
-<link rel="stylesheet" href="v3.css?v=3.3.3">
+<link rel="stylesheet" href="v3.css?v=3.4.0">
 <style>
 :root{--ink:#302546;--pink:#ff69a9;--purple:#7357c9;--paper:#fffafd;--muted:#796f86;--shadow:0 18px 42px rgba(55,37,86,.18)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f6f0ff;color:var(--ink);user-select:none}button{font:inherit}.hidden{display:none!important}#rpgApp{height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff4fa,#f1edff)}
@@ -21,7 +21,7 @@
 .storyOverlay{background:radial-gradient(circle at 50% 20%,rgba(255,255,255,.45),rgba(42,28,69,.78)),linear-gradient(145deg,#7b60d8,#ff78b1)}.storyCard{width:min(620px,94vw);background:rgba(255,250,253,.96);border-radius:30px;padding:26px;text-align:center;box-shadow:var(--shadow)}.storyStars{font-size:34px}.storyCard h1{font-size:28px;margin:8px 0;color:#6c4fbd}.storyCard p{line-height:1.5;color:#5d536a}.storyCard .mainBtn,.storyCard .softBtn{width:100%;margin-top:8px}
 
 .rpgEloLayer{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}.rpgEloLayer .rpgEloClone{position:absolute!important;width:150px!important;height:325px!important;transform-origin:top left!important;will-change:left,top,transform;filter:drop-shadow(0 5px 4px rgba(44,28,54,.18))}
-/* v3.3.3 — direção visual da Elo mantendo exatamente o look do guarda-roupa */
+/* v3.4.0 — direção visual da Elo mantendo exatamente o look do guarda-roupa */
 .rpgEloClone.rpg-dir-up .dollHead .eye,.rpgEloClone.rpg-dir-up .dollHead .mouth,.rpgEloClone.rpg-dir-up .dollHead .blush{opacity:0!important}
 .rpgEloClone.rpg-dir-up .dollHairFront{left:34px!important;top:24px!important;width:82px!important;height:80px!important;border-radius:48% 48% 40% 40%!important;clip-path:none!important;z-index:4!important}
 .rpgEloClone.rpg-dir-up .dollEarring,.rpgEloClone.rpg-dir-up .dollNecklace{opacity:0!important}
@@ -52,13 +52,20 @@
 .battleVisual{position:relative;margin:10px 0}.battleVisual #battleArt{margin:0;position:relative;z-index:1}.battleEloLayer{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;border-radius:18px}.battleEloLayer .rpgBattleClone{position:absolute!important;width:150px!important;height:325px!important;transform-origin:top left!important;filter:drop-shadow(0 6px 5px rgba(44,28,54,.18))}
 @media(max-width:560px){.rpgTop{height:64px}.gameTitle strong{font-size:15px}.hud{grid-template-columns:48px 1fr 1fr 1fr 58px}.hudBox{padding:6px 5px}.mobileControls{height:128px}.statsGrid{grid-template-columns:repeat(2,1fr)}.shopItems{grid-template-columns:1fr 1fr}.medalGrid{grid-template-columns:repeat(3,1fr)}.dialogCard{grid-template-columns:58px 1fr;padding:13px}.portrait{width:58px;height:58px;font-size:30px}.objective p{max-width:72vw}.panelCard{max-height:92vh}.battleCard{padding:13px;max-height:95vh}.battleCard canvas{margin:7px 0;height:auto}.eloBattleStatus{gap:6px}.eloBattleBox{padding:8px}.eloBattleBox strong{font-size:10px}.eloBattleBox small{font-size:10px}}
 
+
+/* v3.4.0 RPG Definitivo */
+.bossIntent{display:none;margin:8px 0;padding:9px 12px;border-radius:14px;background:linear-gradient(135deg,#fff2b8,#ffe3ee);border:1px solid #f0cf77;color:#594366;font-weight:1000;font-size:12px;box-shadow:0 5px 14px rgba(105,76,132,.10)}
+.bossIntent.on{display:block;animation:rpgPulse .8s ease-in-out infinite alternate}
+@keyframes rpgPulse{from{transform:scale(1);filter:brightness(1)}to{transform:scale(1.012);filter:brightness(1.04)}}
+.battleText.rpgHit{animation:rpgHit .24s ease-out}@keyframes rpgHit{0%{transform:translateX(0)}35%{transform:translateX(-4px)}70%{transform:translateX(4px)}100%{transform:translateX(0)}}
+
 </style>
 </head>
 <body>
 <div id="rpgApp">
   <header class="rpgTop">
     <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
-    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v3.3.3</span></div>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v3.4.0</span></div>
     <button id="musicBtn" class="topBtn" aria-label="Música">🔊</button><button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
   </header>
 
@@ -108,7 +115,7 @@
       </div>
       <div class="battleVisual"><canvas id="battleArt" width="620" height="210"></canvas><div id="battleEloLayer" class="battleEloLayer" aria-hidden="true"></div></div>
       <div class="enemyBar"><span>👾 Energia do inimigo</span><div class="bar"><i id="enemyHpBar"></i></div><small id="enemyHpText"></small></div>
-      <p id="battleText" class="battleText">Escolha uma ação.</p>
+      <p id="battleText" class="battleText">Escolha uma ação.</p><div id="bossIntent" class="bossIntent"></div>
       <div class="battleActions">
         <button data-battle="attack">✨ Ataque</button>
         <button id="magicBattleBtn" data-battle="magic">💖 Poder • MP</button>
@@ -1021,6 +1028,345 @@ function bind(){
  $('#startStoryBtn').onclick=()=>{state.started=true;state.map='home';state.x=8*TILE;state.y=8*TILE;medal('first-step');$('#introOverlay').classList.add('hidden');saveGame(true);updateHud()};
  $('#continueStoryBtn').onclick=()=>{state.started=true;$('#introOverlay').classList.add('hidden');updateHud()};
 }
+
+
+
+/* ==========================================================
+   v3.4.0 — RPG DEFINITIVO
+   Polimento visual, IA, chefões, mapas, NPCs, guia, extras e pós-jogo.
+   Mantém a campanha principal e saves existentes.
+   ========================================================== */
+const RPGX={
+ cam:{x:0,y:0,ready:false,map:''},guideUntil:0,guideTarget:null,
+ battleFx:null,lastNpcStep:0,postBossRespawn:120000,
+ original:{drawObject,drawBuilding,drawNpc,drawEnemyWorld,drawBattleEnemy,drawBattle,camera,updateEnemies,update,showQuestGuide,talkNpc,interactObject,renderMenu,startBattle,battleAction,afterPlayerTurn,enemyTurn,changeMap,enemyGone,drawTiles}
+};
+
+// Metadados de comportamento e identidade. Cada criatura passa a ter uma leitura própria.
+Object.assign(ENEMIES.slime,{behavior:'hop',family:'gel'});
+Object.assign(ENEMIES.ghost,{behavior:'phase',family:'ghost'});
+Object.assign(ENEMIES.puff,{behavior:'drift',family:'cloud'});
+Object.assign(ENEMIES.boss,{behavior:'boss',family:'storm',special:'Tempestade Nublada'});
+Object.assign(ENEMIES.thorn,{behavior:'ambush',family:'plant'});
+Object.assign(ENEMIES.moss,{behavior:'bounce',family:'moss'});
+Object.assign(ENEMIES.forestBoss,{behavior:'boss',family:'deer',special:'Chuva de Espinhos'});
+Object.assign(ENEMIES.golem,{behavior:'boss',family:'golem',special:'Impacto de Pedra'});
+Object.assign(ENEMIES.spark,{behavior:'dart',family:'spark'});
+Object.assign(ENEMIES.starGuard,{behavior:'patrol',family:'guard'});
+Object.assign(ENEMIES.finalBoss,{behavior:'boss',family:'night',special:'Supernova Sombria'});
+ENEMIES.starWarden={name:'Guardião do Desafio',hp:235,atk:16,def:8,xp:260,coins:150,color:'#6f8fe9',boss:true,recommended:11,behavior:'boss',family:'warden',special:'Círculo Celeste'};
+
+// Novos espaços visitáveis: duas casas que antes eram apenas portas fechadas.
+function rpgxMakeInterior(key,name,bg,floor){
+ maps[key]={name,w:12,h:9,bg,floor,walls:[],objects:[],npcs:[],enemies:[]};
+ const m=maps[key];m.walls=[rect(0,0,m.w*TILE,24),rect(0,0,24,m.h*TILE),rect(m.w*TILE-24,0,24,m.h*TILE),rect(0,m.h*TILE-24,4.7*TILE,24),rect(7.3*TILE,m.h*TILE-24,4.7*TILE,24)];
+ INTERIOR_MAPS.add(key);
+}
+rpgxMakeInterior('blueHouse','Casa Azul','#dbeeff','#eadbc6');
+rpgxMakeInterior('flowerHouse','Casa das Flores','#fff0d4','#edd4bd');
+addObj('blueHouse','sofa',1.2*TILE,1.4*TILE,2.7*TILE,.95*TILE,{label:'Sofá azul'});addObj('blueHouse','table',5.0*TILE,2.0*TILE,2.2*TILE,1.1*TILE);addObj('blueHouse','plant',9.4*TILE,1.5*TILE,.9*TILE,1.2*TILE);addObj('blueHouse','picture',7.7*TILE,1.0*TILE,1.5*TILE,.75*TILE);addObj('blueHouse','houseDoor',4.8*TILE,7.9*TILE,2.4*TILE,.8*TILE,{label:'Sair',to:'city',spawn:{x:33*TILE,y:8.2*TILE}});addNpc('blueHouse','olivia','Olívia',5.0*TILE,4.5*TILE,'',['Eu adoro observar as estrelas da janela. Volte sempre, Elo!']);
+addObj('flowerHouse','bed',1.1*TILE,1.3*TILE,2.2*TILE,1.5*TILE,{label:'Cama florida'});addObj('flowerHouse','plant',4.6*TILE,1.2*TILE,1.0*TILE,1.4*TILE);addObj('flowerHouse','plant',7.0*TILE,1.2*TILE,1.0*TILE,1.4*TILE);addObj('flowerHouse','sofa',7.7*TILE,4.2*TILE,2.4*TILE,.9*TILE);addObj('flowerHouse','houseDoor',4.8*TILE,7.9*TILE,2.4*TILE,.8*TILE,{label:'Sair',to:'city',spawn:{x:34*TILE,y:21.4*TILE}});addNpc('flowerHouse','flora','Flora',5.0*TILE,4.5*TILE,'',['Minha casa vive cheia de flores. Às vezes algumas sementes mágicas aparecem no bosque.']);
+// Converte duas portas antigas em casas reais visitáveis.
+for(const o of maps.city.objects){
+ if(o.type==='lockedDoor'&&o.buildingName==='Casa Azul'){o.type='houseDoor';o.locked=false;o.to='blueHouse';o.spawn={x:6*TILE,y:6.4*TILE};o.label='Entrar na Casa Azul'}
+ if(o.type==='lockedDoor'&&o.buildingName==='Casa das Flores'){o.type='houseDoor';o.locked=false;o.to='flowerHouse';o.spawn={x:6*TILE,y:6.4*TILE};o.label='Entrar na Casa das Flores'}
+}
+
+// Mais vida visual em todos os biomas sem criar colisões novas.
+function rpgxDec(map,type,gx,gy,gw=.7,gh=.7,extra={}){addObj(map,type,gx*TILE,gy*TILE,gw*TILE,gh*TILE,extra)}
+[['city','banner',11.7,8.3],['city','banner',23.3,8.3],['city','butterflies',9.5,15.5],['city','sparkles',25.5,15.5],['city','bush',10.5,6.7],['city','bush',28.5,6.7],
+ ['meadow','wildflowers',13,9],['meadow','wildflowers',25,19],['meadow','stump',16,20],['meadow','butterflies',30,7],['meadow','windmill',36,20,1.2,1.8],
+ ['forest','mushrooms',9,11],['forest','mushrooms',31,18],['forest','fallenLog',18,6,2.0,.7],['forest','fireflies',22,13],['forest','fireflies',34,8],
+ ['market','crates',8,7,1.1,.8],['market','banner',17,7],['market','lanternArch',29,12,1.2,1.3],['market','butterflies',12,17],
+ ['bridge','ruins',7,10,1.4,1.5],['bridge','banner',27,8],['bridge','sparkles',18,17],
+ ['cave','glowPool',16,14,1.5,.8],['cave','sparkles',22,6],['cave','sparkles',7,16],
+ ['temple','starPillar',5,7,.8,1.5],['temple','starPillar',28,7,.8,1.5],['temple','constellation',17,5,1.4,1.0],['temple','sparkles',17,16],
+ ['starRoad','cloudIsland',6,8,1.7,.8],['starRoad','cloudIsland',27,18,1.7,.8],['starRoad','constellation',18,9,1.4,1.0],['starRoad','sparkles',10,20],['starRoad','sparkles',26,7]
+].forEach(a=>rpgxDec(...a));
+
+// Missões secundárias curtas e opcionais.
+addNpc('city','liliSide','Lili',11.2*TILE,18.8*TILE,'',['Perdi minha fita rosa brincando na Campina.']);
+addNpc('market','teoSide','Téo',9.3*TILE,18.6*TILE,'',['Meu brinquedo de estrela sumiu perto do Bosque.']);
+addNpc('bridge','coraSide','Cora',27*TILE,15.5*TILE,'',['Perdi um pingente luminoso perto do Templo.']);
+addObj('meadow','sidePickup',14*TILE,20*TILE,.7*TILE,.7*TILE,{id:'side-ribbon',side:'ribbon',label:'Fita rosa'});
+addObj('forest','sidePickup',30*TILE,19*TILE,.7*TILE,.7*TILE,{id:'side-toy',side:'toy',label:'Brinquedo estrela'});
+addObj('temple','sidePickup',26*TILE,16*TILE,.7*TILE,.7*TILE,{id:'side-charm',side:'charm',label:'Pingente luminoso'});
+// NPCs de ambiente que realmente passeiam pelo cenário.
+addNpc('city','joWalk','Jo',24*TILE,14.5*TILE,'',['Adoro passear pela praça!'],{wander:true,wanderRadius:75,wanderAxis:'x'});
+addNpc('market','dudaWalk','Duda',21*TILE,13*TILE,'',['O mercado está cheio de novidades!'],{wander:true,wanderRadius:90,wanderAxis:'y'});
+addNpc('meadow','leoWalk','Léo',18*TILE,23*TILE,'',['Eu gosto de observar os brilhos da Campina.'],{wander:true,wanderRadius:80,wanderAxis:'x'});
+for(const n of Object.values(maps).flatMap(m=>m.npcs)){if(n.wander){n.homeX=n.x;n.homeY=n.y;n.wanderDir=1;n.wanderT=Math.random()*10}}
+
+// Pós-jogo: desafio opcional no Caminho Celeste.
+addEnemy('starRoad','starWarden','starWarden',18*TILE,15*TILE);
+const oldEnemyGoneRpgx=enemyGone;
+enemyGone=function(e){
+ if(e.id==='starWarden'){
+   if(!state.chapterComplete)return true;
+   const when=state.removedEnemies[e.id];
+   if(!when)return false;
+   if(Date.now()-when>RPGX.postBossRespawn){delete state.removedEnemies[e.id];return false}
+   return true;
+ }
+ return oldEnemyGoneRpgx(e)
+};
+
+function rpgxSide(){
+ state.flags=state.flags||{};
+ state.flags.sideQuests=state.flags.sideQuests||{ribbon:0,toy:0,charm:0};
+ state.flags.sideFound=state.flags.sideFound||{};
+ return state.flags.sideQuests;
+}
+function rpgxSideMarker(n){
+ const q=rpgxSide(),found=state.flags.sideFound||{};
+ const map={liliSide:'ribbon',teoSide:'toy',coraSide:'charm'},k=map[n.id];if(!k)return'';
+ if(q[k]>=2)return'';if(q[k]===0)return'!';if(found[k])return'✓';return'?'
+}
+function rpgxMainMarker(n){const q=Number(state.quest)||0;
+ const hit=(id,arr)=>n.id===id&&arr.includes(q);
+ if(hit('guardian',[0,2]))return'!';if(n.id==='guardian'&&[1,3].includes(q))return'?';
+ if(hit('pipo',[4])||hit('aria',[5])||hit('lumaForest',[8])||hit('nilo',[9])||hit('brisa',[11])||hit('lumina',[14,16])||((n.id==='sofia'||n.id==='sofiaHome')&&q===18))return'!';
+ if((n.id==='aria'&&[6,7].includes(q))||(n.id==='nilo'&&q===10)||(n.id==='lumina'&&q===15))return'?';return''}
+
+// Casas e prédios com silhuetas distintas.
+drawBuilding=function(o,x,y){
+ ctx.save();const kind=o.kind||'house',name=o.buildingName||'';let wall=o.color||'#dfbf98',roof='#a85842',trim='#fff0cf',sign='';
+ if(name==='Casa da Elo'){wall='#ffd4e5';roof='#e87bac';trim='#fff6fb'}
+ else if(name==='Casa da Sofia'){wall='#ffc9df';roof='#b96e9c'}
+ else if(name==='Casa Azul'){wall='#b9dcff';roof='#4b88bd'}
+ else if(name==='Casa das Flores'){wall='#ffe1a8';roof='#cc7b68'}
+ else if(kind==='inn'){wall='#d9cbff';roof='#6d63a5';sign='☾'}
+ else if(kind==='shop'){wall='#b6ead9';roof='#3c7897';sign='⚗'}
+ else if(kind==='clothes'){wall='#ffe0bb';roof='#c96f95';sign='✦'}
+ else if(kind==='hall'){wall='#eadba7';roof='#a56d34';sign='★'}
+ else if(name===''){wall='#8370a9';roof='#4c3b72';sign='☀'}
+ const sh=8;ctx.fillStyle='rgba(42,29,52,.22)';roundRect(ctx,x+10,y+o.h-sh,o.w-20,16,6);ctx.fill();
+ // body
+ ctx.fillStyle='#5a473d';roundRect(ctx,x+4,y+35,o.w-8,o.h-35,8);ctx.fill();ctx.fillStyle=wall;roundRect(ctx,x+10,y+42,o.w-20,o.h-48,6);ctx.fill();
+ // roof varies by type
+ ctx.fillStyle=roof;ctx.beginPath();
+ if(kind==='hall'){ctx.moveTo(x+8,y+44);ctx.lineTo(x+o.w*.25,y+10);ctx.lineTo(x+o.w*.75,y+10);ctx.lineTo(x+o.w-8,y+44)}
+ else{ctx.moveTo(x-8,y+48);ctx.lineTo(x+o.w/2,y);ctx.lineTo(x+o.w+8,y+48)}ctx.closePath();ctx.fill();
+ ctx.fillStyle='rgba(255,255,255,.18)';ctx.beginPath();ctx.moveTo(x+14,y+42);ctx.lineTo(x+o.w/2,y+10);ctx.lineTo(x+o.w-14,y+42);ctx.closePath();ctx.fill();
+ // windows
+ const wy=y+o.h*.52;for(const wx of[x+22,x+o.w-52]){ctx.fillStyle=trim;roundRect(ctx,wx,wy,30,28,4);ctx.fill();ctx.fillStyle='#73b9d5';ctx.fillRect(wx+5,wy+5,20,18);ctx.fillStyle='#ffffff99';ctx.fillRect(wx+7,wy+7,8,5);ctx.fillStyle='#5f5260';ctx.fillRect(wx+14,wy+5,3,18);ctx.fillRect(wx+5,wy+13,20,3)}
+ // flowers / awning / tower accents
+ if(name==='Casa das Flores'){for(let i=0;i<5;i++){ctx.fillStyle=i%2?'#ff7bac':'#ffd65d';ctx.beginPath();ctx.arc(x+20+i*22,y+o.h-16,5,0,Math.PI*2);ctx.fill()}}
+ if(kind==='shop'||kind==='clothes'){ctx.fillStyle=kind==='clothes'?'#ff8fb8':'#79d9bc';ctx.fillRect(x+12,y+48,o.w-24,10);for(let i=0;i<5;i++){ctx.fillStyle=i%2?'#fff4ca':(kind==='clothes'?'#ff8fb8':'#79d9bc');ctx.fillRect(x+12+i*(o.w-24)/5,y+48,(o.w-24)/5,10)}}
+ if(sign){ctx.fillStyle='#fff7dd';roundRect(ctx,x+o.w/2-18,y+56,36,28,7);ctx.fill();ctx.fillStyle='#59466d';ctx.font='900 20px system-ui';ctx.textAlign='center';ctx.fillText(sign,x+o.w/2,y+77);ctx.textAlign='left'}
+ ctx.restore()
+};
+
+// Objetos decorativos novos.
+const oldDrawObjectRpgx=RPGX.original.drawObject;
+drawObject=function(o,cam){
+ const x=o.x-cam.x,y=o.y-cam.y;if(x>canvas.width+120||y>canvas.height+120||x+o.w<-120||y+o.h<-120)return;
+ const t=o.type,now=performance.now();
+ if(!['banner','butterflies','sparkles','bush','wildflowers','stump','windmill','mushrooms','fallenLog','fireflies','crates','lanternArch','ruins','glowPool','starPillar','constellation','cloudIsland','sidePickup'].includes(t)){oldDrawObjectRpgx(o,cam);return}
+ ctx.save();
+ if(t==='banner'){ctx.fillStyle='#7a5b56';ctx.fillRect(x+o.w*.46,y,o.w*.08,o.h);ctx.fillStyle='#ff78ad';ctx.beginPath();ctx.moveTo(x+o.w*.5,y+4);ctx.lineTo(x+o.w*.95,y+15);ctx.lineTo(x+o.w*.5,y+28);ctx.closePath();ctx.fill();ctx.fillStyle='#ffd75d';ctx.fillRect(x+o.w*.63,y+13,5,5)}
+ else if(t==='butterflies'){for(let i=0;i<3;i++){const px=x+12+i*16,py=y+12+Math.sin(now/420+i)*9;ctx.fillStyle=i%2?'#ffd45f':'#ff8fbd';ctx.beginPath();ctx.ellipse(px-3,py,4,3,-.4,0,Math.PI*2);ctx.ellipse(px+3,py,4,3,.4,0,Math.PI*2);ctx.fill()}}
+ else if(t==='sparkles'||t==='fireflies'){for(let i=0;i<5;i++){const px=x+8+(i*17)%Math.max(18,o.w-10),py=y+8+((i*23)%Math.max(20,o.h-10))+Math.sin(now/350+i)*5;ctx.fillStyle=t==='fireflies'?'#e9f778':'#fff1a2';ctx.globalAlpha=.45+.45*(.5+.5*Math.sin(now/300+i));ctx.beginPath();ctx.arc(px,py,t==='fireflies'?2.5:3,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1}
+ else if(t==='bush'){ctx.fillStyle='#377f49';for(const [dx,dy,r] of [[.25,.55,.25],[.48,.38,.3],[.72,.55,.24]]){ctx.beginPath();ctx.arc(x+o.w*dx,y+o.h*dy,o.w*r,0,Math.PI*2);ctx.fill()}ctx.fillStyle='#ff9abd';ctx.fillRect(x+o.w*.35,y+o.h*.42,4,4);ctx.fillStyle='#ffd56d';ctx.fillRect(x+o.w*.65,y+o.h*.56,4,4)}
+ else if(t==='wildflowers'){for(let i=0;i<7;i++){const px=x+6+(i*13)%o.w,py=y+o.h-7-(i%3)*5;ctx.fillStyle='#4d9145';ctx.fillRect(px,py,2,9);ctx.fillStyle=['#ff86b7','#ffd65f','#c39cff'][i%3];ctx.beginPath();ctx.arc(px+1,py,3,0,Math.PI*2);ctx.fill()}}
+ else if(t==='stump'){ctx.fillStyle='#744b31';roundRect(ctx,x+8,y+o.h*.35,o.w-16,o.h*.55,9);ctx.fill();ctx.fillStyle='#b77849';ctx.beginPath();ctx.ellipse(x+o.w/2,y+o.h*.35,(o.w-16)/2,8,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#885432';ctx.beginPath();ctx.arc(x+o.w/2,y+o.h*.35,8,0,Math.PI*2);ctx.stroke()}
+ else if(t==='windmill'){ctx.fillStyle='#ead7bd';roundRect(ctx,x+o.w*.3,y+o.h*.35,o.w*.4,o.h*.6,5);ctx.fill();ctx.fillStyle='#ad6f54';ctx.beginPath();ctx.moveTo(x+o.w*.2,y+o.h*.38);ctx.lineTo(x+o.w*.5,y+o.h*.15);ctx.lineTo(x+o.w*.8,y+o.h*.38);ctx.fill();ctx.save();ctx.translate(x+o.w*.5,y+o.h*.42);ctx.rotate(now/2500);ctx.strokeStyle='#fff4d2';ctx.lineWidth=5;for(let i=0;i<4;i++){ctx.rotate(Math.PI/2);ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-o.w*.34);ctx.stroke()}ctx.restore()}
+ else if(t==='mushrooms'){for(let i=0;i<4;i++){const px=x+8+i*12,py=y+o.h-8-(i%2)*4;ctx.fillStyle='#f4e3c2';ctx.fillRect(px,py,4,8);ctx.fillStyle=i%2?'#c98bea':'#ff7fae';ctx.beginPath();ctx.arc(px+2,py,6,Math.PI,0);ctx.fill()}}
+ else if(t==='fallenLog'){ctx.fillStyle='#744b31';roundRect(ctx,x,y+o.h*.35,o.w,o.h*.38,10);ctx.fill();ctx.fillStyle='#a36d43';ctx.beginPath();ctx.arc(x+o.w-5,y+o.h*.54,o.h*.2,0,Math.PI*2);ctx.fill();ctx.fillStyle='#57a052';for(let i=0;i<3;i++)ctx.fillRect(x+15+i*22,y+o.h*.28,13,5)}
+ else if(t==='crates'){ctx.fillStyle='#9a633f';for(let i=0;i<2;i++){roundRect(ctx,x+i*30,y+8+(i%2)*9,27,26,4);ctx.fill();ctx.strokeStyle='#d19b69';ctx.strokeRect(x+5+i*30,y+13+(i%2)*9,17,16)}}
+ else if(t==='lanternArch'){ctx.strokeStyle='#705044';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(x+5,y+o.h);ctx.lineTo(x+5,y+20);ctx.quadraticCurveTo(x+o.w/2,y-5,x+o.w-5,y+20);ctx.lineTo(x+o.w-5,y+o.h);ctx.stroke();ctx.fillStyle='#ffd86e';ctx.beginPath();ctx.arc(x+o.w/2,y+15,8,0,Math.PI*2);ctx.fill()}
+ else if(t==='ruins'){ctx.fillStyle='#81766f';ctx.fillRect(x+4,y+o.h*.3,o.w*.22,o.h*.7);ctx.fillRect(x+o.w*.7,y+o.h*.12,o.w*.22,o.h*.88);ctx.fillStyle='#a0968b';ctx.fillRect(x,y+o.h*.27,o.w*.33,8);ctx.fillRect(x+o.w*.62,y+o.h*.1,o.w*.38,8);ctx.fillStyle='#75a76a';ctx.fillRect(x+8,y+o.h*.42,6,o.h*.28)}
+ else if(t==='glowPool'){ctx.fillStyle='rgba(111,214,255,.18)';ctx.beginPath();ctx.ellipse(x+o.w/2,y+o.h/2,o.w*.5,o.h*.35,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#7de3ff';ctx.lineWidth=3;ctx.stroke()}
+ else if(t==='starPillar'){ctx.fillStyle='#4d5279';roundRect(ctx,x+o.w*.18,y+o.h*.15,o.w*.64,o.h*.85,6);ctx.fill();ctx.fillStyle='#7178a5';ctx.fillRect(x+o.w*.1,y+o.h*.1,o.w*.8,10);ctx.fillStyle='#ffe06f';ctx.font='900 22px system-ui';ctx.textAlign='center';ctx.fillText('★',x+o.w/2,y+o.h*.55);ctx.textAlign='left'}
+ else if(t==='constellation'){ctx.strokeStyle='rgba(217,224,255,.65)';ctx.lineWidth=2;const pts=[[.1,.7],[.35,.25],[.62,.55],[.9,.18]];ctx.beginPath();pts.forEach((p,i)=>{const px=x+o.w*p[0],py=y+o.h*p[1];i?ctx.lineTo(px,py):ctx.moveTo(px,py)});ctx.stroke();ctx.fillStyle='#fff1a6';for(const p of pts){ctx.beginPath();ctx.arc(x+o.w*p[0],y+o.h*p[1],3,0,Math.PI*2);ctx.fill()}}
+ else if(t==='cloudIsland'){ctx.fillStyle='rgba(240,246,255,.75)';for(const [dx,dy,r] of [[.22,.55,.26],[.45,.4,.32],[.68,.55,.28]]){ctx.beginPath();ctx.arc(x+o.w*dx,y+o.h*dy,o.w*r,0,Math.PI*2);ctx.fill()}ctx.fillStyle='rgba(193,180,255,.45)';ctx.fillRect(x+o.w*.12,y+o.h*.68,o.w*.72,7)}
+ else if(t==='sidePickup'){if(!state.flags?.sideFound?.[o.side]&&rpgxSide()[o.side]===1){const pulse=1+Math.sin(now/180)*.12;ctx.translate(x+o.w/2,y+o.h/2);ctx.scale(pulse,pulse);ctx.fillStyle='rgba(255,236,112,.25)';ctx.beginPath();ctx.arc(0,0,25,0,Math.PI*2);ctx.fill();ctx.font='30px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(o.side==='ribbon'?'🎀':o.side==='toy'?'⭐':'💎',0,0)}}
+ ctx.restore()
+};
+
+// Interiores extras recebem piso próprio, em vez de gramado.
+drawTiles=function(map,cam){
+ if(!['blueHouse','flowerHouse'].includes(state.map)){RPGX.original.drawTiles(map,cam);return}
+ const sx=Math.floor(cam.x/TILE),sy=Math.floor(cam.y/TILE),ex=Math.ceil((cam.x+canvas.width)/TILE),ey=Math.ceil((cam.y+canvas.height)/TILE);
+ for(let y=sy;y<=ey;y++)for(let x=sx;x<=ex;x++){const px=Math.floor(x*TILE-cam.x),py=Math.floor(y*TILE-cam.y);ctx.fillStyle=state.map==='blueHouse'?((x+y)%2?'#d7c2a7':'#e6d2b8'):((x+y)%2?'#e6c4ad':'#f0d2bc');ctx.fillRect(px,py,TILE,TILE);ctx.fillStyle='rgba(108,72,52,.10)';ctx.fillRect(px,py+TILE-3,TILE,3);ctx.fillStyle='rgba(255,255,255,.16)';ctx.fillRect(px+5,py+6,TILE-10,3)}
+};
+
+// Perfis bem diferentes e pequenos movimentos de vida.
+const RPGX_NPC={
+ guardian:{skin:'#d8a276',hair:'#eef1ff',shirt:'#5b4a92',robe:'#e0c15e',kind:'wizard'},aria:{skin:'#d99d79',hair:'#523b29',shirt:'#4e9c68',robe:'#8ec96e',kind:'ranger'},nilo:{skin:'#b97d5d',hair:'#2f2528',shirt:'#4775a8',robe:'#7b98c7',kind:'master'},sofia:{skin:'#efbd9b',hair:'#6b402f',shirt:'#e4779e',robe:'#f0a3bd',kind:'kid'},sofiaHome:{skin:'#efbd9b',hair:'#6b402f',shirt:'#e4779e',robe:'#f0a3bd',kind:'kid'},lume:{skin:'#d99d79',hair:'#5a4a42',shirt:'#6ca8d9',robe:'#8bb8da',kind:'worker'},lia:{skin:'#b97d5d',hair:'#2f2528',shirt:'#d98ab4',robe:'#b678a8',kind:'artist'},nina:{skin:'#efbd9b',hair:'#8a5b38',shirt:'#f0b54f',robe:'#e89654',kind:'kid'},pipo:{skin:'#efbd9b',hair:'#6d4f34',shirt:'#65b990',robe:'#9ad5af',kind:'fairy'},maia:{skin:'#d99d79',hair:'#73442d',shirt:'#c88c55',robe:'#e7b06c',kind:'inn'},lumaForest:{skin:'#efbd9b',hair:'#593b2e',shirt:'#72c58a',robe:'#a8dca7',kind:'ranger'},brisa:{skin:'#d99d79',hair:'#654237',shirt:'#78b6dc',robe:'#a6d7ee',kind:'traveler'},lumina:{skin:'#efbd9b',hair:'#5c4a85',shirt:'#8a78d7',robe:'#c3b7ef',kind:'celestial'},lunaInn:{skin:'#efbd9b',hair:'#4e3d68',shirt:'#8b72c8',robe:'#c5b3e8',kind:'inn'},milaShop:{skin:'#b97d5d',hair:'#30262b',shirt:'#58a985',robe:'#92d0b4',kind:'merchant'},belaTailor:{skin:'#efbd9b',hair:'#9b653c',shirt:'#d878a1',robe:'#f0abc5',kind:'artist'},
+ liliSide:{skin:'#eab28d',hair:'#7a4933',shirt:'#ff7faf',robe:'#ffc1d6',kind:'kid'},teoSide:{skin:'#bd8463',hair:'#352a2c',shirt:'#5e9ed0',robe:'#8ec1de',kind:'kid'},coraSide:{skin:'#e2a984',hair:'#6e4c39',shirt:'#8a78d7',robe:'#c3b7ef',kind:'traveler'},olivia:{skin:'#d4a07e',hair:'#40303c',shirt:'#5797cc',robe:'#9bc7e6',kind:'artist'},flora:{skin:'#efbd9b',hair:'#9b653c',shirt:'#67b879',robe:'#a2d6a6',kind:'ranger'},joWalk:{skin:'#d9a17c',hair:'#5d4533',shirt:'#ff9a67',robe:'#ffc091',kind:'kid'},dudaWalk:{skin:'#b97d5d',hair:'#30262b',shirt:'#b675c4',robe:'#d4a3db',kind:'kid'},leoWalk:{skin:'#e6b18c',hair:'#704933',shirt:'#59a47a',robe:'#92cfaa',kind:'kid'}
+};
+drawNpc=function(n,cam){
+ const x=Math.round(n.x-cam.x),baseY=Math.round(n.y-cam.y),pr=RPGX_NPC[n.id]||{skin:'#d99d79',hair:'#4a3026',shirt:'#6ca8d9',robe:'#8ebae0',kind:'villager'};const now=performance.now(),bob=Math.sin(now/520+(n.x+n.y)*.01)*1.2,y=baseY+bob;
+ const dx=(state.x+24)-(n.x+17),look=Math.abs(dx)<150?Math.sign(dx):0;ctx.save();ctx.translate(x,y);
+ // shadow
+ ctx.fillStyle='rgba(40,28,52,.18)';ctx.beginPath();ctx.ellipse(17,45,14,4,0,0,Math.PI*2);ctx.fill();
+ // unique silhouette
+ if(pr.kind==='wizard'){ctx.fillStyle=pr.robe;ctx.beginPath();ctx.moveTo(5,41);ctx.lineTo(29,41);ctx.lineTo(34,47);ctx.lineTo(0,47);ctx.closePath();ctx.fill()}
+ else if(pr.kind==='fairy'){ctx.fillStyle='rgba(198,238,255,.65)';ctx.beginPath();ctx.ellipse(4,28,9,15,-.5,0,Math.PI*2);ctx.ellipse(30,28,9,15,.5,0,Math.PI*2);ctx.fill()}
+ else if(pr.kind==='ranger'){ctx.fillStyle='#4a8e52';ctx.fillRect(2,27,5,14);ctx.fillRect(27,27,5,14)}
+ else if(pr.kind==='celestial'){ctx.fillStyle='rgba(191,179,255,.35)';ctx.beginPath();ctx.arc(17,22,25,0,Math.PI*2);ctx.fill()}
+ // hair/head
+ ctx.fillStyle=pr.hair;ctx.beginPath();ctx.ellipse(17,11,13,13,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=pr.skin;ctx.beginPath();ctx.arc(17,14,10,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#2f2544';ctx.beginPath();ctx.arc(14+look*1.5,14,1.6,0,Math.PI*2);ctx.arc(20+look*1.5,14,1.6,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#a85f62';ctx.lineWidth=1.3;ctx.beginPath();ctx.arc(17,17,4,0.2,Math.PI-.2);ctx.stroke();
+ // body
+ ctx.fillStyle=pr.shirt;roundRect(ctx,8,24,18,15,5);ctx.fill();ctx.fillStyle=pr.robe;ctx.fillRect(9,35,16,8);ctx.fillStyle=pr.skin;ctx.fillRect(4,27,4,11);ctx.fillRect(26,27,4,11);ctx.fillStyle='#49374e';ctx.fillRect(10,42,6,5);ctx.fillRect(20,42,6,5);
+ // identifiers
+ if(pr.kind==='wizard'){ctx.fillStyle='#5c4695';ctx.beginPath();ctx.moveTo(4,5);ctx.lineTo(19,-16);ctx.lineTo(31,5);ctx.closePath();ctx.fill();ctx.fillStyle='#f3d566';ctx.fillRect(17,-7,4,4);ctx.strokeStyle='#d9b75d';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(32,23);ctx.lineTo(34,45);ctx.stroke()}
+ else if(pr.kind==='ranger'){ctx.fillStyle='#4e9e58';ctx.beginPath();ctx.ellipse(22,1,8,4,-.4,0,Math.PI*2);ctx.fill()}
+ else if(pr.kind==='master'){ctx.fillStyle='#eef0f6';ctx.fillRect(9,4,16,5);ctx.fillStyle='#527aa9';ctx.fillRect(2,28,4,15)}
+ else if(pr.kind==='artist'){ctx.fillStyle='#9d557f';ctx.beginPath();ctx.arc(17,3,12,Math.PI,0);ctx.fill();ctx.fillStyle='#ffd65f';ctx.fillRect(29,30,3,12)}
+ else if(pr.kind==='worker'){ctx.fillStyle='#5d7e91';ctx.fillRect(7,1,20,5);ctx.fillStyle='#d0d9dd';ctx.fillRect(29,30,3,10)}
+ else if(pr.kind==='celestial'){ctx.fillStyle='#f6d766';ctx.font='15px system-ui';ctx.fillText('☾',20,5)}
+ else if(pr.kind==='merchant'){ctx.fillStyle='#f0c060';ctx.fillRect(6,2,22,4)}
+ else if(pr.kind==='kid'){ctx.fillStyle='#ff73ad';ctx.beginPath();ctx.ellipse(24,3,5,3,-.3,0,Math.PI*2);ctx.ellipse(30,4,5,3,.3,0,Math.PI*2);ctx.fill()}
+ const marker=rpgxMainMarker(n)||rpgxSideMarker(n);if(marker){ctx.fillStyle=marker==='✓'?'#5cbf78':'#ffda65';ctx.beginPath();ctx.arc(17,-18,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#4a3864';ctx.font='1000 12px system-ui';ctx.textAlign='center';ctx.fillText(marker,17,-14);ctx.textAlign='left'}
+ ctx.restore();ctx.save();ctx.fillStyle='rgba(48,37,70,.82)';ctx.font='900 10px system-ui';ctx.textAlign='center';ctx.fillText(n.name,x+17,baseY+59);ctx.restore()
+};
+
+// Criaturas com formas e animações próprias.
+function rpgxEnemyShape(g,type,meta,phase=1){
+ const now=performance.now();g.save();
+ if(type==='slime'){g.fillStyle=meta.color;g.beginPath();g.arc(0,5,18,Math.PI,0);g.lineTo(18,15);g.quadraticCurveTo(8,22,0,15);g.quadraticCurveTo(-8,22,-18,15);g.closePath();g.fill();g.fillStyle='#3f4a58';g.beginPath();g.arc(-6,3,2,0,Math.PI*2);g.arc(6,3,2,0,Math.PI*2);g.fill();g.fillStyle='rgba(255,255,255,.4)';g.beginPath();g.arc(-6,-4,5,0,Math.PI*2);g.fill()}
+ else if(type==='ghost'){g.globalAlpha=.82;g.fillStyle=meta.color;g.beginPath();g.arc(0,-7,15,Math.PI,0);g.lineTo(15,12);g.quadraticCurveTo(9,20,4,12);g.quadraticCurveTo(0,20,-5,12);g.quadraticCurveTo(-10,20,-15,12);g.closePath();g.fill();g.globalAlpha=1;g.fillStyle='#4b365a';g.beginPath();g.ellipse(-5,-5,2,3,0,0,Math.PI*2);g.ellipse(5,-5,2,3,0,0,Math.PI*2);g.fill()}
+ else if(type==='puff'){g.fillStyle='#e9e6ff';for(const [x,y,r] of [[-10,1,10],[0,-5,13],[12,1,10],[0,7,12]]){g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill()}g.fillStyle='#8d75bc';g.beginPath();g.arc(-5,0,2,0,Math.PI*2);g.arc(6,0,2,0,Math.PI*2);g.fill();g.strokeStyle='#8d75bc';g.beginPath();g.moveTo(-8,12);g.quadraticCurveTo(0,18,8,12);g.stroke()}
+ else if(type==='thorn'){g.fillStyle='#4d9858';g.beginPath();for(let i=0;i<14;i++){const a=i*Math.PI/7,r=i%2?15:23,px=Math.cos(a)*r,py=Math.sin(a)*r;i?g.lineTo(px,py):g.moveTo(px,py)}g.closePath();g.fill();g.fillStyle='#f3db71';g.beginPath();g.arc(-5,-2,2,0,Math.PI*2);g.arc(5,-2,2,0,Math.PI*2);g.fill();g.fillStyle='#386b3f';g.fillRect(-5,12,10,10)}
+ else if(type==='moss'){g.fillStyle='#6ea657';for(const [x,y,r] of [[-9,3,10],[0,-5,13],[10,4,10],[0,8,12]]){g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill()}g.fillStyle='#3a6942';g.fillRect(-13,7,26,8);g.fillStyle='#fff09a';g.fillRect(-5,-4,3,3);g.fillRect(5,-4,3,3)}
+ else if(type==='spark'){g.rotate(Math.sin(now/250)*.12);g.fillStyle='#ffd45c';g.beginPath();for(let i=0;i<16;i++){const a=-Math.PI/2+i*Math.PI/8,r=i%2?8:21;const px=Math.cos(a)*r,py=Math.sin(a)*r;i?g.lineTo(px,py):g.moveTo(px,py)}g.closePath();g.fill();g.fillStyle='#fff7cf';g.beginPath();g.arc(0,0,6,0,Math.PI*2);g.fill();g.fillStyle='#6e5968';g.fillRect(-4,-2,2,3);g.fillRect(3,-2,2,3)}
+ else if(type==='starGuard'){g.fillStyle='#657ec7';roundRect(g,-13,-14,26,29,7);g.fill();g.fillStyle='#a9b9f0';g.beginPath();g.moveTo(-16,-10);g.lineTo(0,-22);g.lineTo(16,-10);g.closePath();g.fill();g.fillStyle='#ffe071';g.font='900 16px system-ui';g.textAlign='center';g.fillText('★',0,8);g.fillStyle='#4d5d9a';g.fillRect(-20,-5,7,18);g.fillRect(13,-5,7,18);g.fillStyle='#eaf0ff';g.fillRect(-7,-8,5,3);g.fillRect(2,-8,5,3);g.textAlign='left'}
+ else if(type==='boss'){g.globalAlpha=.92;g.fillStyle='#6653a1';for(const [x,y,r] of [[-15,4,18],[0,-8,21],[18,4,17],[0,15,20]]){g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill()}g.strokeStyle='#c9b9ff';g.lineWidth=3;g.beginPath();g.arc(0,3,31,now/800,now/800+Math.PI*1.4);g.stroke();g.fillStyle='#ffef8a';g.beginPath();g.ellipse(-8,-4,4,6,0,0,Math.PI*2);g.ellipse(8,-4,4,6,0,0,Math.PI*2);g.fill()}
+ else if(type==='forestBoss'){g.fillStyle='#416f4e';g.beginPath();g.ellipse(0,5,18,22,0,0,Math.PI*2);g.fill();g.fillStyle='#6f985f';g.fillRect(-16,12,8,19);g.fillRect(8,12,8,19);g.fillStyle='#d7c693';g.strokeStyle='#d7c693';g.lineWidth=4;for(const s of[-1,1]){g.beginPath();g.moveTo(s*7,-13);g.lineTo(s*14,-28);g.lineTo(s*21,-35);g.moveTo(s*14,-28);g.lineTo(s*7,-34);g.moveTo(s*14,-28);g.lineTo(s*24,-25);g.stroke()}g.fillStyle='#f6e57d';g.fillRect(-8,-4,4,4);g.fillRect(4,-4,4,4)}
+ else if(type==='golem'){g.fillStyle='#857a72';roundRect(g,-18,-13,36,32,5);g.fill();g.fillStyle='#9c9189';roundRect(g,-28,-7,11,26,4);g.fill();roundRect(g,17,-7,11,26,4);g.fill();g.fillStyle='#d8c77a';g.fillRect(-9,-5,6,5);g.fillRect(3,-5,6,5);g.strokeStyle='#5d5752';g.lineWidth=3;g.beginPath();g.moveTo(-10,8);g.lineTo(-2,3);g.lineTo(4,10);g.lineTo(12,4);g.stroke();g.fillStyle='#645d57';g.fillRect(-13,18,10,10);g.fillRect(3,18,10,10)}
+ else if(type==='finalBoss'){const p=phase>=2;g.fillStyle=p?'#2f235f':'#493d76';g.beginPath();g.moveTo(0,-31);g.quadraticCurveTo(28,-19,24,10);g.quadraticCurveTo(17,31,0,22);g.quadraticCurveTo(-17,31,-24,10);g.quadraticCurveTo(-28,-19,0,-31);g.fill();g.fillStyle=p?'#ff6eb5':'#c4a7ff';g.beginPath();g.moveTo(-18,-19);g.lineTo(-7,-38);g.lineTo(-2,-17);g.moveTo(18,-19);g.lineTo(7,-38);g.lineTo(2,-17);g.fill();g.fillStyle='#fff0a2';g.beginPath();g.ellipse(-8,-5,4,6,0,0,Math.PI*2);g.ellipse(8,-5,4,6,0,0,Math.PI*2);g.fill();if(p){g.strokeStyle='#ff77bc';g.lineWidth=3;g.beginPath();g.arc(0,0,35,now/700,now/700+Math.PI*1.3);g.stroke()}}
+ else if(type==='starWarden'){g.fillStyle='#5f77c8';roundRect(g,-18,-18,36,38,8);g.fill();g.fillStyle='#adc2ff';g.beginPath();g.moveTo(-22,-12);g.lineTo(0,-31);g.lineTo(22,-12);g.closePath();g.fill();g.fillStyle='#ffe373';g.font='900 22px system-ui';g.textAlign='center';g.fillText('★',0,9);g.textAlign='left';g.strokeStyle='#dce5ff';g.lineWidth=3;g.beginPath();g.arc(0,0,32,now/900,now/900+Math.PI*1.4);g.stroke()}
+ g.restore()
+}
+
+drawEnemyWorld=function(e,cam){const x=e.x-cam.x,y=e.y-cam.y,meta=ENEMIES[e.type];ctx.save();ctx.translate(x+19,y+19);const amp=e.type==='slime'||e.type==='moss'?5:3,bob=Math.sin(e.t*(e.type==='spark'?5:2))*amp;ctx.translate(0,bob);ctx.fillStyle='rgba(30,25,46,.18)';ctx.beginPath();ctx.ellipse(0,20,16,5,0,0,Math.PI*2);ctx.fill();let sc=meta.boss?(e.type==='finalBoss'||e.type==='starWarden'?1.75:1.55):1;ctx.scale(sc,sc);rpgxEnemyShape(ctx,e.type,meta,1);ctx.restore()};
+
+drawBattleEnemy=function(x,y,type){const m=ENEMIES[type];bctx.save();bctx.translate(x,y);const scale=m.boss?(type==='finalBoss'||type==='starWarden'?2.65:2.35):2;bctx.scale(scale,scale);rpgxEnemyShape(bctx,type,m,battle?.phase||1);bctx.restore()};
+
+// IA diferente por espécie.
+updateEnemies=function(dt){const map=maps[state.map];for(const e of map.enemies){if(enemyGone(e))continue;e.t+=dt;const meta=ENEMIES[e.type],d=Math.hypot((state.x+24)-(e.x+19),(state.y+28)-(e.y+19));let nx=e.x,ny=e.y;
+ if(meta.boss){nx=e.homeX+Math.sin(e.t*.45)*8;ny=e.homeY+Math.cos(e.t*.38)*6}
+ else if(meta.behavior==='hop'){const chase=d<220,sp=chase?30:0;nx+=(chase?(state.x-e.x)/Math.max(1,d)*sp*dt:0);ny+=(chase?(state.y-e.y)/Math.max(1,d)*sp*dt:0);ny+=Math.abs(Math.sin(e.t*3))*2}
+ else if(meta.behavior==='phase'){if(d<245){nx+=(state.x-e.x)/Math.max(1,d)*25*dt;ny+=(state.y-e.y)/Math.max(1,d)*25*dt}else{nx=e.homeX+Math.sin(e.t*.7)*22;ny=e.homeY+Math.cos(e.t*.45)*18}}
+ else if(meta.behavior==='drift'){const a=e.t*.55;nx=e.homeX+Math.cos(a)*30;ny=e.homeY+Math.sin(a*.8)*18;if(d<180){nx+=(state.x-e.x)/Math.max(1,d)*12*dt;ny+=(state.y-e.y)/Math.max(1,d)*12*dt}}
+ else if(meta.behavior==='ambush'){if(d<175){nx+=(state.x-e.x)/Math.max(1,d)*34*dt;ny+=(state.y-e.y)/Math.max(1,d)*34*dt}else{nx=e.homeX;ny=e.homeY}}
+ else if(meta.behavior==='bounce'){const chase=d<210;nx=e.homeX+Math.sin(e.t*1.5)*24+(chase?(state.x-e.x)/Math.max(1,d)*8:0);ny=e.homeY+Math.cos(e.t*1.2)*18+(chase?(state.y-e.y)/Math.max(1,d)*8:0)}
+ else if(meta.behavior==='dart'){if(d<260){const zig=Math.sin(e.t*7)*18;nx+=(state.x-e.x)/Math.max(1,d)*42*dt;ny+=(state.y-e.y)/Math.max(1,d)*42*dt;nx+=zig*dt}else{nx=e.homeX+Math.sin(e.t*2.2)*34;ny=e.homeY+Math.cos(e.t*1.6)*22}}
+ else if(meta.behavior==='patrol'){nx=e.homeX+Math.sin(e.t*.75)*55;ny=e.homeY+Math.cos(e.t*.35)*8;if(d<190){nx+=(state.x-e.x)/Math.max(1,d)*16*dt;ny+=(state.y-e.y)/Math.max(1,d)*16*dt}}
+ else{nx=e.homeX+Math.sin(e.t*.8)*16;ny=e.homeY+Math.cos(e.t*.55)*12}
+ e.x=Math.max(TILE,Math.min(map.w*TILE-2*TILE,nx));e.y=Math.max(TILE,Math.min(map.h*TILE-2*TILE,ny));if(d<44){startBattle(e);return}}
+};
+
+// NPCs caminhando em áreas pequenas e seguras.
+function rpgxUpdateNpcWander(dt){for(const n of maps[state.map].npcs){if(!n.wander)continue;n.wanderT=(n.wanderT||0)+dt;const sp=12;if(n.wanderAxis==='y')n.y=n.homeY+Math.sin(n.wanderT*.55)*Math.min(n.wanderRadius||60,70);else n.x=n.homeX+Math.sin(n.wanderT*.55)*Math.min(n.wanderRadius||60,80)}}
+const oldUpdateRpgx=RPGX.original.update;
+update=function(dt){oldUpdateRpgx(dt);if(state.started&&!battle)rpgxUpdateNpcWander(dt)};
+
+// Câmera suave, com reset automático quando troca de mapa.
+camera=function(){const map=maps[state.map],vw=canvas.width,vh=canvas.height,tx=Math.max(0,Math.min(map.w*TILE-vw,state.x+24-vw/2)),ty=Math.max(0,Math.min(map.h*TILE-vh,state.y+28-vh/2));if(!RPGX.cam.ready||RPGX.cam.map!==state.map){RPGX.cam.x=tx;RPGX.cam.y=ty;RPGX.cam.ready=true;RPGX.cam.map=state.map}else{RPGX.cam.x+=(tx-RPGX.cam.x)*.18;RPGX.cam.y+=(ty-RPGX.cam.y)*.18}return{x:RPGX.cam.x,y:RPGX.cam.y}};
+const oldChangeMapRpgx=RPGX.original.changeMap;
+changeMap=function(map,x,y){RPGX.cam.ready=false;oldChangeMapRpgx(map,x,y)};
+
+// Guia visual de estrelinhas até o próximo ponto importante.
+function rpgxFindNpc(id){return maps[state.map].npcs.find(n=>n.id===id||((id==='sofia')&&n.id==='sofiaHome'))}
+function rpgxNearestObj(pred){return maps[state.map].objects.filter(pred).map(o=>({o,d:distTo(o)})).sort((a,b)=>a.d-b.d)[0]?.o||null}
+function rpgxQuestTarget(){const q=Number(state.quest)||0,m=state.map;
+ const npc=id=>rpgxFindNpc(id);let o=null;
+ if(q===0){if(m==='wizardHouse')return npc('guardian');if(m==='home')return rpgxNearestObj(x=>x.type==='houseDoor');if(m==='city')return rpgxNearestObj(x=>x.to==='wizardHouse')}
+ if(q===1){if(m==='meadow')return rpgxNearestObj(x=>(x.type==='questPickup'||x.type==='treasureChest')&&!state.flags['collected_'+x.id]);if(m==='city')return rpgxNearestObj(x=>x.to==='meadow')}
+ if(q===2){if(m==='wizardHouse')return npc('guardian');if(m==='city')return rpgxNearestObj(x=>x.to==='wizardHouse')}
+ if(q===3){if(m==='meadow')return rpgxNearestObj(x=>x.type==='caveEntrance');if(m==='cave')return maps.cave.enemies.find(e=>e.id==='boss1')}
+ if(q===4)return m==='meadow'?npc('pipo'):rpgxNearestObj(x=>x.to==='meadow');
+ if(q===5)return m==='forest'?npc('aria'):rpgxNearestObj(x=>x.to==='forest');
+ if(q===6)return m==='forest'?rpgxNearestObj(x=>(x.type==='questPickup'||x.type==='treasureChest')&&!state.flags['collected_'+x.id]):rpgxNearestObj(x=>x.to==='forest');
+ if(q===7)return m==='forest'?maps.forest.enemies.find(e=>e.id==='forestBoss'):rpgxNearestObj(x=>x.to==='forest');
+ if(q===8)return m==='forest'?npc('lumaForest'):rpgxNearestObj(x=>x.to==='forest');
+ if(q===9)return m==='market'?npc('nilo'):rpgxNearestObj(x=>x.to==='market');
+ if(q===10)return m==='bridge'?maps.bridge.enemies.find(e=>e.id==='bridgeBoss'):rpgxNearestObj(x=>x.to==='bridge');
+ if(q===11)return m==='bridge'?npc('brisa'):rpgxNearestObj(x=>x.to==='bridge');
+ if(q===12)return m==='temple'?rpgxNearestObj(x=>(x.type==='questPickup'||x.type==='treasureChest')&&!state.flags['collected_'+x.id]):rpgxNearestObj(x=>x.to==='temple');
+ if(q===13)return m==='temple'?maps.temple.enemies.find(e=>e.id==='finalBoss'):rpgxNearestObj(x=>x.to==='temple');
+ if(q===14)return m==='temple'?rpgxNearestObj(x=>x.to==='starRoad'):rpgxNearestObj(x=>x.to==='temple');
+ if(q===15)return m==='starRoad'?rpgxNearestObj(x=>(x.type==='questPickup'||x.type==='treasureChest')&&!state.flags['collected_'+x.id]):rpgxNearestObj(x=>x.to==='starRoad');
+ if(q===16)return m==='starRoad'?rpgxNearestObj(x=>x.type==='starBeacon'):rpgxNearestObj(x=>x.to==='starRoad');
+ if(q===17)return m==='starRoad'?rpgxNearestObj(x=>x.returnHomeRoute):rpgxNearestObj(x=>x.to==='starRoad');
+ if(q===18)return m==='city'?npc('sofia'):rpgxNearestObj(x=>x.to==='city');return null}
+showQuestGuide=function(){const msg=currentGuideHint();RPGX.guideTarget=rpgxQuestTarget();RPGX.guideUntil=performance.now()+6500;toast('✨ Siga as estrelinhas!');rpgSpeak(msg)};
+function rpgxDrawGuide(cam){if(performance.now()>RPGX.guideUntil||!RPGX.guideTarget)return;const t=RPGX.guideTarget,px=state.x+24-cam.x,py=state.y+64-cam.y,tx=t.x+(t.w||34)/2-cam.x,ty=t.y+(t.h||44)/2-cam.y,dx=tx-px,dy=ty-py,len=Math.hypot(dx,dy)||1,ux=dx/len,uy=dy/len,max=Math.min(len,260);ctx.save();ctx.font='900 18px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';for(let i=1;i<=6;i++){const d=max*i/7,alpha=.35+.6*i/6;ctx.globalAlpha=alpha;ctx.fillStyle=i%2?'#ffe063':'#fff5a5';ctx.fillText('★',px+ux*d,py+uy*d+Math.sin(performance.now()/250+i)*3)}ctx.restore()}
+const oldDrawRpgx=draw;
+draw=function(){oldDrawRpgx();rpgxDrawGuide({x:RPGX.cam.x,y:RPGX.cam.y})};
+
+// Missões secundárias: integração ao botão A e diálogos.
+const oldInteractRpgx=interactObject;
+interactObject=function(o){if(o.type==='sidePickup'){const q=rpgxSide();if(q[o.side]!==1||state.flags.sideFound[o.side])return;state.flags.sideFound[o.side]=true;sfx('collect');saveGame(true);dialog('Elo',o.side==='ribbon'?'Achei a fita rosa da Lili! 🎀':o.side==='toy'?'Achei o brinquedo de estrela do Téo! ⭐':'Achei o pingente luminoso da Cora! 💎','npc');return}oldInteractRpgx(o)};
+const oldActionVerbRpgx=actionVerb;
+actionVerb=function(c){if(c?.o?.type==='sidePickup')return'Pegar';return oldActionVerbRpgx(c)};
+const oldGetActionCandidateRpgx=getActionCandidate;
+getActionCandidate=function(){const map=maps[state.map];let candidates=[];for(const o of map.objects){if((o.type==='questPickup'||o.type==='treasureChest')&&state.flags['collected_'+o.id])continue;if(o.type==='sidePickup'&&(rpgxSide()[o.side]!==1||state.flags.sideFound[o.side]))continue;const d=distTo(o),door=isDoor(o);if((door&&d<135)||(!door&&o.type!=='building'&&d<92))candidates.push({kind:'object',o,d,priority:door?0:(o.type==='sidePickup'?1:2)})}for(const n of map.npcs){const d=distTo(n);if(d<96)candidates.push({kind:'npc',o:n,d,priority:1})}candidates.sort((a,b)=>a.priority-b.priority||a.d-b.d);return candidates[0]||null};
+const oldTalkRpgx=talkNpc;
+talkNpc=function(n){const q=rpgxSide(),found=state.flags.sideFound||{};
+ if(n.id==='liliSide'){if(q.ribbon===0){q.ribbon=1;saveGame(true);dialog('Lili','Elo, perdi minha fita rosa na Campina Encantada. Você procura para mim? 🎀','npc');return}if(q.ribbon===1&&found.ribbon){q.ribbon=2;addCoins(35);xpGain(25);saveGame(true);dialog('Lili','Você encontrou! Muito obrigada! Ganhe 35 moedas e um pouco de experiência. 💗','npc');return}if(q.ribbon===1){dialog('Lili','Acho que a fita caiu perto das flores da Campina.','npc');return}dialog('Lili','Minha fita ficou linda de novo!','npc');return}
+ if(n.id==='teoSide'){if(q.toy===0){q.toy=1;saveGame(true);dialog('Téo','Perdi meu brinquedo de estrela perto do Bosque Sussurrante. Você consegue achar? ⭐','npc');return}if(q.toy===1&&found.toy){q.toy=2;addCoins(45);xpGain(35);state.inventory.potion=(state.inventory.potion||0)+1;saveGame(true);dialog('Téo','É ele! Obrigado! Você ganhou 45 moedas e uma Poção Rosa.','npc');return}if(q.toy===1){dialog('Téo','Procure no bosque, perto de onde o musgo cresce.','npc');return}dialog('Téo','Vou guardar meu brinquedo direitinho agora!','npc');return}
+ if(n.id==='coraSide'){if(q.charm===0){q.charm=1;saveGame(true);dialog('Cora','Meu pingente luminoso caiu perto do Templo das Estrelas. Pode me ajudar? 💎','npc');return}if(q.charm===1&&found.charm){q.charm=2;addCoins(60);xpGain(45);state.inventory.manaMedium=(state.inventory.manaMedium||0)+1;saveGame(true);dialog('Cora','Meu pingente! Você ganhou 60 moedas e uma Poção Safira. ✨','npc');return}if(q.charm===1){dialog('Cora','O pingente deve estar brilhando em algum canto do templo.','npc');return}dialog('Cora','Obrigada, Elo! Esse pingente é muito especial.','npc');return}
+ oldTalkRpgx(n)};
+
+// Menu de missões passa a mostrar também as histórias opcionais e o pós-jogo.
+renderMenu=function(tab){$$('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===tab));const st=stats();$('#statsGrid').innerHTML=`<div><b>NÍVEL</b><span>${state.level}</span></div><div><b>ATAQUE</b><span>${st.atk}</span></div><div><b>DEFESA</b><span>${st.def}</span></div><div><b>MAGIA</b><span>${st.mag}</span></div><div><b>VELOCIDADE</b><span>${st.spd.toFixed(1)}</span></div><div><b>ENERGIA</b><span>${state.hp}/${state.maxHp}</span></div><div><b>MAGIA</b><span>${state.mp}/${state.maxMp}</span></div><div><b>MOEDAS</b><span>${state.coins}</span></div>`;const c=$('#menuContent');
+ if(tab==='missions'){const q=rpgxSide(),side=[['🎀','Fita da Lili',q.ribbon],['⭐','Brinquedo do Téo',q.toy],['💎','Pingente da Cora',q.charm]].map(([i,n,s])=>`<div class="listCard"><div class="ico">${i}</div><div class="grow"><b>${n}</b><small>${s===0?'Ainda não iniciada':s===1?'Em andamento': 'Concluída ✓'}</small></div></div>`).join('');c.innerHTML=`<div class="listCard"><div class="ico">📜</div><div class="grow"><b>Missão principal</b><small>${currentObjective()}</small></div></div><div class="listCard"><div class="ico">⭐</div><div class="grow"><b>Progresso da jornada</b><small>Cristais ${state.starCrystals}/3 • Runas ${state.forestRunes}/3 • Chamas ${state.starFlames}/3 • Fragmentos ${state.skyShards}/3</small></div></div>${side}${state.chapterComplete?'<div class="listCard"><div class="ico">🏆</div><div class="grow"><b>Desafio das Estrelas</b><small>O Guardião do Desafio aparece no Caminho Celeste e pode ser enfrentado novamente.</small></div></div>':''}`}
+ else if(tab==='bag'){c.innerHTML=Object.entries(ITEMS).map(([id,it])=>`<div class="listCard"><div class="ico">${it.icon}</div><div class="grow"><b>${it.name}</b><small>${it.desc} • Você tem ${state.inventory[id]||0}</small></div><button class="softBtn" ${state.inventory[id]?`onclick="window.__useItem('${id}')"`:'disabled'}>Usar</button></div>`).join('')}
+ else if(tab==='clothes'){c.innerHTML=Object.entries(OUTFITS).filter(([id])=>state.ownedOutfits.includes(id)).map(([id,it])=>`<div class="listCard"><div class="ico">${it.icon}</div><div class="grow"><b>${it.name}</b><small>${it.desc}</small></div><button class="softBtn" onclick="window.__equip('${id}')">${state.outfit===id?'Ativo':'Ativar'}</button></div>`).join('')}
+ else if(tab==='medals'){c.innerHTML=`<div class="medalGrid">${RPG_MEDALS.map(m=>`<div class="medal ${state.medals.includes(m.id)?'on':''}"><span>${m.icon}</span><b>${m.name}</b><small>${state.medals.includes(m.id)?'Conquistada!':m.desc}</small></div>`).join('')}</div>`}
+ else if(tab==='map'){const names={home:'🏠 Casa da Elo',city:'🏘️ Vila das Estrelas',neighbor:'🏡 Casa da Sofia',blueHouse:'🏡 Casa Azul',flowerHouse:'🌸 Casa das Flores',wizardHouse:'🔮 Casa do Mago',meadow:'🌿 Campina Encantada',cave:'💎 Caverna do Brilho',forest:'🌲 Bosque Sussurrante',market:'🏘️ Vila do Mercado',bridge:'🌉 Ponte Antiga',temple:'🌠 Templo das Estrelas',starRoad:'💠 Caminho Celeste'};c.innerHTML=Object.keys(names).map(k=>`<div class="listCard"><div class="ico">${state.discovered.includes(k)?names[k].split(' ')[0]:'❓'}</div><div class="grow"><b>${state.discovered.includes(k)?names[k].slice(2):'Lugar ainda não descoberto'}</b><small>${k===state.map?'Você está aqui':''}</small></div></div>`).join('')}
+};
+
+// Cenários de batalha coerentes com o lugar onde o combate começou.
+function rpgxBattleBg(){const w=battleCanvas.width,h=battleCanvas.height,m=state.map;bctx.clearRect(0,0,w,h);
+ if(m==='cave'){const g=bctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#302942');g.addColorStop(1,'#6c5e83');bctx.fillStyle=g;bctx.fillRect(0,0,w,h);bctx.fillStyle='#8f77bd';for(let i=0;i<8;i++){bctx.beginPath();bctx.moveTo(40+i*80,h-55);bctx.lineTo(52+i*80,h-95-(i%3)*12);bctx.lineTo(65+i*80,h-55);bctx.fill()}bctx.fillStyle='#51485e';bctx.fillRect(0,h-55,w,55)}
+ else if(m==='forest'){const g=bctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#bfe6ce');g.addColorStop(1,'#57975b');bctx.fillStyle=g;bctx.fillRect(0,0,w,h);for(let i=0;i<7;i++){bctx.fillStyle='#3f6f45';bctx.fillRect(i*95+30,35,15,h-75);bctx.fillStyle='#4f8c52';bctx.beginPath();bctx.arc(i*95+38,35,38,0,Math.PI*2);bctx.fill()}bctx.fillStyle='#5c9f5a';bctx.fillRect(0,h-55,w,55)}
+ else if(m==='bridge'){bctx.fillStyle='#b9dff0';bctx.fillRect(0,0,w,h);bctx.fillStyle='#6fa4b7';bctx.fillRect(0,h-100,w,45);bctx.fillStyle='#8c6a4d';bctx.fillRect(0,h-55,w,55);for(let i=0;i<12;i++){bctx.fillStyle=i%2?'#b18159':'#9a734f';bctx.fillRect(i*60,h-52,55,48)}}
+ else if(m==='temple'){const g=bctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#252b50');g.addColorStop(1,'#5d6792');bctx.fillStyle=g;bctx.fillRect(0,0,w,h);for(let i=0;i<6;i++){bctx.fillStyle='#717aa7';bctx.fillRect(50+i*110,45,22,h-95);bctx.fillStyle='#ffe177';bctx.fillText('★',55+i*110,75)}bctx.fillStyle='#4b537e';bctx.fillRect(0,h-55,w,55)}
+ else if(m==='starRoad'){const g=bctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#293c75');g.addColorStop(1,'#8475c1');bctx.fillStyle=g;bctx.fillRect(0,0,w,h);bctx.fillStyle='#fff1a2';for(let i=0;i<18;i++){const x=(i*73)%w,y=25+(i*47)%(h-100);bctx.fillRect(x,y,3,3)}bctx.fillStyle='#6474aa';bctx.fillRect(0,h-55,w,55)}
+ else{const g=bctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#b9e6ff');g.addColorStop(1,'#ffe6f2');bctx.fillStyle=g;bctx.fillRect(0,0,w,h);bctx.fillStyle='#8bd67e';bctx.fillRect(0,h-58,w,58);bctx.fillStyle='#78c96f';for(let i=0;i<8;i++){bctx.beginPath();bctx.arc(i*90+30,h-58,35,Math.PI,0);bctx.fill()}}
+}
+function rpgxSetFx(kind){RPGX.battleFx={kind,start:performance.now(),dur:550}}
+function rpgxDrawFx(){const fx=RPGX.battleFx;if(!fx)return;const p=(performance.now()-fx.start)/fx.dur;if(p>=1){RPGX.battleFx=null;return}bctx.save();if(fx.kind==='magic'){bctx.globalAlpha=1-p;bctx.strokeStyle='#fff1a8';bctx.lineWidth=8*(1-p)+2;bctx.beginPath();bctx.arc(300,120,35+p*120,0,Math.PI*2);bctx.stroke()}else if(fx.kind==='attack'){bctx.globalAlpha=1-p;bctx.strokeStyle='#ffd25d';bctx.lineWidth=5;bctx.beginPath();bctx.moveTo(180+p*280,165-p*35);bctx.lineTo(220+p*280,130-p*35);bctx.stroke()}else if(fx.kind==='hurt'){bctx.fillStyle=`rgba(255,95,126,${.24*(1-p)})`;bctx.fillRect(0,0,battleCanvas.width,battleCanvas.height)}else if(fx.kind==='defend'){bctx.globalAlpha=1-p;bctx.strokeStyle='#8dd8ff';bctx.lineWidth=7;bctx.beginPath();bctx.arc(110,145,42+p*12,Math.PI,Math.PI*2);bctx.stroke()}bctx.restore()}
+drawBattle=function(){if(!battle)return;rpgxBattleBg();drawBattleEnemy(485,110,battle.type);syncRpgBattleAvatar();rpgxDrawFx()};
+
+function rpgxIntent(text,on=true){const el=$('#bossIntent');if(!el)return;el.textContent=text||'';el.classList.toggle('on',!!on&&!!text)}
+function rpgxBossSpecial(type){if(type==='boss')return{key:'storm',name:'Tempestade Nublada',mult:1.65,mp:2,warning:'⚠️ A Sombra Nublada está juntando uma tempestade! Defender reduz muito o golpe.'};if(type==='forestBoss')return{key:'thorns',name:'Chuva de Espinhos',mult:1.75,warning:'⚠️ O Cervo das Sombras ergueu os chifres! Uma chuva de espinhos vem aí.'};if(type==='golem')return{key:'smash',name:'Impacto de Pedra',mult:1.9,warning:'⚠️ O Golem levantou os braços! Ele prepara um impacto de pedra.'};if(type==='finalBoss')return{key:'nova',name:'Supernova Sombria',mult:2.05,mp:3,warning:'⚠️ A Sombra da Noite concentra uma Supernova Sombria!'};if(type==='starWarden')return{key:'circle',name:'Círculo Celeste',mult:2.1,mp:2,warning:'⚠️ O Guardião do Desafio está formando um círculo de estrelas!'};return null}
+startBattle=function(enemyRef){if(battle||state.hp<=0)return;const template=ENEMIES[enemyRef.type];battle={ref:enemyRef,type:enemyRef.type,name:template.name,hp:template.hp,maxHp:template.hp,atk:template.atk,def:template.def,xp:template.xp,coins:template.coins,boss:!!template.boss,recommended:template.recommended||0,defending:false,turnLocked:false,turnCount:0,nextSpecial:null,phase:1,shield:false};$('#enemyName').textContent=battle.name;$('#battleText').textContent=battle.boss?`${battle.name} é um chefão! Observe os avisos e escolha a melhor ação.`:`${battle.name} apareceu!`;rpgxIntent('',false);$('#battleOverlay').classList.remove('hidden');sfx(battle.boss?'boss':'battle');musicStep=0;updateBattleUI();drawBattle()};
+
+battleAction=function(type){if(!battle||battle.turnLocked)return;battle.turnLocked=true;const st=stats();
+ if(type==='attack'){let dmg=Math.max(2,Math.floor(st.atk+Math.random()*4-battle.def));if(battle.type==='golem'&&battle.shield){dmg=Math.max(1,Math.floor(dmg*.38));$('#battleText').textContent=`O escudo de pedra segurou parte do golpe. ${dmg} de dano.`}else $('#battleText').textContent=`Elo lançou um brilho e causou ${dmg} de dano!`;battle.hp-=dmg;sfx('attack');rpgxSetFx('attack');afterPlayerTurn()}
+ else if(type==='magic'){const mt=magicTier();if(state.mp<mt.cost){battle.turnLocked=false;$('#battleText').textContent=`Magia insuficiente. ${mt.name} precisa de ${mt.cost} MP.`;return}state.mp-=mt.cost;let dmg=Math.max(4,Math.floor(st.mag*mt.mult+mt.bonus+Math.random()*6-battle.def));if(battle.type==='golem'&&battle.shield){battle.shield=false;dmg=Math.floor(dmg*1.25);$('#battleText').textContent=`${mt.name} quebrou o escudo do Golem! ${dmg} de dano mágico.`}else $('#battleText').textContent=`${mt.name}! ${dmg} de dano mágico ${mt.icon}`;battle.hp-=dmg;sfx('magic');rpgxSetFx('magic');afterPlayerTurn()}
+ else if(type==='defend'){battle.defending=true;$('#battleText').textContent=battle.nextSpecial?'Elo se protegeu na hora certa! 🛡️':'Elo se protegeu para reduzir o próximo dano.';rpgxSetFx('defend');setTimeout(enemyTurn,550)}
+ else if(type==='item'){battle.turnLocked=false;openBattleItemPicker();return}
+};
+afterPlayerTurn=function(){updateBattleUI();if(battle.hp<=0)return setTimeout(winBattle,650);if(battle.type==='finalBoss'&&battle.phase===1&&battle.hp<=battle.maxHp*.5){battle.phase=2;battle.atk+=2;battle.def+=1;$('#battleText').textContent='🌑 A Sombra da Noite mudou de forma! A segunda fase começou.';rpgxIntent('FASE 2 • ataques mais fortes e mais rápidos',true);musicStep=0;return setTimeout(enemyTurn,1100)}setTimeout(enemyTurn,650)};
+
+enemyTurn=function(){if(!battle)return;const st=stats();battle.turnCount=(battle.turnCount||0)+1;let dmg,desc;
+ if(battle.nextSpecial){const sp=battle.nextSpecial;dmg=Math.max(2,Math.floor((battle.atk+Math.random()*4-st.def)*sp.mult));if(battle.defending)dmg=Math.max(1,Math.floor(dmg*.32));state.hp-=dmg;if(sp.mp)state.mp=Math.max(0,state.mp-sp.mp);desc=`${battle.name} usou ${sp.name}! Elo perdeu ${dmg} de energia${sp.mp?` e ${sp.mp} MP`:''}.`;battle.nextSpecial=null;rpgxIntent('',false);rpgxSetFx('hurt')}
+ else{dmg=Math.max(1,Math.floor(battle.atk+Math.random()*3-st.def));if(battle.defending)dmg=Math.max(1,Math.floor(dmg/2));state.hp-=dmg;desc=`${battle.name} atacou. Elo perdeu ${dmg} de energia.`;rpgxSetFx('hurt')}
+ battle.defending=false;sfx('hurt');$('#battleText').textContent=desc;updateBattleUI();if(state.hp<=0)return setTimeout(loseBattle,700);
+ // Golem cria escudo em alguns ciclos; chefões anunciam o próximo ataque especial.
+ if(battle.type==='golem'&&battle.turnCount%3===1){battle.shield=true;setTimeout(()=>{$('#battleText').textContent='🪨 O Golem levantou um escudo de pedra. Magia pode quebrá-lo.';},240)}
+ const sp=battle.boss&&battle.turnCount%3===2?rpgxBossSpecial(battle.type):null;if(sp){battle.nextSpecial=sp;setTimeout(()=>{rpgxIntent(sp.warning,true);$('#battleText').textContent=sp.warning},260)}else if(!battle.nextSpecial)rpgxIntent('',false);battle.turnLocked=false
+};
+
+// Recompensa especial do pós-jogo sem tocar na campanha principal.
+const oldWinBattleRpgx=winBattle;
+winBattle=function(){if(battle?.ref?.id==='starWarden'){const b=battle;state.removedEnemies[b.ref.id]=Date.now();addCoins(b.coins);xpGain(b.xp);state.flags.starWardenWins=(state.flags.starWardenWins||0)+1;sfx('bossWin');$('#battleText').textContent=`Desafio vencido! +${b.xp} XP e +${b.coins} moedas. O Guardião poderá voltar mais tarde.`;rpgxIntent('',false);saveGame(true);setTimeout(()=>{battle=null;$('#battleOverlay').classList.add('hidden')},1250);return}rpgxIntent('',false);oldWinBattleRpgx()};
+
+// Acesso às missões secundárias pelo sistema de interação.
+drawMiniLabel=function(cam){const list=[...maps[state.map].objects.filter(o=>o.label&&!((o.type==='questPickup'||o.type==='treasureChest')&&state.flags['collected_'+o.id])&&!(o.type==='sidePickup'&&(rpgxSide()[o.side]!==1||state.flags.sideFound[o.side]))),...maps[state.map].npcs].map(o=>({o,d:distTo(o),priority:isDoor(o)?0:(o.name?1:2)})).filter(v=>v.d<(isDoor(v.o)?140:110)).sort((a,b)=>a.priority-b.priority||a.d-b.d);const nearest=list[0],candidate=getActionCandidate(),label=$('#actionLabel');if(label)label.textContent=actionVerb(candidate);if(nearest){let text=nearest.o.name||nearest.o.label;if(isDoor(nearest.o)&&!nearest.o.locked)text=isInteriorMap()?'Sair':'Entrar';if(nearest.o.type==='serviceExit')text='Sair';ctx.save();ctx.fillStyle='rgba(48,37,70,.82)';roundRect(ctx,canvas.width/2-110,canvas.height-42,220,28,14);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 12px system-ui';ctx.textAlign='center';ctx.fillText(`A • ${text}`,canvas.width/2,canvas.height-23);ctx.restore()}};
+
+// Guarda compatibilidade de saves antigos: acrescenta estruturas novas sem resetar progresso.
+const oldLoadSaveRpgx=loadSave;
+loadSave=function(){const ok=oldLoadSaveRpgx();state.flags=state.flags||{};rpgxSide();state.flags.rpg340=true;return ok};
+
 
 const hadSave=loadSave();bind();updateHud();$('#locationTag').textContent=maps[state.map].name;if(hadSave){$('#continueStoryBtn').classList.remove('hidden');$('#startStoryBtn').classList.add('hidden')}
 state.started=hadSave?true:false;if(hadSave)$('#introOverlay').classList.remove('hidden');

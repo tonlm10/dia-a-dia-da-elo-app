@@ -1,12 +1,12 @@
-DIA A DIA DA ELO v3.3.3 — TESTES DA ATUALIZAÇÃO
+DIA A DIA DA ELO v3.4.0 — TESTES DA ATUALIZAÇÃO RPG DEFINITIVO
 
-- Sintaxe validada em app.js, v3.js, pet.js, sw.js e JavaScript interno do RPG.
-- IDs do index.html conferidos sem duplicação.
-- Contador de estrelas existe uma única vez e agora fica no cabeçalho.
-- Perfil continua acessível por botão próprio, separado visualmente das estrelas.
-- Seletor de perfis passou a usar o histórico do app para fechar corretamente com Voltar.
-- Lógica de Voltar revisada: telas internas retornam pelo histórico; no menu principal abre confirmação de saída.
-- “Não, continuar” fecha a confirmação e permanece no menu principal.
-- “Sim, sair” percorre entradas internas do histórico até sair da página/app quando o ambiente permite.
-- ROOM_DECOR e WARDROBE_ITEMS comparados com v3.3.0 por hash: nenhum item, estrela exigida ou bloqueio foi alterado.
-- test_room.html removido do pacote de distribuição.
+- Sintaxe validada com Node para app.js, v3.js, pet.js, sw.js e todo o JavaScript interno do rpg.html.
+- Teste de execução do RPG em ambiente simulado com DOM e Canvas: inicialização concluída sem erro.
+- Renderização lógica testada nos 16 mapas, incluindo Casa Azul e Casa das Flores.
+- Renderização lógica testada para os 11 inimigos originais e o Guardião do Desafio do pós-jogo.
+- Ciclos de batalha testados para Sombra Nublada, Cervo das Sombras, Golem de Pedra, Sombra da Noite e Guardião do Desafio.
+- Menu de missões, guia visual, missões secundárias, novos objetos e NPCs carregados sem erro no teste de execução.
+- Compatibilidade de save preservada: a atualização adiciona estruturas novas sem apagar o progresso existente.
+- Regras da campanha principal, Portão Norte, reinício da aventura e visual da Elo vindo do guarda-roupa foram preservados.
+
+Observação: o teste automatizado valida sintaxe e execução lógica. O teste visual final em cada aparelho/tamanho de tela continua sendo recomendado após publicar no GitHub Pages.
