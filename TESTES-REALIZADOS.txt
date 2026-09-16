@@ -1,7 +1,7 @@
-DIA A DIA DA ELO v3.5.2 — TESTES
+DIA A DIA DA ELO v3.5.3 — TESTES
 
 - Sintaxe de app.js, v3.js, pet.js e service worker.
-- Conferência da versão 3.5.2 e cache r17.
+- Conferência da versão 3.5.3 e cache r17.
 - Verificação de preservação do scroll horizontal das prateleiras durante re-render.
 - Verificação de player de vídeo específico sem parâmetro de playlist.
 - Verificação de modo Short 9:16 ocupando 100% da largura do modal.

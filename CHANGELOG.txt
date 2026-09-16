@@ -1,4 +1,8 @@
-v3.5.2
+v3.5.3
+- Cinema da Elo: a seção Mais recente agora usa diretamente a playlist automática de uploads do canal e sempre aponta para o conteúdo mais novo publicado, sem exigir atualização do app.
+- O card de Mais recente deixa de depender da leitura do catálogo por API e passa a acompanhar o canal dinamicamente.
+
+v3.5.3
 - Cinema: prateleiras horizontais agora mantêm a posição enquanto títulos e playlists carregam.
 - Cinema: adição de botões laterais para avançar/voltar nas prateleiras.
 - Cinema: removido o contexto de playlist ao abrir um vídeo específico, evitando voltar ao primeiro vídeo da lista.

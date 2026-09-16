@@ -1,2 +1,2 @@
-Versão atual do app: 3.5.2
-Correções de navegação horizontal e dimensionamento do Cinema da Elo.
+Versão atual do app: 3.5.3
+Cinema da Elo: seção Mais recente dinâmica, sempre ligada ao último upload do canal.
