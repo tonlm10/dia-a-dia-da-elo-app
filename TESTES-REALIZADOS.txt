@@ -1,42 +1,9 @@
-DIA A DIA DA ELO v3.5.0 — TESTES E VALIDAÇÕES
+DIA A DIA DA ELO v3.5.1 — TESTES
 
-1. Sintaxe validada com Node:
-- app.js
-- v3.js
-- pet.js
-- sw.js
-- JavaScript interno do rpg.html
-
-2. Estrutura HTML:
-- Sem IDs duplicados.
-- Todos os arquivos locais referenciados diretamente no index.html existem.
-- Novos elementos do Cinema, Labirinto e Caça aos Unicórnios conferidos.
-
-3. Guarda-roupa / quarto:
-- ROOM_DECOR idêntico à v3.4.0.
-- WARDROBE_ITEMS idêntico à v3.4.0.
-- WARDROBE_PRESETS idêntico à v3.4.0.
-- Nenhum requisito de estrelas ou item bloqueado foi alterado.
-
-4. Jogos:
-- Labirinto usa clone da Elo atual do guarda-roupa.
-- Caça aos Unicórnios usa clone da Elo atual do guarda-roupa.
-- Unicórnio vetorial próprio incluído em assets/game-ui/unicorn.svg.
-- Fantasminha vetorial próprio incluído em assets/game-ui/ghost.svg.
-- Trilha Encantada força perfil visual voltado para a direita, com tratamento dos penteados assimétricos.
-- Unicórnio coletável da Trilha usa a nova arte vetorial.
-
-5. Cinema da Elo:
-- Playlists convertidas em categorias/prateleiras.
-- Catálogo tenta descobrir os IDs dos vídeos via YouTube IFrame Player API, sem chave de API.
-- Thumbnails são exibidas por ID de vídeo quando disponíveis.
-- Player oficial do YouTube abre dentro do app, sem autoplay, com opção de tela cheia.
-- Shorts usam apresentação vertical.
-- Fallback de playlist embutida configurado caso o catálogo não consiga carregar os IDs.
-- O funcionamento do catálogo depende de conexão com a internet e disponibilidade do YouTube.
-
-6. Versionamento/cache:
-- version.js: 3.5.0
-- manifest: 3.5.0
-- service worker: cache r15
-- novo CSS games-v350.css incluído no cache principal.
+- Sintaxe de app.js e v3.js.
+- Conferência da versão 3.5.1 e cache r16.
+- Labirinto e Caça: personagem usa transform único (translate + scale), evitando deslocamento para fora da célula.
+- Cinema: catálogo de cada playlist usa player temporário independente e aguarda estado CUED antes de ler IDs.
+- IDs repetidos na mesma playlist são removidos.
+- Metadados/títulos são lidos individualmente sem iniciar reprodução.
+- Player de visualização usa iframe oficial do YouTube com playsinline e fullscreen.

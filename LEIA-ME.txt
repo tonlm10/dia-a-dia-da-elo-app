@@ -1,11 +1,11 @@
-DIA A DIA DA ELO v3.5.0
+DIA A DIA DA ELO v3.5.1
 
 Para atualizar pelo workflow do GitHub, envie o arquivo com o nome exato:
 app-upload.zip
 
 Conteúdo do ZIP fica diretamente na raiz, sem pasta externa.
 
-Destaques da v3.5.0:
+Destaques da v3.5.1:
 - Cinema da Elo em formato de catálogo, com vídeos e Shorts dentro do app.
 - Labirinto com a mesma Elo do guarda-roupa e unicórnio redesenhado.
 - Caça aos Unicórnios com a mesma Elo, unicórnios redesenhados e fantasminha próprio.

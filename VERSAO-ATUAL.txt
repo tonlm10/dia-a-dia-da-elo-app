@@ -1,2 +1,2 @@
-Versão atual do app: 3.5.0
-Atualização integrada: Cinema da Elo dentro do app + Elo unificada no Labirinto e Caça aos Unicórnios + criaturas redesenhadas + correção de orientação da Trilha Encantada.
+Versão atual do app: 3.5.1
+Correções do Labirinto/Caça aos Unicórnios e Cinema da Elo.
