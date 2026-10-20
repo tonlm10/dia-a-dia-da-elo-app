@@ -2107,3 +2107,722 @@ nav {
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
 }
+
+
+/* ==========================================================
+   v4.1.0 • NOVOS ITENS DO QUARTO E GUARDA-ROUPA
+   ========================================================== */
+
+/* Parede Fundo do Mar */
+.eloRoom.room-premium.wall-ocean {
+  background: radial-gradient(circle at 25% 30%, rgba(255,255,255,0.3) 0 8px, transparent 9px),
+              radial-gradient(circle at 65% 20%, rgba(255,255,255,0.3) 0 12px, transparent 13px),
+              radial-gradient(circle at 45% 50%, rgba(255,255,255,0.2) 0 16px, transparent 17px),
+              linear-gradient(180deg, #0284c7 0%, #0369a1 40%, #075985 66%, #d8aa79 66% 100%) !important;
+}
+.roomWallThumb.thumb-wallOcean {
+  background: linear-gradient(135deg, #0284c7, #38bdf8) !important;
+}
+
+/* Quadro Dragãozinho */
+.roomWallArt.art-dragon, .roomArtThumb.art-dragon {
+  background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'%3E%3Crect width='100' height='80' fill='%23fef3c7'/%3E%3Ccircle cx='50' cy='42' r='24' fill='%2322c55e'/%3E%3Ccircle cx='42' cy='36' r='4' fill='%231e293b'/%3E%3Ccircle cx='58' cy='36' r='4' fill='%231e293b'/%3E%3Cpolygon points='26,24 16,6 36,18' fill='%23f97316'/%3E%3Cpolygon points='74,24 84,6 64,18' fill='%23f97316'/%3E%3Cpath d='M42 54 Q50 62 58 54' stroke='%2315803d' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='72' r='8' fill='%23fbbf24'/%3E%3C/svg%3E") center/cover no-repeat !important;
+}
+
+/* Cama Foguete */
+.roomBed.bed-rocket .blanket, .roomBedThumb.bed-rocket .tBlanket {
+  background: linear-gradient(90deg, #1e1b4b, #3b82f6 50%, #1e1b4b) !important;
+}
+.roomBed.bed-rocket .head, .roomBedThumb.bed-rocket .tHead {
+  background: #f97316 !important;
+  border-color: #ea580c !important;
+}
+
+/* Tapete Melancia */
+.roomRug.rug-watermelon, .roomRugThumb.rug-watermelon {
+  background: radial-gradient(circle at 50% 10%, #15803d 0 65%, #4ade80 66% 75%, #f43f5e 76% 100%) !important;
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%) !important;
+  border-radius: 8px 8px 30px 30px !important;
+  border: 2px solid #fff !important;
+}
+
+/* Brinquedo Trenzinho */
+.roomToy.toy-train, .roomToyThumb.toy-train {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'%3E%3Crect x='14' y='32' width='42' height='28' rx='6' fill='%23ef4444'/%3E%3Crect x='52' y='18' width='28' height='42' rx='5' fill='%233b82f6'/%3E%3Crect x='58' y='24' width='16' height='14' rx='3' fill='%23bae6fd'/%3E%3Crect x='24' y='18' width='10' height='14' fill='%23facc15'/%3E%3Ccircle cx='26' cy='64' r='8' fill='%231e293b'/%3E%3Ccircle cx='46' cy='64' r='8' fill='%231e293b'/%3E%3Ccircle cx='68' cy='64' r='8' fill='%231e293b'/%3E%3C/svg%3E") !important;
+}
+
+/* Novos Cabelos e Roupas no Guarda-Roupa */
+.garmentThumb.hairstyle.doublebraid:before {
+  background: #3e2213 !important;
+  box-shadow: -14px 22px 0 -4px #3e2213, 14px 22px 0 -4px #3e2213 !important;
+}
+.garmentThumb.hairstyle.spiky:before {
+  background: #6e3d27 !important;
+  clip-path: polygon(0 40%, 15% 10%, 30% 30%, 50% 0%, 70% 30%, 85% 10%, 100% 40%, 85% 100%, 15% 100%) !important;
+}
+.garmentThumb.dress.snow:before {
+  background: linear-gradient(180deg, #e0f2fe, #38bdf8 60%, #93c5fd) !important;
+}
+.garmentThumb.shirt.dino:before {
+  background: #22c55e !important;
+}
+.garmentThumb.shirt.dino:after {
+  content: "🦖" !important;
+  position: absolute !important;
+  left: 28px !important;
+  top: 24px !important;
+  font-size: 16px !important;
+}
+.garmentThumb.hair.pirate:before {
+  content: "🏴‍☠️" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  font-size: 36px !important;
+}
+.garmentThumb.hair.star:before {
+  content: "🕶️" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  font-size: 34px !important;
+}
+.garmentThumb.shoes.ballet:before, .garmentThumb.shoes.ballet:after {
+  background: #f472b6 !important;
+  border-radius: 999px !important;
+}
+
+.eloDoll.style-doublebraid .dollHairBack {
+  left: 28px !important; top: 16px !important; width: 94px !important; height: 160px !important;
+  background: #3e2213 !important;
+  box-shadow: -28px 65px 0 -12px #3e2213, 28px 65px 0 -12px #3e2213 !important;
+}
+.eloDoll.style-spiky .dollHairBack {
+  background: #6e3d27 !important;
+  clip-path: polygon(0 50%, 20% 0, 40% 30%, 50% 5%, 60% 30%, 80% 0, 100% 50%, 85% 100%, 15% 100%) !important;
+}
+.eloDoll.dress-snow .dollDress {
+  background: linear-gradient(180deg, #ffffff, #7dd3fc 50%, #38bdf8) !important;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.45) !important;
+}
+.eloDoll.top-dino .dollTop {
+  background: #22c55e !important;
+}
+.eloDoll.top-dino .dollTop:after {
+  content: "🦖" !important;
+  position: absolute !important;
+  left: 20px !important;
+  top: 18px !important;
+  font-size: 18px !important;
+}
+.eloDoll.shoes-ballet .shoe {
+  background: #f472b6 !important;
+  border-radius: 999px !important;
+}
+
+
+/* ==========================================================
+   v4.1.0 • ÁLBUM DE FIGURINHAS HOLOGRÁFICAS & PACOTINHOS
+   ========================================================== */
+.stickersHero {
+  margin: 10px 12px 14px;
+  border-radius: 28px;
+  padding: 16px;
+  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 55%, #db2777 100%);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.28);
+}
+.stickersHeroLeft h3 { margin: 0; font-size: 21px; }
+.stickersHeroLeft p { margin: 4px 0 0; font-size: 12px; opacity: 0.92; }
+
+/* Pacote de Figurinhas 3D para Abrir */
+.packStageWrap {
+  margin: 0 12px 16px;
+  border-radius: 26px;
+  background: linear-gradient(145deg, #fff, #fdf4ff);
+  border: 2px dashed #d946ef;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(217, 70, 239, 0.12);
+}
+.boosterPack3D {
+  width: 140px;
+  height: 190px;
+  margin: 10px auto 14px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #8b5cf6 100%);
+  border: 4px solid #fef08a;
+  box-shadow: 0 16px 36px rgba(236, 72, 153, 0.35), inset 0 2px 8px rgba(255,255,255,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+.boosterPack3D::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(255,255,255,0.3) 60%, transparent 100%);
+  pointer-events: none;
+}
+.boosterPack3D:active {
+  transform: scale(0.94);
+}
+.boosterIcon { font-size: 52px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25)); }
+.boosterTitle { font-size: 15px; font-weight: 1000; text-shadow: 0 2px 4px rgba(0,0,0,0.3); margin-top: 4px; }
+.boosterCountBadge {
+  display: inline-block;
+  background: #fde047;
+  color: #713f12;
+  font-size: 11px;
+  font-weight: 1000;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+/* Área de Revelação das 3 Figurinhas */
+.cardsRevealRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+.stickerCardItem {
+  min-height: 140px;
+  border-radius: 18px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+  position: relative;
+  overflow: hidden;
+  animation: cardFlipIn 0.45s ease backwards;
+}
+@keyframes cardFlipIn {
+  0% { transform: scale(0.5) rotateY(90deg); opacity: 0; }
+  100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+}
+.stickerCardItem.common {
+  background: linear-gradient(145deg, #ffffff, #f1f5f9);
+  border: 2.5px solid #cbd5e1;
+  color: #334155;
+}
+.stickerCardItem.rare {
+  background: linear-gradient(145deg, #faf5ff, #f3e8ff);
+  border: 3px solid #c084fc;
+  color: #581c87;
+  box-shadow: 0 10px 24px rgba(168, 85, 247, 0.25);
+}
+.stickerCardItem.gold {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+  border: 3.5px solid #f59e0b;
+  color: #78350f;
+  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.4), inset 0 0 15px rgba(255,255,255,0.8);
+  animation: goldShimmer 2s infinite linear, cardFlipIn 0.45s ease backwards;
+}
+@keyframes goldShimmer {
+  0% { filter: drop-shadow(0 0 6px #f59e0b); }
+  50% { filter: drop-shadow(0 0 16px #ec4899); }
+  100% { filter: drop-shadow(0 0 6px #f59e0b); }
+}
+.stickerCardItem .sEmoji { font-size: 38px; margin-bottom: 6px; }
+.stickerCardItem .sName { font-size: 11px; font-weight: 1000; line-height: 1.15; }
+.stickerCardItem .sRarity { font-size: 9px; font-weight: 900; opacity: 0.85; margin-top: 3px; }
+
+/* Grid do Álbum de Figurinhas */
+.albumGridWrap {
+  margin: 0 12px 18px;
+  background: #fff;
+  border-radius: 26px;
+  padding: 16px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+}
+.albumGridWrap h3 { margin: 0 0 12px; color: #4c1d95; }
+.albumGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+@media(max-width: 420px) {
+  .albumGrid { grid-template-columns: repeat(3, 1fr); }
+}
+.albumSlot {
+  min-height: 96px;
+  border-radius: 16px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.albumSlot:active { transform: scale(0.95); }
+.albumSlot.uncollected {
+  opacity: 0.45;
+  filter: grayscale(1);
+  background: #f1f5f9;
+}
+.albumSlot.collected {
+  background: #fff;
+  border-color: #f472b6;
+  box-shadow: 0 4px 10px rgba(244, 114, 182, 0.2);
+}
+.albumSlot.collected.gold {
+  border-color: #f59e0b;
+  background: #fffbeb;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+.albumSlot .slotIcon { font-size: 26px; }
+.albumSlot .slotNum { font-size: 9px; font-weight: 900; color: #94a3b8; margin-top: 2px; }
+.albumSlot .slotTitle { font-size: 9px; font-weight: 900; line-height: 1.1; margin-top: 2px; color: var(--ink); }
+
+
+/* ==========================================================
+   v4.1.0 • CONSULTÓRIO & SALÃO DE CUIDADOS DA ELO
+   ========================================================== */
+.careHero {
+  margin: 10px 12px 14px;
+  border-radius: 26px;
+  padding: 16px;
+  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 55%, #10b981 100%);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(2, 132, 199, 0.28);
+}
+.careHero h3 { margin: 0; font-size: 20px; }
+.careHero p { margin: 4px 0 0; font-size: 12px; opacity: 0.95; }
+
+.careTabsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0 12px 14px;
+}
+.careTabBtn {
+  border-radius: 16px;
+  border: 1.5px solid #cbd5e1;
+  background: #fff;
+  padding: 9px 4px;
+  font-size: 11px;
+  font-weight: 900;
+  color: #0369a1;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.careTabBtn.on {
+  background: linear-gradient(135deg, #0284c7, #06b6d4);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+}
+
+.careStageWrap {
+  margin: 0 12px 16px;
+  background: #fff;
+  border-radius: 26px;
+  padding: 18px 16px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+  border: 2px solid #e0f2fe;
+  text-align: center;
+}
+
+/* 1. Escovação de Dente */
+.teethMouthStage {
+  position: relative;
+  width: 220px;
+  height: 140px;
+  margin: 14px auto 16px;
+  background: #f43f5e;
+  border: 8px solid #fda4af;
+  border-radius: 70px 70px 100px 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 18px;
+  box-shadow: 0 10px 25px rgba(244, 63, 94, 0.25);
+  overflow: hidden;
+  cursor: pointer;
+  touch-action: none;
+}
+.teethRowUpper, .teethRowLower {
+  display: flex;
+  justify-content: space-around;
+  gap: 4px;
+}
+.toothItem {
+  width: 24px;
+  height: 28px;
+  background: #fff;
+  border-radius: 6px 6px 10px 10px;
+  border: 2px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+.toothItem.dirty {
+  background: #fef08a;
+  border-color: #ca8a04;
+}
+.toothItem.sparkle {
+  background: #ffffff;
+  box-shadow: 0 0 12px #38bdf8;
+  border-color: #38bdf8;
+}
+.brushToolActive {
+  font-size: 38px;
+  margin-top: 8px;
+  display: inline-block;
+  animation: brushWiggle 0.8s ease-in-out infinite alternate;
+}
+@keyframes brushWiggle {
+  0% { transform: rotate(-15deg); }
+  100% { transform: rotate(15deg); }
+}
+
+/* 2. Curativos */
+.bandageStage {
+  width: 220px;
+  height: 200px;
+  margin: 10px auto;
+  position: relative;
+  border-radius: 24px;
+  background: #fdf2f8;
+  border: 2px dashed #f472b6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.scrapeSpot {
+  width: 48px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fca5a5;
+  border: 2px solid #ef4444;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+.scrapeSpot.healed {
+  background: #dcfce7;
+  border-color: #22c55e;
+}
+.bandageChoiceRow {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 14px;
+}
+.bandageChoiceBtn {
+  font-size: 24px;
+  padding: 8px 14px;
+  border-radius: 14px;
+  border: 1.5px solid #cbd5e1;
+  background: #fff;
+  cursor: pointer;
+}
+.bandageChoiceBtn.on {
+  border-color: #f43f5e;
+  background: #ffe4e6;
+  transform: scale(1.1);
+}
+
+/* 3. Lancheira Saudável */
+.lunchboxStage {
+  width: 240px;
+  height: 180px;
+  margin: 10px auto;
+  border-radius: 26px;
+  background: #fef3c7;
+  border: 6px solid #f59e0b;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 6px;
+  padding: 10px;
+  box-shadow: 0 10px 24px rgba(245, 158, 11, 0.2);
+}
+.lunchSlot {
+  background: #fff;
+  border-radius: 14px;
+  border: 2px dashed #fcd34d;
+  display: grid;
+  place-items: center;
+  font-size: 32px;
+}
+.lunchOptionsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+.lunchOptBtn {
+  border-radius: 14px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  padding: 8px 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.lunchOptBtn span { font-size: 24px; }
+.lunchOptBtn small { font-size: 10px; font-weight: 800; color: #334155; }
+
+
+/* ==========================================================
+   v4.1.0 • ESTÚDIO DE FOTOS DA ELO & BICHINHO
+   ========================================================== */
+.photoStudioWrap {
+  margin: 0 12px 16px;
+}
+.photoCanvasCard {
+  background: #fff;
+  border-radius: 26px;
+  border: 3px solid #f472b6;
+  box-shadow: 0 14px 34px rgba(244, 114, 182, 0.25);
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+#photoStudioCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 600 / 440;
+}
+.photoStudioTools {
+  background: #fff;
+  border-radius: 20px;
+  padding: 12px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.photoPillsRow {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.photoPillBtn {
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.photoPillBtn.on {
+  background: #ec4899;
+  color: #fff;
+  border-color: transparent;
+}
+
+
+/* ==========================================================
+   v4.1.0 • BANDA & MESA DE SOM DJ MIRIM DA ELO
+   ========================================================== */
+.djStationWrap {
+  background: linear-gradient(145deg, #1e1b4b, #311042);
+  border-radius: 24px;
+  padding: 16px;
+  margin-top: 16px;
+  color: #fff;
+  border: 2px solid #a855f7;
+  box-shadow: 0 12px 30px rgba(168, 85, 247, 0.35);
+}
+.djHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.djHeader h4 { margin: 0; font-size: 17px; color: #fde047; }
+.djBeatLoopBtn {
+  border-radius: 14px;
+  border: 0;
+  background: #22c55e;
+  color: #fff;
+  font-weight: 1000;
+  font-size: 12px;
+  padding: 7px 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
+}
+.djBeatLoopBtn.playing {
+  background: #ef4444;
+  animation: pulseBeat 0.6s infinite alternate;
+}
+@keyframes pulseBeat {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+.djPadsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.djPadBtn {
+  height: 68px;
+  border-radius: 16px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-bottom: 5px solid rgba(0,0,0,0.3);
+  background: var(--pad-color, #ec4899);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.08s ease;
+  user-select: none;
+}
+.djPadBtn:active, .djPadBtn.hit {
+  transform: translateY(4px);
+  border-bottom-width: 2px;
+}
+.djPadBtn span { font-size: 24px; }
+.djPadBtn b { font-size: 11px; margin-top: 2px; }
+
+
+/* ==========================================================
+   v4.1.0 • MODO HORA DO SONINHO
+   ========================================================== */
+.sleepOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 15000;
+  background: linear-gradient(180deg, #090d16 0%, #15102a 60%, #1a1235 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 16px env(safe-area-inset-bottom);
+  color: #fff;
+  overflow-y: auto;
+}
+.sleepOverlay.hidden { display: none !important; }
+.sleepHeader {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sleepBedStage {
+  width: min(340px, 90vw);
+  height: 220px;
+  border-radius: 30px;
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.08) 0%, transparent 60%), #1e1b4b;
+  border: 2px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 50px rgba(124, 58, 237, 0.25);
+}
+.sleepEloIcon { font-size: 64px; animation: sleepBreath 3.5s ease-in-out infinite alternate; }
+@keyframes sleepBreath {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.04) translateY(-3px); }
+}
+.sleepControlsWrap {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.sleepTimerPills {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px 0;
+}
+.sleepTimerBtn {
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sleepTimerBtn.on {
+  background: #fde047;
+  color: #1e1b4b;
+  border-color: transparent;
+}
+
+
+/* ==========================================================
+   v4.1.0 • COPA DA FAMÍLIA (TORNEIO DE 3 RODADAS)
+   ========================================================== */
+.cupTournamentWrap {
+  margin: 0 12px 18px;
+  background: #fff;
+  border-radius: 28px;
+  padding: 20px 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  border: 2px solid #ffd54f;
+  text-align: center;
+}
+.cupTrophyHero {
+  font-size: 64px;
+  animation: trophyFloat 2.4s ease-in-out infinite alternate;
+}
+@keyframes trophyFloat {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-8px) scale(1.06); }
+}
+.cupRoundStepsRow {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px 0;
+}
+.cupStepPill {
+  padding: 6px 12px;
+  border-radius: 14px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 900;
+}
+.cupStepPill.active {
+  background: #f59e0b;
+  color: #fff;
+}
+.cupStepPill.done {
+  background: #10b981;
+  color: #fff;
+}

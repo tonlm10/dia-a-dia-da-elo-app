@@ -5,7 +5,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.0.0-r30";
+    var TARGET_VER = "4.1.0-r35";
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
       if ("caches" in window) {
@@ -36,22 +36,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800;900&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4.0.0">
-<link rel="stylesheet" href="v3.css?v=4.0.0">
-<link rel="stylesheet" href="polish.css?v=4.0.0">
-<link rel="stylesheet" href="games-v350.css?v=4.0.0">
+<link rel="stylesheet" href="styles.css?v=4.1.0">
+<link rel="stylesheet" href="v3.css?v=4.1.0">
+<link rel="stylesheet" href="polish.css?v=4.1.0">
+<link rel="stylesheet" href="games-v350.css?v=4.1.0">
 </head>
 <body>
 <div id="splash"><div class="splashCard"><img src="assets/icons/icon-192.png" alt="Dia a Dia da Elo"><h2>Dia a Dia da Elo</h2><p>Brincar • Aprender • Criar</p></div><script>setTimeout(function(){var s=document.getElementById("splash");if(s){s.style.opacity="0";s.style.pointerEvents="none";setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},450);}},1200);</script></div>
 <div class="app">
-<header><div class="brand compactBrand"><img class="brandLogo" src="assets/logo-oficial.webp" alt="Dia a Dia da Elo"><div class="brandText"><h1>Dia a Dia da Elo</h1><div class="handle">@diaadiadaelo</div></div><div class="brandActions"><button id="profileChip" class="profileChip profileCompact" onclick="openProfileChooser()" aria-label="Trocar perfil"><span>👤</span><b>Elo</b><small>perfil</small></button><div class="headerStars" aria-label="Estrelas conquistadas">⭐ <span id="starCount">0</span></div><button id="speechBtn" class="iconBtn" onclick="toggleSpeech()" aria-label="Leitura em voz">🔊</button></div></div></header>
+<header><div class="brand compactBrand"><img class="brandLogo" src="assets/logo-oficial.webp" alt="Dia a Dia da Elo"><div class="brandText"><h1>Dia a Dia da Elo</h1><div class="handle">@diaadiadaelo</div></div><div class="brandActions"><button id="profileChip" class="profileChip profileCompact" onclick="openProfileChooser()" aria-label="Trocar perfil"><span>👤</span><b>Elo</b><small>perfil</small></button><div class="headerStars" aria-label="Estrelas conquistadas">⭐ <span id="starCount">0</span></div><button id="speechBtn" class="iconBtn" onclick="toggleSpeech()" aria-label="Leitura em voz">🔊</button><button id="sleepModeBtn" class="iconBtn" onclick="toggleSleepMode()" aria-label="Modo Soninho" title="Modo Soninho">🌙</button></div></div></header>
 
 <section id="homePanel" class="panel home active">
   <!-- Palco 3D Oficial Ilustrado da Elo -->
   <div class="homeStage3D">
     <div class="homeStageBanner" style="background-image:url('assets/channel-banner-v5.webp')">
       <div class="homeStageOverlay">
-        <span class="stageLivePill">✨ SUPER APP OFICIAL • v4.0</span>
+        <span class="stageLivePill">✨ SUPER APP OFICIAL • v4.1</span>
         <h2>Mundo Mágico da Elo 🌈</h2>
         <p>Brinque, aprenda música, cuide do bichinho, decore e divirta-se em família!</p>
       </div>
@@ -74,9 +74,17 @@
           <span>🎁</span>
           <div><b>Baú de Estrelas</b><small>Ganhar +10 ⭐</small></div>
         </button>
+        <button class="heroDailyBonusChip" style="background:linear-gradient(135deg,#fdf4ff,#fae8ff);color:#86198f" onclick="openStickersAlbum()">
+          <span>📦</span>
+          <div><b id="homeStickerCountText">Álbum & Pacotes</b><small>Figurinhas Ouro ⭐</small></div>
+        </button>
         <button class="heroContinueChip" onclick="openContinueSpot()">
           <span>▶</span>
           <div><b id="continueTitle">Continuar</b><small id="continueSub">Onde parou</small></div>
+        </button>
+        <button class="heroContinueChip" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd);color:#0369a1" onclick="openPanel('carePanel','home')">
+          <span>🦷</span>
+          <div><b>Consultório</b><small>Dentes & Lancheira</small></div>
         </button>
       </div>
     </div>
@@ -360,6 +368,23 @@
       <button class="soundPadBtn" onclick="playAnimalSynth('frog')">🐸 Coaxar</button>
       <button class="soundPadBtn" onclick="playAnimalSynth('bird')">🐦 Piu</button>
     </div>
+
+    <!-- Mesa de Som & Bateria DJ da Elo -->
+    <div class="djStationWrap">
+      <div class="djHeader">
+        <div>
+          <h4>🎧 Mesa de DJ & Bateria Pop</h4>
+          <small style="opacity:0.9;">Toque os instrumentos ou ligue o Beat para a Elo dançar!</small>
+        </div>
+        <button id="djBeatToggleBtn" class="djBeatLoopBtn" onclick="toggleDJBeatLoop()">▶ Ligar Beat</button>
+      </div>
+      <div class="djPadsGrid">
+        <button class="djPadBtn" style="--pad-color:#ef4444" onpointerdown="playDJPad('kick')"><span>🥁</span><b>Bumbo</b></button>
+        <button class="djPadBtn" style="--pad-color:#f59e0b" onpointerdown="playDJPad('snare')"><span>💥</span><b>Caixa</b></button>
+        <button class="djPadBtn" style="--pad-color:#06b6d4" onpointerdown="playDJPad('hat')"><span>🔔</span><b>Prato</b></button>
+        <button class="djPadBtn" style="--pad-color:#ec4899" onpointerdown="playDJPad('clap')"><span>👏</span><b>Palmas</b></button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -377,13 +402,16 @@
 
   <div class="creativeModeTabs">
     <button class="cTabBtn active" onclick="switchCreativeMode('freeDraw', this)">
-      <span>🖌️</span> <b>Quadros & Pincel Mágico</b>
+      <span>🖌️</span> <b>Quadros & Pincel</b>
     </button>
     <button class="cTabBtn" onclick="switchCreativeMode('coloring', this)">
-      <span>🖍️</span> <b>Livro de Colorir (10)</b>
+      <span>🖍️</span> <b>Livro de Colorir</b>
     </button>
     <button class="cTabBtn" onclick="switchCreativeMode('chef', this)">
-      <span>🍕</span> <b>Pizzaria & Confeitaria</b>
+      <span>🍕</span> <b>Pizzaria & Chef</b>
+    </button>
+    <button class="cTabBtn" onclick="switchCreativeMode('photo', this)">
+      <span>📸</span> <b>Estúdio de Fotos</b>
     </button>
   </div>
 
@@ -461,6 +489,36 @@
     </div>
     <div id="chefStudioRoot"></div>
   </div>
+
+  <!-- Modo 4: Estúdio de Fotos (Elo + Pet) -->
+  <div id="photoSection" class="card hidden">
+    <h3>📸 Estúdio de Fotos da Elo & Bichinho</h3>
+    <p class="muted">Tire uma foto oficial da Elo com a roupa atual dela e o Bichinho, escolha molduras e salve a imagem para mandar no WhatsApp ou guardar!</p>
+    <div class="photoCanvasCard">
+      <canvas id="photoStudioCanvas" width="600" height="440"></canvas>
+    </div>
+    <div class="photoStudioTools">
+      <small style="font-weight:900;color:#675883;">Cenário de Fundo:</small>
+      <div class="photoPillsRow">
+        <button class="photoPillBtn on" onclick="setPhotoScene('castle', this)">🏰 Castelo</button>
+        <button class="photoPillBtn" onclick="setPhotoScene('forest', this)">🦄 Floresta</button>
+        <button class="photoPillBtn" onclick="setPhotoScene('beach', this)">🏖️ Praia</button>
+        <button class="photoPillBtn" onclick="setPhotoScene('space', this)">🌌 Galáxia</button>
+        <button class="photoPillBtn" onclick="setPhotoScene('rainbow', this)">🌈 Arco-íris</button>
+      </div>
+      <small style="font-weight:900;color:#675883;margin-top:6px;">Moldura Mágica:</small>
+      <div class="photoPillsRow">
+        <button class="photoPillBtn on" onclick="setPhotoFrame('pink', this)">🎀 Princesa</button>
+        <button class="photoPillBtn" onclick="setPhotoFrame('gold', this)">⭐ Estrelas Ouro</button>
+        <button class="photoPillBtn" onclick="setPhotoFrame('party', this)">🎉 Festa Colorida</button>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;">
+        <button class="btn" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)" onclick="savePhotoStudioArt()">💾 Baixar Foto da Elo & Pet (+2 ⭐)</button>
+        <button class="btn secondary" onclick="renderPhotoStudio()">↻ Atualizar Foto</button>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <section id="storiesPanel" class="panel">
@@ -598,6 +656,92 @@
   </div>
 </section>
 
+<section id="carePanel" class="panel">
+  <div class="topTitle">
+    <button class="back" onclick="appBack()">‹</button>
+    <h2>Consultório da Elo 🦷</h2>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
+  </div>
+
+  <div class="cantinhoTopSwitcher">
+    <button class="cSwitchBtn" onclick="openPanel('roomPanel','home')">🛏️ Quarto 3D</button>
+    <button class="cSwitchBtn" onclick="openPanel('wardrobePanel','home')">👗 Guarda-roupa</button>
+    <button class="cSwitchBtn" onclick="openPet()">🐾 Bichinho</button>
+    <button class="cSwitchBtn on" onclick="openPanel('carePanel','home')">🦷 Cuidados</button>
+  </div>
+
+  <div class="careHero">
+    <span class="schoolHeroBadge" style="background:#0284c7;color:#fff;">💖 HÁBITOS SAUDÁVEIS</span>
+    <h3>Cuidando da Elo com muito carinho!</h3>
+    <p>Escove os dentinhos até brilharem, faça curativos fofos e prepare a lancheira escolar!</p>
+  </div>
+
+  <div class="careTabsRow">
+    <button class="careTabBtn on" onclick="switchCareTab('teeth', this)">
+      <span>🪥</span> <b>Escovar Dentes</b>
+    </button>
+    <button class="careTabBtn" onclick="switchCareTab('bandage', this)">
+      <span>🩹</span> <b>Curativos</b>
+    </button>
+    <button class="careTabBtn" onclick="switchCareTab('lunch', this)">
+      <span>🥪</span> <b>Lancheira</b>
+    </button>
+  </div>
+
+  <!-- Atividade 1: Escovar Dentes com Espuma Interativa -->
+  <div id="careTeethStage" class="careStageWrap">
+    <h3>Passe a escova em todos os dentinhos! 🪥</h3>
+    <p class="muted">Toque e deslize nos dentes amarelinhos para fazer espuma até ficarem branquinhos e brilhantes!</p>
+    <div id="teethMouthBox" class="teethMouthStage">
+      <div class="teethRowUpper" id="teethRowUpper"></div>
+      <div class="teethRowLower" id="teethRowLower"></div>
+    </div>
+    <div id="teethProgressText" style="font-weight:900;color:#0284c7;font-size:15px;margin:8px 0;">0/8 dentes escovados ✨</div>
+    <button class="btn" style="background:#00d288" onclick="finishBrushingTeeth()">✨ Terminei de Escovar! (+2 ⭐)</button>
+  </div>
+
+  <!-- Atividade 2: Curativos Mágicos -->
+  <div id="careBandageStage" class="careStageWrap hidden">
+    <h3>Limpe o arranhão e escolha um curativo fofo! 🩹</h3>
+    <p class="muted">Toque no arranhão para limpar com algodãozinho mágico e cole seu curativo favorito!</p>
+    <div class="bandageStage">
+      <div id="scrapeSpot1" class="scrapeSpot" onclick="treatScrape(this)">🩹</div>
+      <div id="scrapeFeedback" style="margin-top:12px;font-weight:900;color:#db2777;">Toque no curativo para cuidar!</div>
+    </div>
+    <div class="bandageChoiceRow">
+      <button class="bandageChoiceBtn on" onclick="selectBandageStyle('🦄', this)">🦄</button>
+      <button class="bandageChoiceBtn" onclick="selectBandageStyle('⭐', this)">⭐</button>
+      <button class="bandageChoiceBtn" onclick="selectBandageStyle('💖', this)">💖</button>
+      <button class="bandageChoiceBtn" onclick="selectBandageStyle('🌈', this)">🌈</button>
+    </div>
+    <button class="btn" style="margin-top:14px;background:#ec4899" onclick="finishBandages()">🎉 Pronto, sarou tudo! (+2 ⭐)</button>
+  </div>
+
+  <!-- Atividade 3: Lancheira Saudável -->
+  <div id="careLunchStage" class="careStageWrap hidden">
+    <h3>Monte a lancheira saudável da Elo! 🥪</h3>
+    <p class="muted">Escolha 1 Fruta 🍎, 1 Lanchinho 🥪 e 1 Bebida 🧃 para levar para a escola!</p>
+    <div class="lunchboxStage">
+      <div class="lunchSlot" id="lunchSlotFruit">🍎</div>
+      <div class="lunchSlot" id="lunchSlotSnack">🥪</div>
+      <div class="lunchSlot" id="lunchSlotDrink">🧃</div>
+      <div class="lunchSlot" id="lunchSlotTreat">⭐</div>
+    </div>
+    <div class="lunchOptionsGrid">
+      <button class="lunchOptBtn" onclick="setLunchItem('fruit','🍎','Maçã')"><span>🍎</span><small>Maçã</small></button>
+      <button class="lunchOptBtn" onclick="setLunchItem('fruit','🍌','Banana')"><span>🍌</span><small>Banana</small></button>
+      <button class="lunchOptBtn" onclick="setLunchItem('fruit','🍓','Morango')"><span>🍓</span><small>Morango</small></button>
+      <button class="lunchOptBtn" onclick="setLunchItem('snack','🥪','Sanduíche')"><span>🥪</span><small>Sanduíche</small></button>
+      <button class="lunchOptBtn" onclick="setLunchItem('snack','🥐','Croissant')"><span>🥐</span><small>Pãozinho</small></button>
+      <button class="lunchOptBtn" onclick="setLunchItem('snack','🥞','Panqueca')"><span>🥞</span><small>Panqueca</small></button>
+      <button class="lunchOptBtn" onclick="setLunchItem('drink','🧃','Suco')"><span>🧃</span><small>Suco Natural</small></button>
+      <button class="lunchOptBtn" onclick="setLunchItem('drink','🥛','Leite')"><span>🥛</span><small>Leitinho</small></button>
+      <button class="lunchOptBtn" onclick="setLunchItem('drink','🥥','Água de Coco')"><span>🥥</span><small>Água de Coco</small></button>
+    </div>
+    <button class="btn" style="margin-top:14px;background:#f59e0b" onclick="finishLunchbox()">🎒 Fechar Lancheira! (+2 ⭐)</button>
+  </div>
+</section>
+
 <section id="familyPanel" class="panel">
   <div class="topTitle">
     <button class="back" onclick="appBack()">‹</button>
@@ -615,18 +759,23 @@
   <div class="familyModeTabs">
     <button class="familyTabBtn active" onclick="switchFamilyMode('mime', this)">
       <span>🎭</span>
-      <b>Mímica Maluca</b>
-      <small>Com cronômetro</small>
+      <b>Mímica</b>
+      <small>Cronômetro</small>
     </button>
     <button class="familyTabBtn" onclick="switchFamilyMode('duel', this)">
       <span>⚡</span>
-      <b>Duelo de Toque</b>
+      <b>Duelo</b>
       <small>2 Jogadores</small>
     </button>
-    <button class="familyTabBtn" onclick="switchFamilyMode('score', this)">
+    <button class="familyTabBtn" onclick="switchFamilyMode('cup', this)">
       <span>🏆</span>
-      <b>Placar da Galera</b>
-      <small>Equipes</small>
+      <b>Copa</b>
+      <small>Torneio</small>
+    </button>
+    <button class="familyTabBtn" onclick="switchFamilyMode('score', this)">
+      <span>🎡</span>
+      <b>Roleta</b>
+      <small>Placar</small>
     </button>
   </div>
 
@@ -681,6 +830,32 @@
         <div class="duelPlayerLabel">Jogador 2 (Base) • Pontos: <span id="duelP2Score">0</span>/5</div>
         <div id="duelP2Prompt" class="duelChoicesRow"></div>
       </div>
+    </div>
+  </div>
+
+
+  <!-- 4. COPA DA FAMÍLIA (TORNEIO DE 3 RODADAS) -->
+  <div id="familyCupView" class="familyViewCard hidden">
+    <div class="cupTournamentWrap">
+      <div class="cupTrophyHero">🏆</div>
+      <h3 style="margin:6px 0;color:#78350f;">Grande Copa da Família!</h3>
+      <p class="muted">Disputa emocionante de 3 rodadas para ver quem levanta a Taça de Ouro da Elo!</p>
+      
+      <div class="cupRoundStepsRow">
+        <span id="cupStep1" class="cupStepPill active">1. Mímica</span>
+        <span id="cupStep2" class="cupStepPill">2. Duelo</span>
+        <span id="cupStep3" class="cupStepPill">3. Pergunta</span>
+      </div>
+
+      <div id="cupRoundCard" style="background:#fef3c7;border:2px solid #f59e0b;border-radius:20px;padding:16px;margin:12px 0;">
+        <h4 id="cupRoundTitle" style="margin:0 0 6px;color:#92400e;">Rodada 1: Desafio de Mímica Relâmpago!</h4>
+        <div id="cupRoundPrompt" style="font-size:22px;font-weight:900;color:#78350f;margin:10px 0;">Imite um Macaco comendo banana 🍌!</div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;">
+          <button class="btn" style="background:#00d288" onclick="finishCupRound(1)">Ponto Time Crianças! 🎉</button>
+          <button class="btn" style="background:#8b5cf6" onclick="finishCupRound(2)">Ponto Time Adultos! 🎉</button>
+        </div>
+      </div>
+      <button class="btn secondary" onclick="resetCupTournament()">Reiniciar Torneio</button>
     </div>
   </div>
 
@@ -880,6 +1055,71 @@
   </div>
 </div>
 
-<script src="version.js?v=4.0.0"></script><script src="app.js?v=4.0.0"></script><script src="v3.js?v=4.0.0"></script><script src="pet.js?v=4.0.0"></script>
+<script src="version.js?v=4.1.0"></script><script src="app.js?v=4.1.0"></script><script src="v3.js?v=4.1.0"></script><script src="pet.js?v=4.1.0"></script>
+
+<!-- Modal Álbum de Figurinhas & Pacotinhos Surpresa -->
+<div id="stickersModal" class="overlay hidden panelOverlay stickersModal">
+  <div class="panelCard" style="max-width:540px;width:94vw;">
+    <div class="panelHead">
+      <h2>📦 Álbum de Figurinhas da Elo</h2>
+      <button class="miniClose" onclick="closeStickersAlbum()">×</button>
+    </div>
+
+    <div class="stickersHero">
+      <div class="stickersHeroLeft">
+        <h3>Coleção Estrelar ✨</h3>
+        <p>Abra pacotinhos e cole figurinhas Raras e Douradas!</p>
+      </div>
+      <div class="boosterCountBadge" id="modalPackBadge">📦 2 Pacotes</div>
+    </div>
+
+    <!-- Estágio do Pacote para Abrir -->
+    <div class="packStageWrap" id="packStageArea">
+      <div class="boosterPack3D" onclick="openStickerPack()" id="boosterPackBtn">
+        <span class="boosterIcon">📦</span>
+        <span class="boosterTitle">TOQUE PARA ABRIR</span>
+        <small style="font-size:10px;opacity:0.9;">3 Figurinhas Mágicas</small>
+      </div>
+      <div id="cardsRevealArea" class="cardsRevealRow hidden"></div>
+      <button id="collectStickersBtn" class="btn hidden" style="margin-top:12px;background:#00d288;font-weight:900;" onclick="collectRevealedStickers()">📥 Colar no Álbum!</button>
+    </div>
+
+    <!-- Grid do Álbum -->
+    <div class="albumGridWrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <h3 style="margin:0;">Meu Álbum Completo</h3>
+        <span id="albumCollectedCount" style="font-weight:900;color:#7c3aed;font-size:13px;">0/24</span>
+      </div>
+      <div id="stickersAlbumGrid" class="albumGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay Modo Hora do Soninho -->
+<div id="sleepModeOverlay" class="sleepOverlay hidden">
+  <div class="sleepHeader">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-size:26px;">🌙</span>
+      <b style="font-size:16px;">Hora do Soninho da Elo</b>
+    </div>
+    <button class="btn secondary" style="background:rgba(255,255,255,0.18);border:0;color:#fff;padding:6px 12px;border-radius:12px;" onclick="toggleSleepMode()">☀️ Despertar</button>
+  </div>
+
+  <div class="sleepBedStage">
+    <div class="sleepEloIcon">😴💤</div>
+    <div style="font-size:18px;font-weight:900;margin-top:8px;color:#fde047;">Shh... Bons sonhos!</div>
+    <p style="margin:4px 0 0;font-size:12px;opacity:0.85;">A Elo e o Bichinho estão dormindo quentinhos.</p>
+  </div>
+
+  <div class="sleepControlsWrap">
+    <b style="font-size:14px;color:#fde047;">🎵 Caixinha de Música de Ninar</b>
+    <div class="sleepTimerPills">
+      <button class="sleepTimerBtn on" id="lullabyToggleBtn" onclick="toggleLullabyPlay()">▶ Tocar Canção de Ninar</button>
+      <button class="sleepTimerBtn" onclick="readBedtimeStory()">📖 Ler História Calma</button>
+    </div>
+    <small style="opacity:0.8;font-size:11px;">Música suave sintetizada para relaxar os olhos e adormecer.</small>
+  </div>
+</div>
+
 </body>
 </html>

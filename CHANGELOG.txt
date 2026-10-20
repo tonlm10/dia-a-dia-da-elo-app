@@ -1,3 +1,15 @@
+v4.1.0 — Grande Pacote de Atualização: Fix de Embaralhamento, 75+ Perguntas, Álbum, Consultório, Estúdio, DJ, Soninho e Copa da Família
+- Correção Crítica de Jogabilidade: As opções de múltipla escolha na Escolinha Mágica agora são embaralhadas dinamicamente a cada pergunta, distribuindo a resposta correta de forma aleatória entre todos os botões (0, 1 e 2), eliminando o padrão onde a resposta correta caía sempre na primeira opção.
+- Banco de Perguntas e Respostas Expandido: Mais de 75 desafios ricamente ilustrados com emojis, fonética, contagem, comparação, formas geométricas, animais, cores, hábitos saudáveis e ciência.
+- Álbum de Figurinhas Brilhantes & Pacotinhos Surpresa: 24 cards colecionáveis (Comuns, Raros e Holográficos Dourados) com abertura animada de pacotinhos por 5 estrelas e álbum interativo completo.
+- Consultório & Salão de Cuidados da Elo: Três atividades de rotina e saúde — escovação mágica com remoção de placa e espuminha de morango, curativos com pomadinha e band-aids decorados, e montagem de lancheira saudável nutritiva.
+- Estúdio de Fotos & Cartões (Elo + Pet): Criação de fotos personalizadas com 5 cenários (Castelo, Floresta Encantada, Praia, Espaço Sideral e Arco-Íris), molduras coloridas, sprites da Elo e do bichinho virtual, com download em PNG de alta resolução.
+- Banda & Mesa de DJ da Elo: Launchpad interativo com 6 pads (Bumbo, Caixa, Prato, Palmas, Synths) e botão de Ritmo Automático em 110 BPM com animação dançante.
+- Modo Hora do Soninho: Tema noturno relaxante, caixinha de música suave (Brahms' Lullaby / Nana Neném em ondas senoidais confortáveis) e historinhas para dormir com narração suave.
+- Copa da Família: Modo torneio em 3 etapas com pontuação e grande cerimônia do Troféu Dourado da Família.
+- Expansão de Itens no Quarto & Guarda-Roupas: Novos papéis de parede (Fundo do Mar), quadros (Dragão Fofinho), camas (Foguete Espacial), tapetes (Melancia Fresquinha), brinquedos (Trenzinho Encantado), além de novos penteados (Trança Dupla, Espetado), vestidos (Neve Encantada, Dino Camiseta), chapéu pirata, óculos estrela e sapatilhas de balé.
+- Service Worker & Cache: Otimização do Service Worker para cache bust limpo da versão 4.1.0 sem erros de navegação no Chrome.
+
 v3.6.0 — Mega Expansão: RPG, Streaming, Personalização Completa e Monetização
 - RPG: novo menu de Magias com 4 poderes estratégicos (Raio Estelar, Cura Florida, Escudo Arco-Íris e Chuva de Meteoros).
 - RPG: efeitos visuais mágicos dedicados na tela de batalha (raios cintilantes, pétalas curativas, domo arco-íris e chuva de meteoros).
@@ -13,100 +25,3 @@ v3.6.0 — Mega Expansão: RPG, Streaming, Personalização Completa e Monetiza�
 - Bichinho Virtual: ciclo de vida completo (Ovo -> Bebê -> Criança -> Adolescente -> Adulto -> Idoso -> Jornada das Estrelas).
 - Bichinho Virtual: se ficar sem cuidados prolongados, em vez de morrer, o bichinho deixa uma cartinha comovente e recomeça com um novo ovinho.
 - Sistema de Partículas: confetes e estrelas explodem na tela comemorando qualquer conquista de estrelas no app.
-
-v3.5.3
-- Cinema da Elo: a seção Mais recente agora usa diretamente a playlist automática de uploads do canal e sempre aponta para o conteúdo mais novo publicado, sem exigir atualização do app.
-- O card de Mais recente deixa de depender da leitura do catálogo por API e passa a acompanhar o canal dinamicamente.
-
-v3.5.3
-- Cinema: prateleiras horizontais agora mantêm a posição enquanto títulos e playlists carregam.
-- Cinema: adição de botões laterais para avançar/voltar nas prateleiras.
-- Cinema: removido o contexto de playlist ao abrir um vídeo específico, evitando voltar ao primeiro vídeo da lista.
-- Cinema: Shorts passam a usar toda a largura disponível do modal em proporção 9:16.
-- Cinema: vídeos comuns e iframe ocupam 100% da área de reprodução disponível.
-- Cinema: host do player recebeu dimensões explícitas para evitar player menor que o contêiner.
-
-v3.5.1
-- Labirinto: Elo agora fica centralizada exatamente no quadrado do jogador.
-- Caça aos Unicórnios: mesma correção de posicionamento da Elo.
-- Cinema da Elo: playlists carregadas separadamente para impedir conteúdo duplicado/da categoria anterior.
-- Cinema da Elo: títulos reais são lidos do player oficial do YouTube em vez de “Vídeo 1/2”.
-- Cinema da Elo: reprodução refeita com iframe oficial direto, sem depender do player de catálogo oculto.
-- Tela cheia preservada.
-
-v3.5.1
-- Cinema da Elo reconstruído em formato de catálogo: playlists viram categorias e os vídeos/Shorts aparecem em prateleiras com thumbnails.
-- Reprodução do YouTube ocorre dentro do app, sem autoplay, com player compacto e opção de tela cheia.
-- Labirinto da Elo agora clona a personagem atual do guarda-roupa e usa unicórnio vetorial redesenhado.
-- Caça aos Unicórnios agora clona a mesma Elo do guarda-roupa, usa unicórnios redesenhados e fantasminha vetorial próprio.
-- Trilha Encantada: revisão da orientação da Elo em corrida para impedir aparência de estar andando de costas com penteados/roupas assimétricos.
-- Trilha Encantada: unicórnios coletáveis passam a usar a nova arte vetorial.
-- Itens bloqueados, preços em estrelas e regras de desbloqueio do quarto/guarda-roupa não foram alterados.
-
-v3.5.1 — RPG Definitivo
-- Monstros redesenhados com 11 identidades visuais e comportamentos diferentes.
-- Chefões com ataques especiais avisados, defesa estratégica, escudo do Golem e duas fases na Sombra da Noite.
-- Cenários de batalha específicos por bioma e novos efeitos visuais.
-- NPCs redesenhados, marcadores de missão e personagens de ambiente em movimento.
-- Casas/prédios com silhuetas próprias e duas casas antes fechadas agora visitáveis.
-- Mapas enriquecidos com dezenas de objetos decorativos e efeitos ambientais.
-- Botão Caminho agora mostra uma trilha visual de estrelas até o objetivo.
-- Três missões secundárias opcionais com recompensas em moedas, XP e itens.
-- Câmera suavizada.
-- Pós-jogo com Guardião do Desafio reaparecendo no Caminho Celeste.
-- Compatibilidade preservada com saves existentes e com a Elo sincronizada ao guarda-roupa.
-
-v3.5.1
-- RPG: revisão completa da orientação horizontal da Elo com qualquer look do guarda-roupa.
-- Perfil lateral ficou mais explícito (olho, blush, boca e nariz apontam para o sentido do movimento).
-- Cabelos assimétricos (rabo baixo, rabo lateral e trança) agora ficam atrás da cabeça ao andar para os lados.
-- Laços e presilha lateral também acompanham corretamente a direção.
-- Auditoria confirmou os 75 itens do guarda-roupa mapeados no RPG.
-
-v3.5.1
-- RPG: botão “Recomeçar aventura” agora apaga corretamente o save atual e qualquer save legado.
-- RPG: ao reiniciar, a Elo volta imediatamente para a Casa da Elo no nível 1, missão 0, moedas e inventário iniciais.
-- Guarda-roupa escolhido no app é preservado, pois não faz parte do progresso do RPG.
-
-v3.5.1
-- Cabeçalho compactado: perfil separado visualmente das estrelas, contador ⭐ no topo e botão de voz mantido.
-- Home simplificada: removidos textos repetidos, botão Ouvir Elo duplicado e contador flutuante.
-- Cartão “Oi! Vamos brincar?” agora é curto e tocável para ouvir a voz da Elo.
-- Botão Voltar do Android navega apenas dentro do app até o menu principal.
-- No menu principal, Voltar sempre abre a confirmação de saída.
-- “Não, continuar” mantém o usuário no menu principal; “Sim, sair” percorre o histórico interno e sai do app quando o ambiente permite.
-- Seletor de perfis agora participa do histórico e fecha corretamente com o botão Voltar.
-- Itens bloqueados, preços em estrelas e regras de desbloqueio não foram alterados.
-
-v3.3.0
-- Quarto mais vivo: janela, cama, brinquedo, quadro, prateleira e guarda-roupa agora respondem ao toque.
-- Perfis 3–5 anos recebem apresentações curtas em voz nas áreas principais, uma vez por sessão.
-- RPG ganhou “✨ Caminho”, uma ajuda opcional que explica para onde seguir sem completar a missão pela criança.
-- Clubinho/valores saiu do menu infantil e ficou concentrado na Área dos Pais.
-- Tutorial da Trilha corrigido para refletir que o Poder funciona durante toda a batalha do chefão.
-- Política e Termos atualizados para a versão atual.
-- test_room.html e três imagens de quebra-cabeça já removidas do app foram retirados do pacote.
-- Nenhum item bloqueado, custo em estrelas ou requisito do quarto/guarda-roupa foi alterado.
-- Novas melhorias visuais foram isoladas em polish.css para reduzir novos remendos no v3.css legado.
-
-v3.2.4
-- Trilha Encantada: botão Poder passou a funcionar durante toda a luta contra o chefão.
-- O chefão pode receber dano mesmo enquanto está atacando.
-- Os intervalos sem tiros ficaram como momento mais seguro, não obrigatório.
-
-v3.2.3
-- Trilha Encantada: corrigida a ancoragem vertical da Elo em telas estreitas.
-- Os pés passaram a ser posicionados pela escala vertical do canvas.
-
-v3.2.1
-- RPG: Elo passou a mudar visualmente de direção ao andar.
-- Saves antigos foram corrigidos para não pular as missões novas do Caminho Celeste.
-- Trilha Encantada recebeu a Elo sincronizada com o guarda-roupa.
-
-v3.2.0
-- RPG expandido para uma jornada progressiva, com menos retornos ao mago.
-- Novo Caminho Celeste, Fragmentos do Céu, Farol das Estrelas e Portão Norte.
-- Elo do RPG passou a usar o visual escolhido no guarda-roupa.
-- Bichinho virtual preservado sem alterações.
-
---- Histórico anterior preservado no projeto de origem ---

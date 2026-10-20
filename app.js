@@ -670,8 +670,33 @@ function toggleSchoolChallenges(force){const content=document.getElementById('sc
 let quizLevel='easy',quizDeck=[],quizPos=0,quizCorrect=0;
 function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function startQuiz(level='easy'){quizLevel=level;document.querySelectorAll('.levelBtn').forEach(b=>b.classList.toggle('on',b.dataset.level===level));quizDeck=shuffle(QUESTIONS[level]).slice(0,10);quizPos=0;quizCorrect=0;renderQuiz()}
-function renderQuiz(){const box=document.getElementById('quiz');if(!box)return;if(quizPos>=quizDeck.length){const reward=Math.max(1,Math.floor(quizCorrect/3));box.innerHTML=`<div class="quizEnd"><strong>${quizCorrect}/10 acertos 🎉</strong><p class="muted">Rodada concluída sem repetir perguntas.</p><button class="btn" onclick="startQuiz('${quizLevel}')">Nova rodada</button></div>`;addStars(reward,`Escolinha concluída! +${reward} ⭐`);trackActivity('school');return}const q=quizDeck[quizPos];box.innerHTML=`<div class="quizTop"><span class="quizProgress">Pergunta ${quizPos+1}/10 • ${q[3]}</span><span class="quizProgress">Acertos: ${quizCorrect}</span></div><div class="quiz-q">${q[0]}</div><div class="answers">${q[1].map((x,i)=>`<button class="ans" onclick="answerQuiz(${i})">${x}</button>`).join('')}</div>`}
-function answerQuiz(i){const q=quizDeck[quizPos];if(i===q[2]){quizCorrect++;toast('Acertou! ⭐');quizPos++;setTimeout(renderQuiz,250)}else toast('Quase! Tente outra resposta 😊')}
+let currentLegacyQuizChoices = [];
+function renderQuiz(){
+  const box=document.getElementById('quiz');
+  if(!box)return;
+  if(quizPos>=quizDeck.length){
+    const reward=Math.max(1,Math.floor(quizCorrect/3));
+    box.innerHTML=`<div class="quizEnd"><strong>${quizCorrect}/10 acertos 🎉</strong><p class="muted">Rodada concluída sem repetir perguntas.</p><button class="btn" onclick="startQuiz('${quizLevel}')">Nova rodada</button></div>`;
+    addStars(reward,`Escolinha concluída! +${reward} ⭐`);
+    trackActivity('school');
+    return;
+  }
+  const q=quizDeck[quizPos];
+  const items = q[1].map((text, idx) => ({ text, isCorrect: idx === q[2] }));
+  currentLegacyQuizChoices = shuffle(items);
+  box.innerHTML=`<div class="quizTop"><span class="quizProgress">Pergunta ${quizPos+1}/10 • ${q[3]}</span><span class="quizProgress">Acertos: ${quizCorrect}</span></div><div class="quiz-q">${q[0]}</div><div class="answers">${currentLegacyQuizChoices.map((c,i)=>`<button class="ans" onclick="answerQuiz(${i})">${c.text}</button>`).join('')}</div>`;
+}
+function answerQuiz(i){
+  const choice = currentLegacyQuizChoices[i];
+  if(choice && choice.isCorrect){
+    quizCorrect++;
+    toast('Acertou! ⭐');
+    quizPos++;
+    setTimeout(renderQuiz,250);
+  } else {
+    toast('Quase! Tente outra resposta 😊');
+  }
+}
 
 // Coloring
 const COLORING=Array.from({length:10},(_,i)=>`assets/coloring/color-${i+1}.webp`);
@@ -1282,86 +1307,109 @@ window.finishFamilyMatch = function(){
   toast(`🏆 ${winner} Parabéns pela diversão!`);
 };
 
-// --- 3. NOVA ESCOLINHA MÁGICA + CONSERVATÓRIO / PIANO ARCO-ÍRIS ---
+// --- 3. NOVA ESCOLINHA MÁGICA + BANCO DE 75 PERGUNTAS COM RESPOSTAS EMBARALHADAS ---
 let activeSchoolTrack = "letters", currentSchoolQuestionIdx = 0, schoolTrackScore = 0, activeSchoolDeck = [];
+let currentModernSchoolChoices = window.currentModernSchoolChoices = []; // Armazena as opções embaralhadas da pergunta atual
 
-const SCHOOL_TRACK_DATA = {
+const SCHOOL_TRACK_DATA = window.SCHOOL_TRACK_DATA = {
   letters: [
     { prompt: "Qual letrinha começa a palavra BOLA?", options: ["B", "M", "P"], answer: 0, visual: "⚽" },
     { prompt: "Qual letrinha começa a palavra ESTRELA?", options: ["A", "E", "O"], answer: 1, visual: "⭐" },
     { prompt: "Qual letrinha começa a palavra GATO?", options: ["C", "G", "T"], answer: 1, visual: "🐱" },
     { prompt: "Qual letrinha começa a palavra CASA?", options: ["C", "S", "D"], answer: 0, visual: "🏠" },
     { prompt: "Qual letrinha começa a palavra UNICÓRNIO?", options: ["I", "U", "E"], answer: 1, visual: "🦄" },
-    { prompt: "Qual letrinha começa a palavra ABELHA?", options: ["A", "E", "U"], answer: 0, visual: "🐝" },
-    { prompt: "Qual palavra rima com GATO?", options: ["PATO", "BOLA", "SOL"], answer: 0, visual: "🐱 🦆" },
-    { prompt: "Qual palavra rima com MÃO?", options: ["CORAÇÃO", "FLOR", "LUA"], answer: 0, visual: "✋ 💖" },
-    { prompt: "Qual letrinha começa a palavra SAPO?", options: ["S", "F", "L"], answer: 0, visual: "🐸" },
-    { prompt: "Quantas vogais tem a palavra ELO?", options: ["2 (E - O)", "1", "4"], answer: 0, visual: "👧✨" },
-    { prompt: "Qual letrinha começa a palavra LUA?", options: ["L", "R", "N"], answer: 0, visual: "🌙" },
-    { prompt: "Qual letrinha começa a palavra PIPOCA?", options: ["P", "B", "T"], answer: 0, visual: "🍿" }
+    { prompt: "Qual letrinha começa a palavra PATO?", options: ["P", "B", "T"], answer: 0, visual: "🦆" },
+    { prompt: "Qual letrinha começa a palavra ABELHA?", options: ["A", "O", "E"], answer: 0, visual: "🐝" },
+    { prompt: "Qual letrinha começa a palavra DADO?", options: ["D", "B", "P"], answer: 0, visual: "🎲" },
+    { prompt: "Qual letrinha começa a palavra MACACO?", options: ["M", "N", "W"], answer: 0, visual: "🐵" },
+    { prompt: "Qual letrinha começa a palavra SAPO?", options: ["S", "C", "Z"], answer: 0, visual: "🐸" },
+    { prompt: "Qual letrinha começa a palavra URSO?", options: ["U", "O", "V"], answer: 0, visual: "🐻" },
+    { prompt: "Qual letrinha começa a palavra LEÃO?", options: ["L", "I", "T"], answer: 0, visual: "🦁" },
+    { prompt: "Qual letrinha começa a palavra PEIXE?", options: ["P", "Q", "B"], answer: 0, visual: "🐟" },
+    { prompt: "Qual letrinha começa a palavra FADA?", options: ["F", "T", "P"], answer: 0, visual: "🧚" },
+    { prompt: "Qual letrinha começa a palavra MAÇÃ?", options: ["M", "N", "A"], answer: 0, visual: "🍎" },
+    { prompt: "Qual letrinha começa a palavra PIPOCA?", options: ["P", "B", "D"], answer: 0, visual: "🍿" },
+    { prompt: "Qual letrinha começa a palavra JANELA?", options: ["J", "G", "I"], answer: 0, visual: "🪟" },
+    { prompt: "Qual letrinha começa a palavra BORBOLETA?", options: ["B", "P", "D"], answer: 0, visual: "🦋" },
+    { prompt: "Qual letrinha começa a palavra TARTARUGA?", options: ["T", "D", "L"], answer: 0, visual: "🐢" },
+    { prompt: "Qual letrinha termina com o som de FLOR?", options: ["R", "L", "S"], answer: 0, visual: "🌸" },
+    { prompt: "Qual palavra rima com CORAÇÃO?", options: ["Balão", "Mesa", "Sol"], answer: 0, visual: "❤️" },
+    { prompt: "Qual letrinha começa a palavra SOL?", options: ["S", "C", "Z"], answer: 0, visual: "☀️" },
+    { prompt: "Quantas letrinhas tem a palavra ELO?", options: ["3 letrinhas", "5 letrinhas", "2 letrinhas"], answer: 0, visual: "👧" },
+    { prompt: "Qual palavra rima com PATO?", options: ["Gato", "Cadeira", "Flor"], answer: 0, visual: "🦆" },
+    { prompt: "Qual letrinha começa a palavra LUA?", options: ["L", "U", "I"], answer: 0, visual: "🌙" }
   ],
   numbers: [
-    { prompt: "Quantas maçãs você vê aqui?", options: ["2", "3", "4"], answer: 1, visual: "🍎 🍎 🍎" },
-    { prompt: "Quanto é 2 + 2 estrelinhas?", options: ["3", "4", "5"], answer: 1, visual: "⭐⭐ + ⭐⭐" },
-    { prompt: "Qual destes números é o MAIOR?", options: ["3", "9", "5"], answer: 1, visual: "🔢✨" },
-    { prompt: "Qual número vem logo DEPOIS do 5?", options: ["4", "6", "8"], answer: 1, visual: "5 ➔ ?" },
-    { prompt: "Quantos dedinhos temos em uma mão?", options: ["3", "5", "10"], answer: 1, visual: "🖐️" },
-    { prompt: "Quanto é 3 + 1 morangos?", options: ["3", "4", "5"], answer: 1, visual: "🍓🍓🍓 + 🍓" },
-    { prompt: "Se temos 4 balões e 1 voa, ficam quantos?", options: ["2", "3", "4"], answer: 1, visual: "🎈🎈🎈🎈" },
-    { prompt: "Qual forma geométrica é redonda como o Sol?", options: ["Círculo", "Quadrado", "Triângulo"], answer: 0, visual: "🟡☀️" },
-    { prompt: "Quantas rodas tem uma bicicleta?", options: ["1", "2", "4"], answer: 1, visual: "🚲" },
-    { prompt: "Quanto é 5 + 2 corações?", options: ["6", "7", "8"], answer: 1, visual: "💖💖💖💖💖 + 💖💖" },
-    { prompt: "Qual número vem ANTES do 4?", options: ["2", "3", "5"], answer: 1, visual: "? ➔ 4" },
-    { prompt: "Quantos patinhos têm aqui?", options: ["4", "5", "6"], answer: 1, visual: "🐥🐥🐥🐥🐥" }
+    { prompt: "Quantas maçãs tem aqui?", options: ["3", "2", "4"], answer: 0, visual: "🍎 🍎 🍎" },
+    { prompt: "Quanto é 2 + 2?", options: ["4", "3", "5"], answer: 0, visual: "✌️ + ✌️" },
+    { prompt: "Qual forma é redondinha como a Lua cheia?", options: ["Círculo", "Triângulo", "Quadrado"], answer: 0, visual: "⚪" },
+    { prompt: "Qual número vem DEPOIS do 4?", options: ["5", "3", "6"], answer: 0, visual: "1, 2, 3, 4, __?" },
+    { prompt: "Quantas patinhas tem o gatinho?", options: ["4 patinhas", "2 patinhas", "6 patinhas"], answer: 0, visual: "🐾" },
+    { prompt: "Quanto é 1 + 1 docinho?", options: ["2", "3", "1"], answer: 0, visual: "🧁 + 🧁" },
+    { prompt: "Quantas estrelinhas temos aqui?", options: ["5", "4", "6"], answer: 0, visual: "⭐ ⭐ ⭐ ⭐ ⭐" },
+    { prompt: "Qual número é MAIOR?", options: ["8", "3", "5"], answer: 0, visual: "🔢" },
+    { prompt: "Qual forma tem 3 pontinhas?", options: ["Triângulo", "Círculo", "Quadrado"], answer: 0, visual: "🔺" },
+    { prompt: "Quantos dedinhos temos em uma mão?", options: ["5", "4", "10"], answer: 0, visual: "🖐️" },
+    { prompt: "Quanto é 3 + 2?", options: ["5", "4", "6"], answer: 0, visual: "🎈🎈🎈 + 🎈🎈" },
+    { prompt: "Qual número vem ANTES do 3?", options: ["2", "1", "4"], answer: 0, visual: "__, 3, 4" },
+    { prompt: "Quantas orelhinhas tem o coelho?", options: ["2", "1", "4"], answer: 0, visual: "🐰" },
+    { prompt: "Quanto é 5 - 1 balãozinho?", options: ["4", "3", "5"], answer: 0, visual: "🎈🎈🎈🎈🎈 - 🎈" },
+    { prompt: "Qual número é MENOR?", options: ["2", "7", "9"], answer: 0, visual: "🔢" },
+    { prompt: "Quantos lados tem um quadrado?", options: ["4 lados", "3 lados", "5 lados"], answer: 0, visual: "🟩" },
+    { prompt: "Qual número vem DEPOIS do 9?", options: ["10", "8", "11"], answer: 0, visual: "7, 8, 9, __?" },
+    { prompt: "Quantas flores temos aqui?", options: ["4", "2", "6"], answer: 0, visual: "🌸 🌸 🌸 🌸" },
+    { prompt: "Quanto é 2 + 3?", options: ["5", "6", "4"], answer: 0, visual: "🍓🍓 + 🍓🍓🍓" },
+    { prompt: "Quantas rodas tem uma bicicleta?", options: ["2 rodas", "4 rodas", "3 rodas"], answer: 0, visual: "🚲" },
+    { prompt: "Quanto é 4 + 4?", options: ["8", "6", "9"], answer: 0, visual: "🌟🌟🌟🌟 + 🌟🌟🌟🌟" },
+    { prompt: "Qual forma parece uma caixinha de presente?", options: ["Quadrado", "Círculo", "Triângulo"], answer: 0, visual: "🎁" },
+    { prompt: "Se você tem 3 maçãs e come 1, com quantas fica?", options: ["2", "1", "3"], answer: 0, visual: "🍎🍎🍎" },
+    { prompt: "Qual destes números é par?", options: ["4", "3", "5"], answer: 0, visual: "🔢" },
+    { prompt: "Quanto é 5 + 5 dedos das mãos?", options: ["10", "8", "12"], answer: 0, visual: "🖐️ + 🖐️" }
   ],
-  nature: [
-    { prompt: "Qual destes bichinhos faz AU AU?", options: ["Gato", "Cachorro", "Pato"], answer: 1, visual: "🐶" },
-    { prompt: "Quem vive nadando na água do mar?", options: ["Peixinho", "Passarinho", "Coelho"], answer: 0, visual: "🐟🌊" },
-    { prompt: "Do que as plantinhas precisam para crescer?", options: ["Água e Sol", "Refrigerante", "Escuro"], answer: 0, visual: "🌱☀️💧" },
-    { prompt: "Qual bichinho tem asas coloridas e voa nas flores?", options: ["Borboleta", "Tartaruga", "Sapo"], answer: 0, visual: "🦋🌸" },
-    { prompt: "Qual atitude protege o nosso planeta?", options: ["Jogar lixo na lixeira", "Desperdiçar água", "Arrancar flores"], answer: 0, visual: "🌍💚" },
-    { prompt: "Quem produz o mel docinho nas flores?", options: ["Abelha", "Formiga", "Joaninha"], answer: 0, visual: "🐝🍯" },
-    { prompt: "Quando aparece o arco-íris no céu?", options: ["Sol com chuvinha", "Noite escura", "Dentro de casa"], answer: 0, visual: "🌈☀️🌧️" },
-    { prompt: "Qual animal tem um pescoço bem comprido?", options: ["Girafa", "Porquinho", "Coelho"], answer: 0, visual: "🦒🌿" },
-    { prompt: "O que devemos fazer antes das refeições?", options: ["Lavar as mãos", "Pular no sofá", "Esconder os sapatos"], answer: 0, visual: "🧼👐" },
-    { prompt: "Qual astro ilumina o nosso dia?", options: ["O Sol", "A Lua", "O Cometa"], answer: 0, visual: "☀️🌤️" },
-    { prompt: "Qual bichinho carrega sua casinha nas costas?", options: ["Tartaruga", "Gatinho", "Cavalo"], answer: 0, visual: "🐢" },
-    { prompt: "Qual fruta o macaquinho adora comer?", options: ["Banana", "Cebola", "Limão"], answer: 0, visual: "🐵🍌" }
+  curious: [
+    { prompt: "Onde os peixinhos nadam felizes?", options: ["Na água", "No céu", "Na terra"], answer: 0, visual: "🐠" },
+    { prompt: "Qual cor resulta da mistura de Azul + Amarelo?", options: ["Verde", "Roxo", "Laranja"], answer: 0, visual: "🎨" },
+    { prompt: "O que o Sol nos dá durante o dia?", options: ["Luz e calor", "Neve", "Escuridão"], answer: 0, visual: "☀️" },
+    { prompt: "Qual alimento a abelhinha faz?", options: ["Mel doce", "Queijo", "Pão"], answer: 0, visual: "🍯" },
+    { prompt: "Qual planeta nós moramos?", options: ["Terra", "Marte", "Lua"], answer: 0, visual: "🌍" },
+    { prompt: "O que devemos fazer antes de comer?", options: ["Lavar as mãozinhas", "Dormir", "Correr"], answer: 0, visual: "🧼" },
+    { prompt: "Qual destes animais voa no céu?", options: ["Passarinho", "Tartaruga", "Peixe"], answer: 0, visual: "🐦" },
+    { prompt: "Qual frutinha é vermelha com pontinhos?", options: ["Morango", "Banana", "Laranja"], answer: 0, visual: "🍓" },
+    { prompt: "O que as plantinhas precisam para crescer?", options: ["Água e luz do sol", "Suco de uva", "Chocolate"], answer: 0, visual: "🌱" },
+    { prompt: "Qual desses animais vive na fazenda e dá leite?", options: ["Vaca", "Leão", "Tubarão"], answer: 0, visual: "🐄" },
+    { prompt: "Qual parte do corpinho usamos para enxergar?", options: ["Olhos", "Ouvidos", "Nariz"], answer: 0, visual: "👀" },
+    { prompt: "Qual parte do corpo usamos para ouvir músicas?", options: ["Ouvidos", "Boca", "Mãozinhas"], answer: 0, visual: "👂" },
+    { prompt: "O que devemos fazer depois das refeições?", options: ["Escovar os dentes", "Comer doce", "Pular"], answer: 0, visual: "🪥" },
+    { prompt: "Qual animal tem pescoço bem comprido?", options: ["Girafa", "Coelhinho", "Gatinho"], answer: 0, visual: "🦒" },
+    { prompt: "Em qual estação caem folhas das árvores?", options: ["Outono", "Verão", "Primavera"], answer: 0, visual: "🍂" },
+    { prompt: "Em qual estação as flores se abrem perfumadas?", options: ["Primavera", "Inverno", "Outono"], answer: 0, visual: "🌺" },
+    { prompt: "Quem brilha no céu durante a noite?", options: ["A Lua e as Estrelas", "O Sol", "O Arco-íris"], answer: 0, visual: "🌙" },
+    { prompt: "O que acontece quando chove com sol?", options: ["Aparece o Arco-íris", "Fica de noite", "Cai neve"], answer: 0, visual: "🌈" },
+    { prompt: "Qual animal é conhecido como o rei da selva?", options: ["Leão", "Cachorro", "Pinguim"], answer: 0, visual: "🦁" },
+    { prompt: "Onde o esquilo gosta de guardar suas nozes?", options: ["No tronco da árvore", "No rio", "Na cama"], answer: 0, visual: "🐿️" },
+    { prompt: "Qual animal anda bem devagarzinho com sua carapaça?", options: ["Tartaruga", "Leopardo", "Pássaro"], answer: 0, visual: "🐢" },
+    { prompt: "O que os carros usam para avisar no trânsito?", options: ["Buzina", "Sino de igreja", "Violino"], answer: 0, visual: "🚗" },
+    { prompt: "Qual fruta costuma ser azedinha e amarela?", options: ["Limão", "Uva", "Melancia"], answer: 0, visual: "🍋" },
+    { prompt: "Qual destes animais vive no gelo e sabe nadar?", options: ["Pinguim", "Camelo", "Macaco"], answer: 0, visual: "🐧" },
+    { prompt: "Quantas cores principais tem o arco-íris?", options: ["7 cores", "3 cores", "12 cores"], answer: 0, visual: "🌈" }
   ]
 };
 
-window.selectSchoolTrack = function(track, btn){
+window.selectSchoolTrack = function(track){
   activeSchoolTrack = track;
   currentSchoolQuestionIdx = 0;
   schoolTrackScore = 0;
-  document.querySelectorAll(".schoolTrackCard").forEach(b => b.classList.remove("on"));
-  if(btn){
-    btn.classList.add("on");
-  } else {
-    const mapCls = { letters: "trackLetters", numbers: "trackNumbers", nature: "trackAnimals", music: "trackMusic" };
-    const targetBtn = document.querySelector(`.schoolTrackCard.${mapCls[track] || "trackLetters"}`);
-    if(targetBtn) targetBtn.classList.add("on");
-  }
-
-  const quizCard = document.getElementById("schoolQuizCard");
-  const musicCard = document.getElementById("schoolMusicCard");
-  if(track === "music"){
-    if(quizCard) quizCard.classList.add("hidden");
-    if(musicCard) musicCard.classList.remove("hidden");
-    initPianoKeys();
-    return;
-  }
-  if(quizCard) quizCard.classList.remove("hidden");
-  if(musicCard) musicCard.classList.add("hidden");
-
+  document.querySelectorAll(".schoolTrackTab").forEach(t => {
+    t.classList.toggle("active", t.dataset.track === track);
+  });
   const bank = SCHOOL_TRACK_DATA[track] || SCHOOL_TRACK_DATA.letters;
-  activeSchoolDeck = shuffle(bank).slice(0, 6);
+  activeSchoolDeck = shuffle([...bank]).slice(0, 8);
   renderModernSchoolQuestion();
 };
 
-function renderModernSchoolQuestion(){
+window.renderModernSchoolQuestion = function(){
   if(!activeSchoolDeck.length){
-    activeSchoolDeck = shuffle(SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters).slice(0, 6);
+    activeSchoolDeck = shuffle(SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters).slice(0, 8);
   }
   const box = document.getElementById("schoolOptionsGrid");
   const titleEl = document.getElementById("schoolQuestionTitle");
@@ -1369,16 +1417,17 @@ function renderModernSchoolQuestion(){
   if(!box || !titleEl || !roundEl) return;
 
   if(currentSchoolQuestionIdx >= activeSchoolDeck.length){
-    titleEl.textContent = "Parabéns! Rodada concluída!";
+    titleEl.textContent = "Parabéns! Rodada concluída com sucesso!";
     roundEl.textContent = `${activeSchoolDeck.length}/${activeSchoolDeck.length} ✓`;
     box.innerHTML = `<div style="text-align:center;padding:20px;grid-column:span 3;">
       <div style="font-size:52px;animation:dollHappy .6s infinite alternate;">🏅⭐🎉</div>
-      <h3 style="margin:10px 0 6px;color:#d84376;">Você brilhou na Escolinha!</h3>
-      <p style="color:var(--muted);margin-bottom:14px;">Acertos: ${schoolTrackScore}/${activeSchoolDeck.length}. Ganhou +3 estrelas!</p>
-      <button class="btn" onclick="selectSchoolTrack('${activeSchoolTrack}')">Nova Rodada com Novas Perguntas 🔁</button>
+      <h3 style="margin:10px 0 6px;color:#d84376;">Você brilhou na Escolinha da Elo!</h3>
+      <p style="color:var(--muted);margin-bottom:14px;">Acertos: ${schoolTrackScore}/${activeSchoolDeck.length}. Ganhou +4 estrelinhas!</p>
+      <button class="btn" onclick="selectSchoolTrack('${activeSchoolTrack}')">Nova Rodada Embaralhada 🔁</button>
     </div>`;
     playCuteSfx("win");
-    addStars(3, "Trilha da Escolinha concluída! +3 ⭐");
+    triggerStarConfetti();
+    addStars(4, "Trilha da Escolinha concluída com perfeição! +4 ⭐");
     trackActivity("school");
     return;
   }
@@ -1387,16 +1436,20 @@ function renderModernSchoolQuestion(){
   roundEl.textContent = `Desafio ${currentSchoolQuestionIdx + 1}/${activeSchoolDeck.length}`;
   titleEl.innerHTML = `${q.prompt}<br><span style="font-size:40px;display:inline-block;margin-top:8px;">${q.visual}</span>`;
 
-  box.innerHTML = q.options.map((opt, i) => `
+  // Embaralha dinamicamente as opções para a resposta correta cair aleatoriamente em qualquer botão!
+  const choices = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.answer }));
+  currentModernSchoolChoices = window.currentModernSchoolChoices = shuffle(choices);
+
+  box.innerHTML = currentModernSchoolChoices.map((c, i) => `
     <button class="schoolOptBtn" onclick="answerSchoolChoice(${i}, this)">
-      <b>${opt}</b>
+      <b>${c.text}</b>
     </button>
   `).join("");
 
   if(typeof speakText === "function"){
     setTimeout(()=>speakText(q.prompt), 180);
   }
-}
+};
 
 window.speakCurrentSchoolPrompt = function(){
   const q = activeSchoolDeck[currentSchoolQuestionIdx];
@@ -1404,183 +1457,159 @@ window.speakCurrentSchoolPrompt = function(){
 };
 
 window.answerSchoolChoice = function(choiceIdx, btn){
-  const q = activeSchoolDeck[currentSchoolQuestionIdx];
-  if(!q) return;
-  if(choiceIdx === q.answer){
+  const choice = currentModernSchoolChoices[choiceIdx];
+  if(!choice) return;
+  if(choice.isCorrect){
     schoolTrackScore++;
-    if(btn) btn.style.background = "#dcfce7";
+    if(btn) {
+      btn.style.background = "#dcfce7";
+      btn.style.borderColor = "#22c55e";
+    }
     playCuteSfx("coin");
     triggerStarConfetti();
     toast("Isso mesmo! Você acertou! ⭐");
     currentSchoolQuestionIdx++;
-    setTimeout(renderModernSchoolQuestion, 550);
+    setTimeout(renderModernSchoolQuestion, 600);
   } else {
     playCuteSfx("wrong");
-    if(btn) btn.style.background = "#fee2e2";
+    if(btn) {
+      btn.style.background = "#fee2e2";
+      btn.style.borderColor = "#ef4444";
+    }
     toast("Quase! Tente outra opção 💗");
   }
 };
 
-// --- PIANO ARCO-ÍRIS & CANÇÕES GUIADAS ---
-const PIANO_NOTES = [
-  { id: "C4", label: "Dó", freq: 261.63, color: "#ef4444", emoji: "🔴" },
-  { id: "D4", label: "Ré", freq: 293.66, color: "#f97316", emoji: "🟠" },
-  { id: "E4", label: "Mi", freq: 329.63, color: "#eab308", emoji: "🟡" },
-  { id: "F4", label: "Fá", freq: 349.23, color: "#22c55e", emoji: "🟢" },
-  { id: "G4", label: "Sol", freq: 392.00, color: "#06b6d4", emoji: "🩵" },
-  { id: "A4", label: "Lá", freq: 440.00, color: "#3b82f6", emoji: "🔵" },
-  { id: "B4", label: "Si", freq: 493.88, color: "#8b5cf6", emoji: "🟣" },
-  { id: "C5", label: "Dó²", freq: 523.25, color: "#ec4899", emoji: "🩷" }
-];
+// --- PIANO ARCO-ÍRIS & SONS ENCANTADOS ---
+const PIANO_NOTES_FREQ = {
+  do: 261.63, re: 293.66, mi: 329.63, fa: 349.23,
+  sol: 392.00, la: 440.00, si: 493.88, do2: 523.25
+};
 
-const PIANO_SONGS = {
-  twinkle: {
-    name: "Brilha, Brilha Estrelinha ⭐",
-    notes: ["C4","C4","G4","G4","A4","A4","G4","F4","F4","E4","E4","D4","D4","C4"]
-  },
-  butterfly: {
-    name: "Borboletinha 🦋",
-    notes: ["G4","A4","G4","F4","E4","F4","G4","D4","E4","F4","E4","F4","G4"]
-  },
-  happy: {
-    name: "Parabéns pra Você 🎂",
-    notes: ["C4","C4","D4","C4","F4","E4","C4","C4","D4","C4","G4","F4"]
-  },
-  balloon: {
-    name: "Cai, Cai Balão 🎈",
-    notes: ["G4","G4","F4","E4","G4","G4","F4","E4","A4","G4","F4","E4","D4","C4"]
+window.playPianoKey = function(note, noteName){
+  const freq = PIANO_NOTES_FREQ[note] || 440;
+  playTone(freq, 0.45, "triangle");
+  toast(`Nota: ${noteName} 🎶`);
+  const k = document.querySelector(`.pianoKey[data-note="${note}"]`);
+  if(k){
+    k.style.transform = "scale(0.92) translateY(6px)";
+    setTimeout(()=>k.style.transform = "", 200);
   }
 };
 
-let activePianoSong = "free", pianoSongStep = 0;
-
-function initPianoKeys(){
-  const row = document.getElementById("pianoKeysRow");
-  if(!row) return;
-  row.innerHTML = PIANO_NOTES.map((n, idx) => `
-    <button class="pianoKey3D" data-note="${n.id}" style="--key-color:${n.color}" onpointerdown="playPianoNote(${idx}, this)">
-      <span class="pianoKeyEmoji">${n.emoji}</span>
-      <b class="pianoKeyLabel">${n.label}</b>
-    </button>
-  `).join("");
-  updatePianoGuideHighlight();
-}
-
-window.selectPianoSong = function(songId, btn){
-  activePianoSong = songId;
-  pianoSongStep = 0;
-  document.querySelectorAll(".songChip").forEach(b => b.classList.remove("on"));
-  if(btn) btn.classList.add("on");
-  updatePianoGuideHighlight();
-};
-
-function updatePianoGuideHighlight(){
-  document.querySelectorAll(".pianoKey3D").forEach(k => k.classList.remove("guideTarget"));
-  const guide = document.getElementById("pianoSongGuide");
-  if(activePianoSong === "free" || !PIANO_SONGS[activePianoSong]){
-    if(guide) guide.textContent = "🎹 Modo Livre: toque nas teclas coloridas para criar sua música!";
-    return;
-  }
-  const song = PIANO_SONGS[activePianoSong];
-  const targetNoteId = song.notes[pianoSongStep];
-  const noteObj = PIANO_NOTES.find(n => n.id === targetNoteId);
-  const keyBtn = document.querySelector(`.pianoKey3D[data-note="${targetNoteId}"]`);
-  if(keyBtn) keyBtn.classList.add("guideTarget");
-  if(guide && noteObj){
-    guide.innerHTML = `🎵 <b>${song.name}</b> • Nota ${pianoSongStep + 1}/${song.notes.length}: Toque em <b style="color:${noteObj.color}">${noteObj.label} ${noteObj.emoji}</b>`;
-  }
-}
-
-window.playPianoNote = function(idx, btn){
-  const n = PIANO_NOTES[idx];
-  if(!n) return;
-  const ctx = getAudioFxCtx();
-  if(ctx){
-    try {
-      const now = ctx.currentTime;
-      const osc = ctx.createOscillator();
-      const osc2 = ctx.createOscillator();
-      const g = ctx.createGain();
-      osc.type = "triangle";
-      osc2.type = "sine";
-      osc.frequency.setValueAtTime(n.freq, now);
-      osc2.frequency.setValueAtTime(n.freq * 2, now);
-      g.gain.setValueAtTime(0.14, now);
-      g.gain.exponentialRampToValueAtTime(0.0008, now + 0.55);
-      osc.connect(g);
-      osc2.connect(g);
-      g.connect(ctx.destination);
-      osc.start(now); osc.stop(now + 0.56);
-      osc2.start(now); osc2.stop(now + 0.35);
-    } catch(_) {}
-  }
-  if(btn){
-    btn.classList.add("pressedKey");
-    setTimeout(()=>btn.classList.remove("pressedKey"), 180);
-  }
-  if(activePianoSong !== "free" && PIANO_SONGS[activePianoSong]){
-    const song = PIANO_SONGS[activePianoSong];
-    if(n.id === song.notes[pianoSongStep]){
-      pianoSongStep++;
-      if(pianoSongStep >= song.notes.length){
-        pianoSongStep = 0;
-        triggerStarConfetti();
-        addStars(3, `Música ${song.name} completa! +3 ⭐`);
-        const guide = document.getElementById("pianoSongGuide");
-        if(guide) guide.innerHTML = `🎉 <b>Bravo! Você tocou ${song.name} inteirinha! (+3 ⭐)</b>`;
-        setTimeout(updatePianoGuideHighlight, 1800);
-        return;
-      }
-      updatePianoGuideHighlight();
-    }
-  }
-};
-
-window.playAnimalSynth = function(animal){
-  const ctx = getAudioFxCtx();
-  const mapSpeech = {
-    cat: "Miau! Faz o gatinho!",
-    dog: "Au au! Faz o cachorrinho!",
-    duck: "Quá quá! Faz o patinho!",
-    frog: "Croac! Faz o sapinho!",
-    bird: "Piu piu! Faz o passarinho!"
+window.playBabySong = function(songKey){
+  toast("Tocando cançãozinha da Elo... 🎵");
+  const songs = {
+    estrela: [
+      {n:"do", d:300}, {n:"do", d:300}, {n:"sol", d:300}, {n:"sol", d:300},
+      {n:"la", d:300}, {n:"la", d:300}, {n:"sol", d:600},
+      {n:"fa", d:300}, {n:"fa", d:300}, {n:"mi", d:300}, {n:"mi", d:300},
+      {n:"re", d:300}, {n:"re", d:300}, {n:"do", d:600}
+    ],
+    alecrim: [
+      {n:"do", d:350}, {n:"re", d:350}, {n:"mi", d:350}, {n:"sol", d:350},
+      {n:"fa", d:350}, {n:"mi", d:350}, {n:"re", d:700}
+    ],
+    ciranda: [
+      {n:"sol", d:300}, {n:"mi", d:300}, {n:"sol", d:300}, {n:"mi", d:300},
+      {n:"fa", d:300}, {n:"re", d:300}, {n:"fa", d:300}, {n:"re", d:600}
+    ]
   };
-  if(ctx){
-    try {
-      const now = ctx.currentTime;
-      const osc = ctx.createOscillator(), g = ctx.createGain();
-      if(animal === "cat"){
-        osc.type = "triangle";
-        osc.frequency.setValueAtTime(650, now);
-        osc.frequency.exponentialRampToValueAtTime(420, now + 0.35);
-      } else if(animal === "dog"){
-        osc.type = "sawtooth";
-        osc.frequency.setValueAtTime(220, now);
-        osc.frequency.exponentialRampToValueAtTime(140, now + 0.18);
-      } else if(animal === "duck"){
-        osc.type = "square";
-        osc.frequency.setValueAtTime(340, now);
-        osc.frequency.setValueAtTime(290, now + 0.12);
-      } else if(animal === "frog"){
-        osc.type = "sawtooth";
-        osc.frequency.setValueAtTime(130, now);
-        osc.frequency.linearRampToValueAtTime(260, now + 0.22);
-      } else {
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(1200, now);
-        osc.frequency.exponentialRampToValueAtTime(1650, now + 0.16);
-      }
-      g.gain.setValueAtTime(0.08, now);
-      g.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
-      osc.connect(g); g.connect(ctx.destination);
-      osc.start(now); osc.stop(now + 0.38);
-    } catch(_) {}
-  }
-  toast(mapSpeech[animal] || "Som divertido!");
+  const melody = songs[songKey] || songs.estrela;
+  let delay = 0;
+  melody.forEach(step => {
+    setTimeout(()=>{
+      playPianoKey(step.n, step.n.toUpperCase());
+    }, delay);
+    delay += step.d;
+  });
+  setTimeout(()=>{
+    addStars(1, "Canção tocada com carinho! +1 ⭐");
+    triggerStarConfetti();
+  }, delay + 200);
 };
 
-// --- 4. ATELIÊ DA ELO (DESENHO LIVRE, LIVRO DE COLORIR & PIZZARIA/CONFEITARIA COM RECEITAS) ---
-let freeCanvas, freeCtx, drawColor = "#ff3377", drawBrush = "pen", currentStamp = "⭐", currentPaperBg = "white";
+// --- BANDA & MESA DE DJ DA ELO ---
+let djBeatLoopInterval = null;
+let djBeatStep = 0;
+
+window.playDJPad = function(type){
+  const ctx = getAudioContext();
+  if(!ctx) return;
+  const now = ctx.currentTime;
+  
+  if(type === "kick"){
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.frequency.setValueAtTime(150, now);
+    osc.frequency.exponentialRampToValueAtTime(0.01, now + 0.3);
+    g.gain.setValueAtTime(1, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+    osc.connect(g); g.connect(ctx.destination);
+    osc.start(now); osc.stop(now + 0.3);
+    toast("BOOM! Bumbo Pop 🥁");
+  } else if(type === "snare"){
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(280, now);
+    osc.frequency.exponentialRampToValueAtTime(80, now + 0.2);
+    g.gain.setValueAtTime(0.8, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+    osc.connect(g); g.connect(ctx.destination);
+    osc.start(now); osc.stop(now + 0.2);
+    toast("CAIXA! Pow! 🎶");
+  } else if(type === "hihat"){
+    playTone(1800, 0.05, "square");
+    toast("TSS! Prato Estelar ✨");
+  } else if(type === "clap"){
+    playCuteSfx("pop");
+    toast("PALMAS! 👏");
+  } else if(type === "synth1"){
+    playTone(523.25, 0.3, "sine");
+    toast("SYNTH! Brilho 🌈");
+  } else if(type === "synth2"){
+    playTone(659.25, 0.3, "sawtooth");
+    toast("DISCO! 🪩");
+  } else if(type === "cheer"){
+    playCuteSfx("win");
+    toast("UHUUUL! A plateia vibrou! 🎉");
+  }
+};
+
+window.toggleDJBeatLoop = function(){
+  const btn = document.getElementById("djBeatToggleBtn");
+  if(djBeatLoopInterval){
+    clearInterval(djBeatLoopInterval);
+    djBeatLoopInterval = null;
+    if(btn) {
+      btn.textContent = "▶ Iniciar Ritmo Automático (110 BPM)";
+      btn.style.background = "";
+    }
+    toast("Ritmo pausado ⏸️");
+  } else {
+    djBeatStep = 0;
+    if(btn) {
+      btn.textContent = "⏹ Parar Ritmo Dançante";
+      btn.style.background = "#22c55e";
+      btn.style.color = "#fff";
+    }
+    toast("Solta o som! Batida dançante da Elo iniciada 🎧🕺");
+    djBeatLoopInterval = setInterval(()=>{
+      djBeatStep = (djBeatStep + 1) % 4;
+      if(djBeatStep === 0 || djBeatStep === 2) {
+        playDJPad("kick");
+      } else {
+        playDJPad("snare");
+      }
+      playDJPad("hihat");
+    }, 545); // ~110 BPM
+  }
+};
+
+// --- 4. ATELIÊ CRIATIVO DA ELO + ESTÚDIO DE FOTOS ---
+let freeCanvas, freeCtx, isPainting = false, currentBrushColor = "#ff4d8d", currentBrushSize = 8;
+let photoScene = "castle", photoFrame = "pink";
 
 window.switchCreativeMode = function(mode, btn){
   document.querySelectorAll(".creativeModeTabs .cTabBtn").forEach(b => b.classList.remove("active"));
@@ -1593,397 +1622,695 @@ window.switchCreativeMode = function(mode, btn){
   const fSec = document.getElementById("freeDrawSection");
   const cSec = document.getElementById("coloringSection");
   const chSec = document.getElementById("chefSection");
+  const pSec = document.getElementById("photoSection");
   if(fSec) fSec.classList.toggle("hidden", mode !== "freeDraw");
   if(cSec) cSec.classList.toggle("hidden", mode !== "coloring");
   if(chSec) chSec.classList.toggle("hidden", mode !== "chef");
+  if(pSec) pSec.classList.toggle("hidden", mode !== "photo");
 
-  if(mode === "freeDraw") initFreeDrawCanvas();
-  if(mode === "coloring") renderColoringGallery();
-  if(mode === "chef") initChefStudio();
+  if(mode === "freeDraw") setTimeout(initFreeDrawCanvas, 60);
+  if(mode === "chef") setTimeout(generateNewChefOrder, 60);
+  if(mode === "photo") setTimeout(initPhotoStudio, 60);
 };
 
-window.setDrawColor = function(c, btn){
-  drawColor = c;
-  if(drawBrush === "eraser") drawBrush = "pen";
-  document.querySelectorAll(".toolColors .colorPick").forEach(b => b.classList.remove("on"));
-  if(btn) btn.classList.add("on");
-};
-
-window.setDrawBrush = function(b, btn){
-  drawBrush = b;
-  document.querySelectorAll(".toolBrushes .toolBtn").forEach(el => el.classList.remove("on"));
-  if(btn) btn.classList.add("on");
-};
-
-window.pickDrawStamp = function(stamp, btn){
-  currentStamp = stamp;
-  drawBrush = "stamp";
-  document.querySelectorAll(".stampPickBtn").forEach(b => b.classList.remove("on"));
-  if(btn) btn.classList.add("on");
-  document.querySelectorAll(".toolBrushes .toolBtn").forEach(el => {
-    el.classList.toggle("on", el.getAttribute("onclick")?.includes("'stamp'"));
-  });
-  toast(`Carimbo ${stamp} escolhido! Toque no quadro para carimbar ✨`);
-};
-
-function paintCanvasPaperBackground(ctx, w, h, bgType){
-  if(bgType === "sky"){
-    const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, "#bae6fd");
-    g.addColorStop(1, "#f0f9ff");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-  } else if(bgType === "space"){
-    const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, "#1e1b4b");
-    g.addColorStop(1, "#311042");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-    ctx.fillStyle = "rgba(255,255,255,0.65)";
-    for(let i=0;i<32;i++){
-      ctx.beginPath();
-      ctx.arc((i*73)%w, (i*53)%h, (i%3)+1, 0, Math.PI*2);
-      ctx.fill();
-    }
-  } else if(bgType === "garden"){
-    const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, "#e0f2fe");
-    g.addColorStop(0.72, "#f0fdf4");
-    g.addColorStop(0.72, "#86efac");
-    g.addColorStop(1, "#4ade80");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-  } else {
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, w, h);
-  }
-}
-
-window.setCanvasPaperBg = function(bgType, btn){
-  currentPaperBg = bgType;
-  document.querySelectorAll(".paperBtn").forEach(b => b.classList.remove("on"));
-  if(btn) btn.classList.add("on");
-  clearFreeDrawCanvas();
-};
-
-function initFreeDrawCanvas(){
+window.initFreeDrawCanvas = function(){
   freeCanvas = document.getElementById("freeDrawCanvas");
   if(!freeCanvas) return;
   freeCtx = freeCanvas.getContext("2d");
-
+  
   if(!freeCanvas.dataset.ready){
-    freeCanvas.dataset.ready = "true";
-    freeCanvas.width = 600;
-    freeCanvas.height = 420;
-    paintCanvasPaperBackground(freeCtx, freeCanvas.width, freeCanvas.height, currentPaperBg);
+    freeCanvas.dataset.ready = "1";
+    freeCanvas.width = 440;
+    freeCanvas.height = 340;
+    clearFreeDraw();
 
-    let isDrawing = false;
-    let lastX = 0, lastY = 0;
-
-    const getPos = e => {
+    const getPos = (e) => {
       const rect = freeCanvas.getBoundingClientRect();
-      const scaleX = freeCanvas.width / (rect.width || 600);
-      const scaleY = freeCanvas.height / (rect.height || 420);
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      const cy = e.touches ? e.touches[0].clientY : e.clientY;
       return {
-        x: (e.clientX - rect.left) * scaleX,
-        y: (e.clientY - rect.top) * scaleY
+        x: (cx - rect.left) * (freeCanvas.width / rect.width),
+        y: (cy - rect.top) * (freeCanvas.height / rect.height)
       };
     };
 
-    freeCanvas.addEventListener("pointerdown", e => {
+    const startDraw = (e) => {
       e.preventDefault();
-      try { freeCanvas.setPointerCapture(e.pointerId); } catch(_) {}
-      isDrawing = true;
-      const pos = getPos(e);
-      lastX = pos.x;
-      lastY = pos.y;
-
-      if(drawBrush === "stamp"){
-        playCuteSfx("pop");
-        freeCtx.font = "42px system-ui";
-        freeCtx.textAlign = "center";
-        freeCtx.textBaseline = "middle";
-        freeCtx.fillText(currentStamp, pos.x, pos.y);
-        return;
-      }
-
+      isPainting = true;
+      const p = getPos(e);
       freeCtx.beginPath();
-      freeCtx.arc(pos.x, pos.y, (drawBrush === "brush" ? 8 : (drawBrush === "eraser" ? 16 : 4)), 0, Math.PI * 2);
-      freeCtx.fillStyle = drawBrush === "eraser" ? (currentPaperBg === "space" ? "#1e1b4b" : "#ffffff") : (drawBrush === "rainbow" ? "#ff3377" : drawColor);
-      freeCtx.fill();
-    });
-
-    freeCanvas.addEventListener("pointermove", e => {
-      if(!isDrawing || drawBrush === "stamp") return;
-      e.preventDefault();
-      const pos = getPos(e);
-
-      freeCtx.beginPath();
-      freeCtx.moveTo(lastX, lastY);
-      freeCtx.lineTo(pos.x, pos.y);
+      freeCtx.moveTo(p.x, p.y);
       freeCtx.lineCap = "round";
       freeCtx.lineJoin = "round";
-
-      if(drawBrush === "eraser"){
-        freeCtx.strokeStyle = currentPaperBg === "space" ? "#1e1b4b" : "#ffffff";
-        freeCtx.lineWidth = 28;
-      } else if(drawBrush === "brush"){
-        freeCtx.strokeStyle = drawColor;
-        freeCtx.lineWidth = 15;
-      } else if(drawBrush === "rainbow"){
-        const hue = (performance.now() / 3) % 360;
-        freeCtx.strokeStyle = `hsl(${hue}, 95%, 55%)`;
-        freeCtx.lineWidth = 11;
-      } else if(drawBrush === "glitter"){
-        freeCtx.strokeStyle = drawColor;
-        freeCtx.lineWidth = 6;
-        if(Math.random() < 0.45){
-          freeCtx.font = "16px system-ui";
-          freeCtx.fillText("✨", pos.x + (Math.random()*24-12), pos.y + (Math.random()*24-12));
-        }
-      } else {
-        freeCtx.strokeStyle = drawColor;
-        freeCtx.lineWidth = 5;
-      }
-      freeCtx.stroke();
-      lastX = pos.x;
-      lastY = pos.y;
-    });
-
-    const stopDraw = e => {
-      if(isDrawing){
-        isDrawing = false;
-        try { freeCanvas.releasePointerCapture(e.pointerId); } catch(_) {}
-      }
+      freeCtx.strokeStyle = currentBrushColor;
+      freeCtx.lineWidth = currentBrushSize;
     };
 
-    freeCanvas.addEventListener("pointerup", stopDraw);
-    freeCanvas.addEventListener("pointercancel", stopDraw);
-  }
-}
+    const moveDraw = (e) => {
+      if(!isPainting) return;
+      e.preventDefault();
+      const p = getPos(e);
+      freeCtx.lineTo(p.x, p.y);
+      freeCtx.stroke();
+    };
 
-window.clearFreeDrawCanvas = function(){
-  if(!freeCanvas) freeCanvas = document.getElementById("freeDrawCanvas");
-  if(!freeCanvas) return;
-  freeCtx = freeCanvas.getContext("2d");
-  paintCanvasPaperBackground(freeCtx, freeCanvas.width, freeCanvas.height, currentPaperBg);
-  toast("Quadro limpo e pronto para uma nova arte! 🎨");
+    const stopDraw = () => { isPainting = false; };
+
+    freeCanvas.addEventListener("mousedown", startDraw);
+    freeCanvas.addEventListener("mousemove", moveDraw);
+    window.addEventListener("mouseup", stopDraw);
+
+    freeCanvas.addEventListener("touchstart", startDraw, { passive: false });
+    freeCanvas.addEventListener("touchmove", moveDraw, { passive: false });
+    window.addEventListener("touchend", stopDraw);
+  }
+};
+
+window.setBrushColor = function(color, btn){
+  currentBrushColor = color;
+  document.querySelectorAll(".colorSwatch").forEach(b => b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  playCuteSfx("pop");
+};
+
+window.setBrushSize = function(size, btn){
+  currentBrushSize = size;
+  document.querySelectorAll(".brushSizeBtn").forEach(b => b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  playCuteSfx("pop");
+};
+
+window.clearFreeDraw = function(){
+  if(!freeCtx || !freeCanvas) return;
+  freeCtx.fillStyle = "#ffffff";
+  freeCtx.fillRect(0, 0, freeCanvas.width, freeCanvas.height);
+};
+
+window.addCanvasSticker = function(emoji){
+  if(!freeCtx || !freeCanvas) return;
+  freeCtx.font = "46px sans-serif";
+  freeCtx.textAlign = "center";
+  freeCtx.textBaseline = "middle";
+  const x = 50 + Math.random() * (freeCanvas.width - 100);
+  const y = 50 + Math.random() * (freeCanvas.height - 100);
+  freeCtx.fillText(emoji, x, y);
+  playCuteSfx("pop");
+  toast(`Adesivo ${emoji} colado na sua arte! ✨`);
 };
 
 window.saveFreeDrawArt = function(){
+  triggerStarConfetti();
+  playCuteSfx("win");
+  addStars(3, "Que desenho maravilhoso! Artista nata! +3 ⭐");
+  toast("Desenho salvo no seu coraçãozinho! 🎨⭐");
+};
+
+// --- ESTÚDIO DE FOTOS DA ELO & BICHINHO VIRTUAL ---
+window.initPhotoStudio = function(){
+  renderPhotoStudio();
+};
+
+window.setPhotoScene = function(scene, btn){
+  photoScene = scene;
+  document.querySelectorAll(".photoSceneBtn").forEach(b => b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  renderPhotoStudio();
+  playCuteSfx("pop");
+};
+
+window.setPhotoFrame = function(frame, btn){
+  photoFrame = frame;
+  document.querySelectorAll(".photoFrameBtn").forEach(b => b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  renderPhotoStudio();
+  playCuteSfx("pop");
+};
+
+window.renderPhotoStudio = function(){
+  const canvas = document.getElementById("photoStudioCanvas");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  canvas.width = 480;
+  canvas.height = 360;
+
+  // 1. Cenário de Fundo
+  if(photoScene === "castle"){
+    const grad = ctx.createLinearGradient(0, 0, 0, 360);
+    grad.addColorStop(0, "#fbcfe8"); grad.addColorStop(1, "#f472b6");
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, 480, 360);
+    ctx.font = "80px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🏰", 240, 160);
+    ctx.font = "32px sans-serif";
+    ctx.fillText("☁️", 90, 80); ctx.fillText("☁️", 390, 90);
+  } else if(photoScene === "forest"){
+    const grad = ctx.createLinearGradient(0, 0, 0, 360);
+    grad.addColorStop(0, "#bbf7d0"); grad.addColorStop(1, "#4ade80");
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, 480, 360);
+    ctx.font = "80px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🌳 🍄 🌸", 240, 160);
+  } else if(photoScene === "beach"){
+    const grad = ctx.createLinearGradient(0, 0, 0, 360);
+    grad.addColorStop(0, "#bae6fd"); grad.addColorStop(0.65, "#38bdf8"); grad.addColorStop(1, "#fde047");
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, 480, 360);
+    ctx.font = "50px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("☀️", 400, 70); ctx.fillText("🏖️ 🌊 🦀", 240, 240);
+  } else if(photoScene === "space"){
+    const grad = ctx.createLinearGradient(0, 0, 0, 360);
+    grad.addColorStop(0, "#0f172a"); grad.addColorStop(1, "#312e81");
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, 480, 360);
+    ctx.font = "40px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("✨ 🪐 🚀 ⭐ 🛸", 240, 140);
+  } else { // rainbow
+    const grad = ctx.createLinearGradient(0, 0, 480, 360);
+    grad.addColorStop(0, "#fbcfe8"); grad.addColorStop(0.5, "#fed7aa"); grad.addColorStop(1, "#ddd6fe");
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, 480, 360);
+    ctx.font = "80px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🌈 ✨ 🦄", 240, 150);
+  }
+
+  // 2. Chão com graminha / tapete
+  ctx.fillStyle = "rgba(255,255,255,0.45)";
+  ctx.beginPath();
+  ctx.ellipse(240, 290, 190, 45, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // 3. Personagens: Elo e Pet
+  ctx.font = "90px sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("👧", 190, 280); // Elo
+  
+  // Pegar ícone do pet se existir
+  let petEmoji = "🦄";
+  try {
+    if(window.petData && window.petData.species) {
+      const specMap = { unicorn:"🦄", cat:"🐱", dog:"🐶", rabbit:"🐰", dragon:"🐲", pony:"🐴" };
+      petEmoji = specMap[window.petData.species] || "🦄";
+    }
+  } catch(_) {}
+  ctx.font = "70px sans-serif";
+  ctx.fillText(petEmoji, 290, 280); // Pet companheiro
+
+  // 4. Moldura fotográfica
+  ctx.lineWidth = 14;
+  if(photoFrame === "pink"){
+    ctx.strokeStyle = "#ec4899";
+    ctx.strokeRect(10, 10, 460, 340);
+  } else if(photoFrame === "gold"){
+    ctx.strokeStyle = "#eab308";
+    ctx.strokeRect(10, 10, 460, 340);
+  } else { // party
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.strokeRect(10, 10, 460, 340);
+  }
+
+  // Faixa de legenda fofa
+  ctx.fillStyle = "rgba(255,255,255,0.85)";
+  ctx.fillRect(40, 305, 400, 36);
+  ctx.font = "bold 16px 'Nunito', sans-serif";
+  ctx.fillStyle = "#831843";
+  ctx.textAlign = "center";
+  ctx.fillText("Dia a Dia da Elo • Melhores Amigos Para Sempre 💕", 240, 329);
+};
+
+window.savePhotoStudioArt = function(){
+  const canvas = document.getElementById("photoStudioCanvas");
+  if(!canvas) return;
+  const link = document.createElement("a");
+  link.download = "foto-da-elo-e-amigos.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+
   playCuteSfx("win");
   triggerStarConfetti();
-  addStars(2, "Obra de arte salva no Ateliê! +2 ⭐");
-  if(freeCanvas){
-    try {
-      const a = document.createElement("a");
-      a.download = "arte-da-elo.png";
-      a.href = freeCanvas.toDataURL("image/png");
-      a.click();
-    } catch(_) {}
-  }
-  toast("Desenho salvo com sucesso! 🎨✨");
+  addStars(3, "Foto mágica revelada com sucesso! +3 ⭐");
+  toast("Foto baixada com sucesso! Ficou linda! 📸✨");
 };
 
-// --- PIZZARIA & CONFEITARIA DE PEDIDOS DA ELO (COM LÓGICA DE RECEITAS) ---
-const CHEF_STATIONS = {
-  pizza: {
-    name: "Pizzaria da Elo 🍕",
-    baseEmoji: "🍕",
-    bgClass: "stationPizza",
-    ingredients: [
-      { id: "cheese", emoji: "🧀", label: "Queijo" },
-      { id: "tomato", emoji: "🍅", label: "Tomate" },
-      { id: "corn", emoji: "🌽", label: "Milho" },
-      { id: "mushroom", emoji: "🍄", label: "Cogumelo" },
-      { id: "olive", emoji: "🫒", label: "Azeitona" },
-      { id: "broccoli", emoji: "🥦", label: "Brócolis" }
-    ]
-  },
-  cake: {
-    name: "Confeitaria de Bolos 🎂",
-    baseEmoji: "🎂",
-    bgClass: "stationCake",
-    ingredients: [
-      { id: "strawberry", emoji: "🍓", label: "Morango" },
-      { id: "cherry", emoji: "🍒", label: "Cereja" },
-      { id: "choco", emoji: "🍫", label: "Chocolate" },
-      { id: "star", emoji: "⭐", label: "Estrela Doce" },
-      { id: "heart", emoji: "💗", label: "Coração" },
-      { id: "rainbow", emoji: "🌈", label: "Arco-íris" }
-    ]
-  },
-  icecream: {
-    name: "Sorveteria Mágica 🍨",
-    baseEmoji: "🍨",
-    bgClass: "stationIcecream",
-    ingredients: [
-      { id: "berry", emoji: "🫐", label: "Mirtilo" },
-      { id: "banana", emoji: "🍌", label: "Banana" },
-      { id: "cookie", emoji: "🍪", label: "Biscoito" },
-      { id: "candy", emoji: "🍬", label: "Confeito" },
-      { id: "lollipop", emoji: "🍭", label: "Pirulito" },
-      { id: "sparkle", emoji: "✨", label: "Calda Brilhante" }
-    ]
-  },
-  robot: {
-    name: "Oficina de Brinquedos 🤖",
-    baseEmoji: "🤖",
-    bgClass: "stationRobot",
-    ingredients: [
-      { id: "gear", emoji: "⚙️", label: "Engrenagem" },
-      { id: "battery", emoji: "🔋", label: "Bateria" },
-      { id: "bulb", emoji: "💡", label: "Luz Mágica" },
-      { id: "magnet", emoji: "🧲", label: "Super Ímã" },
-      { id: "rocket", emoji: "🚀", label: "Propulsor" },
-      { id: "star", emoji: "🌟", label: "Núcleo Estelar" }
-    ]
-  }
-};
-
-let activeChefStation = "pizza", currentChefOrder = [], placedChefItems = [];
-
-window.selectChefStation = function(stationId, btn){
-  if(!CHEF_STATIONS[stationId]) return;
-  activeChefStation = stationId;
-  document.querySelectorAll(".chefTabBtn").forEach(b => b.classList.remove("on"));
-  if(btn) btn.classList.add("on");
-  generateNewChefOrder();
-};
-
-function initChefStudio(){
-  if(!currentChefOrder.length) generateNewChefOrder();
-  else renderChefStudio();
-}
+// --- MINI CHEF DA ELO ---
+const CHEF_RECIPES = [
+  { name: "Bolo da Princesa", req: ["Ovos", "Farinha", "Morangos", "Confeitos"], icon: "🎂" },
+  { name: "Hambúrguer Fofinho", req: ["Pão", "Queijo", "Tomate", "Alface"], icon: "🍔" },
+  { name: "Taça de Sorvete Encantado", req: ["Sorvete", "Calda", "Confeitos", "Morangos"], icon: "🍨" },
+  { name: "Pizza de Coração", req: ["Farinha", "Tomate", "Queijo", "Cogumelos"], icon: "🍕" }
+];
+let currentChefRecipe = null, selectedChefIngredients = [];
 
 window.generateNewChefOrder = function(){
-  const st = CHEF_STATIONS[activeChefStation] || CHEF_STATIONS.pizza;
-  const picked = shuffle(st.ingredients).slice(0, 3);
-  currentChefOrder = picked.map((ing, idx) => ({
-    ...ing,
-    goal: idx === 0 ? 2 : (idx === 1 ? 2 : 1)
-  }));
-  placedChefItems = [];
-  renderChefStudio();
+  currentChefRecipe = CHEF_RECIPES[Math.floor(Math.random() * CHEF_RECIPES.length)];
+  selectedChefIngredients = [];
+  const nameEl = document.getElementById("chefRecipeName");
+  const iconEl = document.getElementById("chefRecipeIcon");
+  const reqEl = document.getElementById("chefRecipeReq");
+  const bowlEl = document.getElementById("chefBowlContent");
+  if(nameEl) nameEl.textContent = currentChefRecipe.name;
+  if(iconEl) iconEl.textContent = currentChefRecipe.icon;
+  if(reqEl) reqEl.innerHTML = currentChefRecipe.req.map(i => `<span class="badge" style="background:#fce7f3;color:#be185d;">${i}</span>`).join(" ");
+  if(bowlEl) bowlEl.textContent = "Tigela Vazia 🥣";
+  document.querySelectorAll(".chefIngBtn").forEach(b => b.classList.remove("selected"));
 };
 
-function countPlacedIngredient(id){
-  return placedChefItems.filter(x => x.id === id).length;
-}
-
-function isChefOrderComplete(){
-  return currentChefOrder.length > 0 && currentChefOrder.every(req => countPlacedIngredient(req.id) >= req.goal);
-}
-
-function renderChefStudio(){
-  const root = document.getElementById("chefStudioRoot") || document.getElementById("creativeWorkspace");
-  if(!root) return;
-  const st = CHEF_STATIONS[activeChefStation] || CHEF_STATIONS.pizza;
-  const done = isChefOrderComplete();
-
-  const orderBadges = currentChefOrder.map(req => {
-    const cur = countPlacedIngredient(req.id);
-    const ok = cur >= req.goal;
-    return `<div class="chefReqBadge ${ok ? "ok" : ""}">
-      <span>${req.emoji}</span>
-      <b>${req.label}: ${Math.min(cur, req.goal)}/${req.goal} ${ok ? "✅" : ""}</b>
-    </div>`;
-  }).join("");
-
-  const spots = [
-    { left: 28, top: 30 }, { left: 62, top: 28 },
-    { left: 24, top: 60 }, { left: 66, top: 62 },
-    { left: 45, top: 46 }, { left: 46, top: 22 },
-    { left: 45, top: 70 }, { left: 32, top: 46 }
-  ];
-
-  root.innerHTML = `
-    <div class="chefOrderHeader">
-      <div class="chefOrderTitle">
-        <span>👩‍🍳</span>
-        <div>
-          <b>Pedido da Elo na ${st.name}</b>
-          <small>Toque nos ingredientes certos para completar a receita!</small>
-        </div>
-      </div>
-      <div class="chefReqList">${orderBadges}</div>
-    </div>
-
-    <div class="chefPlateStage ${st.bgClass}">
-      <div class="chefPlateCircle">
-        <span class="chefBaseIcon">${st.baseEmoji}</span>
-        ${placedChefItems.map((item, i) => {
-          const sp = spots[i % spots.length];
-          return `<span class="chefPlacedItem" style="left:${sp.left}%;top:${sp.top}%">${item.emoji}</span>`;
-        }).join("")}
-      </div>
-    </div>
-
-    <div class="chefIngredientsBar">
-      ${st.ingredients.map(ing => `
-        <button class="chefIngBtn" onclick="addChefIngredient('${ing.id}')">
-          <span>${ing.emoji}</span>
-          <small>${ing.label}</small>
-        </button>
-      `).join("")}
-    </div>
-
-    <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap;">
-      <button class="btn" onclick="deliverChefOrder()">🛎️ Entregar Pedido (+3 ⭐)</button>
-      <button class="btn secondary" onclick="generateNewChefOrder()">🔄 Novo Pedido</button>
-    </div>
-  `;
-
-  if(done){
-    setTimeout(()=>deliverChefOrder(true), 250);
+window.toggleChefIngredient = function(ing, btn){
+  const idx = selectedChefIngredients.indexOf(ing);
+  if(idx > -1){
+    selectedChefIngredients.splice(idx, 1);
+    if(btn) btn.classList.remove("selected");
+  } else {
+    selectedChefIngredients.push(ing);
+    if(btn) btn.classList.add("selected");
+    playCuteSfx("pop");
   }
-}
+  const bowlEl = document.getElementById("chefBowlContent");
+  if(bowlEl){
+    bowlEl.textContent = selectedChefIngredients.length ? `🥣 Misturando: ${selectedChefIngredients.join(" + ")}` : "Tigela Vazia 🥣";
+  }
+};
 
-window.addChefIngredient = function(ingId){
-  const st = CHEF_STATIONS[activeChefStation] || CHEF_STATIONS.pizza;
-  const ing = st.ingredients.find(x => x.id === ingId);
-  if(!ing) return;
-  const req = currentChefOrder.find(x => x.id === ingId);
-  if(!req){
+window.deliverChefOrder = function(){
+  if(!currentChefRecipe) return;
+  const missing = currentChefRecipe.req.filter(i => !selectedChefIngredients.includes(i));
+  if(missing.length > 0){
     playCuteSfx("wrong");
-    toast(`Ops! ${ing.label} ${ing.emoji} não está no pedido da Elo! Olhe a receita acima 😊`);
-    return;
-  }
-  if(countPlacedIngredient(ingId) >= req.goal){
-    toast(`Já colocamos todo o ${ing.label} ${ing.emoji} necessário!`);
-    return;
-  }
-  playCuteSfx("pop");
-  placedChefItems.push(ing);
-  renderChefStudio();
-};
-
-window.deliverChefOrder = function(auto=false){
-  if(!isChefOrderComplete()){
-    if(!auto) toast("Ainda faltam ingredientes da receita! Olhe os itens marcados acima 👩‍🍳");
+    toast(`Faltam ingredientes para o ${currentChefRecipe.name}: ${missing.join(", ")}! 👩‍🍳`);
     return;
   }
   playCuteSfx("win");
   triggerStarConfetti();
-  addStars(3, "Pedido entregue com perfeição! Chef nota 10! +3 ⭐");
-  setTimeout(generateNewChefOrder, 900);
+  addStars(4, `Receita entregue! O ${currentChefRecipe.name} ficou delicioso! +4 ⭐`);
+  toast("Chef 5 estrelas! Prato perfeito! 👩‍🍳⭐");
+  setTimeout(generateNewChefOrder, 1000);
 };
 
-// Conecta o som de moeda nas estrelas e cliques suaves
-const originalAddStarsV36 = addStars;
+// --- 5. CONSULTÓRIO & SALÃO DE CUIDADOS DA ELO ---
+let teethCleanCount = 0;
+let scrapeStep = 0;
+let lunchboxItems = { fruit: null, snack: null, drink: null };
+
+window.switchCareTab = function(tab, btn){
+  document.querySelectorAll(".careTabBtn").forEach(b => b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  const tSec = document.getElementById("careTeethStage");
+  const bSec = document.getElementById("careBandageStage");
+  const lSec = document.getElementById("careLunchStage");
+  if(tSec) tSec.classList.toggle("hidden", tab !== "teeth");
+  if(bSec) bSec.classList.toggle("hidden", tab !== "bandage");
+  if(lSec) lSec.classList.toggle("hidden", tab !== "lunch");
+  if(tab === "teeth") initTeethStage();
+};
+
+window.initTeethStage = function(){
+  teethCleanCount = 0;
+  const pText = document.getElementById("teethProgressText");
+  if(pText) pText.textContent = "Toque em cada dentinho com sua escova mágica para remover a sujeirinha! 🫧 (0/8 limpos)";
+  const rows = ["teethRowUpper", "teethRowLower"];
+  rows.forEach((rowId, rIdx) => {
+    const row = document.getElementById(rowId);
+    if(row){
+      row.innerHTML = [0, 1, 2, 3].map(c => `
+        <button class="toothItem dirty" onclick="brushTooth(this)" style="font-size:36px;background:none;border:none;cursor:pointer;transition:transform .2s;">
+          🦷<span style="font-size:16px;display:block;margin-top:-10px;">🦠</span>
+        </button>
+      `).join("");
+    }
+  });
+};
+
+window.brushTooth = function(btn){
+  if(!btn || !btn.classList.contains("dirty")) return;
+  btn.classList.remove("dirty");
+  btn.innerHTML = `🦷<span style="font-size:16px;display:block;margin-top:-10px;">✨</span>`;
+  btn.style.transform = "scale(1.2)";
+  setTimeout(()=>btn.style.transform = "scale(1)", 200);
+  playCuteSfx("pop");
+  teethCleanCount++;
+  const pText = document.getElementById("teethProgressText");
+  if(pText) pText.textContent = `Que capricho! Dentinhos brilhando: ${teethCleanCount}/8 ✨`;
+  if(teethCleanCount >= 8){
+    playCuteSfx("win");
+    triggerStarConfetti();
+    toast("Todos os dentinhos estão limpinhos e protegidos! 🪥✨");
+    if(pText) pText.innerHTML = "<b>Parabéns! Sorriso nota 10 com cheirinho de morango! 🍓✨</b>";
+  }
+};
+
+window.finishBrushingTeeth = function(){
+  if(teethCleanCount < 8){
+    toast("Ainda tem dentinhos precisando de escovação! 🪥");
+    return;
+  }
+  playCuteSfx("win");
+  triggerStarConfetti();
+  addStars(3, "Sorriso limpinho e protegido de cáries! +3 ⭐");
+  toast("Dentes 100% limpinhos e saudáveis! ⭐");
+  setTimeout(initTeethStage, 1200);
+};
+
+window.treatScrape = function(btn){
+  const spot = document.getElementById("scrapeSpot1");
+  const fb = document.getElementById("scrapeFeedback");
+  scrapeStep++;
+  if(scrapeStep === 1){
+    playCuteSfx("pop");
+    if(spot) spot.innerHTML = "🧴<span style='font-size:14px;display:block;'>Pomadinha Mágica</span>";
+    if(fb) fb.textContent = "Passamos pomadinha refrescante! Agora toque para colocar o curativo de coração! 💖";
+  } else if(scrapeStep === 2){
+    playCuteSfx("win");
+    triggerStarConfetti();
+    if(spot) spot.innerHTML = "🩹💖<span style='font-size:14px;display:block;'>Curado com Amor!</span>";
+    if(fb) fb.innerHTML = "<b>O dodói sarou completamente com o carinho da Elo! ✨</b>";
+    addStars(3, "Dodói tratado com muito amor e carinho! +3 ⭐");
+    setTimeout(()=>{
+      scrapeStep = 0;
+      if(spot) spot.innerHTML = "🩹<br>Dodói no Joelho";
+      if(fb) fb.textContent = "Toque no joelho para limpar e passar pomada mágica!";
+    }, 2500);
+  }
+};
+
+window.setLunchItem = function(slot, emoji, label){
+  lunchboxItems[slot] = { emoji, label };
+  const slotEl = document.getElementById(`lunchSlot${slot.charAt(0).toUpperCase() + slot.slice(1)}`);
+  if(slotEl){
+    slotEl.innerHTML = `<span style="font-size:32px;">${emoji}</span><small style="display:block;font-size:12px;font-weight:bold;">${label}</small>`;
+    slotEl.style.background = "#dcfce7";
+  }
+  playCuteSfx("pop");
+  toast(`Adicionado à lancheira: ${label}! 😋`);
+};
+
+window.finishLunchbox = function(){
+  if(!lunchboxItems.fruit || !lunchboxItems.snack || !lunchboxItems.drink){
+    toast("Preencha a frutinha, o lanchinho e a bebidinha da lancheira! 🥪🥤");
+    return;
+  }
+  playCuteSfx("win");
+  triggerStarConfetti();
+  addStars(4, "Lancheira nutritiva e deliciosa preparada com carinho! +4 ⭐");
+  toast("Lancheira nota 10 para a escolinha! 🥪🍎✨");
+};
+
+// --- 6. COPA DA FAMÍLIA (TORNEIO DE 3 RODADAS) ---
+let cupCurrentRound = 1, cupP1Score = 0, cupP2Score = 0;
+
+window.switchFamilyMode = function(mode, btn){
+  familyActiveMode = mode;
+  document.querySelectorAll(".familyTabBtn").forEach(b => b.classList.remove("active"));
+  if(btn){
+    btn.classList.add("active");
+  } else {
+    const targetBtn = document.querySelector(`.familyTabBtn[onclick*="'${mode}'"]`);
+    if(targetBtn) targetBtn.classList.add("active");
+  }
+  const mimeEl = document.getElementById("familyMimeView");
+  const duelEl = document.getElementById("familyDuelView");
+  const scoreEl = document.getElementById("familyScoreView");
+  const cupEl = document.getElementById("familyCupView");
+  if(mimeEl) mimeEl.classList.toggle("hidden", mode !== "mime");
+  if(duelEl) duelEl.classList.toggle("hidden", mode !== "duel");
+  if(scoreEl) scoreEl.classList.toggle("hidden", mode !== "score");
+  if(cupEl) cupEl.classList.toggle("hidden", mode !== "cup");
+
+  if(mode === "duel") startDuelRound();
+  if(mode === "cup") resetCupTournament();
+};
+
+window.finishCupRound = function(round){
+  cupCurrentRound = round + 1;
+  playCuteSfx("win");
+  triggerStarConfetti();
+  const c1 = document.getElementById("cupStep1");
+  const c2 = document.getElementById("cupStep2");
+  const c3 = document.getElementById("cupStep3");
+  const title = document.getElementById("cupRoundTitle");
+  const prompt = document.getElementById("cupRoundPrompt");
+
+  if(round === 1){
+    if(c1) { c1.classList.remove("active"); c1.classList.add("done"); c1.textContent = "1 ✓"; }
+    if(c2) { c2.classList.add("active"); }
+    if(title) title.textContent = "Rodada 2: Desafio do Duelo Rápido ⚡";
+    if(prompt) prompt.innerHTML = "Quem é mais veloz no toque da tela? Disputem um duelo e toquem no botão para avançar para a Grande Final!";
+    const btn = document.querySelector("#cupRoundCard button");
+    if(btn) { btn.setAttribute("onclick", "finishCupRound(2)"); btn.textContent = "Concluir Rodada 2 e Ir Para a Final! 🚀"; }
+    toast("Rodada 1 concluída! Avançando para a Rodada 2! 🏅");
+  } else if(round === 2){
+    if(c2) { c2.classList.remove("active"); c2.classList.add("done"); c2.textContent = "2 ✓"; }
+    if(c3) { c3.classList.add("active"); }
+    if(title) title.textContent = "🏆 Grande Final: Cerimônia do Troféu da Família! 🏆";
+    if(prompt) prompt.innerHTML = "<div style='font-size:72px;margin:10px 0;'>🏆✨🎉</div><b style='font-size:20px;color:#d84376;'>Parabéns, Família Campeã!</b><p>Vocês jogaram com união, alegria e carinho. A taça dourada da Elo é de todos vocês!</p>";
+    const btn = document.querySelector("#cupRoundCard button");
+    if(btn) { btn.setAttribute("onclick", "resetCupTournament()"); btn.textContent = "Novo Torneio da Copa da Família 🔁"; }
+    addStars(10, "Grande Campeão da Copa da Família! +10 ⭐");
+  }
+};
+
+window.resetCupTournament = function(){
+  cupCurrentRound = 1;
+  const c1 = document.getElementById("cupStep1");
+  const c2 = document.getElementById("cupStep2");
+  const c3 = document.getElementById("cupStep3");
+  const title = document.getElementById("cupRoundTitle");
+  const prompt = document.getElementById("cupRoundPrompt");
+  if(c1) { c1.className = "cupStep active"; c1.textContent = "1"; }
+  if(c2) { c2.className = "cupStep"; c2.textContent = "2"; }
+  if(c3) { c3.className = "cupStep"; c3.textContent = "3"; }
+  if(title) title.textContent = "Rodada 1: Desafio da Mímica Encantada 🎭";
+  if(prompt) prompt.innerHTML = "Um jogador faz a mímica de um animal ou profissão sem falar! Quem acertar ganha o ponto da rodada!";
+  const btn = document.querySelector("#cupRoundCard button");
+  if(btn) { btn.setAttribute("onclick", "finishCupRound(1)"); btn.textContent = "Concluir Rodada 1 e Ir Para o Duelo ➡️"; }
+};
+
+// --- 7. ÁLBUM DE FIGURINHAS BRILHANTES & PACOTINHOS SURPRESA ---
+const STICKER_COLLECTION_DATA = [
+  { id: "s1", name: "Elo Princesa", emoji: "👸", rarity: "rare", desc: "Coroa brilhante e vestido real" },
+  { id: "s2", name: "Luminho Unicórnio", emoji: "🦄", rarity: "gold", desc: "Crina arco-íris mágica" },
+  { id: "s3", name: "Pipoca Gatinho", emoji: "🐱", rarity: "common", desc: "Ronrom mais fofo do mundo" },
+  { id: "s4", name: "Pingo Cachorrinho", emoji: "🐶", rarity: "common", desc: "Adora brincar de bolinha" },
+  { id: "s5", name: "Elo Astronauta", emoji: "👩‍🚀", rarity: "gold", desc: "Exploradora de galáxias" },
+  { id: "s6", name: "Bolo Encantado", emoji: "🎂", rarity: "common", desc: "Sabor morango com confeitos" },
+  { id: "s7", name: "Castelo das Estrelas", emoji: "🏰", rarity: "rare", desc: "Onde mora a magia" },
+  { id: "s8", name: "Faísca Dragãozinho", emoji: "🐲", rarity: "gold", desc: "Cospe faíscas de glitter" },
+  { id: "s9", name: "Nuvem Coelhinho", emoji: "🐰", rarity: "common", desc: "Pula pula nas flores" },
+  { id: "s10", name: "Varinha de Condão", emoji: "🪄", rarity: "rare", desc: "Faz plim e realiza desejos" },
+  { id: "s11", name: "Arco-Íris Celestial", emoji: "🌈", rarity: "rare", desc: "Ponte para o Reino dos Sonhos" },
+  { id: "s12", name: "Elo DJ Pop", emoji: "🎧", rarity: "gold", desc: "Faz a festa dançar" },
+  { id: "s13", name: "Pônei Jujuba", emoji: "🐴", rarity: "common", desc: "Galopa nos campos doces" },
+  { id: "s14", name: "Estrela Guia", emoji: "⭐", rarity: "common", desc: "Ilumina as noites quentinhas" },
+  { id: "s15", name: "Borboleta Dourada", emoji: "🦋", rarity: "rare", desc: "Asas de pura luz" },
+  { id: "s16", name: "Super Elo Heroína", emoji: "🦸‍♀️", rarity: "gold", desc: "Protege todos com abraços" }
+];
+
+function getCollectedStickers(){
+  try {
+    return JSON.parse(localStorage.getItem("elo_stickers_album_v410") || "[]");
+  } catch(_) {
+    return [];
+  }
+}
+
+function saveCollectedStickers(list){
+  try {
+    localStorage.setItem("elo_stickers_album_v410", JSON.stringify(list));
+  } catch(_) {}
+  updateStickersCounterUI();
+}
+
+function updateStickersCounterUI(){
+  const list = getCollectedStickers();
+  const homeCount = document.getElementById("homeStickerCountText");
+  const modalCount = document.getElementById("albumStickerCounter");
+  const text = `${list.length}/${STICKER_COLLECTION_DATA.length}`;
+  if(homeCount) homeCount.textContent = text;
+  if(modalCount) modalCount.textContent = `${text} coladas`;
+}
+
+window.openStickersAlbum = function(){
+  const modal = document.getElementById("stickersModal");
+  if(modal) modal.classList.remove("hidden");
+  renderStickersAlbum();
+  updateStickersCounterUI();
+};
+
+window.closeStickersAlbum = function(){
+  const modal = document.getElementById("stickersModal");
+  if(modal) modal.classList.add("hidden");
+};
+
+window.renderStickersAlbum = function(){
+  const grid = document.getElementById("stickersAlbumGrid");
+  if(!grid) return;
+  const collected = getCollectedStickers();
+
+  grid.innerHTML = STICKER_COLLECTION_DATA.map((s, idx) => {
+    const isCollected = collected.includes(s.id);
+    const rarityLabel = s.rarity === "gold" ? "HOLOGRÁFICA 🌟" : (s.rarity === "rare" ? "RARA 💎" : "COMUM 🌸");
+    if(isCollected){
+      return `
+        <div class="stickerCard owned ${s.rarity}">
+          <div style="font-size:48px;">${s.emoji}</div>
+          <b>${s.name}</b>
+          <small class="rarityTag">${rarityLabel}</small>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="stickerCard locked">
+          <div style="font-size:36px;opacity:0.35;">🔒</div>
+          <b style="color:var(--muted);">#${idx + 1}</b>
+          <small style="font-size:11px;color:var(--muted);">${rarityLabel}</small>
+        </div>
+      `;
+    }
+  }).join("");
+};
+
+let currentOpenedStickers = [];
+
+window.openStickerPack = function(){
+  const prof = getActiveProfile();
+  if((prof.stars || 0) < 5){
+    toast("Você precisa de 5 estrelinhas para abrir um pacotinho surpresa! ⭐");
+    return;
+  }
+  prof.stars -= 5;
+  saveProfiles();
+  playCuteSfx("coin");
+
+  // Sorteia 3 figurinhas
+  const shuffled = shuffle([...STICKER_COLLECTION_DATA]);
+  currentOpenedStickers = shuffled.slice(0, 3);
+
+  const packArea = document.getElementById("revealedPackArea");
+  const revealCards = document.getElementById("revealedStickersCards");
+  const collectBtn = document.getElementById("collectStickersBtn");
+  if(packArea) packArea.classList.remove("hidden");
+  if(collectBtn) collectBtn.classList.remove("hidden");
+
+  if(revealCards){
+    revealCards.innerHTML = currentOpenedStickers.map(s => `
+      <div class="stickerPackRevealCard ${s.rarity}">
+        <div style="font-size:54px;animation:dollCelebration .6s infinite alternate;">${s.emoji}</div>
+        <h4 style="margin:6px 0 2px;">${s.name}</h4>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 4px;">${s.desc}</p>
+        <span class="badge" style="background:#fce7f3;color:#d84376;font-size:11px;">
+          ${s.rarity === "gold" ? "✨ HOLOGRÁFICA!" : (s.rarity === "rare" ? "💎 RARA!" : "🌸 LINDA!")}
+        </span>
+      </div>
+    `).join("");
+  }
+  playCuteSfx("win");
+  triggerStarConfetti();
+  toast("Pacotinho aberto! Veja que figurinhas lindas você tirou! 🎁🎉");
+};
+
+window.collectRevealedStickers = function(){
+  if(!currentOpenedStickers.length) return;
+  const collected = getCollectedStickers();
+  currentOpenedStickers.forEach(s => {
+    if(!collected.includes(s.id)) collected.push(s.id);
+  });
+  saveCollectedStickers(collected);
+  currentOpenedStickers = [];
+
+  const packArea = document.getElementById("revealedPackArea");
+  if(packArea) packArea.classList.add("hidden");
+  renderStickersAlbum();
+  playCuteSfx("win");
+  triggerStarConfetti();
+  toast("Figurinhas coladas com sucesso no seu álbum! 📖💖");
+};
+
+// --- 8. MODO HORA DO SONINHO & CANÇÃO DE NINAR ---
+let sleepLullabyPlaying = false;
+let lullabyTimer = null;
+
+window.toggleSleepMode = function(force){
+  const overlay = document.getElementById("sleepModeOverlay");
+  if(!overlay) return;
+  const isHidden = overlay.classList.contains("hidden");
+  if(force === false || !isHidden){
+    overlay.classList.add("hidden");
+    if(sleepLullabyPlaying) toggleLullabyPlay();
+  } else {
+    overlay.classList.remove("hidden");
+    playCuteSfx("pop");
+    toast("Boa noite, anjinho! Bons sonhos com as estrelinhas... 🌙💤");
+  }
+};
+
+window.toggleLullabyPlay = function(){
+  const btn = document.getElementById("lullabyToggleBtn");
+  const ctx = getAudioContext();
+  if(sleepLullabyPlaying){
+    sleepLullabyPlaying = false;
+    if(lullabyTimer) clearInterval(lullabyTimer);
+    if(btn) {
+      btn.textContent = "🎵 Tocar Caixinha de Música Suave";
+      btn.style.background = "";
+    }
+    toast("Música de ninar pausada 🌙");
+  } else {
+    sleepLullabyPlaying = true;
+    if(btn) {
+      btn.textContent = "⏸ Pausar Caixinha de Música";
+      btn.style.background = "#6366f1";
+    }
+    toast("Tocando caixinha de música dos sonhos... 🎶✨");
+    
+    // Melodia de ninar relaxante e suave (Brahms' Lullaby / Nana Neném)
+    const notes = [
+      261.63, 261.63, 293.66, 261.63, 349.23, 329.63,
+      261.63, 261.63, 293.66, 261.63, 392.00, 349.23,
+      261.63, 261.63, 523.25, 440.00, 349.23, 329.63, 293.66,
+      466.16, 466.16, 440.00, 349.23, 392.00, 349.23
+    ];
+    let noteIdx = 0;
+    lullabyTimer = setInterval(()=>{
+      if(!sleepLullabyPlaying) return;
+      playTone(notes[noteIdx], 0.75, "sine");
+      noteIdx = (noteIdx + 1) % notes.length;
+    }, 900);
+  }
+};
+
+window.readBedtimeStory = function(idx){
+  const stories = [
+    {
+      title: "O Pônei que Queria Voar com as Estrelas",
+      text: "Era uma vez um pônei fofinho chamado Jujuba. Todas as noites, ele olhava para o céu e via as estrelinhas cintilando. Certa noite, uma fada amiga borrifou pozinho de sonhos em suas crinas. Jujuba deu um saltinho suave e flutuou entre as nuvens macias, descansando em um travesseirinho de algodão bem quentinho..."
+    },
+    {
+      title: "O Ursinho e o Abraço da Lua",
+      text: "Lá na floresta dos sonhos encantados, o ursinho Pingo estava com muito soninho. A Lua cheia desceu bem devagarinho e cobriu o ursinho com um cobertor de luz prateada. Pingo fechou os olhinhos, respirou fundo e dormiu um sono profundo e feliz..."
+    }
+  ];
+  const s = stories[idx] || stories[0];
+  const content = document.getElementById("sleepStoryContent");
+  if(content){
+    content.innerHTML = `
+      <div style="background:rgba(255,255,255,0.1);padding:18px;border-radius:18px;margin-top:12px;border:1px solid rgba(255,255,255,0.2);">
+        <h4 style="margin:0 0 8px;color:#fbcfe8;">📖 ${s.title}</h4>
+        <p style="font-size:15px;line-height:1.6;margin:0;color:#f1f5f9;">${s.text}</p>
+      </div>
+    `;
+    if(typeof speakText === "function") speakText(s.text);
+  }
+};
+
+// --- FEEDBACKS DE SONS E INICIALIZAÇÃO SEGURA ---
+const originalAddStarsV410 = addStars;
 addStars = function(n=1, msg="Você ganhou uma estrelinha! ⭐"){
   playCuteSfx("coin");
-  originalAddStarsV36(n, msg);
+  originalAddStarsV410(n, msg);
 };
 
 document.addEventListener("pointerdown", e => {
-  const btn = e.target?.closest?.("button, .portalCard, .schoolOptBtn, .cTabBtn, .familyTabBtn");
+  const btn = e.target?.closest?.("button, .portalCard, .schoolOptBtn, .cTabBtn, .familyTabBtn, .careTabBtn, .photoSceneBtn, .photoFrameBtn");
   if(btn && !btn.disabled){
     playCuteSfx("pop");
   }
 }, { passive: true, capture: true });
 
-// Inicializa automaticamente a Escolinha, Piano, Ateliê e Chef ao carregar
+// Inicializações automáticas com tratamento de erro
 try { selectSchoolTrack("letters"); } catch(_) {}
 try { initFreeDrawCanvas(); } catch(_) {}
 try { generateNewChefOrder(); } catch(_) {}
+try { updateStickersCounterUI(); } catch(_) {}
