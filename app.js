@@ -162,7 +162,7 @@ let appRestoringHistory=false,appExitArmed=false,appExitFallback=null;
 function currentPanelId(){return document.querySelector('.panel.active')?.id||'homePanel'}
 function appStateForPanel(id,nav){return {eloApp:true,type:id==='homePanel'?'home':'panel',id,nav}}
 function pushAppState(state){if(appRestoringHistory)return;const cur=history.state||{};if(cur.eloApp&&cur.type===state.type&&cur.id===state.id)return;history.pushState(state,'')}
-function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();if(previous==='parentsPanel'&&id!=='parentsPanel')lockParentAccess();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='parentsPanel')renderParentV2();if(id==='achievementsPanel'){renderV2Album();renderEnglishAlbum()}if(id==='learnPanel'){renderEnglishHomeProgress();if(typeof renderModernSchoolQuestion==='function')renderModernSchoolQuestion();}if(id==='englishPanel')renderEnglishSchool();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop()}if(id==='createPanel'){renderColoringGallery();renderPalette();if(typeof initFreeDrawCanvas==='function')setTimeout(initFreeDrawCanvas,60);}if(!fromHistory)speakYoungPanelIntro(id);if(!fromHistory)pushAppState(appStateForPanel(id,nav))}
+function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();if(previous==='parentsPanel'&&id!=='parentsPanel')lockParentAccess();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='parentsPanel')renderParentV2();if(id==='achievementsPanel'){renderV2Album();renderEnglishAlbum()}if(id==='learnPanel'){renderEnglishHomeProgress();if(typeof selectSchoolTrack==='function')selectSchoolTrack('letters');}if(id==='englishPanel')renderEnglishSchool();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop()}if(id==='createPanel'){renderColoringGallery();renderPalette();if(typeof initFreeDrawCanvas==='function')setTimeout(initFreeDrawCanvas,60);}if(!fromHistory)speakYoungPanelIntro(id);if(!fromHistory)pushAppState(appStateForPanel(id,nav))}
 function exitDialogOpen(){return !document.getElementById('exitConfirm')?.classList.contains('hidden')}
 function profileChooserOpen(){return !document.getElementById('profileModal')?.classList.contains('hidden')}
 function isAnyModalOpen(){
@@ -218,7 +218,23 @@ function openSubscribe(){openExternal(SUBSCRIBE_URL)}
 function openInstagram(){openExternal(INSTAGRAM_URL)}
 function openGame(id,title,fromHistory=false){if(!fromHistory)trackActivity('games');clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop();document.getElementById('gameModalTitle').textContent=title;document.querySelectorAll('.gameSection').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('gameModal').classList.remove('hidden');document.body.style.overflow='hidden';if(!fromHistory)pushAppState({eloApp:true,type:'game',id,title});if(id==='findGame')resetFind(true);if(id==='mazeGame')startMaze();if(id==='unicornChaseGame')startChase();if(id==='memoryGame')startMemory();if(id==='puzzleGame')startPuzzle(false);if(id==='tapGameSection')startTapGame();if(id==='trailGame')startTrailGame();if(!fromHistory){const tips={findGame:['Procure a pequena estrela escondida no cenário.','Quanto maior a dificuldade, menor a estrela e menor o tempo.'],mazeGame:['Leve a Elo até o unicórnio.','Use as setas ou deslize o dedo pelo labirinto.'],unicornChaseGame:['Colete os unicórnios e fuja do fantasminha.','Planeje rotas abertas e não fique presa em cantos.'],memoryGame:['Vire duas cartas de cada vez e encontre os pares.'],puzzleGame:['Toque em duas peças para trocar de lugar.','Quando tudo estiver certo, as peças ficam bloqueadas.'],tapGameSection:['Leia o número pedido e toque nele antes do tempo acabar.'],trailGame:['Toque em Pular para desviar e coletar objetos.','No chefão, o Poder funciona o tempo todo. Use quando quiser e aproveite os intervalos sem tiros para atacar com mais segurança.']};showTutorialOnce('game-'+id,title,tips[id]||['Divirta-se e complete o desafio!'])}}
 function closeGame(fromHistory=false){if(!fromHistory&&history.state?.type==='game')return history.back();clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop();document.getElementById('gameModal').classList.add('hidden');document.body.style.overflow=''}
-function openRpg(fromHistory=false){if(!fromHistory)trackActivity('rpg');trailStop();clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);const frame=document.getElementById('rpgFrame');const wanted=new URL('./rpg.html?v='+encodeURIComponent(APP_VERSION)+'&profile='+encodeURIComponent(activeProfileId),location.href).href;frame.src=wanted;document.getElementById('rpgOverlay').classList.remove('hidden');document.body.style.overflow='hidden';if(!fromHistory){pushAppState({eloApp:true,type:'rpg'});showTutorialOnce('rpg','Elo e o Reino das Estrelas',['Use as setas para andar e A para falar, entrar ou interagir.','Energia mostra a vida da Elo. Magia (MP) é usada pelos Poderes.','Treine antes dos chefes, leve poções e explore lojas, casas e caminhos.','O jogo salva automaticamente e continua do ponto em que você parou.'])}}
+function openRpg(fromHistory=false){
+  if(!fromHistory) trackActivity('rpg');
+  trailStop();
+  clearInterval(findTimer);
+  clearTimeout(tapTimer);
+  clearInterval(chaseInterval);
+  const frame = document.getElementById('rpgFrame');
+  const overlay = document.getElementById('rpgOverlay');
+  const wanted = new URL('./rpg.html?v=' + encodeURIComponent(APP_VERSION) + '&profile=' + encodeURIComponent(activeProfileId), location.href).href;
+  if(frame) frame.src = wanted;
+  if(overlay) overlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  if(!fromHistory){
+    pushAppState({eloApp: true, type: 'rpg'});
+  }
+}
+window.openRpg = openRpg;
 function closeRpg(fromHistory=false){if(!fromHistory&&history.state?.type==='rpg')return history.back();const frame=document.getElementById('rpgFrame');document.getElementById('rpgOverlay').classList.add('hidden');document.body.style.overflow='';if(frame)frame.src='about:blank';renderBadges()}
 window.addEventListener('message',e=>{const d=e.data||{};if(d.type==='rpg-close')closeRpg();if(d.type==='rpg-open-youtube')openExternal(CHANNEL_URL);if(d.type==='rpg-medal')renderBadges();if(d.type==='rpg-stars')addStars(Number(d.amount)||1,d.msg||'Você ganhou estrelas no RPG! ⭐');});
 function openColoring(i,fromHistory=false){if(!fromHistory)trackActivity('coloring');chooseColoring(i,true);if(!fromHistory)pushAppState({eloApp:true,type:'coloring',index:i})}
@@ -398,47 +414,26 @@ for(const c of candidates){
   }
 }
 if(chaseUnicorns.length<chaseTotal)chaseUnicorns=candidates.slice(0,chaseTotal);
-if(chaseUnicorns.length>0) chaseUnicorns[chaseUnicorns.length-1].isGolden=true;
-lastChaseCollectAt=0;chaseComboCount=0;document.getElementById('chaseBoard').style.gridTemplateColumns=`repeat(${chaseSize},1fr)`;document.getElementById('chaseStatus').textContent='Corra pela arena e pegue os unicórnios!';document.getElementById('chaseCount').innerHTML=`<img class="inlineCreature" src="assets/game-ui/unicorn.svg" alt=""> 0/${chaseTotal}`;renderChase();setTimeout(()=>{if(!chaseWon&&!chaseLost&&!document.getElementById('gameModal').classList.contains('hidden'))chaseInterval=setInterval(moveChaseGhost,cfg.ghostMs)},cfg.startDelay)}
+document.getElementById('chaseBoard').style.gridTemplateColumns=`repeat(${chaseSize},1fr)`;document.getElementById('chaseStatus').textContent='Corra pela arena e pegue os unicórnios!';document.getElementById('chaseCount').innerHTML=`<img class="inlineCreature" src="assets/game-ui/unicorn.svg" alt=""> 0/${chaseTotal}`;renderChase();setTimeout(()=>{if(!chaseWon&&!chaseLost&&!document.getElementById('gameModal').classList.contains('hidden'))chaseInterval=setInterval(moveChaseGhost,cfg.ghostMs)},cfg.startDelay)}
 function renderChase(){const board=document.getElementById('chaseBoard');if(!board)return;board.innerHTML='';board.style.setProperty('--chase-size',chaseSize);const scale=gameEloScale('chase',chaseSize),uni=new Set(chaseUnicorns.map(p=>chaseKey(p.x,p.y)));for(let y=0;y<chaseSize;y++){for(let x=0;x<chaseSize;x++){const d=document.createElement('div'),wall=chaseMap[y][x]==='#',player=chasePlayer.x===x&&chasePlayer.y===y,ghost=chaseGhost.x===x&&chaseGhost.y===y,unicorn=uni.has(chaseKey(x,y));d.className='chaseCell '+(wall?'wall':'path')+(player?' player':'')+(ghost?' ghost':'')+(unicorn?' unicorn':'');if(player){const elo=gameEloClone('chase',scale);if(elo)d.appendChild(elo)}else if(ghost)d.innerHTML='<img class="gameCreature ghostSprite" src="assets/game-ui/ghost.svg" alt="Fantasminha">';else if(unicorn){
-  const item=chaseUnicorns.find(u=>chaseKey(u.x,u.y)===chaseKey(x,y));
-  if(item?.isGolden){
-    d.innerHTML='<span style="font-size:26px;animation:dollHappy .5s infinite alternate;filter:drop-shadow(0 0 6px #ffd700);display:inline-block">🦄✨</span>';
-  } else {
-    d.innerHTML='<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio">';
-  }
+  d.innerHTML='<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio">';
 }else if(!wall&&(x*7+y*11)%31===0)d.innerHTML='<span class="chaseFlower">🌸</span>';board.appendChild(d)}}syncMiniGameLegend('chaseLegendElo')}
-let lastChaseCollectAt = 0, chaseComboCount = 0;
 function collectChaseUnicorn(){
-  const k=chaseKey(chasePlayer.x,chasePlayer.y),before=chaseUnicorns.length;
-  const picked=chaseUnicorns.find(p=>chaseKey(p.x,p.y)===k);
-  chaseUnicorns=chaseUnicorns.filter(p=>chaseKey(p.x,p.y)!==k);
-  if(chaseUnicorns.length<before){
+  const k = chaseKey(chasePlayer.x, chasePlayer.y), before = chaseUnicorns.length;
+  chaseUnicorns = chaseUnicorns.filter(p => chaseKey(p.x, p.y) !== k);
+  if(chaseUnicorns.length < before){
     chaseCollected++;
-    const now=Date.now();
-    if(now - lastChaseCollectAt < 3800){
-      chaseComboCount++;
-    } else {
-      chaseComboCount=1;
-    }
-    lastChaseCollectAt=now;
-    
-    let comboMsg = chaseComboCount > 1 ? ` Combo x${chaseComboCount}! 🌈` : '';
-    if(picked?.isGolden){
-      addStars(2, `Unicórnio Dourado Raro! +2 ⭐${comboMsg}`);
-    } else if(chaseComboCount >= 3){
-      addStars(1, `Super Sequência! +1 ⭐${comboMsg}`);
-    } else {
-      toast(`Unicórnio resgatado! 🦄${comboMsg}`);
-    }
-    document.getElementById('chaseCount').innerHTML=`<img class="inlineCreature" src="assets/game-ui/unicorn.svg" alt=""> ${chaseCollected}/${chaseTotal}`;
-    if(chaseCollected>=chaseTotal){
-      chaseWon=true;
+    toast('Unicórnio resgatado! 🦄✨');
+    const countEl = document.getElementById('chaseCount');
+    if(countEl) countEl.innerHTML = `<img class="inlineCreature" src="assets/game-ui/unicorn.svg" alt=""> ${chaseCollected}/${chaseTotal}`;
+    if(chaseCollected >= chaseTotal){
+      chaseWon = true;
       clearInterval(chaseInterval);
-      document.getElementById('chaseStatus').textContent='Você pegou todos! 🎉';
-      const cfg=CHASE_LEVELS[chaseLevel];
-      addStars(cfg.reward,`Todos os unicórnios encontrados! +${cfg.reward} ⭐`);
-      unlockGameMedal('chase',chaseLevel);
+      const stEl = document.getElementById('chaseStatus');
+      if(stEl) stEl.textContent = 'Você pegou todos! 🎉';
+      const cfg = CHASE_LEVELS[chaseLevel];
+      addStars(cfg.reward, `Todos os unicórnios encontrados! +${cfg.reward} ⭐`);
+      unlockGameMedal('chase', chaseLevel);
     }
   }
 }
@@ -916,14 +911,22 @@ const MODERN_MIMES = {
 window.switchFamilyMode = function(mode, btn){
   familyActiveMode = mode;
   document.querySelectorAll('.familyTabBtn').forEach(b => b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
+  if(btn){
+    btn.classList.add('active');
+  } else {
+    const targetBtn = document.querySelector(`.familyTabBtn[onclick*="'${mode}'"]`);
+    if(targetBtn) targetBtn.classList.add('active');
+  }
   
-  document.getElementById('familyMimeView').classList.toggle('hidden', mode !== 'mime');
-  document.getElementById('familyDuelView').classList.toggle('hidden', mode !== 'duel');
-  document.getElementById('familyScoreView').classList.toggle('hidden', mode !== 'score');
+  const mimeEl = document.getElementById('familyMimeView');
+  const duelEl = document.getElementById('familyDuelView');
+  const scoreEl = document.getElementById('familyScoreView');
+  if(mimeEl) mimeEl.classList.toggle('hidden', mode !== 'mime');
+  if(duelEl) duelEl.classList.toggle('hidden', mode !== 'duel');
+  if(scoreEl) scoreEl.classList.toggle('hidden', mode !== 'score');
   
   if(mode === 'duel'){ startDuelRound(); }
-  if(mode === 'mime' && mimeTimer){ clearInterval(mimeTimer); mimeTimer = null; }
+  if(mode === 'mime'){ resetMimeCard(); }
 };
 
 window.setMimeCat = function(cat, btn){
@@ -1090,7 +1093,13 @@ window.selectSchoolTrack = function(track, btn){
   currentSchoolQuestionIdx = 0;
   schoolTrackScore = 0;
   document.querySelectorAll('.schoolTrackCard').forEach(b => b.classList.remove('on'));
-  if(btn) btn.classList.add('on');
+  if(btn){
+    btn.classList.add('on');
+  } else {
+    const targetClass = track === 'nature' ? 'trackAnimals' : (track === 'numbers' ? 'trackNumbers' : 'trackLetters');
+    const targetBtn = document.querySelector(`.schoolTrackCard.${targetClass}`);
+    if(targetBtn) targetBtn.classList.add('on');
+  }
   renderModernSchoolQuestion();
 };
 
@@ -1179,64 +1188,85 @@ function initFreeDrawCanvas(){
   
   if(!freeCanvas.dataset.ready){
     freeCanvas.dataset.ready = 'true';
-    clearFreeDrawCanvas();
+    freeCanvas.width = 600;
+    freeCanvas.height = 420;
+    freeCtx.fillStyle = '#ffffff';
+    freeCtx.fillRect(0, 0, freeCanvas.width, freeCanvas.height);
+    
+    let isDrawing = false;
+    let lastX = 0, lastY = 0;
     
     const getPos = e => {
       const rect = freeCanvas.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const scaleX = freeCanvas.width / (rect.width || 600);
+      const scaleY = freeCanvas.height / (rect.height || 420);
       return {
-        x: (clientX - rect.left) * (freeCanvas.width / rect.width),
-        y: (clientY - rect.top) * (freeCanvas.height / rect.height)
+        x: (e.clientX - rect.left) * scaleX,
+        y: (e.clientY - rect.top) * scaleY
       };
     };
     
-    const startDraw = e => {
+    freeCanvas.addEventListener('pointerdown', e => {
       e.preventDefault();
+      try { freeCanvas.setPointerCapture(e.pointerId); } catch(_) {}
       isDrawing = true;
       const pos = getPos(e);
+      lastX = pos.x;
+      lastY = pos.y;
+      
       if(drawBrush === 'stamp'){
-        freeCtx.font = '36px system-ui';
+        freeCtx.font = '38px system-ui';
         freeCtx.textAlign = 'center';
+        freeCtx.textBaseline = 'middle';
         freeCtx.fillText(currentStamp, pos.x, pos.y);
         return;
       }
+      
       freeCtx.beginPath();
-      freeCtx.moveTo(pos.x, pos.y);
-    };
+      freeCtx.arc(pos.x, pos.y, (drawBrush === 'brush' ? 7 : (drawBrush === 'eraser' ? 14 : 3)), 0, Math.PI * 2);
+      freeCtx.fillStyle = drawBrush === 'eraser' ? '#ffffff' : (drawBrush === 'rainbow' ? '#ff3377' : drawColor);
+      freeCtx.fill();
+    });
     
-    const drawMove = e => {
+    freeCanvas.addEventListener('pointermove', e => {
       if(!isDrawing || drawBrush === 'stamp') return;
       e.preventDefault();
       const pos = getPos(e);
+      
+      freeCtx.beginPath();
+      freeCtx.moveTo(lastX, lastY);
+      freeCtx.lineTo(pos.x, pos.y);
+      freeCtx.lineCap = 'round';
+      freeCtx.lineJoin = 'round';
+      
       if(drawBrush === 'eraser'){
         freeCtx.strokeStyle = '#ffffff';
-        freeCtx.lineWidth = 24;
+        freeCtx.lineWidth = 26;
       } else if(drawBrush === 'brush'){
         freeCtx.strokeStyle = drawColor;
         freeCtx.lineWidth = 14;
       } else if(drawBrush === 'rainbow'){
         const hue = (performance.now() / 4) % 360;
-        freeCtx.strokeStyle = `hsl(${hue}, 90%, 55%)`;
+        freeCtx.strokeStyle = `hsl(${hue}, 95%, 55%)`;
         freeCtx.lineWidth = 10;
       } else {
         freeCtx.strokeStyle = drawColor;
         freeCtx.lineWidth = 5;
       }
-      freeCtx.lineCap = 'round';
-      freeCtx.lineJoin = 'round';
-      freeCtx.lineTo(pos.x, pos.y);
       freeCtx.stroke();
+      lastX = pos.x;
+      lastY = pos.y;
+    });
+    
+    const stopDraw = e => {
+      if(isDrawing){
+        isDrawing = false;
+        try { freeCanvas.releasePointerCapture(e.pointerId); } catch(_) {}
+      }
     };
     
-    const endDraw = () => { isDrawing = false; };
-    
-    freeCanvas.addEventListener('mousedown', startDraw);
-    freeCanvas.addEventListener('mousemove', drawMove);
-    window.addEventListener('mouseup', endDraw);
-    freeCanvas.addEventListener('touchstart', startDraw, { passive: false });
-    freeCanvas.addEventListener('touchmove', drawMove, { passive: false });
-    window.addEventListener('touchend', endDraw);
+    freeCanvas.addEventListener('pointerup', stopDraw);
+    freeCanvas.addEventListener('pointercancel', stopDraw);
   }
 }
 

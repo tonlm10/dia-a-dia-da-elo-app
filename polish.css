@@ -884,3 +884,235 @@
 @media (prefers-reduced-motion: reduce) {
   .panel.active { animation: none !important; }
 }
+
+/* Correção Essencial: Modais de Painel (.panelOverlay e .panelCard) */
+.panelOverlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 14000 !important;
+  background: rgba(30, 20, 48, 0.65) !important;
+  backdrop-filter: blur(8px);
+  display: grid !important;
+  place-items: center !important;
+  padding: 16px !important;
+}
+.panelOverlay.hidden {
+  display: none !important;
+}
+.panelOverlay .panelCard {
+  width: min(440px, 92vw) !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  background: #ffffff !important;
+  border-radius: 28px !important;
+  padding: 24px 20px !important;
+  box-shadow: 0 20px 60px rgba(45, 20, 75, 0.35) !important;
+  border: 1px solid rgba(255, 105, 180, 0.25) !important;
+  text-align: left;
+  color: var(--ink) !important;
+  animation: modalCardPop 0.26s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes modalCardPop {
+  0% { transform: scale(0.9) translateY(15px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.panelHead {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+}
+.panelHead h2 {
+  margin: 0 !important;
+  font-size: 22px !important;
+  color: #3b2050 !important;
+}
+.miniClose {
+  border: 0 !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  background: #f3edff !important;
+  color: #7c3aed !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  cursor: pointer !important;
+  display: grid !important;
+  place-items: center !important;
+}
+.miniClose:active {
+  transform: scale(0.92);
+}
+
+
+/* ==========================================================
+   v3.6.0 • TRANSFORMAÇÃO VISUAL 3D MODERNA (TOCA BOCA / CONSOLE)
+   Elimina o visual plano 'anos 90' e adiciona profundidade,
+   tipografia arredondada 'Fredoka', relevo tátil e reflexos glossy.
+   ========================================================== */
+
+/* 1. TIPOGRAFIA BUBBLE & MODERNA */
+body, button, input, select, textarea, h1, h2, h3, h4, h5, b, span, p, .app, .navbtn b, .portalCard h3 {
+  font-family: 'Fredoka', 'Quicksand', system-ui, -apple-system, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 2. BACKGROUND COM PROFUNDIDADE E VIBRAÇÃO */
+body {
+  background: radial-gradient(circle at 15% 15%, #ffe6f5 0%, transparent 40%),
+              radial-gradient(circle at 85% 25%, #e6f0ff 0%, transparent 45%),
+              radial-gradient(circle at 50% 80%, #fff0d4 0%, transparent 50%),
+              linear-gradient(180deg, #fff9fc 0%, #f6f0ff 50%, #f0f7ff 100%) !important;
+  background-attachment: fixed !important;
+}
+
+/* 3. BOTÕES 3D TÁTEIS COM RELEVO DE BRINQUEDO (CLAYMORPHISM) */
+.btn, .btnStarBoutique, .streamingPlayBtn, .schoolOptBtn, .scoreBtn, .heroDailyBonusChip, .heroContinueChip {
+  position: relative !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.75) !important;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.22) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12), 0 3px 0 rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.12s ease !important;
+}
+.btn:active, .btnStarBoutique:active, .streamingPlayBtn:active, .schoolOptBtn:active, .scoreBtn:active, .heroDailyBonusChip:active, .heroContinueChip:active {
+  transform: translateY(3.5px) scale(0.97) !important;
+  border-bottom-width: 1.5px !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 4. OS 6 GRANDES PORTAIS COM EFEITO 3D GLOSS & PROFUNDIDADE */
+.portalCard {
+  border-radius: 28px !important;
+  border: 2px solid rgba(255, 255, 255, 0.65) !important;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.25) !important;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16), inset 0 2px 4px rgba(255, 255, 255, 0.45) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: transform 0.16s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.16s ease !important;
+}
+.portalCard::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 48% !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0) 100%) !important;
+  border-radius: 28px 28px 120px 120px !important;
+  pointer-events: none !important;
+}
+.portalCard:active {
+  transform: translateY(4px) scale(0.97) !important;
+  border-bottom-width: 2px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* Ícones 3D Flutuantes dentro dos Portais */
+.portalCard .portalIcon {
+  font-size: 38px !important;
+  width: 58px !important;
+  height: 58px !important;
+  border-radius: 20px !important;
+  background: rgba(255, 255, 255, 0.28) !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14), inset 0 3px 6px rgba(255, 255, 255, 0.85) !important;
+  animation: floatPortalIcon 3.2s ease-in-out infinite alternate !important;
+}
+@keyframes floatPortalIcon {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-4px) rotate(3deg); }
+}
+
+.portalBadge {
+  border-radius: 12px !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+/* 5. HERO CARD DA ELO 3D (AVATAR VIVO) */
+.homeEloBubble {
+  border-radius: 30px !important;
+  border: 2px solid rgba(255, 255, 255, 0.9) !important;
+  border-bottom: 4px solid rgba(255, 105, 180, 0.3) !important;
+  box-shadow: 0 14px 34px rgba(95, 45, 140, 0.12), inset 0 2px 6px rgba(255, 255, 255, 0.8) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+.homeEloBubble::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important; left: 0 !important; right: 0 !important; height: 42% !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%) !important;
+  border-radius: 30px 30px 100px 100px !important;
+  pointer-events: none !important;
+}
+.heroEloAvatar img {
+  border-radius: 22px !important;
+  border: 2.5px solid #fff !important;
+  box-shadow: 0 8px 18px rgba(235, 59, 136, 0.32) !important;
+  animation: eloBreathe 4s ease-in-out infinite alternate !important;
+}
+@keyframes eloBreathe {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.04) translateY(-2px); }
+}
+
+/* 6. BARRA DE ESTRELAS 3D (MOEDA DE OURO) */
+.headerStars {
+  background: linear-gradient(135deg, #fffbe8 0%, #ffeaa7 100%) !important;
+  border: 2px solid #ffd454 !important;
+  border-bottom: 3.5px solid #d49a12 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 6px 16px rgba(212, 154, 18, 0.28) !important;
+  font-weight: 1000 !important;
+  padding: 7px 13px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+.headerStars span {
+  font-size: 16px !important;
+  color: #d97706 !important;
+  font-weight: 1000 !important;
+}
+
+/* 7. DOCK DE NAVEGAÇÃO 3D FLUTUANTE (ESTILO ILHA NATIVA) */
+nav {
+  left: 14px !important;
+  right: 14px !important;
+  bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+  border-radius: 28px !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 16px 40px rgba(60, 30, 90, 0.18), 0 0 0 2px rgba(255, 255, 255, 0.85) !important;
+  border-top: 0 !important;
+  padding: 8px 10px !important;
+  max-width: 680px !important;
+  margin: 0 auto !important;
+}
+.navbtn {
+  border-radius: 20px !important;
+  transition: transform 0.15s ease, background 0.15s ease !important;
+}
+.navbtn:active {
+  transform: scale(0.92) !important;
+}
+.navbtn.active {
+  background: linear-gradient(135deg, #fff0f7, #fde4f1) !important;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.8), 0 3px 8px rgba(235, 59, 136, 0.15) !important;
+}
+.navbtn.active .navEloIcon {
+  transform: scale(1.1) translateY(-2px) !important;
+  box-shadow: 0 6px 14px rgba(235, 59, 136, 0.35) !important;
+  border: 2px solid #ff4fa1 !important;
+}
+
+/* 8. CARDS GERAIS COM PROFUNDIDADE 3D */
+.card, .familyPartyHero, .schoolHeroModern, .streamingHero, .schoolActivityCard, .scoreboardWrap, .mimeCardContainer {
+  border-radius: 28px !important;
+  box-shadow: 0 16px 36px rgba(65, 30, 95, 0.10), 0 0 0 1px rgba(255, 255, 255, 0.7) !important;
+}

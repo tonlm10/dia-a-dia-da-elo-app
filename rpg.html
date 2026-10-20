@@ -1229,7 +1229,7 @@ drawNpc=function(n,cam){
  else if(pr.kind==='worker'){ctx.fillStyle='#5d7e91';ctx.fillRect(7,1,20,5);ctx.fillStyle='#d0d9dd';ctx.fillRect(29,30,3,10)}
  else if(pr.kind==='celestial'){ctx.fillStyle='#f6d766';ctx.font='15px system-ui';ctx.fillText('☾',20,5)}
  else if(pr.kind==='merchant'){ctx.fillStyle='#f0c060';ctx.fillRect(6,2,22,4)}
- else if(pr.kind==='kid'){ctx.fillStyle='#ff73ad';ctx.beginPath();ctx.ellipse(24,3.6.0,-.3,0,Math.PI*2);ctx.ellipse(30,4,5,3,.3,0,Math.PI*2);ctx.fill()}
+ else if(pr.kind==='kid'){ctx.fillStyle='#ff73ad';ctx.beginPath();ctx.ellipse(24,3,5,3,-.3,0,Math.PI*2);ctx.ellipse(30,4,5,3,.3,0,Math.PI*2);ctx.fill()}
  const marker=rpgxMainMarker(n)||rpgxSideMarker(n);if(marker){ctx.fillStyle=marker==='✓'?'#5cbf78':'#ffda65';ctx.beginPath();ctx.arc(17,-18,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#4a3864';ctx.font='1000 12px system-ui';ctx.textAlign='center';ctx.fillText(marker,17,-14);ctx.textAlign='left'}
  ctx.restore();ctx.save();ctx.fillStyle='rgba(48,37,70,.82)';ctx.font='900 10px system-ui';ctx.textAlign='center';ctx.fillText(n.name,x+17,baseY+59);ctx.restore()
 };
