@@ -226,10 +226,18 @@ function closeColoring(fromHistory=false){if(!fromHistory&&history.state?.type==
 
 const daily=[['Missão da Elo','Dê 5 pulinhos e faça uma pose engraçada!'],['Missão das cores','Ache 3 coisas cor-de-rosa perto de você.'],['Missão do sorriso','Faça alguém da família dar risada.'],['Missão movimento','Imite um sapinho por 10 segundos.'],['Missão desenho','Pinte um desenho da Elo e mostre para alguém.'],['Missão gentil','Faça uma gentileza para alguém da família.']];
 const d=daily[new Date().getDate()%daily.length];
-document.getElementById('dailyText').textContent=d[1];
+const dEl = document.getElementById('dailyText');
+if(dEl) dEl.textContent = d[1];
 const dailyKey='eloDaily'+new Date().toDateString();
-if(pget(dailyKey))document.getElementById('dailyProgress').style.width='100%';
-function completeDaily(){if(pget(dailyKey))return toast('A missão de hoje já foi concluída 💗');pset(dailyKey,'1');document.getElementById('dailyProgress').style.width='100%';addStars(2,'Missão concluída! +2 ⭐')}
+const dpEl = document.getElementById('dailyProgress');
+if(pget(dailyKey) && dpEl) dpEl.style.width='100%';
+function completeDaily(){
+  if(pget(dailyKey)) return toast('A missão de hoje já foi concluída 💗');
+  pset(dailyKey,'1');
+  const p = document.getElementById('dailyProgress');
+  if(p) p.style.width='100%';
+  addStars(2,'Missão concluída! +2 ⭐');
+}
 
 function renderStoryStrip(){const box=document.getElementById('storyStrip');if(!box)return;box.innerHTML=STORIES.map((s,i)=>`<button class="storyCard" onclick="openStory(${i})"><div class="storyThumb" style="background-image:url('assets/stories/${s.id}-cover.webp')"><span class="numBadge">${i+1}</span><span class="heartBadge">${favorites.includes(s.id)?'♥':'♡'}</span></div><div class="storyInfo"><b>${s.title}</b><small>${s.summary}</small></div></button>`).join('')}
 function renderLibrary(){const box=document.getElementById('libraryGrid');box.innerHTML=STORIES.map((s,i)=>`<article class="libCard"><div class="libCover" style="background-image:url('assets/stories/${s.id}-cover.webp')"><span class="numBadge">${i+1}</span><button class="fav ${favorites.includes(s.id)?'on':''}" onclick="toggleFav('${s.id}',event)">${favorites.includes(s.id)?'♥':'♡'}</button></div><div class="libBody"><h3>${s.title}</h3><p>${s.summary}</p><div class="libMeta"><small>📖 ${s.pages} páginas ${readStories.includes(s.id)?'• ✅ lida':''}</small><button class="btn" onclick="openStory(${i})">Ler</button></div></div></article>`).join('')}
@@ -239,8 +247,11 @@ function renderReader(){const s=STORIES[currentStory],page=document.getElementBy
 function nextPage(){const s=STORIES[currentStory];if('speechSynthesis'in window)speechSynthesis.cancel();if(currentPage<s.pages-1){currentPage++;renderReader()}else toast('Fim da história 💗')}
 function prevPage(){if('speechSynthesis'in window)speechSynthesis.cancel();if(currentPage>0){currentPage--;renderReader()}else toast('Você está na primeira página')}
 let touchX=0;
-document.getElementById('storyPage').addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});
-document.getElementById('storyPage').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX;if(dx<-45)nextPage();if(dx>45)prevPage()},{passive:true});
+const spEl = document.getElementById('storyPage');
+if(spEl){
+  spEl.addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});
+  spEl.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX;if(dx<-45)nextPage();if(dx>45)prevPage()},{passive:true});
+}
 
 const CINEMA_SHORTS_PLAYLIST='PLhOZycBHbEs5yoHE1PgIDLfn08_7rd86u';
 const CINEMA_LATEST_PLAYLIST='UUBPBaYweoBPjr8XlfOz1dwQ'; // playlist automática de uploads do canal
@@ -800,7 +811,17 @@ renderColoringGallery();
 chooseColoring(0);
 renderBadges();
 renderEnglishHomeProgress();
-window.addEventListener('load',()=>setTimeout(()=>{const s=document.getElementById('splash');s.style.opacity='0';setTimeout(()=>s.remove(),450)},700));
+function dismissAppSplash(){
+  const s = document.getElementById('splash');
+  if(s){
+    s.style.opacity = '0';
+    s.style.pointerEvents = 'none';
+    setTimeout(()=>{ try{ s.remove(); }catch(_){} }, 450);
+  }
+}
+window.addEventListener('load', ()=>setTimeout(dismissAppSplash, 350));
+if(document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(dismissAppSplash, 500);
+setTimeout(dismissAppSplash, 1200);
 if('serviceWorker' in navigator){
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
     if(!sessionStorage.getItem('elo-reloaded-'+APP_VERSION)){

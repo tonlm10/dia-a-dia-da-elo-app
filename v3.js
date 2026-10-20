@@ -285,7 +285,7 @@ function renderParentV3(){const root=document.getElementById('v3ParentProgress')
 
 // Hook seguro de navegação sem alterar o RPG restaurado.
 const oldOpenPanel=window.openPanel;
-window.openPanel=function(id,nav,fromHistory=false){oldOpenPanel(id,nav,fromHistory);if(id==='collectionPanel')renderCollection();if(id==='roomPanel')renderRoom();if(id==='wardrobePanel')renderWardrobe();if(id==='creativePanel')renderCreative();if(id==='familyPanel'&&!familyType){document.getElementById('familyGameBox').innerHTML='<p class="muted">Escolha uma brincadeira acima.</p>'}if(id==='interactiveStoriesPanel')renderInteractiveList();if(id==='parentsPanel')renderParentV3();};
+window.openPanel=function(id,nav,fromHistory=false){oldOpenPanel(id,nav,fromHistory);if(id==='collectionPanel')renderCollection();if(id==='roomPanel')renderRoom();if(id==='wardrobePanel')renderWardrobe();if(id==='creativePanel')renderCreative();if(id==='familyPanel'&&!familyType){const fg=document.getElementById('familyGameBox');if(fg)fg.innerHTML='<p class="muted">Escolha uma brincadeira acima.</p>'}if(id==='interactiveStoriesPanel')renderInteractiveList();if(id==='parentsPanel')renderParentV3();};
 
 // Coleções por marcos reais, sem recompensas a cada clique.
 const oldAddStars=window.addStars;
