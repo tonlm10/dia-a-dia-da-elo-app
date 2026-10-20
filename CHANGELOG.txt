@@ -1,3 +1,19 @@
+v3.6.0 — Mega Expansão: RPG, Streaming, Personalização Completa e Monetização
+- RPG: novo menu de Magias com 4 poderes estratégicos (Raio Estelar, Cura Florida, Escudo Arco-Íris e Chuva de Meteoros).
+- RPG: efeitos visuais mágicos dedicados na tela de batalha (raios cintilantes, pétalas curativas, domo arco-íris e chuva de meteoros).
+- RPG: novas regiões exploráveis (Clareira Secreta dos Unicórnios e Gruta dos Cristais Cintilantes) com baús de tesouro e NPCs.
+- RPG: vitórias e missões agora premiam com ⭐ estrelas reais creditadas diretamente no perfil do app principal.
+- Guarda-roupa: personalização completa com 4 tons de pele, 5 cores de olhos e novos cabelos (Afro Estrelar, Curto Moderno, Tranças e Mechas).
+- Guarda-roupa: novos vestidos (Fada Borboleta, Astronauta, Sereia) e acessórios (Asinhas Luminosas, Fone Gatinho, Óculos Coração).
+- Guarda-roupa: animação comemorativa com saltinho e estrelas sempre que a criança experimenta um novo visual.
+- Quarto da Elo: novas decorações (Parede Galáxia, Cama Nuvem, Tapete Cometa, Robô Amigo, Dragãozinho e Casinha Encantada).
+- Monetização Ética: Baú das Estrelas com Recompensa Diária (+10 ⭐), Vídeo Premiado da Elo (+10 ⭐) e Pacotes VIP protegidos por PIN dos pais.
+- Cinema da Elo: visual de plataforma de streaming moderna com banner de lançamento do canal e filtros rápidos (Aventuras, Músicas, Shorts, Escolinha).
+- Bichinho Virtual: 6 espécies aleatórias no nascimento (Unicórnio, Gatinho, Cachorrinho, Coelhinho, Dragãozinho e Pônei).
+- Bichinho Virtual: ciclo de vida completo (Ovo -> Bebê -> Criança -> Adolescente -> Adulto -> Idoso -> Jornada das Estrelas).
+- Bichinho Virtual: se ficar sem cuidados prolongados, em vez de morrer, o bichinho deixa uma cartinha comovente e recomeça com um novo ovinho.
+- Sistema de Partículas: confetes e estrelas explodem na tela comemorando qualquer conquista de estrelas no app.
+
 v3.5.3
 - Cinema da Elo: a seção Mais recente agora usa diretamente a playlist automática de uploads do canal e sempre aponta para o conteúdo mais novo publicado, sem exigir atualização do app.
 - O card de Mais recente deixa de depender da leitura do catálogo por API e passa a acompanhar o canal dinamicamente.

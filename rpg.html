@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#7155c7">
 <title>Elo e o Reino das Estrelas</title>
-<link rel="stylesheet" href="v3.css?v=3.5.3">
+<link rel="stylesheet" href="v3.css?v=3.6.0">
 <style>
 :root{--ink:#302546;--pink:#ff69a9;--purple:#7357c9;--paper:#fffafd;--muted:#796f86;--shadow:0 18px 42px rgba(55,37,86,.18)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f6f0ff;color:var(--ink);user-select:none}button{font:inherit}.hidden{display:none!important}#rpgApp{height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff4fa,#f1edff)}
@@ -21,7 +21,7 @@
 .storyOverlay{background:radial-gradient(circle at 50% 20%,rgba(255,255,255,.45),rgba(42,28,69,.78)),linear-gradient(145deg,#7b60d8,#ff78b1)}.storyCard{width:min(620px,94vw);background:rgba(255,250,253,.96);border-radius:30px;padding:26px;text-align:center;box-shadow:var(--shadow)}.storyStars{font-size:34px}.storyCard h1{font-size:28px;margin:8px 0;color:#6c4fbd}.storyCard p{line-height:1.5;color:#5d536a}.storyCard .mainBtn,.storyCard .softBtn{width:100%;margin-top:8px}
 
 .rpgEloLayer{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}.rpgEloLayer .rpgEloClone{position:absolute!important;width:150px!important;height:325px!important;transform-origin:top left!important;will-change:left,top,transform;filter:drop-shadow(0 5px 4px rgba(44,28,54,.18))}
-/* v3.5.3 — direção visual da Elo mantendo exatamente o look do guarda-roupa */
+/* v3.6.0 — direção visual da Elo mantendo exatamente o look do guarda-roupa */
 .rpgEloClone.rpg-dir-up .dollHead .eye,.rpgEloClone.rpg-dir-up .dollHead .mouth,.rpgEloClone.rpg-dir-up .dollHead .blush{opacity:0!important}
 .rpgEloClone.rpg-dir-up .dollHairFront{left:34px!important;top:24px!important;width:82px!important;height:80px!important;border-radius:48% 48% 40% 40%!important;clip-path:none!important;z-index:4!important}
 .rpgEloClone.rpg-dir-up .dollEarring,.rpgEloClone.rpg-dir-up .dollNecklace{opacity:0!important}
@@ -53,7 +53,7 @@
 @media(max-width:560px){.rpgTop{height:64px}.gameTitle strong{font-size:15px}.hud{grid-template-columns:48px 1fr 1fr 1fr 58px}.hudBox{padding:6px 5px}.mobileControls{height:128px}.statsGrid{grid-template-columns:repeat(2,1fr)}.shopItems{grid-template-columns:1fr 1fr}.medalGrid{grid-template-columns:repeat(3,1fr)}.dialogCard{grid-template-columns:58px 1fr;padding:13px}.portrait{width:58px;height:58px;font-size:30px}.objective p{max-width:72vw}.panelCard{max-height:92vh}.battleCard{padding:13px;max-height:95vh}.battleCard canvas{margin:7px 0;height:auto}.eloBattleStatus{gap:6px}.eloBattleBox{padding:8px}.eloBattleBox strong{font-size:10px}.eloBattleBox small{font-size:10px}}
 
 
-/* v3.5.3 RPG Definitivo */
+/* v3.6.0 RPG Definitivo */
 .bossIntent{display:none;margin:8px 0;padding:9px 12px;border-radius:14px;background:linear-gradient(135deg,#fff2b8,#ffe3ee);border:1px solid #f0cf77;color:#594366;font-weight:1000;font-size:12px;box-shadow:0 5px 14px rgba(105,76,132,.10)}
 .bossIntent.on{display:block;animation:rpgPulse .8s ease-in-out infinite alternate}
 @keyframes rpgPulse{from{transform:scale(1);filter:brightness(1)}to{transform:scale(1.012);filter:brightness(1.04)}}
@@ -65,7 +65,7 @@
 <div id="rpgApp">
   <header class="rpgTop">
     <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
-    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v3.5.3</span></div>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v3.6.0</span></div>
     <button id="musicBtn" class="topBtn" aria-label="Música">🔊</button><button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
   </header>
 
@@ -122,6 +122,16 @@
         <button data-battle="defend">🛡️ Defender</button>
         <button data-battle="item">🧪 Item</button>
       </div>
+    </div>
+  </div>
+
+  
+  <!-- Overlay de Seleção de Magias da Elo -->
+  <div id="battleMagicOverlay" class="overlay hidden panelOverlay">
+    <div class="panelCard">
+      <div class="panelHead"><h2>💖 Escolha uma Magia</h2><button class="miniClose" data-close="battleMagicOverlay">×</button></div>
+      <p class="muted">Escolha o poder mágico que a Elo vai conjurar nesta rodada.</p>
+      <div id="battleMagicList" class="panelList"></div>
     </div>
   </div>
 
@@ -1032,7 +1042,7 @@ function bind(){
 
 
 /* ==========================================================
-   v3.5.3 — RPG DEFINITIVO
+   v3.6.0 — RPG DEFINITIVO
    Polimento visual, IA, chefões, mapas, NPCs, guia, extras e pós-jogo.
    Mantém a campanha principal e saves existentes.
    ========================================================== */
@@ -1219,7 +1229,7 @@ drawNpc=function(n,cam){
  else if(pr.kind==='worker'){ctx.fillStyle='#5d7e91';ctx.fillRect(7,1,20,5);ctx.fillStyle='#d0d9dd';ctx.fillRect(29,30,3,10)}
  else if(pr.kind==='celestial'){ctx.fillStyle='#f6d766';ctx.font='15px system-ui';ctx.fillText('☾',20,5)}
  else if(pr.kind==='merchant'){ctx.fillStyle='#f0c060';ctx.fillRect(6,2,22,4)}
- else if(pr.kind==='kid'){ctx.fillStyle='#ff73ad';ctx.beginPath();ctx.ellipse(24,3,5,3,-.3,0,Math.PI*2);ctx.ellipse(30,4,5,3,.3,0,Math.PI*2);ctx.fill()}
+ else if(pr.kind==='kid'){ctx.fillStyle='#ff73ad';ctx.beginPath();ctx.ellipse(24,3.6.0,-.3,0,Math.PI*2);ctx.ellipse(30,4,5,3,.3,0,Math.PI*2);ctx.fill()}
  const marker=rpgxMainMarker(n)||rpgxSideMarker(n);if(marker){ctx.fillStyle=marker==='✓'?'#5cbf78':'#ffda65';ctx.beginPath();ctx.arc(17,-18,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#4a3864';ctx.font='1000 12px system-ui';ctx.textAlign='center';ctx.fillText(marker,17,-14);ctx.textAlign='left'}
  ctx.restore();ctx.save();ctx.fillStyle='rgba(48,37,70,.82)';ctx.font='900 10px system-ui';ctx.textAlign='center';ctx.fillText(n.name,x+17,baseY+59);ctx.restore()
 };
@@ -1367,6 +1377,350 @@ drawMiniLabel=function(cam){const list=[...maps[state.map].objects.filter(o=>o.l
 const oldLoadSaveRpgx=loadSave;
 loadSave=function(){const ok=oldLoadSaveRpgx();state.flags=state.flags||{};rpgxSide();state.flags.rpg340=true;return ok};
 
+
+
+/* ==========================================================
+   v3.6.0 — EXPANSÃO MÁGICA, NOVAS REGIÕES E SINCRONIA COM O APP
+   - Menu dinâmico de Magias com 4 poderes selecionáveis.
+   - Efeitos visuais mágicos dedicados na tela de batalha.
+   - Novas regiões: Clareira dos Unicórnios e Gruta dos Cristais.
+   - Sincronização de estrelas reais com o app principal da Elo.
+   ========================================================== */
+
+function sendStarsToParent(amount, msg){
+  try {
+    if(window.parent && window.parent !== window){
+      window.parent.postMessage({type: 'rpg-stars', amount: Number(amount)||1, msg: msg || 'Você ganhou estrelas no RPG! ⭐'}, '*');
+    }
+  } catch(_){}
+}
+
+const RPG_SPELLS_V360 = [
+  {id:'starRay', name:'Raio Estelar', icon:'✨', cost:3, minLv:1, desc:'Feixe de luz estelar rápido com dano mágico concentrado.'},
+  {id:'flowerHeal', name:'Cura Florida', icon:'🌸', cost:4, minLv:2, desc:'Restaura 40 de Energia e recupera 2 MP da Elo.'},
+  {id:'rainbowShield', name:'Escudo Arco-Íris', icon:'🌈', cost:4, minLv:3, desc:'Reduz 75% do dano e reflete parte do golpe no inimigo.'},
+  {id:'meteorShower', name:'Chuva de Meteoros', icon:'🌠', cost:6, minLv:4, desc:'Poder supremo das estrelas: causa dano mágico massivo.'}
+];
+
+function openBattleMagicPicker(){
+  const list = $('#battleMagicList');
+  if(!list) return;
+  const unlocked = RPG_SPELLS_V360.filter(s => state.level >= s.minLv);
+  list.innerHTML = unlocked.map(s => {
+    const can = state.mp >= s.cost;
+    return `<div class="listCard ${can ? '' : 'locked'}">
+      <div class="ico">${s.icon}</div>
+      <div class="grow">
+        <b>${s.name}</b>
+        <small>${s.desc} • Custo: ${s.cost} MP</small>
+      </div>
+      <button class="softBtn" ${can ? `onclick="window.__castSpell('${s.id}')"` : 'disabled'}>${can ? 'Conjurar ✨' : 'Sem MP'}</button>
+    </div>`;
+  }).join('');
+  $('#battleMagicOverlay').classList.remove('hidden');
+}
+window.__castSpell = function(id){
+  closeOverlay('battleMagicOverlay');
+  castBattleSpellV360(id);
+};
+
+function castBattleSpellV360(id){
+  if(!battle || battle.turnLocked) return;
+  const s = RPG_SPELLS_V360.find(x => x.id === id);
+  if(!s || state.mp < s.cost){
+    $('#battleText').textContent = `Magia insuficiente para ${s?.name || 'este poder'}.`;
+    return;
+  }
+  battle.turnLocked = true;
+  state.mp -= s.cost;
+  const st = stats();
+
+  if(id === 'flowerHeal'){
+    heal(40);
+    state.mp = Math.min(state.maxMp, state.mp + 2);
+    sfx('magic');
+    rpgxSetFx('flowerHeal');
+    $('#battleText').textContent = `🌸 Cura Florida! Elo recuperou 40 de energia e perfumou o campo!`;
+    updateBattleUI();
+    setTimeout(enemyTurn, 650);
+  } else if(id === 'rainbowShield'){
+    battle.rainbowShield = true;
+    sfx('magic');
+    rpgxSetFx('rainbowShield');
+    $('#battleText').textContent = `🌈 Escudo Arco-Íris! Elo criou uma cúpula protetora refletora!`;
+    updateBattleUI();
+    setTimeout(enemyTurn, 650);
+  } else {
+    const isMeteor = id === 'meteorShower';
+    const mult = isMeteor ? 2.5 : 1.6;
+    const bonus = isMeteor ? 16 : 6;
+    let dmg = Math.max(4, Math.floor(st.mag * mult + bonus + Math.random()*6 - battle.def));
+    if(battle.type === 'golem' && battle.shield){
+      battle.shield = false;
+      dmg = Math.floor(dmg * 1.35);
+      $('#battleText').textContent = `💥 ${s.name} quebrou o escudo do Golem! ${dmg} de dano!`;
+    } else {
+      $('#battleText').textContent = `${s.name}! ${dmg} de dano mágico ${s.icon}`;
+    }
+    battle.hp -= dmg;
+    sfx('magic');
+    rpgxSetFx(isMeteor ? 'meteorShower' : 'starRay');
+    afterPlayerTurn();
+  }
+}
+
+// Hook de batalha no battleAction para abrir seletor
+const prevBattleActionV353 = battleAction;
+battleAction = function(type){
+  if(type === 'magic'){
+    openBattleMagicPicker();
+    return;
+  }
+  prevBattleActionV353(type);
+};
+
+// Hook no turno do inimigo para aplicar reflexão do Escudo Arco-Íris
+const prevEnemyTurnV353 = enemyTurn;
+enemyTurn = function(){
+  if(battle && battle.rainbowShield){
+    const st = stats();
+    battle.turnCount = (battle.turnCount || 0) + 1;
+    let baseDmg = Math.max(2, Math.floor(battle.atk + Math.random()*4 - st.def));
+    let absorbedDmg = Math.max(1, Math.floor(baseDmg * 0.25));
+    let reflectedDmg = Math.max(3, Math.floor(baseDmg * 0.75 + 4));
+    state.hp -= absorbedDmg;
+    battle.hp -= reflectedDmg;
+    battle.rainbowShield = false;
+    sfx('magic');
+    rpgxSetFx('rainbowShield');
+    $('#battleText').textContent = `🌈 O Escudo Arco-Íris absorveu o golpe! Elo sofreu só ${absorbedDmg} e refletiu ${reflectedDmg} no adversário!`;
+    updateBattleUI();
+    if(battle.hp <= 0) return setTimeout(winBattle, 650);
+    if(state.hp <= 0) return setTimeout(loseBattle, 700);
+    battle.turnLocked = false;
+    return;
+  }
+  prevEnemyTurnV353();
+};
+
+// Novos efeitos visuais de batalha no canvas
+const prevDrawFxV353 = rpgxDrawFx;
+rpgxDrawFx = function(){
+  const fx = RPGX.battleFx;
+  if(!fx){ return; }
+  const p = (performance.now() - fx.start) / fx.dur;
+  if(p >= 1){ RPGX.battleFx = null; return; }
+
+  if(fx.kind === 'starRay'){
+    bctx.save();
+    bctx.globalAlpha = 1 - p;
+    // Raio estelar de Elo ao Inimigo
+    const grd = bctx.createLinearGradient(120, 130, 485, 110);
+    grd.addColorStop(0, '#fff4a8');
+    grd.addColorStop(0.5, '#76e4ff');
+    grd.addColorStop(1, '#ff84ca');
+    bctx.strokeStyle = grd;
+    bctx.lineWidth = 10 * (1 - p) + 3;
+    bctx.beginPath();
+    bctx.moveTo(120, 130);
+    bctx.lineTo(485, 110);
+    bctx.stroke();
+    // Explosão estelar no alvo
+    bctx.fillStyle = '#fff8bd';
+    bctx.beginPath();
+    bctx.arc(485, 110, 15 + p * 55, 0, Math.PI*2);
+    bctx.fill();
+    bctx.restore();
+    return;
+  }
+  if(fx.kind === 'flowerHeal'){
+    bctx.save();
+    bctx.globalAlpha = 1 - p;
+    // Círculo florido e pétalas subindo
+    bctx.strokeStyle = '#85f59c';
+    bctx.lineWidth = 6 * (1 - p) + 2;
+    bctx.beginPath();
+    bctx.ellipse(110, 150, 45, 18, 0, 0, Math.PI*2);
+    bctx.stroke();
+    // Flores flutuando
+    bctx.font = `${Math.floor(18 + p * 6)}px system-ui`;
+    bctx.textAlign = 'center';
+    const flowers = ['🌸', '✨', '💗', '🌺'];
+    for(let i=0; i<4; i++){
+      const a = (i * Math.PI / 2) + p * 3;
+      const fxX = 110 + Math.cos(a) * 36;
+      const fxY = 145 - p * 60 + Math.sin(a) * 14;
+      bctx.fillText(flowers[i], fxX, fxY);
+    }
+    bctx.restore();
+    return;
+  }
+  if(fx.kind === 'rainbowShield'){
+    bctx.save();
+    bctx.globalAlpha = 1 - p * 0.7;
+    // Domo de arco-íris sobre a Elo
+    const rainbowColors = ['#ff6f91', '#ff9671', '#ffc75f', '#48cfae', '#4fc1e9', '#ac92ec'];
+    for(let i=0; i<rainbowColors.length; i++){
+      bctx.strokeStyle = rainbowColors[i];
+      bctx.lineWidth = 3.5;
+      bctx.beginPath();
+      bctx.arc(110, 155, 36 + i * 4 + Math.sin(p * 8) * 3, Math.PI, Math.PI*2);
+      bctx.stroke();
+    }
+    bctx.restore();
+    return;
+  }
+  if(fx.kind === 'meteorShower'){
+    bctx.save();
+    bctx.globalAlpha = 1 - p;
+    // Meteoros caindo
+    for(let i=0; i<5; i++){
+      const startX = 280 + i * 65 - p * 70;
+      const startY = 10 + i * 25 - p * 30;
+      const endX = 420 + i * 20;
+      const endY = 85 + i * 18;
+      bctx.strokeStyle = i%2 ? '#ffd45c' : '#a8e7ff';
+      bctx.lineWidth = 4;
+      bctx.beginPath();
+      bctx.moveTo(startX, startY);
+      bctx.lineTo(endX, endY);
+      bctx.stroke();
+      bctx.fillStyle = '#fff';
+      bctx.beginPath();
+      bctx.arc(endX, endY, 6 + p * 12, 0, Math.PI*2);
+      bctx.fill();
+    }
+    bctx.restore();
+    return;
+  }
+  prevDrawFxV353();
+};
+
+// Sincronização de estrelas reais com o app ao vencer batalhas
+const prevWinBattleV353 = winBattle;
+winBattle = function(){
+  if(battle){
+    const rewardStars = battle.boss ? 10 : 2;
+    const msg = battle.boss ? `Grande vitória contra ${battle.name}! +${rewardStars} ⭐ para seu Quarto!` : `Vitória no RPG! +${rewardStars} ⭐`;
+    sendStarsToParent(rewardStars, msg);
+  }
+  prevWinBattleV353();
+};
+
+// ==========================================================
+// NOVAS REGIÕES EXPANDIDAS
+// ==========================================================
+
+// 1. Clareira dos Unicórnios (ligada ao Bosque)
+maps.unicornGlade = {
+  name: 'Clareira dos Unicórnios',
+  w: 24, h: 18,
+  bg: '#c5f2db', floor: '#82d989',
+  walls: [
+    rect(0, 0, 24*TILE, 24),
+    rect(0, 0, 24, 18*TILE),
+    rect(24*TILE-24, 0, 24, 18*TILE),
+    rect(0, 18*TILE-24, 9*TILE, 24),
+    rect(15*TILE, 18*TILE-24, 9*TILE, 24)
+  ],
+  objects: [],
+  npcs: [],
+  enemies: []
+};
+INTERIOR_MAPS.add('unicornGlade');
+
+// Decorações da Clareira
+addObj('unicornGlade', 'pond', 9*TILE, 6*TILE, 6*TILE, 4*TILE, {label: 'Lago dos Sonhos'});
+addObj('unicornGlade', 'glowPool', 10*TILE, 7*TILE, 4*TILE, 2*TILE);
+addObj('unicornGlade', 'flowerbed', 3*TILE, 3*TILE, 4*TILE, 2*TILE);
+addObj('unicornGlade', 'flowerbed', 17*TILE, 3*TILE, 4*TILE, 2*TILE);
+addObj('unicornGlade', 'butterflies', 7*TILE, 5*TILE, 1*TILE, 1*TILE);
+addObj('unicornGlade', 'butterflies', 16*TILE, 11*TILE, 1*TILE, 1*TILE);
+addObj('unicornGlade', 'sparkles', 12*TILE, 8*TILE, 1*TILE, 1*TILE);
+addObj('unicornGlade', 'treasureChest', 20*TILE, 5*TILE, 1*TILE, 1*TILE, {id: 'unicornGladeChest', label: 'Baú dos Sonhos'});
+addObj('unicornGlade', 'houseDoor', 10.5*TILE, 16.8*TILE, 3*TILE, 1.2*TILE, {label: 'Voltar ao Bosque', to: 'forest', spawn: {x: 36*TILE, y: 7*TILE}});
+
+// NPCs da Clareira
+addNpc('unicornGlade', 'lumaBaby', 'Luminho', 12*TILE, 5.2*TILE, '', ['Oi, Elo! Eu sou o Luminho, o bebê unicórnio! 🦄✨'], {wander: true, wanderRadius: 40, wanderAxis: 'x'});
+addNpc('unicornGlade', 'fadaCeleste', 'Fada Celeste', 5*TILE, 7.5*TILE, '', ['Bem-vinda à nossa Clareira Secreta! Os unicórnios adoram sua energia gentil.']);
+
+// Passagem no Bosque para a Clareira
+addObj('forest', 'houseDoor', 36*TILE, 4.8*TILE, 2.6*TILE, 1.5*TILE, {label: 'Clareira dos Unicórnios', to: 'unicornGlade', spawn: {x: 12*TILE, y: 15*TILE}});
+addObj('forest', 'butterflies', 35*TILE, 5.8*TILE, 1*TILE, 1*TILE);
+
+// 2. Gruta dos Cristais Cintilantes (ligada à Caverna do Brilho)
+maps.crystalCave = {
+  name: 'Gruta dos Cristais',
+  w: 22, h: 20,
+  bg: '#251e39', floor: '#493868',
+  walls: [
+    rect(0, 0, 22*TILE, 24),
+    rect(0, 0, 24, 20*TILE),
+    rect(22*TILE-24, 0, 24, 20*TILE),
+    rect(0, 20*TILE-24, 8*TILE, 24),
+    rect(14*TILE, 20*TILE-24, 8*TILE, 24)
+  ],
+  objects: [],
+  npcs: [],
+  enemies: []
+};
+INTERIOR_MAPS.add('crystalCave');
+
+// Decorações da Gruta
+addObj('crystalCave', 'glowPool', 8*TILE, 8*TILE, 5*TILE, 3*TILE);
+addObj('crystalCave', 'crystal', 4*TILE, 4*TILE, 2*TILE, 2*TILE);
+addObj('crystalCave', 'crystal', 16*TILE, 4*TILE, 2*TILE, 2*TILE);
+addObj('crystalCave', 'sparkles', 10*TILE, 11*TILE, 2*TILE, 2*TILE);
+addObj('crystalCave', 'treasureChest', 17*TILE, 6*TILE, 1*TILE, 1*TILE, {id: 'crystalGrottoChest', label: 'Baú de Safira'});
+addObj('crystalCave', 'serviceExit', 9.5*TILE, 18.7*TILE, 3*TILE, 1.2*TILE, {label: 'Voltar à Caverna', to: 'cave', spawn: {x: 24*TILE, y: 7*TILE}});
+
+// NPCs e Inimigos da Gruta
+addNpc('crystalCave', 'sabioCristal', 'Mestre Cristal', 11*TILE, 5.5*TILE, '', ['Estes cristais guardam o brilho puro das constelações. Sinta a magia fluir! 💎']);
+addEnemy('crystalCave', 'crystSpark1', 'spark', 6*TILE, 12*TILE);
+addEnemy('crystalCave', 'crystSpark2', 'spark', 15*TILE, 13*TILE);
+
+// Passagem na Caverna do Brilho para a Gruta
+addObj('cave', 'caveEntrance', 23.5*TILE, 4.5*TILE, 3*TILE, 2*TILE, {label: 'Gruta dos Cristais Cintilantes', to: 'crystalCave', spawn: {x: 11*TILE, y: 17*TILE}});
+
+// NPCs de estilo e perfis estéticos
+RPGX_NPC.lumaBaby = {skin:'#fff', hair:'#ff70be', shirt:'#fff', robe:'#ffd765', kind:'fairy'};
+RPGX_NPC.fadaCeleste = {skin:'#edd2ff', hair:'#8a6fff', shirt:'#c9b5ff', robe:'#eadaff', kind:'celestial'};
+RPGX_NPC.sabioCristal = {skin:'#c5dfff', hair:'#608eff', shirt:'#4466b0', robe:'#98baff', kind:'wizard'};
+
+// Recompensa de baú especial
+const prevInteractObjV353 = interactObject;
+interactObject = function(o){
+  if(o.type === 'treasureChest' && (o.id === 'unicornGladeChest' || o.id === 'crystalGrottoChest') && !state.flags['collected_' + o.id]){
+    state.flags['collected_' + o.id] = true;
+    sfx('chest');
+    addCoins(75);
+    state.inventory.potion = (state.inventory.potion || 0) + 2;
+    state.inventory.manaMedium = (state.inventory.manaMedium || 0) + 2;
+    sendStarsToParent(5, 'Tesouro especial encontrado! +5 ⭐');
+    saveGame(true);
+    dialog('Elo', o.id === 'unicornGladeChest' ? 'Uau! Encontrei 75 moedas, 2 Poções e 5 Estrelas no Baú dos Sonhos! 🦄⭐' : 'Incrível! Encontrei 75 moedas, 2 Poções Safira e 5 Estrelas na Gruta! 💎⭐', 'npc');
+    return;
+  }
+  prevInteractObjV353(o);
+};
+
+// Nomes de mapas no menu
+const prevRenderMenuV353 = renderMenu;
+renderMenu = function(tab){
+  prevRenderMenuV353(tab);
+  if(tab === 'map'){
+    const names = {
+      home:'🏠 Casa da Elo', city:'🏘️ Vila das Estrelas', neighbor:'🏡 Casa da Sofia', blueHouse:'🏡 Casa Azul', flowerHouse:'🌸 Casa das Flores',
+      wizardHouse:'🔮 Casa do Mago', meadow:'🌿 Campina Encantada', cave:'💎 Caverna do Brilho', crystalCave:'🔮 Gruta dos Cristais',
+      forest:'🌲 Bosque Sussurrante', unicornGlade:'🦄 Clareira dos Unicórnios', market:'🏘️ Vila do Mercado', bridge:'🌉 Ponte Antiga',
+      temple:'🌠 Templo das Estrelas', starRoad:'💠 Caminho Celeste'
+    };
+    const c = $('#menuContent');
+    if(c){
+      c.innerHTML = Object.keys(names).map(k => `<div class="listCard"><div class="ico">${state.discovered.includes(k) ? names[k].split(' ')[0] : '❓'}</div><div class="grow"><b>${state.discovered.includes(k) ? names[k].slice(2) : 'Lugar ainda não descoberto'}</b><small>${k === state.map ? 'Você está aqui' : ''}</small></div></div>`).join('');
+    }
+  }
+};
 
 const hadSave=loadSave();bind();updateHud();$('#locationTag').textContent=maps[state.map].name;if(hadSave){$('#continueStoryBtn').classList.remove('hidden');$('#startStoryBtn').classList.add('hidden')}
 state.started=hadSave?true:false;if(hadSave)$('#introOverlay').classList.remove('hidden');

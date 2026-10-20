@@ -41,12 +41,49 @@ const ROOM_DECOR=[
  {id:'kite',kind:'toy',icon:'🪁',name:'Pipa',need:22,shape:'kite'},
  {id:'cat',kind:'toy',icon:'🐱',name:'Gatinho',need:30,shape:'cat'},
  {id:'blocks',kind:'toy',icon:'🧱',name:'Blocos',need:36,shape:'blocks'},
- {id:'rocket',kind:'toy',icon:'🚀',name:'Foguete',need:42,shape:'rocket'}
+ {id:'rocket',kind:'toy',icon:'🚀',name:'Foguete',need:42,shape:'rocket'},
+ {id:'wallGalaxy',kind:'wall',icon:'🌌',name:'Parede Galáxia',need:30,className:'wall-galaxy'},
+ {id:'wallCandy',kind:'wall',icon:'🍭',name:'Parede Confeitos',need:22,className:'wall-candy'},
+ {id:'wallCastle',kind:'wall',icon:'🏰',name:'Parede Castelo',need:35,className:'wall-castle'},
+ {id:'artUnicorn',kind:'art',icon:'🦄',name:'Quadro Unicórnio',need:20},
+ {id:'artFriends',kind:'art',icon:'👭',name:'Quadro Amigas',need:15},
+ {id:'artSpace',kind:'art',icon:'🚀',name:'Quadro Espacial',need:25},
+ {id:'bedCloud',kind:'bed',icon:'☁️',name:'Cama Nuvem',need:28},
+ {id:'bedCastle',kind:'bed',icon:'🏰',name:'Cama Castelo',need:40},
+ {id:'bedRainbow',kind:'bed',icon:'🌈',name:'Cama Arco-Íris',need:35},
+ {id:'rugComet',kind:'rug',icon:'☄️',name:'Tapete Cometa',need:20},
+ {id:'rugPaw',kind:'rug',icon:'🐾',name:'Tapete Patinha',need:12},
+ {id:'rugButterfly',kind:'rug',icon:'🦋',name:'Tapete Borboleta',need:18},
+ {id:'robotToy',kind:'toy',icon:'🤖',name:'Robô Amigo',need:20,shape:'robot'},
+ {id:'dragonToy',kind:'toy',icon:'🐲',name:'Dragãozinho',need:28,shape:'dragon'},
+ {id:'dollhouseToy',kind:'toy',icon:'🏡',name:'Casinha Mágica',need:32,shape:'dollhouse'}
+
 ];
 const WARDROBE_CATEGORIES=[
- {id:'hairstyle',name:'Cabelos',icon:'💇‍♀️'},{id:'top',name:'Camisetas',icon:'👚'},{id:'bottom',name:'Shorts, saias e calças',icon:'🩳'},{id:'dress',name:'Vestidos',icon:'👗'},{id:'shoes',name:'Sapatos',icon:'👟'},{id:'hair',name:'Laços e tiaras',icon:'🎀'},{id:'earrings',name:'Brincos',icon:'💎'},{id:'ring',name:'Anéis',icon:'💍'},{id:'bracelet',name:'Pulseiras',icon:'⌚'},{id:'necklace',name:'Colares',icon:'📿'},{id:'makeup',name:'Maquiagem',icon:'💄'}
+ {id:'skin',name:'Tom de Pele',icon:'🎨'},
+ {id:'eyes',name:'Olhos',icon:'👀'},
+ {id:'hairstyle',name:'Cabelos',icon:'💇‍♀️'},
+ {id:'top',name:'Camisetas',icon:'👚'},
+ {id:'bottom',name:'Shorts e saias',icon:'🩳'},
+ {id:'dress',name:'Vestidos',icon:'👗'},
+ {id:'shoes',name:'Sapatos',icon:'👟'},
+ {id:'hair',name:'Laços e tiaras',icon:'🎀'},
+ {id:'earrings',name:'Brincos',icon:'💎'},
+ {id:'ring',name:'Anéis',icon:'💍'},
+ {id:'bracelet',name:'Pulseiras',icon:'⌚'},
+ {id:'necklace',name:'Colares',icon:'📿'},
+ {id:'makeup',name:'Maquiagem',icon:'💄'}
 ];
 const WARDROBE_ITEMS=[
+ {id:'skinFair',cat:'skin',name:'Pele Clara',need:0,cls:'skin-fair',color:'#fde0cb',thumb:'skin fair'},
+ {id:'skinWarm',cat:'skin',name:'Pele Pêssego',need:0,cls:'skin-warm',color:'#f1b884',thumb:'skin warm'},
+ {id:'skinTan',cat:'skin',name:'Pele Morena',need:0,cls:'skin-tan',color:'#d99a63',thumb:'skin tan'},
+ {id:'skinDark',cat:'skin',name:'Pele Negra',need:0,cls:'skin-dark',color:'#8f5835',thumb:'skin dark'},
+ {id:'eyeBrown',cat:'eyes',name:'Castanhos',need:0,cls:'eye-brown',color:'#503222',thumb:'eye brown'},
+ {id:'eyeGreen',cat:'eyes',name:'Verdes',need:0,cls:'eye-green',color:'#2f7a4c',thumb:'eye green'},
+ {id:'eyeBlue',cat:'eyes',name:'Azuis',need:0,cls:'eye-blue',color:'#2f69a8',thumb:'eye blue'},
+ {id:'eyeViolet',cat:'eyes',name:'Violeta',need:10,cls:'eye-violet',color:'#7a46b6',thumb:'eye violet'},
+ {id:'eyeHoney',cat:'eyes',name:'Olhos Mel',need:15,cls:'eye-honey',color:'#b87c28',thumb:'eye honey'},
  {id:'hairCurly',cat:'hairstyle',name:'Cacheado com rabo',need:0,cls:'style-curly',thumb:'hairstyle curly'},{id:'hairLowPony',cat:'hairstyle',name:'Rabo baixo',need:6,cls:'style-lowpony',thumb:'hairstyle lowpony'},{id:'hairLoose',cat:'hairstyle',name:'Cacheado solto',need:12,cls:'style-loose',thumb:'hairstyle loose'},{id:'hairSidePony',cat:'hairstyle',name:'Rabo lateral',need:14,cls:'style-sidepony',thumb:'hairstyle sidepony'},{id:'hairBun',cat:'hairstyle',name:'Coque',need:20,cls:'style-bun',thumb:'hairstyle bun'},{id:'hairHalfBun',cat:'hairstyle',name:'Meio coque',need:26,cls:'style-halfbun',thumb:'hairstyle halfbun'},{id:'hairTwins',cat:'hairstyle',name:'Maria-chiquinha',need:28,cls:'style-twins',thumb:'hairstyle twins'},{id:'hairBraid',cat:'hairstyle',name:'Trança longa',need:40,cls:'style-braid',thumb:'hairstyle braid'},
  {id:'teePink',cat:'top',name:'Camiseta Rosa',need:0,cls:'top-pink',thumb:'shirt pink'},{id:'teeMint',cat:'top',name:'Camiseta Menta',need:6,cls:'top-mint',thumb:'shirt mint'},{id:'teeLilac',cat:'top',name:'Camiseta Lilás',need:8,cls:'top-lilac',thumb:'shirt lilac'},{id:'teeHeart',cat:'top',name:'Camiseta Coração',need:12,cls:'top-heart',thumb:'shirt heart'},{id:'teeSun',cat:'top',name:'Camiseta Sol',need:18,cls:'top-sun',thumb:'shirt sun'},{id:'teeRainbow',cat:'top',name:'Camiseta Arco-íris',need:22,cls:'top-rainbow',thumb:'shirt rainbow'},{id:'teeStarry',cat:'top',name:'Camiseta Estrelas',need:26,cls:'top-starry',thumb:'shirt starry'},{id:'teeGame',cat:'top',name:'Camiseta Gamer',need:32,cls:'top-game',thumb:'shirt game'},{id:'teeSport',cat:'top',name:'Camiseta Esporte',need:38,cls:'top-sport',thumb:'shirt sport'},{id:'teePop',cat:'top',name:'Guerreira Pop',need:55,cls:'top-pop',thumb:'shirt pop'},
  {id:'shortDenim',cat:'bottom',name:'Shorts Jeans',need:0,cls:'bottom-shorts',thumb:'short denim'},{id:'shortPink',cat:'bottom',name:'Shorts Rosa',need:8,cls:'bottom-shorts-pink',thumb:'short pink'},{id:'skirtPink',cat:'bottom',name:'Saia Rosa',need:10,cls:'bottom-skirt',thumb:'skirt rose'},{id:'skirtBlue',cat:'bottom',name:'Saia Azul',need:14,cls:'bottom-skirt-blue',thumb:'skirt blue'},{id:'skirtLilac',cat:'bottom',name:'Saia Lilás',need:16,cls:'bottom-skirt-lilac',thumb:'skirt lilac'},{id:'leggingsPink',cat:'bottom',name:'Legging Rosa',need:22,cls:'bottom-leggings-pink',thumb:'pants pink'},{id:'pantsBlue',cat:'bottom',name:'Calça Azul',need:24,cls:'bottom-pants',thumb:'pants blue'},{id:'pantsBlack',cat:'bottom',name:'Calça Preta',need:42,cls:'bottom-pants-black',thumb:'pants black'},{id:'pantsCargo',cat:'bottom',name:'Calça Cargo Lilás',need:50,cls:'bottom-pants-cargo',thumb:'pants cargo'},{id:'skirtPop',cat:'bottom',name:'Saia Guerreira Pop',need:60,cls:'bottom-pop',thumb:'skirt pop'},
@@ -57,7 +94,20 @@ const WARDROBE_ITEMS=[
  {id:'noneRing',cat:'ring',name:'Sem anel',need:0,cls:'ring-none',thumb:'none'},{id:'ringPink',cat:'ring',name:'Anel Rosa',need:18,cls:'ring-pink',thumb:'ring pink'},{id:'ringHeart',cat:'ring',name:'Anel Coração',need:22,cls:'ring-heart',thumb:'ring heart'},{id:'ringStar',cat:'ring',name:'Anel Estrela',need:38,cls:'ring-star',thumb:'ring star'},{id:'ringMoon',cat:'ring',name:'Anel Lua',need:50,cls:'ring-moon',thumb:'ring moon'},
  {id:'noneBracelet',cat:'bracelet',name:'Sem pulseira',need:0,cls:'bracelet-none',thumb:'none'},{id:'braceletPink',cat:'bracelet',name:'Pulseira Rosa',need:10,cls:'bracelet-pink',thumb:'bracelet pink'},{id:'braceletPearl',cat:'bracelet',name:'Pulseira Pérola',need:18,cls:'bracelet-pearl',thumb:'bracelet pearl'},{id:'braceletRainbow',cat:'bracelet',name:'Pulseira Arco-íris',need:28,cls:'bracelet-rainbow',thumb:'bracelet rainbow'},{id:'braceletPop',cat:'bracelet',name:'Pulseira Neon',need:52,cls:'bracelet-pop',thumb:'bracelet pop'},
  {id:'noneNecklace',cat:'necklace',name:'Sem colar',need:0,cls:'necklace-none',thumb:'none'},{id:'neckHeart',cat:'necklace',name:'Colar Coração',need:16,cls:'neck-heart',thumb:'necklace heart'},{id:'neckRainbow',cat:'necklace',name:'Colar Arco-íris',need:22,cls:'neck-rainbow',thumb:'necklace rainbow'},{id:'neckStar',cat:'necklace',name:'Colar Estrela',need:34,cls:'neck-star',thumb:'necklace star'},{id:'neckMoon',cat:'necklace',name:'Colar Lua',need:54,cls:'neck-moon',thumb:'necklace moon'},
- {id:'makeupSoft',cat:'makeup',name:'Natural',need:0,cls:'makeup-soft',thumb:'makeup soft'},{id:'makeupPeach',cat:'makeup',name:'Pêssego',need:12,cls:'makeup-peach',thumb:'makeup peach'},{id:'makeupPink',cat:'makeup',name:'Rosa Suave',need:20,cls:'makeup-pink',thumb:'makeup pink'},{id:'makeupParty',cat:'makeup',name:'Brilho de Festa',need:42,cls:'makeup-party',thumb:'makeup party'},{id:'makeupPop',cat:'makeup',name:'Palco Pop',need:64,cls:'makeup-pop',thumb:'makeup pop'}
+ {id:'makeupSoft',cat:'makeup',name:'Natural',need:0,cls:'makeup-soft',thumb:'makeup soft'},{id:'makeupPeach',cat:'makeup',name:'Pêssego',need:12,cls:'makeup-peach',thumb:'makeup peach'},{id:'makeupPink',cat:'makeup',name:'Rosa Suave',need:20,cls:'makeup-pink',thumb:'makeup pink'},{id:'makeupParty',cat:'makeup',name:'Brilho de Festa',need:42,cls:'makeup-party',thumb:'makeup party'},{id:'makeupPop',cat:'makeup',name:'Palco Pop',need:64,cls:'makeup-pop',thumb:'makeup pop'},
+ {id:'hairAfro',cat:'hairstyle',name:'Black Power Estrelar',need:10,cls:'style-afro',thumb:'hairstyle afro'},
+ {id:'hairShort',cat:'hairstyle',name:'Curto Moderno',need:8,cls:'style-short',thumb:'hairstyle short'},
+ {id:'hairBoxBraids',cat:'hairstyle',name:'Tranças com Miçangas',need:18,cls:'style-boxbraids',thumb:'hairstyle boxbraids'},
+ {id:'hairPastel',cat:'hairstyle',name:'Ondulado com Mechas',need:22,cls:'style-pastel',thumb:'hairstyle pastel'},
+ {id:'dressFairy',cat:'dress',name:'Fada Borboleta',need:25,cls:'dress-fairy',thumb:'dress fairy'},
+ {id:'dressSpace',cat:'dress',name:'Astronauta Estelar',need:35,cls:'dress-space',thumb:'dress space'},
+ {id:'dressMermaid',cat:'dress',name:'Sereia Encantada',need:45,cls:'dress-mermaid',thumb:'dress mermaid'},
+ {id:'teeArtist',cat:'top',name:'Camiseta Artista',need:10,cls:'top-artist',thumb:'shirt artist'},
+ {id:'teeFairy',cat:'top',name:'Top Brilho Encantado',need:15,cls:'top-fairy',thumb:'shirt fairy'},
+ {id:'wingsFairy',cat:'hair',name:'Asinhas Luminosas',need:20,cls:'hair-wings',thumb:'hair wings'},
+ {id:'headCat',cat:'hair',name:'Fone Gatinho Gamer',need:25,cls:'hair-headcat',thumb:'hair cat'},
+ {id:'glassesHeart',cat:'hair',name:'Óculos Coração Glitter',need:15,cls:'hair-glasses',thumb:'hair glasses'}
+
 ];
 const WARDROBE_PRESETS=[
  {id:'original',name:'Original',icon:'💗',need:0,set:{hairstyle:'hairCurly',top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',earrings:'noneEarring',ring:'noneRing',bracelet:'noneBracelet',necklace:'noneNecklace',makeup:'makeupSoft'}},
@@ -69,7 +119,7 @@ const WARDROBE_PRESETS=[
  {id:'pop',name:'Guerreira Pop',icon:'🎤',need:72,set:{hairstyle:'hairBraid',top:'teePop',bottom:'skirtPop',dress:'noneDress',shoes:'shoeBlack',hair:'headPop',earrings:'earMoon',ring:'ringMoon',bracelet:'braceletPop',necklace:'neckMoon',makeup:'makeupPop'}}
 ];
 let wardrobeCategory='top';
-function defaultV3(){return{collections:{stars:0,bows:0,unicorns:0,rainbows:0,stickers:0},secrets:[],room:{wall:'wallPink',art:'rainbow',bed:'bedPink',rug:'rugHeart',toy:'unicorn'},outfit:'pink',wardrobe:{hairstyle:'hairCurly',top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',earrings:'noneEarring',ring:'noneRing',bracelet:'noneBracelet',necklace:'noneNecklace',makeup:'makeupSoft'},weekly:{key:'',opened:false},creativeDone:[],interactiveDone:[],familyRounds:0,schoolProgress:{colors:0,numbers:0,shapes:0,animals:0}}}
+function defaultV3(){return{collections:{stars:0,bows:0,unicorns:0,rainbows:0,stickers:0},secrets:[],room:{wall:'wallPink',art:'rainbow',bed:'bedPink',rug:'rugHeart',toy:'unicorn'},outfit:'pink',wardrobe:{skin:'skinWarm',eyes:'eyeBrown',hairstyle:'hairCurly',top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',earrings:'noneEarring',ring:'noneRing',bracelet:'noneBracelet',necklace:'noneNecklace',makeup:'makeupSoft'},weekly:{key:'',opened:false},creativeDone:[],interactiveDone:[],familyRounds:0,schoolProgress:{colors:0,numbers:0,shapes:0,animals:0}}}
 function v3Load(){try{return Object.assign(defaultV3(),JSON.parse(pget(V3_KEY)||'{}'))}catch(_){return defaultV3()}}
 function v3Save(v){pset(V3_KEY,JSON.stringify(v));renderV3Counters()}
 function v3Total(v=v3Load()){return Object.values(v.collections||{}).reduce((a,b)=>a+Number(b||0),0)}
@@ -144,13 +194,22 @@ function roomDecorThumb(it){
 function wardrobeDefaults(){return defaultV3().wardrobe}
 function normalizeWardrobe(v){v.wardrobe=Object.assign({},wardrobeDefaults(),v.wardrobe||{});return v.wardrobe}
 function applyWardrobeToDoll(doll,v){if(!doll)return;const w=normalizeWardrobe(v);const all=WARDROBE_ITEMS.map(x=>x.cls).filter(Boolean);doll.classList.remove(...all);for(const id of Object.values(w)){const it=wardrobeItem(id);if(it?.cls)doll.classList.add(it.cls)};if(w.dress&&w.dress!=='noneDress')doll.classList.add('wearing-dress');else doll.classList.remove('wearing-dress')}
-function garmentThumb(it){if(it.thumb==='none')return '<span class="garmentThumb none"><i></i></span>';const parts=it.thumb.split(' '),shape=parts[0],tone=parts.slice(1).join('-');return `<span class="garmentThumb ${shape} ${tone}"><i></i><b></b></span>`}
+function garmentThumb(it){
+ if(!it||it.thumb==='none')return '<span class="garmentThumb none"><i></i></span>';
+ if(it.cat==='skin')return `<span class="garmentThumb skinThumb" style="background:${it.color||'#f1b884'};border-radius:50%;width:34px;height:34px;display:inline-block;box-shadow:0 3px 8px rgba(0,0,0,.15);border:2px solid #fff"></span>`;
+ if(it.cat==='eyes')return `<span class="garmentThumb eyeThumb" style="background:#fff;border-radius:50%;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.15);border:2px solid #e0dbed"><i style="width:16px;height:16px;border-radius:50%;background:${it.color||'#503222'};display:block"></i></span>`;
+ const parts=it.thumb.split(' '),shape=parts[0],tone=parts.slice(1).join('-');
+ return `<span class="garmentThumb ${shape} ${tone}"><i></i><b></b></span>`;
+}
 function renderWardrobePresets(){const box=document.getElementById('wardrobePresets');if(!box)return;box.innerHTML=WARDROBE_PRESETS.map(p=>`<button class="lookPreset ${stars>=p.need?'':'locked'}" onclick="applyWardrobePreset('${p.id}')"><span>${stars>=p.need?p.icon:'🔒'}</span><b>${p.name}</b><small>${stars>=p.need?'Vestir':`${p.need} ⭐`}</small></button>`).join('')}
 window.applyWardrobePreset=function(id){const p=WARDROBE_PRESETS.find(x=>x.id===id);if(!p)return;if(stars<p.need)return toast(`Este look libera com ${p.need} estrelas ⭐`);const v=v3Load();v.wardrobe=Object.assign({},normalizeWardrobe(v),p.set);v3Save(v);renderWardrobe();toast(`${p.name} escolhido! ✨`)};
 window.selectWardrobeCategory=function(cat){if(!WARDROBE_CATEGORIES.some(x=>x.id===cat))return;wardrobeCategory=cat;renderWardrobe()};
 function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);syncRoomElo(v);if(n){const top=wardrobeItem(w.top)?.name||'',bottom=wardrobeItem(w.bottom)?.name||'',dress=w.dress&&w.dress!=='noneDress'?wardrobeItem(w.dress)?.name:'';n.textContent=dress||[top,bottom].filter(Boolean).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=stars>=it.need,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');renderWardrobePresets()}
 window.renderWardrobe=renderWardrobe;
-window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;if(stars<it.need)return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();toast(`${it.name} escolhido! ✨`)};
+window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;if(stars<it.need)return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();
+ const doll=document.getElementById('wardrobeElo');
+ if(doll){doll.classList.remove('dollCelebration');void doll.offsetWidth;doll.classList.add('dollCelebration');}
+ toast(`${it.name} escolhido! ✨`)};
 window.resetV3Wardrobe=function(){const v=v3Load();v.wardrobe=wardrobeDefaults();v3Save(v);renderWardrobe();toast('Look original restaurado 💗')};
 // Compatibilidade com botões/estado antigos
 window.equipV3Outfit=function(){openPanel('wardrobePanel','home')};
@@ -239,3 +298,80 @@ window.renderParentV2=function(){oldRenderParentV2();renderParentV3()};
 function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent=APP_VERSION);renderHomeContinue();if(!pget('tutorial-v304'))setTimeout(()=>showTutorialOnce('v304','A casa da Elo ficou mais organizada! ✨',['O menu inicial voltou a ficar mais direto, com botões grandes para entrar em cada área.','O quarto ganhou ainda mais opções de decoração, com novas paredes, quadros, camas, tapetes e brinquedos.','O guarda-roupa também recebeu várias peças novas: cabelos, roupas, acessórios e maquiagem.','Os brinquedos do quarto ficaram desenhados em estilo próprio, sem depender de emoji.']),950)}
 window.addEventListener('DOMContentLoaded',initV3);
 })();
+
+
+// ==========================================================
+// LOJA DAS ESTRELAS & MONETIZAÇÃO ÉTICA
+// ==========================================================
+window.openStarShop = function(){
+ const m = document.getElementById('starShopModal');
+ if(!m) return;
+ m.classList.remove('hidden');
+ document.body.style.overflow = 'hidden';
+ renderStarShop();
+};
+
+window.closeStarShop = function(){
+ const m = document.getElementById('starShopModal');
+ if(m) m.classList.add('hidden');
+ document.body.style.overflow = '';
+};
+
+function renderStarShop(){
+ const todayKey = 'eloStarDaily_' + new Date().toDateString();
+ const claimed = pget(todayKey) === '1';
+ const dailyBtn = document.getElementById('claimDailyBonusBtn');
+ if(dailyBtn){
+   dailyBtn.disabled = claimed;
+   dailyBtn.textContent = claimed ? 'Coletado hoje ✓' : 'Resgatar +10 ⭐';
+ }
+ const countEl = document.getElementById('shopStarBalance');
+ if(countEl) countEl.textContent = typeof stars !== 'undefined' ? stars : '0';
+}
+
+window.claimDailyBonus = function(){
+ const todayKey = 'eloStarDaily_' + new Date().toDateString();
+ if(pget(todayKey) === '1') return toast('Você já pegou suas estrelas de hoje! Volte amanhã 💗');
+ pset(todayKey, '1');
+ if(typeof addStars === 'function') addStars(10, 'Oba! +10 estrelas da visita diária! ⭐');
+ renderStarShop();
+};
+
+let adTimer = null;
+window.watchRewardedAd = function(){
+ const overlay = document.getElementById('rewardVideoOverlay');
+ if(!overlay) return;
+ overlay.classList.remove('hidden');
+ let sec = 7;
+ const txt = document.getElementById('rewardVideoTimer');
+ const bar = document.getElementById('rewardVideoBar');
+ if(txt) txt.textContent = `${sec}s`;
+ if(bar) bar.style.width = '0%';
+ 
+ adTimer = setInterval(()=>{
+   sec--;
+   if(txt) txt.textContent = `${sec}s`;
+   if(bar) bar.style.width = `${((7-sec)/7)*100}%`;
+   if(sec <= 0){
+     clearInterval(adTimer);
+     overlay.classList.add('hidden');
+     if(typeof addStars === 'function') addStars(10, 'Parabéns! Você assistiu e ganhou +10 estrelas! ⭐');
+     toast('✨ +10 Estrelas creditadas com sucesso! ✨');
+     renderStarShop();
+   }
+ }, 1000);
+};
+
+window.buyParentPack = function(packId){
+ requestParentAccess(()=>{
+   let amount = 50, label = 'Pacote Estrelinha';
+   if(packId === 'pack200'){ amount = 200; label = 'Pacote Reino Mágico'; }
+   if(packId === 'pack500'){ amount = 500; label = 'Passe Super Elo Tudo Liberado'; }
+   
+   if(confirm(`Confirmar liberação do ${label} (+${amount} ⭐) para este perfil?`)){
+     if(typeof addStars === 'function') addStars(amount, `Parabéns! ${label} ativado com +${amount} estrelas! ⭐`);
+     toast(`Compra confirmada com sucesso! +${amount} ⭐`);
+     closeStarShop();
+   }
+ }, 'Digite o PIN dos responsáveis para compras ou pacotes.');
+};

@@ -5,10 +5,12 @@ const PET_KEY='eloVirtualPetV1';
 const EGG_CARE_GOAL=5;
 const EGG_COOLDOWN_MS=5*60*1000;
 const SPECIES={
- unicorn:{label:'Unicórnio',defaultName:'Luma'},
- cat:{label:'Gatinho',defaultName:'Pipoca'},
- dog:{label:'Cachorrinho',defaultName:'Pingo'},
- bunny:{label:'Coelhinho',defaultName:'Nuvem'}
+ unicorn:{label:'Unicórnio',defaultName:'Luma',icon:'🦄',color:'#ff70c4'},
+ cat:{label:'Gatinho',defaultName:'Pipoca',icon:'🐱',color:'#f5a65b'},
+ dog:{label:'Cachorrinho',defaultName:'Pingo',icon:'🐶',color:'#b08050'},
+ bunny:{label:'Coelhinho',defaultName:'Nuvem',icon:'🐰',color:'#e8dbff'},
+ dragon:{label:'Dragãozinho',defaultName:'Faísca',icon:'🐲',color:'#5cdbb5'},
+ pony:{label:'Pônei Estelar',defaultName:'Jujuba',icon:'🐴',color:'#a38df7'}
 };
 const ACCESSORIES=[
  {id:'none',icon:'✨',name:'Sem acessório',need:0},
@@ -19,10 +21,11 @@ const ACCESSORIES=[
 const ACTION_TARGET={feed:'hunger',sleep:'energy',bath:'clean',hygiene:'clean',play:'fun',love:'love',study:'study'};
 const ACTION_LABEL={feed:'Fome',sleep:'Energia',bath:'Higiene',hygiene:'Higiene',play:'Diversão',love:'Carinho',study:'Estudo'};
 const EVOLUTION_STAGES=[
- {key:'baby',label:'Bebê',minAgeMs:0,minCare:0,nextAgeMs:24*60*60*1000,nextCare:12,nextLabel:'Jovem'},
- {key:'young',label:'Jovem',minAgeMs:24*60*60*1000,minCare:12,nextAgeMs:3*24*60*60*1000,nextCare:28,nextLabel:'Adulto'},
- {key:'adult',label:'Adulto',minAgeMs:3*24*60*60*1000,minCare:28,nextAgeMs:7*24*60*60*1000,nextCare:50,nextLabel:'Idoso'},
- {key:'elder',label:'Idoso',minAgeMs:7*24*60*60*1000,minCare:50,nextAgeMs:null,nextCare:null,nextLabel:null}
+ {key:'baby',label:'Bebê',minAgeMs:0,minCare:0,nextAgeMs:12*60*60*1000,nextCare:10,nextLabel:'Criança'},
+ {key:'child',label:'Criança',minAgeMs:12*60*60*1000,minCare:10,nextAgeMs:2*24*60*60*1000,nextCare:24,nextLabel:'Adolescente'},
+ {key:'teen',label:'Adolescente',minAgeMs:2*24*60*60*1000,minCare:24,nextAgeMs:4*24*60*60*1000,nextCare:42,nextLabel:'Adulto'},
+ {key:'adult',label:'Adulto',minAgeMs:4*24*60*60*1000,minCare:42,nextAgeMs:7*24*60*60*1000,nextCare:65,nextLabel:'Idoso'},
+ {key:'elder',label:'Idoso',minAgeMs:7*24*60*60*1000,minCare:65,nextAgeMs:10*24*60*60*1000,nextCare:80,nextLabel:'Jornada das Estrelas'}
 ];
 function defaultPet(){return{
  stage:'egg',species:null,name:'Ovinho misterioso',eggCare:0,careCount:0,bornAt:0,
@@ -58,6 +61,11 @@ function applyGentleDecay(p){
  if(p.stage==='egg')return p;
  const now=pnow(),last=Number(p.lastSeen||now),mins=Math.max(0,(now-last)/60000);
  if(mins<1)return p;
+ // Se o bichinho ficou sem cuidados por mais de 48h ou com carinho/fome zerados por muito tempo, ele foge carinhosamente
+ if((mins >= 48*60) || (mins >= 24*60 && p.hunger <= 5 && p.love <= 5)){
+   p.ranAway = true;
+   return savePet(p);
+ }
  const capped=Math.min(mins,72*60);
  if(isSleeping(p,now)){
    p.energy=clamp(p.energy+capped*.72);
@@ -114,7 +122,7 @@ function moodText(p){
  if(avg>58)return `${p.name} está tranquilo. Escolha um cuidado quando precisar.`;
  return `${p.name} quer um pouco de atenção 💗`;
 }
-function speciesPick(){const pid=typeof activeProfileId!=='undefined'?activeProfileId:'elo';const seed=(pnow()+String(pid).split('').reduce((a,c)=>a+c.charCodeAt(0),0))%4;return Object.keys(SPECIES)[seed]}
+function speciesPick(){const keys=Object.keys(SPECIES);return keys[Math.floor(Math.random()*keys.length)];}
 function rewardCareMilestones(p){
  if(p.careCount>=10&&!p.rewards.care10){p.rewards.care10=true;if(typeof addStars==='function')addStars(1,'Seu bichinho cresceu com seus cuidados! +1 ⭐')}
  if(p.careCount>=20&&!p.rewards.care20){p.rewards.care20=true;if(typeof addStars==='function')addStars(2,'Virou um grande companheiro! +2 ⭐')}
@@ -196,6 +204,35 @@ function renderPet(){
  const p=loadPet(),st=stageInfo(p),egg=document.getElementById('petEgg'),creature=document.getElementById('petCreature'),eggBox=document.getElementById('petEggControls'),care=document.getElementById('petCareArea'),bubble=document.getElementById('petBubble'),stage=document.getElementById('petStageLabel'),name=document.getElementById('petNameLabel'),rename=document.getElementById('petRenameBtn'),screen=document.querySelector('#petPanel .petScreen'),stats=document.getElementById('petStats');if(!egg||!creature)return;
  stage.textContent=st.label;name.textContent=p.name;rename.style.visibility=p.stage==='egg'?'hidden':'visible';
  const reset=document.getElementById('petResetBtn');if(reset)reset.style.visibility=p.stage==='egg'?'hidden':'visible';
+ 
+ if(p.ranAway){
+   screen?.classList.remove('petNight');
+   egg.classList.add('hidden');
+   creature.className = 'petCreature hidden';
+   eggBox.classList.add('hidden');
+   care.classList.add('hidden');
+   stats?.classList.add('hidden');
+   bubble.textContent = 'O seu bichinho deixou uma cartinha para você... 💌';
+   let runEl = document.getElementById('petRunawayOverlay');
+   if(!runEl){
+     runEl = document.createElement('div');
+     runEl.id = 'petRunawayOverlay';
+     runEl.className = 'petRunawayBox';
+     screen.appendChild(runEl);
+   }
+   runEl.innerHTML = `<div class="runawayCard">
+     <div style="font-size:38px;margin-bottom:8px">💌</div>
+     <h3 style="margin:0 0 8px;font-size:17px;color:#d84376">Uma cartinha com carinho...</h3>
+     <p style="font-size:12px;line-height:1.45;color:#4f3d54;margin:0 0 14px">"Querida Elo, como fiquei com muita fominha e senti falta de brincar, fui passear pelos campos floridos do Reino das Estrelas em busca de um abraço quentinho... 🌸<br><br>Mas deixei um novo ovinho especial para você recomeçar com todo o seu amor!"</p>
+     <button class="btn" style="width:100%" onclick="resetPetAfterRunaway()">Cuidar do novo ovinho 🐣💗</button>
+   </div>`;
+   runEl.classList.remove('hidden');
+   return;
+ } else {
+   const runEl = document.getElementById('petRunawayOverlay');
+   if(runEl) runEl.classList.add('hidden');
+ }
+
  if(p.stage==='egg'){
    screen?.classList.remove('petNight');egg.classList.remove('hidden');creature.className='petCreature hidden';eggBox.classList.remove('hidden');care.classList.add('hidden');stats?.classList.add('hidden');clearActionFx();
    document.getElementById('eggCareText').textContent=`${p.eggCare}/${EGG_CARE_GOAL} cuidados`;
@@ -215,9 +252,69 @@ function renderPet(){
    document.getElementById('petGrowthSub').textContent=`Seu companheiro chegou à fase Idoso com ${p.careCount} cuidados e muito carinho.`;
  }
  document.getElementById('petGrowthBar').style.width=`${st.pct}%`;
+ // Botão de Jornada das Estrelas caso tenha concluído a fase Idoso
+ const ascBtn = document.getElementById('petAscensionBtn');
+ if(ascBtn){
+   if(st.key === 'elder' && Number(p.careCount||0) >= 80){
+     ascBtn.classList.remove('hidden');
+   } else {
+     ascBtn.classList.add('hidden');
+   }
+ }
+ checkPetNotifications(p);
 }
 window.renderPet=renderPet;
-window.openPet=function(){openPanel('petPanel','home');renderPet()};
+
+// Notificações locais do Bichinho da Elo
+function checkPetNotifications(p){
+ if(!p || p.stage==='egg' || p.ranAway) return;
+ if(!('Notification' in window)) return;
+ if(Notification.permission === 'granted'){
+   const now = pnow();
+   const lastNotif = Number(localStorage.getItem('eloPetLastNotif')||0);
+   if(now - lastNotif > 4 * 60 * 60 * 1000){
+     if(p.hunger < 35){
+       try{ new Notification('Dia a Dia da Elo 🐾', { body: `${p.name} está com fominha! Venha dar uma comidinha deliciosa 🍓`, icon: 'assets/icons/icon-192.png' }); }catch(_){}
+       localStorage.setItem('eloPetLastNotif', String(now));
+     } else if(p.energy < 30 && !isSleeping(p)){
+       try{ new Notification('Dia a Dia da Elo 🐾', { body: `${p.name} está com sono e bocejando! Venha colocar para dormir 💤`, icon: 'assets/icons/icon-192.png' }); }catch(_){}
+       localStorage.setItem('eloPetLastNotif', String(now));
+     } else if(p.love < 35){
+       try{ new Notification('Dia a Dia da Elo 🐾', { body: `${p.name} está com saudades! Venha dar um carinho 💗`, icon: 'assets/icons/icon-192.png' }); }catch(_){}
+       localStorage.setItem('eloPetLastNotif', String(now));
+     }
+   }
+ }
+}
+
+window.requestPetNotifications = function(){
+ if('Notification' in window && Notification.permission === 'default'){
+   Notification.requestPermission();
+ }
+};
+
+window.resetPetAfterRunaway = function(){
+ const p = defaultPet();
+ p.lastSeen = pnow();
+ savePet(p);
+ renderPet();
+ toast('Um novo ovinho brilhante apareceu! Cuide com muito amor 🐣💗');
+};
+
+window.startPetAscension = function(){
+ const p = loadPet();
+ if(p.stage === 'egg') return;
+ if(confirm(`Parabéns! ${p.name} viveu plenamente com você! Deseja que ele realize a grande Jornada das Estrelas e ganhe asas celestes? (+25 ⭐ de presente!)`)){
+   if(typeof addStars === 'function') addStars(25, `${p.name} voou para a Constelação das Estrelas! +25 ⭐`);
+   toast(`✨ ${p.name} agora brilha no céu e deixou um novo ovinho para você! ✨`);
+   const newP = defaultPet();
+   newP.lastSeen = pnow();
+   savePet(newP);
+   renderPet();
+ }
+};
+
+window.openPet=function(){openPanel('petPanel','home');if('Notification' in window && Notification.permission==='default')setTimeout(requestPetNotifications,1200);renderPet()};
 window.careForEgg=function(){
  const p=rawLoad();if(p.stage!=='egg')return renderPet();
  const wait=eggWait(p);if(wait>0){toast(`Espere ${formatDuration(wait)} para cuidar do ovo novamente 💗`);return}

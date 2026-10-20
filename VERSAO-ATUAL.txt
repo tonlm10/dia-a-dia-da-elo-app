@@ -1,2 +1,7 @@
-Versão atual do app: 3.5.3
-Cinema da Elo: seção Mais recente dinâmica, sempre ligada ao último upload do canal.
+Versão atual do app: 3.6.0
+- RPG das Estrelas com novo menu de magias, efeitos visuais, novas regiões (Clareira dos Unicórnios e Gruta dos Cristais) e sincronia de estrelas reais com o app.
+- Guarda-roupa expandido com tons de pele, olhos, cabelos afro/modernos, novos vestidos e animação comemorativa ao vestir.
+- Quarto com novas paredes galáxia/confeitos, camas, tapetes e brinquedos.
+- Baú de Estrelas & Monetização: vídeo premiado (+10 ⭐), check-in diário e pacotes protegidos por PIN para os pais.
+- Cinema da Elo em formato Streaming com banner de lançamento dinâmico e filtros de categorias.
+- Bichinho Virtual com 6 espécies aleatórias, 5 fases de evolução, Jornada das Estrelas e mecânica carinhosa de fuga com cartinha.

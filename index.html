@@ -11,10 +11,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 <title>Dia a Dia da Elo</title>
-<link rel="stylesheet" href="styles.css?v=3.5.3">
-<link rel="stylesheet" href="v3.css?v=3.5.3">
-<link rel="stylesheet" href="polish.css?v=3.5.3">
-<link rel="stylesheet" href="games-v350.css?v=3.5.3">
+<link rel="stylesheet" href="styles.css?v=3.6.0">
+<link rel="stylesheet" href="v3.css?v=3.6.0">
+<link rel="stylesheet" href="polish.css?v=3.6.0">
+<link rel="stylesheet" href="games-v350.css?v=3.6.0">
 </head>
 <body>
 <div id="splash"><div class="splashCard"><img src="assets/icons/icon-192.png" alt="Dia a Dia da Elo"><h2>Dia a Dia da Elo</h2><p>Brincar • Aprender • Criar</p></div></div>
@@ -22,34 +22,130 @@
 <header><div class="brand compactBrand"><img class="brandLogo" src="assets/logo-oficial.webp" alt="Dia a Dia da Elo"><div class="brandText"><h1>Dia a Dia da Elo</h1><div class="handle">@diaadiadaelo</div></div><div class="brandActions"><button id="profileChip" class="profileChip profileCompact" onclick="openProfileChooser()" aria-label="Trocar perfil"><span>👤</span><b>Elo</b><small>perfil</small></button><div class="headerStars" aria-label="Estrelas conquistadas">⭐ <span id="starCount">0</span></div><button id="speechBtn" class="iconBtn" onclick="toggleSpeech()" aria-label="Leitura em voz">🔊</button></div></div></header>
 
 <section id="homePanel" class="panel home active">
-  <div class="homeWelcomeWrap">
-    <button class="homeWelcome" onclick="eloGuideSay('Oi! Eu sou a Elo. Vamos brincar juntas!','intro')" aria-label="Ouvir a Elo">
-      <img src="assets/home-icons/home-card.webp" alt="Elo">
-      <div><h2>Oi! Vamos brincar? 💗</h2><p>Toque em mim para ouvir a Elo.</p></div>
+  <!-- Card Elo Hero Moderno -->
+  <div class="homeHeroModern">
+    <button class="homeEloBubble" onclick="eloGuideSay('Oi! Eu sou a Elo. Escolha onde vamos brincar juntas!','intro')" aria-label="Ouvir a Elo">
+      <div class="heroEloAvatar">
+        <img src="assets/home-icons/home-card.webp" alt="Elo">
+        <span class="liveOnlinePulse"></span>
+      </div>
+      <div class="heroEloText">
+        <h2>Oi, amiga! Vamos brincar? 💗</h2>
+        <p>Toque em mim para ouvir a minha voz!</p>
+      </div>
+      <span class="voiceIconBadge">🔊</span>
+    </button>
+    
+    <div class="heroQuickActionRow">
+      <button class="heroDailyBonusChip" onclick="openStarShop()">
+        <span>🎁</span>
+        <b>Baú de Estrelas</b>
+        <small>Ganhar ⭐</small>
+      </button>
+      <button class="heroContinueChip" onclick="openContinueSpot()">
+        <span>▶</span>
+        <b id="continueTitle">Continuar</b>
+        <small>Onde parou</small>
+      </button>
+    </div>
+  </div>
+
+  <!-- Os 6 Grandes Portais da Diversão (Estilo Console Moderno) -->
+  <div class="portalGrid" aria-label="Portais de Diversão da Elo">
+    <!-- 1. Cinema da Elo -->
+    <button class="portalCard portalCinema" onclick="openPanel('watchPanel','watch')">
+      <div class="portalGlow"></div>
+      <div class="portalIcon">🎬</div>
+      <div class="portalInfo">
+        <span class="portalBadge red">LANÇAMENTO</span>
+        <h3>Cinema & Shorts</h3>
+        <p>Vídeos oficiais do canal</p>
+      </div>
+      <span class="portalArrow">›</span>
+    </button>
+
+    <!-- 2. Mundo dos Jogos -->
+    <button class="portalCard portalGames" onclick="openPanel('playPanel','play')">
+      <div class="portalGlow"></div>
+      <div class="portalIcon">🎮</div>
+      <div class="portalInfo">
+        <span class="portalBadge blue">RPG & JOGOS</span>
+        <h3>Mundo dos Jogos</h3>
+        <p>RPG, Trilha, Labirinto e mais</p>
+      </div>
+      <span class="portalArrow">›</span>
+    </button>
+
+    <!-- 3. Cantinho da Elo (Quarto, Roupinhas & Pet unificados) -->
+    <button class="portalCard portalEloHub" onclick="openEloHubModal()">
+      <div class="portalGlow"></div>
+      <div class="portalIcon">🏡</div>
+      <div class="portalInfo">
+        <span class="portalBadge pink">MEU MUNDO</span>
+        <h3>Cantinho da Elo</h3>
+        <p>Quarto, Guarda-roupa & Pet</p>
+      </div>
+      <span class="portalArrow">›</span>
+    </button>
+
+    <!-- 4. Escolinha Mágica -->
+    <button class="portalCard portalSchool" onclick="openPanel('learnPanel','learn')">
+      <div class="portalGlow"></div>
+      <div class="portalIcon">🎓</div>
+      <div class="portalInfo">
+        <span class="portalBadge yellow">APRENDER</span>
+        <h3>Escolinha Mágica</h3>
+        <p>Letras, Números & Inglês</p>
+      </div>
+      <span class="portalArrow">›</span>
+    </button>
+
+    <!-- 5. Ateliê Criativo -->
+    <button class="portalCard portalCreative" onclick="openPanel('createPanel','create')">
+      <div class="portalGlow"></div>
+      <div class="portalIcon">🎨</div>
+      <div class="portalInfo">
+        <span class="portalBadge green">CRIATIVIDADE</span>
+        <h3>Ateliê da Elo</h3>
+        <p>Desenho livre, glitter & cores</p>
+      </div>
+      <span class="portalArrow">›</span>
+    </button>
+
+    <!-- 6. Desafio Família -->
+    <button class="portalCard portalFamily" onclick="openPanel('familyPanel','home')">
+      <div class="portalGlow"></div>
+      <div class="portalIcon">👨‍👩‍👧</div>
+      <div class="portalInfo">
+        <span class="portalBadge purple">2+ JOGADORES</span>
+        <h3>Festa da Família</h3>
+        <p>Mímica com tempo & Duelo</p>
+      </div>
+      <span class="portalArrow">›</span>
     </button>
   </div>
-  <div class="homeChoose"><h2>Escolha onde brincar</h2><p>Ganhe ⭐ e libere roupas e novidades!</p></div>
-  <div class="classicHomeMenu" aria-label="Menu principal da Elo">
-    <button class="classicHomeCard" onclick="openPanel('watchPanel','watch')"><img src="assets/home-icons/watch-card.webp" alt="Assistir"><div><b>Assistir</b><small>Cinema da Elo e playlists do canal.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('playPanel','play')"><img src="assets/home-icons/play-card.webp" alt="Jogos"><div><b>Jogos</b><small>Memória, quebra-cabeça, trilha e mais.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('learnPanel','learn')"><img src="assets/home-icons/learn-card.webp" alt="Escolinha da Elo"><div><b>Escolinha da Elo</b><small>Aprender brincando, com voz e desafios.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('createPanel','create')"><img src="assets/home-icons/create-card.webp" alt="Criar"><div><b>Criar</b><small>Ateliê, desenhos e brincadeiras criativas.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('roomPanel','home')"><img src="assets/home-icons/home-card.webp" alt="Quarto da Elo"><div><b>Quarto da Elo</b><small>Decore o quarto e organize tudo do seu jeito.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('wardrobePanel','home')"><span class="homeVisualIcon wardrobeVisual"><img src="assets/home-icons/create-card.webp" alt="Guarda-roupa da Elo"><i>👗</i></span><div><b>Guarda-roupa</b><small>Troque cabelo, roupas, acessórios e make.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('familyPanel','home')"><span class="homeVisualIcon familyVisual"><img src="assets/home-icons/family-card.webp" alt="Elo com pai e mãe"><i>💗</i></span><div><b>Modo Família</b><small>Mímica, desenho em dupla e desafios.</small></div></button>
-    <button class="classicHomeCard" onclick="openPet()"><span class="homeVisualIcon petVisual"><img src="assets/home-icons/home-card.webp" alt="Bichinho da Elo"><i>🐾</i></span><div><b>Bichinho da Elo</b><small>Cuide, brinque, dê banho e acompanhe seu crescimento.</small></div></button>
-    <button class="classicHomeCard" onclick="openPanel('storiesPanel','stories')"><img src="assets/home-icons/stories-card.webp" alt="Biblioteca"><div><b>Biblioteca</b><small>Histórias, aventuras e leitura divertida.</small></div></button>
+
+  <!-- Acessos Rápidos e Área Segura -->
+  <div class="homeBottomHub">
+    <button class="bottomHubBtn" onclick="openPanel('storiesPanel','stories')">
+      <span>📚</span>
+      <b>Histórias</b>
+    </button>
+    <button class="bottomHubBtn" onclick="openPanel('collectionPanel','home')">
+      <span>🧺</span>
+      <b>Coleções</b>
+    </button>
+    <button class="bottomHubBtn" onclick="openPanel('achievementsPanel','achievements')">
+      <span>🏅</span>
+      <b>Conquistas</b>
+    </button>
+    <button class="bottomHubBtn parentBtn" onclick="openParents()">
+      <span>🔐</span>
+      <b>Área dos Pais</b>
+    </button>
   </div>
-  <div class="homeHighlights">
-    <button class="homeHighlight continueCard" onclick="openContinueSpot()"><span class="hhIcon">▶</span><div><small>CONTINUAR</small><b id="continueTitle">Escolha uma aventura</b><p id="continueSub">O app lembra seu último lugar.</p></div><i>›</i></button>
-    <button class="homeHighlight surpriseCard" onclick="openWeeklySurprise()"><span class="hhIcon">🎁</span><div><small>SURPRESA DA SEMANA</small><b>Uma descoberta especial</b><p id="weeklySurpriseStatus">da semana</p></div><i>›</i></button>
-  </div>
-  <div class="v3QuickGrid premiumQuick compactQuick">
-    <button onclick="openPanel('collectionPanel','home')"><span>🧺</span><b>Coleções</b><small id="collectionHomeCount">0 itens</small></button>
-    <button onclick="openPanel('achievementsPanel','achievements')"><span>🏅</span><b>Conquistas</b><small>Medalhas e estrelas</small></button>
-  </div>
-  <div class="missionRow v3MissionRow"><div class="miniCard pink"><h3>🌟 Missão leve</h3><p id="dailyText">Faça algo divertido hoje!</p><div class="progress"><i id="dailyProgress"></i></div><button class="smallBtn" style="margin-top:10px" onclick="completeDaily()">Consegui!</button></div><div class="miniCard lilac"><h3>🔐 Área dos Pais</h3><p>Segurança, progresso e configurações.</p><button class="smallBtn" onclick="openParents()">Entrar</button></div></div>
-  <div class="footer-note">Feito para diversão em família 💗 • sem anúncios • perfis locais • v<span data-app-version>3.5.3</span></div>
+
+  <div class="footer-note">Feito com muito carinho para diversão em família 💗 • v<span data-app-version>3.6.0</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -64,12 +160,31 @@
 </section>
 
 <section id="watchPanel" class="panel cinemaPanel">
-  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Assistir com a Elo 🎬</h2></div>
-  <div class="cinemaHero">
-    <img src="assets/logo-oficial.webp" alt="Dia a Dia da Elo">
-    <div><span class="cinemaKicker">CINEMA DA ELO</span><h3>Escolha uma aventura</h3><p>Vídeos e Shorts oficiais do canal, sem sair do app.</p></div>
+  <div class="topTitle">
+    <button class="back" onclick="appBack()">‹</button>
+    <h2>Cinema da Elo 🎬</h2>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
   </div>
-  <div class="cinemaNotice"><span>🍿</span><div><b>Escolha pela capa</b><small>As playlists viraram categorias. Toque em um vídeo para abrir o player dentro do aplicativo.</small></div></div>
+  
+  <!-- Streaming Hero Banner -->
+  <div class="streamingHero">
+    <span class="streamingHeroBadge">🔴 LANÇAMENTO DO CANAL</span>
+    <h3 id="streamingHeroTitle">Aventuras Oficiais com a Elo</h3>
+    <p id="streamingHeroSub">Assista aos episódios, desafios e Shorts mais recentes do canal direto aqui no app!</p>
+    <div class="streamingHeroActions">
+      <button class="streamingPlayBtn" onclick="openCinemaPlaylist('UUBPBaYweoBPjr8XlfOz1dwQ', false)"><span>▶</span> Assistir Agora</button>
+    </div>
+  </div>
+
+  <!-- Filtro Rápido de Categorias -->
+  <div class="streamingChips">
+    <button class="streamingChip active" onclick="cinemaFilterCategory('all', this)">🍿 Todos</button>
+    <button class="streamingChip" onclick="cinemaFilterCategory('adventures', this)">🌟 Aventuras</button>
+    <button class="streamingChip" onclick="cinemaFilterCategory('music', this)">🎵 Músicas</button>
+    <button class="streamingChip" onclick="cinemaFilterCategory('shorts', this)">📱 Shorts</button>
+    <button class="streamingChip" onclick="cinemaFilterCategory('school', this)">🎒 Escolinha</button>
+  </div>
+
   <div id="cinemaShelves" class="cinemaShelves"><div class="cinemaBoot">Preparando o cinema… ✨</div></div>
   <div id="cinemaProbeHost" class="cinemaProbeHost" aria-hidden="true"></div>
 </section>
@@ -89,11 +204,54 @@
 </section>
 
 <section id="learnPanel" class="panel">
-  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Escolinha da Elo</h2></div>
-  <button class="englishHero" style="border:0;width:calc(100% - 0px);text-align:left;color:inherit" onclick="openEnglishSchool()"><h3>🇺🇸 Inglês da Elo</h3><p>Aprenda ouvindo, brincando, reconhecendo imagens e escrevendo em inglês. Conteúdo adaptado por idade.</p><div class="engProgressWrap"><div class="engProgressTrack"><i id="englishHomeProgress"></i></div><b id="englishHomeProgressText">0%</b></div></button>
-  <div class="adaptiveHint">✨ Dificuldade automática: o app ajusta os desafios conforme a criança vai aprendendo.</div>
-  <button id="schoolChallengesHero" class="schoolChallengesHero" onclick="toggleSchoolChallenges()" aria-expanded="false"><div><span class="schIcon">🌈</span><h3>Desafios da Elo</h3><p>Letras, números, lógica e conhecimentos gerais.</p></div><span id="schoolChallengesArrow" class="schArrow">›</span></button>
-  <div id="schoolChallengesContent" class="card hidden"><div id="schoolAgeInfo"></div><div id="schoolControls"></div><div id="quiz"></div></div>
+  <div class="topTitle">
+    <button class="back" onclick="appBack()">‹</button>
+    <h2>Escolinha Mágica 🎓</h2>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
+  </div>
+
+  <div class="schoolHeroModern">
+    <div class="schoolHeroBadge">✨ APRENDER BRINCANDO</div>
+    <h3>O que vamos aprender hoje?</h3>
+    <p>A Elo fala com você e ensina de forma divertida com áudio, ilustrações e estrelinhas!</p>
+  </div>
+
+  <!-- Trilhas de Aprendizado -->
+  <div class="schoolTracks">
+    <button class="schoolTrackCard trackLetters on" onclick="selectSchoolTrack('letters', this)">
+      <span>🔤</span>
+      <b>Letras & Alfabeto</b>
+      <small>Sons e palavras</small>
+    </button>
+    <button class="schoolTrackCard trackNumbers" onclick="selectSchoolTrack('numbers', this)">
+      <span>🔢</span>
+      <b>Matemática</b>
+      <small>Continhas e números</small>
+    </button>
+    <button class="schoolTrackCard trackAnimals" onclick="selectSchoolTrack('nature', this)">
+      <span>🐾</span>
+      <b>Mundo & Bichos</b>
+      <small>Sons e natureza</small>
+    </button>
+    <button class="schoolTrackCard trackEnglish" onclick="openEnglishSchool()">
+      <span>🇺🇸</span>
+      <b>Inglês da Elo</b>
+      <small>Cores e palavras</small>
+    </button>
+  </div>
+
+  <!-- Card Interativo da Atividade -->
+  <div class="schoolActivityCard">
+    <div class="schoolActivityHead">
+      <div class="schoolSpeakerBtn" onclick="speakCurrentSchoolPrompt()" aria-label="Ouvir instrução">
+        <span>🔊</span> Toque para ouvir a Elo
+      </div>
+      <div id="schoolRoundCounter" class="schoolRoundBadge">Desafio 1/5</div>
+    </div>
+
+    <h3 id="schoolQuestionTitle" class="schoolQuestionTitle">Carregando atividade...</h3>
+    <div id="schoolOptionsGrid" class="schoolOptionsGrid"></div>
+  </div>
 </section>
 
 <section id="englishPanel" class="panel">
@@ -102,9 +260,63 @@
 </section>
 
 <section id="createPanel" class="panel">
-  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Ateliê da Elo 🎨</h2></div>
-  <button class="creativeEntry" onclick="openPanel('creativePanel','create')"><span>✨</span><div><b>Brincadeiras de criar</b><small>Monte pizza, bolo, brinquedo e cuide de um bichinho.</small></div><i>›</i></button>
-  <div class="card"><h3>Escolha um desenho 🖍️</h3><p class="muted" id="coloringCountText">10 desenhos novos da Elo. Toque em um desenho para abrir em tela cheia.</p><div id="coloringGallery" class="coloringGallery"></div></div>
+  <div class="topTitle">
+    <button class="back" onclick="appBack()">‹</button>
+    <h2>Ateliê Criativo 🎨</h2>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
+  </div>
+
+  <div class="creativeModeTabs">
+    <button class="cTabBtn active" onclick="switchCreativeMode('freeDraw', this)">
+      <span>🖌️</span> <b>Desenho Livre & Glitter</b>
+    </button>
+    <button class="cTabBtn" onclick="switchCreativeMode('coloring', this)">
+      <span>🖍️</span> <b>Colorir Desenhos da Elo</b>
+    </button>
+    <button class="cTabBtn" onclick="openPanel('creativePanel','create')">
+      <span>🍕</span> <b>Montar & Decorar</b>
+    </button>
+  </div>
+
+  <!-- Modo 1: Desenho Livre com Pincel Mágico -->
+  <div id="freeDrawSection" class="freeDrawWrap">
+    <div class="drawingToolsBar">
+      <div class="toolColors">
+        <button class="colorPick on" style="background:#ff3377" onclick="setDrawColor('#ff3377', this)"></button>
+        <button class="colorPick" style="background:#ffbb00" onclick="setDrawColor('#ffbb00', this)"></button>
+        <button class="colorPick" style="background:#00d288" onclick="setDrawColor('#00d288', this)"></button>
+        <button class="colorPick" style="background:#00b4d8" onclick="setDrawColor('#00b4d8', this)"></button>
+        <button class="colorPick" style="background:#8b5cf6" onclick="setDrawColor('#8b5cf6', this)"></button>
+        <button class="colorPick" style="background:#22223b" onclick="setDrawColor('#22223b', this)"></button>
+      </div>
+
+      <div class="toolBrushes">
+        <button class="toolBtn on" onclick="setDrawBrush('pen', this)" title="Lápis">✏️</button>
+        <button class="toolBtn" onclick="setDrawBrush('brush', this)" title="Pincel">🖌️</button>
+        <button class="toolBtn" onclick="setDrawBrush('rainbow', this)" title="Pincel Arco-íris">🌈</button>
+        <button class="toolBtn" onclick="setDrawBrush('stamp', this)" title="Carimbo da Elo">⭐</button>
+        <button class="toolBtn" onclick="setDrawBrush('eraser', this)" title="Borracha">🧼</button>
+        <button class="toolBtn clear" onclick="clearFreeDrawCanvas()" title="Limpar tudo">🗑️</button>
+      </div>
+    </div>
+
+    <!-- Canvas de Pintura Livre -->
+    <div class="freeCanvasContainer">
+      <canvas id="freeDrawCanvas" width="600" height="420"></canvas>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;margin-top:10px;">
+      <button class="btn" style="background:linear-gradient(135deg,#ff6fae,#8f56e8)" onclick="saveFreeDrawArt()">💾 Guardar meu Desenho (+1 ⭐)</button>
+      <span style="font-size:12px;color:var(--muted);align-self:center;">Use o dedo ou caneta para desenhar!</span>
+    </div>
+  </div>
+
+  <!-- Modo 2: Galeria de Colorir Desenhos da Elo -->
+  <div id="coloringSection" class="card hidden">
+    <h3>Escolha um desenho para colorir 🖍️</h3>
+    <p class="muted" id="coloringCountText">10 desenhos oficiais da Elo. Toque para colorir com balde de tinta e zoom.</p>
+    <div id="coloringGallery" class="coloringGallery"></div>
+  </div>
 </section>
 
 <section id="storiesPanel" class="panel">
@@ -141,7 +353,7 @@
   <div class="card parentClubCard"><h3>Clubinho da Elo 👑</h3><p class="muted">Informações de assinatura e valores ficam somente na Área dos Pais.</p><button class="btn secondary" onclick="openPanel('clubPanel','parents')">Ver planos e benefícios</button></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.5.3</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>3.6.0</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -150,7 +362,7 @@
 </section>
 
 <section id="roomPanel" class="panel">
-  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Quarto da Elo 🏠</h2></div>
+  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Quarto da Elo 🏠</h2><button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Baú de Estrelas</button></div>
   <div class="roomIntro"><div><small>MEU CANTINHO</small><h3>Decore do seu jeito</h3><p>Itens novos aparecem conforme você brinca, aprende e explora. Toque nos móveis e objetos para ver a Elo reagir.</p></div><button onclick="eloGuideSay('Este é o meu quarto! Toque nas opções abaixo para decorar do seu jeito.')">🔊</button></div>
   <div id="eloRoom" class="eloRoom room-premium">
     <div class="roomCeilingGlow"></div>
@@ -169,7 +381,7 @@
 </section>
 
 <section id="wardrobePanel" class="panel">
-  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Guarda-roupa da Elo 👗</h2></div>
+  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Guarda-roupa da Elo 👗</h2><button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Baú de Estrelas</button></div>
   <div class="wardrobeStudio">
     <div class="wardrobeStage">
       <div id="wardrobeElo" class="eloDoll" aria-label="Elo com o visual escolhido"><span class="dollHairBack"></span><span class="dollHead"><i class="eye e1"></i><i class="eye e2"></i><i class="mouth"></i><i class="blush bl1"></i><i class="blush bl2"></i></span><span class="dollHairFront"></span><span class="dollBow"></span><span class="dollNecklace"></span><span class="dollBody"><i class="dollTop"></i><i class="dollBottom"></i><i class="dollDress"></i><i class="arm a1"></i><i class="arm a2"></i></span><span class="leg l1"></span><span class="leg l2"></span><span class="shoe sh1"></span><span class="shoe sh2"></span><span class="dollBracelet"></span><span class="dollRing"></span><span class="dollEarring er1"></span><span class="dollEarring er2"></span></div>
@@ -221,16 +433,126 @@
       <div id="petCareCooldown" class="petCareCooldown">Pronto para cuidar 💗</div>
       <div class="petActionHelper"><button id="petResetBtn" class="smallBtn petResetBtn" onclick="resetPetProgress()">🥚 Recomeçar do ovo</button></div>
       <div class="petGrowth"><div><b id="petGrowthText">Crescimento</b><small id="petGrowthSub">Cada cuidado ajuda seu amigo a crescer.</small></div><div class="petGrowthBar"><i id="petGrowthBar"></i></div></div>
+      <button id="petAscensionBtn" class="btn hidden" style="width:100%;margin:10px 0;background:linear-gradient(135deg,#ffd554,#ff72b1);font-weight:900" onclick="startPetAscension()">✨ Realizar Jornada das Estrelas (+25 ⭐)</button>
       <div class="petAccessories"><b>Acessórios</b><div id="petAccessoryGrid"></div></div>
     </div>
   </div>
 </section>
 
 <section id="familyPanel" class="panel">
-  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Modo Família 👨‍👩‍👧</h2></div>
-  <div class="familyHero"><span>💗</span><div><b>Um aparelho, todo mundo brincando</b><small>Sem conta, sem internet e sem competir com desconhecidos.</small></div></div>
-  <div class="familyGames"><button onclick="startFamilyGame('guess')"><span>🤔</span><b>Adivinhação</b><small>Revezem as pistas</small></button><button onclick="startFamilyGame('mime')"><span>🎭</span><b>Mímica</b><small>Faça sem falar</small></button><button onclick="startFamilyGame('coop')"><span>🤝</span><b>Desafio cooperativo</b><small>Façam juntos</small></button><button onclick="startFamilyGame('draw')"><span>✏️</span><b>Desenho em dupla</b><small>Uma ideia por vez</small></button></div>
-  <div id="familyGameBox" class="card familyGameBox"><p class="muted">Escolha uma brincadeira acima.</p></div>
+  <div class="topTitle">
+    <button class="back" onclick="appBack()">‹</button>
+    <h2>Festa da Família 👨‍👩‍👧</h2>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
+  </div>
+
+  <div class="familyPartyHero">
+    <span class="familyPartyBadge">🎉 JOGUEM JUNTOS</span>
+    <h3>Um celular, diversão para a família toda!</h3>
+    <p>Sem internet e sem regras complicadas. Escolham um modo e comecem a diversão:</p>
+  </div>
+
+  <!-- Modos Principais do Party Game -->
+  <div class="familyModeTabs">
+    <button class="familyTabBtn active" onclick="switchFamilyMode('mime', this)">
+      <span>🎭</span>
+      <b>Mímica Maluca</b>
+      <small>Com cronômetro</small>
+    </button>
+    <button class="familyTabBtn" onclick="switchFamilyMode('duel', this)">
+      <span>⚡</span>
+      <b>Duelo de Toque</b>
+      <small>2 Jogadores</small>
+    </button>
+    <button class="familyTabBtn" onclick="switchFamilyMode('score', this)">
+      <span>🏆</span>
+      <b>Placar da Galera</b>
+      <small>Equipes</small>
+    </button>
+  </div>
+
+  <!-- 1. MÍMICA COM CRONÔMETRO -->
+  <div id="familyMimeView" class="familyViewCard">
+    <div class="mimeTopBar">
+      <span id="mimeTimerDisplay" class="mimeTimerBadge">⏱️ 45s</span>
+      <div class="mimeCategoryPills">
+        <button class="pillBtn on" onclick="setMimeCat('animals', this)">🐾 Animais</button>
+        <button class="pillBtn" onclick="setMimeCat('actions', this)">🏃 Ações</button>
+        <button class="pillBtn" onclick="setMimeCat('characters', this)">🦄 Personagens</button>
+        <button class="pillBtn" onclick="setMimeCat('mix', this)">🎲 Misturado</button>
+      </div>
+    </div>
+
+    <!-- Carta de Mímica -->
+    <div id="mimeCardBox" class="mimeCardContainer">
+      <div class="mimeHiddenPrompt">
+        <span style="font-size:52px;display:block;margin-bottom:8px;">🙈</span>
+        <h3>Vez do mímico!</h3>
+        <p>Apenas quem vai fazer a mímica deve olhar a tela agora.</p>
+        <button class="btn mainBtn" onclick="startMimeRound()">Revelar e Iniciar Cronômetro! ⏱️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. DUELO 2 JOGADORES NA MESMA TELA -->
+  <div id="familyDuelView" class="familyViewCard hidden">
+    <div class="duelInstructions">
+      <b>⚡ Duelo de Toque Rápido</b>
+      <p>Coloque o celular na mesa entre dois jogadores. Quem tocar na resposta correta primeiro na sua área marca ponto!</p>
+      <button class="btn" onclick="startDuelRound()" style="margin-top:8px">Começar Rodada 🎯</button>
+    </div>
+
+    <div id="duelArena" class="duelArena">
+      <!-- Jogador 1 (Topo - Invertido) -->
+      <div id="duelP1Area" class="duelHalf p1Half" onclick="handleDuelTouch(1)">
+        <div class="duelPlayerLabel">Jogador 1 • Pontos: <span id="duelP1Score">0</span></div>
+        <div id="duelP1Prompt" class="duelPrompt">Aguardando início...</div>
+      </div>
+
+      <!-- Barra Central de Desafio -->
+      <div id="duelCenterDivider" class="duelDivider">
+        <span id="duelCenterCommand">Toque em "Começar Rodada"</span>
+      </div>
+
+      <!-- Jogador 2 (Base) -->
+      <div id="duelP2Area" class="duelHalf p2Half" onclick="handleDuelTouch(2)">
+        <div class="duelPlayerLabel">Jogador 2 • Pontos: <span id="duelP2Score">0</span></div>
+        <div id="duelP2Prompt" class="duelPrompt">Aguardando início...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. PLACAR DA FAMÍLIA -->
+  <div id="familyScoreView" class="familyViewCard hidden">
+    <div class="scoreboardWrap">
+      <div class="scoreTeam teamElo">
+        <span class="teamAvatar">👧</span>
+        <b id="team1Name">Crianças / Elo</b>
+        <div class="teamPoints" id="team1Score">0</div>
+        <div class="scoreButtons">
+          <button class="scoreBtn" onclick="changeTeamScore(1, 1)">+1</button>
+          <button class="scoreBtn minus" onclick="changeTeamScore(1, -1)">-1</button>
+        </div>
+      </div>
+
+      <div class="scoreVs">VS</div>
+
+      <div class="scoreTeam teamParents">
+        <span class="teamAvatar">👨‍👩‍👧</span>
+        <b id="team2Name">Pais / Família</b>
+        <div class="teamPoints" id="team2Score">0</div>
+        <div class="scoreButtons">
+          <button class="scoreBtn" onclick="changeTeamScore(2, 1)">+1</button>
+          <button class="scoreBtn minus" onclick="changeTeamScore(2, -1)">-1</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:16px;">
+      <button class="btn" style="background:linear-gradient(135deg,#ffd554,#ff68a7);font-weight:900" onclick="finishFamilyMatch()">🏆 Declarar Vencedor com Confetes!</button>
+      <button class="btn secondary" style="margin-left:8px" onclick="resetTeamScores()">Zerar Placar</button>
+    </div>
+  </div>
 </section>
 <section id="interactiveStoriesPanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Histórias Interativas 🌟</h2></div>
@@ -296,6 +618,99 @@
 <div id="exitConfirm" class="exitConfirm hidden" role="dialog" aria-modal="true" aria-labelledby="exitTitle"><div class="exitCard"><div class="exitIcon">👋</div><h3 id="exitTitle">Deseja sair do app?</h3><p>Você está na página principal.</p><div class="exitActions"><button class="exitNo" onclick="cancelAppExit()">Não, continuar</button><button class="exitYes" onclick="confirmAppExit()">Sim, sair</button></div></div></div>
 <nav><div class="navin"><button class="navbtn active" data-nav="home" onclick="openPanel('homePanel','home')"><img class="navEloIcon" src="assets/home-icons/home-nav.webp" alt="">Início</button><button class="navbtn" data-nav="watch" onclick="openPanel('watchPanel','watch')"><img class="navEloIcon" src="assets/home-icons/watch-nav.webp" alt="">Assistir</button><button class="navbtn" data-nav="play" onclick="openPanel('playPanel','play')"><img class="navEloIcon" src="assets/home-icons/play-nav.webp" alt="">Jogar</button><button class="navbtn" data-nav="learn" onclick="openPanel('learnPanel','learn')"><img class="navEloIcon" src="assets/home-icons/learn-nav.webp" alt="">Escolinha da Elo</button><button class="navbtn" data-nav="create" onclick="openPanel('createPanel','create')"><img class="navEloIcon" src="assets/home-icons/create-nav.webp" alt="">Criar</button></div></nav>
 <div id="toast" class="toast">Muito bem! ⭐</div>
-<script src="version.js?v=3.5.3"></script><script src="app.js?v=3.5.3"></script><script src="v3.js?v=3.5.3"></script><script src="pet.js?v=3.5.3"></script>
+<script src="version.js?v=3.6.0"></script><script src="app.js?v=3.6.0"></script><script src="v3.js?v=3.6.0"></script><script src="pet.js?v=3.6.0"></script>
+
+<!-- Modal Loja das Estrelas & Monetização Ética -->
+<div id="starShopModal" class="overlay hidden panelOverlay starShopModal">
+  <div class="panelCard">
+    <div class="panelHead">
+      <h2>🎁 Baú das Estrelas</h2>
+      <button class="miniClose" onclick="closeStarShop()">×</button>
+    </div>
+    <p class="muted">Seu saldo atual: <strong id="shopStarBalance" style="color:#ff68a7;font-size:16px">0</strong> ⭐</p>
+    
+    <div class="starShopGrid">
+      <!-- Presente do Dia -->
+      <div class="starShopCard">
+        <div class="cardIcon">📅</div>
+        <div class="cardBody">
+          <b>Presente do Dia</b>
+          <small>Volte todos os dias para resgatar +10 estrelas!</small>
+        </div>
+        <button id="claimDailyBonusBtn" onclick="claimDailyBonus()">Resgatar +10 ⭐</button>
+      </div>
+
+      <!-- Vídeo Premiado -->
+      <div class="starShopCard">
+        <div class="cardIcon">🎬</div>
+        <div class="cardBody">
+          <b>Vídeo Premiado da Elo</b>
+          <small>Assista a um vídeo curto e ganhe estrelas grátis!</small>
+        </div>
+        <button onclick="watchRewardedAd()">Assistir (+10 ⭐)</button>
+      </div>
+
+      <!-- Pacotes para os Pais -->
+      <div class="starShopCard" style="border-left: 4px solid #8f56e8;">
+        <div class="cardIcon">👑</div>
+        <div class="cardBody">
+          <b>Pacotes para Responsáveis</b>
+          <small>Desbloqueie pacotes protegidos por PIN dos pais.</small>
+        </div>
+        <button onclick="buyParentPack('pack50')">Ver Pacotes</button>
+      </div>
+    </div>
+
+    <div style="background:#f9f6ff;border-radius:14px;padding:8px 12px;font-size:11px;color:#675883;text-align:center;">
+      🔒 Ambiente infantil seguro e protegido. Compras protegidas por PIN dos pais.
+    </div>
+  </div>
+</div>
+
+<!-- Overlay de Vídeo Premiado da Elo -->
+<div id="rewardVideoOverlay" class="overlay hidden panelOverlay" style="z-index:9999;">
+  <div class="panelCard" style="max-width:360px;text-align:center;padding:24px;">
+    <div style="font-size:48px;animation:dollHappy .6s infinite alternate;">⭐</div>
+    <h3 style="margin:10px 0 6px;color:#ff549b;">Vídeo Especial da Elo</h3>
+    <p class="muted" style="margin-bottom:14px;">Preparando sua recompensa estelar...</p>
+    <div style="width:100%;height:12px;background:#eee;border-radius:6px;overflow:hidden;margin:12px 0;">
+      <div id="rewardVideoBar" style="width:0%;height:100%;background:linear-gradient(90deg,#ff68a7,#8f56e8);transition:width 1s linear;"></div>
+    </div>
+    <div id="rewardVideoTimer" style="font-weight:900;color:#8f56e8;font-size:16px;">7s</div>
+  </div>
+</div>
+
+
+<!-- Modal Hub do Cantinho da Elo (Quarto, Guarda-roupa & Pet) -->
+<div id="eloHubModal" class="overlay hidden panelOverlay eloHubModal">
+  <div class="panelCard">
+    <div class="panelHead">
+      <h2>🏡 Cantinho da Elo</h2>
+      <button class="miniClose" onclick="closeEloHubModal()">×</button>
+    </div>
+    <p class="muted">Para onde você quer ir agora?</p>
+
+    <div class="eloHubGrid">
+      <button class="hubTile tileRoom" onclick="closeEloHubModal();openPanel('roomPanel','home')">
+        <span class="hubTileIcon">🛏️</span>
+        <b>Quarto da Elo</b>
+        <small>Decore as paredes, camas e brinquedos</small>
+      </button>
+
+      <button class="hubTile tileWardrobe" onclick="closeEloHubModal();openPanel('wardrobePanel','home')">
+        <span class="hubTileIcon">👗</span>
+        <b>Guarda-roupa</b>
+        <small>Mude o cabelo, roupas, olhos e maquiagem</small>
+      </button>
+
+      <button class="hubTile tilePet" onclick="closeEloHubModal();openPet()">
+        <span class="hubTileIcon">🐾</span>
+        <b>Bichinho Virtual</b>
+        <small>Alimente, brinque, dê banho e carinho</small>
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

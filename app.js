@@ -150,17 +150,41 @@ let readStories=JSON.parse(pget('eloReadStories')||'[]');
 const starCount=document.getElementById('starCount');
 
 function renderStars(){starCount.textContent=stars;renderBadges()}
-function addStars(n=1,msg='Você ganhou uma estrelinha! ⭐'){stars+=n;pset('eloStars',stars);renderStars();toast(msg)}
+function addStars(n=1,msg='Você ganhou uma estrelinha! ⭐'){
+  stars+=n;
+  pset('eloStars',stars);
+  renderStars();
+  if(typeof triggerStarConfetti==='function') triggerStarConfetti();
+  toast(msg);
+}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove('show'),1900)}
 let appRestoringHistory=false,appExitArmed=false,appExitFallback=null;
 function currentPanelId(){return document.querySelector('.panel.active')?.id||'homePanel'}
 function appStateForPanel(id,nav){return {eloApp:true,type:id==='homePanel'?'home':'panel',id,nav}}
 function pushAppState(state){if(appRestoringHistory)return;const cur=history.state||{};if(cur.eloApp&&cur.type===state.type&&cur.id===state.id)return;history.pushState(state,'')}
-function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();if(previous==='parentsPanel'&&id!=='parentsPanel')lockParentAccess();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='parentsPanel')renderParentV2();if(id==='achievementsPanel'){renderV2Album();renderEnglishAlbum()}if(id==='learnPanel'){renderEnglishHomeProgress();renderSchoolChallenges();setTimeout(()=>toggleSchoolChallenges(false),0);}if(id==='englishPanel')renderEnglishSchool();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop()}if(id==='createPanel'){renderColoringGallery();renderPalette()}if(!fromHistory)speakYoungPanelIntro(id);if(!fromHistory)pushAppState(appStateForPanel(id,nav))}
+function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();if(previous==='parentsPanel'&&id!=='parentsPanel')lockParentAccess();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='parentsPanel')renderParentV2();if(id==='achievementsPanel'){renderV2Album();renderEnglishAlbum()}if(id==='learnPanel'){renderEnglishHomeProgress();if(typeof renderModernSchoolQuestion==='function')renderModernSchoolQuestion();}if(id==='englishPanel')renderEnglishSchool();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop()}if(id==='createPanel'){renderColoringGallery();renderPalette();if(typeof initFreeDrawCanvas==='function')setTimeout(initFreeDrawCanvas,60);}if(!fromHistory)speakYoungPanelIntro(id);if(!fromHistory)pushAppState(appStateForPanel(id,nav))}
 function exitDialogOpen(){return !document.getElementById('exitConfirm')?.classList.contains('hidden')}
 function profileChooserOpen(){return !document.getElementById('profileModal')?.classList.contains('hidden')}
-function mainMenuVisible(){return currentPanelId()==='homePanel'&&!profileChooserOpen()&&document.getElementById('gameModal')?.classList.contains('hidden')!==false&&document.getElementById('coloringModal')?.classList.contains('hidden')!==false&&document.getElementById('rpgOverlay')?.classList.contains('hidden')!==false&&document.getElementById('cinemaPlayerModal')?.classList.contains('hidden')!==false}
-function appBack(){if(exitDialogOpen())return cancelAppExit();if(document.getElementById('cinemaPlayerModal')?.classList.contains('hidden')===false)return closeCinemaPlayer();if(mainMenuVisible())return showExitConfirm();history.back()}
+function isAnyModalOpen(){
+  const ids = ['gameModal', 'coloringModal', 'rpgOverlay', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'rewardVideoOverlay', 'profileModal', 'exitConfirm'];
+  return ids.some(id => {
+    const el = document.getElementById(id);
+    return el && !el.classList.contains('hidden');
+  });
+}
+function mainMenuVisible(){
+  return currentPanelId() === 'homePanel' && !isAnyModalOpen();
+}
+function appBack(){
+  if(exitDialogOpen()) return cancelAppExit();
+  if(!document.getElementById('rewardVideoOverlay')?.classList.contains('hidden')){ document.getElementById('rewardVideoOverlay').classList.add('hidden'); return; }
+  if(!document.getElementById('starShopModal')?.classList.contains('hidden')){ closeStarShop(); return; }
+  if(!document.getElementById('eloHubModal')?.classList.contains('hidden')){ closeEloHubModal(); return; }
+  if(!document.getElementById('cinemaPlayerModal')?.classList.contains('hidden')) return closeCinemaPlayer();
+  if(profileChooserOpen()) return closeProfileChooser();
+  if(mainMenuVisible()) return showExitConfirm();
+  history.back();
+}
 function showExitConfirm(){document.getElementById('exitConfirm')?.classList.remove('hidden');document.body.style.overflow='hidden'}
 function cancelAppExit(){document.getElementById('exitConfirm')?.classList.add('hidden');document.body.style.overflow=''}
 function confirmAppExit(){appExitArmed=true;document.getElementById('exitConfirm')?.classList.add('hidden');document.body.style.overflow='';clearTimeout(appExitFallback);history.back();appExitFallback=setTimeout(()=>{try{window.close()}catch(_){/* navegadores podem ignorar */}},900)}
@@ -196,7 +220,7 @@ function openGame(id,title,fromHistory=false){if(!fromHistory)trackActivity('gam
 function closeGame(fromHistory=false){if(!fromHistory&&history.state?.type==='game')return history.back();clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop();document.getElementById('gameModal').classList.add('hidden');document.body.style.overflow=''}
 function openRpg(fromHistory=false){if(!fromHistory)trackActivity('rpg');trailStop();clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);const frame=document.getElementById('rpgFrame');const wanted=new URL('./rpg.html?v='+encodeURIComponent(APP_VERSION)+'&profile='+encodeURIComponent(activeProfileId),location.href).href;frame.src=wanted;document.getElementById('rpgOverlay').classList.remove('hidden');document.body.style.overflow='hidden';if(!fromHistory){pushAppState({eloApp:true,type:'rpg'});showTutorialOnce('rpg','Elo e o Reino das Estrelas',['Use as setas para andar e A para falar, entrar ou interagir.','Energia mostra a vida da Elo. Magia (MP) é usada pelos Poderes.','Treine antes dos chefes, leve poções e explore lojas, casas e caminhos.','O jogo salva automaticamente e continua do ponto em que você parou.'])}}
 function closeRpg(fromHistory=false){if(!fromHistory&&history.state?.type==='rpg')return history.back();const frame=document.getElementById('rpgFrame');document.getElementById('rpgOverlay').classList.add('hidden');document.body.style.overflow='';if(frame)frame.src='about:blank';renderBadges()}
-window.addEventListener('message',e=>{const d=e.data||{};if(d.type==='rpg-close')closeRpg();if(d.type==='rpg-open-youtube')openExternal(CHANNEL_URL);if(d.type==='rpg-medal')renderBadges()});
+window.addEventListener('message',e=>{const d=e.data||{};if(d.type==='rpg-close')closeRpg();if(d.type==='rpg-open-youtube')openExternal(CHANNEL_URL);if(d.type==='rpg-medal')renderBadges();if(d.type==='rpg-stars')addStars(Number(d.amount)||1,d.msg||'Você ganhou estrelas no RPG! ⭐');});
 function openColoring(i,fromHistory=false){if(!fromHistory)trackActivity('coloring');chooseColoring(i,true);if(!fromHistory)pushAppState({eloApp:true,type:'coloring',index:i})}
 function closeColoring(fromHistory=false){if(!fromHistory&&history.state?.type==='coloring')return history.back();document.getElementById('coloringModal').classList.add('hidden');document.body.style.overflow='';if(typeof resetColorZoom==='function')resetColorZoom()}
 
@@ -300,9 +324,47 @@ const MAZE_LEVELS={easy:{size:9,reward:2},medium:{size:11,reward:3},hard:{size:1
 let mazeLevel='easy',mazeSize=MAZE_LEVELS.easy.size,mazeMap=[],mazePlayer={x:1,y:1},mazeGoal={x:mazeSize-2,y:mazeSize-2},mazeMoves=0,mazeWon=false,mazeRewarded=false;
 function setMazeLevel(level,btn){mazeLevel=level;document.querySelectorAll('[data-maze]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startMaze()}
 function makeMaze(size){const grid=Array.from({length:size},()=>Array(size).fill('#'));const dirs=[[2,0],[-2,0],[0,2],[0,-2]];function dig(x,y){grid[y][x]='.';const order=shuffle(dirs);for(const [dx,dy] of order){const nx=x+dx,ny=y+dy;if(nx<=0||ny<=0||nx>=size-1||ny>=size-1||grid[ny][nx]!=='#')continue;grid[y+dy/2][x+dx/2]='.';dig(nx,ny)}}dig(1,1);grid[1][1]='S';grid[size-2][size-2]='G';return grid}
-function startMaze(){const cfg=MAZE_LEVELS[mazeLevel];mazeSize=cfg.size;mazeMap=makeMaze(mazeSize);mazeMoves=0;mazeWon=false;mazeRewarded=false;for(let y=0;y<mazeMap.length;y++){for(let x=0;x<mazeMap[y].length;x++){if(mazeMap[y][x]==='S'){mazePlayer={x,y};mazeMap[y][x]='.'}if(mazeMap[y][x]==='G'){mazeGoal={x,y};mazeMap[y][x]='.'}}}document.getElementById('mazeBoard').style.gridTemplateColumns=`repeat(${mazeSize},1fr)`;document.getElementById('mazeMoves').textContent='Movimentos: 0';document.getElementById('mazeStatus').textContent='Encontre o unicórnio!';renderMaze()}
-function renderMaze(){const board=document.getElementById('mazeBoard');board.innerHTML='';board.style.setProperty('--maze-size',mazeSize);const scale=gameEloScale('maze',mazeSize);mazeMap.forEach((row,y)=>row.forEach((cell,x)=>{const d=document.createElement('div');const isPlayer=mazePlayer.x===x&&mazePlayer.y===y,isGoal=mazeGoal.x===x&&mazeGoal.y===y;d.className='mazeCell '+(cell==='#'?'wall':'path')+(isPlayer?' player':'')+(isGoal?' goal':'');if(isPlayer){const elo=gameEloClone('maze',scale);if(elo)d.appendChild(elo)}else if(isGoal){d.innerHTML='<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio">'}else if(cell==='#'&&(x+y)%7===0)d.innerHTML='<span class="mazeLeaf">🌿</span>';board.appendChild(d)}));syncMiniGameLegend('mazeLegendElo')}
-function moveMaze(dx,dy){if(!mazeMap.length||mazeWon)return;const nx=mazePlayer.x+dx,ny=mazePlayer.y+dy;if(ny<0||ny>=mazeMap.length||nx<0||nx>=mazeMap[0].length)return;if(mazeMap[ny][nx]==='#'){toast('Parede! Tente outro caminho 😊');return}mazePlayer={x:nx,y:ny};mazeMoves++;document.getElementById('mazeMoves').textContent='Movimentos: '+mazeMoves;renderMaze();if(nx===mazeGoal.x&&ny===mazeGoal.y){mazeWon=true;document.getElementById('mazeStatus').textContent='Elo chegou ao unicórnio! 🦄✨';if(!mazeRewarded){mazeRewarded=true;const cfg=MAZE_LEVELS[mazeLevel];addStars(cfg.reward,`Labirinto concluído! +${cfg.reward} ⭐`);unlockGameMedal('maze',mazeLevel)}}else document.getElementById('mazeStatus').textContent='Continue procurando o caminho.'}
+let mazeBonusStars = [];
+function startMaze(){
+  const cfg=MAZE_LEVELS[mazeLevel];
+  mazeSize=cfg.size;
+  mazeMap=makeMaze(mazeSize);
+  mazeMoves=0;
+  mazeWon=false;
+  mazeRewarded=false;
+  mazeBonusStars=[];
+  let openPaths=[];
+  for(let y=0;y<mazeMap.length;y++){
+    for(let x=0;x<mazeMap[y].length;x++){
+      if(mazeMap[y][x]==='S'){mazePlayer={x,y};mazeMap[y][x]='.'}
+      else if(mazeMap[y][x]==='G'){mazeGoal={x,y};mazeMap[y][x]='.'}
+      else if(mazeMap[y][x]==='.'){openPaths.push({x,y});}
+    }
+  }
+  // Spawn 3 to 5 bonus stars inside the maze paths
+  shuffle(openPaths).slice(0, Math.min(4, Math.floor(mazeSize/3))).forEach(p => mazeBonusStars.push(p));
+  document.getElementById('mazeBoard').style.gridTemplateColumns=`repeat(${mazeSize},1fr)`;
+  document.getElementById('mazeMoves').textContent='Movimentos: 0';
+  document.getElementById('mazeStatus').textContent='Pegue as estrelinhas e encontre o unicórnio!';
+  renderMaze();
+}
+function renderMaze(){const board=document.getElementById('mazeBoard');board.innerHTML='';board.style.setProperty('--maze-size',mazeSize);const scale=gameEloScale('maze',mazeSize);mazeMap.forEach((row,y)=>row.forEach((cell,x)=>{const d=document.createElement('div');const isPlayer=mazePlayer.x===x&&mazePlayer.y===y,isGoal=mazeGoal.x===x&&mazeGoal.y===y,isStar=mazeBonusStars.some(s=>s.x===x&&s.y===y);
+d.className='mazeCell '+(cell==='#'?'wall':'path')+(isPlayer?' player':'')+(isGoal?' goal':'')+(isStar?' hasStar':'');
+if(isPlayer){const elo=gameEloClone('maze',scale);if(elo)d.appendChild(elo)}
+else if(isGoal){d.innerHTML='<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio">'}
+else if(isStar){d.innerHTML='<span class="mazeStarItem" style="font-size:22px;animation:dollHappy .6s infinite alternate;">⭐</span>'}
+else if(cell==='#'&&(x+y)%7===0)d.innerHTML='<span class="mazeLeaf">🌿</span>';
+board.appendChild(d)}));syncMiniGameLegend('mazeLegendElo')}
+function moveMaze(dx,dy){if(!mazeMap.length||mazeWon)return;const nx=mazePlayer.x+dx,ny=mazePlayer.y+dy;if(ny<0||ny>=mazeMap.length||nx<0||nx>=mazeMap[0].length)return;if(mazeMap[ny][nx]==='#'){toast('Parede! Tente outro caminho 😊');return}mazePlayer={x:nx,y:ny};
+mazeMoves++;
+document.getElementById('mazeMoves').textContent='Movimentos: '+mazeMoves;
+// Check star collection
+const starIdx = mazeBonusStars.findIndex(s=>s.x===nx&&s.y===ny);
+if(starIdx !== -1){
+  mazeBonusStars.splice(starIdx, 1);
+  addStars(1, 'Estrelinha do labirinto encontrada! +1 ⭐');
+}
+renderMaze();if(nx===mazeGoal.x&&ny===mazeGoal.y){mazeWon=true;document.getElementById('mazeStatus').textContent='Elo chegou ao unicórnio! 🦄✨';if(!mazeRewarded){mazeRewarded=true;const cfg=MAZE_LEVELS[mazeLevel];addStars(cfg.reward,`Labirinto concluído! +${cfg.reward} ⭐`);unlockGameMedal('maze',mazeLevel)}}else document.getElementById('mazeStatus').textContent='Continue procurando o caminho.'}
 let mazeTouchStart=null;
 const mazeBoard=document.getElementById('mazeBoard');
 mazeBoard.addEventListener('touchstart',e=>{const t=e.changedTouches[0];mazeTouchStart={x:t.clientX,y:t.clientY}},{passive:true});
@@ -317,9 +379,58 @@ function chaseKey(x,y){return `${x},${y}`}
 function makeChaseMap(){const n=chaseSize,grid=Array.from({length:n},(_,y)=>Array.from({length:n},(_,x)=>(x===0||y===0||x===n-1||y===n-1)?'#':'.'));const mid=Math.floor(n/2);const reserved=(x,y)=>x<=2&&y<=2||x>=n-3&&y>=n-3||x===1||y===1||x===n-2||y===n-2||x===mid||y===mid;for(let y=3;y<n-3;y+=4){for(let x=3;x<n-3;x+=4){if(reserved(x,y))continue;const shape=(x+y)%3;if(shape===0){grid[y][x]='#';if(x+1<n-2&&!reserved(x+1,y))grid[y][x+1]='#'}else if(shape===1){grid[y][x]='#';if(y+1<n-2&&!reserved(x,y+1))grid[y+1][x]='#'}else grid[y][x]='#'}}for(let i=0;i<Math.floor(n/3);i++){const x=2+Math.floor(Math.random()*(n-4)),y=2+Math.floor(Math.random()*(n-4));if(!reserved(x,y)&&Math.random()>.35)grid[y][x]='#'}grid[1][1]='.';grid[n-2][n-2]='.';return grid}
 function chaseOpenCells(){const cells=[];for(let y=1;y<chaseSize-1;y++)for(let x=1;x<chaseSize-1;x++)if(chaseMap[y][x]==='.')cells.push({x,y});return cells}
 function chaseDistance(a,b){return Math.abs(a.x-b.x)+Math.abs(a.y-b.y)}
-function startChase(){clearInterval(chaseInterval);const cfg=CHASE_LEVELS[chaseLevel];chaseSize=cfg.size;chaseTotal=cfg.total;chaseMap=makeChaseMap();chasePlayer={x:1,y:1};chaseGhost={x:chaseSize-2,y:chaseSize-2};chaseWon=false;chaseLost=false;chaseCollected=0;let candidates=shuffle(chaseOpenCells().filter(p=>chaseDistance(p,chasePlayer)>Math.max(5,Math.floor(chaseSize/3))&&chaseDistance(p,chaseGhost)>4));chaseUnicorns=[];for(const c of candidates){if(chaseUnicorns.every(u=>chaseDistance(u,c)>3)){chaseUnicorns.push(c);if(chaseUnicorns.length>=chaseTotal)break}}if(chaseUnicorns.length<chaseTotal)chaseUnicorns=candidates.slice(0,chaseTotal);document.getElementById('chaseBoard').style.gridTemplateColumns=`repeat(${chaseSize},1fr)`;document.getElementById('chaseStatus').textContent='Corra pela arena e pegue os unicórnios!';document.getElementById('chaseCount').innerHTML=`<img class="inlineCreature" src="assets/game-ui/unicorn.svg" alt=""> 0/${chaseTotal}`;renderChase();setTimeout(()=>{if(!chaseWon&&!chaseLost&&!document.getElementById('gameModal').classList.contains('hidden'))chaseInterval=setInterval(moveChaseGhost,cfg.ghostMs)},cfg.startDelay)}
-function renderChase(){const board=document.getElementById('chaseBoard');if(!board)return;board.innerHTML='';board.style.setProperty('--chase-size',chaseSize);const scale=gameEloScale('chase',chaseSize),uni=new Set(chaseUnicorns.map(p=>chaseKey(p.x,p.y)));for(let y=0;y<chaseSize;y++){for(let x=0;x<chaseSize;x++){const d=document.createElement('div'),wall=chaseMap[y][x]==='#',player=chasePlayer.x===x&&chasePlayer.y===y,ghost=chaseGhost.x===x&&chaseGhost.y===y,unicorn=uni.has(chaseKey(x,y));d.className='chaseCell '+(wall?'wall':'path')+(player?' player':'')+(ghost?' ghost':'')+(unicorn?' unicorn':'');if(player){const elo=gameEloClone('chase',scale);if(elo)d.appendChild(elo)}else if(ghost)d.innerHTML='<img class="gameCreature ghostSprite" src="assets/game-ui/ghost.svg" alt="Fantasminha">';else if(unicorn)d.innerHTML='<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio">';else if(!wall&&(x*7+y*11)%31===0)d.innerHTML='<span class="chaseFlower">🌸</span>';board.appendChild(d)}}syncMiniGameLegend('chaseLegendElo')}
-function collectChaseUnicorn(){const k=chaseKey(chasePlayer.x,chasePlayer.y),before=chaseUnicorns.length;chaseUnicorns=chaseUnicorns.filter(p=>chaseKey(p.x,p.y)!==k);if(chaseUnicorns.length<before){chaseCollected++;document.getElementById('chaseCount').innerHTML=`<img class="inlineCreature" src="assets/game-ui/unicorn.svg" alt=""> ${chaseCollected}/${chaseTotal}`;toast('Unicórnio encontrado! 🦄✨');if(chaseCollected>=chaseTotal){chaseWon=true;clearInterval(chaseInterval);document.getElementById('chaseStatus').textContent='Você pegou todos! 🎉';const cfg=CHASE_LEVELS[chaseLevel];addStars(cfg.reward,`Todos os unicórnios encontrados! +${cfg.reward} ⭐`);unlockGameMedal('chase',chaseLevel)}}}
+function startChase(){clearInterval(chaseInterval);const cfg=CHASE_LEVELS[chaseLevel];chaseSize=cfg.size;chaseTotal=cfg.total;chaseMap=makeChaseMap();chasePlayer={x:1,y:1};chaseGhost={x:chaseSize-2,y:chaseSize-2};chaseWon=false;chaseLost=false;chaseCollected=0;let candidates=shuffle(chaseOpenCells().filter(p=>chaseDistance(p,chasePlayer)>Math.max(5,Math.floor(chaseSize/3))&&chaseDistance(p,chaseGhost)>4));chaseUnicorns=[];
+for(const c of candidates){
+  if(chaseUnicorns.every(u=>chaseDistance(u,c)>3)){
+    chaseUnicorns.push(c);
+    if(chaseUnicorns.length>=chaseTotal)break;
+  }
+}
+if(chaseUnicorns.length<chaseTotal)chaseUnicorns=candidates.slice(0,chaseTotal);
+if(chaseUnicorns.length>0) chaseUnicorns[chaseUnicorns.length-1].isGolden=true;
+lastChaseCollectAt=0;chaseComboCount=0;document.getElementById('chaseBoard').style.gridTemplateColumns=`repeat(${chaseSize},1fr)`;document.getElementById('chaseStatus').textContent='Corra pela arena e pegue os unicórnios!';document.getElementById('chaseCount').innerHTML=`<img class="inlineCreature" src="assets/game-ui/unicorn.svg" alt=""> 0/${chaseTotal}`;renderChase();setTimeout(()=>{if(!chaseWon&&!chaseLost&&!document.getElementById('gameModal').classList.contains('hidden'))chaseInterval=setInterval(moveChaseGhost,cfg.ghostMs)},cfg.startDelay)}
+function renderChase(){const board=document.getElementById('chaseBoard');if(!board)return;board.innerHTML='';board.style.setProperty('--chase-size',chaseSize);const scale=gameEloScale('chase',chaseSize),uni=new Set(chaseUnicorns.map(p=>chaseKey(p.x,p.y)));for(let y=0;y<chaseSize;y++){for(let x=0;x<chaseSize;x++){const d=document.createElement('div'),wall=chaseMap[y][x]==='#',player=chasePlayer.x===x&&chasePlayer.y===y,ghost=chaseGhost.x===x&&chaseGhost.y===y,unicorn=uni.has(chaseKey(x,y));d.className='chaseCell '+(wall?'wall':'path')+(player?' player':'')+(ghost?' ghost':'')+(unicorn?' unicorn':'');if(player){const elo=gameEloClone('chase',scale);if(elo)d.appendChild(elo)}else if(ghost)d.innerHTML='<img class="gameCreature ghostSprite" src="assets/game-ui/ghost.svg" alt="Fantasminha">';else if(unicorn){
+  const item=chaseUnicorns.find(u=>chaseKey(u.x,u.y)===chaseKey(x,y));
+  if(item?.isGolden){
+    d.innerHTML='<span style="font-size:26px;animation:dollHappy .5s infinite alternate;filter:drop-shadow(0 0 6px #ffd700);display:inline-block">🦄✨</span>';
+  } else {
+    d.innerHTML='<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio">';
+  }
+}else if(!wall&&(x*7+y*11)%31===0)d.innerHTML='<span class="chaseFlower">🌸</span>';board.appendChild(d)}}syncMiniGameLegend('chaseLegendElo')}
+let lastChaseCollectAt = 0, chaseComboCount = 0;
+function collectChaseUnicorn(){
+  const k=chaseKey(chasePlayer.x,chasePlayer.y),before=chaseUnicorns.length;
+  const picked=chaseUnicorns.find(p=>chaseKey(p.x,p.y)===k);
+  chaseUnicorns=chaseUnicorns.filter(p=>chaseKey(p.x,p.y)!==k);
+  if(chaseUnicorns.length<before){
+    chaseCollected++;
+    const now=Date.now();
+    if(now - lastChaseCollectAt < 3800){
+      chaseComboCount++;
+    } else {
+      chaseComboCount=1;
+    }
+    lastChaseCollectAt=now;
+    
+    let comboMsg = chaseComboCount > 1 ? ` Combo x${chaseComboCount}! 🌈` : '';
+    if(picked?.isGolden){
+      addStars(2, `Unicórnio Dourado Raro! +2 ⭐${comboMsg}`);
+    } else if(chaseComboCount >= 3){
+      addStars(1, `Super Sequência! +1 ⭐${comboMsg}`);
+    } else {
+      toast(`Unicórnio resgatado! 🦄${comboMsg}`);
+    }
+    document.getElementById('chaseCount').innerHTML=`<img class="inlineCreature" src="assets/game-ui/unicorn.svg" alt=""> ${chaseCollected}/${chaseTotal}`;
+    if(chaseCollected>=chaseTotal){
+      chaseWon=true;
+      clearInterval(chaseInterval);
+      document.getElementById('chaseStatus').textContent='Você pegou todos! 🎉';
+      const cfg=CHASE_LEVELS[chaseLevel];
+      addStars(cfg.reward,`Todos os unicórnios encontrados! +${cfg.reward} ⭐`);
+      unlockGameMedal('chase',chaseLevel);
+    }
+  }
+}
 function chaseCaught(){if(chaseWon||chaseLost)return;chaseLost=true;clearInterval(chaseInterval);document.getElementById('chaseStatus').textContent='O fantasminha encontrou a Elo! 👻';toast('Quase! Agora há bastante espaço para fugir — tente outra rota 💗');renderChase()}
 function moveChase(dx,dy){if(chaseWon||chaseLost||!chaseMap.length)return;const nx=chasePlayer.x+dx,ny=chasePlayer.y+dy;if(ny<0||ny>=chaseSize||nx<0||nx>=chaseSize||chaseMap[ny][nx]==='#')return;chasePlayer={x:nx,y:ny};collectChaseUnicorn();if(chasePlayer.x===chaseGhost.x&&chasePlayer.y===chaseGhost.y)return chaseCaught();renderChase()}
 function chaseNeighbors(pos){return [[1,0],[-1,0],[0,1],[0,-1]].map(([dx,dy])=>({x:pos.x+dx,y:pos.y+dy})).filter(p=>p.x>0&&p.y>0&&p.x<chaseSize-1&&p.y<chaseSize-1&&chaseMap[p.y][p.x]!== '#')}
@@ -411,7 +522,7 @@ function syncTrailEloClone(){
 }
 
 function setTrailLevel(level,btn){trailLevel=level;document.querySelectorAll('[data-trail]').forEach(x=>x.classList.remove('on'));if(btn)btn.classList.add('on');restartTrailRun()}
-function baseTrailState(){return {mode:'ready',phase:1,lives:3,score:0,totalCollected:0,nextLifeAt:100,phaseCollected:0,phaseGoal:18,phaseDistance:0,phaseDistanceGoal:2400,bossHp:0,bossMaxHp:0,bossShotCd:0,bossPattern:'attack',bossPatternTimer:0,bossVulnerable:false,gameOver:false,messageShown:false,player:{x:110,y:0,vy:0,w:58,h:76,jumpBuffer:0,inv:0},ground:390,worldSpeed:TRAIL_LEVELS[trailLevel].speed,spawnTimer:0,collectTimer:0,entities:[],projectiles:[],effects:[],bossProjectiles:[],boss:null,medalGiven:false}};
+function baseTrailState(){return {mode:'ready',phase:1,lives:3,score:0,totalCollected:0,nextLifeAt:100,phaseCollected:0,phaseGoal:18,phaseDistance:0,phaseDistanceGoal:2400,bossHp:0,bossMaxHp:0,bossShotCd:0,bossPattern:'attack',bossPatternTimer:0,bossVulnerable:false,gameOver:false,messageShown:false,hasShield:false,magnetTimer:0,player:{x:110,y:0,vy:0,w:58,h:76,jumpBuffer:0,inv:0},ground:390,worldSpeed:TRAIL_LEVELS[trailLevel].speed,spawnTimer:0,collectTimer:0,entities:[],projectiles:[],effects:[],bossProjectiles:[],boss:null,medalGiven:false}};
 function restartTrailRun(){trailStop();trailState=baseTrailState();prepareTrailPhase();drawTrailScene(0);syncTrailHud();trailUI.status.textContent='Fase 1 • A aventura recomeçou!'}
 function startTrailGame(){if(!trailState||trailState.lives<=0||trailState.gameOver)restartTrailRun();trailStop();trailState.worldSpeed=TRAIL_LEVELS[trailLevel].speed+(trailState.phase-1)*0.06;trailRunning=true;trailLast=performance.now();trailUI.status.textContent=isTrailBossPhase()?`Fase ${trailState.phase} • Desvie dos ataques!`:`Fase ${trailState.phase} • Corra com a Elo e pegue os objetos brilhantes!`;trailAnim=requestAnimationFrame(trailLoop)}
 function trailStop(){trailRunning=false;if(trailAnim)cancelAnimationFrame(trailAnim);trailAnim=0}
@@ -426,16 +537,58 @@ function updateTrail(dt){const s=trailState,p=s.player,gravity=0.9; if(p.jumpBuf
  if(s.mode==='boss')updateTrailBoss(dt);
  updateTrailEntities(dt); updateTrailProjectiles(dt); updateTrailEffects(dt); if(s.mode==='run'&&s.phaseDistance>=s.phaseDistanceGoal&&s.phaseCollected>=s.phaseGoal){completeTrailPhase()} syncTrailHud()}
 function spawnTrailObstacle(){const themes=['mushroom','crate','crystal','bush'];const type=themes[Math.floor(Math.random()*themes.length)];const h=type==='crate'?48:type==='crystal'?60:type==='bush'?44:42;const w=type==='crate'?46:type==='crystal'?36:type==='bush'?52:40;trailState.entities.push({kind:'obstacle',type,x:950+Math.random()*80,y:trailState.ground-h,w,h})}
-function spawnTrailCollectible(){const kind=Math.random()<0.2?'unicorn':'star';const arc=Math.random();let y=trailState.ground-110-Math.random()*120;if(arc>.6)y=trailState.ground-170-Math.random()*75;trailState.entities.push({kind:'collectible',type:kind,x:930+Math.random()*60,y,w:kind==='unicorn'?32:28,h:kind==='unicorn'?32:28,spin:Math.random()*6.28})}
-function updateTrailEntities(dt){const s=trailState,p=s.player; s.entities.forEach(e=>{e.x-=s.worldSpeed*dt*3.2;if(e.spin!=null)e.spin+=0.08*dt}); s.entities=s.entities.filter(e=>e.x+e.w>-60); for(const e of [...s.entities]){if(rectHit(p,e,16)){if(e.kind==='collectible'){collectTrailItem(e)} else if(p.inv<=0){trailDamage(1,'Cuidado com o obstáculo!')}}}}
-function collectTrailItem(e){const s=trailState,value=e.type==='unicorn'?2:1;s.entities=s.entities.filter(x=>x!==e);s.phaseCollected+=value;s.totalCollected+=value;s.score+=e.type==='unicorn'?25:10;s.effects.push({x:e.x,y:e.y,text:e.type==='unicorn'?'🦄 +2':'⭐ +1',t:42}); if(s.totalCollected>=s.nextLifeAt){s.lives++; s.nextLifeAt+=100; toast('Vida extra! 💗')} if(s.phaseCollected>=s.phaseGoal&&s.mode==='run')trailUI.status.textContent='Objetivo da fase concluído! Continue até o final ✨'}
+function spawnTrailCollectible(){
+  const randVal=Math.random();
+  const kind = randVal < 0.08 ? 'magnet' : (randVal < 0.16 ? 'shield' : (randVal < 0.36 ? 'unicorn' : 'star'));const arc=Math.random();let y=trailState.ground-110-Math.random()*120;if(arc>.6)y=trailState.ground-170-Math.random()*75;trailState.entities.push({kind:'collectible',type:kind,x:930+Math.random()*60,y,w:kind==='unicorn'?32:28,h:kind==='unicorn'?32:28,spin:Math.random()*6.28})}
+function updateTrailEntities(dt){const s=trailState,p=s.player; s.entities.forEach(e=>{
+  e.x-=s.worldSpeed*dt*3.2;
+  if(e.spin!=null)e.spin+=0.08*dt;
+  // Se o ímã estiver ativo, puxa estrelas e unicórnios em direção à Elo
+  if(s.magnetTimer > 0 && e.kind === 'collectible'){
+    const dx = p.x - e.x, dy = p.y - e.y, dist = Math.hypot(dx, dy) || 1;
+    if(dist < 420){
+      e.x += (dx / dist) * 7.5 * dt;
+      e.y += (dy / dist) * 7.5 * dt;
+    }
+  }
+});
+if(s.magnetTimer > 0) s.magnetTimer -= dt; s.entities=s.entities.filter(e=>e.x+e.w>-60); for(const e of [...s.entities]){if(rectHit(p,e,16)){if(e.kind==='collectible'){collectTrailItem(e)} else if(p.inv<=0){trailDamage(1,'Cuidado com o obstáculo!')}}}}
+function collectTrailItem(e){
+  const s=trailState;
+  s.entities=s.entities.filter(x=>x!==e);
+  if(e.type === 'magnet'){
+    s.magnetTimer = 380;
+    s.effects.push({x:e.x, y:e.y, text:'🧲 Ímã Ativo!', t:50});
+    toast('Ímã de Estrelas Ativado! 🧲✨');
+    return;
+  }
+  if(e.type === 'shield'){
+    s.hasShield = true;
+    s.effects.push({x:e.x, y:e.y, text:'🛡️ Escudo!', t:50});
+    toast('Escudo Mágico Protegendo a Elo! 🛡️✨');
+    return;
+  }
+  const value=e.type==='unicorn'?2:1;
+  s.phaseCollected+=value;
+  s.totalCollected+=value;
+  s.score+=e.type==='unicorn'?25:10;
+  s.effects.push({x:e.x,y:e.y,text:e.type==='unicorn'?'🦄 +2':'⭐ +1',t:42}); if(s.totalCollected>=s.nextLifeAt){s.lives++; s.nextLifeAt+=100; toast('Vida extra! 💗')} if(s.phaseCollected>=s.phaseGoal&&s.mode==='run')trailUI.status.textContent='Objetivo da fase concluído! Continue até o final ✨'}
 function updateTrailBoss(dt){const s=trailState,b=s.boss;if(!b)return;const cfg=TRAIL_LEVELS[trailLevel];b.float+=0.05*dt;b.hitFlash=Math.max(0,b.hitFlash-dt);if(b.x>660)b.x-=0.6*dt;s.bossPatternTimer-=dt;if(s.bossPattern==='attack'){s.bossVulnerable=false;trailUI.status.textContent='Chefão atacando! O Poder funciona, mas o intervalo é mais seguro 👻';s.bossShotCd-=dt;if(s.bossShotCd<=0){s.bossShotCd=cfg.bossShot;const shotType=Math.random()<0.35?'orb':'ghost';s.bossProjectiles.push({type:shotType,x:b.x+22,y:b.y+55+Math.sin(b.float)*12,vx:4.2+Math.min(1.5,s.phase*.08),vy:shotType==='orb'?0:(Math.random()-.5)*.25,w:shotType==='orb'?28:34,h:shotType==='orb'?28:34});}if(s.bossPatternTimer<=0){s.bossPattern='rest';s.bossPatternTimer=cfg.bossRest;s.bossVulnerable=true;s.bossProjectiles=[];trailUI.status.textContent='Intervalo! É a hora mais segura para usar Poder ✨';}}else{s.bossVulnerable=true;trailUI.status.textContent='Intervalo! É a hora mais segura para usar Poder ✨';if(s.bossPatternTimer<=0){s.bossPattern='attack';s.bossPatternTimer=cfg.bossAttack;s.bossVulnerable=false;s.bossShotCd=32;trailUI.status.textContent='Ele voltou a atacar! Você ainda pode usar Poder, mas cuidado!';}}for(const pr of s.bossProjectiles){pr.x-=pr.vx*dt;pr.y+=pr.vy*dt;}s.bossProjectiles=s.bossProjectiles.filter(pr=>pr.x+pr.w>-40);for(const pr of [...s.bossProjectiles])if(rectHit(s.player,{x:pr.x,y:pr.y,w:pr.w,h:pr.h},10)&&s.player.inv<=0){s.bossProjectiles=s.bossProjectiles.filter(x=>x!==pr);trailDamage(1,'O fantasma acertou a Elo!')}}
 function updateTrailProjectiles(dt){const s=trailState;for(const pr of s.projectiles){pr.x+=pr.vx*dt;pr.alive=pr.x<980;}s.projectiles=s.projectiles.filter(pr=>pr.alive);if(s.mode==='boss'&&s.boss){for(const pr of [...s.projectiles]){if(rectHit({x:pr.x,y:pr.y,w:pr.size,h:pr.size},{x:s.boss.x,y:s.boss.y,w:s.boss.w,h:s.boss.h},14)){s.projectiles=s.projectiles.filter(x=>x!==pr);s.bossHp--;s.score+=20;s.boss.hitFlash=8;s.effects.push({x:s.boss.x+40,y:s.boss.y+20,text:'💥',t:30});if(s.bossHp<=0){defeatTrailBoss();break}}}}}
 function updateTrailEffects(dt){trailState.effects.forEach(f=>{f.y-=.7*dt;f.t-=dt});trailState.effects=trailState.effects.filter(f=>f.t>0)}
 function completeTrailPhase(){const s=trailState; trailStop(); s.score+=50+s.phase*5; trailUI.status.textContent=`Fase ${s.phase} concluída!`; addStars(1,`Fase ${s.phase} concluída! +1 ⭐`); setTimeout(()=>{s.phase++; prepareTrailPhase(); startTrailGame()},850)}
 function defeatTrailBoss(){const s=trailState; trailStop(); s.score+=180; trailUI.status.textContent='Chefão derrotado! 🎉'; addStars(TRAIL_LEVELS[trailLevel].reward,`Chefão vencido! +${TRAIL_LEVELS[trailLevel].reward} ⭐`); if(!s.medalGiven){unlockGameMedal('trail',trailLevel);s.medalGiven=true}
  setTimeout(()=>{s.phase++; prepareTrailPhase(); startTrailGame()},1100)}
-function trailDamage(amount,msg){const s=trailState,p=s.player;if(p.inv>0||s.gameOver)return;s.lives=Math.max(0,s.lives-amount);p.inv=36;toast(msg);syncTrailHud();if(s.lives<=0){s.gameOver=true;trailStop();trailUI.status.textContent='Fim de jogo! Voltando para a fase 1...';setTimeout(()=>{restartTrailRun();startTrailGame()},1200);}}
+function trailDamage(amount,msg){
+  const s=trailState,p=s.player;
+  if(p.inv>0||s.gameOver)return;
+  if(s.hasShield){
+    s.hasShield = false;
+    p.inv = 30;
+    s.effects.push({x:p.x, y:p.y-20, text:'🛡️ Escudo Quebrou!', t:40});
+    toast('O Escudo Mágico protegeu você! 🛡️');
+    return;
+  }s.lives=Math.max(0,s.lives-amount);p.inv=36;toast(msg);syncTrailHud();if(s.lives<=0){s.gameOver=true;trailStop();trailUI.status.textContent='Fim de jogo! Voltando para a fase 1...';setTimeout(()=>{restartTrailRun();startTrailGame()},1200);}}
 function rectHit(a,b,pad=0){return a.x+pad<b.x+b.w&&a.x+a.w-pad>b.x&&a.y+pad<b.y+b.h&&a.y+a.h-pad>b.y}
 function drawTrailScene(dt){const ctx=trailCtx,s=trailState||baseTrailState(); ctx.clearRect(0,0,trailCanvas.width,trailCanvas.height);ctx.filter='saturate(1.2) contrast(1.06)'; const phase=s.phase||1; const bossMode=s.mode==='boss'; const sky=ctx.createLinearGradient(0,0,0,trailCanvas.height); const skySets=[['#89dbff','#f7f2ff'],['#98ddff','#fff3ca'],['#6f66d9','#ffb8d0'],['#88dff3','#ffe8ff']][phase%4]; sky.addColorStop(0,skySets[0]); sky.addColorStop(1,skySets[1]); ctx.fillStyle=sky; ctx.fillRect(0,0,trailCanvas.width,trailCanvas.height); drawClouds(ctx,phase); drawSunMoon(ctx,phase); drawFarMountains(ctx,phase); drawMagicCastle(ctx,phase); drawHills(ctx,phase); drawGround(ctx,phase); if(phase%3===1&&!bossMode)drawRainbow(ctx); if(bossMode)drawBossArenaGlow(ctx);
  if(s.entities)for(const e of s.entities)drawTrailEntity(ctx,e); if(s.bossProjectiles)for(const p of s.bossProjectiles)drawBossProjectile(ctx,p); if(s.projectiles)for(const p of s.projectiles)drawMagicHeart(ctx,p.x,p.y,p.size||18); if(s.boss)drawGhostBoss(ctx,s.boss,s.boss.hitFlash>0); syncTrailEloClone(); if(s.effects)for(const f of s.effects){ctx.save();ctx.globalAlpha=Math.min(1,f.t/30);ctx.font='28px system-ui';ctx.fillText(f.text,f.x,f.y);ctx.restore()} if(!trailRunning&&trailState&&trailUI.status.textContent.startsWith('Toque em iniciar')){ctx.save();ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillRect(250,160,400,80);ctx.fillStyle='#6949b4';ctx.font='900 26px system-ui';ctx.textAlign='center';ctx.fillText('Pronta para a aventura?',450,210);ctx.restore()}ctx.filter='none'}
@@ -447,7 +600,10 @@ function drawHills(ctx,phase){ctx.fillStyle='#84cf83';ctx.beginPath();ctx.moveTo
 function drawGround(ctx,phase){ctx.fillStyle='#866341';ctx.fillRect(0,trailState?trailState.ground+48:438,900,Math.max(52,trailCanvas.height-(trailState?trailState.ground+48:438))); ctx.fillStyle='#9be284';ctx.fillRect(0,trailState?trailState.ground+38:378,900,12); for(let i=0;i<20;i++){ctx.fillStyle=i%2?'#ffe69a':'#f6a2c7';ctx.beginPath();ctx.arc(i*48+10,trailState.ground+34+Math.sin(i)*2,3.5,0,Math.PI*2);ctx.fill();}}
 function drawRainbow(ctx){ctx.save();ctx.globalAlpha=.3;const cx=190,cy=270;['#ff6b99','#ffa94d','#ffe066','#8ce99a','#74c0fc','#b197fc'].forEach((c,i)=>{ctx.strokeStyle=c;ctx.lineWidth=10;ctx.beginPath();ctx.arc(cx,cy,160-i*16,Math.PI,Math.PI*2);ctx.stroke()});ctx.restore()}
 function drawBossArenaGlow(ctx){const g=ctx.createRadialGradient(710,160,10,710,160,240);g.addColorStop(0,'rgba(255,255,255,.55)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(470,0,430,330)}
-function drawTrailEntity(ctx,e){if(e.kind==='collectible'){ctx.save();ctx.translate(e.x+e.w/2,e.y+e.h/2);ctx.rotate(Math.sin(e.spin||0)*0.2); if(e.type==='unicorn'){if(gameUnicornImg.complete&&gameUnicornImg.naturalWidth)ctx.drawImage(gameUnicornImg,-18,-18,38,34);else{ctx.font='28px system-ui';ctx.fillText('🦄',-14,10)}} else {ctx.font='26px system-ui';ctx.fillText('⭐',-12,10)} ctx.restore(); return;} ctx.save(); if(e.type==='crate'){ctx.fillStyle='#c69058';ctx.fillRect(e.x,e.y,e.w,e.h);ctx.strokeStyle='#8b5d35';ctx.lineWidth=4;ctx.strokeRect(e.x+2,e.y+2,e.w-4,e.h-4);ctx.beginPath();ctx.moveTo(e.x+6,e.y+6);ctx.lineTo(e.x+e.w-6,e.y+e.h-6);ctx.moveTo(e.x+e.w-6,e.y+6);ctx.lineTo(e.x+6,e.y+e.h-6);ctx.stroke();}
+function drawTrailEntity(ctx,e){if(e.kind==='collectible'){ctx.save();ctx.translate(e.x+e.w/2,e.y+e.h/2);ctx.rotate(Math.sin(e.spin||0)*0.2); if(e.type==='unicorn'){if(gameUnicornImg.complete&&gameUnicornImg.naturalWidth)ctx.drawImage(gameUnicornImg,-18,-18,38,34);else{ctx.font='28px system-ui';ctx.fillText('🦄',-14,10)}}
+else if(e.type==='magnet'){ctx.font='30px system-ui';ctx.fillText('🧲',-15,10)}
+else if(e.type==='shield'){ctx.font='30px system-ui';ctx.fillText('🛡️',-15,10)}
+else {ctx.font='26px system-ui';ctx.fillText('⭐',-12,10)} ctx.restore(); return;} ctx.save(); if(e.type==='crate'){ctx.fillStyle='#c69058';ctx.fillRect(e.x,e.y,e.w,e.h);ctx.strokeStyle='#8b5d35';ctx.lineWidth=4;ctx.strokeRect(e.x+2,e.y+2,e.w-4,e.h-4);ctx.beginPath();ctx.moveTo(e.x+6,e.y+6);ctx.lineTo(e.x+e.w-6,e.y+e.h-6);ctx.moveTo(e.x+e.w-6,e.y+6);ctx.lineTo(e.x+6,e.y+e.h-6);ctx.stroke();}
  else if(e.type==='crystal'){ctx.fillStyle='#b47dff';ctx.beginPath();ctx.moveTo(e.x+e.w/2,e.y);ctx.lineTo(e.x+e.w,e.y+e.h*.4);ctx.lineTo(e.x+e.w*.7,e.y+e.h);ctx.lineTo(e.x+e.w*.3,e.y+e.h);ctx.lineTo(e.x,e.y+e.h*.4);ctx.closePath();ctx.fill();ctx.fillStyle='rgba(255,255,255,.35)';ctx.fillRect(e.x+e.w*.45,e.y+8,6,e.h-14)}
  else if(e.type==='bush'){ctx.fillStyle='#4da06f';ctx.beginPath();ctx.ellipse(e.x+16,e.y+20,18,20,0,0,Math.PI*2);ctx.ellipse(e.x+32,e.y+18,18,20,0,0,Math.PI*2);ctx.ellipse(e.x+43,e.y+22,16,18,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#a8ecae';ctx.fillRect(e.x+20,e.y+28,4,10)}
  else {ctx.fillStyle='#f24f9f';ctx.beginPath();ctx.arc(e.x+14,e.y+14,12,0,Math.PI*2);ctx.arc(e.x+26,e.y+18,14,0,Math.PI*2);ctx.fillStyle='#f45ea8';ctx.fill();ctx.fillStyle='#fff29b';ctx.fillRect(e.x+18,e.y+24,6,14)} ctx.restore()}
@@ -656,3 +812,503 @@ if('serviceWorker' in navigator){
 }
 
 window.addEventListener('DOMContentLoaded',()=>{applyA11y();renderProfileManager();renderParentV2();renderV2Album()});
+
+
+// ==========================================================
+// FILTRO E DESTAQUE STREAMING DO CINEMA DA ELO
+// ==========================================================
+window.cinemaFilterCategory = function(cat, btn){
+  document.querySelectorAll('.streamingChip').forEach(c => c.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const shelves = document.querySelectorAll('#cinemaShelves .cinemaShelf');
+  shelves.forEach(shelf => {
+    if(cat === 'all'){
+      shelf.style.display = '';
+    } else if(cat === 'shorts'){
+      shelf.style.display = shelf.classList.contains('shortShelf') ? '' : 'none';
+    } else if(cat === 'adventures'){
+      const title = (shelf.querySelector('h3')?.textContent || '').toLowerCase();
+      shelf.style.display = (title.includes('aventura') || title.includes('jogo') || title.includes('reino') || title.includes('história')) ? '' : 'none';
+    } else if(cat === 'music'){
+      const title = (shelf.querySelector('h3')?.textContent || '').toLowerCase();
+      shelf.style.display = (title.includes('música') || title.includes('clipe') || title.includes('canção')) ? '' : 'none';
+    } else if(cat === 'school'){
+      const title = (shelf.querySelector('h3')?.textContent || '').toLowerCase();
+      shelf.style.display = (title.includes('escolinha') || title.includes('aprender') || title.includes('inglês') || title.includes('desafio')) ? '' : 'none';
+    }
+  });
+};
+
+
+// Efeito de confetes e partículas estelares comemorativas
+window.triggerStarConfetti = function(x, y){
+  const symbols = ['⭐', '✨', '💖', '🎉', '🌟'];
+  const colors = ['#ff68a7', '#ffd554', '#79d8f6', '#b58ef7', '#73e2a7'];
+  const ox = x || window.innerWidth / 2;
+  const oy = y || (window.innerHeight * 0.38);
+  for(let i=0; i<18; i++){
+    const p = document.createElement('span');
+    p.className = 'confettiStarParticle';
+    p.textContent = symbols[i % symbols.length];
+    p.style.left = ox + 'px';
+    p.style.top = oy + 'px';
+    const a = (Math.PI * 2 * i) / 18 + (Math.random() * 0.3);
+    const d = 55 + Math.random() * 95;
+    const tx = Math.cos(a) * d;
+    const ty = Math.sin(a) * d - 30;
+    p.style.setProperty('--tx', `${tx}px`);
+    p.style.setProperty('--ty', `${ty}px`);
+    p.style.color = colors[i % colors.length];
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 950);
+  }
+};
+
+
+// ==========================================================
+// v3.6.0 — MODERNIZAÇÃO TOTAL: HUB, ESCOLINHA, FAMÍLIA & ATELIÊ
+// ==========================================================
+
+// --- 1. MODAL HUB DO CANTINHO DA ELO ---
+window.openEloHubModal = function(){
+  const m = document.getElementById('eloHubModal');
+  if(m){ m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+};
+window.closeEloHubModal = function(){
+  const m = document.getElementById('eloHubModal');
+  if(m){ m.classList.add('hidden'); document.body.style.overflow = ''; }
+};
+
+// --- 2. FESTA DA FAMÍLIA (PARTY GAME INTERATIVO) ---
+let familyActiveMode = 'mime';
+let mimeTimer = null, mimeSecondsLeft = 45, currentMimeCategory = 'animals';
+let duelActive = false, duelTargetSymbol = '', duelP1Points = 0, duelP2Points = 0;
+let team1Pts = 0, team2Pts = 0;
+
+const MODERN_MIMES = {
+  animals: ['Macaco comendo banana 🍌', 'Pinguim com frio no gelo ❄️', 'Elefante espirrando água 🐘', 'Gatinho se espreguiçando 🐱', 'Leão rugindo bem alto 🦁', 'Sapo pulando na lagoa 🐸'],
+  actions: ['Escovando os dentes com pressa 🪥', 'Andando de skate veloz 🛹', 'Comendo uma fatia gigante de melancia 🍉', 'Dançando balé desajeitado 🩰', 'Tocando bateria de rock 🥁', 'Pescando um peixe enorme 🎣'],
+  characters: ['Robô com defeito na bateria 🤖', 'Princesa perdendo o sapatinho 👑', 'Super-herói voando pelos prédios 🦸', 'Pirata procurando um tesouro 🏴‍☠️', 'Mago soltando uma magia misteriosa 🧙', 'Astronauta pulando na Lua 🚀'],
+  mix: ['Dinossauro com fome 🦖', 'Pintando uma parede invisível 🎨', 'Tentando segurar uma bexiga voando 🎈', 'Tirando foto em uma montanha-russa 🎢', 'Zumbi dançarino 🧟', 'Unicórnio com asas brilhantes 🦄']
+};
+
+window.switchFamilyMode = function(mode, btn){
+  familyActiveMode = mode;
+  document.querySelectorAll('.familyTabBtn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  
+  document.getElementById('familyMimeView').classList.toggle('hidden', mode !== 'mime');
+  document.getElementById('familyDuelView').classList.toggle('hidden', mode !== 'duel');
+  document.getElementById('familyScoreView').classList.toggle('hidden', mode !== 'score');
+  
+  if(mode === 'duel'){ startDuelRound(); }
+  if(mode === 'mime' && mimeTimer){ clearInterval(mimeTimer); mimeTimer = null; }
+};
+
+window.setMimeCat = function(cat, btn){
+  currentMimeCategory = cat;
+  document.querySelectorAll('.mimeCategoryPills .pillBtn').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  resetMimeCard();
+};
+
+function resetMimeCard(){
+  if(mimeTimer){ clearInterval(mimeTimer); mimeTimer = null; }
+  mimeSecondsLeft = 45;
+  document.getElementById('mimeTimerDisplay').textContent = '⏱️ 45s';
+  const box = document.getElementById('mimeCardBox');
+  if(box){
+    box.innerHTML = `<div class="mimeHiddenPrompt">
+      <span style="font-size:52px;display:block;margin-bottom:8px;">🙈</span>
+      <h3>Vez do mímico!</h3>
+      <p>Apenas quem vai fazer a mímica deve olhar a tela agora.</p>
+      <button class="btn mainBtn" onclick="startMimeRound()">Revelar e Iniciar Cronômetro! ⏱️</button>
+    </div>`;
+  }
+}
+
+window.startMimeRound = function(){
+  const pool = MODERN_MIMES[currentMimeCategory] || MODERN_MIMES.animals;
+  const picked = pool[Math.floor(Math.random() * pool.length)];
+  const box = document.getElementById('mimeCardBox');
+  if(!box) return;
+  
+  box.innerHTML = `<div class="mimeActiveCard">
+    <small style="color:var(--muted);font-weight:900;">FAÇA SEM FALAR UMA PALAVRA:</small>
+    <div class="mimePromptText">${picked}</div>
+    <div style="font-size:12px;color:#d84376;margin-bottom:12px;">Esconda a tela e comece a mímica!</div>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button class="btn" style="background:#00d288;color:#fff;font-weight:900;" onclick="mimeSuccess()">Acertaram! (+10 pts) 🎉</button>
+      <button class="btn secondary" onclick="startMimeRound()">Pular ⏩</button>
+    </div>
+  </div>`;
+  
+  mimeSecondsLeft = 45;
+  if(mimeTimer) clearInterval(mimeTimer);
+  mimeTimer = setInterval(()=>{
+    mimeSecondsLeft--;
+    document.getElementById('mimeTimerDisplay').textContent = `⏱️ ${mimeSecondsLeft}s`;
+    if(mimeSecondsLeft <= 0){
+      clearInterval(mimeTimer);
+      mimeTimer = null;
+      box.innerHTML = `<div class="mimeActiveCard">
+        <span style="font-size:46px;">⏰</span>
+        <h3>O tempo acabou!</h3>
+        <p>A resposta era: <b>${picked}</b></p>
+        <button class="btn" onclick="startMimeRound()">Próxima Mímica 🎲</button>
+      </div>`;
+    }
+  }, 1000);
+};
+
+window.mimeSuccess = function(){
+  if(mimeTimer){ clearInterval(mimeTimer); mimeTimer = null; }
+  triggerStarConfetti();
+  toast('Incrível! Ponto para a família! 🎉');
+  startMimeRound();
+};
+
+// --- DUELO 2 JOGADORES NA MESMA TELA ---
+const DUEL_CHALLENGES = [
+  { cmd: 'Toque na ESTRELA!', target: '⭐', decoys: ['🌙', '☁️', '🎈'] },
+  { cmd: 'Toque no UNICÓRNIO!', target: '🦄', decoys: ['🐱', '🐶', '🐰'] },
+  { cmd: 'Toque no CORAÇÃO!', target: '💖', decoys: ['💎', '🎀', '🌸'] },
+  { cmd: 'Toque no FOGO!', target: '🔥', decoys: ['💧', '🌿', '⚡'] },
+  { cmd: 'Toque no NÚMERO 7!', target: '7', decoys: ['3', '5', '9'] }
+];
+
+window.startDuelRound = function(){
+  duelActive = false;
+  document.getElementById('duelCenterCommand').textContent = 'Preparem os dedos...';
+  document.getElementById('duelP1Prompt').textContent = '⏳';
+  document.getElementById('duelP2Prompt').textContent = '⏳';
+  
+  setTimeout(()=>{
+    const c = DUEL_CHALLENGES[Math.floor(Math.random() * DUEL_CHALLENGES.length)];
+    duelTargetSymbol = c.target;
+    duelActive = true;
+    document.getElementById('duelCenterCommand').textContent = c.cmd;
+    document.getElementById('duelP1Prompt').textContent = duelTargetSymbol;
+    document.getElementById('duelP2Prompt').textContent = duelTargetSymbol;
+  }, 1000 + Math.random() * 1500);
+};
+
+window.handleDuelTouch = function(player){
+  if(!duelActive) return;
+  duelActive = false;
+  triggerStarConfetti();
+  if(player === 1){
+    duelP1Points++;
+    document.getElementById('duelP1Score').textContent = duelP1Points;
+    toast('Jogador 1 tocou primeiro! Ponto! ⚡');
+    document.getElementById('duelP1Area').classList.add('winPulse');
+    setTimeout(()=>document.getElementById('duelP1Area').classList.remove('winPulse'), 600);
+  } else {
+    duelP2Points++;
+    document.getElementById('duelP2Score').textContent = duelP2Points;
+    toast('Jogador 2 tocou primeiro! Ponto! ⚡');
+    document.getElementById('duelP2Area').classList.add('winPulse');
+    setTimeout(()=>document.getElementById('duelP2Area').classList.remove('winPulse'), 600);
+  }
+  document.getElementById('duelCenterCommand').textContent = `Vitória da rodada: Jogador ${player}!`;
+};
+
+window.changeTeamScore = function(team, delta){
+  if(team === 1){
+    team1Pts = Math.max(0, team1Pts + delta);
+    document.getElementById('team1Score').textContent = team1Pts;
+  } else {
+    team2Pts = Math.max(0, team2Pts + delta);
+    document.getElementById('team2Score').textContent = team2Pts;
+  }
+};
+
+window.resetTeamScores = function(){
+  team1Pts = 0; team2Pts = 0;
+  document.getElementById('team1Score').textContent = '0';
+  document.getElementById('team2Score').textContent = '0';
+  toast('Placar zerado!');
+};
+
+window.finishFamilyMatch = function(){
+  triggerStarConfetti();
+  addStars(3, 'Festa da Família concluída! +3 ⭐');
+  const winner = team1Pts > team2Pts ? 'Crianças / Elo venceram!' : (team2Pts > team1Pts ? 'Pais / Família venceram!' : 'Empate lindo entre todos!');
+  toast(`🏆 ${winner} Parabéns pela união!`);
+};
+
+// --- 3. NOVA ESCOLINHA MÁGICA ---
+let activeSchoolTrack = 'letters', currentSchoolQuestionIdx = 0, schoolTrackScore = 0;
+
+const SCHOOL_TRACK_DATA = {
+  letters: [
+    { prompt: 'Qual letrinha começa a palavra BOLA? ⚽', options: ['B', 'M', 'P'], answer: 0, visual: '⚽' },
+    { prompt: 'Qual letrinha começa a palavra ESTRELA? ⭐', options: ['A', 'E', 'O'], answer: 1, visual: '⭐' },
+    { prompt: 'Qual letrinha começa a palavra GATO? 🐱', options: ['C', 'G', 'T'], answer: 1, visual: '🐱' },
+    { prompt: 'Qual letrinha começa a palavra CASA? 🏠', options: ['C', 'S', 'D'], answer: 0, visual: '🏠' },
+    { prompt: 'Qual letrinha começa a palavra UNICÓRNIO? 🦄', options: ['I', 'U', 'E'], answer: 1, visual: '🦄' }
+  ],
+  numbers: [
+    { prompt: 'Quantas maçãs você vê aqui? 🍎 🍎 🍎', options: ['2', '3', '4'], answer: 1, visual: '🍎🍎🍎' },
+    { prompt: 'Quanto é 2 + 2 estrelinhas? ⭐⭐ + ⭐⭐', options: ['3', '4', '5'], answer: 1, visual: '⭐⭐⭐⭐' },
+    { prompt: 'Qual número é MAIOR?', options: ['3', '8', '5'], answer: 1, visual: '🔢' },
+    { prompt: 'Qual número vem DEPOIS do 5?', options: ['4', '6', '7'], answer: 1, visual: '5 ➔ ?' },
+    { prompt: 'Quantas mãozinhas temos no corpo?', options: ['1', '2', '4'], answer: 1, visual: '✋✋' }
+  ],
+  nature: [
+    { prompt: 'Qual destes bichinhos late? 🐶', options: ['Gato', 'Cachorro', 'Pato'], answer: 1, visual: '🐶' },
+    { prompt: 'Quem mora na água do mar? 🌊', options: ['Peixinho', 'Passarinho', 'Coelho'], answer: 0, visual: '🐟' },
+    { prompt: 'O que as plantas precisam para crescer? 🌱', options: ['Água e Sol', 'Apenas brinquedos', 'Escuro'], answer: 0, visual: '☀️💧' },
+    { prompt: 'Qual bichinho tem asas e voa no jardim? 🌸', options: ['Borboleta', 'Tartaruga', 'Sapo'], answer: 0, visual: '🦋' },
+    { prompt: 'Qual atitude protege a natureza? 🌳', options: ['Cuidar das plantas', 'Jogar lixo no chão', 'Desperdiçar água'], answer: 0, visual: '🌍💚' }
+  ]
+};
+
+window.selectSchoolTrack = function(track, btn){
+  activeSchoolTrack = track;
+  currentSchoolQuestionIdx = 0;
+  schoolTrackScore = 0;
+  document.querySelectorAll('.schoolTrackCard').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  renderModernSchoolQuestion();
+};
+
+function renderModernSchoolQuestion(){
+  const deck = SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters;
+  if(currentSchoolQuestionIdx >= deck.length){
+    const box = document.getElementById('schoolOptionsGrid');
+    document.getElementById('schoolQuestionTitle').textContent = 'Parabéns! Desafios concluídos!';
+    document.getElementById('schoolRoundCounter').textContent = '5/5 ✓';
+    box.innerHTML = `<div style="text-align:center;padding:20px;grid-column:span 3;">
+      <div style="font-size:48px;animation:dollHappy .6s infinite alternate;">🏅⭐</div>
+      <h3 style="margin:10px 0 6px;color:#d84376;">Você foi nota 10!</h3>
+      <p style="color:var(--muted);margin-bottom:14px;">Acertos: ${schoolTrackScore}/5. Continue aprendendo com a Elo!</p>
+      <button class="btn" onclick="selectSchoolTrack('${activeSchoolTrack}')">Jogar Novamente 🔁</button>
+    </div>`;
+    addStars(2, 'Escolinha concluída! +2 ⭐');
+    return;
+  }
+  
+  const q = deck[currentSchoolQuestionIdx];
+  document.getElementById('schoolRoundCounter').textContent = `Desafio ${currentSchoolQuestionIdx + 1}/5`;
+  document.getElementById('schoolQuestionTitle').innerHTML = `${q.prompt}<br><span style="font-size:36px;display:inline-block;margin-top:6px;">${q.visual}</span>`;
+  
+  const box = document.getElementById('schoolOptionsGrid');
+  box.innerHTML = q.options.map((opt, i) => `
+    <button class="schoolOptBtn" onclick="answerSchoolChoice(${i})">
+      <b>${opt}</b>
+    </button>
+  `).join('');
+  
+  if(typeof speakText === 'function'){
+    setTimeout(()=>speakText(q.prompt.replace(/[^\w\sÀ-ÿ]/gi, '')), 200);
+  }
+}
+
+window.speakCurrentSchoolPrompt = function(){
+  const deck = SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters;
+  const q = deck[currentSchoolQuestionIdx];
+  if(q && typeof speakText === 'function') speakText(q.prompt.replace(/[^\w\sÀ-ÿ]/gi, ''));
+};
+
+window.answerSchoolChoice = function(choiceIdx){
+  const deck = SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters;
+  const q = deck[currentSchoolQuestionIdx];
+  if(choiceIdx === q.answer){
+    schoolTrackScore++;
+    triggerStarConfetti();
+    toast('Acertou em cheio! ⭐');
+    currentSchoolQuestionIdx++;
+    setTimeout(renderModernSchoolQuestion, 600);
+  } else {
+    toast('Tente de novo! Você consegue 💗');
+  }
+};
+
+// --- 4. NOVO ATELIÊ CRIATIVO COM DESENHO LIVRE ---
+let freeCanvas, freeCtx, isDrawing = false, drawColor = '#ff3377', drawBrush = 'pen';
+const STAMPS = ['⭐', '💖', '🦄', '🐾', '🌈', '🌸'];
+let currentStamp = '⭐';
+
+window.switchCreativeMode = function(mode, btn){
+  document.querySelectorAll('.creativeModeTabs .cTabBtn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('freeDrawSection').classList.toggle('hidden', mode !== 'freeDraw');
+  document.getElementById('coloringSection').classList.toggle('hidden', mode !== 'coloring');
+  if(mode === 'freeDraw') initFreeDrawCanvas();
+  if(mode === 'coloring') renderColoringGallery();
+};
+
+window.setDrawColor = function(c, btn){
+  drawColor = c;
+  document.querySelectorAll('.toolColors .colorPick').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+};
+
+window.setDrawBrush = function(b, btn){
+  drawBrush = b;
+  document.querySelectorAll('.toolBrushes .toolBtn').forEach(btn => btn.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+};
+
+function initFreeDrawCanvas(){
+  freeCanvas = document.getElementById('freeDrawCanvas');
+  if(!freeCanvas) return;
+  freeCtx = freeCanvas.getContext('2d');
+  
+  if(!freeCanvas.dataset.ready){
+    freeCanvas.dataset.ready = 'true';
+    clearFreeDrawCanvas();
+    
+    const getPos = e => {
+      const rect = freeCanvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: (clientX - rect.left) * (freeCanvas.width / rect.width),
+        y: (clientY - rect.top) * (freeCanvas.height / rect.height)
+      };
+    };
+    
+    const startDraw = e => {
+      e.preventDefault();
+      isDrawing = true;
+      const pos = getPos(e);
+      if(drawBrush === 'stamp'){
+        freeCtx.font = '36px system-ui';
+        freeCtx.textAlign = 'center';
+        freeCtx.fillText(currentStamp, pos.x, pos.y);
+        return;
+      }
+      freeCtx.beginPath();
+      freeCtx.moveTo(pos.x, pos.y);
+    };
+    
+    const drawMove = e => {
+      if(!isDrawing || drawBrush === 'stamp') return;
+      e.preventDefault();
+      const pos = getPos(e);
+      if(drawBrush === 'eraser'){
+        freeCtx.strokeStyle = '#ffffff';
+        freeCtx.lineWidth = 24;
+      } else if(drawBrush === 'brush'){
+        freeCtx.strokeStyle = drawColor;
+        freeCtx.lineWidth = 14;
+      } else if(drawBrush === 'rainbow'){
+        const hue = (performance.now() / 4) % 360;
+        freeCtx.strokeStyle = `hsl(${hue}, 90%, 55%)`;
+        freeCtx.lineWidth = 10;
+      } else {
+        freeCtx.strokeStyle = drawColor;
+        freeCtx.lineWidth = 5;
+      }
+      freeCtx.lineCap = 'round';
+      freeCtx.lineJoin = 'round';
+      freeCtx.lineTo(pos.x, pos.y);
+      freeCtx.stroke();
+    };
+    
+    const endDraw = () => { isDrawing = false; };
+    
+    freeCanvas.addEventListener('mousedown', startDraw);
+    freeCanvas.addEventListener('mousemove', drawMove);
+    window.addEventListener('mouseup', endDraw);
+    freeCanvas.addEventListener('touchstart', startDraw, { passive: false });
+    freeCanvas.addEventListener('touchmove', drawMove, { passive: false });
+    window.addEventListener('touchend', endDraw);
+  }
+}
+
+window.clearFreeDrawCanvas = function(){
+  if(!freeCanvas) freeCanvas = document.getElementById('freeDrawCanvas');
+  if(!freeCanvas) return;
+  freeCtx = freeCanvas.getContext('2d');
+  freeCtx.fillStyle = '#ffffff';
+  freeCtx.fillRect(0, 0, freeCanvas.width, freeCanvas.height);
+};
+
+window.saveFreeDrawArt = function(){
+  triggerStarConfetti();
+  addStars(1, 'Obra de arte guardada com carinho! +1 ⭐');
+  toast('Desenho salvo com sucesso no Ateliê! 🎨✨');
+};
+
+
+// ==========================================================
+// EFEITOS SONOROS MÁGICOS & HAPTIC VIBRATION (ESTILO CONSOLE)
+// ==========================================================
+let audioFxCtx = null;
+function getAudioFxCtx(){
+  if(!audioFxCtx){
+    try {
+      audioFxCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch(_) {}
+  }
+  if(audioFxCtx && audioFxCtx.state === 'suspended'){
+    audioFxCtx.resume().catch(()=>{});
+  }
+  return audioFxCtx;
+}
+
+window.playCuteSfx = function(type){
+  // Haptic feedback sutil no celular
+  if('vibrate' in navigator){
+    try {
+      if(type === 'coin') navigator.vibrate([20, 30, 20]);
+      else if(type === 'win') navigator.vibrate([30, 50, 40]);
+      else navigator.vibrate(12);
+    } catch(_) {}
+  }
+
+  const ctx = getAudioFxCtx();
+  if(!ctx) return;
+  const now = ctx.currentTime;
+
+  if(type === 'pop'){
+    // Toque suave em botões
+    const osc = ctx.createOscillator(), g = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(440, now);
+    osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+    g.gain.setValueAtTime(0.04, now);
+    g.gain.linearRampToValueAtTime(0.0001, now + 0.08);
+    osc.connect(g); g.connect(ctx.destination);
+    osc.start(now); osc.stop(now + 0.09);
+  } else if(type === 'coin'){
+    // Som de estrelinha ganha
+    const osc = ctx.createOscillator(), g = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(988, now);
+    osc.frequency.setValueAtTime(1318, now + 0.07);
+    g.gain.setValueAtTime(0.06, now);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+    osc.connect(g); g.connect(ctx.destination);
+    osc.start(now); osc.stop(now + 0.29);
+  } else if(type === 'win'){
+    // Comemoração / Vitória
+    [523, 659, 784, 1046].forEach((freq, idx) => {
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+      g.gain.setValueAtTime(0.06, now + idx * 0.07);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.07 + 0.22);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(now + idx * 0.07); osc.stop(now + idx * 0.07 + 0.23);
+    });
+  }
+};
+
+// Conecta o som de moeda e comemoração nas funções globais
+const originalAddStarsV36 = addStars;
+addStars = function(n=1, msg='Você ganhou uma estrelinha! ⭐'){
+  playCuteSfx('coin');
+  originalAddStarsV36(n, msg);
+};
+
+// Ativa som de pop suave em todos os botões e cliques interativos
+document.addEventListener('pointerdown', e => {
+  const btn = e.target.closest('button, .portalCard, .schoolOptBtn, .cTabBtn, .familyTabBtn');
+  if(btn && !btn.disabled){
+    playCuteSfx('pop');
+  }
+}, { passive: true, capture: true });
