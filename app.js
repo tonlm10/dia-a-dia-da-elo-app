@@ -1,4 +1,4 @@
-const APP_VERSION=self.ELO_APP_VERSION||'3.5.3';
+const APP_VERSION=self.ELO_APP_VERSION||'4.0.0';
 
 // ===== v2.0 • Perfis locais, acessibilidade, tempo saudável, tutorial e backup =====
 const V2_PROFILES_KEY='eloProfilesV2',V2_ACTIVE_KEY='eloActiveProfileId',V2_MIGRATION_KEY='eloProfilesV2Migrated';
@@ -794,18 +794,7 @@ function renderV2Album(){const p=getActiveProfile(),name=document.getElementById
 
 
 document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent=APP_VERSION);
-setupAppHistory();
-renderStars();
-renderStoryStrip();
-renderLibrary();
-renderPlaylists();
-startQuiz('easy');
-startMemory();
-renderPalette();
-renderColoringGallery();
-chooseColoring(0);
-renderBadges();
-renderEnglishHomeProgress();
+[setupAppHistory, renderStars, renderStoryStrip, renderLibrary, renderPlaylists, ()=>startQuiz('easy'), startMemory, renderPalette, renderColoringGallery, ()=>chooseColoring(0), renderBadges, renderEnglishHomeProgress].forEach(fn=>{ try{ fn(); }catch(e){ console.warn(e); } });
 function dismissAppSplash(){
   const s = document.getElementById('splash');
   if(s){

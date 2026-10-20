@@ -140,7 +140,7 @@ function renderCollection(){const root=document.getElementById('collectionGrid')
 window.renderCollection=renderCollection;
 
 let roomDecorCategory='wall';
-function roomUnlocked(item){return stars>=item.need}
+function roomUnlocked(item){return true}
 window.selectRoomCategory=function(kind){roomDecorCategory=kind;renderRoom()};
 function syncRoomElo(v){
  const mount=document.getElementById('roomEloMount'),source=document.getElementById('wardrobeElo');
@@ -174,21 +174,35 @@ function renderRoom(){
  const wallClasses=ROOM_DECOR.filter(x=>x.kind==='wall').map(x=>x.className).filter(Boolean);room.classList.remove(...wallClasses);const wall=ROOM_DECOR.find(x=>x.id===v.room.wall);if(wall?.className)room.classList.add(wall.className);
  const art=ROOM_DECOR.find(x=>x.id===v.room.art),toy=ROOM_DECOR.find(x=>x.id===v.room.toy),bed=ROOM_DECOR.find(x=>x.id===v.room.bed),rug=ROOM_DECOR.find(x=>x.id===v.room.rug);
  const artEl=room.querySelector('.roomWallArt'),toyEl=room.querySelector('.roomToy'),bedEl=room.querySelector('.roomBed'),rugEl=room.querySelector('.roomRug');
- if(artEl)artEl.className=`roomWallArt ${!art||art.id==='noneArt'?'hidden':''} art-${art?.id||'rainbow'}`.trim();
- if(toyEl){const shape=toy?.shape||'unicorn';toyEl.className=`roomToy ${shape==='none'?'hidden':''} toy-${shape}`.trim();toyEl.textContent='';}
- if(bedEl){const bedClass={bedBlue:'bed-blue',bedLilac:'bed-lilac',bedStar:'bed-star',bedMint:'bed-mint',bedPeach:'bed-peach'}[bed?.id]||'bed-pink';bedEl.className=`roomBed ${bedClass}`;}
- if(rugEl){const rugClass={rugRainbow:'rug-rainbow',rugCloud:'rug-cloud',rugFlower:'rug-flower',rugStar:'rug-star'}[rug?.id]||'rug-heart';rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rugClass}`.trim();}
+ const artMap={rainbow:'art-rainbow',butterflies:'art-butterflies',flowers:'art-flowers',stars:'art-stars',castle:'art-castle',clouds:'art-clouds',heart:'art-heart',artUnicorn:'art-unicorn',artFriends:'art-friends',artSpace:'art-space'};
+ if(artEl)artEl.className=`roomWallArt roomInteractive ${!art||art.id==='noneArt'?'hidden':''} ${artMap[art?.id]||'art-rainbow'}`.trim();
+ if(toyEl){const shape=toy?.shape||'unicorn';toyEl.className=`roomToy roomInteractive ${shape==='none'?'hidden':''} toy-${shape}`.trim();toyEl.textContent='';}
+ if(bedEl){const bedClass={bedPink:'bed-pink',bedBlue:'bed-blue',bedLilac:'bed-lilac',bedStar:'bed-star',bedMint:'bed-mint',bedPeach:'bed-peach',bedCloud:'bed-cloud',bedCastle:'bed-castle',bedRainbow:'bed-rainbow'}[bed?.id]||'bed-pink';bedEl.className=`roomBed roomInteractive ${bedClass}`;}
+ if(rugEl){const rugClass={rugHeart:'rug-heart',rugRainbow:'rug-rainbow',rugCloud:'rug-cloud',rugFlower:'rug-flower',rugStar:'rug-star',rugComet:'rug-comet',rugPaw:'rug-paw',rugButterfly:'rug-butterfly'}[rug?.id]||'rug-heart';rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rugClass}`.trim();}
  syncRoomElo(v);
  const tabs=document.getElementById('roomDecorTabs');if(tabs){const kinds=[['wall','🎨','Parede'],['art','🖼️','Quadros'],['bed','🛏️','Camas'],['rug','🧶','Tapetes'],['toy','🧸','Brinquedos']];tabs.innerHTML=kinds.map(([id,ic,name])=>`<button class="roomDecorTab ${roomDecorCategory===id?'on':''}" onclick="selectRoomCategory('${id}')"><span>${ic}</span>${name}</button>`).join('')}grid.innerHTML=ROOM_DECOR.filter(it=>it.kind===roomDecorCategory).map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')">${unlock?roomDecorThumb(it):'<span>🔒</span>'}<b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');
 }window.renderRoom=renderRoom;
-window.selectRoomDecor=function(id){const it=ROOM_DECOR.find(x=>x.id===id);if(!it)return;if(!roomUnlocked(it))return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load();v.room[it.kind]=it.id;v3Save(v);renderRoom();if(typeof speakText==='function'&&getActiveProfile().ageRange==='3-5')speakText(it.name)};
+window.selectRoomDecor=function(id){const it=ROOM_DECOR.find(x=>x.id===id);if(!it)return;if(!roomUnlocked(it))return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load();v.room[it.kind]=it.id;v3Save(v);renderRoom();if(typeof playCuteSfx==='function')playCuteSfx('pop');toast(it.name+' colocado no quarto! ✨');if(typeof speakText==='function'&&getActiveProfile().ageRange==='3-5')speakText(it.name)};
 
 function wardrobeItem(id){return WARDROBE_ITEMS.find(x=>x.id===id)}
 function roomDecorThumb(it){
  if(!it) return '';
- if(it.kind!=='toy') return `<span>${it.icon}</span>`;
+ if(it.id==='noneArt'||it.id==='noneRug'||it.id==='noneToy') return '<span class="decorThumbNone">🚫</span>';
+ if(it.kind==='wall') return `<span class="roomWallThumb thumb-${it.id}"><i>${it.icon}</i></span>`;
+ if(it.kind==='art'){
+   const artCls={rainbow:'art-rainbow',butterflies:'art-butterflies',flowers:'art-flowers',stars:'art-stars',castle:'art-castle',clouds:'art-clouds',heart:'art-heart',artUnicorn:'art-unicorn',artFriends:'art-friends',artSpace:'art-space'}[it.id]||'art-rainbow';
+   return `<span class="roomArtThumb ${artCls}"></span>`;
+ }
+ if(it.kind==='bed'){
+   const bedCls={bedPink:'bed-pink',bedBlue:'bed-blue',bedLilac:'bed-lilac',bedStar:'bed-star',bedMint:'bed-mint',bedPeach:'bed-peach',bedCloud:'bed-cloud',bedCastle:'bed-castle',bedRainbow:'bed-rainbow'}[it.id]||'bed-pink';
+   return `<span class="roomBedThumb ${bedCls}"><i class="tHead"></i><i class="tBlanket"></i><i class="tPillow"></i></span>`;
+ }
+ if(it.kind==='rug'){
+   const rugCls={rugHeart:'rug-heart',rugRainbow:'rug-rainbow',rugCloud:'rug-cloud',rugFlower:'rug-flower',rugStar:'rug-star',rugComet:'rug-comet',rugPaw:'rug-paw',rugButterfly:'rug-butterfly'}[it.id]||'rug-heart';
+   return `<span class="roomRugThumb ${rugCls}"></span>`;
+ }
  const shape=it.shape||'none';
- if(shape==='none') return '<span>🚫</span>';
+ if(shape==='none') return '<span class="decorThumbNone">🚫</span>';
  return `<span class="roomToyThumb toy-${shape}" aria-hidden="true"></span>`;
 }
 function wardrobeDefaults(){return defaultV3().wardrobe}
@@ -201,12 +215,12 @@ function garmentThumb(it){
  const parts=it.thumb.split(' '),shape=parts[0],tone=parts.slice(1).join('-');
  return `<span class="garmentThumb ${shape} ${tone}"><i></i><b></b></span>`;
 }
-function renderWardrobePresets(){const box=document.getElementById('wardrobePresets');if(!box)return;box.innerHTML=WARDROBE_PRESETS.map(p=>`<button class="lookPreset ${stars>=p.need?'':'locked'}" onclick="applyWardrobePreset('${p.id}')"><span>${stars>=p.need?p.icon:'🔒'}</span><b>${p.name}</b><small>${stars>=p.need?'Vestir':`${p.need} ⭐`}</small></button>`).join('')}
-window.applyWardrobePreset=function(id){const p=WARDROBE_PRESETS.find(x=>x.id===id);if(!p)return;if(stars<p.need)return toast(`Este look libera com ${p.need} estrelas ⭐`);const v=v3Load();v.wardrobe=Object.assign({},normalizeWardrobe(v),p.set);v3Save(v);renderWardrobe();toast(`${p.name} escolhido! ✨`)};
+function renderWardrobePresets(){const box=document.getElementById('wardrobePresets');if(!box)return;box.innerHTML=WARDROBE_PRESETS.map(p=>`<button class="lookPreset " onclick="applyWardrobePreset('${p.id}')"><span>${p.icon}</span><b>${p.name}</b><small>'Vestir'</small></button>`).join('')}
+window.applyWardrobePreset=function(id){const p=WARDROBE_PRESETS.find(x=>x.id===id);if(!p)return;const v=v3Load();v.wardrobe=Object.assign({},normalizeWardrobe(v),p.set);v3Save(v);renderWardrobe();toast(`${p.name} escolhido! ✨`)};
 window.selectWardrobeCategory=function(cat){if(!WARDROBE_CATEGORIES.some(x=>x.id===cat))return;wardrobeCategory=cat;renderWardrobe()};
-function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);syncRoomElo(v);if(n){const top=wardrobeItem(w.top)?.name||'',bottom=wardrobeItem(w.bottom)?.name||'',dress=w.dress&&w.dress!=='noneDress'?wardrobeItem(w.dress)?.name:'';n.textContent=dress||[top,bottom].filter(Boolean).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=stars>=it.need,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');renderWardrobePresets()}
+function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);syncRoomElo(v);if(n){const top=wardrobeItem(w.top)?.name||'',bottom=wardrobeItem(w.bottom)?.name||'',dress=w.dress&&w.dress!=='noneDress'?wardrobeItem(w.dress)?.name:'';n.textContent=dress||[top,bottom].filter(Boolean).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=true,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');renderWardrobePresets()}
 window.renderWardrobe=renderWardrobe;
-window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;if(stars<it.need)return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();
+window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();
  const doll=document.getElementById('wardrobeElo');
  if(doll){doll.classList.remove('dollCelebration');void doll.offsetWidth;doll.classList.add('dollCelebration');}
  toast(`${it.name} escolhido! ✨`)};
