@@ -256,7 +256,7 @@ function completeDaily(){
 }
 
 function renderStoryStrip(){const box=document.getElementById('storyStrip');if(!box)return;box.innerHTML=STORIES.map((s,i)=>`<button class="storyCard" onclick="openStory(${i})"><div class="storyThumb" style="background-image:url('assets/stories/${s.id}-cover.webp')"><span class="numBadge">${i+1}</span><span class="heartBadge">${favorites.includes(s.id)?'♥':'♡'}</span></div><div class="storyInfo"><b>${s.title}</b><small>${s.summary}</small></div></button>`).join('')}
-function renderLibrary(){const box=document.getElementById('libraryGrid');box.innerHTML=STORIES.map((s,i)=>`<article class="libCard"><div class="libCover" style="background-image:url('assets/stories/${s.id}-cover.webp')"><span class="numBadge">${i+1}</span><button class="fav ${favorites.includes(s.id)?'on':''}" onclick="toggleFav('${s.id}',event)">${favorites.includes(s.id)?'♥':'♡'}</button></div><div class="libBody"><h3>${s.title}</h3><p>${s.summary}</p><div class="libMeta"><small>📖 ${s.pages} páginas ${readStories.includes(s.id)?'• ✅ lida':''}</small><button class="btn" onclick="openStory(${i})">Ler</button></div></div></article>`).join('')}
+function renderLibrary(){const box=document.getElementById('libraryGrid');if(!box)return;box.innerHTML=STORIES.map((s,i)=>`<article class="libCard"><div class="libCover" style="background-image:url('assets/stories/${s.id}-cover.webp')"><span class="numBadge">${i+1}</span><button class="fav ${favorites.includes(s.id)?'on':''}" onclick="toggleFav('${s.id}',event)">${favorites.includes(s.id)?'♥':'♡'}</button></div><div class="libBody"><h3>${s.title}</h3><p>${s.summary}</p><div class="libMeta"><small>📖 ${s.pages} páginas ${readStories.includes(s.id)?'• ✅ lida':''}</small><button class="btn" onclick="openStory(${i})">Ler</button></div></div></article>`).join('')}
 function toggleFav(id,e){e.stopPropagation();favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];pset('eloFavStories',JSON.stringify(favorites));renderLibrary();renderStoryStrip();toast(favorites.includes(id)?'Adicionada aos favoritos 💗':'Removida dos favoritos')}
 function openStory(i){trackActivity('stories');currentStory=i;currentPage=0;openPanel('readerPanel','stories');renderReader()}
 function renderReader(){const s=STORIES[currentStory],page=document.getElementById('storyPage');document.getElementById('readerTitle').textContent=s.title;page.style.backgroundImage=`url('assets/stories/${s.id}.webp')`;page.style.backgroundRepeat='no-repeat';page.style.backgroundSize=`100% ${s.pages*100}%`;page.style.backgroundPosition=`center ${currentPage*(100/(s.pages-1))}%`;document.getElementById('pageCounter').textContent=`Página ${currentPage+1} de ${s.pages}`;document.getElementById('readerMoral').textContent=currentPage===s.pages-1?'✨ '+s.moral:'';document.getElementById('readerDots').innerHTML=Array.from({length:s.pages},(_,i)=>`<i class="dot ${i===currentPage?'on':''}"></i>`).join('');if(currentPage===s.pages-1&&!readStories.includes(s.id)){readStories.push(s.id);pset('eloReadStories',JSON.stringify(readStories));addStars(3,'História concluída! +3 ⭐');renderLibrary()}}
@@ -670,7 +670,7 @@ function toggleSchoolChallenges(force){const content=document.getElementById('sc
 let quizLevel='easy',quizDeck=[],quizPos=0,quizCorrect=0;
 function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function startQuiz(level='easy'){quizLevel=level;document.querySelectorAll('.levelBtn').forEach(b=>b.classList.toggle('on',b.dataset.level===level));quizDeck=shuffle(QUESTIONS[level]).slice(0,10);quizPos=0;quizCorrect=0;renderQuiz()}
-function renderQuiz(){const box=document.getElementById('quiz');if(quizPos>=quizDeck.length){const reward=Math.max(1,Math.floor(quizCorrect/3));box.innerHTML=`<div class="quizEnd"><strong>${quizCorrect}/10 acertos 🎉</strong><p class="muted">Rodada concluída sem repetir perguntas.</p><button class="btn" onclick="startQuiz('${quizLevel}')">Nova rodada</button></div>`;addStars(reward,`Escolinha concluída! +${reward} ⭐`);trackActivity('school');return}const q=quizDeck[quizPos];box.innerHTML=`<div class="quizTop"><span class="quizProgress">Pergunta ${quizPos+1}/10 • ${q[3]}</span><span class="quizProgress">Acertos: ${quizCorrect}</span></div><div class="quiz-q">${q[0]}</div><div class="answers">${q[1].map((x,i)=>`<button class="ans" onclick="answerQuiz(${i})">${x}</button>`).join('')}</div>`}
+function renderQuiz(){const box=document.getElementById('quiz');if(!box)return;if(quizPos>=quizDeck.length){const reward=Math.max(1,Math.floor(quizCorrect/3));box.innerHTML=`<div class="quizEnd"><strong>${quizCorrect}/10 acertos 🎉</strong><p class="muted">Rodada concluída sem repetir perguntas.</p><button class="btn" onclick="startQuiz('${quizLevel}')">Nova rodada</button></div>`;addStars(reward,`Escolinha concluída! +${reward} ⭐`);trackActivity('school');return}const q=quizDeck[quizPos];box.innerHTML=`<div class="quizTop"><span class="quizProgress">Pergunta ${quizPos+1}/10 • ${q[3]}</span><span class="quizProgress">Acertos: ${quizCorrect}</span></div><div class="quiz-q">${q[0]}</div><div class="answers">${q[1].map((x,i)=>`<button class="ans" onclick="answerQuiz(${i})">${x}</button>`).join('')}</div>`}
 function answerQuiz(i){const q=quizDeck[quizPos];if(i===q[2]){quizCorrect++;toast('Acertou! ⭐');quizPos++;setTimeout(renderQuiz,250)}else toast('Quase! Tente outra resposta 😊')}
 
 // Coloring
@@ -683,8 +683,8 @@ const ctx=canvas.getContext('2d',{willReadFrequently:true});
 const colorViewport=document.getElementById('colorViewport');
 const colorCanvasWrap=document.getElementById('colorCanvasWrap');
 let colorZoom=1,colorBaseDisplay=600,colorPointers=new Map(),colorGesture=null,colorDragMoved=false,colorDragStart=null;
-function renderColoringGallery(){const g=document.getElementById('coloringGallery');g.innerHTML=COLORING.map((src,i)=>`<button class="templateBtn ${i===colorIndex?'on':''}" onclick="openColoring(${i})"><img src="${src}" alt="Desenho ${i+1}"></button>`).join('');const c=document.getElementById('coloringCountText');if(c)c.textContent=`${COLORING.length} desenhos novos da Elo. Toque em um para abrir em tela cheia.`}
-function renderPalette(){const p=document.getElementById('palette');p.innerHTML=PALETTE.map(c=>`<button class="color ${color===c?'on':''}" style="background:${c}" onclick="setColor('${c}')" aria-label="cor"></button>`).join('')}
+function renderColoringGallery(){const g=document.getElementById('coloringGallery');if(!g)return;g.innerHTML=COLORING.map((src,i)=>`<button class="templateBtn ${i===colorIndex?'on':''}" onclick="openColoring(${i})"><img src="${src}" alt="Desenho ${i+1}"></button>`).join('');const c=document.getElementById('coloringCountText');if(c)c.textContent=`${COLORING.length} desenhos novos da Elo. Toque em um para abrir em tela cheia.`}
+function renderPalette(){const p=document.getElementById('palette');if(!p)return;p.innerHTML=PALETTE.map(c=>`<button class="color ${color===c?'on':''}" style="background:${c}" onclick="setColor('${c}')" aria-label="cor"></button>`).join('')}
 function setColor(c){color=c;renderPalette();toast('Cor escolhida! Agora toque no desenho 🎨')}
 function fitImage(img){const ratio=Math.min(canvas.width/img.width,canvas.height/img.height);const w=img.width*ratio,h=img.height*ratio,x=(canvas.width-w)/2,y=(canvas.height-h)/2;ctx.drawImage(img,x,y,w,h)}
 function normalizeTemplate(){const image=ctx.getImageData(0,0,canvas.width,canvas.height),d=image.data;for(let i=0;i<d.length;i+=4){const lum=(d[i]+d[i+1]+d[i+2])/3;if(lum<215){d[i]=d[i+1]=d[i+2]=0;d[i+3]=255}else{d[i]=d[i+1]=d[i+2]=255;d[i+3]=255}}ctx.putImageData(image,0,0)}
@@ -885,62 +885,192 @@ window.triggerStarConfetti = function(x, y){
 // v3.6.0 — MODERNIZAÇÃO TOTAL: HUB, ESCOLINHA, FAMÍLIA & ATELIÊ
 // ==========================================================
 
-// --- 1. MODAL HUB DO CANTINHO DA ELO ---
-window.openEloHubModal = function(){
-  const m = document.getElementById('eloHubModal');
-  if(m){ m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
-};
-window.closeEloHubModal = function(){
-  const m = document.getElementById('eloHubModal');
-  if(m){ m.classList.add('hidden'); document.body.style.overflow = ''; }
+// --- 0. SISTEMA DE ÁUDIO WEB AUDIO API (SONS, PIANO E ANIMAIS) ---
+let audioFxCtx = null;
+function getAudioFxCtx(){
+  if(!audioFxCtx){
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(AC) audioFxCtx = new AC();
+    } catch(_) {}
+  }
+  if(audioFxCtx && audioFxCtx.state === "suspended"){
+    try { audioFxCtx.resume(); } catch(_) {}
+  }
+  return audioFxCtx;
+}
+
+window.playCuteSfx = function(type){
+  if("vibrate" in navigator){
+    try {
+      if(type === "coin") navigator.vibrate([18, 28, 18]);
+      else if(type === "win") navigator.vibrate([25, 45, 35]);
+      else if(type === "wrong") navigator.vibrate(40);
+      else navigator.vibrate(10);
+    } catch(_) {}
+  }
+  const ctx = getAudioFxCtx();
+  if(!ctx) return;
+  const now = ctx.currentTime;
+  try {
+    if(type === "pop"){
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(480, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.07);
+      g.gain.setValueAtTime(0.04, now);
+      g.gain.linearRampToValueAtTime(0.0001, now + 0.075);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.08);
+    } else if(type === "tick"){
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(820, now);
+      g.gain.setValueAtTime(0.04, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.06);
+    } else if(type === "wrong"){
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(240, now);
+      osc.frequency.linearRampToValueAtTime(160, now + 0.18);
+      g.gain.setValueAtTime(0.04, now);
+      g.gain.linearRampToValueAtTime(0.0001, now + 0.19);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.2);
+    } else if(type === "coin"){
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(988, now);
+      osc.frequency.setValueAtTime(1318, now + 0.07);
+      g.gain.setValueAtTime(0.06, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.29);
+    } else if(type === "win"){
+      [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+        const osc = ctx.createOscillator(), g = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+        g.gain.setValueAtTime(0.06, now + idx * 0.07);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.07 + 0.24);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(now + idx * 0.07); osc.stop(now + idx * 0.07 + 0.25);
+      });
+    }
+  } catch(_) {}
 };
 
-// --- 2. FESTA DA FAMÍLIA (PARTY GAME INTERATIVO) ---
-let familyActiveMode = 'mime';
-let mimeTimer = null, mimeSecondsLeft = 45, currentMimeCategory = 'animals';
-let duelActive = false, duelTargetSymbol = '', duelP1Points = 0, duelP2Points = 0;
+// --- 1. MODAL HUB DO CANTINHO DA ELO ---
+window.openEloHubModal = function(){
+  const m = document.getElementById("eloHubModal");
+  if(m){
+    m.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    playCuteSfx("pop");
+    if(typeof eloGuideSay === "function"){
+      eloGuideSay("Bem-vinda ao meu Cantinho! Escolha o Quarto, o Guarda-roupa ou o Bichinho Virtual.");
+    }
+  }
+};
+window.closeEloHubModal = function(){
+  const m = document.getElementById("eloHubModal");
+  if(m){
+    m.classList.add("hidden");
+    document.body.style.overflow = "";
+  }
+};
+
+// --- 2. FESTA DA FAMÍLIA (MÍMICA, DUELO 2 JOGADORES & ROLETA/PLACAR) ---
+let familyActiveMode = "mime";
+let mimeTimer = null, mimeSecondsLeft = 45, currentMimeCategory = "animals";
+let duelActive = false, duelCurrentChallenge = null, duelP1Points = 0, duelP2Points = 0, duelRoundTimeout = null;
 let team1Pts = 0, team2Pts = 0;
 
 const MODERN_MIMES = {
-  animals: ['Macaco comendo banana 🍌', 'Pinguim com frio no gelo ❄️', 'Elefante espirrando água 🐘', 'Gatinho se espreguiçando 🐱', 'Leão rugindo bem alto 🦁', 'Sapo pulando na lagoa 🐸'],
-  actions: ['Escovando os dentes com pressa 🪥', 'Andando de skate veloz 🛹', 'Comendo uma fatia gigante de melancia 🍉', 'Dançando balé desajeitado 🩰', 'Tocando bateria de rock 🥁', 'Pescando um peixe enorme 🎣'],
-  characters: ['Robô com defeito na bateria 🤖', 'Princesa perdendo o sapatinho 👑', 'Super-herói voando pelos prédios 🦸', 'Pirata procurando um tesouro 🏴‍☠️', 'Mago soltando uma magia misteriosa 🧙', 'Astronauta pulando na Lua 🚀'],
-  mix: ['Dinossauro com fome 🦖', 'Pintando uma parede invisível 🎨', 'Tentando segurar uma bexiga voando 🎈', 'Tirando foto em uma montanha-russa 🎢', 'Zumbi dançarino 🧟', 'Unicórnio com asas brilhantes 🦄']
+  animals: [
+    "Macaco descascando e comendo banana 🍌",
+    "Pinguim andando no gelo escorregadio ❄️",
+    "Elefante tomando banho com a tromba 🐘",
+    "Gatinho acordando e se espreguiçando 🐱",
+    "Leão rugindo bem forte na floresta 🦁",
+    "Sapinho pulando para pegar mosca 🐸",
+    "Cachorrinho correndo atrás do próprio rabo 🐶",
+    "Galinha ciscando e botando ovo 🐔",
+    "Borboleta voando de flor em flor 🦋",
+    "Jacaré abrindo o bocão no rio 🐊"
+  ],
+  actions: [
+    "Escovando os dentes com muita espuma 🪥",
+    "Andando de skate e fazendo manobra 🛹",
+    "Comendo uma fatia gigante de melancia 🍉",
+    "Dançando balé na ponta do pé 🩰",
+    "Tocando bateria em um show de rock 🥁",
+    "Pescando um peixe muito pesado 🎣",
+    "Fazendo um bolo e batendo a massa 🎂",
+    "Tentando caminhar contra um vento forte 💨",
+    "Pulando corda bem rápido 🪢",
+    "Tomando um sorvete que está derretendo 🍦"
+  ],
+  characters: [
+    "Robô ficando sem bateria 🤖",
+    "Princesa procurando a coroa perdida 👑",
+    "Super-herói voando acima das nuvens 🦸",
+    "Pirata procurando tesouro com luneta 🏴‍☠️",
+    "Mago fazendo um feitiço com varinha 🧙",
+    "Astronauta caminhando sem gravidade na Lua 🚀",
+    "Unicórnio galopando pelo arco-íris 🦄",
+    "Fada espalhando pó de estrelas ✨",
+    "Chef de cozinha fazendo pizza girando a massa 🍕",
+    "Detetive seguindo pegadas com lupa 🔎"
+  ],
+  mix: [
+    "Dinossauro T-Rex tentando bater palmas 🦖",
+    "Pintando um quadro gigante colorido 🎨",
+    "Segurando 10 bexigas que querem voar 🎈",
+    "Andando em uma montanha-russa maluca 🎢",
+    "Tocando violão e cantando no microfone 🎸",
+    "Abrindo um presente cheio de surpresas 🎁",
+    "Fazendo embaixadinha com bola de futebol ⚽",
+    "Mergulhando no fundo do mar com peixinhos 🤿"
+  ]
 };
 
 window.switchFamilyMode = function(mode, btn){
   familyActiveMode = mode;
-  document.querySelectorAll('.familyTabBtn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll(".familyTabBtn").forEach(b => b.classList.remove("active"));
   if(btn){
-    btn.classList.add('active');
+    btn.classList.add("active");
   } else {
     const targetBtn = document.querySelector(`.familyTabBtn[onclick*="'${mode}'"]`);
-    if(targetBtn) targetBtn.classList.add('active');
+    if(targetBtn) targetBtn.classList.add("active");
   }
-  
-  const mimeEl = document.getElementById('familyMimeView');
-  const duelEl = document.getElementById('familyDuelView');
-  const scoreEl = document.getElementById('familyScoreView');
-  if(mimeEl) mimeEl.classList.toggle('hidden', mode !== 'mime');
-  if(duelEl) duelEl.classList.toggle('hidden', mode !== 'duel');
-  if(scoreEl) scoreEl.classList.toggle('hidden', mode !== 'score');
-  
-  if(mode === 'duel'){ startDuelRound(); }
-  if(mode === 'mime'){ resetMimeCard(); }
+  const mimeEl = document.getElementById("familyMimeView");
+  const duelEl = document.getElementById("familyDuelView");
+  const scoreEl = document.getElementById("familyScoreView");
+  if(mimeEl) mimeEl.classList.toggle("hidden", mode !== "mime");
+  if(duelEl) duelEl.classList.toggle("hidden", mode !== "duel");
+  if(scoreEl) scoreEl.classList.toggle("hidden", mode !== "score");
+
+  if(mode !== "mime" && mimeTimer){ clearInterval(mimeTimer); mimeTimer = null; }
+  if(mode === "duel"){ startDuelRound(); }
+  if(mode === "mime"){ resetMimeCard(); }
 };
 
 window.setMimeCat = function(cat, btn){
   currentMimeCategory = cat;
-  document.querySelectorAll('.mimeCategoryPills .pillBtn').forEach(b => b.classList.remove('on'));
-  if(btn) btn.classList.add('on');
+  document.querySelectorAll(".mimeCategoryPills .pillBtn").forEach(b => b.classList.remove("on"));
+  if(btn) btn.classList.add("on");
   resetMimeCard();
 };
 
 function resetMimeCard(){
   if(mimeTimer){ clearInterval(mimeTimer); mimeTimer = null; }
   mimeSecondsLeft = 45;
-  document.getElementById('mimeTimerDisplay').textContent = '⏱️ 45s';
-  const box = document.getElementById('mimeCardBox');
+  const tDisp = document.getElementById("mimeTimerDisplay");
+  if(tDisp) tDisp.textContent = "⏱️ 45s";
+  const box = document.getElementById("mimeCardBox");
   if(box){
     box.innerHTML = `<div class="mimeHiddenPrompt">
       <span style="font-size:52px;display:block;margin-bottom:8px;">🙈</span>
@@ -954,27 +1084,33 @@ function resetMimeCard(){
 window.startMimeRound = function(){
   const pool = MODERN_MIMES[currentMimeCategory] || MODERN_MIMES.animals;
   const picked = pool[Math.floor(Math.random() * pool.length)];
-  const box = document.getElementById('mimeCardBox');
+  const box = document.getElementById("mimeCardBox");
   if(!box) return;
-  
+  playCuteSfx("pop");
+
   box.innerHTML = `<div class="mimeActiveCard">
     <small style="color:var(--muted);font-weight:900;">FAÇA SEM FALAR UMA PALAVRA:</small>
     <div class="mimePromptText">${picked}</div>
     <div style="font-size:12px;color:#d84376;margin-bottom:12px;">Esconda a tela e comece a mímica!</div>
-    <div style="display:flex;gap:10px;justify-content:center;">
-      <button class="btn" style="background:#00d288;color:#fff;font-weight:900;" onclick="mimeSuccess()">Acertaram! (+10 pts) 🎉</button>
-      <button class="btn secondary" onclick="startMimeRound()">Pular ⏩</button>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn" style="background:#00d288;color:#fff;font-weight:900;" onclick="mimeSuccess()">Acertaram! (+1 Ponto & ⭐) 🎉</button>
+      <button class="btn secondary" onclick="startMimeRound()">Outro Desafio 🎲</button>
     </div>
   </div>`;
-  
+
   mimeSecondsLeft = 45;
+  const tDisp = document.getElementById("mimeTimerDisplay");
+  if(tDisp) tDisp.textContent = "⏱️ 45s";
   if(mimeTimer) clearInterval(mimeTimer);
   mimeTimer = setInterval(()=>{
     mimeSecondsLeft--;
-    document.getElementById('mimeTimerDisplay').textContent = `⏱️ ${mimeSecondsLeft}s`;
+    const td = document.getElementById("mimeTimerDisplay");
+    if(td) td.textContent = `⏱️ ${mimeSecondsLeft}s`;
+    if(mimeSecondsLeft <= 15 && mimeSecondsLeft > 0) playCuteSfx("tick");
     if(mimeSecondsLeft <= 0){
       clearInterval(mimeTimer);
       mimeTimer = null;
+      playCuteSfx("wrong");
       box.innerHTML = `<div class="mimeActiveCard">
         <span style="font-size:46px;">⏰</span>
         <h3>O tempo acabou!</h3>
@@ -987,104 +1123,221 @@ window.startMimeRound = function(){
 
 window.mimeSuccess = function(){
   if(mimeTimer){ clearInterval(mimeTimer); mimeTimer = null; }
+  playCuteSfx("win");
   triggerStarConfetti();
-  toast('Incrível! Ponto para a família! 🎉');
-  startMimeRound();
+  changeTeamScore(1, 1);
+  addStars(1, "Mímica acertada em família! +1 ⭐");
+  resetMimeCard();
 };
 
-// --- DUELO 2 JOGADORES NA MESMA TELA ---
+// --- DUELO 2 JOGADORES COM 3 OPÇÕES DE REFLEXO ---
 const DUEL_CHALLENGES = [
-  { cmd: 'Toque na ESTRELA!', target: '⭐', decoys: ['🌙', '☁️', '🎈'] },
-  { cmd: 'Toque no UNICÓRNIO!', target: '🦄', decoys: ['🐱', '🐶', '🐰'] },
-  { cmd: 'Toque no CORAÇÃO!', target: '💖', decoys: ['💎', '🎀', '🌸'] },
-  { cmd: 'Toque no FOGO!', target: '🔥', decoys: ['💧', '🌿', '⚡'] },
-  { cmd: 'Toque no NÚMERO 7!', target: '7', decoys: ['3', '5', '9'] }
+  { cmd: "Toque na ESTRELA ⭐!", target: "⭐", options: ["⭐", "🌙", "☁️"] },
+  { cmd: "Toque no UNICÓRNIO 🦄!", target: "🦄", options: ["🐱", "🦄", "🐰"] },
+  { cmd: "Toque no CORAÇÃO 💖!", target: "💖", options: ["💎", "💖", "🌸"] },
+  { cmd: "Quanto é 2 + 3? Toque no 5!", target: "5", options: ["4", "5", "6"] },
+  { cmd: "Quanto é 1 + 2? Toque no 3!", target: "3", options: ["2", "3", "5"] },
+  { cmd: "Qual bicho faz MIAU? 🐱", target: "🐱", options: ["🐶", "🐱", "🐸"] },
+  { cmd: "Qual fruta é VERMELHA? 🍓", target: "🍓", options: ["🍌", "🍓", "🍐"] },
+  { cmd: "Toque no FOGUETE 🚀!", target: "🚀", options: ["🚗", "⛵", "🚀"] },
+  { cmd: "Toque no ARCO-ÍRIS 🌈!", target: "🌈", options: ["🌈", "⚡", "❄️"] },
+  { cmd: "Qual começa com A? ABELHA 🐝!", target: "🐝", options: ["🐝", "🐢", "🦁"] },
+  { cmd: "Toque na COROA 👑!", target: "👑", options: ["🎩", "👑", "🎀"] },
+  { cmd: "Quanto é 4 + 4? Toque no 8!", target: "8", options: ["6", "8", "9"] }
 ];
+
+window.resetDuelMatch = function(){
+  duelP1Points = 0;
+  duelP2Points = 0;
+  const s1 = document.getElementById("duelP1Score");
+  const s2 = document.getElementById("duelP2Score");
+  if(s1) s1.textContent = "0";
+  if(s2) s2.textContent = "0";
+  startDuelRound();
+};
 
 window.startDuelRound = function(){
   duelActive = false;
-  document.getElementById('duelCenterCommand').textContent = 'Preparem os dedos...';
-  document.getElementById('duelP1Prompt').textContent = '⏳';
-  document.getElementById('duelP2Prompt').textContent = '⏳';
-  
-  setTimeout(()=>{
+  if(duelRoundTimeout) clearTimeout(duelRoundTimeout);
+  const cmdEl = document.getElementById("duelCenterCommand");
+  const p1El = document.getElementById("duelP1Prompt");
+  const p2El = document.getElementById("duelP2Prompt");
+  if(cmdEl) cmdEl.textContent = "Preparem os dedos... ⏳";
+  if(p1El) p1El.innerHTML = "<div class='duelWait'>⏳ Atenção...</div>";
+  if(p2El) p2El.innerHTML = "<div class='duelWait'>⏳ Atenção...</div>";
+
+  duelRoundTimeout = setTimeout(()=>{
     const c = DUEL_CHALLENGES[Math.floor(Math.random() * DUEL_CHALLENGES.length)];
-    duelTargetSymbol = c.target;
+    duelCurrentChallenge = c;
     duelActive = true;
-    document.getElementById('duelCenterCommand').textContent = c.cmd;
-    document.getElementById('duelP1Prompt').textContent = duelTargetSymbol;
-    document.getElementById('duelP2Prompt').textContent = duelTargetSymbol;
-  }, 1000 + Math.random() * 1500);
+    playCuteSfx("pop");
+    if(cmdEl) cmdEl.textContent = c.cmd;
+    const opts1 = shuffle(c.options);
+    const opts2 = shuffle(c.options);
+    if(p1El){
+      p1El.innerHTML = opts1.map(o => `<button class="duelChoiceBtn" onclick="handleDuelChoice(1, '${o}', this)">${o}</button>`).join("");
+    }
+    if(p2El){
+      p2El.innerHTML = opts2.map(o => `<button class="duelChoiceBtn" onclick="handleDuelChoice(2, '${o}', this)">${o}</button>`).join("");
+    }
+  }, 700);
 };
 
-window.handleDuelTouch = function(player){
-  if(!duelActive) return;
+window.handleDuelChoice = function(player, choice, btn){
+  if(!duelActive || !duelCurrentChallenge) return;
+  if(choice !== duelCurrentChallenge.target){
+    playCuteSfx("wrong");
+    if(btn){
+      btn.disabled = true;
+      btn.style.opacity = "0.35";
+    }
+    toast(`Jogador ${player} errou! Cuidado!`);
+    return;
+  }
   duelActive = false;
+  playCuteSfx("win");
   triggerStarConfetti();
   if(player === 1){
     duelP1Points++;
-    document.getElementById('duelP1Score').textContent = duelP1Points;
-    toast('Jogador 1 tocou primeiro! Ponto! ⚡');
-    document.getElementById('duelP1Area').classList.add('winPulse');
-    setTimeout(()=>document.getElementById('duelP1Area').classList.remove('winPulse'), 600);
+    const s1 = document.getElementById("duelP1Score");
+    if(s1) s1.textContent = duelP1Points;
+    const a1 = document.getElementById("duelP1Area");
+    if(a1){ a1.classList.add("winPulse"); setTimeout(()=>a1.classList.remove("winPulse"), 650); }
   } else {
     duelP2Points++;
-    document.getElementById('duelP2Score').textContent = duelP2Points;
-    toast('Jogador 2 tocou primeiro! Ponto! ⚡');
-    document.getElementById('duelP2Area').classList.add('winPulse');
-    setTimeout(()=>document.getElementById('duelP2Area').classList.remove('winPulse'), 600);
+    const s2 = document.getElementById("duelP2Score");
+    if(s2) s2.textContent = duelP2Points;
+    const a2 = document.getElementById("duelP2Area");
+    if(a2){ a2.classList.add("winPulse"); setTimeout(()=>a2.classList.remove("winPulse"), 650); }
   }
-  document.getElementById('duelCenterCommand').textContent = `Vitória da rodada: Jogador ${player}!`;
+  const cmdEl = document.getElementById("duelCenterCommand");
+  if(duelP1Points >= 5 || duelP2Points >= 5){
+    const winP = duelP1Points >= 5 ? 1 : 2;
+    if(cmdEl) cmdEl.textContent = `🏆 JOGADOR ${winP} VENCEU O DUELO DE 5 PONTOS! 🎉`;
+    addStars(3, `Duelo vencido pelo Jogador ${winP}! +3 ⭐`);
+    duelP1Points = 0; duelP2Points = 0;
+    setTimeout(()=>{
+      const s1 = document.getElementById("duelP1Score");
+      const s2 = document.getElementById("duelP2Score");
+      if(s1) s1.textContent = "0";
+      if(s2) s2.textContent = "0";
+      startDuelRound();
+    }, 2200);
+  } else {
+    if(cmdEl) cmdEl.textContent = `⚡ Ponto para o Jogador ${player}! Próxima rodada...`;
+    setTimeout(startDuelRound, 1300);
+  }
+};
+window.handleDuelTouch = function(player){
+  if(duelCurrentChallenge) handleDuelChoice(player, duelCurrentChallenge.target, null);
+};
+
+// --- ROLETA DE DESAFIOS DA FAMÍLIA & PLACAR ---
+const FAMILY_ROULETTE_CHALLENGES = [
+  "🤗 Desafio do Abraço: Todo mundo dá um abraço coletivo de 10 segundos!",
+  "🦩 Desafio do Flamingo: Quem consegue ficar num pé só sem mexer por 15 segundos?",
+  "🐸 Desafio dos Bichos: Cada pessoa imita o som de um animal diferente!",
+  "💃 Dança Congelada: Dancem por 10 segundos e façam pose de estátua quando alguém bater palma!",
+  "😂 Desafio do Riso: Olhem olho no olho sem rir! Quem rir primeiro faz uma careta!",
+  "🎵 Show de Talentos: Cantem juntos um pedacinho da música favorita da criança!",
+  " compliments 💖 Rodada do Carinho: Diga uma coisa que você admira em quem está ao seu lado!",
+  "🚀 Missão Relâmpago: Encontrem 3 objetos azuis na sala sem correr!"
+];
+
+window.spinFamilyRoulette = function(){
+  const el = document.getElementById("familyRouletteText");
+  if(!el) return;
+  let spins = 0;
+  const iv = setInterval(()=>{
+    playCuteSfx("tick");
+    el.textContent = FAMILY_ROULETTE_CHALLENGES[spins % FAMILY_ROULETTE_CHALLENGES.length];
+    spins++;
+    if(spins >= 10){
+      clearInterval(iv);
+      const picked = FAMILY_ROULETTE_CHALLENGES[Math.floor(Math.random() * FAMILY_ROULETTE_CHALLENGES.length)].replace(" compliments ", "");
+      el.textContent = picked;
+      playCuteSfx("win");
+      triggerStarConfetti();
+      if(typeof speakText === "function") speakText(picked);
+    }
+  }, 90);
 };
 
 window.changeTeamScore = function(team, delta){
+  playCuteSfx("pop");
   if(team === 1){
     team1Pts = Math.max(0, team1Pts + delta);
-    document.getElementById('team1Score').textContent = team1Pts;
+    const el = document.getElementById("team1Score");
+    if(el) el.textContent = team1Pts;
   } else {
     team2Pts = Math.max(0, team2Pts + delta);
-    document.getElementById('team2Score').textContent = team2Pts;
+    const el = document.getElementById("team2Score");
+    if(el) el.textContent = team2Pts;
   }
 };
 
 window.resetTeamScores = function(){
   team1Pts = 0; team2Pts = 0;
-  document.getElementById('team1Score').textContent = '0';
-  document.getElementById('team2Score').textContent = '0';
-  toast('Placar zerado!');
+  const t1 = document.getElementById("team1Score");
+  const t2 = document.getElementById("team2Score");
+  if(t1) t1.textContent = "0";
+  if(t2) t2.textContent = "0";
+  toast("Placar zerado!");
 };
 
 window.finishFamilyMatch = function(){
+  playCuteSfx("win");
   triggerStarConfetti();
-  addStars(3, 'Festa da Família concluída! +3 ⭐');
-  const winner = team1Pts > team2Pts ? 'Crianças / Elo venceram!' : (team2Pts > team1Pts ? 'Pais / Família venceram!' : 'Empate lindo entre todos!');
-  toast(`🏆 ${winner} Parabéns pela união!`);
+  addStars(3, "Festa da Família concluída! +3 ⭐");
+  const winner = team1Pts > team2Pts ? "Time Crianças venceu!" : (team2Pts > team1Pts ? "Time Adultos venceu!" : "Empate lindo entre toda a família!");
+  toast(`🏆 ${winner} Parabéns pela diversão!`);
 };
 
-// --- 3. NOVA ESCOLINHA MÁGICA ---
-let activeSchoolTrack = 'letters', currentSchoolQuestionIdx = 0, schoolTrackScore = 0;
+// --- 3. NOVA ESCOLINHA MÁGICA + CONSERVATÓRIO / PIANO ARCO-ÍRIS ---
+let activeSchoolTrack = "letters", currentSchoolQuestionIdx = 0, schoolTrackScore = 0, activeSchoolDeck = [];
 
 const SCHOOL_TRACK_DATA = {
   letters: [
-    { prompt: 'Qual letrinha começa a palavra BOLA? ⚽', options: ['B', 'M', 'P'], answer: 0, visual: '⚽' },
-    { prompt: 'Qual letrinha começa a palavra ESTRELA? ⭐', options: ['A', 'E', 'O'], answer: 1, visual: '⭐' },
-    { prompt: 'Qual letrinha começa a palavra GATO? 🐱', options: ['C', 'G', 'T'], answer: 1, visual: '🐱' },
-    { prompt: 'Qual letrinha começa a palavra CASA? 🏠', options: ['C', 'S', 'D'], answer: 0, visual: '🏠' },
-    { prompt: 'Qual letrinha começa a palavra UNICÓRNIO? 🦄', options: ['I', 'U', 'E'], answer: 1, visual: '🦄' }
+    { prompt: "Qual letrinha começa a palavra BOLA?", options: ["B", "M", "P"], answer: 0, visual: "⚽" },
+    { prompt: "Qual letrinha começa a palavra ESTRELA?", options: ["A", "E", "O"], answer: 1, visual: "⭐" },
+    { prompt: "Qual letrinha começa a palavra GATO?", options: ["C", "G", "T"], answer: 1, visual: "🐱" },
+    { prompt: "Qual letrinha começa a palavra CASA?", options: ["C", "S", "D"], answer: 0, visual: "🏠" },
+    { prompt: "Qual letrinha começa a palavra UNICÓRNIO?", options: ["I", "U", "E"], answer: 1, visual: "🦄" },
+    { prompt: "Qual letrinha começa a palavra ABELHA?", options: ["A", "E", "U"], answer: 0, visual: "🐝" },
+    { prompt: "Qual palavra rima com GATO?", options: ["PATO", "BOLA", "SOL"], answer: 0, visual: "🐱 🦆" },
+    { prompt: "Qual palavra rima com MÃO?", options: ["CORAÇÃO", "FLOR", "LUA"], answer: 0, visual: "✋ 💖" },
+    { prompt: "Qual letrinha começa a palavra SAPO?", options: ["S", "F", "L"], answer: 0, visual: "🐸" },
+    { prompt: "Quantas vogais tem a palavra ELO?", options: ["2 (E - O)", "1", "4"], answer: 0, visual: "👧✨" },
+    { prompt: "Qual letrinha começa a palavra LUA?", options: ["L", "R", "N"], answer: 0, visual: "🌙" },
+    { prompt: "Qual letrinha começa a palavra PIPOCA?", options: ["P", "B", "T"], answer: 0, visual: "🍿" }
   ],
   numbers: [
-    { prompt: 'Quantas maçãs você vê aqui? 🍎 🍎 🍎', options: ['2', '3', '4'], answer: 1, visual: '🍎🍎🍎' },
-    { prompt: 'Quanto é 2 + 2 estrelinhas? ⭐⭐ + ⭐⭐', options: ['3', '4', '5'], answer: 1, visual: '⭐⭐⭐⭐' },
-    { prompt: 'Qual número é MAIOR?', options: ['3', '8', '5'], answer: 1, visual: '🔢' },
-    { prompt: 'Qual número vem DEPOIS do 5?', options: ['4', '6', '7'], answer: 1, visual: '5 ➔ ?' },
-    { prompt: 'Quantas mãozinhas temos no corpo?', options: ['1', '2', '4'], answer: 1, visual: '✋✋' }
+    { prompt: "Quantas maçãs você vê aqui?", options: ["2", "3", "4"], answer: 1, visual: "🍎 🍎 🍎" },
+    { prompt: "Quanto é 2 + 2 estrelinhas?", options: ["3", "4", "5"], answer: 1, visual: "⭐⭐ + ⭐⭐" },
+    { prompt: "Qual destes números é o MAIOR?", options: ["3", "9", "5"], answer: 1, visual: "🔢✨" },
+    { prompt: "Qual número vem logo DEPOIS do 5?", options: ["4", "6", "8"], answer: 1, visual: "5 ➔ ?" },
+    { prompt: "Quantos dedinhos temos em uma mão?", options: ["3", "5", "10"], answer: 1, visual: "🖐️" },
+    { prompt: "Quanto é 3 + 1 morangos?", options: ["3", "4", "5"], answer: 1, visual: "🍓🍓🍓 + 🍓" },
+    { prompt: "Se temos 4 balões e 1 voa, ficam quantos?", options: ["2", "3", "4"], answer: 1, visual: "🎈🎈🎈🎈" },
+    { prompt: "Qual forma geométrica é redonda como o Sol?", options: ["Círculo", "Quadrado", "Triângulo"], answer: 0, visual: "🟡☀️" },
+    { prompt: "Quantas rodas tem uma bicicleta?", options: ["1", "2", "4"], answer: 1, visual: "🚲" },
+    { prompt: "Quanto é 5 + 2 corações?", options: ["6", "7", "8"], answer: 1, visual: "💖💖💖💖💖 + 💖💖" },
+    { prompt: "Qual número vem ANTES do 4?", options: ["2", "3", "5"], answer: 1, visual: "? ➔ 4" },
+    { prompt: "Quantos patinhos têm aqui?", options: ["4", "5", "6"], answer: 1, visual: "🐥🐥🐥🐥🐥" }
   ],
   nature: [
-    { prompt: 'Qual destes bichinhos late? 🐶', options: ['Gato', 'Cachorro', 'Pato'], answer: 1, visual: '🐶' },
-    { prompt: 'Quem mora na água do mar? 🌊', options: ['Peixinho', 'Passarinho', 'Coelho'], answer: 0, visual: '🐟' },
-    { prompt: 'O que as plantas precisam para crescer? 🌱', options: ['Água e Sol', 'Apenas brinquedos', 'Escuro'], answer: 0, visual: '☀️💧' },
-    { prompt: 'Qual bichinho tem asas e voa no jardim? 🌸', options: ['Borboleta', 'Tartaruga', 'Sapo'], answer: 0, visual: '🦋' },
-    { prompt: 'Qual atitude protege a natureza? 🌳', options: ['Cuidar das plantas', 'Jogar lixo no chão', 'Desperdiçar água'], answer: 0, visual: '🌍💚' }
+    { prompt: "Qual destes bichinhos faz AU AU?", options: ["Gato", "Cachorro", "Pato"], answer: 1, visual: "🐶" },
+    { prompt: "Quem vive nadando na água do mar?", options: ["Peixinho", "Passarinho", "Coelho"], answer: 0, visual: "🐟🌊" },
+    { prompt: "Do que as plantinhas precisam para crescer?", options: ["Água e Sol", "Refrigerante", "Escuro"], answer: 0, visual: "🌱☀️💧" },
+    { prompt: "Qual bichinho tem asas coloridas e voa nas flores?", options: ["Borboleta", "Tartaruga", "Sapo"], answer: 0, visual: "🦋🌸" },
+    { prompt: "Qual atitude protege o nosso planeta?", options: ["Jogar lixo na lixeira", "Desperdiçar água", "Arrancar flores"], answer: 0, visual: "🌍💚" },
+    { prompt: "Quem produz o mel docinho nas flores?", options: ["Abelha", "Formiga", "Joaninha"], answer: 0, visual: "🐝🍯" },
+    { prompt: "Quando aparece o arco-íris no céu?", options: ["Sol com chuvinha", "Noite escura", "Dentro de casa"], answer: 0, visual: "🌈☀️🌧️" },
+    { prompt: "Qual animal tem um pescoço bem comprido?", options: ["Girafa", "Porquinho", "Coelho"], answer: 0, visual: "🦒🌿" },
+    { prompt: "O que devemos fazer antes das refeições?", options: ["Lavar as mãos", "Pular no sofá", "Esconder os sapatos"], answer: 0, visual: "🧼👐" },
+    { prompt: "Qual astro ilumina o nosso dia?", options: ["O Sol", "A Lua", "O Cometa"], answer: 0, visual: "☀️🌤️" },
+    { prompt: "Qual bichinho carrega sua casinha nas costas?", options: ["Tartaruga", "Gatinho", "Cavalo"], answer: 0, visual: "🐢" },
+    { prompt: "Qual fruta o macaquinho adora comer?", options: ["Banana", "Cebola", "Limão"], answer: 0, visual: "🐵🍌" }
   ]
 };
 
@@ -1092,110 +1345,352 @@ window.selectSchoolTrack = function(track, btn){
   activeSchoolTrack = track;
   currentSchoolQuestionIdx = 0;
   schoolTrackScore = 0;
-  document.querySelectorAll('.schoolTrackCard').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll(".schoolTrackCard").forEach(b => b.classList.remove("on"));
   if(btn){
-    btn.classList.add('on');
+    btn.classList.add("on");
   } else {
-    const targetClass = track === 'nature' ? 'trackAnimals' : (track === 'numbers' ? 'trackNumbers' : 'trackLetters');
-    const targetBtn = document.querySelector(`.schoolTrackCard.${targetClass}`);
-    if(targetBtn) targetBtn.classList.add('on');
+    const mapCls = { letters: "trackLetters", numbers: "trackNumbers", nature: "trackAnimals", music: "trackMusic" };
+    const targetBtn = document.querySelector(`.schoolTrackCard.${mapCls[track] || "trackLetters"}`);
+    if(targetBtn) targetBtn.classList.add("on");
   }
+
+  const quizCard = document.getElementById("schoolQuizCard");
+  const musicCard = document.getElementById("schoolMusicCard");
+  if(track === "music"){
+    if(quizCard) quizCard.classList.add("hidden");
+    if(musicCard) musicCard.classList.remove("hidden");
+    initPianoKeys();
+    return;
+  }
+  if(quizCard) quizCard.classList.remove("hidden");
+  if(musicCard) musicCard.classList.add("hidden");
+
+  const bank = SCHOOL_TRACK_DATA[track] || SCHOOL_TRACK_DATA.letters;
+  activeSchoolDeck = shuffle(bank).slice(0, 6);
   renderModernSchoolQuestion();
 };
 
 function renderModernSchoolQuestion(){
-  const deck = SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters;
-  if(currentSchoolQuestionIdx >= deck.length){
-    const box = document.getElementById('schoolOptionsGrid');
-    document.getElementById('schoolQuestionTitle').textContent = 'Parabéns! Desafios concluídos!';
-    document.getElementById('schoolRoundCounter').textContent = '5/5 ✓';
+  if(!activeSchoolDeck.length){
+    activeSchoolDeck = shuffle(SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters).slice(0, 6);
+  }
+  const box = document.getElementById("schoolOptionsGrid");
+  const titleEl = document.getElementById("schoolQuestionTitle");
+  const roundEl = document.getElementById("schoolRoundCounter");
+  if(!box || !titleEl || !roundEl) return;
+
+  if(currentSchoolQuestionIdx >= activeSchoolDeck.length){
+    titleEl.textContent = "Parabéns! Rodada concluída!";
+    roundEl.textContent = `${activeSchoolDeck.length}/${activeSchoolDeck.length} ✓`;
     box.innerHTML = `<div style="text-align:center;padding:20px;grid-column:span 3;">
-      <div style="font-size:48px;animation:dollHappy .6s infinite alternate;">🏅⭐</div>
-      <h3 style="margin:10px 0 6px;color:#d84376;">Você foi nota 10!</h3>
-      <p style="color:var(--muted);margin-bottom:14px;">Acertos: ${schoolTrackScore}/5. Continue aprendendo com a Elo!</p>
-      <button class="btn" onclick="selectSchoolTrack('${activeSchoolTrack}')">Jogar Novamente 🔁</button>
+      <div style="font-size:52px;animation:dollHappy .6s infinite alternate;">🏅⭐🎉</div>
+      <h3 style="margin:10px 0 6px;color:#d84376;">Você brilhou na Escolinha!</h3>
+      <p style="color:var(--muted);margin-bottom:14px;">Acertos: ${schoolTrackScore}/${activeSchoolDeck.length}. Ganhou +3 estrelas!</p>
+      <button class="btn" onclick="selectSchoolTrack('${activeSchoolTrack}')">Nova Rodada com Novas Perguntas 🔁</button>
     </div>`;
-    addStars(2, 'Escolinha concluída! +2 ⭐');
+    playCuteSfx("win");
+    addStars(3, "Trilha da Escolinha concluída! +3 ⭐");
+    trackActivity("school");
     return;
   }
-  
-  const q = deck[currentSchoolQuestionIdx];
-  document.getElementById('schoolRoundCounter').textContent = `Desafio ${currentSchoolQuestionIdx + 1}/5`;
-  document.getElementById('schoolQuestionTitle').innerHTML = `${q.prompt}<br><span style="font-size:36px;display:inline-block;margin-top:6px;">${q.visual}</span>`;
-  
-  const box = document.getElementById('schoolOptionsGrid');
+
+  const q = activeSchoolDeck[currentSchoolQuestionIdx];
+  roundEl.textContent = `Desafio ${currentSchoolQuestionIdx + 1}/${activeSchoolDeck.length}`;
+  titleEl.innerHTML = `${q.prompt}<br><span style="font-size:40px;display:inline-block;margin-top:8px;">${q.visual}</span>`;
+
   box.innerHTML = q.options.map((opt, i) => `
-    <button class="schoolOptBtn" onclick="answerSchoolChoice(${i})">
+    <button class="schoolOptBtn" onclick="answerSchoolChoice(${i}, this)">
       <b>${opt}</b>
     </button>
-  `).join('');
-  
-  if(typeof speakText === 'function'){
-    setTimeout(()=>speakText(q.prompt.replace(/[^\w\sÀ-ÿ]/gi, '')), 200);
+  `).join("");
+
+  if(typeof speakText === "function"){
+    setTimeout(()=>speakText(q.prompt), 180);
   }
 }
 
 window.speakCurrentSchoolPrompt = function(){
-  const deck = SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters;
-  const q = deck[currentSchoolQuestionIdx];
-  if(q && typeof speakText === 'function') speakText(q.prompt.replace(/[^\w\sÀ-ÿ]/gi, ''));
+  const q = activeSchoolDeck[currentSchoolQuestionIdx];
+  if(q && typeof speakText === "function") speakText(q.prompt);
 };
 
-window.answerSchoolChoice = function(choiceIdx){
-  const deck = SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters;
-  const q = deck[currentSchoolQuestionIdx];
+window.answerSchoolChoice = function(choiceIdx, btn){
+  const q = activeSchoolDeck[currentSchoolQuestionIdx];
+  if(!q) return;
   if(choiceIdx === q.answer){
     schoolTrackScore++;
+    if(btn) btn.style.background = "#dcfce7";
+    playCuteSfx("coin");
     triggerStarConfetti();
-    toast('Acertou em cheio! ⭐');
+    toast("Isso mesmo! Você acertou! ⭐");
     currentSchoolQuestionIdx++;
-    setTimeout(renderModernSchoolQuestion, 600);
+    setTimeout(renderModernSchoolQuestion, 550);
   } else {
-    toast('Tente de novo! Você consegue 💗');
+    playCuteSfx("wrong");
+    if(btn) btn.style.background = "#fee2e2";
+    toast("Quase! Tente outra opção 💗");
   }
 };
 
-// --- 4. NOVO ATELIÊ CRIATIVO COM DESENHO LIVRE ---
-let freeCanvas, freeCtx, isDrawing = false, drawColor = '#ff3377', drawBrush = 'pen';
-const STAMPS = ['⭐', '💖', '🦄', '🐾', '🌈', '🌸'];
-let currentStamp = '⭐';
+// --- PIANO ARCO-ÍRIS & CANÇÕES GUIADAS ---
+const PIANO_NOTES = [
+  { id: "C4", label: "Dó", freq: 261.63, color: "#ef4444", emoji: "🔴" },
+  { id: "D4", label: "Ré", freq: 293.66, color: "#f97316", emoji: "🟠" },
+  { id: "E4", label: "Mi", freq: 329.63, color: "#eab308", emoji: "🟡" },
+  { id: "F4", label: "Fá", freq: 349.23, color: "#22c55e", emoji: "🟢" },
+  { id: "G4", label: "Sol", freq: 392.00, color: "#06b6d4", emoji: "🩵" },
+  { id: "A4", label: "Lá", freq: 440.00, color: "#3b82f6", emoji: "🔵" },
+  { id: "B4", label: "Si", freq: 493.88, color: "#8b5cf6", emoji: "🟣" },
+  { id: "C5", label: "Dó²", freq: 523.25, color: "#ec4899", emoji: "🩷" }
+];
+
+const PIANO_SONGS = {
+  twinkle: {
+    name: "Brilha, Brilha Estrelinha ⭐",
+    notes: ["C4","C4","G4","G4","A4","A4","G4","F4","F4","E4","E4","D4","D4","C4"]
+  },
+  butterfly: {
+    name: "Borboletinha 🦋",
+    notes: ["G4","A4","G4","F4","E4","F4","G4","D4","E4","F4","E4","F4","G4"]
+  },
+  happy: {
+    name: "Parabéns pra Você 🎂",
+    notes: ["C4","C4","D4","C4","F4","E4","C4","C4","D4","C4","G4","F4"]
+  },
+  balloon: {
+    name: "Cai, Cai Balão 🎈",
+    notes: ["G4","G4","F4","E4","G4","G4","F4","E4","A4","G4","F4","E4","D4","C4"]
+  }
+};
+
+let activePianoSong = "free", pianoSongStep = 0;
+
+function initPianoKeys(){
+  const row = document.getElementById("pianoKeysRow");
+  if(!row) return;
+  row.innerHTML = PIANO_NOTES.map((n, idx) => `
+    <button class="pianoKey3D" data-note="${n.id}" style="--key-color:${n.color}" onpointerdown="playPianoNote(${idx}, this)">
+      <span class="pianoKeyEmoji">${n.emoji}</span>
+      <b class="pianoKeyLabel">${n.label}</b>
+    </button>
+  `).join("");
+  updatePianoGuideHighlight();
+}
+
+window.selectPianoSong = function(songId, btn){
+  activePianoSong = songId;
+  pianoSongStep = 0;
+  document.querySelectorAll(".songChip").forEach(b => b.classList.remove("on"));
+  if(btn) btn.classList.add("on");
+  updatePianoGuideHighlight();
+};
+
+function updatePianoGuideHighlight(){
+  document.querySelectorAll(".pianoKey3D").forEach(k => k.classList.remove("guideTarget"));
+  const guide = document.getElementById("pianoSongGuide");
+  if(activePianoSong === "free" || !PIANO_SONGS[activePianoSong]){
+    if(guide) guide.textContent = "🎹 Modo Livre: toque nas teclas coloridas para criar sua música!";
+    return;
+  }
+  const song = PIANO_SONGS[activePianoSong];
+  const targetNoteId = song.notes[pianoSongStep];
+  const noteObj = PIANO_NOTES.find(n => n.id === targetNoteId);
+  const keyBtn = document.querySelector(`.pianoKey3D[data-note="${targetNoteId}"]`);
+  if(keyBtn) keyBtn.classList.add("guideTarget");
+  if(guide && noteObj){
+    guide.innerHTML = `🎵 <b>${song.name}</b> • Nota ${pianoSongStep + 1}/${song.notes.length}: Toque em <b style="color:${noteObj.color}">${noteObj.label} ${noteObj.emoji}</b>`;
+  }
+}
+
+window.playPianoNote = function(idx, btn){
+  const n = PIANO_NOTES[idx];
+  if(!n) return;
+  const ctx = getAudioFxCtx();
+  if(ctx){
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = "triangle";
+      osc2.type = "sine";
+      osc.frequency.setValueAtTime(n.freq, now);
+      osc2.frequency.setValueAtTime(n.freq * 2, now);
+      g.gain.setValueAtTime(0.14, now);
+      g.gain.exponentialRampToValueAtTime(0.0008, now + 0.55);
+      osc.connect(g);
+      osc2.connect(g);
+      g.connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.56);
+      osc2.start(now); osc2.stop(now + 0.35);
+    } catch(_) {}
+  }
+  if(btn){
+    btn.classList.add("pressedKey");
+    setTimeout(()=>btn.classList.remove("pressedKey"), 180);
+  }
+  if(activePianoSong !== "free" && PIANO_SONGS[activePianoSong]){
+    const song = PIANO_SONGS[activePianoSong];
+    if(n.id === song.notes[pianoSongStep]){
+      pianoSongStep++;
+      if(pianoSongStep >= song.notes.length){
+        pianoSongStep = 0;
+        triggerStarConfetti();
+        addStars(3, `Música ${song.name} completa! +3 ⭐`);
+        const guide = document.getElementById("pianoSongGuide");
+        if(guide) guide.innerHTML = `🎉 <b>Bravo! Você tocou ${song.name} inteirinha! (+3 ⭐)</b>`;
+        setTimeout(updatePianoGuideHighlight, 1800);
+        return;
+      }
+      updatePianoGuideHighlight();
+    }
+  }
+};
+
+window.playAnimalSynth = function(animal){
+  const ctx = getAudioFxCtx();
+  const mapSpeech = {
+    cat: "Miau! Faz o gatinho!",
+    dog: "Au au! Faz o cachorrinho!",
+    duck: "Quá quá! Faz o patinho!",
+    frog: "Croac! Faz o sapinho!",
+    bird: "Piu piu! Faz o passarinho!"
+  };
+  if(ctx){
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      if(animal === "cat"){
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(650, now);
+        osc.frequency.exponentialRampToValueAtTime(420, now + 0.35);
+      } else if(animal === "dog"){
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(140, now + 0.18);
+      } else if(animal === "duck"){
+        osc.type = "square";
+        osc.frequency.setValueAtTime(340, now);
+        osc.frequency.setValueAtTime(290, now + 0.12);
+      } else if(animal === "frog"){
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(130, now);
+        osc.frequency.linearRampToValueAtTime(260, now + 0.22);
+      } else {
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.exponentialRampToValueAtTime(1650, now + 0.16);
+      }
+      g.gain.setValueAtTime(0.08, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.38);
+    } catch(_) {}
+  }
+  toast(mapSpeech[animal] || "Som divertido!");
+};
+
+// --- 4. ATELIÊ DA ELO (DESENHO LIVRE, LIVRO DE COLORIR & PIZZARIA/CONFEITARIA COM RECEITAS) ---
+let freeCanvas, freeCtx, drawColor = "#ff3377", drawBrush = "pen", currentStamp = "⭐", currentPaperBg = "white";
 
 window.switchCreativeMode = function(mode, btn){
-  document.querySelectorAll('.creativeModeTabs .cTabBtn').forEach(b => b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  document.getElementById('freeDrawSection').classList.toggle('hidden', mode !== 'freeDraw');
-  document.getElementById('coloringSection').classList.toggle('hidden', mode !== 'coloring');
-  if(mode === 'freeDraw') initFreeDrawCanvas();
-  if(mode === 'coloring') renderColoringGallery();
+  document.querySelectorAll(".creativeModeTabs .cTabBtn").forEach(b => b.classList.remove("active"));
+  if(btn){
+    btn.classList.add("active");
+  } else {
+    const targetBtn = document.querySelector(`.creativeModeTabs .cTabBtn[onclick*="'${mode}'"]`);
+    if(targetBtn) targetBtn.classList.add("active");
+  }
+  const fSec = document.getElementById("freeDrawSection");
+  const cSec = document.getElementById("coloringSection");
+  const chSec = document.getElementById("chefSection");
+  if(fSec) fSec.classList.toggle("hidden", mode !== "freeDraw");
+  if(cSec) cSec.classList.toggle("hidden", mode !== "coloring");
+  if(chSec) chSec.classList.toggle("hidden", mode !== "chef");
+
+  if(mode === "freeDraw") initFreeDrawCanvas();
+  if(mode === "coloring") renderColoringGallery();
+  if(mode === "chef") initChefStudio();
 };
 
 window.setDrawColor = function(c, btn){
   drawColor = c;
-  document.querySelectorAll('.toolColors .colorPick').forEach(b => b.classList.remove('on'));
-  if(btn) btn.classList.add('on');
+  if(drawBrush === "eraser") drawBrush = "pen";
+  document.querySelectorAll(".toolColors .colorPick").forEach(b => b.classList.remove("on"));
+  if(btn) btn.classList.add("on");
 };
 
 window.setDrawBrush = function(b, btn){
   drawBrush = b;
-  document.querySelectorAll('.toolBrushes .toolBtn').forEach(btn => btn.classList.remove('on'));
-  if(btn) btn.classList.add('on');
+  document.querySelectorAll(".toolBrushes .toolBtn").forEach(el => el.classList.remove("on"));
+  if(btn) btn.classList.add("on");
+};
+
+window.pickDrawStamp = function(stamp, btn){
+  currentStamp = stamp;
+  drawBrush = "stamp";
+  document.querySelectorAll(".stampPickBtn").forEach(b => b.classList.remove("on"));
+  if(btn) btn.classList.add("on");
+  document.querySelectorAll(".toolBrushes .toolBtn").forEach(el => {
+    el.classList.toggle("on", el.getAttribute("onclick")?.includes("'stamp'"));
+  });
+  toast(`Carimbo ${stamp} escolhido! Toque no quadro para carimbar ✨`);
+};
+
+function paintCanvasPaperBackground(ctx, w, h, bgType){
+  if(bgType === "sky"){
+    const g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, "#bae6fd");
+    g.addColorStop(1, "#f0f9ff");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+  } else if(bgType === "space"){
+    const g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, "#1e1b4b");
+    g.addColorStop(1, "#311042");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = "rgba(255,255,255,0.65)";
+    for(let i=0;i<32;i++){
+      ctx.beginPath();
+      ctx.arc((i*73)%w, (i*53)%h, (i%3)+1, 0, Math.PI*2);
+      ctx.fill();
+    }
+  } else if(bgType === "garden"){
+    const g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, "#e0f2fe");
+    g.addColorStop(0.72, "#f0fdf4");
+    g.addColorStop(0.72, "#86efac");
+    g.addColorStop(1, "#4ade80");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+  } else {
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, w, h);
+  }
+}
+
+window.setCanvasPaperBg = function(bgType, btn){
+  currentPaperBg = bgType;
+  document.querySelectorAll(".paperBtn").forEach(b => b.classList.remove("on"));
+  if(btn) btn.classList.add("on");
+  clearFreeDrawCanvas();
 };
 
 function initFreeDrawCanvas(){
-  freeCanvas = document.getElementById('freeDrawCanvas');
+  freeCanvas = document.getElementById("freeDrawCanvas");
   if(!freeCanvas) return;
-  freeCtx = freeCanvas.getContext('2d');
-  
+  freeCtx = freeCanvas.getContext("2d");
+
   if(!freeCanvas.dataset.ready){
-    freeCanvas.dataset.ready = 'true';
+    freeCanvas.dataset.ready = "true";
     freeCanvas.width = 600;
     freeCanvas.height = 420;
-    freeCtx.fillStyle = '#ffffff';
-    freeCtx.fillRect(0, 0, freeCanvas.width, freeCanvas.height);
-    
+    paintCanvasPaperBackground(freeCtx, freeCanvas.width, freeCanvas.height, currentPaperBg);
+
     let isDrawing = false;
     let lastX = 0, lastY = 0;
-    
+
     const getPos = e => {
       const rect = freeCanvas.getBoundingClientRect();
       const scaleX = freeCanvas.width / (rect.width || 600);
@@ -1205,50 +1700,58 @@ function initFreeDrawCanvas(){
         y: (e.clientY - rect.top) * scaleY
       };
     };
-    
-    freeCanvas.addEventListener('pointerdown', e => {
+
+    freeCanvas.addEventListener("pointerdown", e => {
       e.preventDefault();
       try { freeCanvas.setPointerCapture(e.pointerId); } catch(_) {}
       isDrawing = true;
       const pos = getPos(e);
       lastX = pos.x;
       lastY = pos.y;
-      
-      if(drawBrush === 'stamp'){
-        freeCtx.font = '38px system-ui';
-        freeCtx.textAlign = 'center';
-        freeCtx.textBaseline = 'middle';
+
+      if(drawBrush === "stamp"){
+        playCuteSfx("pop");
+        freeCtx.font = "42px system-ui";
+        freeCtx.textAlign = "center";
+        freeCtx.textBaseline = "middle";
         freeCtx.fillText(currentStamp, pos.x, pos.y);
         return;
       }
-      
+
       freeCtx.beginPath();
-      freeCtx.arc(pos.x, pos.y, (drawBrush === 'brush' ? 7 : (drawBrush === 'eraser' ? 14 : 3)), 0, Math.PI * 2);
-      freeCtx.fillStyle = drawBrush === 'eraser' ? '#ffffff' : (drawBrush === 'rainbow' ? '#ff3377' : drawColor);
+      freeCtx.arc(pos.x, pos.y, (drawBrush === "brush" ? 8 : (drawBrush === "eraser" ? 16 : 4)), 0, Math.PI * 2);
+      freeCtx.fillStyle = drawBrush === "eraser" ? (currentPaperBg === "space" ? "#1e1b4b" : "#ffffff") : (drawBrush === "rainbow" ? "#ff3377" : drawColor);
       freeCtx.fill();
     });
-    
-    freeCanvas.addEventListener('pointermove', e => {
-      if(!isDrawing || drawBrush === 'stamp') return;
+
+    freeCanvas.addEventListener("pointermove", e => {
+      if(!isDrawing || drawBrush === "stamp") return;
       e.preventDefault();
       const pos = getPos(e);
-      
+
       freeCtx.beginPath();
       freeCtx.moveTo(lastX, lastY);
       freeCtx.lineTo(pos.x, pos.y);
-      freeCtx.lineCap = 'round';
-      freeCtx.lineJoin = 'round';
-      
-      if(drawBrush === 'eraser'){
-        freeCtx.strokeStyle = '#ffffff';
-        freeCtx.lineWidth = 26;
-      } else if(drawBrush === 'brush'){
+      freeCtx.lineCap = "round";
+      freeCtx.lineJoin = "round";
+
+      if(drawBrush === "eraser"){
+        freeCtx.strokeStyle = currentPaperBg === "space" ? "#1e1b4b" : "#ffffff";
+        freeCtx.lineWidth = 28;
+      } else if(drawBrush === "brush"){
         freeCtx.strokeStyle = drawColor;
-        freeCtx.lineWidth = 14;
-      } else if(drawBrush === 'rainbow'){
-        const hue = (performance.now() / 4) % 360;
+        freeCtx.lineWidth = 15;
+      } else if(drawBrush === "rainbow"){
+        const hue = (performance.now() / 3) % 360;
         freeCtx.strokeStyle = `hsl(${hue}, 95%, 55%)`;
-        freeCtx.lineWidth = 10;
+        freeCtx.lineWidth = 11;
+      } else if(drawBrush === "glitter"){
+        freeCtx.strokeStyle = drawColor;
+        freeCtx.lineWidth = 6;
+        if(Math.random() < 0.45){
+          freeCtx.font = "16px system-ui";
+          freeCtx.fillText("✨", pos.x + (Math.random()*24-12), pos.y + (Math.random()*24-12));
+        }
       } else {
         freeCtx.strokeStyle = drawColor;
         freeCtx.lineWidth = 5;
@@ -1257,109 +1760,241 @@ function initFreeDrawCanvas(){
       lastX = pos.x;
       lastY = pos.y;
     });
-    
+
     const stopDraw = e => {
       if(isDrawing){
         isDrawing = false;
         try { freeCanvas.releasePointerCapture(e.pointerId); } catch(_) {}
       }
     };
-    
-    freeCanvas.addEventListener('pointerup', stopDraw);
-    freeCanvas.addEventListener('pointercancel', stopDraw);
+
+    freeCanvas.addEventListener("pointerup", stopDraw);
+    freeCanvas.addEventListener("pointercancel", stopDraw);
   }
 }
 
 window.clearFreeDrawCanvas = function(){
-  if(!freeCanvas) freeCanvas = document.getElementById('freeDrawCanvas');
+  if(!freeCanvas) freeCanvas = document.getElementById("freeDrawCanvas");
   if(!freeCanvas) return;
-  freeCtx = freeCanvas.getContext('2d');
-  freeCtx.fillStyle = '#ffffff';
-  freeCtx.fillRect(0, 0, freeCanvas.width, freeCanvas.height);
+  freeCtx = freeCanvas.getContext("2d");
+  paintCanvasPaperBackground(freeCtx, freeCanvas.width, freeCanvas.height, currentPaperBg);
+  toast("Quadro limpo e pronto para uma nova arte! 🎨");
 };
 
 window.saveFreeDrawArt = function(){
+  playCuteSfx("win");
   triggerStarConfetti();
-  addStars(1, 'Obra de arte guardada com carinho! +1 ⭐');
-  toast('Desenho salvo com sucesso no Ateliê! 🎨✨');
-};
-
-
-// ==========================================================
-// EFEITOS SONOROS MÁGICOS & HAPTIC VIBRATION (ESTILO CONSOLE)
-// ==========================================================
-let audioFxCtx = null;
-function getAudioFxCtx(){
-  if(!audioFxCtx){
+  addStars(2, "Obra de arte salva no Ateliê! +2 ⭐");
+  if(freeCanvas){
     try {
-      audioFxCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const a = document.createElement("a");
+      a.download = "arte-da-elo.png";
+      a.href = freeCanvas.toDataURL("image/png");
+      a.click();
     } catch(_) {}
   }
-  if(audioFxCtx && audioFxCtx.state === 'suspended'){
-    audioFxCtx.resume().catch(()=>{});
+  toast("Desenho salvo com sucesso! 🎨✨");
+};
+
+// --- PIZZARIA & CONFEITARIA DE PEDIDOS DA ELO (COM LÓGICA DE RECEITAS) ---
+const CHEF_STATIONS = {
+  pizza: {
+    name: "Pizzaria da Elo 🍕",
+    baseEmoji: "🍕",
+    bgClass: "stationPizza",
+    ingredients: [
+      { id: "cheese", emoji: "🧀", label: "Queijo" },
+      { id: "tomato", emoji: "🍅", label: "Tomate" },
+      { id: "corn", emoji: "🌽", label: "Milho" },
+      { id: "mushroom", emoji: "🍄", label: "Cogumelo" },
+      { id: "olive", emoji: "🫒", label: "Azeitona" },
+      { id: "broccoli", emoji: "🥦", label: "Brócolis" }
+    ]
+  },
+  cake: {
+    name: "Confeitaria de Bolos 🎂",
+    baseEmoji: "🎂",
+    bgClass: "stationCake",
+    ingredients: [
+      { id: "strawberry", emoji: "🍓", label: "Morango" },
+      { id: "cherry", emoji: "🍒", label: "Cereja" },
+      { id: "choco", emoji: "🍫", label: "Chocolate" },
+      { id: "star", emoji: "⭐", label: "Estrela Doce" },
+      { id: "heart", emoji: "💗", label: "Coração" },
+      { id: "rainbow", emoji: "🌈", label: "Arco-íris" }
+    ]
+  },
+  icecream: {
+    name: "Sorveteria Mágica 🍨",
+    baseEmoji: "🍨",
+    bgClass: "stationIcecream",
+    ingredients: [
+      { id: "berry", emoji: "🫐", label: "Mirtilo" },
+      { id: "banana", emoji: "🍌", label: "Banana" },
+      { id: "cookie", emoji: "🍪", label: "Biscoito" },
+      { id: "candy", emoji: "🍬", label: "Confeito" },
+      { id: "lollipop", emoji: "🍭", label: "Pirulito" },
+      { id: "sparkle", emoji: "✨", label: "Calda Brilhante" }
+    ]
+  },
+  robot: {
+    name: "Oficina de Brinquedos 🤖",
+    baseEmoji: "🤖",
+    bgClass: "stationRobot",
+    ingredients: [
+      { id: "gear", emoji: "⚙️", label: "Engrenagem" },
+      { id: "battery", emoji: "🔋", label: "Bateria" },
+      { id: "bulb", emoji: "💡", label: "Luz Mágica" },
+      { id: "magnet", emoji: "🧲", label: "Super Ímã" },
+      { id: "rocket", emoji: "🚀", label: "Propulsor" },
+      { id: "star", emoji: "🌟", label: "Núcleo Estelar" }
+    ]
   }
-  return audioFxCtx;
+};
+
+let activeChefStation = "pizza", currentChefOrder = [], placedChefItems = [];
+
+window.selectChefStation = function(stationId, btn){
+  if(!CHEF_STATIONS[stationId]) return;
+  activeChefStation = stationId;
+  document.querySelectorAll(".chefTabBtn").forEach(b => b.classList.remove("on"));
+  if(btn) btn.classList.add("on");
+  generateNewChefOrder();
+};
+
+function initChefStudio(){
+  if(!currentChefOrder.length) generateNewChefOrder();
+  else renderChefStudio();
 }
 
-window.playCuteSfx = function(type){
-  // Haptic feedback sutil no celular
-  if('vibrate' in navigator){
-    try {
-      if(type === 'coin') navigator.vibrate([20, 30, 20]);
-      else if(type === 'win') navigator.vibrate([30, 50, 40]);
-      else navigator.vibrate(12);
-    } catch(_) {}
-  }
-
-  const ctx = getAudioFxCtx();
-  if(!ctx) return;
-  const now = ctx.currentTime;
-
-  if(type === 'pop'){
-    // Toque suave em botões
-    const osc = ctx.createOscillator(), g = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(440, now);
-    osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
-    g.gain.setValueAtTime(0.04, now);
-    g.gain.linearRampToValueAtTime(0.0001, now + 0.08);
-    osc.connect(g); g.connect(ctx.destination);
-    osc.start(now); osc.stop(now + 0.09);
-  } else if(type === 'coin'){
-    // Som de estrelinha ganha
-    const osc = ctx.createOscillator(), g = ctx.createGain();
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(988, now);
-    osc.frequency.setValueAtTime(1318, now + 0.07);
-    g.gain.setValueAtTime(0.06, now);
-    g.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
-    osc.connect(g); g.connect(ctx.destination);
-    osc.start(now); osc.stop(now + 0.29);
-  } else if(type === 'win'){
-    // Comemoração / Vitória
-    [523, 659, 784, 1046].forEach((freq, idx) => {
-      const osc = ctx.createOscillator(), g = ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(freq, now + idx * 0.07);
-      g.gain.setValueAtTime(0.06, now + idx * 0.07);
-      g.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.07 + 0.22);
-      osc.connect(g); g.connect(ctx.destination);
-      osc.start(now + idx * 0.07); osc.stop(now + idx * 0.07 + 0.23);
-    });
-  }
+window.generateNewChefOrder = function(){
+  const st = CHEF_STATIONS[activeChefStation] || CHEF_STATIONS.pizza;
+  const picked = shuffle(st.ingredients).slice(0, 3);
+  currentChefOrder = picked.map((ing, idx) => ({
+    ...ing,
+    goal: idx === 0 ? 2 : (idx === 1 ? 2 : 1)
+  }));
+  placedChefItems = [];
+  renderChefStudio();
 };
 
-// Conecta o som de moeda e comemoração nas funções globais
+function countPlacedIngredient(id){
+  return placedChefItems.filter(x => x.id === id).length;
+}
+
+function isChefOrderComplete(){
+  return currentChefOrder.length > 0 && currentChefOrder.every(req => countPlacedIngredient(req.id) >= req.goal);
+}
+
+function renderChefStudio(){
+  const root = document.getElementById("chefStudioRoot") || document.getElementById("creativeWorkspace");
+  if(!root) return;
+  const st = CHEF_STATIONS[activeChefStation] || CHEF_STATIONS.pizza;
+  const done = isChefOrderComplete();
+
+  const orderBadges = currentChefOrder.map(req => {
+    const cur = countPlacedIngredient(req.id);
+    const ok = cur >= req.goal;
+    return `<div class="chefReqBadge ${ok ? "ok" : ""}">
+      <span>${req.emoji}</span>
+      <b>${req.label}: ${Math.min(cur, req.goal)}/${req.goal} ${ok ? "✅" : ""}</b>
+    </div>`;
+  }).join("");
+
+  const spots = [
+    { left: 28, top: 30 }, { left: 62, top: 28 },
+    { left: 24, top: 60 }, { left: 66, top: 62 },
+    { left: 45, top: 46 }, { left: 46, top: 22 },
+    { left: 45, top: 70 }, { left: 32, top: 46 }
+  ];
+
+  root.innerHTML = `
+    <div class="chefOrderHeader">
+      <div class="chefOrderTitle">
+        <span>👩‍🍳</span>
+        <div>
+          <b>Pedido da Elo na ${st.name}</b>
+          <small>Toque nos ingredientes certos para completar a receita!</small>
+        </div>
+      </div>
+      <div class="chefReqList">${orderBadges}</div>
+    </div>
+
+    <div class="chefPlateStage ${st.bgClass}">
+      <div class="chefPlateCircle">
+        <span class="chefBaseIcon">${st.baseEmoji}</span>
+        ${placedChefItems.map((item, i) => {
+          const sp = spots[i % spots.length];
+          return `<span class="chefPlacedItem" style="left:${sp.left}%;top:${sp.top}%">${item.emoji}</span>`;
+        }).join("")}
+      </div>
+    </div>
+
+    <div class="chefIngredientsBar">
+      ${st.ingredients.map(ing => `
+        <button class="chefIngBtn" onclick="addChefIngredient('${ing.id}')">
+          <span>${ing.emoji}</span>
+          <small>${ing.label}</small>
+        </button>
+      `).join("")}
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap;">
+      <button class="btn" onclick="deliverChefOrder()">🛎️ Entregar Pedido (+3 ⭐)</button>
+      <button class="btn secondary" onclick="generateNewChefOrder()">🔄 Novo Pedido</button>
+    </div>
+  `;
+
+  if(done){
+    setTimeout(()=>deliverChefOrder(true), 250);
+  }
+}
+
+window.addChefIngredient = function(ingId){
+  const st = CHEF_STATIONS[activeChefStation] || CHEF_STATIONS.pizza;
+  const ing = st.ingredients.find(x => x.id === ingId);
+  if(!ing) return;
+  const req = currentChefOrder.find(x => x.id === ingId);
+  if(!req){
+    playCuteSfx("wrong");
+    toast(`Ops! ${ing.label} ${ing.emoji} não está no pedido da Elo! Olhe a receita acima 😊`);
+    return;
+  }
+  if(countPlacedIngredient(ingId) >= req.goal){
+    toast(`Já colocamos todo o ${ing.label} ${ing.emoji} necessário!`);
+    return;
+  }
+  playCuteSfx("pop");
+  placedChefItems.push(ing);
+  renderChefStudio();
+};
+
+window.deliverChefOrder = function(auto=false){
+  if(!isChefOrderComplete()){
+    if(!auto) toast("Ainda faltam ingredientes da receita! Olhe os itens marcados acima 👩‍🍳");
+    return;
+  }
+  playCuteSfx("win");
+  triggerStarConfetti();
+  addStars(3, "Pedido entregue com perfeição! Chef nota 10! +3 ⭐");
+  setTimeout(generateNewChefOrder, 900);
+};
+
+// Conecta o som de moeda nas estrelas e cliques suaves
 const originalAddStarsV36 = addStars;
-addStars = function(n=1, msg='Você ganhou uma estrelinha! ⭐'){
-  playCuteSfx('coin');
+addStars = function(n=1, msg="Você ganhou uma estrelinha! ⭐"){
+  playCuteSfx("coin");
   originalAddStarsV36(n, msg);
 };
 
-// Ativa som de pop suave em todos os botões e cliques interativos
-document.addEventListener('pointerdown', e => {
-  const btn = e.target.closest('button, .portalCard, .schoolOptBtn, .cTabBtn, .familyTabBtn');
+document.addEventListener("pointerdown", e => {
+  const btn = e.target?.closest?.("button, .portalCard, .schoolOptBtn, .cTabBtn, .familyTabBtn");
   if(btn && !btn.disabled){
-    playCuteSfx('pop');
+    playCuteSfx("pop");
   }
 }, { passive: true, capture: true });
+
+// Inicializa automaticamente a Escolinha, Piano, Ateliê e Chef ao carregar
+try { selectSchoolTrack("letters"); } catch(_) {}
+try { initFreeDrawCanvas(); } catch(_) {}
+try { generateNewChefOrder(); } catch(_) {}

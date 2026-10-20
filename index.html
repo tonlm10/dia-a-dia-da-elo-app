@@ -223,37 +223,65 @@
   <div class="schoolTracks">
     <button class="schoolTrackCard trackLetters on" onclick="selectSchoolTrack('letters', this)">
       <span>🔤</span>
-      <b>Letras & Alfabeto</b>
-      <small>Sons e palavras</small>
+      <div><b>Letras & Palavras</b><small>Alfabeto, rimas e sons</small></div>
     </button>
     <button class="schoolTrackCard trackNumbers" onclick="selectSchoolTrack('numbers', this)">
       <span>🔢</span>
-      <b>Matemática</b>
-      <small>Continhas e números</small>
+      <div><b>Matemática</b><small>Contar, somar e formas</small></div>
     </button>
     <button class="schoolTrackCard trackAnimals" onclick="selectSchoolTrack('nature', this)">
       <span>🐾</span>
-      <b>Mundo & Bichos</b>
-      <small>Sons e natureza</small>
+      <div><b>Mundo & Bichos</b><small>Sons e natureza</small></div>
     </button>
-    <button class="schoolTrackCard trackEnglish" onclick="openEnglishSchool()">
+    <button class="schoolTrackCard trackMusic" onclick="selectSchoolTrack('music', this)">
+      <span>🎹</span>
+      <div><b>Piano & Músicas</b><small>Toque canções reais!</small></div>
+    </button>
+    <button class="schoolTrackCard trackEnglish fullTrackCard" onclick="openEnglishSchool()">
       <span>🇺🇸</span>
-      <b>Inglês da Elo</b>
-      <small>Cores e palavras</small>
+      <div><b>Inglês Bilingue da Elo</b><small>5 mundos com pronúncia em inglês: Cores, Números, Frutas, Animais e Saudações</small></div>
     </button>
   </div>
 
-  <!-- Card Interativo da Atividade -->
-  <div class="schoolActivityCard">
+  <!-- Card Interativo da Atividade (Letras, Matemática, Natureza) -->
+  <div id="schoolQuizCard" class="schoolActivityCard">
     <div class="schoolActivityHead">
-      <div class="schoolSpeakerBtn" onclick="speakCurrentSchoolPrompt()" aria-label="Ouvir instrução">
-        <span>🔊</span> Toque para ouvir a Elo
-      </div>
-      <div id="schoolRoundCounter" class="schoolRoundBadge">Desafio 1/5</div>
+      <button class="schoolSpeakerBtn" onclick="speakCurrentSchoolPrompt()" aria-label="Ouvir instrução">
+        <span>🔊</span> Ouvir a Elo
+      </button>
+      <div id="schoolRoundCounter" class="schoolRoundBadge">Desafio 1/6</div>
     </div>
 
     <h3 id="schoolQuestionTitle" class="schoolQuestionTitle">Carregando atividade...</h3>
     <div id="schoolOptionsGrid" class="schoolOptionsGrid"></div>
+  </div>
+
+  <!-- Card do Piano Mágico & Músicas Guiadas -->
+  <div id="schoolMusicCard" class="schoolActivityCard hidden">
+    <div class="pianoHeader">
+      <div>
+        <span class="schoolHeroBadge" style="background:#db2777;color:#fff;">🎵 CONSERVATÓRIO DA ELO</span>
+        <h3 style="margin:4px 0 2px;color:#3b2050;">Piano Arco-Íris & Canções</h3>
+        <p class="muted" style="margin:0;font-size:12px;">Toque livremente ou siga a tecla piscando para tocar uma música famosa!</p>
+      </div>
+    </div>
+    <div class="songSelectorRow">
+      <button class="songChip on" onclick="selectPianoSong('free', this)">🎹 Modo Livre</button>
+      <button class="songChip" onclick="selectPianoSong('twinkle', this)">⭐ Brilha Estrelinha</button>
+      <button class="songChip" onclick="selectPianoSong('butterfly', this)">🦋 Borboletinha</button>
+      <button class="songChip" onclick="selectPianoSong('happy', this)">🎂 Parabéns</button>
+      <button class="songChip" onclick="selectPianoSong('balloon', this)">🎈 Cai Cai Balão</button>
+    </div>
+    <div id="pianoSongGuide" class="pianoSongGuide">Toque nas teclas coloridas para fazer música! 🎶</div>
+    <div id="pianoKeysRow" class="pianoKeysRow"></div>
+    <div class="animalSoundBar">
+      <small style="font-weight:900;color:#675883;">🐾 Sons Divertidos:</small>
+      <button class="soundPadBtn" onclick="playAnimalSynth('cat')">🐱 Miau</button>
+      <button class="soundPadBtn" onclick="playAnimalSynth('dog')">🐶 Au Au</button>
+      <button class="soundPadBtn" onclick="playAnimalSynth('duck')">🦆 Quá</button>
+      <button class="soundPadBtn" onclick="playAnimalSynth('frog')">🐸 Coaxar</button>
+      <button class="soundPadBtn" onclick="playAnimalSynth('bird')">🐦 Piu</button>
+    </div>
   </div>
 </section>
 
@@ -265,16 +293,19 @@
 <section id="createPanel" class="panel">
   <div class="topTitle">
     <button class="back" onclick="appBack()">‹</button>
-    <h2>Ateliê Criativo 🎨</h2>
+    <h2>Ateliê da Elo 🎨</h2>
     <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
   </div>
 
   <div class="creativeModeTabs">
     <button class="cTabBtn active" onclick="switchCreativeMode('freeDraw', this)">
-      <span>🖌️</span> <b>Desenho Livre & Pincel Mágico</b>
+      <span>🖌️</span> <b>Quadros & Pincel Mágico</b>
     </button>
     <button class="cTabBtn" onclick="switchCreativeMode('coloring', this)">
-      <span>🖍️</span> <b>Colorir Desenhos da Elo</b>
+      <span>🖍️</span> <b>Livro de Colorir (10)</b>
+    </button>
+    <button class="cTabBtn" onclick="switchCreativeMode('chef', this)">
+      <span>🍕</span> <b>Pizzaria & Confeitaria</b>
     </button>
   </div>
 
@@ -282,21 +313,45 @@
   <div id="freeDrawSection" class="freeDrawWrap">
     <div class="drawingToolsBar">
       <div class="toolColors">
-        <button class="colorPick on" style="background:#ff3377" onclick="setDrawColor('#ff3377', this)"></button>
-        <button class="colorPick" style="background:#ffbb00" onclick="setDrawColor('#ffbb00', this)"></button>
-        <button class="colorPick" style="background:#00d288" onclick="setDrawColor('#00d288', this)"></button>
-        <button class="colorPick" style="background:#00b4d8" onclick="setDrawColor('#00b4d8', this)"></button>
-        <button class="colorPick" style="background:#8b5cf6" onclick="setDrawColor('#8b5cf6', this)"></button>
-        <button class="colorPick" style="background:#22223b" onclick="setDrawColor('#22223b', this)"></button>
+        <button class="colorPick on" style="background:#ff3377" onclick="setDrawColor('#ff3377', this)" aria-label="Rosa"></button>
+        <button class="colorPick" style="background:#ff8800" onclick="setDrawColor('#ff8800', this)" aria-label="Laranja"></button>
+        <button class="colorPick" style="background:#ffbb00" onclick="setDrawColor('#ffbb00', this)" aria-label="Amarelo"></button>
+        <button class="colorPick" style="background:#00d288" onclick="setDrawColor('#00d288', this)" aria-label="Verde"></button>
+        <button class="colorPick" style="background:#00b4d8" onclick="setDrawColor('#00b4d8', this)" aria-label="Azul"></button>
+        <button class="colorPick" style="background:#8b5cf6" onclick="setDrawColor('#8b5cf6', this)" aria-label="Roxo"></button>
+        <button class="colorPick" style="background:#22223b" onclick="setDrawColor('#22223b', this)" aria-label="Preto"></button>
       </div>
 
       <div class="toolBrushes">
         <button class="toolBtn on" onclick="setDrawBrush('pen', this)" title="Lápis">✏️</button>
-        <button class="toolBtn" onclick="setDrawBrush('brush', this)" title="Pincel">🖌️</button>
+        <button class="toolBtn" onclick="setDrawBrush('brush', this)" title="Pincel Macio">🖌️</button>
         <button class="toolBtn" onclick="setDrawBrush('rainbow', this)" title="Pincel Arco-íris">🌈</button>
-        <button class="toolBtn" onclick="setDrawBrush('stamp', this)" title="Carimbo da Elo">⭐</button>
+        <button class="toolBtn" onclick="setDrawBrush('glitter', this)" title="Pincel Brilho Estelar">✨</button>
+        <button class="toolBtn" onclick="setDrawBrush('stamp', this)" title="Carimbos">🦄</button>
         <button class="toolBtn" onclick="setDrawBrush('eraser', this)" title="Borracha">🧼</button>
         <button class="toolBtn clear" onclick="clearFreeDrawCanvas()" title="Limpar tudo">🗑️</button>
+      </div>
+    </div>
+
+    <!-- Barra de Carimbos e Cenários de Fundo -->
+    <div class="stampAndPaperBar">
+      <div class="stampPickerRow">
+        <small>Carimbos:</small>
+        <button class="stampPickBtn on" onclick="pickDrawStamp('⭐', this)">⭐</button>
+        <button class="stampPickBtn" onclick="pickDrawStamp('💖', this)">💖</button>
+        <button class="stampPickBtn" onclick="pickDrawStamp('🦄', this)">🦄</button>
+        <button class="stampPickBtn" onclick="pickDrawStamp('🦋', this)">🦋</button>
+        <button class="stampPickBtn" onclick="pickDrawStamp('🌈', this)">🌈</button>
+        <button class="stampPickBtn" onclick="pickDrawStamp('👑', this)">👑</button>
+        <button class="stampPickBtn" onclick="pickDrawStamp('🐱', this)">🐱</button>
+        <button class="stampPickBtn" onclick="pickDrawStamp('🚀', this)">🚀</button>
+      </div>
+      <div class="paperBgRow">
+        <small>Papel:</small>
+        <button class="paperBtn on" onclick="setCanvasPaperBg('white', this)">⬜ Branco</button>
+        <button class="paperBtn" onclick="setCanvasPaperBg('sky', this)">🌤️ Céu</button>
+        <button class="paperBtn" onclick="setCanvasPaperBg('space', this)">🌌 Galáxia</button>
+        <button class="paperBtn" onclick="setCanvasPaperBg('garden', this)">🌸 Jardim</button>
       </div>
     </div>
 
@@ -305,17 +360,28 @@
       <canvas id="freeDrawCanvas" width="600" height="420"></canvas>
     </div>
 
-    <div style="display:flex;justify-content:space-between;margin-top:10px;">
-      <button class="btn" style="background:linear-gradient(135deg,#ff6fae,#8f56e8)" onclick="saveFreeDrawArt()">💾 Guardar meu Desenho (+1 ⭐)</button>
-      <span style="font-size:12px;color:var(--muted);align-self:center;">Use o dedo ou caneta para desenhar!</span>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px;flex-wrap:wrap;">
+      <button class="btn" style="background:linear-gradient(135deg,#ff6fae,#8f56e8)" onclick="saveFreeDrawArt()">💾 Salvar Obra de Arte (+2 ⭐)</button>
+      <span style="font-size:12px;color:var(--muted);">Dica: experimente o pincel 🌈 Arco-íris e os carimbos!</span>
     </div>
   </div>
 
   <!-- Modo 2: Galeria de Colorir Desenhos da Elo -->
   <div id="coloringSection" class="card hidden">
-    <h3>Escolha um desenho para colorir 🖍️</h3>
-    <p class="muted" id="coloringCountText">10 desenhos oficiais da Elo. Toque para colorir com balde de tinta e zoom.</p>
+    <h3>Livro de Colorir Oficial da Elo 🖍️</h3>
+    <p class="muted" id="coloringCountText">10 desenhos exclusivos da Elo! Toque em qualquer desenho para abrir a tela de pintura mágica com 30 cores e zoom.</p>
     <div id="coloringGallery" class="coloringGallery"></div>
+  </div>
+
+  <!-- Modo 3: Pizzaria & Confeitaria de Pedidos da Elo -->
+  <div id="chefSection" class="card hidden">
+    <div class="chefStationTabs">
+      <button class="chefTabBtn on" onclick="selectChefStation('pizza', this)">🍕 Pizzaria</button>
+      <button class="chefTabBtn" onclick="selectChefStation('cake', this)">🎂 Confeitaria</button>
+      <button class="chefTabBtn" onclick="selectChefStation('icecream', this)">🍨 Sorveteria</button>
+      <button class="chefTabBtn" onclick="selectChefStation('robot', this)">🤖 Oficina</button>
+    </div>
+    <div id="chefStudioRoot"></div>
   </div>
 </section>
 
@@ -497,37 +563,46 @@
   <!-- 2. DUELO 2 JOGADORES NA MESMA TELA -->
   <div id="familyDuelView" class="familyViewCard hidden">
     <div class="duelInstructions">
-      <b>⚡ Duelo de Toque Rápido</b>
-      <p>Coloque o celular na mesa entre dois jogadores. Quem tocar na resposta correta primeiro na sua área marca ponto!</p>
-      <button class="btn" onclick="startDuelRound()" style="margin-top:8px">Começar Rodada 🎯</button>
+      <b>⚡ Duelo de Reflexo 2 Jogadores</b>
+      <p>Coloquem o celular na mesa! Cada jogador tem 3 opções no seu lado. Quem tocar na resposta certa primeiro ganha o ponto!</p>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:8px;">
+        <button class="btn" onclick="startDuelRound()">Nova Rodada 🎯</button>
+        <button class="btn secondary" onclick="resetDuelMatch()">Zerar Duelo</button>
+      </div>
     </div>
 
     <div id="duelArena" class="duelArena">
       <!-- Jogador 1 (Topo - Invertido) -->
-      <div id="duelP1Area" class="duelHalf p1Half" onclick="handleDuelTouch(1)">
-        <div class="duelPlayerLabel">Jogador 1 • Pontos: <span id="duelP1Score">0</span></div>
-        <div id="duelP1Prompt" class="duelPrompt">Aguardando início...</div>
+      <div id="duelP1Area" class="duelHalf p1Half">
+        <div class="duelPlayerLabel">Jogador 1 (Topo) • Pontos: <span id="duelP1Score">0</span>/5</div>
+        <div id="duelP1Prompt" class="duelChoicesRow"></div>
       </div>
 
       <!-- Barra Central de Desafio -->
       <div id="duelCenterDivider" class="duelDivider">
-        <span id="duelCenterCommand">Toque em "Começar Rodada"</span>
+        <span id="duelCenterCommand">Toque em "Nova Rodada 🎯"</span>
       </div>
 
       <!-- Jogador 2 (Base) -->
-      <div id="duelP2Area" class="duelHalf p2Half" onclick="handleDuelTouch(2)">
-        <div class="duelPlayerLabel">Jogador 2 • Pontos: <span id="duelP2Score">0</span></div>
-        <div id="duelP2Prompt" class="duelPrompt">Aguardando início...</div>
+      <div id="duelP2Area" class="duelHalf p2Half">
+        <div class="duelPlayerLabel">Jogador 2 (Base) • Pontos: <span id="duelP2Score">0</span>/5</div>
+        <div id="duelP2Prompt" class="duelChoicesRow"></div>
       </div>
     </div>
   </div>
 
-  <!-- 3. PLACAR DA FAMÍLIA -->
+  <!-- 3. PLACAR DA FAMÍLIA & ROLETA DE DESAFIOS -->
   <div id="familyScoreView" class="familyViewCard hidden">
+    <div class="familyRouletteCard">
+      <span class="schoolHeroBadge" style="background:#7c3aed;color:#fff;">🎡 ROLETA DA FAMÍLIA</span>
+      <div id="familyRouletteText" class="familyRouletteText">Gire a roleta para sortear uma prenda divertida em família!</div>
+      <button class="btn" style="background:linear-gradient(135deg,#7c3aed,#ec4899)" onclick="spinFamilyRoulette()">🎡 Girar Roleta de Desafio!</button>
+    </div>
+
     <div class="scoreboardWrap">
       <div class="scoreTeam teamElo">
         <span class="teamAvatar">👧</span>
-        <b id="team1Name">Crianças / Elo</b>
+        <b id="team1Name">Time Crianças</b>
         <div class="teamPoints" id="team1Score">0</div>
         <div class="scoreButtons">
           <button class="scoreBtn" onclick="changeTeamScore(1, 1)">+1</button>
@@ -539,7 +614,7 @@
 
       <div class="scoreTeam teamParents">
         <span class="teamAvatar">👨‍👩‍👧</span>
-        <b id="team2Name">Pais / Família</b>
+        <b id="team2Name">Time Adultos</b>
         <div class="teamPoints" id="team2Score">0</div>
         <div class="scoreButtons">
           <button class="scoreBtn" onclick="changeTeamScore(2, 1)">+1</button>
@@ -549,7 +624,7 @@
     </div>
 
     <div style="text-align:center;margin-top:16px;">
-      <button class="btn" style="background:linear-gradient(135deg,#ffd554,#ff68a7);font-weight:900" onclick="finishFamilyMatch()">🏆 Declarar Vencedor com Confetes!</button>
+      <button class="btn" style="background:linear-gradient(135deg,#ffd554,#ff68a7);font-weight:900" onclick="finishFamilyMatch()">🏆 Declarar Vencedor com Confetes! (+3 ⭐)</button>
       <button class="btn secondary" style="margin-left:8px" onclick="resetTeamScores()">Zerar Placar</button>
     </div>
   </div>
@@ -618,7 +693,7 @@
 <div id="exitConfirm" class="exitConfirm hidden" role="dialog" aria-modal="true" aria-labelledby="exitTitle"><div class="exitCard"><div class="exitIcon">👋</div><h3 id="exitTitle">Deseja sair do app?</h3><p>Você está na página principal.</p><div class="exitActions"><button class="exitNo" onclick="cancelAppExit()">Não, continuar</button><button class="exitYes" onclick="confirmAppExit()">Sim, sair</button></div></div></div>
 <nav><div class="navin"><button class="navbtn active" data-nav="home" onclick="openPanel('homePanel','home')"><img class="navEloIcon" src="assets/home-icons/home-nav.webp" alt="">Início</button><button class="navbtn" data-nav="watch" onclick="openPanel('watchPanel','watch')"><img class="navEloIcon" src="assets/home-icons/watch-nav.webp" alt="">Assistir</button><button class="navbtn" data-nav="play" onclick="openPanel('playPanel','play')"><img class="navEloIcon" src="assets/home-icons/play-nav.webp" alt="">Jogar</button><button class="navbtn" data-nav="learn" onclick="openPanel('learnPanel','learn')"><img class="navEloIcon" src="assets/home-icons/learn-nav.webp" alt="">Escolinha da Elo</button><button class="navbtn" data-nav="create" onclick="openPanel('createPanel','create')"><img class="navEloIcon" src="assets/home-icons/create-nav.webp" alt="">Criar</button></div></nav>
 <div id="toast" class="toast">Muito bem! ⭐</div>
-<script src="version.js?v=3.6.0"></script><script src="app.js?v=3.6.0"></script><script src="v3.js?v=3.6.0"></script><script src="pet.js?v=3.6.0"></script>
+
 
 <!-- Modal Loja das Estrelas & Monetização Ética -->
 <div id="starShopModal" class="overlay hidden panelOverlay starShopModal">
@@ -712,5 +787,6 @@
   </div>
 </div>
 
+<script src="version.js?v=3.6.0"></script><script src="app.js?v=3.6.0"></script><script src="v3.js?v=3.6.0"></script><script src="pet.js?v=3.6.0"></script>
 </body>
 </html>
