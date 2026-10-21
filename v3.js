@@ -124,7 +124,20 @@ function v3Load(){try{return Object.assign(defaultV3(),JSON.parse(pget(V3_KEY)||
 function v3Save(v){pset(V3_KEY,JSON.stringify(v));renderV3Counters()}
 function v3Total(v=v3Load()){return Object.values(v.collections||{}).reduce((a,b)=>a+Number(b||0),0)}
 function addCollectible(type,n=1,message){const v=v3Load();if(!(type in V3_COLLECTIONS))return;v.collections[type]=Math.min(V3_COLLECTIONS[type].goal,Number(v.collections[type]||0)+n);v3Save(v);if(message)toast(message);renderCollection();renderRoom();renderWardrobe();}
-const WORLD_META={room:{title:'Quarto da Elo',sub:'Continue decorando seu cantinho'},school:{title:'Escolinha da Elo',sub:'Continue aprendendo brincando'},play:{title:'Jogos da Elo',sub:'Escolha uma nova brincadeira'},rpg:{title:'Reino das Estrelas',sub:'Continue sua aventura no RPG'},creative:{title:'Ateliê da Elo',sub:'Crie, pinte e invente'},cinema:{title:'Cinema da Elo',sub:'Veja vídeos e playlists'},library:{title:'Biblioteca',sub:'Continue uma história'},club:{title:'Clubinho da Elo',sub:'Veja o espaço especial'}};
+const WORLD_META={
+  room:{title:'Quarto 3D da Elo',sub:'Decore móveis e divirta-se'},
+  wardrobe:{title:'Guarda-roupa da Elo',sub:'Monte looks e estilos lindos'},
+  pet:{title:'Bichinho Virtual',sub:'Alimente e brinque com seu pet'},
+  studio3d:{title:'Estúdio 3D & Voo',sub:'Modelos 3D e voo na Unicórnia'},
+  school:{title:'Escolinha Mágica',sub:'Letras, números e piano colorido'},
+  creative:{title:'Ateliê Criativo',sub:'Pinte, desenhe e faça receitas'},
+  play:{title:'Mundo dos Jogos',sub:'Minijogos da Trilha, Labirinto e Memória'},
+  rpg:{title:'Reino das Estrelas',sub:'Grande aventura RPG da Elo'},
+  cinema:{title:'Cinema da Elo',sub:'Vídeos oficiais e historinhas'},
+  family:{title:'Festa da Família',sub:'Mímica, duelos e brincadeiras em grupo'},
+  library:{title:'Biblioteca de Histórias',sub:'Livros ilustrados e narrados'},
+  club:{title:'Clubinho da Elo',sub:'Área oficial para membros e novidades'}
+};
 function renderHomeContinue(){const id=pget('v3LastPlace')||'',m=WORLD_META[id],t=document.getElementById('continueTitle'),s=document.getElementById('continueSub');if(t)t.textContent=m?.title||'Escolha uma aventura';if(s)s.textContent=m?.sub||'O app lembra seu último lugar.'}
 function renderV3Counters(){const v=v3Load(),el=document.getElementById('collectionHomeCount');if(el)el.textContent=`${v3Total(v)} itens`;const wk=document.getElementById('weeklySurpriseStatus');if(wk)wk.textContent=v.weekly?.opened&&v.weekly.key===weekKey()?'Já descoberta ✓':'Toque para abrir';renderHomeContinue();}
 window.renderV3Counters=renderV3Counters;
@@ -133,7 +146,58 @@ window.openContinueSpot=function(){const p=pget('v3LastPlace');if(p&&WORLD_META[
 window.playEloVoice=function(clip){const map={intro:'assets/audio/elo-intro.m4a'};const src=map[clip];if(!src)return false;try{let a=window.__eloVoiceAudio;if(!a){a=new Audio();a.preload='auto';window.__eloVoiceAudio=a}a.pause();a.currentTime=0;a.src=`${src}?v=${(self.ELO_APP_VERSION||'3.5.3')}`;a.play().catch(()=>{});return true}catch(_){return false}};
 window.eloGuideSay=function(text,clip=''){const b=document.getElementById('eloGuideText');if(b)b.textContent=text;const played=clip?window.playEloVoice(clip):false;if(!played&&typeof speakText==='function')speakText(text)};
 window.worldPlaceSpeak=function(text){if(getActiveProfile().ageRange==='3-5'&&typeof speakText==='function')speakText(text)};
-window.openWorldPlace=function(place){const map={room:['roomPanel','home','Vamos para casa! Você pode decorar o quarto e trocar o visual da Elo.'],school:['learnPanel','learn','Hora de aprender brincando!'],play:['playPanel','play','Escolha um jogo e divirta-se!'],rpg:['rpg',null,'O portal do Reino das Estrelas está aberto!'],creative:['createPanel','create','Vamos criar alguma coisa bem legal!'],cinema:['watchPanel','watch','Pegue a pipoca! O Cinema da Elo vai começar.'],library:['storiesPanel','stories','Na biblioteca, cada história é uma aventura.'],club:['clubPanel','club','Bem-vinda ao Clubinho da Elo!']};const a=map[place];if(!a)return;pset('v3LastPlace',place);renderHomeContinue();eloGuideSay(a[2]);if(a[0]==='rpg')setTimeout(()=>openRpg(),180);else setTimeout(()=>openPanel(a[0],a[1]),140)};
+window.openWorldPlace=function(place){
+  const map={
+    room:['roomPanel','home','Vamos para o meu Quarto 3D! Você pode decorar tudo e trocar meus looks!'],
+    wardrobe:['wardrobePanel','home','Vamos para o Guarda-roupa escolher um look bem lindo!'],
+    pet:['petPanel','home','Vamos visitar e cuidar do meu Bichinho Virtual fofinho!'],
+    studio3d:['modelStudio',null,'Bem-vinda ao Estúdio 3D! Vamos girar modelos e voar com a Unicórnia!'],
+    school:['learnPanel','learn','Hora de aprender e tocar piano na Escolinha Mágica!'],
+    creative:['createPanel','create','Vamos pintar, desenhar e inventar receitas no Ateliê!'],
+    play:['playPanel','play','Bem-vinda à Ilha dos Jogos! Escolha seu minijogo favorito!'],
+    rpg:['rpg',null,'O portal do Reino das Estrelas está aberto! Vamos para a aventura!'],
+    cinema:['watchPanel','watch','Pegue a pipoca! O Cinema e os episódios da Elo vão começar!'],
+    family:['familyPanel','home','Festa da Família! Vamos jogar mímica e duelos juntos!'],
+    library:['storiesPanel','stories','Na biblioteca, cada livrinho é uma linda aventura!'],
+    club:['clubPanel','club','Bem-vinda ao Clubinho especial da Elo!']
+  };
+  const a = map[place];
+  if(!a) return;
+  pset('v3LastPlace', place);
+  if(typeof renderHomeContinue === 'function') renderHomeContinue();
+  if(typeof eloGuideSay === 'function') eloGuideSay(a[2]);
+  if(typeof playCuteSfx === 'function') playCuteSfx('coin');
+
+  const world = document.getElementById('eloWorldMap');
+  const eloWalker = document.getElementById('worldEloWalker');
+  const targetPlaceEl = world ? world.querySelector('.wp-' + place) : null;
+
+  if(eloWalker && targetPlaceEl && world) {
+    try {
+      const worldRect = world.getBoundingClientRect();
+      const placeRect = targetPlaceEl.getBoundingClientRect();
+      const targetLeftPct = Math.max(8, Math.min(90, ((placeRect.left + placeRect.width/2 - worldRect.left) / worldRect.width) * 100));
+      const targetTopPct = Math.max(22, Math.min(84, ((placeRect.top + placeRect.height/2 - worldRect.top) / worldRect.height) * 100));
+      eloWalker.classList.add('isWalking');
+      eloWalker.style.left = targetLeftPct + '%';
+      eloWalker.style.top = targetTopPct + '%';
+    } catch(_) {}
+  }
+
+  setTimeout(() => {
+    if(eloWalker) eloWalker.classList.remove('isWalking');
+    if(a[0] === 'rpg') {
+      openRpg();
+    } else if(a[0] === 'modelStudio' || place === 'studio3d') {
+      if(typeof openModelStudio === 'function') openModelStudio();
+    } else if(place === 'pet') {
+      if(typeof openPet === 'function') openPet();
+      else openPanel('petPanel', 'home');
+    } else {
+      openPanel(a[0], a[1]);
+    }
+  }, 220);
+};
 window.findWorldSecret=function(id){const typeMap={star:'stars',unicorn:'unicorns',bow:'bows'},v=v3Load();if(v.secrets.includes(id))return toast('Você já encontrou este segredo 💗');v.secrets.push(id);v3Save(v);addCollectible(typeMap[id],1,`Segredo encontrado! ${V3_COLLECTIONS[typeMap[id]].icon}`);addStars(1,'Você encontrou um segredo! +1 ⭐')};
 
 function renderCollection(){const root=document.getElementById('collectionGrid');if(!root)return;const v=v3Load();root.innerHTML=Object.entries(V3_COLLECTIONS).map(([id,c])=>{const n=Number(v.collections[id]||0),pct=Math.round(n/c.goal*100);return `<div class="collectionCard"><span>${c.icon}</span><b>${c.name}</b><small>${n}/${c.goal}</small><div class="collectionMeter"><i style="width:${pct}%"></i></div></div>`}).join('')}

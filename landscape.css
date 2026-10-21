@@ -1,0 +1,1121 @@
+/* ==========================================================
+   landscape.css — Dia a Dia da Elo v4.3.4
+   REORGANIZAÇÃO E RESPONSIVIDADE COMPLETA PARA MODO DEITADO (LANDSCAPE)
+   Adapta TODOS os 8 jogos, 5 atividades, 11 casinhas e 14 modais
+   para rodar 100% liso, sem cortes verticais e com botões ao alcance dos polegares.
+   ========================================================== */
+
+/* Regras gerais para quando o aparelho estiver deitado (Landscape) */
+@media screen and (orientation: landscape), screen and (max-height: 520px) {
+
+  /* 0. Ocultar aviso de giro */
+  #rotateDeviceNotice {
+    display: none !important;
+  }
+
+  /* 1. Header Compacto */
+  header {
+    padding: 3px 12px !important;
+    min-height: 40px !important;
+    height: 40px !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 30 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  .compactBrand {
+    min-height: 38px !important;
+    gap: 8px !important;
+  }
+  .compactBrand .brandLogo {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 10px !important;
+  }
+  .compactBrand h1 {
+    font-size: 15px !important;
+    max-width: none !important;
+    line-height: 1 !important;
+  }
+  .compactBrand .handle {
+    display: none !important;
+  }
+  .brandActions {
+    gap: 5px !important;
+  }
+  .profileCompact {
+    padding: 3px 8px !important;
+    border-radius: 12px !important;
+  }
+  .profileCompact span {
+    font-size: 14px !important;
+  }
+  .profileCompact b {
+    font-size: 11px !important;
+    display: inline-block !important;
+  }
+  .profileCompact small {
+    display: none !important;
+  }
+  .headerStars {
+    padding: 4px 8px !important;
+    border-radius: 12px !important;
+    font-size: 11px !important;
+  }
+  .headerStars span {
+    font-size: 12px !important;
+  }
+  .iconBtn {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 11px !important;
+    font-size: 15px !important;
+  }
+
+  /* 2. Barra de Navegação Inferior (Nav) Compacta */
+  nav {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 3px !important;
+    padding: 2px 8px calc(2px + env(safe-area-inset-bottom)) !important;
+    border-radius: 20px !important;
+    max-width: 640px !important;
+    height: 44px !important;
+  }
+  .navbtn {
+    padding: 2px 1px !important;
+    font-size: 8px !important;
+  }
+  .navbtn .navEloIcon {
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 7px !important;
+    margin: 0 auto 1px !important;
+  }
+  .app {
+    padding-bottom: 48px !important;
+    max-width: 1000px !important;
+  }
+  .panel {
+    padding: 4px 10px 52px !important;
+    max-width: 960px !important;
+    margin: 0 auto !important;
+  }
+  .topTitle {
+    margin: 3px 0 6px !important;
+  }
+  .topTitle h2 {
+    font-size: 17px !important;
+  }
+  .back {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 20px !important;
+  }
+
+  /* 3. Mapa Panorâmico do Mundo da Elo (Home) */
+  .worldHeaderBar {
+    padding: 3px 8px 4px !important;
+    margin: 0 8px !important;
+  }
+  .worldHeaderLeft img {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 10px !important;
+  }
+  .worldHeaderLeft h2 {
+    font-size: 15px !important;
+    margin: 0 !important;
+  }
+  .worldHeaderLeft p {
+    font-size: 10px !important;
+    margin: 1px 0 0 !important;
+  }
+  .worldHeaderActions .btn {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+    border-radius: 12px !important;
+  }
+  .eloWorldLandscape {
+    min-height: 270px !important;
+    height: calc(100vh - 68px) !important;
+    max-height: calc(100vh - 68px) !important;
+    margin: 0 8px 6px !important;
+    border-radius: 26px !important;
+    border-width: 3.5px !important;
+  }
+  .worldStopPoint {
+    transform: translate(-50%, -50%) scale(0.85) !important;
+  }
+  .worldStopPoint:active {
+    transform: translate(-50%, -50%) scale(0.95) !important;
+  }
+  .stopIconBubble {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 22px !important;
+    border-radius: 14px !important;
+  }
+  .stopLabelPill {
+    font-size: 9.5px !important;
+    padding: 2px 7px !important;
+    margin-top: -3px !important;
+  }
+  .worldEloWalker {
+    width: 66px !important;
+    height: 66px !important;
+  }
+  .walkerSpeechBubble {
+    font-size: 9px !important;
+    padding: 3px 8px !important;
+    top: -26px !important;
+  }
+  .footer-note {
+    padding: 8px 10px 4px !important;
+    font-size: 9px !important;
+  }
+
+  /* 4. Minijogos e Overlay de Jogos (#gameModal) */
+  .fullOverlay {
+    padding: 4px 8px 8px !important;
+  }
+  .overlayTop {
+    padding: 2px 4px 6px !important;
+  }
+  .overlayTop h2 {
+    font-size: 17px !important;
+  }
+  .closeOverlay {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 20px !important;
+  }
+  .gamebox {
+    padding: 6px 10px !important;
+    border-radius: 20px !important;
+  }
+  .gamebox > p.muted {
+    display: none !important; /* Oculta descrição longa no modo deitado para maximizar o jogo */
+  }
+
+  /* Contêiner de Layout Duplo (Lado a Lado) para Jogos em Landscape */
+  .gamePlayRowLandscape {
+    display: flex !important;
+    gap: 14px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .gameStageColLandscape {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .gameControlsColLandscape {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    min-width: 0 !important;
+  }
+
+  /* Trilha Encantada em Landscape */
+  #trailGame .trailHeader {
+    margin-bottom: 2px !important;
+  }
+  #trailGame .trailBadge {
+    padding: 4px 10px !important;
+    font-size: 12px !important;
+  }
+  #trailGame .trailHud {
+    grid-template-columns: repeat(5, 1fr) !important;
+    margin: 2px 0 4px !important;
+    gap: 4px !important;
+  }
+  #trailGame .trailStat {
+    padding: 3px 4px !important;
+    border-radius: 10px !important;
+  }
+  #trailGame .trailStat b {
+    font-size: 8px !important;
+    margin-bottom: 1px !important;
+  }
+  #trailGame .trailStat span {
+    font-size: 13px !important;
+  }
+  #trailGame .trailInfo {
+    font-size: 11px !important;
+    margin-bottom: 3px !important;
+  }
+  #trailGame .trailPlayRowLandscape {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  #trailGame .trailPlayRowLandscape .trailCanvasWrap {
+    flex: 1 1 68% !important;
+    max-width: 68% !important;
+    max-height: 56vh !important;
+    margin: 0 !important;
+  }
+  #trailGame .trailPlayRowLandscape .trailCanvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 56vh !important;
+    aspect-ratio: 900 / 500 !important;
+    object-fit: contain !important;
+    min-height: 0 !important;
+  }
+  #trailGame .trailPlayRowLandscape .trailControls {
+    flex: 0 0 30% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    margin-top: 0 !important;
+  }
+  #trailGame .trailBtn {
+    padding: 10px 6px !important;
+    font-size: 13px !important;
+    min-height: 44px !important;
+    border-radius: 14px !important;
+  }
+  #trailGame .trailHint, #trailGame .premiumNote {
+    display: none !important;
+  }
+
+  /* Labirinto da Elo (#mazeGame) */
+  #mazeGame .mazeWrap {
+    margin-top: 0 !important;
+  }
+  #mazeGame .mazeBoard {
+    width: min(48vw, 65vh) !important;
+    height: min(48vw, 65vh) !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    padding: 4px !important;
+  }
+  #mazeGame .mazeControls {
+    grid-template-columns: 46px 46px 46px !important;
+    gap: 5px !important;
+    margin-top: 2px !important;
+  }
+  #mazeGame .mazeBtn {
+    padding: 6px 0 !important;
+    font-size: 18px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Caça aos Unicórnios (#unicornChaseGame) */
+  #unicornChaseGame .chaseBoard {
+    width: min(48vw, 65vh) !important;
+    height: min(48vw, 65vh) !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    padding: 4px !important;
+  }
+  #unicornChaseGame .chaseControls {
+    grid-template-columns: 46px 46px 46px !important;
+    gap: 5px !important;
+    margin-top: 2px !important;
+  }
+  #unicornChaseGame .chaseControls .mazeBtn {
+    padding: 6px 0 !important;
+    font-size: 18px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Quebra-cabeça da Elo (#puzzleGame) */
+  #puzzleGame .puzzleBoard {
+    width: min(48vw, 65vh) !important;
+    height: min(48vw, 65vh) !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    padding: 4px !important;
+  }
+  #puzzleGame .puzzleTop {
+    margin: 0 !important;
+    gap: 8px !important;
+    grid-template-columns: 54px minmax(0, 1fr) !important;
+  }
+  #puzzleGame .puzzlePreview {
+    width: 54px !important;
+    border-radius: 10px !important;
+  }
+  #puzzleGame .puzzleChoices {
+    padding: 2px 0 !important;
+  }
+  #puzzleGame .puzzleChoice {
+    width: 32px !important;
+    min-width: 32px !important;
+    height: 32px !important;
+  }
+  #puzzleGame .puzzleHint {
+    display: none !important;
+  }
+
+  /* Ache a Estrela (#findGame) */
+  #findGame .gamePlayRowLandscape {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  #findGame #findStage {
+    height: 65vh !important;
+    flex: 1 1 65% !important;
+    max-width: 65% !important;
+    margin: 0 !important;
+  }
+
+  /* Toque no Número (#tapGameSection) */
+  #tapGameSection .gamePlayRowLandscape {
+    display: flex !important;
+    gap: 14px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  #tapGameSection .tapGame {
+    width: min(42vw, 65vh) !important;
+    gap: 5px !important;
+  }
+  #tapGameSection .tapNum {
+    padding: 8px !important;
+    font-size: 16px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Jogo da Memória (#memoryGame) */
+  #memoryGame .memory {
+    gap: 5px !important;
+    margin-top: 4px !important;
+    max-height: 65vh !important;
+  }
+  #memoryGame .mem {
+    border-radius: 9px !important;
+  }
+
+  /* 5. Ateliê da Elo (#createPanel) */
+  .creativeModeTabs {
+    margin: 0 8px 6px !important;
+    gap: 5px !important;
+  }
+  .cTabBtn {
+    padding: 5px 9px !important;
+    font-size: 10.5px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Desenho Livre no Ateliê */
+  .freeDrawLayoutLandscape {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+  }
+  .freeDrawLayoutLandscape .freeCanvasContainer {
+    flex: 1 1 62% !important;
+    max-width: 62% !important;
+    max-height: 70vh !important;
+  }
+  .freeDrawLayoutLandscape #freeDrawCanvas {
+    max-height: 70vh !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 600 / 420 !important;
+  }
+  .freeDrawToolsColLandscape {
+    flex: 0 0 36% !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+  .drawingToolsBar, .stampAndPaperBar {
+    padding: 6px 8px !important;
+    margin-bottom: 0 !important;
+    border-radius: 14px !important;
+  }
+  .colorPick {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .toolBtn {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+  }
+  .stampPickBtn {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 15px !important;
+  }
+  .paperBtn {
+    padding: 3px 7px !important;
+    font-size: 9.5px !important;
+  }
+
+  /* Livro de Colorir (#coloringModal) */
+  #coloringModal .overlayBody {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  #coloringModal .coloringLayoutLandscape {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  #coloringModal .colorStage {
+    width: min(58vw, 70vh) !important;
+    height: min(58vw, 70vh) !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+  }
+  #coloringModal .coloringToolsCol {
+    flex: 1 1 38% !important;
+    max-height: 72vh !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+  #coloringModal .palette {
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 4px !important;
+    margin: 0 auto 6px !important;
+  }
+  #coloringModal .toolRow {
+    margin: 4px 0 !important;
+    gap: 5px !important;
+  }
+
+  /* Pizzaria & Confeitaria (#chefSection) */
+  #chefSection .chefStationTabs {
+    margin-bottom: 6px !important;
+    gap: 4px !important;
+  }
+  #chefSection .chefTabBtn {
+    padding: 5px 3px !important;
+    font-size: 10px !important;
+  }
+  .chefStudioLayout {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .chefPlateStage {
+    flex: 1 1 45% !important;
+    height: 58vh !important;
+    margin-bottom: 0 !important;
+  }
+  .chefPlateCircle {
+    width: 140px !important;
+    height: 140px !important;
+  }
+  .chefIngredientsArea {
+    flex: 1 1 52% !important;
+    max-height: 60vh !important;
+    overflow-y: auto !important;
+  }
+  .chefIngredientsBar {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 5px !important;
+  }
+  .chefIngBtn {
+    padding: 6px 3px !important;
+  }
+  .chefIngBtn span {
+    font-size: 20px !important;
+  }
+  .chefIngBtn small {
+    font-size: 9.5px !important;
+  }
+
+  /* Estúdio de Fotos (#photoSection) */
+  .photoLayoutLandscape {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .photoCanvasCard {
+    flex: 1 1 56% !important;
+    max-height: 66vh !important;
+  }
+  #photoStudioCanvas {
+    max-height: 66vh !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 600 / 440 !important;
+  }
+  .photoStudioTools {
+    flex: 0 0 40% !important;
+    max-height: 66vh !important;
+    overflow-y: auto !important;
+    padding: 8px !important;
+    gap: 5px !important;
+  }
+
+  /* Estúdio 3D (#modelStudioModal) */
+  #modelStudioModal .panelCard {
+    width: min(880px, 94vw) !important;
+    max-height: 94vh !important;
+    padding: 10px 14px !important;
+  }
+  #modelStudioModal .modelPresetsRow {
+    gap: 4px !important;
+    overflow-x: auto !important;
+    margin-bottom: 6px !important;
+  }
+  #modelStudioModal .modelPresetBtn {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+  }
+  .modelStudioLayoutLandscape {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .modelCanvasContainer {
+    flex: 1 1 62% !important;
+    max-height: 64vh !important;
+  }
+  #modelStudioCanvas {
+    max-height: 64vh !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 600 / 400 !important;
+  }
+  .modelStudioToolsCol {
+    flex: 0 0 36% !important;
+    max-height: 64vh !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+
+  /* 6. Escolinha Mágica (#learnPanel) */
+  .schoolHeroModern {
+    display: none !important;
+  }
+  .schoolTracks {
+    display: flex !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    margin: 0 8px 6px !important;
+  }
+  .schoolTrackCard {
+    flex: 0 0 auto !important;
+    padding: 5px 9px !important;
+    border-radius: 14px !important;
+  }
+  .schoolTrackCard span {
+    font-size: 18px !important;
+  }
+  .schoolTrackCard b {
+    font-size: 10.5px !important;
+  }
+  .schoolTrackCard small {
+    display: none !important;
+  }
+  .schoolActivityCard {
+    margin: 0 8px 8px !important;
+    padding: 12px 14px !important;
+    border-radius: 20px !important;
+  }
+  .schoolQuizLayoutLandscape {
+    display: flex !important;
+    gap: 14px !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  .schoolQuizInfoCol {
+    flex: 0 0 44% !important;
+    text-align: center !important;
+  }
+  .schoolQuestionTitle {
+    font-size: 16px !important;
+    margin: 4px 0 8px !important;
+  }
+  .schoolOptionsGrid {
+    flex: 1 1 52% !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+  .schoolOptBtn {
+    padding: 10px 8px !important;
+    font-size: 16px !important;
+    border-radius: 14px !important;
+  }
+
+  /* Piano & Sons */
+  #schoolMusicCard .pianoHeader h3 {
+    font-size: 15px !important;
+  }
+  #schoolMusicCard .songSelectorRow {
+    padding: 4px 0 !important;
+    gap: 4px !important;
+  }
+  #schoolMusicCard .songChip {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+  }
+  #schoolMusicCard .pianoSongGuide {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+    margin-bottom: 6px !important;
+  }
+  #schoolMusicCard .pianoKeysRow {
+    height: 95px !important;
+    margin-bottom: 6px !important;
+    gap: 4px !important;
+  }
+  .pianoKey3D {
+    border-radius: 10px 10px 14px 14px !important;
+    padding-bottom: 6px !important;
+  }
+  .pianoKeyEmoji {
+    font-size: 12px !important;
+  }
+  .pianoKeyLabel {
+    font-size: 10px !important;
+  }
+  .musicBottomRowLandscape {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+  }
+  .animalSoundBar {
+    flex: 1 1 48% !important;
+    padding: 6px 8px !important;
+    gap: 4px !important;
+  }
+  .soundPadBtn {
+    padding: 4px 7px !important;
+    font-size: 10px !important;
+  }
+  .djStationWrap {
+    flex: 1 1 48% !important;
+    margin-top: 0 !important;
+    padding: 8px !important;
+    border-radius: 16px !important;
+  }
+  .djHeader h4 {
+    font-size: 13px !important;
+  }
+  .djBeatLoopBtn {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+  }
+  .djPadBtn {
+    height: 48px !important;
+    border-radius: 12px !important;
+  }
+  .djPadBtn span {
+    font-size: 18px !important;
+  }
+  .djPadBtn b {
+    font-size: 9px !important;
+  }
+
+  /* 7. Cantinho da Elo (Quarto, Guarda-roupa & Pet) */
+  .cantinhoTopSwitcher {
+    margin: 2px 8px 6px !important;
+    padding: 3px !important;
+    border-radius: 16px !important;
+  }
+  .cSwitchBtn {
+    padding: 5px !important;
+    font-size: 10.5px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Quarto 3D (#roomPanel) */
+  .roomIntro, .roomPlayHint {
+    display: none !important;
+  }
+  .roomLayoutLandscape {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+  }
+  #eloRoom {
+    flex: 1 1 54% !important;
+    max-width: 54% !important;
+    height: 70vh !important;
+    margin-bottom: 0 !important;
+    border-radius: 20px !important;
+  }
+  .roomControlDock {
+    flex: 1 1 44% !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    padding: 6px 8px !important;
+  }
+  .roomDecorTabs {
+    gap: 4px !important;
+    padding-bottom: 4px !important;
+  }
+  .roomDecorTab {
+    padding: 4px 7px !important;
+    font-size: 8px !important;
+  }
+  .decorGridCompact .decorItem {
+    flex: 0 0 86px !important;
+    min-height: 80px !important;
+    padding: 5px 3px !important;
+  }
+
+  /* Guarda-roupa (#wardrobePanel) */
+  .wardrobeLayoutLandscape {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+  }
+  .wardrobeStudio {
+    flex: 0 0 38% !important;
+    min-height: 70vh !important;
+    margin: 0 !important;
+    padding: 8px !important;
+  }
+  .wardrobeStage {
+    min-height: 54vh !important;
+  }
+  .wardrobeControlDock {
+    flex: 1 1 60% !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    padding: 6px 8px !important;
+  }
+  .wardrobePresets {
+    padding-bottom: 4px !important;
+  }
+  .lookPreset {
+    flex: 0 0 68px !important;
+    padding: 4px 3px !important;
+  }
+  .wardrobeTabs {
+    padding-bottom: 4px !important;
+  }
+  .wardrobeTab {
+    padding: 4px 7px !important;
+    font-size: 8px !important;
+  }
+  .wardrobeGrid302 .wardrobeItem302 {
+    flex: 0 0 88px !important;
+    min-height: 98px !important;
+    padding: 4px !important;
+  }
+
+  /* Bichinho Virtual Pet (#petPanel) */
+  .petIntro {
+    display: none !important;
+  }
+  .petLayoutLandscape {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+  }
+  .petDevice {
+    flex: 0 0 46% !important;
+    margin: 0 !important;
+    padding: 8px !important;
+    border-radius: 22px !important;
+  }
+  .petScreen {
+    height: 195px !important;
+    border-radius: 18px !important;
+  }
+  .petCareAreaLandscape {
+    flex: 1 1 52% !important;
+    max-height: 74vh !important;
+    overflow-y: auto !important;
+  }
+  .petActions {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 5px !important;
+  }
+  .petActions button {
+    min-height: 56px !important;
+    padding: 5px 2px !important;
+  }
+  .petActions span {
+    font-size: 18px !important;
+  }
+  .petActions b {
+    font-size: 8px !important;
+  }
+
+  /* 8. Consultório da Elo (#carePanel) */
+  .careHero {
+    display: none !important;
+  }
+  .careTabsRow {
+    margin: 0 8px 6px !important;
+    gap: 6px !important;
+  }
+  .careTabBtn {
+    padding: 6px 4px !important;
+    font-size: 10px !important;
+  }
+  .careStageWrap {
+    margin: 0 8px 8px !important;
+    padding: 12px 14px !important;
+  }
+  .careStageWrap h3 {
+    font-size: 15px !important;
+    margin: 0 0 4px !important;
+  }
+  .careStageLayoutLandscape {
+    display: flex !important;
+    gap: 14px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  #teethMouthBox {
+    width: 190px !important;
+    height: 115px !important;
+    margin: 4px 0 !important;
+  }
+  .bandageStage {
+    width: 180px !important;
+    height: 150px !important;
+    margin: 4px 0 !important;
+  }
+  .lunchboxStage {
+    width: 200px !important;
+    height: 145px !important;
+    margin: 4px 0 !important;
+  }
+  .lunchOptionsGrid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 4px !important;
+  }
+  .lunchOptBtn {
+    padding: 5px 2px !important;
+  }
+  .lunchOptBtn span {
+    font-size: 18px !important;
+  }
+  .lunchOptBtn small {
+    font-size: 9px !important;
+  }
+
+  /* 9. Festa da Família (#familyPanel) */
+  .familyPartyHero {
+    display: none !important;
+  }
+  .familyModeTabs {
+    margin: 0 8px 6px !important;
+    gap: 6px !important;
+  }
+  .familyTabBtn {
+    padding: 5px 4px !important;
+  }
+  .familyTabBtn span {
+    font-size: 18px !important;
+  }
+  .familyTabBtn b {
+    font-size: 10px !important;
+  }
+  .familyTabBtn small {
+    display: none !important;
+  }
+  .familyViewCard {
+    margin: 0 8px 8px !important;
+  }
+  .mimeLayoutLandscape {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .mimeTopBar {
+    flex: 0 0 38% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+  #mimeCardBox {
+    flex: 1 1 58% !important;
+    padding: 14px 10px !important;
+  }
+  .mimePromptText {
+    font-size: 20px !important;
+    margin: 8px 0 !important;
+  }
+  .duelArena {
+    height: 250px !important;
+  }
+  .duelChoiceBtn {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 24px !important;
+    border-radius: 16px !important;
+  }
+  .scoreLayoutLandscape {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .scoreboardWrap {
+    flex: 1 1 52% !important;
+    padding: 10px 8px !important;
+  }
+  .teamPoints {
+    font-size: 36px !important;
+    margin: 4px 0 6px !important;
+  }
+  .familyRouletteCard {
+    flex: 1 1 45% !important;
+    margin-bottom: 0 !important;
+    padding: 10px !important;
+  }
+  .familyRouletteText {
+    font-size: 13px !important;
+    min-height: 36px !important;
+  }
+
+  /* 10. Modais e Popups em Landscape */
+  .panelOverlay .panelCard {
+    max-height: 94vh !important;
+    width: min(860px, 94vw) !important;
+    padding: 12px 16px !important;
+    border-radius: 22px !important;
+  }
+  .panelHead h2 {
+    font-size: 18px !important;
+  }
+  .miniClose {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 18px !important;
+  }
+  #starShopModal .starShopGrid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+  #starShopModal .starShopCard {
+    padding: 8px 10px !important;
+  }
+  #starShopModal .starShopCard .cardIcon {
+    font-size: 24px !important;
+    flex-basis: 32px !important;
+  }
+  #starShopModal .starShopCard .cardBody b {
+    font-size: 12px !important;
+  }
+  #starShopModal .starShopCard .cardBody small {
+    font-size: 9.5px !important;
+  }
+
+  /* Álbum de Figurinhas */
+  #stickersModal .stickersHero {
+    display: none !important;
+  }
+  .stickersLayoutLandscape {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+  }
+  .packStageWrap {
+    flex: 0 0 38% !important;
+    margin: 0 !important;
+    padding: 10px !important;
+  }
+  .boosterPack3D {
+    width: 110px !important;
+    height: 145px !important;
+    margin: 4px auto 8px !important;
+  }
+  .boosterIcon {
+    font-size: 38px !important;
+  }
+  .boosterTitle {
+    font-size: 12px !important;
+  }
+  .albumGridWrap {
+    flex: 1 1 58% !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+  }
+  .albumGrid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px !important;
+  }
+  .albumSlot {
+    min-height: 76px !important;
+    padding: 4px 2px !important;
+  }
+  .albumSlot .slotIcon {
+    font-size: 20px !important;
+  }
+
+  /* Modo Hora do Soninho */
+  .sleepLayoutLandscape {
+    display: flex !important;
+    gap: 16px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 860px !important;
+  }
+  .sleepBedStage {
+    flex: 0 0 44% !important;
+    height: 180px !important;
+  }
+  .sleepControlsWrap {
+    flex: 1 1 52% !important;
+    padding: 12px !important;
+  }
+
+  /* PIN Parental */
+  #parentPinModal .pinCard {
+    margin-top: 8px !important;
+    padding: 14px 18px !important;
+  }
+  #parentPinModal .pinIcon {
+    font-size: 34px !important;
+  }
+  #parentPinModal h2 {
+    font-size: 17px !important;
+  }
+  #parentPinModal .pinDots {
+    margin: 8px 0 !important;
+  }
+  #parentPinModal .pinPad {
+    grid-template-columns: repeat(6, 46px) !important;
+    gap: 6px !important;
+  }
+  #parentPinModal .pinKey {
+    padding: 8px 0 !important;
+    font-size: 18px !important;
+    border-radius: 12px !important;
+  }
+
+}

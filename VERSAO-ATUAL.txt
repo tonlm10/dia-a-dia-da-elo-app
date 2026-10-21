@@ -1,7 +1,10 @@
-Versão Atual: 4.3.3
+Versão Atual: 4.3.4
 Data: 21/10/2026
-Modo Deitado Nativo Perfeito (Sem rotação forçada CSS de 90° que cortava a tela):
-- Bloqueio total em pé: enquanto o celular estiver na vertical, o app fica 100% protegido e não mostra layout quebrado ou espremido
-- Ao deitar o celular (com rotação automática ligada), o mapa se abre em tela cheia panorâmica perfeita
-- Botão "Deitar a Tela Automaticamente" aciona Tela Cheia + Trava Paisagem da Web API
-- Instrução clara para ativar a "Rotação automática" no painel do Android
+Auditoria Geral de Todas as Atividades e Responsividade Completa no Modo Deitado (Landscape):
+- Todos os 126 botões e funções auditados e 100% funcionais (sem funções faltando ou travadas)
+- Escolinha Mágica: Piano Arco-Íris interativo de 8 teclas com modo livre e canções guiadas, sons sintetizados de animais (gatinho, cachorrinho, patinho, sapinho, passarinho) e trilhas educativas
+- Ateliê Criativo: Pintura Livre com pincel comum, suave, arco-íris giratório, brilho estelar, carimbos, borracha e 4 papéis de fundo (Branco, Céu, Galáxia, Jardim); Pizzaria & Chef dinâmica com 4 estações (Pizza, Bolo, Sorvete, Robô)
+- Consultório: Escovar dentes interativo, curativos mágicos com estilos e lancheira saudável
+- Festa da Família: Mímica com cronômetro, Duelo de reflexo 2 jogadores, Copa e Roleta/Placar
+- Jogos: Layout lateral (split landscape) para Trilha Encantada, Labirinto, Caça aos Unicórnios, Quebra-cabeça, Ache a estrela, Toque no número e Memória
+- Modais: Adaptação completa para telas deitadas (altura máxima 94vh) com botões e controles sempre visíveis

@@ -2559,3 +2559,573 @@ window.tryLockLandscape = function(){
     }
   } catch(_) {}
 };
+
+// ==========================================================
+// v4.3.4 — ATIVIDADES COMPLETAS, BOTÕES CORRIGIDOS & MODO DEITADO
+// ==========================================================
+
+// --- 1. ESCOLINHA MÁGICA, PIANO & ANIMAIS ---
+const PIANO_KEYS_DATA = [
+  { note: 'do', label: 'Dó', freq: 261.63, color: '#ef4444', emoji: '🔴' },
+  { note: 're', label: 'Ré', freq: 293.66, color: '#f97316', emoji: '🟠' },
+  { note: 'mi', label: 'Mi', freq: 329.63, color: '#eab308', emoji: '🟡' },
+  { note: 'fa', label: 'Fá', freq: 349.23, color: '#22c55e', emoji: '🟢' },
+  { note: 'sol', label: 'Sol', freq: 392.00, color: '#06b6d4', emoji: '🩵' },
+  { note: 'la', label: 'Lá', freq: 440.00, color: '#3b82f6', emoji: '🔵' },
+  { note: 'si', label: 'Si', freq: 493.88, color: '#8b5cf6', emoji: '🟣' },
+  { note: 'do2', label: 'Dó²', freq: 523.25, color: '#ec4899', emoji: '🌸' }
+];
+
+window.renderPianoKeys = function() {
+  const row = document.getElementById('pianoKeysRow');
+  if(!row) return;
+  row.innerHTML = PIANO_KEYS_DATA.map(k => (
+    '<button class="pianoKey3D" data-note="' + k.note + '" onpointerdown="playPianoKey(\'' + k.note + '\', \'' + k.label + '\')" style="--key-color:' + k.color + '">' +
+      '<span class="pianoKeyEmoji">' + k.emoji + '</span>' +
+      '<span class="pianoKeyLabel">' + k.label + '</span>' +
+    '</button>'
+  )).join('');
+};
+
+window.playTone = function(freq, duration = 0.35, type = 'triangle') {
+  const ctx = getAudioFxCtx();
+  if(!ctx) return;
+  try {
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, now);
+    g.gain.setValueAtTime(0.18, now);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    osc.connect(g);
+    g.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + duration + 0.05);
+  } catch(_) {}
+};
+
+window.playPianoKey = function(note, noteName) {
+  const item = PIANO_KEYS_DATA.find(k => k.note === note);
+  const freq = item ? item.freq : (PIANO_NOTES_FREQ[note] || 440);
+  playTone(freq, 0.45, 'triangle');
+  toast('Nota: ' + (noteName || note.toUpperCase()) + ' 🎶');
+  const k = document.querySelector('.pianoKey3D[data-note="' + note + '"]');
+  if(k) {
+    k.classList.add('pressedKey');
+    setTimeout(() => k.classList.remove('pressedKey'), 180);
+  }
+};
+
+window.selectPianoSong = function(songKey, btn) {
+  document.querySelectorAll('.songSelectorRow .songChip').forEach(c => c.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  const guide = document.getElementById('pianoSongGuide');
+  renderPianoKeys();
+
+  if(songKey === 'free') {
+    if(guide) guide.textContent = 'Toque livremente nas teclas coloridas para compor sua música! 🎹🌈';
+    toast('Modo Livre ativado! Toque nas teclas!');
+    return;
+  }
+
+  const songTitles = {
+    twinkle: '⭐ Brilha, Brilha Estrelinha',
+    butterfly: '🦋 Borboletinha tá na cozinha',
+    happy: '🎂 Parabéns pra Você',
+    balloon: '🎈 Cai, Cai Balão'
+  };
+  if(guide) guide.textContent = 'Aprenda a tocar: ' + (songTitles[songKey] || 'Canção da Elo') + '! 🎶';
+  playBabySong(songKey === 'twinkle' ? 'estrela' : (songKey === 'butterfly' ? 'ciranda' : (songKey === 'happy' ? 'alecrim' : 'estrela')));
+};
+
+window.playAnimalSynth = function(animal) {
+  const ctx = getAudioFxCtx();
+  if(!ctx) return;
+  try {
+    const now = ctx.currentTime;
+    if(animal === 'cat') {
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(450, now);
+      osc.frequency.linearRampToValueAtTime(750, now + 0.15);
+      osc.frequency.exponentialRampToValueAtTime(380, now + 0.38);
+      g.gain.setValueAtTime(0.12, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.38);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.4);
+      toast('🐱 Miau! O gatinho respondeu!');
+    } else if(animal === 'dog') {
+      [140, 160].forEach((f, i) => {
+        const osc = ctx.createOscillator(), g = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(f * 2, now + i * 0.12);
+        osc.frequency.linearRampToValueAtTime(f, now + i * 0.12 + 0.08);
+        g.gain.setValueAtTime(0.14, now + i * 0.12);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.12 + 0.09);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(now + i * 0.12); osc.stop(now + i * 0.12 + 0.1);
+      });
+      toast('🐶 Au Au! O cachorrinho abanou o rabinho!');
+    } else if(animal === 'duck') {
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.linearRampToValueAtTime(220, now + 0.16);
+      g.gain.setValueAtTime(0.1, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.2);
+      toast('🦆 Quá Quá! O patinho nadou no lago!');
+    } else if(animal === 'frog') {
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(110, now);
+      osc.frequency.linearRampToValueAtTime(80, now + 0.18);
+      g.gain.setValueAtTime(0.12, now);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.19);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.2);
+      toast('🐸 Coaxar! O sapinho deu um pulinho!');
+    } else if(animal === 'bird') {
+      [900, 1300, 1100, 1450].forEach((f, i) => {
+        const osc = ctx.createOscillator(), g = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, now + i * 0.05);
+        g.gain.setValueAtTime(0.08, now + i * 0.05);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.05 + 0.04);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(now + i * 0.05); osc.stop(now + i * 0.05 + 0.05);
+      });
+      toast('🐦 Piu Piu! O passarinho cantou na árvore!');
+    }
+  } catch(_) {}
+};
+
+// Vincula 'nature' com 'curious'
+if(window.SCHOOL_TRACK_DATA) {
+  window.SCHOOL_TRACK_DATA.nature = window.SCHOOL_TRACK_DATA.curious;
+}
+
+window.selectSchoolTrack = function(track, btn) {
+  activeSchoolTrack = track;
+  currentSchoolQuestionIdx = 0;
+  schoolTrackScore = 0;
+
+  // Atualiza botões de trilha
+  document.querySelectorAll('.schoolTrackCard').forEach(c => {
+    c.classList.remove('on');
+    if(track === 'letters' && c.classList.contains('trackLetters')) c.classList.add('on');
+    if(track === 'numbers' && c.classList.contains('trackNumbers')) c.classList.add('on');
+    if(track === 'nature' && c.classList.contains('trackAnimals')) c.classList.add('on');
+    if(track === 'music' && c.classList.contains('trackMusic')) c.classList.add('on');
+  });
+
+  const quizCard = document.getElementById('schoolQuizCard');
+  const musicCard = document.getElementById('schoolMusicCard');
+
+  if(track === 'music') {
+    if(quizCard) quizCard.classList.add('hidden');
+    if(musicCard) musicCard.classList.remove('hidden');
+    renderPianoKeys();
+    if(typeof playCuteSfx === 'function') playCuteSfx('pop');
+    if(typeof eloGuideSay === 'function') eloGuideSay('Bem-vinda ao Piano da Elo! Toque as teclas coloridas ou toque na bateria DJ!');
+  } else {
+    if(quizCard) quizCard.classList.remove('hidden');
+    if(musicCard) musicCard.classList.add('hidden');
+    const bank = (window.SCHOOL_TRACK_DATA && window.SCHOOL_TRACK_DATA[track]) ? window.SCHOOL_TRACK_DATA[track] : (window.SCHOOL_TRACK_DATA ? window.SCHOOL_TRACK_DATA.letters : []);
+    activeSchoolDeck = shuffle([...bank]).slice(0, 8);
+    renderModernSchoolQuestion();
+  }
+};
+
+// --- 2. ATELIÊ CRIATIVO: PINTURA, CARIMBOS, PAPEL E CHEF ---
+let currentDrawBrush = 'pen';
+let currentDrawStamp = '⭐';
+let currentPaperBg = 'white';
+let rainbowHue = 0;
+
+window.setDrawColor = function(color, btn) {
+  currentBrushColor = color;
+  document.querySelectorAll('.colorPick').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  if(currentDrawBrush === 'eraser') currentDrawBrush = 'brush';
+  if(typeof playCuteSfx === 'function') playCuteSfx('pop');
+};
+window.setBrushColor = window.setDrawColor;
+
+window.setDrawBrush = function(brush, btn) {
+  currentDrawBrush = brush;
+  document.querySelectorAll('.toolBrushes .toolBtn').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  if(brush === 'pen') {
+    currentBrushSize = 5;
+  } else if(brush === 'brush') {
+    currentBrushSize = 12;
+  } else if(brush === 'rainbow') {
+    currentBrushSize = 10;
+  } else if(brush === 'glitter') {
+    currentBrushSize = 8;
+  } else if(brush === 'stamp') {
+    currentBrushSize = 20;
+    toast('Modo carimbo: ' + currentDrawStamp + '! Toque no quadro para estampar! 🦄');
+  } else if(brush === 'eraser') {
+    currentBrushSize = 24;
+    toast('Borracha ativada! Apague deslizando pelo quadro 🧼');
+  }
+  if(typeof playCuteSfx === 'function') playCuteSfx('pop');
+};
+
+window.pickDrawStamp = function(emoji, btn) {
+  currentDrawStamp = emoji;
+  document.querySelectorAll('.stampPickBtn').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  currentDrawBrush = 'stamp';
+  document.querySelectorAll('.toolBrushes .toolBtn').forEach(b => b.classList.remove('on'));
+  const stampBtn = document.querySelector('.toolBrushes .toolBtn[title="Carimbos"]');
+  if(stampBtn) stampBtn.classList.add('on');
+  toast('Carimbo ' + emoji + ' selecionado! Toque no quadro para carimbar ✨');
+  if(typeof playCuteSfx === 'function') playCuteSfx('pop');
+};
+window.addCanvasSticker = window.pickDrawStamp;
+
+window.setCanvasPaperBg = function(bg, btn) {
+  currentPaperBg = bg;
+  document.querySelectorAll('.paperBtn').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  clearFreeDrawCanvas();
+  toast('Papel: ' + (bg === 'white' ? 'Branco' : bg === 'sky' ? 'Céu Encantado' : bg === 'space' ? 'Galáxia' : 'Jardim') + '! 🎨');
+  if(typeof playCuteSfx === 'function') playCuteSfx('pop');
+};
+
+window.clearFreeDrawCanvas = function() {
+  if(!freeCanvas || !freeCtx) return;
+  freeCtx.clearRect(0, 0, freeCanvas.width, freeCanvas.height);
+  if(currentPaperBg === 'white') {
+    freeCtx.fillStyle = '#ffffff';
+    freeCtx.fillRect(0, 0, freeCanvas.width, freeCanvas.height);
+  } else if(currentPaperBg === 'sky') {
+    const g = freeCtx.createLinearGradient(0, 0, 0, freeCanvas.height);
+    g.addColorStop(0, '#cceeff'); g.addColorStop(1, '#eef9ff');
+    freeCtx.fillStyle = g;
+    freeCtx.fillRect(0, 0, freeCanvas.width, freeCanvas.height);
+    freeCtx.font = '28px sans-serif';
+    freeCtx.fillText('☁️', 60, 50); freeCtx.fillText('☁️', 340, 70); freeCtx.fillText('☀️', 220, 45);
+  } else if(currentPaperBg === 'space') {
+    const g = freeCtx.createLinearGradient(0, 0, 0, freeCanvas.height);
+    g.addColorStop(0, '#0f172a'); g.addColorStop(1, '#2e1065');
+    freeCtx.fillStyle = g;
+    freeCtx.fillRect(0, 0, freeCanvas.width, freeCanvas.height);
+    freeCtx.font = '20px sans-serif';
+    freeCtx.fillText('⭐', 40, 40); freeCtx.fillText('✨', 380, 50); freeCtx.fillText('🪐', 80, 280); freeCtx.fillText('🌙', 340, 260);
+  } else if(currentPaperBg === 'garden') {
+    const g = freeCtx.createLinearGradient(0, 0, 0, freeCanvas.height);
+    g.addColorStop(0, '#dcfce7'); g.addColorStop(1, '#fef3c7');
+    freeCtx.fillStyle = g;
+    freeCtx.fillRect(0, 0, freeCanvas.width, freeCanvas.height);
+    freeCtx.font = '24px sans-serif';
+    freeCtx.fillText('🌸', 40, 310); freeCtx.fillText('🌷', 180, 315); freeCtx.fillText('🌻', 320, 310); freeCtx.fillText('🦋', 360, 60);
+  }
+  toast('Quadro limpinho! 🧼✨');
+};
+window.clearFreeDraw = window.clearFreeDrawCanvas;
+
+// Atualiza manipulador de desenho no canvas livre
+window.initFreeDrawCanvas = function() {
+  freeCanvas = document.getElementById("freeDrawCanvas");
+  if(!freeCanvas) return;
+  freeCtx = freeCanvas.getContext("2d");
+  
+  if(!freeCanvas.dataset.ready) {
+    freeCanvas.dataset.ready = "1";
+    freeCanvas.width = 600;
+    freeCanvas.height = 420;
+    clearFreeDrawCanvas();
+
+    const getPos = (e) => {
+      const rect = freeCanvas.getBoundingClientRect();
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      const cy = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: (cx - rect.left) * (freeCanvas.width / rect.width),
+        y: (cy - rect.top) * (freeCanvas.height / rect.height)
+      };
+    };
+
+    const startDraw = (e) => {
+      e.preventDefault();
+      const p = getPos(e);
+      if(currentDrawBrush === 'stamp') {
+        freeCtx.font = '36px sans-serif';
+        freeCtx.textAlign = 'center';
+        freeCtx.textBaseline = 'middle';
+        freeCtx.fillText(currentDrawStamp, p.x, p.y);
+        if(typeof playCuteSfx === 'function') playCuteSfx('pop');
+        return;
+      }
+      isPainting = true;
+      freeCtx.beginPath();
+      freeCtx.moveTo(p.x, p.y);
+      freeCtx.lineCap = "round";
+      freeCtx.lineJoin = "round";
+      if(currentDrawBrush === 'eraser') {
+        freeCtx.strokeStyle = currentPaperBg === 'space' ? '#0f172a' : (currentPaperBg === 'sky' ? '#dff2fd' : (currentPaperBg === 'garden' ? '#e5f8ee' : '#ffffff'));
+        freeCtx.lineWidth = 26;
+      } else if(currentDrawBrush === 'rainbow') {
+        rainbowHue = (rainbowHue + 15) % 360;
+        freeCtx.strokeStyle = 'hsl(' + rainbowHue + ', 90%, 55%)';
+        freeCtx.lineWidth = 10;
+      } else {
+        freeCtx.strokeStyle = currentBrushColor;
+        freeCtx.lineWidth = currentBrushSize;
+      }
+    };
+
+    const moveDraw = (e) => {
+      if(!isPainting) return;
+      e.preventDefault();
+      const p = getPos(e);
+      if(currentDrawBrush === 'rainbow') {
+        rainbowHue = (rainbowHue + 10) % 360;
+        freeCtx.strokeStyle = 'hsl(' + rainbowHue + ', 90%, 55%)';
+      } else if(currentDrawBrush === 'glitter') {
+        if(Math.random() > 0.6) {
+          freeCtx.font = '14px sans-serif';
+          freeCtx.fillText('✨', p.x + (Math.random() * 14 - 7), p.y + (Math.random() * 14 - 7));
+        }
+      }
+      freeCtx.lineTo(p.x, p.y);
+      freeCtx.stroke();
+    };
+
+    const stopDraw = () => { isPainting = false; };
+
+    freeCanvas.addEventListener("mousedown", startDraw);
+    freeCanvas.addEventListener("mousemove", moveDraw);
+    window.addEventListener("mouseup", stopDraw);
+
+    freeCanvas.addEventListener("touchstart", startDraw, { passive: false });
+    freeCanvas.addEventListener("touchmove", moveDraw, { passive: false });
+    window.addEventListener("touchend", stopDraw);
+  }
+};
+
+// --- 3. PIZZARIA, CONFEITARIA & CHEF DA ELO ---
+const CHEF_STATIONS = {
+  pizza: {
+    title: '🍕 Pizzaria Mágica da Elo',
+    baseName: 'Massa de Pizza Quentinha',
+    baseEmoji: '🍕',
+    ingredients: [
+      { id: 'molho', name: 'Molho Tomate', emoji: '🍅' },
+      { id: 'queijo', name: 'Queijo Derretido', emoji: '🧀' },
+      { id: 'manjericao', name: 'Manjericão', emoji: '🌿' },
+      { id: 'azeitona', name: 'Azeitona', emoji: '🫒' },
+      { id: 'milho', name: 'Milho Doce', emoji: '🌽' },
+      { id: 'cogumelo', name: 'Cogumelos', emoji: '🍄' },
+      { id: 'calabresa', name: 'Calabrezinha', emoji: '🥓' },
+      { id: 'abacaxi', name: 'Abacaxi', emoji: '🍍' }
+    ]
+  },
+  cake: {
+    title: '🎂 Confeitaria dos Sonhos',
+    baseName: 'Bolo de Festa da Elo',
+    baseEmoji: '🎂',
+    ingredients: [
+      { id: 'morango', name: 'Morangos', emoji: '🍓' },
+      { id: 'chocolate', name: 'Chocolate', emoji: '🍫' },
+      { id: 'chantilly', name: 'Chantilly', emoji: '🧁' },
+      { id: 'cereja', name: 'Cereja', emoji: '🍒' },
+      { id: 'confeitos', name: 'Confeitos', emoji: '✨' },
+      { id: 'vela', name: 'Velinha', emoji: '🕯️' },
+      { id: 'biscoito', name: 'Biscoitinho', emoji: '🍪' },
+      { id: 'coracao', name: 'Docinho Coração', emoji: '💖' }
+    ]
+  },
+  icecream: {
+    title: '🍨 Sorveteria Encantada',
+    baseName: 'Taça de Sorvete Gigante',
+    baseEmoji: '🍨',
+    ingredients: [
+      { id: 'baunilha', name: 'Baunilha', emoji: '🍦' },
+      { id: 'morango_s', name: 'Morango', emoji: '🍓' },
+      { id: 'chocolate_s', name: 'Chocolate', emoji: '🍫' },
+      { id: 'caramelo', name: 'Caramelo', emoji: '🍯' },
+      { id: 'cereja_s', name: 'Cereja Topo', emoji: '🍒' },
+      { id: 'jujuba', name: 'Jujubas', emoji: '🍬' },
+      { id: 'estrelinhas', name: 'Estrelinhas', emoji: '⭐' },
+      { id: 'wafer', name: 'Canudinho', emoji: '🥢' }
+    ]
+  },
+  robot: {
+    title: '🤖 Oficina de Brinquedos',
+    baseName: 'Robô Amigo da Elo',
+    baseEmoji: '🤖',
+    ingredients: [
+      { id: 'engrenagem', name: 'Engrenagem', emoji: '⚙️' },
+      { id: 'rodas', name: 'Rodinhas', emoji: '🛞' },
+      { id: 'antena', name: 'Antena', emoji: '📡' },
+      { id: 'laser', name: 'Laser Azul', emoji: '💡' },
+      { id: 'bateria', name: 'Bateria', emoji: '🔋' },
+      { id: 'coracao_r', name: 'Coração', emoji: '💖' },
+      { id: 'asas', name: 'Asinhas', emoji: '🪽' },
+      { id: 'foguete', name: 'Propulsor', emoji: '🚀' }
+    ]
+  }
+};
+
+let currentChefStationKey = 'pizza';
+let placedChefItems = [];
+
+window.selectChefStation = function(stationKey, btn) {
+  if(!CHEF_STATIONS[stationKey]) return;
+  currentChefStationKey = stationKey;
+  placedChefItems = [];
+  document.querySelectorAll('.chefStationTabs .chefTabBtn').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  renderChefStudio();
+  if(typeof playCuteSfx === 'function') playCuteSfx('pop');
+};
+
+function renderChefStudio() {
+  const root = document.getElementById('chefStudioRoot');
+  if(!root) return;
+  const s = CHEF_STATIONS[currentChefStationKey];
+  
+  root.innerHTML = (
+    '<div class="chefOrderHeader">' +
+      '<div class="chefOrderTitle">' +
+        '<span>' + s.baseEmoji + '</span>' +
+        '<div>' +
+          '<b>' + s.title + '</b>' +
+          '<small>Toque nos ingredientes para montar sua criação mágica!</small>' +
+        '</div>' +
+      '</div>' +
+      '<div class="chefReqList">' +
+        '<span class="chefReqBadge ' + (placedChefItems.length >= 1 ? 'ok' : '') + '">1. Base Pronta ✓</span>' +
+        '<span class="chefReqBadge ' + (placedChefItems.length >= 3 ? 'ok' : '') + '">2. Recheios (' + placedChefItems.length + '/3+)</span>' +
+        '<span class="chefReqBadge ' + (placedChefItems.length >= 2 ? 'ok' : '') + '">3. Entregar Pedido</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="chefStudioLayout">' +
+      '<div class="chefPlateStage">' +
+        '<div class="chefPlateCircle">' +
+          '<div class="chefBaseIcon">' + s.baseEmoji + '</div>' +
+          '<div id="chefItemsContainer">' +
+            placedChefItems.map((item) => (
+              '<span class="chefPlacedItem" style="left:' + item.x + '%;top:' + item.y + '%;font-size:32px;">' + item.emoji + '</span>'
+            )).join('') +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="chefIngredientsArea">' +
+        '<div class="chefIngredientsBar">' +
+          s.ingredients.map(ing => (
+            '<button class="chefIngBtn" onclick="addChefIngredient(\'' + ing.id + '\', \'' + ing.emoji + '\', \'' + ing.name + '\')">' +
+              '<span>' + ing.emoji + '</span>' +
+              '<small>' + ing.name + '</small>' +
+            '</button>'
+          )).join('') +
+        '</div>' +
+        '<div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap;">' +
+          '<button class="btn" style="background:#00d288;font-weight:900;" onclick="deliverChefOrder()">✨ Entregar para a Elo! (+2 ⭐)</button>' +
+          '<button class="btn secondary" onclick="clearChefPlate()">Limpar Prato</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+window.addChefIngredient = function(id, emoji, name) {
+  if(placedChefItems.length >= 16) {
+    toast('O prato já está bem recheado e caprichado! 😋');
+    return;
+  }
+  const angle = Math.random() * Math.PI * 2;
+  const dist = 10 + Math.random() * 32;
+  const x = 50 + Math.cos(angle) * dist;
+  const y = 50 + Math.sin(angle) * dist;
+  placedChefItems.push({ id, emoji, name, x, y });
+  renderChefStudio();
+  if(typeof playCuteSfx === 'function') playCuteSfx('coin');
+  toast('Adicionou ' + name + '! ' + emoji);
+};
+
+window.clearChefPlate = function() {
+  placedChefItems = [];
+  renderChefStudio();
+  toast('Prato limpinho para começar de novo! 🧼');
+};
+
+window.deliverChefOrder = function() {
+  if(placedChefItems.length < 2) {
+    toast('Coloque pelo menos 2 ingredientes antes de entregar! 👩‍🍳');
+    if(typeof playCuteSfx === 'function') playCuteSfx('wrong');
+    return;
+  }
+  if(typeof playCuteSfx === 'function') playCuteSfx('win');
+  if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
+  if(typeof addStars === 'function') addStars(2, 'Receita deliciosa entregue com sucesso! +2 ⭐');
+  toast('Que delícia! A Elo amou o seu pedido! 😋⭐');
+  setTimeout(() => {
+    placedChefItems = [];
+    renderChefStudio();
+  }, 1200);
+};
+
+// --- 4. CONSULTÓRIO DA ELO (CURATIVOS E FINALIZAÇÃO) ---
+let currentBandageStyle = '🦄';
+
+window.selectBandageStyle = function(emoji, btn) {
+  currentBandageStyle = emoji;
+  document.querySelectorAll('.bandageChoiceRow .bandageChoiceBtn').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  toast('Curativo ' + emoji + ' escolhido! Toque no arranhão para colar! 🩹');
+  if(typeof playCuteSfx === 'function') playCuteSfx('pop');
+};
+
+window.finishBandages = function() {
+  const spot = document.getElementById('scrapeSpot1');
+  const fb = document.getElementById('scrapeFeedback');
+  if(spot) {
+    spot.classList.add('healed');
+    spot.textContent = currentBandageStyle;
+  }
+  if(fb) fb.innerHTML = '<b>Parabéns! O machucado sarou completamente com o curativo ' + currentBandageStyle + '! 💖</b>';
+  if(typeof playCuteSfx === 'function') playCuteSfx('win');
+  if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
+  if(typeof addStars === 'function') addStars(2, 'Curativo feito com muito carinho! +2 ⭐');
+  toast('Sarou tudo! A Elo está pronta para correr e brincar! 🎉');
+  setTimeout(() => {
+    if(spot) {
+      spot.classList.remove('healed');
+      spot.textContent = '🩹';
+    }
+    if(fb) fb.textContent = 'Toque no curativo para cuidar!';
+  }, 2400);
+};
+
+// Atualiza isAnyModalOpen e appBack para fechar todos os modais perfeitamente
+const origIsAnyModalOpen = isAnyModalOpen;
+isAnyModalOpen = function() {
+  const ids = ['gameModal', 'coloringModal', 'rpgOverlay', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'modelStudioModal', 'stickersModal', 'sleepModeOverlay', 'rewardVideoOverlay', 'profileModal', 'parentPinModal', 'exitConfirm'];
+  return ids.some(id => {
+    const el = document.getElementById(id);
+    return el && !el.classList.contains('hidden');
+  });
+};
+
+const origAppBack = appBack;
+appBack = function() {
+  if(!document.getElementById('modelStudioModal')?.classList.contains('hidden')){ closeModelStudio(); return; }
+  if(!document.getElementById('stickersModal')?.classList.contains('hidden')){ closeStickersAlbum(); return; }
+  if(!document.getElementById('sleepModeOverlay')?.classList.contains('hidden')){ toggleSleepMode(false); return; }
+  origAppBack();
+};
+
+// Inicialização segura das áreas ao carregar
+window.addEventListener('DOMContentLoaded', () => {
+  try { renderPianoKeys(); } catch(_) {}
+  try { renderChefStudio(); } catch(_) {}
+  try { initTeethStage(); } catch(_) {}
+});

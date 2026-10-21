@@ -5,7 +5,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.3.3-r40";
+    var TARGET_VER = "4.3.4-r40";
     localStorage.removeItem("elo_force_landscape_90");
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
@@ -37,10 +37,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800;900&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4.3.3">
-<link rel="stylesheet" href="v3.css?v=4.3.3">
-<link rel="stylesheet" href="polish.css?v=4.3.3">
-<link rel="stylesheet" href="games-v350.css?v=4.3.3">
+<link rel="stylesheet" href="styles.css?v=4.3.4">
+<link rel="stylesheet" href="v3.css?v=4.3.4">
+<link rel="stylesheet" href="polish.css?v=4.3.4">
+<link rel="stylesheet" href="games-v350.css?v=4.3.4">
+<link rel="stylesheet" href="landscape.css?v=4.3.4">
 </head>
 <body>
 
@@ -211,7 +212,7 @@
     </div>
   </div>
 
-  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.1</span></div>
+  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.4</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -308,15 +309,18 @@
 
   <!-- Card Interativo da Atividade (Letras, Matemática, Natureza) -->
   <div id="schoolQuizCard" class="schoolActivityCard">
-    <div class="schoolActivityHead">
-      <button class="schoolSpeakerBtn" onclick="speakCurrentSchoolPrompt()" aria-label="Ouvir instrução">
-        <span>🔊</span> Ouvir a Elo
-      </button>
-      <div id="schoolRoundCounter" class="schoolRoundBadge">Desafio 1/6</div>
+    <div class="schoolQuizLayoutLandscape">
+      <div class="schoolQuizInfoCol">
+        <div class="schoolActivityHead">
+          <button class="schoolSpeakerBtn" onclick="speakCurrentSchoolPrompt()" aria-label="Ouvir instrução">
+            <span>🔊</span> Ouvir a Elo
+          </button>
+          <div id="schoolRoundCounter" class="schoolRoundBadge">Desafio 1/8</div>
+        </div>
+        <h3 id="schoolQuestionTitle" class="schoolQuestionTitle">Carregando atividade...</h3>
+      </div>
+      <div id="schoolOptionsGrid" class="schoolOptionsGrid"></div>
     </div>
-
-    <h3 id="schoolQuestionTitle" class="schoolQuestionTitle">Carregando atividade...</h3>
-    <div id="schoolOptionsGrid" class="schoolOptionsGrid"></div>
   </div>
 
   <!-- Card do Piano Mágico & Músicas Guiadas -->
@@ -337,29 +341,30 @@
     </div>
     <div id="pianoSongGuide" class="pianoSongGuide">Toque nas teclas coloridas para fazer música! 🎶</div>
     <div id="pianoKeysRow" class="pianoKeysRow"></div>
-    <div class="animalSoundBar">
-      <small style="font-weight:900;color:#675883;">🐾 Sons Divertidos:</small>
-      <button class="soundPadBtn" onclick="playAnimalSynth('cat')">🐱 Miau</button>
-      <button class="soundPadBtn" onclick="playAnimalSynth('dog')">🐶 Au Au</button>
-      <button class="soundPadBtn" onclick="playAnimalSynth('duck')">🦆 Quá</button>
-      <button class="soundPadBtn" onclick="playAnimalSynth('frog')">🐸 Coaxar</button>
-      <button class="soundPadBtn" onclick="playAnimalSynth('bird')">🐦 Piu</button>
-    </div>
-
-    <!-- Mesa de Som & Bateria DJ da Elo -->
-    <div class="djStationWrap">
-      <div class="djHeader">
-        <div>
-          <h4>🎧 Mesa de DJ & Bateria Pop</h4>
-          <small style="opacity:0.9;">Toque os instrumentos ou ligue o Beat para a Elo dançar!</small>
-        </div>
-        <button id="djBeatToggleBtn" class="djBeatLoopBtn" onclick="toggleDJBeatLoop()">▶ Ligar Beat</button>
+    <div class="musicBottomRowLandscape">
+      <div class="animalSoundBar">
+        <small style="font-weight:900;color:#675883;">🐾 Sons:</small>
+        <button class="soundPadBtn" onclick="playAnimalSynth('cat')">🐱 Miau</button>
+        <button class="soundPadBtn" onclick="playAnimalSynth('dog')">🐶 Au Au</button>
+        <button class="soundPadBtn" onclick="playAnimalSynth('duck')">🦆 Quá</button>
+        <button class="soundPadBtn" onclick="playAnimalSynth('frog')">🐸 Coaxar</button>
+        <button class="soundPadBtn" onclick="playAnimalSynth('bird')">🐦 Piu</button>
       </div>
-      <div class="djPadsGrid">
-        <button class="djPadBtn" style="--pad-color:#ef4444" onpointerdown="playDJPad('kick')"><span>🥁</span><b>Bumbo</b></button>
-        <button class="djPadBtn" style="--pad-color:#f59e0b" onpointerdown="playDJPad('snare')"><span>💥</span><b>Caixa</b></button>
-        <button class="djPadBtn" style="--pad-color:#06b6d4" onpointerdown="playDJPad('hat')"><span>🔔</span><b>Prato</b></button>
-        <button class="djPadBtn" style="--pad-color:#ec4899" onpointerdown="playDJPad('clap')"><span>👏</span><b>Palmas</b></button>
+
+      <div class="djStationWrap">
+        <div class="djHeader">
+          <div>
+            <h4>🎧 Mesa de DJ</h4>
+            <small style="opacity:0.9;">Toque os instrumentos ou ligue o Beat!</small>
+          </div>
+          <button id="djBeatToggleBtn" class="djBeatLoopBtn" onclick="toggleDJBeatLoop()">▶ Ligar Beat</button>
+        </div>
+        <div class="djPadsGrid">
+          <button class="djPadBtn" style="--pad-color:#ef4444" onpointerdown="playDJPad('kick')"><span>🥁</span><b>Bumbo</b></button>
+          <button class="djPadBtn" style="--pad-color:#f59e0b" onpointerdown="playDJPad('snare')"><span>💥</span><b>Caixa</b></button>
+          <button class="djPadBtn" style="--pad-color:#06b6d4" onpointerdown="playDJPad('hat')"><span>🔔</span><b>Prato</b></button>
+          <button class="djPadBtn" style="--pad-color:#ec4899" onpointerdown="playDJPad('clap')"><span>👏</span><b>Palmas</b></button>
+        </div>
       </div>
     </div>
   </div>
@@ -397,58 +402,59 @@
 
   <!-- Modo 1: Desenho Livre com Pincel Mágico -->
   <div id="freeDrawSection" class="freeDrawWrap">
-    <div class="drawingToolsBar">
-      <div class="toolColors">
-        <button class="colorPick on" style="background:#ff3377" onclick="setDrawColor('#ff3377', this)" aria-label="Rosa"></button>
-        <button class="colorPick" style="background:#ff8800" onclick="setDrawColor('#ff8800', this)" aria-label="Laranja"></button>
-        <button class="colorPick" style="background:#ffbb00" onclick="setDrawColor('#ffbb00', this)" aria-label="Amarelo"></button>
-        <button class="colorPick" style="background:#00d288" onclick="setDrawColor('#00d288', this)" aria-label="Verde"></button>
-        <button class="colorPick" style="background:#00b4d8" onclick="setDrawColor('#00b4d8', this)" aria-label="Azul"></button>
-        <button class="colorPick" style="background:#8b5cf6" onclick="setDrawColor('#8b5cf6', this)" aria-label="Roxo"></button>
-        <button class="colorPick" style="background:#22223b" onclick="setDrawColor('#22223b', this)" aria-label="Preto"></button>
+    <div class="freeDrawLayoutLandscape">
+      <div class="freeCanvasContainer">
+        <canvas id="freeDrawCanvas" width="600" height="420"></canvas>
       </div>
 
-      <div class="toolBrushes">
-        <button class="toolBtn on" onclick="setDrawBrush('pen', this)" title="Lápis">✏️</button>
-        <button class="toolBtn" onclick="setDrawBrush('brush', this)" title="Pincel Macio">🖌️</button>
-        <button class="toolBtn" onclick="setDrawBrush('rainbow', this)" title="Pincel Arco-íris">🌈</button>
-        <button class="toolBtn" onclick="setDrawBrush('glitter', this)" title="Pincel Brilho Estelar">✨</button>
-        <button class="toolBtn" onclick="setDrawBrush('stamp', this)" title="Carimbos">🦄</button>
-        <button class="toolBtn" onclick="setDrawBrush('eraser', this)" title="Borracha">🧼</button>
-        <button class="toolBtn clear" onclick="clearFreeDrawCanvas()" title="Limpar tudo">🗑️</button>
-      </div>
-    </div>
+      <div class="freeDrawToolsColLandscape">
+        <div class="drawingToolsBar">
+          <div class="toolColors">
+            <button class="colorPick on" style="background:#ff3377" onclick="setDrawColor('#ff3377', this)" aria-label="Rosa"></button>
+            <button class="colorPick" style="background:#ff8800" onclick="setDrawColor('#ff8800', this)" aria-label="Laranja"></button>
+            <button class="colorPick" style="background:#ffbb00" onclick="setDrawColor('#ffbb00', this)" aria-label="Amarelo"></button>
+            <button class="colorPick" style="background:#00d288" onclick="setDrawColor('#00d288', this)" aria-label="Verde"></button>
+            <button class="colorPick" style="background:#00b4d8" onclick="setDrawColor('#00b4d8', this)" aria-label="Azul"></button>
+            <button class="colorPick" style="background:#8b5cf6" onclick="setDrawColor('#8b5cf6', this)" aria-label="Roxo"></button>
+            <button class="colorPick" style="background:#22223b" onclick="setDrawColor('#22223b', this)" aria-label="Preto"></button>
+          </div>
 
-    <!-- Barra de Carimbos e Cenários de Fundo -->
-    <div class="stampAndPaperBar">
-      <div class="stampPickerRow">
-        <small>Carimbos:</small>
-        <button class="stampPickBtn on" onclick="pickDrawStamp('⭐', this)">⭐</button>
-        <button class="stampPickBtn" onclick="pickDrawStamp('💖', this)">💖</button>
-        <button class="stampPickBtn" onclick="pickDrawStamp('🦄', this)">🦄</button>
-        <button class="stampPickBtn" onclick="pickDrawStamp('🦋', this)">🦋</button>
-        <button class="stampPickBtn" onclick="pickDrawStamp('🌈', this)">🌈</button>
-        <button class="stampPickBtn" onclick="pickDrawStamp('👑', this)">👑</button>
-        <button class="stampPickBtn" onclick="pickDrawStamp('🐱', this)">🐱</button>
-        <button class="stampPickBtn" onclick="pickDrawStamp('🚀', this)">🚀</button>
-      </div>
-      <div class="paperBgRow">
-        <small>Papel:</small>
-        <button class="paperBtn on" onclick="setCanvasPaperBg('white', this)">⬜ Branco</button>
-        <button class="paperBtn" onclick="setCanvasPaperBg('sky', this)">🌤️ Céu</button>
-        <button class="paperBtn" onclick="setCanvasPaperBg('space', this)">🌌 Galáxia</button>
-        <button class="paperBtn" onclick="setCanvasPaperBg('garden', this)">🌸 Jardim</button>
-      </div>
-    </div>
+          <div class="toolBrushes">
+            <button class="toolBtn on" onclick="setDrawBrush('pen', this)" title="Lápis">✏️</button>
+            <button class="toolBtn" onclick="setDrawBrush('brush', this)" title="Pincel Macio">🖌️</button>
+            <button class="toolBtn" onclick="setDrawBrush('rainbow', this)" title="Pincel Arco-íris">🌈</button>
+            <button class="toolBtn" onclick="setDrawBrush('glitter', this)" title="Pincel Brilho Estelar">✨</button>
+            <button class="toolBtn" onclick="setDrawBrush('stamp', this)" title="Carimbos">🦄</button>
+            <button class="toolBtn" onclick="setDrawBrush('eraser', this)" title="Borracha">🧼</button>
+            <button class="toolBtn clear" onclick="clearFreeDrawCanvas()" title="Limpar tudo">🗑️</button>
+          </div>
+        </div>
 
-    <!-- Canvas de Pintura Livre -->
-    <div class="freeCanvasContainer">
-      <canvas id="freeDrawCanvas" width="600" height="420"></canvas>
-    </div>
+        <div class="stampAndPaperBar">
+          <div class="stampPickerRow">
+            <small>Carimbos:</small>
+            <button class="stampPickBtn on" onclick="pickDrawStamp('⭐', this)">⭐</button>
+            <button class="stampPickBtn" onclick="pickDrawStamp('💖', this)">💖</button>
+            <button class="stampPickBtn" onclick="pickDrawStamp('🦄', this)">🦄</button>
+            <button class="stampPickBtn" onclick="pickDrawStamp('🦋', this)">🦋</button>
+            <button class="stampPickBtn" onclick="pickDrawStamp('🌈', this)">🌈</button>
+            <button class="stampPickBtn" onclick="pickDrawStamp('👑', this)">👑</button>
+            <button class="stampPickBtn" onclick="pickDrawStamp('🐱', this)">🐱</button>
+            <button class="stampPickBtn" onclick="pickDrawStamp('🚀', this)">🚀</button>
+          </div>
+          <div class="paperBgRow">
+            <small>Papel:</small>
+            <button class="paperBtn on" onclick="setCanvasPaperBg('white', this)">⬜ Branco</button>
+            <button class="paperBtn" onclick="setCanvasPaperBg('sky', this)">🌤️ Céu</button>
+            <button class="paperBtn" onclick="setCanvasPaperBg('space', this)">🌌 Galáxia</button>
+            <button class="paperBtn" onclick="setCanvasPaperBg('garden', this)">🌸 Jardim</button>
+          </div>
+        </div>
 
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px;flex-wrap:wrap;">
-      <button class="btn" style="background:linear-gradient(135deg,#ff6fae,#8f56e8)" onclick="saveFreeDrawArt()">💾 Salvar Obra de Arte (+2 ⭐)</button>
-      <span style="font-size:12px;color:var(--muted);">Dica: experimente o pincel 🌈 Arco-íris e os carimbos!</span>
+        <div style="display:flex;gap:6px;flex-direction:column;margin-top:4px;">
+          <button class="btn" style="background:linear-gradient(135deg,#ff6fae,#8f56e8);width:100%;" onclick="saveFreeDrawArt()">💾 Salvar Obra (+2 ⭐)</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -473,28 +479,29 @@
   <!-- Modo 4: Estúdio de Fotos (Elo + Pet) -->
   <div id="photoSection" class="card hidden">
     <h3>📸 Estúdio de Fotos da Elo & Bichinho</h3>
-    <p class="muted">Tire uma foto oficial da Elo com a roupa atual dela e o Bichinho, escolha molduras e salve a imagem para mandar no WhatsApp ou guardar!</p>
-    <div class="photoCanvasCard">
-      <canvas id="photoStudioCanvas" width="600" height="440"></canvas>
-    </div>
-    <div class="photoStudioTools">
-      <small style="font-weight:900;color:#675883;">Cenário de Fundo:</small>
-      <div class="photoPillsRow">
-        <button class="photoPillBtn on" onclick="setPhotoScene('castle', this)">🏰 Castelo</button>
-        <button class="photoPillBtn" onclick="setPhotoScene('forest', this)">🦄 Floresta</button>
-        <button class="photoPillBtn" onclick="setPhotoScene('beach', this)">🏖️ Praia</button>
-        <button class="photoPillBtn" onclick="setPhotoScene('space', this)">🌌 Galáxia</button>
-        <button class="photoPillBtn" onclick="setPhotoScene('rainbow', this)">🌈 Arco-íris</button>
+    <div class="photoLayoutLandscape">
+      <div class="photoCanvasCard">
+        <canvas id="photoStudioCanvas" width="600" height="440"></canvas>
       </div>
-      <small style="font-weight:900;color:#675883;margin-top:6px;">Moldura Mágica:</small>
-      <div class="photoPillsRow">
-        <button class="photoPillBtn on" onclick="setPhotoFrame('pink', this)">🎀 Princesa</button>
-        <button class="photoPillBtn" onclick="setPhotoFrame('gold', this)">⭐ Estrelas Ouro</button>
-        <button class="photoPillBtn" onclick="setPhotoFrame('party', this)">🎉 Festa Colorida</button>
-      </div>
-      <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;">
-        <button class="btn" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)" onclick="savePhotoStudioArt()">💾 Baixar Foto da Elo & Pet (+2 ⭐)</button>
-        <button class="btn secondary" onclick="renderPhotoStudio()">↻ Atualizar Foto</button>
+      <div class="photoStudioTools">
+        <small style="font-weight:900;color:#675883;">Cenário de Fundo:</small>
+        <div class="photoPillsRow">
+          <button class="photoPillBtn on" onclick="setPhotoScene('castle', this)">🏰 Castelo</button>
+          <button class="photoPillBtn" onclick="setPhotoScene('forest', this)">🦄 Floresta</button>
+          <button class="photoPillBtn" onclick="setPhotoScene('beach', this)">🏖️ Praia</button>
+          <button class="photoPillBtn" onclick="setPhotoScene('space', this)">🌌 Galáxia</button>
+          <button class="photoPillBtn" onclick="setPhotoScene('rainbow', this)">🌈 Arco-íris</button>
+        </div>
+        <small style="font-weight:900;color:#675883;margin-top:4px;">Moldura Mágica:</small>
+        <div class="photoPillsRow">
+          <button class="photoPillBtn on" onclick="setPhotoFrame('pink', this)">🎀 Princesa</button>
+          <button class="photoPillBtn" onclick="setPhotoFrame('gold', this)">⭐ Estrelas Ouro</button>
+          <button class="photoPillBtn" onclick="setPhotoFrame('party', this)">🎉 Festa Colorida</button>
+        </div>
+        <div style="display:flex;gap:6px;justify-content:center;margin-top:6px;flex-direction:column;">
+          <button class="btn" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)" onclick="savePhotoStudioArt()">💾 Baixar Foto (+2 ⭐)</button>
+          <button class="btn secondary" onclick="renderPhotoStudio()">↻ Atualizar Foto</button>
+        </div>
       </div>
     </div>
   </div>
@@ -551,20 +558,21 @@
     <button class="cSwitchBtn" onclick="openPet()">🐾 Bichinho</button>
   </div>
   <div class="roomIntro"><div><small>MEU CANTINHO</small><h3>Decore do seu jeito</h3><p>Itens novos aparecem conforme você brinca, aprende e explora. Toque nos móveis e objetos para ver a Elo reagir.</p></div><button onclick="eloGuideSay('Este é o meu quarto! Toque nas opções abaixo para decorar do seu jeito.')">🔊</button></div>
-  <div id="eloRoom" class="eloRoom room-premium">
-    <div class="roomCeilingGlow"></div>
-    <div class="roomWindow roomInteractive" role="button" tabindex="0" aria-label="Janela do quarto" onclick="roomInteract('window')"><div class="windowSky"><i></i><i></i></div><div class="curtain left"></div><div class="curtain right"></div></div>
-    <div class="roomWallArt art-rainbow roomInteractive" role="button" tabindex="0" aria-label="Quadro do quarto" onclick="roomInteract('art')"></div>
-    <div class="roomShelf roomInteractive" role="button" tabindex="0" aria-label="Prateleira do quarto" onclick="roomInteract('shelf')"><i></i><i></i><i></i><i></i></div>
-    <div class="roomWardrobe roomInteractive" role="button" tabindex="0" aria-label="Abrir guarda-roupa" onclick="roomInteract('wardrobe')"><span></span><span></span></div>
-    <div class="roomBed bed-pink roomInteractive" role="button" tabindex="0" aria-label="Cama da Elo" onclick="roomInteract('bed')"><div class="head"></div><div class="pillow"></div><div class="blanket"></div><div class="bedLeg l"></div><div class="bedLeg r"></div></div>
-    <div class="roomDesk"><div class="lamp"></div><div class="book"></div></div>
-    <div class="roomRug rug-heart"></div>
-    <div class="roomToy toy-unicorn roomInteractive" role="button" tabindex="0" aria-label="Brinquedo do quarto" onclick="roomInteract('toy')"></div>
-    <button class="roomEloSpot" onclick="eloGuideSay('Meu quarto ficou lindo! Você pode trocar a parede, o quadro, o tapete, a cama e os brinquedos — e também tirar itens se quiser.')" aria-label="Elo no quarto"><div id="roomEloMount"></div></button>
+  <div class="roomLayoutLandscape">
+    <div id="eloRoom" class="eloRoom room-premium">
+      <div class="roomCeilingGlow"></div>
+      <div class="roomWindow roomInteractive" role="button" tabindex="0" aria-label="Janela do quarto" onclick="roomInteract('window')"><div class="windowSky"><i></i><i></i></div><div class="curtain left"></div><div class="curtain right"></div></div>
+      <div class="roomWallArt art-rainbow roomInteractive" role="button" tabindex="0" aria-label="Quadro do quarto" onclick="roomInteract('art')"></div>
+      <div class="roomShelf roomInteractive" role="button" tabindex="0" aria-label="Prateleira do quarto" onclick="roomInteract('shelf')"><i></i><i></i><i></i><i></i></div>
+      <div class="roomWardrobe roomInteractive" role="button" tabindex="0" aria-label="Abrir guarda-roupa" onclick="roomInteract('wardrobe')"><span></span><span></span></div>
+      <div class="roomBed bed-pink roomInteractive" role="button" tabindex="0" aria-label="Cama da Elo" onclick="roomInteract('bed')"><div class="head"></div><div class="pillow"></div><div class="blanket"></div><div class="bedLeg l"></div><div class="bedLeg r"></div></div>
+      <div class="roomDesk"><div class="lamp"></div><div class="book"></div></div>
+      <div class="roomRug rug-heart"></div>
+      <div class="roomToy toy-unicorn roomInteractive" role="button" tabindex="0" aria-label="Brinquedo do quarto" onclick="roomInteract('toy')"></div>
+      <button class="roomEloSpot" onclick="eloGuideSay('Meu quarto ficou lindo! Toque nos móveis para me ver brincar!')" aria-label="Elo no quarto"><div id="roomEloMount"></div></button>
+    </div>
+    <div class="roomControlDock"><div class="roomControlHead"><b>Decorar ✨</b><div class="roomHeadActions"><button class="smallBtn" onclick="openPet()">🐾 Bichinho</button><button class="smallBtn" onclick="openPanel('wardrobePanel','home')">👗 Vestir Elo</button></div></div><div id="roomDecorTabs" class="roomDecorTabs"></div><div id="roomDecorGrid" class="decorGrid decorGridCompact"></div></div>
   </div>
-  <div class="roomPlayHint">✨ Dica: toque na janela, cama, brinquedo, quadro, prateleira e guarda-roupa.</div>
-  <div class="roomControlDock"><div class="roomControlHead"><b>Decorar ✨</b><div class="roomHeadActions"><button class="smallBtn" onclick="openPet()">🐾 Bichinho</button><button class="smallBtn" onclick="openPanel('wardrobePanel','home')">👗 Vestir Elo</button></div></div><div id="roomDecorTabs" class="roomDecorTabs"></div><div id="roomDecorGrid" class="decorGrid decorGridCompact"></div></div>
 </section>
 
 <section id="wardrobePanel" class="panel">
@@ -574,14 +582,16 @@
     <button class="cSwitchBtn on" onclick="openPanel('wardrobePanel','home')">👗 Guarda-roupa</button>
     <button class="cSwitchBtn" onclick="openPet()">🐾 Bichinho</button>
   </div>
-  <div class="wardrobeStudio">
-    <div class="wardrobeStage">
-      <div id="wardrobeElo" class="eloDoll" aria-label="Elo com o visual escolhido"><span class="dollHairBack"></span><span class="dollHead"><i class="eye e1"></i><i class="eye e2"></i><i class="mouth"></i><i class="blush bl1"></i><i class="blush bl2"></i></span><span class="dollHairFront"></span><span class="dollBow"></span><span class="dollNecklace"></span><span class="dollBody"><i class="dollTop"></i><i class="dollBottom"></i><i class="dollDress"></i><i class="arm a1"></i><i class="arm a2"></i></span><span class="leg l1"></span><span class="leg l2"></span><span class="shoe sh1"></span><span class="shoe sh2"></span><span class="dollBracelet"></span><span class="dollRing"></span><span class="dollEarring er1"></span><span class="dollEarring er2"></span></div>
-      <div class="wardrobeMirrorGlow"></div>
+  <div class="wardrobeLayoutLandscape">
+    <div class="wardrobeStudio">
+      <div class="wardrobeStage">
+        <div id="wardrobeElo" class="eloDoll" aria-label="Elo com o visual escolhido"><span class="dollHairBack"></span><span class="dollHead"><i class="eye e1"></i><i class="eye e2"></i><i class="mouth"></i><i class="blush bl1"></i><i class="blush bl2"></i></span><span class="dollHairFront"></span><span class="dollBow"></span><span class="dollNecklace"></span><span class="dollBody"><i class="dollTop"></i><i class="dollBottom"></i><i class="dollDress"></i><i class="arm a1"></i><i class="arm a2"></i></span><span class="leg l1"></span><span class="leg l2"></span><span class="shoe sh1"></span><span class="shoe sh2"></span><span class="dollBracelet"></span><span class="dollRing"></span><span class="dollEarring er1"></span><span class="dollEarring er2"></span></div>
+        <div class="wardrobeMirrorGlow"></div>
+      </div>
+      <div class="wardrobeInfo"><small>MEU LOOK</small><b id="wardrobeName">Look da Elo</b><button class="smallBtn" onclick="resetV3Wardrobe()">↻ Original</button></div>
     </div>
-    <div class="wardrobeInfo"><small>MEU LOOK</small><b id="wardrobeName">Look da Elo</b><span>Combine roupas, acessórios e maquiagem.</span><button class="smallBtn" onclick="resetV3Wardrobe()">↻ Look original</button></div>
+    <div class="wardrobeControlDock"><div class="wardrobeDockLabel"><b>Looks prontos</b><small>Peça por peça</small></div><div id="wardrobePresets" class="wardrobePresets"></div><div id="wardrobeTabs" class="wardrobeTabs"></div><div id="wardrobeGrid" class="wardrobeGrid wardrobeGrid302"></div></div>
   </div>
-  <div class="wardrobeControlDock"><div class="wardrobeDockLabel"><b>Looks prontos</b><small>Ou monte peça por peça</small></div><div id="wardrobePresets" class="wardrobePresets"></div><div id="wardrobeTabs" class="wardrobeTabs"></div><div id="wardrobeGrid" class="wardrobeGrid wardrobeGrid302"></div></div>
 </section>
 <section id="creativePanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Brincadeiras de Criar ✨</h2></div>
@@ -598,25 +608,27 @@
     <button class="cSwitchBtn on" onclick="openPet()">🐾 Bichinho</button>
   </div>
   <div class="petIntro"><div><small>MEU COMPANHEIRO</small><h3>Um bichinho virtual para cuidar</h3><p>Ele cresce com carinho e brincadeiras. Não morre e não perde progresso se você ficar um tempo sem entrar.</p></div><button class="smallBtn" onclick="petSpeakStatus()">🔊</button></div>
-  <div class="petDevice">
-    <div class="petDeviceTop"><span id="petStageLabel">Ovinho</span><b id="petNameLabel">Ovinho misterioso</b><button id="petRenameBtn" class="petMiniBtn" onclick="renamePet()">✏️</button></div>
-    <div class="petScreen">
-      <div class="petScreenBg"><i></i><i></i><i></i></div>
-      <div id="petEgg" class="petEgg"><span></span></div>
-      <div id="petCreature" class="petCreature hidden">
-        <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
-        <span class="petBody"></span><span class="petHead"><i class="petEye e1"></i><i class="petEye e2"></i><i class="petMouth"></i><i class="petCheek c1"></i><i class="petCheek c2"></i></span>
-        <span id="petAccessory" class="petAccessory"></span>
+  <div class="petLayoutLandscape">
+    <div class="petDevice">
+      <div class="petDeviceTop"><span id="petStageLabel">Ovinho</span><b id="petNameLabel">Ovinho misterioso</b><button id="petRenameBtn" class="petMiniBtn" onclick="renamePet()">✏️</button></div>
+      <div class="petScreen">
+        <div class="petScreenBg"><i></i><i></i><i></i></div>
+        <div id="petEgg" class="petEgg"><span></span></div>
+        <div id="petCreature" class="petCreature hidden">
+          <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
+          <span class="petBody"></span><span class="petHead"><i class="petEye e1"></i><i class="petEye e2"></i><i class="petMouth"></i><i class="petCheek c1"></i><i class="petCheek c2"></i></span>
+          <span id="petAccessory" class="petAccessory"></span>
+        </div>
+        <div id="petStats" class="petStats hidden" aria-label="Necessidades do bichinho"></div>
+        <div id="petActionFx" class="petActionFx" aria-hidden="true"></div>
+        <div id="petBubble" class="petBubble">Cuide do ovo para descobrir quem vai nascer! 💗</div>
       </div>
-      <div id="petStats" class="petStats hidden" aria-label="Necessidades do bichinho"></div>
-      <div id="petActionFx" class="petActionFx" aria-hidden="true"></div>
-      <div id="petBubble" class="petBubble">Cuide do ovo para descobrir quem vai nascer! 💗</div>
+      <div id="petEggControls" class="petEggControls">
+        <div class="eggProgress"><b id="eggCareText">0/5 cuidados</b><div><i id="eggCareBar"></i></div></div>
+        <button id="eggCareButton" class="petAction primary" onclick="careForEgg()"><span>💗</span><b>Cuidar do ovo</b><small id="eggCooldownText">Aquecer e fazer carinho</small></button>
+      </div>
     </div>
-    <div id="petEggControls" class="petEggControls">
-      <div class="eggProgress"><b id="eggCareText">0/5 cuidados</b><div><i id="eggCareBar"></i></div></div>
-      <button id="eggCareButton" class="petAction primary" onclick="careForEgg()"><span>💗</span><b>Cuidar do ovo</b><small id="eggCooldownText">Aquecer e fazer carinho</small></button>
-    </div>
-    <div id="petCareArea" class="hidden">
+    <div id="petCareArea" class="petCareAreaLandscape hidden">
       <div id="petGrade" class="petGrade">📚 Nota: 8,0</div>
       <div class="petActions">
         <button data-pet-action="feed" onclick="petAction('feed')"><span>🥣</span><b>Comida</b><small>Fome</small></button>
@@ -630,7 +642,7 @@
       <div id="petCareCooldown" class="petCareCooldown">Pronto para cuidar 💗</div>
       <div class="petActionHelper"><button id="petResetBtn" class="smallBtn petResetBtn" onclick="resetPetProgress()">🥚 Recomeçar do ovo</button></div>
       <div class="petGrowth"><div><b id="petGrowthText">Crescimento</b><small id="petGrowthSub">Cada cuidado ajuda seu amigo a crescer.</small></div><div class="petGrowthBar"><i id="petGrowthBar"></i></div></div>
-      <button id="petAscensionBtn" class="btn hidden" style="width:100%;margin:10px 0;background:linear-gradient(135deg,#ffd554,#ff72b1);font-weight:900" onclick="startPetAscension()">✨ Realizar Jornada das Estrelas (+25 ⭐)</button>
+      <button id="petAscensionBtn" class="btn hidden" style="width:100%;margin:6px 0;background:linear-gradient(135deg,#ffd554,#ff72b1);font-weight:900" onclick="startPetAscension()">✨ Realizar Jornada das Estrelas (+25 ⭐)</button>
       <div class="petAccessories"><b>Acessórios</b><div id="petAccessoryGrid"></div></div>
     </div>
   </div>
@@ -671,54 +683,65 @@
   <!-- Atividade 1: Escovar Dentes com Espuma Interativa -->
   <div id="careTeethStage" class="careStageWrap">
     <h3>Passe a escova em todos os dentinhos! 🪥</h3>
-    <p class="muted">Toque e deslize nos dentes amarelinhos para fazer espuma até ficarem branquinhos e brilhantes!</p>
-    <div id="teethMouthBox" class="teethMouthStage">
-      <div class="teethRowUpper" id="teethRowUpper"></div>
-      <div class="teethRowLower" id="teethRowLower"></div>
+    <div class="careStageLayoutLandscape">
+      <div id="teethMouthBox" class="teethMouthStage">
+        <div class="teethRowUpper" id="teethRowUpper"></div>
+        <div class="teethRowLower" id="teethRowLower"></div>
+      </div>
+      <div style="flex:1 1 50%;text-align:center;">
+        <p class="muted" style="margin:4px 0;">Toque nos dentinhos amarelinhos para fazer espuma até ficarem limpinhos!</p>
+        <div id="teethProgressText" style="font-weight:900;color:#0284c7;font-size:15px;margin:8px 0;">0/8 dentes escovados ✨</div>
+        <button class="btn" style="background:#00d288;width:100%;" onclick="finishBrushingTeeth()">✨ Terminei de Escovar! (+2 ⭐)</button>
+      </div>
     </div>
-    <div id="teethProgressText" style="font-weight:900;color:#0284c7;font-size:15px;margin:8px 0;">0/8 dentes escovados ✨</div>
-    <button class="btn" style="background:#00d288" onclick="finishBrushingTeeth()">✨ Terminei de Escovar! (+2 ⭐)</button>
   </div>
 
   <!-- Atividade 2: Curativos Mágicos -->
   <div id="careBandageStage" class="careStageWrap hidden">
     <h3>Limpe o arranhão e escolha um curativo fofo! 🩹</h3>
-    <p class="muted">Toque no arranhão para limpar com algodãozinho mágico e cole seu curativo favorito!</p>
-    <div class="bandageStage">
-      <div id="scrapeSpot1" class="scrapeSpot" onclick="treatScrape(this)">🩹</div>
-      <div id="scrapeFeedback" style="margin-top:12px;font-weight:900;color:#db2777;">Toque no curativo para cuidar!</div>
+    <div class="careStageLayoutLandscape">
+      <div class="bandageStage">
+        <div id="scrapeSpot1" class="scrapeSpot" onclick="treatScrape(this)">🩹</div>
+        <div id="scrapeFeedback" style="margin-top:10px;font-weight:900;color:#db2777;font-size:12px;">Toque no curativo para cuidar!</div>
+      </div>
+      <div style="flex:1 1 50%;text-align:center;">
+        <p class="muted" style="margin:4px 0;">Escolha o estilo de curativo mágico:</p>
+        <div class="bandageChoiceRow">
+          <button class="bandageChoiceBtn on" onclick="selectBandageStyle('🦄', this)">🦄</button>
+          <button class="bandageChoiceBtn" onclick="selectBandageStyle('⭐', this)">⭐</button>
+          <button class="bandageChoiceBtn" onclick="selectBandageStyle('💖', this)">💖</button>
+          <button class="bandageChoiceBtn" onclick="selectBandageStyle('🌈', this)">🌈</button>
+        </div>
+        <button class="btn" style="margin-top:12px;background:#ec4899;width:100%;" onclick="finishBandages()">🎉 Pronto, sarou tudo! (+2 ⭐)</button>
+      </div>
     </div>
-    <div class="bandageChoiceRow">
-      <button class="bandageChoiceBtn on" onclick="selectBandageStyle('🦄', this)">🦄</button>
-      <button class="bandageChoiceBtn" onclick="selectBandageStyle('⭐', this)">⭐</button>
-      <button class="bandageChoiceBtn" onclick="selectBandageStyle('💖', this)">💖</button>
-      <button class="bandageChoiceBtn" onclick="selectBandageStyle('🌈', this)">🌈</button>
-    </div>
-    <button class="btn" style="margin-top:14px;background:#ec4899" onclick="finishBandages()">🎉 Pronto, sarou tudo! (+2 ⭐)</button>
   </div>
 
   <!-- Atividade 3: Lancheira Saudável -->
   <div id="careLunchStage" class="careStageWrap hidden">
     <h3>Monte a lancheira saudável da Elo! 🥪</h3>
-    <p class="muted">Escolha 1 Fruta 🍎, 1 Lanchinho 🥪 e 1 Bebida 🧃 para levar para a escola!</p>
-    <div class="lunchboxStage">
-      <div class="lunchSlot" id="lunchSlotFruit">🍎</div>
-      <div class="lunchSlot" id="lunchSlotSnack">🥪</div>
-      <div class="lunchSlot" id="lunchSlotDrink">🧃</div>
-      <div class="lunchSlot" id="lunchSlotTreat">⭐</div>
+    <div class="careStageLayoutLandscape">
+      <div class="lunchboxStage">
+        <div class="lunchSlot" id="lunchSlotFruit">🍎</div>
+        <div class="lunchSlot" id="lunchSlotSnack">🥪</div>
+        <div class="lunchSlot" id="lunchSlotDrink">🧃</div>
+        <div class="lunchSlot" id="lunchSlotTreat">⭐</div>
+      </div>
+      <div style="flex:1 1 52%;">
+        <div class="lunchOptionsGrid">
+          <button class="lunchOptBtn" onclick="setLunchItem('fruit','🍎','Maçã')"><span>🍎</span><small>Maçã</small></button>
+          <button class="lunchOptBtn" onclick="setLunchItem('fruit','🍌','Banana')"><span>🍌</span><small>Banana</small></button>
+          <button class="lunchOptBtn" onclick="setLunchItem('fruit','🍓','Morango')"><span>🍓</span><small>Morango</small></button>
+          <button class="lunchOptBtn" onclick="setLunchItem('snack','🥪','Sanduíche')"><span>🥪</span><small>Sanduíche</small></button>
+          <button class="lunchOptBtn" onclick="setLunchItem('snack','🥐','Croissant')"><span>🥐</span><small>Pãozinho</small></button>
+          <button class="lunchOptBtn" onclick="setLunchItem('snack','🥞','Panqueca')"><span>🥞</span><small>Panqueca</small></button>
+          <button class="lunchOptBtn" onclick="setLunchItem('drink','🧃','Suco')"><span>🧃</span><small>Suco</small></button>
+          <button class="lunchOptBtn" onclick="setLunchItem('drink','🥛','Leite')"><span>🥛</span><small>Leite</small></button>
+          <button class="lunchOptBtn" onclick="setLunchItem('drink','🥥','Água de Coco')"><span>🥥</span><small>Coco</small></button>
+        </div>
+        <button class="btn" style="margin-top:10px;background:#f59e0b;width:100%;" onclick="finishLunchbox()">🎒 Fechar Lancheira! (+2 ⭐)</button>
+      </div>
     </div>
-    <div class="lunchOptionsGrid">
-      <button class="lunchOptBtn" onclick="setLunchItem('fruit','🍎','Maçã')"><span>🍎</span><small>Maçã</small></button>
-      <button class="lunchOptBtn" onclick="setLunchItem('fruit','🍌','Banana')"><span>🍌</span><small>Banana</small></button>
-      <button class="lunchOptBtn" onclick="setLunchItem('fruit','🍓','Morango')"><span>🍓</span><small>Morango</small></button>
-      <button class="lunchOptBtn" onclick="setLunchItem('snack','🥪','Sanduíche')"><span>🥪</span><small>Sanduíche</small></button>
-      <button class="lunchOptBtn" onclick="setLunchItem('snack','🥐','Croissant')"><span>🥐</span><small>Pãozinho</small></button>
-      <button class="lunchOptBtn" onclick="setLunchItem('snack','🥞','Panqueca')"><span>🥞</span><small>Panqueca</small></button>
-      <button class="lunchOptBtn" onclick="setLunchItem('drink','🧃','Suco')"><span>🧃</span><small>Suco Natural</small></button>
-      <button class="lunchOptBtn" onclick="setLunchItem('drink','🥛','Leite')"><span>🥛</span><small>Leitinho</small></button>
-      <button class="lunchOptBtn" onclick="setLunchItem('drink','🥥','Água de Coco')"><span>🥥</span><small>Água de Coco</small></button>
-    </div>
-    <button class="btn" style="margin-top:14px;background:#f59e0b" onclick="finishLunchbox()">🎒 Fechar Lancheira! (+2 ⭐)</button>
   </div>
 </section>
 
@@ -761,23 +784,25 @@
 
   <!-- 1. MÍMICA COM CRONÔMETRO -->
   <div id="familyMimeView" class="familyViewCard">
-    <div class="mimeTopBar">
-      <span id="mimeTimerDisplay" class="mimeTimerBadge">⏱️ 45s</span>
-      <div class="mimeCategoryPills">
-        <button class="pillBtn on" onclick="setMimeCat('animals', this)">🐾 Animais</button>
-        <button class="pillBtn" onclick="setMimeCat('actions', this)">🏃 Ações</button>
-        <button class="pillBtn" onclick="setMimeCat('characters', this)">🦄 Personagens</button>
-        <button class="pillBtn" onclick="setMimeCat('mix', this)">🎲 Misturado</button>
+    <div class="mimeLayoutLandscape">
+      <div class="mimeTopBar">
+        <span id="mimeTimerDisplay" class="mimeTimerBadge">⏱️ 45s</span>
+        <div class="mimeCategoryPills">
+          <button class="pillBtn on" onclick="setMimeCat('animals', this)">🐾 Animais</button>
+          <button class="pillBtn" onclick="setMimeCat('actions', this)">🏃 Ações</button>
+          <button class="pillBtn" onclick="setMimeCat('characters', this)">🦄 Personagens</button>
+          <button class="pillBtn" onclick="setMimeCat('mix', this)">🎲 Misturado</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Carta de Mímica -->
-    <div id="mimeCardBox" class="mimeCardContainer">
-      <div class="mimeHiddenPrompt">
-        <span style="font-size:52px;display:block;margin-bottom:8px;">🙈</span>
-        <h3>Vez do mímico!</h3>
-        <p>Apenas quem vai fazer a mímica deve olhar a tela agora.</p>
-        <button class="btn mainBtn" onclick="startMimeRound()">Revelar e Iniciar Cronômetro! ⏱️</button>
+      <!-- Carta de Mímica -->
+      <div id="mimeCardBox" class="mimeCardContainer">
+        <div class="mimeHiddenPrompt">
+          <span style="font-size:46px;display:block;margin-bottom:6px;">🙈</span>
+          <h3>Vez do mímico!</h3>
+          <p>Apenas quem vai fazer a mímica deve olhar a tela agora.</p>
+          <button class="btn mainBtn" onclick="startMimeRound()">Revelar e Iniciar Cronômetro! ⏱️</button>
+        </div>
       </div>
     </div>
   </div>
@@ -895,21 +920,28 @@
 
 <div id="gameModal" class="fullOverlay hidden" role="dialog" aria-modal="true">
   <div class="overlayBody"><div class="overlayTop"><button class="closeOverlay" onclick="closeGame()">‹</button><h2 id="gameModalTitle">Jogo</h2><div style="width:46px"></div></div>
-    <div id="findGame" class="gameSection"><div class="card gamebox"><p class="muted">A estrela agora se mistura de verdade com um cenário cheio de elementos. Toque rápido quando encontrar!</p><div class="diffRow"><button class="chip on" data-find="easy" onclick="setFindLevel('easy',this)">Fácil</button><button class="chip" data-find="medium" onclick="setFindLevel('medium',this)">Médio</button><button class="chip" data-find="hard" onclick="setFindLevel('hard',this)">Difícil</button></div><div class="gameStats"><span id="findStatus">Ache a estrela!</span><span id="findTime">20s</span></div><div id="findStage" class="find-stage"></div><button class="btn secondary" onclick="resetFind(true)">Nova rodada</button></div></div>
-    <div id="mazeGame" class="gameSection"><div class="card gamebox"><p class="muted">Ajude a Elo a chegar ao unicórnio. Cada nível aumenta o tamanho e a dificuldade do caminho.</p><div class="diffRow"><button class="chip on" data-maze="easy" onclick="setMazeLevel('easy',this)">Fácil • 9×9</button><button class="chip" data-maze="medium" onclick="setMazeLevel('medium',this)">Médio • 11×11</button><button class="chip" data-maze="hard" onclick="setMazeLevel('hard',this)">Difícil • 13×13</button></div><div class="gameStats"><span id="mazeStatus">Encontre o caminho!</span><span id="mazeMoves">Movimentos: 0</span></div><div class="mazeWrap"><div id="mazeBoard" class="mazeBoard" aria-label="Labirinto da Elo"></div></div><div class="mazeLegend gameLegend"><span><i id="mazeLegendElo" class="legendEloMount"></i>Elo</span><span><img src="assets/game-ui/unicorn.svg" alt="">Unicórnio</span></div><div class="mazeControls"><div></div><button class="mazeBtn" onclick="moveMaze(0,-1)">↑</button><div></div><button class="mazeBtn" onclick="moveMaze(-1,0)">←</button><div></div><button class="mazeBtn" onclick="moveMaze(1,0)">→</button><div></div><button class="mazeBtn" onclick="moveMaze(0,1)">↓</button><div></div></div><div style="margin-top:12px"><button class="btn secondary" onclick="startMaze()">Novo labirinto</button></div></div></div>
-    <div id="unicornChaseGame" class="gameSection"><div class="card gamebox"><p class="muted">Corra por uma arena aberta, pegue os unicórnios e use os caminhos para despistar o fantasminha.</p><div class="diffRow"><button class="chip on" data-chase="easy" onclick="setChaseLevel('easy',this)">Fácil • 4 🦄</button><button class="chip" data-chase="medium" onclick="setChaseLevel('medium',this)">Médio • 5 🦄</button><button class="chip" data-chase="hard" onclick="setChaseLevel('hard',this)">Difícil • 6 🦄</button></div><div class="gameStats"><span id="chaseStatus">Pegue todos os unicórnios!</span><span id="chaseCount">🦄 0/4</span></div><div id="chaseBoard" class="chaseBoard" aria-label="Caça aos Unicórnios"></div><div class="chaseLegend gameLegend"><span><i id="chaseLegendElo" class="legendEloMount"></i>Elo</span><span><img src="assets/game-ui/unicorn.svg" alt="">Unicórnio</span><span><img src="assets/game-ui/ghost.svg" alt="">Fantasminha</span></div><div class="chaseControls"><div></div><button class="mazeBtn" onclick="moveChase(0,-1)">↑</button><div></div><button class="mazeBtn" onclick="moveChase(-1,0)">←</button><div></div><button class="mazeBtn" onclick="moveChase(1,0)">→</button><div></div><button class="mazeBtn" onclick="moveChase(0,1)">↓</button><div></div></div><div style="margin-top:12px"><button class="btn secondary" onclick="startChase()">Novo jogo</button></div></div></div>
-    <div id="memoryGame" class="gameSection"><div class="card gamebox"><p class="muted">Escolha o nível. Encontre os pares com desenhos da Elo e temas divertidos.</p><div class="diffRow"><button class="chip on" data-memory="easy" onclick="setMemoryLevel('easy',this)">Fácil • 8</button><button class="chip" data-memory="medium" onclick="setMemoryLevel('medium',this)">Médio • 16</button><button class="chip" data-memory="hard" onclick="setMemoryLevel('hard',this)">Difícil • 32</button></div><div class="gameStats"><span id="memoryStatus">Encontre os pares!</span><span id="memoryMoves">Jogadas: 0</span></div><div id="memory" class="memory easy"></div><div style="margin-top:12px"><button class="btn secondary" onclick="startMemory()">Novo jogo</button></div></div></div>
-    <div id="puzzleGame" class="gameSection"><div class="card gamebox"><p class="muted">Escolha uma das 16 imagens da Elo e monte o quebra-cabeça. Toque em duas peças para trocar de lugar.</p><div class="diffRow"><button class="chip on" data-puzzle="easy" onclick="setPuzzleLevel('easy',this)">Fácil • 3×3</button><button class="chip" data-puzzle="medium" onclick="setPuzzleLevel('medium',this)">Médio • 4×4</button><button class="chip" data-puzzle="hard" onclick="setPuzzleLevel('hard',this)">Difícil • 5×5</button></div><div class="puzzleTop"><img id="puzzlePreview" class="puzzlePreview" src="assets/puzzle/puzzle-01.webp" alt="Imagem da Elo"><div><b>Escolha uma imagem da Elo</b><div id="puzzleChoices" class="puzzleChoices"></div><div class="puzzleHint">A imagem pequena mostra como o quebra-cabeça deve ficar.</div></div></div><div class="gameStats"><span id="puzzleStatus">Monte a imagem!</span><span id="puzzleMoves">Jogadas: 0</span></div><div id="puzzleBoard" class="puzzleBoard"></div><div id="puzzleCompleteNote" class="hidden" style="margin:10px 0;padding:12px;border-radius:16px;background:#e9fff5;color:#297a5d;font-weight:900">🏆 Conseguiu! As peças foram bloqueadas para mostrar que o quebra-cabeça está completo.</div><div style="margin-top:12px" class="row"><button class="btn secondary" onclick="startPuzzle(true)">Outra imagem</button><button class="btn secondary" onclick="startPuzzle(false)">Embaralhar de novo</button></div></div></div>
-    <div id="tapGameSection" class="gameSection"><div class="card gamebox"><p class="muted">Escolha o nível e toque no número certo antes que o tempo acabe.</p><div class="diffRow"><button class="chip on" data-tap="easy" onclick="setTapLevel('easy',this)">Fácil • 5s</button><button class="chip" data-tap="medium" onclick="setTapLevel('medium',this)">Médio • 3,5s</button><button class="chip" data-tap="hard" onclick="setTapLevel('hard',this)">Difícil • 2,5s</button></div><div class="gameStats"><span id="tapScore">Acertos: 0/10</span><span id="tapTimeText">5,0s</span></div><div class="timerTrack"><i id="tapTimerBar"></i></div><div id="tapPrompt" class="quiz-q"></div><div id="tapGame" class="tapGame"></div><div style="margin-top:12px"><button class="btn secondary" onclick="startTapGame()">Novo desafio</button></div></div></div>
-    <div id="trailGame" class="gameSection"><div class="card gamebox"><div class="trailHeader"><div class="trailBadge">✨ Trilha Encantada</div><div class="diffRow" style="margin:0"><button class="chip on" data-trail="easy" onclick="setTrailLevel('easy',this)">Fácil</button><button class="chip" data-trail="medium" onclick="setTrailLevel('medium',this)">Médio</button><button class="chip" data-trail="hard" onclick="setTrailLevel('hard',this)">Difícil</button></div></div><p class="muted">Corra com a Elo por cenários mágicos, pegue estrelas e unicórnios, enfrente chefões a cada 5 fases e ganhe 1 vida extra a cada 100 pontos coletados. ⭐ vale 1 e 🦄 vale 2. Use <b>Voar com Unicórnia</b> (ou tecla X) para planar nas alturas e desviar de obstáculos no céu!</p><div class="trailHud"><div class="trailStat"><b>FASE</b><span id="trailPhase">1</span></div><div class="trailStat"><b>VIDAS</b><span id="trailLives">3</span></div><div class="trailStat"><b>COLETA</b><span id="trailCollected">0/100</span></div><div class="trailStat"><b>SCORE</b><span id="trailScore">0</span></div><div class="trailStat"><b>VOO</b><span id="trailFlyEnergy">100%</span><div class="trailFlyBar"><div id="trailFlyBarFill" class="trailFlyBarFill"></div></div></div></div><div class="trailInfo"><span id="trailStatus">Toque em iniciar e ajude a Elo a atravessar a trilha encantada.</span><span id="trailMode">Modo aventura</span></div><div id="trailBossBar" class="trailBossBar"><i id="trailBossFill"></i></div><div class="trailCanvasWrap"><canvas id="trailCanvas" class="trailCanvas" width="900" height="500"></canvas><div id="trailEloMount" class="trailEloMount" aria-hidden="true"></div></div><div class="trailControls"><button class="trailBtn jump" onpointerdown="trailJump();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">⤴️ Pular</button><button class="trailBtn fly" onpointerdown="trailFlyStart();this.classList.add('pressed')" onpointerup="trailFlyEnd();this.classList.remove('pressed')" onpointercancel="trailFlyEnd();this.classList.remove('pressed')">🦄 Voar com Unicórnia</button><button class="trailBtn magic" onpointerdown="trailMagic();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">💖 Poder</button></div><p class="trailHint">Dica: contra o chefão, <b>Poder</b> funciona o tempo todo enquanto ele estiver vivo. Você pode atacar quando quiser; os intervalos sem tiros são apenas mais seguros.</p><div class="premiumNote">🏅 Medalha deste jogo: derrote o primeiro chefão no nível escolhido para liberar bronze, prata ou ouro.</div><div class="row" style="margin-top:12px;justify-content:center"><button class="btn secondary" onclick="restartTrailRun();startTrailGame()">↻ Recomeçar do início</button></div></div></div>
+    <div id="findGame" class="gameSection"><div class="card gamebox"><p class="muted">A estrela agora se mistura de verdade com um cenário cheio de elementos. Toque rápido quando encontrar!</p><div class="gamePlayRowLandscape"><div id="findStage" class="find-stage"></div><div class="gameControlsColLandscape"><div class="diffRow"><button class="chip on" data-find="easy" onclick="setFindLevel('easy',this)">Fácil</button><button class="chip" data-find="medium" onclick="setFindLevel('medium',this)">Médio</button><button class="chip" data-find="hard" onclick="setFindLevel('hard',this)">Difícil</button></div><div class="gameStats"><span id="findStatus">Ache a estrela!</span><span id="findTime">20s</span></div><div style="margin-top:10px"><button class="btn secondary" onclick="resetFind(true)">Nova rodada</button></div></div></div></div></div>
+    <div id="mazeGame" class="gameSection"><div class="card gamebox"><p class="muted">Ajude a Elo a chegar ao unicórnio. Cada nível aumenta o tamanho e a dificuldade do caminho.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape"><div class="mazeWrap"><div id="mazeBoard" class="mazeBoard" aria-label="Labirinto da Elo"></div></div><div class="mazeLegend gameLegend"><span><i id="mazeLegendElo" class="legendEloMount"></i>Elo</span><span><img src="assets/game-ui/unicorn.svg" alt="">Unicórnio</span></div></div><div class="gameControlsColLandscape"><div class="diffRow"><button class="chip on" data-maze="easy" onclick="setMazeLevel('easy',this)">Fácil • 9×9</button><button class="chip" data-maze="medium" onclick="setMazeLevel('medium',this)">Médio • 11×11</button><button class="chip" data-maze="hard" onclick="setMazeLevel('hard',this)">Difícil • 13×13</button></div><div class="gameStats"><span id="mazeStatus">Encontre o caminho!</span><span id="mazeMoves">Movimentos: 0</span></div><div class="mazeControls"><div></div><button class="mazeBtn" onclick="moveMaze(0,-1)">↑</button><div></div><button class="mazeBtn" onclick="moveMaze(-1,0)">←</button><div></div><button class="mazeBtn" onclick="moveMaze(1,0)">→</button><div></div><button class="mazeBtn" onclick="moveMaze(0,1)">↓</button><div></div></div><div style="margin-top:8px"><button class="btn secondary" onclick="startMaze()">Novo labirinto</button></div></div></div></div></div>
+    <div id="unicornChaseGame" class="gameSection"><div class="card gamebox"><p class="muted">Corra por uma arena aberta, pegue os unicórnios e use os caminhos para despistar o fantasminha.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape"><div id="chaseBoard" class="chaseBoard" aria-label="Caça aos Unicórnios"></div><div class="chaseLegend gameLegend"><span><i id="chaseLegendElo" class="legendEloMount"></i>Elo</span><span><img src="assets/game-ui/unicorn.svg" alt="">Unicórnio</span><span><img src="assets/game-ui/ghost.svg" alt="">Fantasminha</span></div></div><div class="gameControlsColLandscape"><div class="diffRow"><button class="chip on" data-chase="easy" onclick="setChaseLevel('easy',this)">Fácil • 4 🦄</button><button class="chip" data-chase="medium" onclick="setChaseLevel('medium',this)">Médio • 5 🦄</button><button class="chip" data-chase="hard" onclick="setChaseLevel('hard',this)">Difícil • 6 🦄</button></div><div class="gameStats"><span id="chaseStatus">Pegue todos os unicórnios!</span><span id="chaseCount">🦄 0/4</span></div><div class="chaseControls"><div></div><button class="mazeBtn" onclick="moveChase(0,-1)">↑</button><div></div><button class="mazeBtn" onclick="moveChase(-1,0)">←</button><div></div><button class="mazeBtn" onclick="moveChase(1,0)">→</button><div></div><button class="mazeBtn" onclick="moveChase(0,1)">↓</button><div></div></div><div style="margin-top:8px"><button class="btn secondary" onclick="startChase()">Novo jogo</button></div></div></div></div></div>
+    <div id="memoryGame" class="gameSection"><div class="card gamebox"><p class="muted">Escolha o nível. Encontre os pares com desenhos da Elo e temas divertidos.</p><div class="gamePlayRowLandscape"><div id="memory" class="memory easy" style="flex:1 1 65%;"></div><div class="gameControlsColLandscape" style="flex:0 0 32%;"><div class="diffRow"><button class="chip on" data-memory="easy" onclick="setMemoryLevel('easy',this)">Fácil • 8</button><button class="chip" data-memory="medium" onclick="setMemoryLevel('medium',this)">Médio • 16</button><button class="chip" data-memory="hard" onclick="setMemoryLevel('hard',this)">Difícil • 32</button></div><div class="gameStats"><span id="memoryStatus">Encontre os pares!</span><span id="memoryMoves">Jogadas: 0</span></div><div style="margin-top:10px"><button class="btn secondary" onclick="startMemory()">Novo jogo</button></div></div></div></div></div>
+    <div id="puzzleGame" class="gameSection"><div class="card gamebox"><p class="muted">Escolha uma das 16 imagens da Elo e monte o quebra-cabeça. Toque em duas peças para trocar de lugar.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape"><div id="puzzleBoard" class="puzzleBoard"></div><div id="puzzleCompleteNote" class="hidden" style="margin:6px 0;padding:8px 12px;border-radius:14px;background:#e9fff5;color:#297a5d;font-weight:900;font-size:12px;">🏆 Conseguiu! As peças foram bloqueadas para mostrar que o quebra-cabeça está completo.</div></div><div class="gameControlsColLandscape"><div class="diffRow"><button class="chip on" data-puzzle="easy" onclick="setPuzzleLevel('easy',this)">Fácil • 3×3</button><button class="chip" data-puzzle="medium" onclick="setPuzzleLevel('medium',this)">Médio • 4×4</button><button class="chip" data-puzzle="hard" onclick="setPuzzleLevel('hard',this)">Difícil • 5×5</button></div><div class="puzzleTop"><img id="puzzlePreview" class="puzzlePreview" src="assets/puzzle/puzzle-01.webp" alt="Imagem da Elo"><div><b>Escolha uma imagem da Elo</b><div id="puzzleChoices" class="puzzleChoices"></div></div></div><div class="gameStats"><span id="puzzleStatus">Monte a imagem!</span><span id="puzzleMoves">Jogadas: 0</span></div><div style="margin-top:8px" class="row"><button class="btn secondary" onclick="startPuzzle(true)">Outra imagem</button><button class="btn secondary" onclick="startPuzzle(false)">Embaralhar</button></div></div></div></div></div>
+    <div id="tapGameSection" class="gameSection"><div class="card gamebox"><p class="muted">Escolha o nível e toque no número certo antes que o tempo acabe.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape" style="flex:1 1 45%;"><div class="diffRow"><button class="chip on" data-tap="easy" onclick="setTapLevel('easy',this)">Fácil • 5s</button><button class="chip" data-tap="medium" onclick="setTapLevel('medium',this)">Médio • 3,5s</button><button class="chip" data-tap="hard" onclick="setTapLevel('hard',this)">Difícil • 2,5s</button></div><div class="gameStats"><span id="tapScore">Acertos: 0/10</span><span id="tapTimeText">5,0s</span></div><div class="timerTrack"><i id="tapTimerBar"></i></div><div id="tapPrompt" class="quiz-q"></div><div style="margin-top:8px"><button class="btn secondary" onclick="startTapGame()">Novo desafio</button></div></div><div class="gameControlsColLandscape" style="flex:1 1 50%;"><div id="tapGame" class="tapGame"></div></div></div></div></div>
+    <div id="trailGame" class="gameSection"><div class="card gamebox"><div class="trailHeader"><div class="trailBadge">✨ Trilha Encantada</div><div class="diffRow" style="margin:0"><button class="chip on" data-trail="easy" onclick="setTrailLevel('easy',this)">Fácil</button><button class="chip" data-trail="medium" onclick="setTrailLevel('medium',this)">Médio</button><button class="chip" data-trail="hard" onclick="setTrailLevel('hard',this)">Difícil</button></div></div><p class="muted">Corra com a Elo por cenários mágicos, pegue estrelas e unicórnios, enfrente chefões a cada 5 fases e ganhe 1 vida extra a cada 100 pontos coletados. ⭐ vale 1 e 🦄 vale 2. Use <b>Voar com Unicórnia</b> (ou tecla X) para planar nas alturas e desviar de obstáculos no céu!</p><div class="trailHud"><div class="trailStat"><b>FASE</b><span id="trailPhase">1</span></div><div class="trailStat"><b>VIDAS</b><span id="trailLives">3</span></div><div class="trailStat"><b>COLETA</b><span id="trailCollected">0/100</span></div><div class="trailStat"><b>SCORE</b><span id="trailScore">0</span></div><div class="trailStat"><b>VOO</b><span id="trailFlyEnergy">100%</span><div class="trailFlyBar"><div id="trailFlyBarFill" class="trailFlyBarFill"></div></div></div></div><div class="trailInfo"><span id="trailStatus">Toque em iniciar e ajude a Elo a atravessar a trilha encantada.</span><span id="trailMode">Modo aventura</span></div><div id="trailBossBar" class="trailBossBar"><i id="trailBossFill"></i></div><div class="trailPlayRowLandscape"><div class="trailCanvasWrap"><canvas id="trailCanvas" class="trailCanvas" width="900" height="500"></canvas><div id="trailEloMount" class="trailEloMount" aria-hidden="true"></div></div><div class="trailControls"><button class="trailBtn jump" onpointerdown="trailJump();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">⤴️ Pular</button><button class="trailBtn fly" onpointerdown="trailFlyStart();this.classList.add('pressed')" onpointerup="trailFlyEnd();this.classList.remove('pressed')" onpointercancel="trailFlyEnd();this.classList.remove('pressed')">🦄 Voar com Unicórnia</button><button class="trailBtn magic" onpointerdown="trailMagic();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">💖 Poder</button></div></div><p class="trailHint">Dica: contra o chefão, <b>Poder</b> funciona o tempo todo enquanto ele estiver vivo. Você pode atacar quando quiser; os intervalos sem tiros são apenas mais seguros.</p><div class="premiumNote">🏅 Medalha deste jogo: derrote o primeiro chefão no nível escolhido para liberar bronze, prata ou ouro.</div><div class="row" style="margin-top:12px;justify-content:center"><button class="btn secondary" onclick="restartTrailRun();startTrailGame()">↻ Recomeçar do início</button></div></div></div>
   </div>
 </div>
 <div id="rpgOverlay" class="rpgOverlay hidden" role="dialog" aria-modal="true"><iframe id="rpgFrame" title="Elo e o Reino das Estrelas" loading="eager"></iframe></div>
 <div id="coloringModal" class="fullOverlay hidden" role="dialog" aria-modal="true">
- <div class="overlayBody"><div class="overlayTop"><button class="closeOverlay" onclick="closeColoring()">‹</button><h2>Colorir com a Elo 🎨</h2><div style="width:46px"></div></div>
-  <div id="palette" class="palette"></div><div class="toolRow"><button class="smallBtn" onclick="undoColoring()">↶ Desfazer</button><button class="smallBtn" onclick="clearCanvas()">🧼 Limpar</button><button class="smallBtn" onclick="saveColoring()">💾 Salvar</button></div>
-  <div class="toolRow" aria-label="Controles de zoom"><button class="smallBtn" onclick="zoomColor(-.35)" aria-label="Diminuir zoom">➖</button><span id="zoomValue" class="zoomValue">100%</span><button class="smallBtn" onclick="zoomColor(.35)" aria-label="Aumentar zoom">➕</button><button class="smallBtn" onclick="resetColorZoom()">⤢ Ajustar</button></div>
-  <div id="colorViewport" class="colorStage"><div id="colorCanvasWrap" class="colorCanvasWrap"><canvas id="draw" width="600" height="600"></canvas></div></div><p class="coloringHint">Escolha uma das 30 cores e toque para pintar. Use ➕/➖ ou dois dedos para ampliar; com zoom, arraste o desenho para alcançar áreas pequenas.</p><div class="row" style="margin-top:10px;justify-content:center"><button class="btn green" onclick="rewardArt()">Terminei! ⭐</button></div>
+ <div class="overlayBody">
+  <div class="overlayTop"><button class="closeOverlay" onclick="closeColoring()">‹</button><h2>Colorir com a Elo 🎨</h2><div style="width:46px"></div></div>
+  <div class="coloringLayoutLandscape">
+    <div id="colorViewport" class="colorStage"><div id="colorCanvasWrap" class="colorCanvasWrap"><canvas id="draw" width="600" height="600"></canvas></div></div>
+    <div class="coloringToolsCol">
+      <div id="palette" class="palette"></div>
+      <div class="toolRow"><button class="smallBtn" onclick="undoColoring()">↶ Desfazer</button><button class="smallBtn" onclick="clearCanvas()">🧼 Limpar</button><button class="smallBtn" onclick="saveColoring()">💾 Salvar</button></div>
+      <div class="toolRow" aria-label="Controles de zoom"><button class="smallBtn" onclick="zoomColor(-.35)">➖</button><span id="zoomValue" class="zoomValue">100%</span><button class="smallBtn" onclick="zoomColor(.35)">➕</button><button class="smallBtn" onclick="resetColorZoom()">⤢ Ajustar</button></div>
+      <div class="row" style="margin-top:6px;justify-content:center"><button class="btn green" style="width:100%" onclick="rewardArt()">Terminei! ⭐</button></div>
+    </div>
+  </div>
  </div>
 </div>
 
@@ -1043,38 +1075,32 @@
 
 <!-- Modal Álbum de Figurinhas & Pacotinhos Surpresa -->
 <div id="stickersModal" class="overlay hidden panelOverlay stickersModal">
-  <div class="panelCard" style="max-width:540px;width:94vw;">
+  <div class="panelCard" style="max-width:840px;width:94vw;">
     <div class="panelHead">
       <h2>📦 Álbum de Figurinhas da Elo</h2>
       <button class="miniClose" onclick="closeStickersAlbum()">×</button>
     </div>
 
-    <div class="stickersHero">
-      <div class="stickersHeroLeft">
-        <h3>Coleção Estrelar ✨</h3>
-        <p>Abra pacotinhos e cole figurinhas Raras e Douradas!</p>
+    <div class="stickersLayoutLandscape">
+      <!-- Estágio do Pacote para Abrir -->
+      <div class="packStageWrap" id="packStageArea">
+        <div class="boosterPack3D" onclick="openStickerPack()" id="boosterPackBtn">
+          <span class="boosterIcon">📦</span>
+          <span class="boosterTitle">TOQUE PARA ABRIR</span>
+          <small style="font-size:10px;opacity:0.9;">3 Figurinhas Mágicas</small>
+        </div>
+        <div id="cardsRevealArea" class="cardsRevealRow hidden"></div>
+        <button id="collectStickersBtn" class="btn hidden" style="margin-top:8px;background:#00d288;font-weight:900;" onclick="collectRevealedStickers()">📥 Colar no Álbum!</button>
       </div>
-      <div class="boosterCountBadge" id="modalPackBadge">📦 2 Pacotes</div>
-    </div>
 
-    <!-- Estágio do Pacote para Abrir -->
-    <div class="packStageWrap" id="packStageArea">
-      <div class="boosterPack3D" onclick="openStickerPack()" id="boosterPackBtn">
-        <span class="boosterIcon">📦</span>
-        <span class="boosterTitle">TOQUE PARA ABRIR</span>
-        <small style="font-size:10px;opacity:0.9;">3 Figurinhas Mágicas</small>
+      <!-- Grid do Álbum -->
+      <div class="albumGridWrap">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 style="margin:0;font-size:15px;">Meu Álbum Completo</h3>
+          <span id="albumCollectedCount" style="font-weight:900;color:#7c3aed;font-size:13px;">0/24</span>
+        </div>
+        <div id="stickersAlbumGrid" class="albumGrid"></div>
       </div>
-      <div id="cardsRevealArea" class="cardsRevealRow hidden"></div>
-      <button id="collectStickersBtn" class="btn hidden" style="margin-top:12px;background:#00d288;font-weight:900;" onclick="collectRevealedStickers()">📥 Colar no Álbum!</button>
-    </div>
-
-    <!-- Grid do Álbum -->
-    <div class="albumGridWrap">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <h3 style="margin:0;">Meu Álbum Completo</h3>
-        <span id="albumCollectedCount" style="font-weight:900;color:#7c3aed;font-size:13px;">0/24</span>
-      </div>
-      <div id="stickersAlbumGrid" class="albumGrid"></div>
     </div>
   </div>
 </div>
@@ -1083,25 +1109,27 @@
 <div id="sleepModeOverlay" class="sleepOverlay hidden">
   <div class="sleepHeader">
     <div style="display:flex;align-items:center;gap:8px;">
-      <span style="font-size:26px;">🌙</span>
-      <b style="font-size:16px;">Hora do Soninho da Elo</b>
+      <span style="font-size:24px;">🌙</span>
+      <b style="font-size:15px;">Hora do Soninho da Elo</b>
     </div>
-    <button class="btn secondary" style="background:rgba(255,255,255,0.18);border:0;color:#fff;padding:6px 12px;border-radius:12px;" onclick="toggleSleepMode()">☀️ Despertar</button>
+    <button class="btn secondary" style="background:rgba(255,255,255,0.18);border:0;color:#fff;padding:5px 10px;border-radius:12px;" onclick="toggleSleepMode()">☀️ Despertar</button>
   </div>
 
-  <div class="sleepBedStage">
-    <div class="sleepEloIcon">😴💤</div>
-    <div style="font-size:18px;font-weight:900;margin-top:8px;color:#fde047;">Shh... Bons sonhos!</div>
-    <p style="margin:4px 0 0;font-size:12px;opacity:0.85;">A Elo e o Bichinho estão dormindo quentinhos.</p>
-  </div>
-
-  <div class="sleepControlsWrap">
-    <b style="font-size:14px;color:#fde047;">🎵 Caixinha de Música de Ninar</b>
-    <div class="sleepTimerPills">
-      <button class="sleepTimerBtn on" id="lullabyToggleBtn" onclick="toggleLullabyPlay()">▶ Tocar Canção de Ninar</button>
-      <button class="sleepTimerBtn" onclick="readBedtimeStory()">📖 Ler História Calma</button>
+  <div class="sleepLayoutLandscape">
+    <div class="sleepBedStage">
+      <div class="sleepEloIcon">😴💤</div>
+      <div style="font-size:16px;font-weight:900;margin-top:6px;color:#fde047;">Shh... Bons sonhos!</div>
+      <p style="margin:2px 0 0;font-size:11px;opacity:0.85;">A Elo e o Bichinho estão quentinhos.</p>
     </div>
-    <small style="opacity:0.8;font-size:11px;">Música suave sintetizada para relaxar os olhos e adormecer.</small>
+
+    <div class="sleepControlsWrap">
+      <b style="font-size:13px;color:#fde047;">🎵 Caixinha de Música de Ninar</b>
+      <div class="sleepTimerPills">
+        <button class="sleepTimerBtn on" id="lullabyToggleBtn" onclick="toggleLullabyPlay()">▶ Tocar Música</button>
+        <button class="sleepTimerBtn" onclick="readBedtimeStory()">📖 História Calma</button>
+      </div>
+      <small style="opacity:0.8;font-size:11px;">Música suave sintetizada para relaxar os olhos.</small>
+    </div>
   </div>
 </div>
 
@@ -1143,27 +1171,27 @@
       </button>
     </div>
 
-    <!-- Canvas 3D -->
-    <div class="modelCanvasContainer">
-      <canvas id="modelStudioCanvas" width="600" height="400"></canvas>
-      <div class="modelCanvasHint">Arraste para girar 360° • Roda ou pinça para zoom</div>
-    </div>
-
-    <!-- Barra de Ferramentas do Estúdio 3D -->
-    <div class="modelStudioToolbar">
-      <div style="display:flex;gap:6px;flex-wrap:wrap;">
-        <button id="autoRotateToggleBtn" class="toolBtn active" onclick="toggleModelAutoRotate()" title="Girar automático">🔄 Girar</button>
-        <button id="wireframeToggleBtn" class="toolBtn" onclick="toggleModelWireframe()" title="Modo Arames / Wireframe">🕸️ Arames</button>
-        <button class="toolBtn" onclick="resetModelCamera()" title="Centralizar câmera">🎯 Centralizar</button>
+    <div class="modelStudioLayoutLandscape">
+      <div class="modelCanvasContainer">
+        <canvas id="modelStudioCanvas" width="600" height="400"></canvas>
+        <div class="modelCanvasHint">Arraste para girar 360° • Roda ou pinça para zoom</div>
       </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;">
-        <button class="btn" style="background:linear-gradient(135deg,#00d288,#059669);padding:8px 12px;font-size:11px;" onclick="exportCurrentModelObj()">
-          💾 Baixar .OBJ (+2 ⭐)
-        </button>
-        <label class="btn secondary" style="padding:8px 12px;font-size:11px;cursor:pointer;margin:0;">
-          📥 Importar .OBJ/.JSON
-          <input type="file" accept=".obj,.json" style="display:none;" onchange="importCustomModelFile(this)">
-        </label>
+
+      <div class="modelStudioToolsCol">
+        <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:center;">
+          <button id="autoRotateToggleBtn" class="toolBtn active" onclick="toggleModelAutoRotate()" title="Girar automático">🔄 Girar</button>
+          <button id="wireframeToggleBtn" class="toolBtn" onclick="toggleModelWireframe()" title="Modo Arames / Wireframe">🕸️ Arames</button>
+          <button class="toolBtn" onclick="resetModelCamera()" title="Centralizar câmera">🎯 Centralizar</button>
+        </div>
+        <div style="display:flex;gap:6px;flex-direction:column;margin-top:6px;">
+          <button class="btn" style="background:linear-gradient(135deg,#00d288,#059669);padding:7px 10px;font-size:11px;" onclick="exportCurrentModelObj()">
+            💾 Baixar .OBJ (+2 ⭐)
+          </button>
+          <label class="btn secondary" style="padding:7px 10px;font-size:11px;cursor:pointer;margin:0;text-align:center;">
+            📥 Importar .OBJ/.JSON
+            <input type="file" accept=".obj,.json" style="display:none;" onchange="importCustomModelFile(this)">
+          </label>
+        </div>
       </div>
     </div>
   </div>
@@ -1171,6 +1199,6 @@
 
 </div><!-- #appContainer -->
 
-<script src="version.js?v=4.3.3"></script><script src="models3d.js?v=4.3.3"></script><script src="app.js?v=4.3.3"></script><script src="v3.js?v=4.3.3"></script><script src="pet.js?v=4.3.3"></script>
+<script src="version.js?v=4.3.4"></script><script src="models3d.js?v=4.3.4"></script><script src="app.js?v=4.3.4"></script><script src="v3.js?v=4.3.4"></script><script src="pet.js?v=4.3.4"></script>
 </body>
 </html>

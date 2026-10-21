@@ -1,10 +1,17 @@
-ATUALIZAÇÃO AUTOMÁTICA — V4.2.0
+GUIA RÁPIDO PARA ATUALIZAR NO GITHUB PAGES (v4.3.0)
 
-1. Baixe app-upload.zip (ou descompacte diretamente no repositório).
-2. Se o seu repositório usa o workflow automático do GitHub Actions:
-   - Envie o arquivo com o nome exato: app-upload.zip para a RAIZ do repositório.
-   - Faça o commit direto na branch main.
-   - Aguarde o workflow "Importar ZIP do app" concluir.
-   - O ZIP é descompactado e removido automaticamente, publicando os arquivos da nova versão v4.2.0.
-3. Se preferir atualizar manualmente:
-   - Descompacte o conteúdo deste ZIP diretamente na raiz do seu repositório local e faça o push.
+Você tem 2 formas muito fáceis de atualizar seu site:
+
+OPÇÃO 1 (Recomendada - 100% garantida):
+1. Descompacte o arquivo "dia-a-dia-da-elo-v4.3.0.zip" no seu computador.
+2. Acesse seu repositório: https://github.com/tonlm10/dia-a-dia-da-elo-app
+3. Clique em "Add file" > "Upload files".
+4. Arraste todos os arquivos descompactados (index.html, styles.css, v3.css, app.js, v3.js, version.js, sw.js, pasta assets, etc.) para a tela do GitHub.
+5. Clique em "Commit changes".
+6. Pronto! Em 1 minuto o GitHub Pages estará atualizado.
+
+OPÇÃO 2 (Usando o workflow automático GitHub Actions):
+1. Certifique-se de que o arquivo .github/workflows/import-zip.yml existe no repositório.
+2. Renomeie o arquivo para EXATAMENTE "app-upload.zip".
+3. Envie o "app-upload.zip" para a raiz do repositório no GitHub.
+4. O GitHub Actions executará o workflow "Importar ZIP do app", descompactará tudo sozinho e atualizará o site!
