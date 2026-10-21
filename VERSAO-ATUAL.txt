@@ -1,4 +1,4 @@
-VERSAO_APP=4.3.0
-TARGET_VER=4.3.0-r37
+VERSAO_APP=4.3.1
+TARGET_VER=4.3.1-r38
 DATA_ATUALIZACAO=2026-10-21
-DESTAQUE=Modo Sempre Deitado (Landscape) & Menu Principal como Mundo Interativo da Elo (sem atalhos rápidos e sem destaque excessivo para o RPG)
+DESTAQUE=Correcao de travamento no celular: aviso de girar a tela transformado em badge flutuante nao-bloqueante (o app agora abre e funciona 100% livre tanto de pe quanto deitado)

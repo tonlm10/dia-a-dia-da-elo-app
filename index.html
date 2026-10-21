@@ -5,7 +5,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.3.0-r37";
+    var TARGET_VER = "4.3.1-r38";
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
       if ("caches" in window) {
@@ -36,24 +36,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800;900&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4.3.0">
-<link rel="stylesheet" href="v3.css?v=4.3.0">
-<link rel="stylesheet" href="polish.css?v=4.3.0">
-<link rel="stylesheet" href="games-v350.css?v=4.3.0">
+<link rel="stylesheet" href="styles.css?v=4.3.1">
+<link rel="stylesheet" href="v3.css?v=4.3.1">
+<link rel="stylesheet" href="polish.css?v=4.3.1">
+<link rel="stylesheet" href="games-v350.css?v=4.3.1">
 </head>
 <body>
 
-<!-- Aviso inteligente para aparelhos em modo retrato (solicita deitar o celular) -->
-<div id=rotateDeviceNotice role=alert>
-  <div class=rotatePhoneIcon>📱🔄</div>
-  <h2>Gire o celular de lado!</h2>
-  <p>O Mundo da Elo foi feito para brincar <b>deitado</b> (modo paisagem), com todo o espaço na sua tela!</p>
-  <button onclick="window.tryLockLandscape();document.getElementById('rotateDeviceNotice').style.display='none'">Entendi, vamos brincar! 🌈</button>
-</div>
-
-<div id="splash"><div class="splashCard"><img src="assets/icons/icon-192.png" alt="Dia a Dia da Elo"><h2>Dia a Dia da Elo</h2><p>Brincar • Aprender • Criar</p></div><script>setTimeout(function(){var s=document.getElementById("splash");if(s){s.style.opacity="0";s.style.pointerEvents="none";setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},450);}},1200);</script></div>
-<div class="app">
-<header><div class="brand compactBrand"><img class="brandLogo" src="assets/logo-oficial.webp" alt="Dia a Dia da Elo"><div class="brandText"><h1>Dia a Dia da Elo</h1><div class="handle">@diaadiadaelo</div></div><div class="brandActions"><button id="profileChip" class="profileChip profileCompact" onclick="openProfileChooser()" aria-label="Trocar perfil"><span>👤</span><b>Elo</b><small>perfil</small></button><div class="headerStars" aria-label="Estrelas conquistadas">⭐ <span id="starCount">0</span></div><button id="speechBtn" class="iconBtn" onclick="toggleSpeech()" aria-label="Leitura em voz">🔊</button><button id="sleepModeBtn" class="iconBtn" onclick="toggleSleepMode()" aria-label="Modo Soninho" title="Modo Soninho">🌙</button></div></div></header>
+<!-- Dica amigável e não bloqueante para deitar o celular -->
+<div id="rotateDeviceNotice" role="status">
+  <div class="rotatePhoneIcon">📱🔄</div>
+  <div class="rotatePhoneContent">
+    <b>Gire o celular de lado! 🌈</b>
+    <small>Deitado a brincadeira fica muito mais divertida!</small>
+  </div>
+  <button class="rotateDismissBtn" onclick="document.getElementById('rotateDeviceNotice').classList.add('dismissed')" aria-label="Fechar aviso">×</button>
+</div><div class="brandActions"><button id="profileChip" class="profileChip profileCompact" onclick="openProfileChooser()" aria-label="Trocar perfil"><span>👤</span><b>Elo</b><small>perfil</small></button><div class="headerStars" aria-label="Estrelas conquistadas">⭐ <span id="starCount">0</span></div><button id="speechBtn" class="iconBtn" onclick="toggleSpeech()" aria-label="Leitura em voz">🔊</button><button id="sleepModeBtn" class="iconBtn" onclick="toggleSleepMode()" aria-label="Modo Soninho" title="Modo Soninho">🌙</button></div></div></header>
 
 <section id="homePanel" class="panel home active">
   <!-- Barra Superior do Mundo da Elo -->
@@ -190,7 +188,7 @@
     </div>
   </div>
 
-  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.0</span></div>
+  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.1</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -1020,7 +1018,7 @@
   </div>
 </div>
 
-<script src="version.js?v=4.3.0"></script><script src="models3d.js?v=4.3.0"></script><script src="app.js?v=4.3.0"></script><script src="v3.js?v=4.3.0"></script><script src="pet.js?v=4.3.0"></script>
+<script src="version.js?v=4.3.1"></script><script src="models3d.js?v=4.3.1"></script><script src="app.js?v=4.3.1"></script><script src="v3.js?v=4.3.1"></script><script src="pet.js?v=4.3.1"></script>
 
 <!-- Modal Álbum de Figurinhas & Pacotinhos Surpresa -->
 <div id="stickersModal" class="overlay hidden panelOverlay stickersModal">
