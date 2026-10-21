@@ -5,7 +5,8 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.3.2-r39";
+    var TARGET_VER = "4.3.3-r40";
+    localStorage.removeItem("elo_force_landscape_90");
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
       if ("caches" in window) {
@@ -36,10 +37,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800;900&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4.3.2">
-<link rel="stylesheet" href="v3.css?v=4.3.2">
-<link rel="stylesheet" href="polish.css?v=4.3.2">
-<link rel="stylesheet" href="games-v350.css?v=4.3.2">
+<link rel="stylesheet" href="styles.css?v=4.3.3">
+<link rel="stylesheet" href="v3.css?v=4.3.3">
+<link rel="stylesheet" href="polish.css?v=4.3.3">
+<link rel="stylesheet" href="games-v350.css?v=4.3.3">
 </head>
 <body>
 
@@ -59,19 +60,20 @@
       <button class="btn blockerBtn primary" onclick="requestLandscapeMode()">
         <span>🔄</span> Deitar a Tela Automaticamente
       </button>
-      <button class="btn blockerBtn secondary" onclick="toggleForce90Rotation(true)">
-        <span>📱</span> Forçar Giro 90° (Se o celular estiver travado em pé)
-      </button>
     </div>
 
     <div class="blockerHelp">
-      <small>💡 <b>Não virou sozinho ao deitar o celular?</b> Puxe a barra de notificações do seu celular e ative a <b>"Rotação automática"</b> (ou toque no botão de forçar giro acima).</small>
+      <p style="margin:0 0 6px 0;font-weight:900;color:#fde047;font-size:13px;">📱 Como virar a tela no seu celular:</p>
+      <ol style="margin:0;padding-left:18px;line-height:1.5;font-size:12px;">
+        <li>Toque no botão <b>"Deitar a Tela Automaticamente"</b> acima.</li>
+        <li>Ou puxe a barra de notificações do topo do seu celular (onde fica o Wi-Fi e bateria) e toque em <b>"Retrato"</b> para mudar para <b>"Rotação automática"</b>.</li>
+        <li>Em seguida, deite o celular de lado para a brincadeira começar!</li>
+      </ol>
     </div>
   </div>
 </div>
 
 <div id="appContainer" class="app">
-<button id="floatingRotationExitBtn" class="floatingRotationExitBtn" onclick="toggleForce90Rotation(false)" title="Voltar ao modo padrão">↺ Desativar giro 90°</button>
 <header><div class="brand compactBrand"><img class="brandLogo" src="assets/logo-oficial.webp" alt="Dia a Dia da Elo"><div class="brandText"><h1>Dia a Dia da Elo</h1><div class="handle">@diaadiadaelo</div></div><div class="brandActions"><button id="profileChip" class="profileChip profileCompact" onclick="openProfileChooser()" aria-label="Trocar perfil"><span>👤</span><b>Elo</b><small>perfil</small></button><div class="headerStars" aria-label="Estrelas conquistadas">⭐ <span id="starCount">0</span></div><button id="speechBtn" class="iconBtn" onclick="toggleSpeech()" aria-label="Leitura em voz">🔊</button><button id="sleepModeBtn" class="iconBtn" onclick="toggleSleepMode()" aria-label="Modo Soninho" title="Modo Soninho">🌙</button></div></div></header>
 
 <section id="homePanel" class="panel home active">
@@ -1169,6 +1171,6 @@
 
 </div><!-- #appContainer -->
 
-<script src="version.js?v=4.3.2"></script><script src="models3d.js?v=4.3.2"></script><script src="app.js?v=4.3.2"></script><script src="v3.js?v=4.3.2"></script><script src="pet.js?v=4.3.2"></script>
+<script src="version.js?v=4.3.3"></script><script src="models3d.js?v=4.3.3"></script><script src="app.js?v=4.3.3"></script><script src="v3.js?v=4.3.3"></script><script src="pet.js?v=4.3.3"></script>
 </body>
 </html>

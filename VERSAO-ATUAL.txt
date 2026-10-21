@@ -1,7 +1,7 @@
-Versão Atual: 4.3.2
+Versão Atual: 4.3.3
 Data: 21/10/2026
-Modo Exclusivo Deitado (Landscape Only):
-- Bloqueio obrigatório em modo retrato com instruções interativas
-- Virar tela automático (Fullscreen + Screen Orientation Lock)
-- Giro forçado 90° em CSS para celulares com trava de rotação
-- Suporte 100% garantido para tela horizontal panorâmica
+Modo Deitado Nativo Perfeito (Sem rotação forçada CSS de 90° que cortava a tela):
+- Bloqueio total em pé: enquanto o celular estiver na vertical, o app fica 100% protegido e não mostra layout quebrado ou espremido
+- Ao deitar o celular (com rotação automática ligada), o mapa se abre em tela cheia panorâmica perfeita
+- Botão "Deitar a Tela Automaticamente" aciona Tela Cheia + Trava Paisagem da Web API
+- Instrução clara para ativar a "Rotação automática" no painel do Android

@@ -1200,15 +1200,29 @@ html, body {
   overflow-y: auto;
 }
 
+/* Quando o aparelho está em pé (retrato), exibe o bloqueio e ESCONDE 100% o app para não mostrar nada quebrado */
 @media screen and (orientation: portrait) {
-  body:not(.force-landscape-90) #mandatoryLandscapeBlocker {
+  #mandatoryLandscapeBlocker {
     display: flex !important;
+  }
+  #appContainer {
+    display: none !important;
   }
 }
 
+/* Quando o aparelho está deitado (paisagem), esconde o aviso e exibe o app em tela inteira widescreen */
 @media screen and (orientation: landscape) {
   #mandatoryLandscapeBlocker {
     display: none !important;
+  }
+  #appContainer {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    transform: none !important;
+    left: 0 !important;
+    top: 0 !important;
   }
 }
 
@@ -1305,88 +1319,17 @@ html, body {
   border: 2px solid rgba(255, 255, 255, 0.7);
   box-shadow: 0 10px 26px rgba(255, 79, 161, 0.45);
 }
-.blockerBtn.secondary {
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-}
 
 .blockerHelp {
   margin-top: 4px;
-  padding: 10px 14px;
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.32);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.4;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.45;
   text-align: left;
-}
-
-/* MODO DEITADO FORÇADO A 90 GRAUS (QUANDO O CELULAR ESTÁ COM A ROTAÇÃO TRAVADA PELO SISTEMA) */
-body.force-landscape-90 {
-  width: 100vw !important;
-  height: 100vh !important;
-  overflow: hidden !important;
-}
-
-@media screen and (orientation: portrait) {
-  body.force-landscape-90 #mandatoryLandscapeBlocker {
-    display: none !important;
-  }
-  body.force-landscape-90 #appContainer {
-    position: fixed !important;
-    top: 0 !important;
-    left: 100vw !important;
-    width: 100vh !important;
-    height: 100vw !important;
-    transform: rotate(90deg) !important;
-    transform-origin: top left !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    padding-bottom: 78px !important;
-    box-sizing: border-box !important;
-  }
-  body.force-landscape-90 .floatingRotationExitBtn {
-    display: inline-flex !important;
-  }
-}
-
-@media screen and (orientation: landscape) {
-  body.force-landscape-90 #appContainer {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: auto !important;
-    transform: none !important;
-  }
-  body.force-landscape-90 .floatingRotationExitBtn {
-    display: none !important;
-  }
-}
-
-.floatingRotationExitBtn {
-  display: none;
-  position: fixed;
-  top: 10px;
-  right: 14px;
-  z-index: 99999;
-  background: rgba(43, 23, 71, 0.92);
-  color: #fde047;
-  border: 2px solid rgba(253, 224, 71, 0.65);
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-size: 11px;
-  font-weight: 1000;
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
-  animation: fadeInPill 0.3s ease;
-}
-@keyframes fadeInPill {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 /* 3. Barra de navegação inferior compacta para modo deitado */

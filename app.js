@@ -2543,46 +2543,14 @@ window.requestLandscapeMode = async function(){
     console.warn("Orientation lock error:", e);
   }
 
-  // Fallback imediato: se o celular está com a rotação travada pelo Android/iOS, força o giro CSS 90°
-  window.toggleForce90Rotation(true);
+  toast('Ative a "Rotação automática" no seu celular e deite o aparelho! 📱🔄');
 };
 
-window.toggleForce90Rotation = function(forceVal){
-  const shouldForce = typeof forceVal === 'boolean' ? forceVal : !document.body.classList.contains('force-landscape-90');
-  if(shouldForce){
-    document.body.classList.add('force-landscape-90');
-    localStorage.setItem('elo_force_landscape_90', '1');
-    toast('Giro forçado ativado! Celular pronto para deitar 📱🔄');
-  } else {
-    document.body.classList.remove('force-landscape-90');
-    localStorage.removeItem('elo_force_landscape_90');
-    toast('Modo de rotação padrão restaurado');
-  }
-};
-
-function checkAutoLandscapePhysical(){
-  try {
-    if (window.matchMedia && window.matchMedia('(orientation: landscape)').matches) {
-      if (document.body.classList.contains('force-landscape-90')) {
-        document.body.classList.remove('force-landscape-90');
-        localStorage.removeItem('elo_force_landscape_90');
-      }
-    }
-  } catch(_) {}
-}
-
-window.addEventListener('resize', checkAutoLandscapePhysical);
-window.addEventListener('orientationchange', checkAutoLandscapePhysical);
-if (window.screen && window.screen.orientation) {
-  window.screen.orientation.addEventListener('change', checkAutoLandscapePhysical);
-}
-
-// Inicializa preferência gravada caso esteja em modo retrato
-window.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('elo_force_landscape_90') === '1' && window.matchMedia('(orientation: portrait)').matches) {
-    document.body.classList.add('force-landscape-90');
-  }
-});
+// Limpa qualquer trava anterior no localStorage
+try {
+  localStorage.removeItem('elo_force_landscape_90');
+  document.body.classList.remove('force-landscape-90');
+} catch(_) {}
 
 window.tryLockLandscape = function(){
   try {
