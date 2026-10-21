@@ -1,3 +1,21 @@
+v4.2.0 — Voo Montada na Unicórnia, Modelos 3D Criados e Estúdio 3D Interativo
+- Voo Montada na Unicórnia na Trilha Encantada:
+  * Elo agora pode planar e voar montada em sua amiga unicórnia alada em todas as fases da Trilha Encantada.
+  * Botão de voo dedicado (🦄 Voar com Unicórnia) e suporte a atalhos de teclado (KeyX, KeyW, KeyF).
+  * Barra de estamina/energia de voo com regeneração automática ao pousar no chão.
+  * Visual animado da unicórnia alada com asas batendo, crina arco-íris, chifre dourado e rastro de partículas estelares.
+  * Voo permite sobrevoar com segurança obstáculos terrestres (cogumelos, caixotes, cristais e arbustos) e alcançar estrelas altas no céu.
+- Estúdio 3D e Criação dos Modelos 3D:
+  * Motor 3D completo em Canvas nativo com renderização poligonal, backface culling, cálculo de normais, iluminação difusa Lambertiana e ordenação por profundidade (Painter's algorithm).
+  * 5 Modelos 3D poligonais construídos do zero: Unicórnia Alada (293 vértices, 223 faces), Elo 3D Alada (198 vértices, 148 faces), Elo Montada na Unicórnia (381 vértices, 289 faces), Castelo das Estrelas (169 vértices, 129 faces) e Estrela de Cristal (70 vértices, 68 faces).
+  * Controles orbitais interativos de toque e mouse para rotação 360°, zoom por roda do mouse e pinça multitoque.
+  * Botões de alternância para rotação automática suave e modo arames (wireframe).
+  * Exportação de arquivos 3D padrão Wavefront (.OBJ) para download e reutilização em softwares de modelagem 3D.
+  * Importador universal de modelos 3D permitindo carregar arquivos externos .OBJ e .JSON no estúdio.
+- Integração e Navegação:
+  * Botões de acesso rápido ao Estúdio 3D no Início, no Ateliê Criativo e no menu Cantinho da Elo.
+  * Atualização de cache Service Worker para versão 4.2.0-r36 com suporte offline total.
+
 v4.1.0 — Grande Pacote de Atualização: Fix de Embaralhamento, 75+ Perguntas, Álbum, Consultório, Estúdio, DJ, Soninho e Copa da Família
 - Correção Crítica de Jogabilidade: As opções de múltipla escolha na Escolinha Mágica agora são embaralhadas dinamicamente a cada pergunta, distribuindo a resposta correta de forma aleatória entre todos os botões (0, 1 e 2), eliminando o padrão onde a resposta correta caía sempre na primeira opção.
 - Banco de Perguntas e Respostas Expandido: Mais de 75 desafios ricamente ilustrados com emojis, fonética, contagem, comparação, formas geométricas, animais, cores, hábitos saudáveis e ciência.

@@ -5,7 +5,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.1.0-r35";
+    var TARGET_VER = "4.2.0-r36";
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
       if ("caches" in window) {
@@ -51,7 +51,7 @@
   <div class="homeStage3D">
     <div class="homeStageBanner" style="background-image:url('assets/channel-banner-v5.webp')">
       <div class="homeStageOverlay">
-        <span class="stageLivePill">✨ SUPER APP OFICIAL • v4.1</span>
+        <span class="stageLivePill">✨ SUPER APP OFICIAL • v4.2</span>
         <h2>Mundo Mágico da Elo 🌈</h2>
         <p>Brinque, aprenda música, cuide do bichinho, decore e divirta-se em família!</p>
       </div>
@@ -85,6 +85,10 @@
         <button class="heroContinueChip" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd);color:#0369a1" onclick="openPanel('carePanel','home')">
           <span>🦷</span>
           <div><b>Consultório</b><small>Dentes & Lancheira</small></div>
+        </button>
+        <button class="heroContinueChip" style="background:linear-gradient(135deg,#f3e8ff,#e9d5ff);color:#6b21a8" onclick="openModelStudio()">
+          <span>💎</span>
+          <div><b>Estúdio 3D</b><small>Elo & Unicórnia</small></div>
         </button>
       </div>
     </div>
@@ -234,7 +238,7 @@
     </button>
   </div>
 
-  <div class="footer-note">Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.0.0</span></div>
+  <div class="footer-note">Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.2.0</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -413,6 +417,9 @@
     <button class="cTabBtn" onclick="switchCreativeMode('photo', this)">
       <span>📸</span> <b>Estúdio de Fotos</b>
     </button>
+    <button class="cTabBtn" onclick="openModelStudio()">
+      <span>💎</span> <b>Estúdio 3D</b>
+    </button>
   </div>
 
   <!-- Modo 1: Desenho Livre com Pincel Mágico -->
@@ -555,7 +562,7 @@
   <div class="card parentClubCard"><h3>Clubinho da Elo 👑</h3><p class="muted">Informações de assinatura e valores ficam somente na Área dos Pais.</p><button class="btn secondary" onclick="openPanel('clubPanel','parents')">Ver planos e benefícios</button></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.0.0</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.2.0</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -923,7 +930,7 @@
     <div id="memoryGame" class="gameSection"><div class="card gamebox"><p class="muted">Escolha o nível. Encontre os pares com desenhos da Elo e temas divertidos.</p><div class="diffRow"><button class="chip on" data-memory="easy" onclick="setMemoryLevel('easy',this)">Fácil • 8</button><button class="chip" data-memory="medium" onclick="setMemoryLevel('medium',this)">Médio • 16</button><button class="chip" data-memory="hard" onclick="setMemoryLevel('hard',this)">Difícil • 32</button></div><div class="gameStats"><span id="memoryStatus">Encontre os pares!</span><span id="memoryMoves">Jogadas: 0</span></div><div id="memory" class="memory easy"></div><div style="margin-top:12px"><button class="btn secondary" onclick="startMemory()">Novo jogo</button></div></div></div>
     <div id="puzzleGame" class="gameSection"><div class="card gamebox"><p class="muted">Escolha uma das 16 imagens da Elo e monte o quebra-cabeça. Toque em duas peças para trocar de lugar.</p><div class="diffRow"><button class="chip on" data-puzzle="easy" onclick="setPuzzleLevel('easy',this)">Fácil • 3×3</button><button class="chip" data-puzzle="medium" onclick="setPuzzleLevel('medium',this)">Médio • 4×4</button><button class="chip" data-puzzle="hard" onclick="setPuzzleLevel('hard',this)">Difícil • 5×5</button></div><div class="puzzleTop"><img id="puzzlePreview" class="puzzlePreview" src="assets/puzzle/puzzle-01.webp" alt="Imagem da Elo"><div><b>Escolha uma imagem da Elo</b><div id="puzzleChoices" class="puzzleChoices"></div><div class="puzzleHint">A imagem pequena mostra como o quebra-cabeça deve ficar.</div></div></div><div class="gameStats"><span id="puzzleStatus">Monte a imagem!</span><span id="puzzleMoves">Jogadas: 0</span></div><div id="puzzleBoard" class="puzzleBoard"></div><div id="puzzleCompleteNote" class="hidden" style="margin:10px 0;padding:12px;border-radius:16px;background:#e9fff5;color:#297a5d;font-weight:900">🏆 Conseguiu! As peças foram bloqueadas para mostrar que o quebra-cabeça está completo.</div><div style="margin-top:12px" class="row"><button class="btn secondary" onclick="startPuzzle(true)">Outra imagem</button><button class="btn secondary" onclick="startPuzzle(false)">Embaralhar de novo</button></div></div></div>
     <div id="tapGameSection" class="gameSection"><div class="card gamebox"><p class="muted">Escolha o nível e toque no número certo antes que o tempo acabe.</p><div class="diffRow"><button class="chip on" data-tap="easy" onclick="setTapLevel('easy',this)">Fácil • 5s</button><button class="chip" data-tap="medium" onclick="setTapLevel('medium',this)">Médio • 3,5s</button><button class="chip" data-tap="hard" onclick="setTapLevel('hard',this)">Difícil • 2,5s</button></div><div class="gameStats"><span id="tapScore">Acertos: 0/10</span><span id="tapTimeText">5,0s</span></div><div class="timerTrack"><i id="tapTimerBar"></i></div><div id="tapPrompt" class="quiz-q"></div><div id="tapGame" class="tapGame"></div><div style="margin-top:12px"><button class="btn secondary" onclick="startTapGame()">Novo desafio</button></div></div></div>
-    <div id="trailGame" class="gameSection"><div class="card gamebox"><div class="trailHeader"><div class="trailBadge">✨ Trilha Encantada</div><div class="diffRow" style="margin:0"><button class="chip on" data-trail="easy" onclick="setTrailLevel('easy',this)">Fácil</button><button class="chip" data-trail="medium" onclick="setTrailLevel('medium',this)">Médio</button><button class="chip" data-trail="hard" onclick="setTrailLevel('hard',this)">Difícil</button></div></div><p class="muted">Corra com a Elo por cenários mágicos, pegue estrelas e unicórnios, enfrente chefões a cada 5 fases e ganhe 1 vida extra a cada 100 pontos coletados. ⭐ vale 1 e 🦄 vale 2.</p><div class="trailHud"><div class="trailStat"><b>FASE</b><span id="trailPhase">1</span></div><div class="trailStat"><b>VIDAS</b><span id="trailLives">3</span></div><div class="trailStat"><b>COLETA</b><span id="trailCollected">0/100</span></div><div class="trailStat"><b>SCORE</b><span id="trailScore">0</span></div></div><div class="trailInfo"><span id="trailStatus">Toque em iniciar e ajude a Elo a atravessar a trilha encantada.</span><span id="trailMode">Modo aventura</span></div><div id="trailBossBar" class="trailBossBar"><i id="trailBossFill"></i></div><div class="trailCanvasWrap"><canvas id="trailCanvas" class="trailCanvas" width="900" height="500"></canvas><div id="trailEloMount" class="trailEloMount" aria-hidden="true"></div></div><div class="trailControls"><button class="trailBtn jump" onpointerdown="trailJump();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">⤴️ Pular</button><button class="trailBtn magic" onpointerdown="trailMagic();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">💖 Poder</button></div><p class="trailHint">Dica: contra o chefão, <b>Poder</b> funciona o tempo todo enquanto ele estiver vivo. Você pode atacar quando quiser; os intervalos sem tiros são apenas mais seguros.</p><div class="premiumNote">🏅 Medalha deste jogo: derrote o primeiro chefão no nível escolhido para liberar bronze, prata ou ouro.</div><div class="row" style="margin-top:12px;justify-content:center"><button class="btn secondary" onclick="restartTrailRun();startTrailGame()">↻ Recomeçar do início</button></div></div></div>
+    <div id="trailGame" class="gameSection"><div class="card gamebox"><div class="trailHeader"><div class="trailBadge">✨ Trilha Encantada</div><div class="diffRow" style="margin:0"><button class="chip on" data-trail="easy" onclick="setTrailLevel('easy',this)">Fácil</button><button class="chip" data-trail="medium" onclick="setTrailLevel('medium',this)">Médio</button><button class="chip" data-trail="hard" onclick="setTrailLevel('hard',this)">Difícil</button></div></div><p class="muted">Corra com a Elo por cenários mágicos, pegue estrelas e unicórnios, enfrente chefões a cada 5 fases e ganhe 1 vida extra a cada 100 pontos coletados. ⭐ vale 1 e 🦄 vale 2. Use <b>Voar com Unicórnia</b> (ou tecla X) para planar nas alturas e desviar de obstáculos no céu!</p><div class="trailHud"><div class="trailStat"><b>FASE</b><span id="trailPhase">1</span></div><div class="trailStat"><b>VIDAS</b><span id="trailLives">3</span></div><div class="trailStat"><b>COLETA</b><span id="trailCollected">0/100</span></div><div class="trailStat"><b>SCORE</b><span id="trailScore">0</span></div><div class="trailStat"><b>VOO</b><span id="trailFlyEnergy">100%</span><div class="trailFlyBar"><div id="trailFlyBarFill" class="trailFlyBarFill"></div></div></div></div><div class="trailInfo"><span id="trailStatus">Toque em iniciar e ajude a Elo a atravessar a trilha encantada.</span><span id="trailMode">Modo aventura</span></div><div id="trailBossBar" class="trailBossBar"><i id="trailBossFill"></i></div><div class="trailCanvasWrap"><canvas id="trailCanvas" class="trailCanvas" width="900" height="500"></canvas><div id="trailEloMount" class="trailEloMount" aria-hidden="true"></div></div><div class="trailControls"><button class="trailBtn jump" onpointerdown="trailJump();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">⤴️ Pular</button><button class="trailBtn fly" onpointerdown="trailFlyStart();this.classList.add('pressed')" onpointerup="trailFlyEnd();this.classList.remove('pressed')" onpointercancel="trailFlyEnd();this.classList.remove('pressed')">🦄 Voar com Unicórnia</button><button class="trailBtn magic" onpointerdown="trailMagic();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">💖 Poder</button></div><p class="trailHint">Dica: contra o chefão, <b>Poder</b> funciona o tempo todo enquanto ele estiver vivo. Você pode atacar quando quiser; os intervalos sem tiros são apenas mais seguros.</p><div class="premiumNote">🏅 Medalha deste jogo: derrote o primeiro chefão no nível escolhido para liberar bronze, prata ou ouro.</div><div class="row" style="margin-top:12px;justify-content:center"><button class="btn secondary" onclick="restartTrailRun();startTrailGame()">↻ Recomeçar do início</button></div></div></div>
   </div>
 </div>
 <div id="rpgOverlay" class="rpgOverlay hidden" role="dialog" aria-modal="true"><iframe id="rpgFrame" title="Elo e o Reino das Estrelas" loading="eager"></iframe></div>
@@ -1051,11 +1058,17 @@
         <b>Bichinho Virtual</b>
         <small>Alimente, brinque, dê banho e carinho</small>
       </button>
+
+      <button class="hubTile" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);" onclick="closeEloHubModal();openModelStudio()">
+        <span class="hubTileIcon">💎</span>
+        <b>Estúdio 3D</b>
+        <small>Modelos da Elo, Unicórnia e Castelo</small>
+      </button>
     </div>
   </div>
 </div>
 
-<script src="version.js?v=4.1.0"></script><script src="app.js?v=4.1.0"></script><script src="v3.js?v=4.1.0"></script><script src="pet.js?v=4.1.0"></script>
+<script src="version.js?v=4.2.0"></script><script src="models3d.js?v=4.2.0"></script><script src="app.js?v=4.2.0"></script><script src="v3.js?v=4.2.0"></script><script src="pet.js?v=4.2.0"></script>
 
 <!-- Modal Álbum de Figurinhas & Pacotinhos Surpresa -->
 <div id="stickersModal" class="overlay hidden panelOverlay stickersModal">
@@ -1118,6 +1131,70 @@
       <button class="sleepTimerBtn" onclick="readBedtimeStory()">📖 Ler História Calma</button>
     </div>
     <small style="opacity:0.8;font-size:11px;">Música suave sintetizada para relaxar os olhos e adormecer.</small>
+  </div>
+</div>
+
+
+<!-- Modal Estúdio 3D da Elo & Unicórnia -->
+<div id="modelStudioModal" class="overlay hidden panelOverlay modelStudioModal" role="dialog" aria-modal="true" aria-labelledby="modelStudioTitle">
+  <div class="panelCard">
+    <div class="panelHead">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:28px;">💎</span>
+        <div>
+          <h2 id="modelStudioTitle" style="margin:0;font-size:21px;">Estúdio 3D da Elo</h2>
+          <small id="modelStudioStats" style="color:var(--muted);font-weight:700;">Modelos 3D Interativos</small>
+        </div>
+      </div>
+      <button class="miniClose" onclick="closeModelStudio()" aria-label="Fechar Estúdio 3D">×</button>
+    </div>
+
+    <p id="modelStudioDesc" class="muted" style="margin:4px 0 10px;font-size:12px;">
+      Gire em 360°, dê zoom e explore os modelos 3D criados especialmente para a Elo e sua amiga unicórnia!
+    </p>
+
+    <!-- Seletor de Modelos 3D -->
+    <div class="modelPresetsRow">
+      <button class="modelPresetBtn active" data-model="unicorn" onclick="selectModelPreset('unicorn', this)">
+        <span>🦄</span> <b>Unicórnia Alada</b>
+      </button>
+      <button class="modelPresetBtn" data-model="elo" onclick="selectModelPreset('elo', this)">
+        <span>👧</span> <b>Elo 3D</b>
+      </button>
+      <button class="modelPresetBtn" data-model="elo_riding" onclick="selectModelPreset('elo_riding', this)">
+        <span>🦄👧</span> <b>Elo Montada</b>
+      </button>
+      <button class="modelPresetBtn" data-model="castle" onclick="selectModelPreset('castle', this)">
+        <span>🏰</span> <b>Castelo</b>
+      </button>
+      <button class="modelPresetBtn" data-model="star" onclick="selectModelPreset('star', this)">
+        <span>⭐</span> <b>Estrela 3D</b>
+      </button>
+    </div>
+
+    <!-- Canvas 3D -->
+    <div class="modelCanvasContainer">
+      <canvas id="modelStudioCanvas" width="600" height="400"></canvas>
+      <div class="modelCanvasHint">Arraste para girar 360° • Roda ou pinça para zoom</div>
+    </div>
+
+    <!-- Barra de Ferramentas do Estúdio 3D -->
+    <div class="modelStudioToolbar">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button id="autoRotateToggleBtn" class="toolBtn active" onclick="toggleModelAutoRotate()" title="Girar automático">🔄 Girar</button>
+        <button id="wireframeToggleBtn" class="toolBtn" onclick="toggleModelWireframe()" title="Modo Arames / Wireframe">🕸️ Arames</button>
+        <button class="toolBtn" onclick="resetModelCamera()" title="Centralizar câmera">🎯 Centralizar</button>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn" style="background:linear-gradient(135deg,#00d288,#059669);padding:8px 12px;font-size:11px;" onclick="exportCurrentModelObj()">
+          💾 Baixar .OBJ (+2 ⭐)
+        </button>
+        <label class="btn secondary" style="padding:8px 12px;font-size:11px;cursor:pointer;margin:0;">
+          📥 Importar .OBJ/.JSON
+          <input type="file" accept=".obj,.json" style="display:none;" onchange="importCustomModelFile(this)">
+        </label>
+      </div>
+    </div>
   </div>
 </div>
 

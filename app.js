@@ -1,3 +1,162 @@
+
+function drawFlyingUnicorn(ctx, x, y, isFlying){
+  ctx.save();
+  ctx.translate(x, y);
+
+  if(isFlying){
+    const rainbowColors=['rgba(236,72,153,0.55)','rgba(168,85,247,0.55)','rgba(56,189,248,0.55)','rgba(250,204,21,0.55)'];
+    for(let i=0;i<4;i++){
+      ctx.fillStyle=rainbowColors[i];
+      ctx.beginPath();
+      ctx.ellipse(-26-i*12, 22+i*4, 20, 6, -0.15, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  const tailColors=['#ec4899','#a855f7','#38bdf8','#34d399'];
+  for(let i=0;i<tailColors.length;i++){
+    ctx.fillStyle=tailColors[i];
+    ctx.beginPath();
+    ctx.ellipse(-22-i*5, 18+Math.sin(trailTick*0.25+i)*5, 11, 5, -0.4, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  ctx.fillStyle='#f8f5fc';
+  if(isFlying){
+    ctx.fillRect(40, 26, 14, 6);
+    ctx.fillRect(44, 30, 12, 5);
+    ctx.fillRect(-12, 26, 14, 6);
+    ctx.fillRect(-15, 30, 12, 5);
+    ctx.fillStyle='#fbbf24';
+    ctx.fillRect(52, 25, 7, 7);
+    ctx.fillRect(-19, 25, 7, 7);
+  } else {
+    ctx.fillRect(36, 22, 7, 20);
+    ctx.fillRect(47, 22, 7, 20);
+    ctx.fillRect(-6, 22, 7, 20);
+    ctx.fillRect(5, 22, 7, 20);
+    ctx.fillStyle='#fbbf24';
+    ctx.fillRect(36, 38, 7, 6);
+    ctx.fillRect(47, 38, 7, 6);
+    ctx.fillRect(-6, 38, 7, 6);
+    ctx.fillRect(5, 38, 7, 6);
+  }
+
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath();
+  ctx.ellipse(20, 18, 32, 16, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle='#e9d5ff';
+  ctx.lineWidth=1.5;
+  ctx.stroke();
+
+  ctx.fillStyle='#ec4899';
+  ctx.beginPath();
+  ctx.roundRect(12, 8, 22, 9, 3);
+  ctx.fill();
+  ctx.fillStyle='#fde047';
+  ctx.beginPath();
+  ctx.arc(23, 12, 2.5, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath();
+  ctx.moveTo(34, 14);
+  ctx.lineTo(52, -3);
+  ctx.lineTo(62, -3);
+  ctx.lineTo(48, 22);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.ellipse(58, -1, 14, 11, 0.2, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle='#ffd8e8';
+  ctx.beginPath();
+  ctx.ellipse(68, 2, 7, 6, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle='#f472b6';
+  ctx.beginPath();
+  ctx.arc(70, 1, 1.5, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle='#4c1d95';
+  ctx.beginPath();
+  ctx.arc(60, -3, 2.8, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath();
+  ctx.arc(61, -4, 0.9, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle='rgba(244, 114, 182, 0.5)';
+  ctx.beginPath();
+  ctx.ellipse(58, 2, 3.5, 2, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath();
+  ctx.moveTo(50, -10);
+  ctx.lineTo(54, -19);
+  ctx.lineTo(58, -10);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle='#fbcfe8';
+  ctx.beginPath();
+  ctx.moveTo(52, -11);
+  ctx.lineTo(54, -16);
+  ctx.lineTo(56, -11);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle='#fde047';
+  ctx.beginPath();
+  ctx.moveTo(63, -7);
+  ctx.lineTo(76, -21);
+  ctx.lineTo(66, -4);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath();
+  ctx.arc(76, -21, 2, 0, Math.PI*2);
+  ctx.fill();
+
+  const maneColors=['#ec4899','#a855f7','#38bdf8','#fbbf24'];
+  for(let i=0;i<maneColors.length;i++){
+    ctx.fillStyle=maneColors[i];
+    ctx.beginPath();
+    ctx.ellipse(47-i*5, -2+i*4, 7, 4.5, -0.3, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  const wingFlap=isFlying?Math.sin(trailTick*0.35)*0.45:Math.sin(trailTick*0.1)*0.15;
+  ctx.save();
+  ctx.translate(20, 10);
+  ctx.rotate(wingFlap);
+  ctx.fillStyle='#bae6fd';
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.quadraticCurveTo(-12, -30, -4, -42);
+  ctx.quadraticCurveTo(12, -38, 16, -20);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle='#fbcfe8';
+  ctx.beginPath();
+  ctx.moveTo(2, -2);
+  ctx.quadraticCurveTo(-6, -24, 0, -32);
+  ctx.quadraticCurveTo(10, -29, 11, -15);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle='#38bdf8';
+  ctx.beginPath();
+  ctx.arc(-4, -42, 2, 0, Math.PI*2);
+  ctx.fill();
+  ctx.restore();
+
+  ctx.restore();
+}
+
 const APP_VERSION=self.ELO_APP_VERSION||'4.0.0';
 
 // ===== v2.0 • Perfis locais, acessibilidade, tempo saudável, tutorial e backup =====
@@ -166,7 +325,7 @@ function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();if(
 function exitDialogOpen(){return !document.getElementById('exitConfirm')?.classList.contains('hidden')}
 function profileChooserOpen(){return !document.getElementById('profileModal')?.classList.contains('hidden')}
 function isAnyModalOpen(){
-  const ids = ['gameModal', 'coloringModal', 'rpgOverlay', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'rewardVideoOverlay', 'profileModal', 'exitConfirm'];
+  const ids = ['gameModal', 'coloringModal', 'rpgOverlay', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'modelStudioModal', 'rewardVideoOverlay', 'profileModal', 'exitConfirm'];
   return ids.some(id => {
     const el = document.getElementById(id);
     return el && !el.classList.contains('hidden');
@@ -179,6 +338,7 @@ function appBack(){
   if(exitDialogOpen()) return cancelAppExit();
   if(!document.getElementById('rewardVideoOverlay')?.classList.contains('hidden')){ document.getElementById('rewardVideoOverlay').classList.add('hidden'); return; }
   if(!document.getElementById('starShopModal')?.classList.contains('hidden')){ closeStarShop(); return; }
+  if(!document.getElementById('modelStudioModal')?.classList.contains('hidden')){ closeModelStudio(); return; }
   if(!document.getElementById('eloHubModal')?.classList.contains('hidden')){ closeEloHubModal(); return; }
   if(!document.getElementById('cinemaPlayerModal')?.classList.contains('hidden')) return closeCinemaPlayer();
   if(profileChooserOpen()) return closeProfileChooser();
@@ -528,17 +688,48 @@ function syncTrailEloClone(){
 }
 
 function setTrailLevel(level,btn){trailLevel=level;document.querySelectorAll('[data-trail]').forEach(x=>x.classList.remove('on'));if(btn)btn.classList.add('on');restartTrailRun()}
-function baseTrailState(){return {mode:'ready',phase:1,lives:3,score:0,totalCollected:0,nextLifeAt:100,phaseCollected:0,phaseGoal:18,phaseDistance:0,phaseDistanceGoal:2400,bossHp:0,bossMaxHp:0,bossShotCd:0,bossPattern:'attack',bossPatternTimer:0,bossVulnerable:false,gameOver:false,messageShown:false,hasShield:false,magnetTimer:0,player:{x:110,y:0,vy:0,w:58,h:76,jumpBuffer:0,inv:0},ground:390,worldSpeed:TRAIL_LEVELS[trailLevel].speed,spawnTimer:0,collectTimer:0,entities:[],projectiles:[],effects:[],bossProjectiles:[],boss:null,medalGiven:false}};
+function baseTrailState(){return {mode:'ready',phase:1,lives:3,score:0,totalCollected:0,nextLifeAt:100,phaseCollected:0,phaseGoal:18,phaseDistance:0,phaseDistanceGoal:2400,bossHp:0,bossMaxHp:0,bossShotCd:0,bossPattern:'attack',bossPatternTimer:0,bossVulnerable:false,gameOver:false,messageShown:false,hasShield:false,magnetTimer:0,isFlying:false,flyStamina:100,player:{x:110,y:0,vy:0,w:58,h:76,jumpBuffer:0,inv:0},ground:390,worldSpeed:TRAIL_LEVELS[trailLevel].speed,spawnTimer:0,collectTimer:0,entities:[],projectiles:[],effects:[],bossProjectiles:[],boss:null,medalGiven:false}};
 function restartTrailRun(){trailStop();trailState=baseTrailState();prepareTrailPhase();drawTrailScene(0);syncTrailHud();trailUI.status.textContent='Fase 1 • A aventura recomeçou!'}
 function startTrailGame(){if(!trailState||trailState.lives<=0||trailState.gameOver)restartTrailRun();trailStop();trailState.worldSpeed=TRAIL_LEVELS[trailLevel].speed+(trailState.phase-1)*0.06;trailRunning=true;trailLast=performance.now();trailUI.status.textContent=isTrailBossPhase()?`Fase ${trailState.phase} • Desvie dos ataques!`:`Fase ${trailState.phase} • Corra com a Elo e pegue os objetos brilhantes!`;trailAnim=requestAnimationFrame(trailLoop)}
 function trailStop(){trailRunning=false;if(trailAnim)cancelAnimationFrame(trailAnim);trailAnim=0}
 function trailJump(){if(!trailState||!trailRunning)return;const p=trailState.player;const onGround=p.y>=trailState.ground-p.h-4;if(onGround){p.y=trailState.ground-p.h-1;p.vy=-TRAIL_LEVELS[trailLevel].jump;p.jumpBuffer=0}else{p.jumpBuffer=11}}
 function trailMagic(){if(!trailState||!trailRunning)return;if(trailState.mode!=='boss'||!trailState.boss||trailState.bossHp<=0){toast('Guarde o poder para o chefão! 💖');return}const p=trailState.player;trailState.projectiles.push({x:p.x+p.w-6,y:p.y+28,vx:11.5,size:20,alive:true});}
+function trailFlyStart(){if(!trailState||!trailRunning)return;if(trailState.flyStamina>8){trailState.isFlying=true;trailState.effects.push({x:trailState.player.x,y:trailState.player.y+10,text:'🦄✨',t:36});if(typeof playCuteSfx==='function')playCuteSfx('coin');toast('Voando com a amiga Unicórnia! 🦄🌈');}else{toast('Unicórnia descansando energia de voo! 🦄');}}
+function trailFlyEnd(){if(!trailState)return;trailState.isFlying=false;}
+window.trailFlyStart=trailFlyStart;window.trailFlyEnd=trailFlyEnd;
 function isTrailBossPhase(){return trailState&&trailState.phase%5===0}
 function prepareTrailPhase(){if(!trailState)return;trailState.entities=[];trailState.projectiles=[];trailState.effects=[];trailState.bossProjectiles=[];trailState.phaseCollected=0;trailState.phaseDistance=0;const pacing=TRAIL_LEVELS[trailLevel];trailState.spawnTimer=pacing.spawnMin+35;trailState.collectTimer=pacing.collectMin;trailState.player.y=trailState.ground-trailState.player.h;trailState.player.vy=0;trailState.player.inv=0;trailState.mode=isTrailBossPhase()?'boss':'run';trailState.phaseGoal=(isTrailBossPhase()?0:16+trailState.phase*2);trailState.phaseDistanceGoal=2400+trailState.phase*220;trailState.worldSpeed=TRAIL_LEVELS[trailLevel].speed+(trailState.phase-1)*0.06;trailState.boss=null;trailState.bossHp=0;trailState.bossMaxHp=0;trailState.bossVulnerable=false;trailState.bossPattern='attack';trailState.bossPatternTimer=pacing.bossAttack||150;trailState.bossShotCd=28;trailState.gameOver=false;trailState.messageShown=false;if(isTrailBossPhase()){const hp=TRAIL_LEVELS[trailLevel].bossHp+Math.max(0,Math.floor(trailState.phase/5)-1);trailState.boss={x:745,y:110,w:118,h:118,phase:0,float:0,hitFlash:0};trailState.bossHp=hp;trailState.bossMaxHp=hp;}syncTrailHud()}
-function syncTrailHud(){if(!trailState)return;trailUI.phase.textContent=trailState.phase;trailUI.lives.textContent='💗 '+trailState.lives;trailUI.collected.textContent=`${trailState.totalCollected}/${trailState.nextLifeAt}`;trailUI.score.textContent=trailState.score;trailUI.mode.textContent=isTrailBossPhase()?'Modo chefão':'Modo aventura';if(trailState.mode==='boss'){trailUI.bossBar.classList.add('show');trailUI.bossFill.style.width=((trailState.bossHp/Math.max(1,trailState.bossMaxHp))*100)+'%'}else trailUI.bossBar.classList.remove('show')}
+function syncTrailHud(){if(!trailState)return;trailUI.phase.textContent=trailState.phase;trailUI.lives.textContent='💗 '+trailState.lives;trailUI.collected.textContent=`${trailState.totalCollected}/${trailState.nextLifeAt}`;trailUI.score.textContent=trailState.score;trailUI.mode.textContent=isTrailBossPhase()?'Modo chefão':'Modo aventura';
+const flyEnergyEl=document.getElementById('trailFlyEnergy');if(flyEnergyEl)flyEnergyEl.textContent=Math.round(trailState.flyStamina||0)+'%';
+const flyBarEl=document.getElementById('trailFlyBarFill');if(flyBarEl)flyBarEl.style.width=Math.round(trailState.flyStamina||0)+'%';if(trailState.mode==='boss'){trailUI.bossBar.classList.add('show');trailUI.bossFill.style.width=((trailState.bossHp/Math.max(1,trailState.bossMaxHp))*100)+'%'}else trailUI.bossBar.classList.remove('show')}
 function trailLoop(ts){if(!trailRunning||!trailState)return;const dt=Math.min(1.6,(ts-trailLast)/16.6667);trailLast=ts;trailTick+=dt;updateTrail(dt);drawTrailScene(dt);trailAnim=requestAnimationFrame(trailLoop)}
-function updateTrail(dt){const s=trailState,p=s.player,gravity=0.9; if(p.jumpBuffer>0)p.jumpBuffer--; p.vy+=gravity*dt; p.y+=p.vy*dt; if(p.y>s.ground-p.h){p.y=s.ground-p.h;p.vy=0;if(p.jumpBuffer>0){p.jumpBuffer=0;p.vy=-TRAIL_LEVELS[trailLevel].jump}} if(p.inv>0)p.inv-=dt;
+function updateTrail(dt){const s=trailState,p=s.player,gravity=0.9; if(p.jumpBuffer>0)p.jumpBuffer--;
+if(s.isFlying && s.flyStamina > 0){
+  s.flyStamina = Math.max(0, s.flyStamina - dt * 0.45);
+  p.vy = Math.max(-5.5, p.vy - 1.35 * dt);
+  p.y += p.vy * dt;
+  if(p.y < 95){ p.y = 95; p.vy = 0; }
+  if(Math.random() < 0.32){
+    s.effects.push({x: p.x - 24 + Math.random()*8, y: p.y + p.h - 10 + Math.random()*15, text: ['✨', '🌈', '⭐', '🦄', '💖'][Math.floor(Math.random()*5)], t: 28});
+  }
+  if(s.flyStamina <= 0){
+    s.isFlying = false;
+    toast('Energia de voo terminou, planando suavemente! 🦄');
+  }
+} else {
+  p.vy += gravity * dt;
+  p.y += p.vy * dt;
+  if(p.y > s.ground - p.h){
+    p.y = s.ground - p.h;
+    p.vy = 0;
+    if(p.jumpBuffer > 0){
+      p.jumpBuffer = 0;
+      p.vy = -TRAIL_LEVELS[trailLevel].jump;
+    }
+    s.flyStamina = Math.min(100, s.flyStamina + dt * 0.72);
+  }
+}
+if(p.inv>0)p.inv-=dt;
  if(s.mode==='run'){const cfg=TRAIL_LEVELS[trailLevel];s.phaseDistance+=s.worldSpeed*dt*3; s.spawnTimer-=dt; s.collectTimer-=dt; if(s.spawnTimer<=0){spawnTrailObstacle(); s.spawnTimer=Math.max(42,cfg.spawnMin+Math.random()*cfg.spawnVar-Math.min(14,s.phase*.8))} if(s.collectTimer<=0){spawnTrailCollectible(); s.collectTimer=cfg.collectMin+Math.random()*cfg.collectVar} }
  if(s.mode==='boss')updateTrailBoss(dt);
  updateTrailEntities(dt); updateTrailProjectiles(dt); updateTrailEffects(dt); if(s.mode==='run'&&s.phaseDistance>=s.phaseDistanceGoal&&s.phaseCollected>=s.phaseGoal){completeTrailPhase()} syncTrailHud()}
@@ -558,7 +749,7 @@ function updateTrailEntities(dt){const s=trailState,p=s.player; s.entities.forEa
     }
   }
 });
-if(s.magnetTimer > 0) s.magnetTimer -= dt; s.entities=s.entities.filter(e=>e.x+e.w>-60); for(const e of [...s.entities]){if(rectHit(p,e,16)){if(e.kind==='collectible'){collectTrailItem(e)} else if(p.inv<=0){trailDamage(1,'Cuidado com o obstáculo!')}}}}
+if(s.magnetTimer > 0) s.magnetTimer -= dt; s.entities=s.entities.filter(e=>e.x+e.w>-60); for(const e of [...s.entities]){if(rectHit(p,e,16)){if(e.kind==='collectible'){collectTrailItem(e)} else if(e.kind==='obstacle'&&s.isFlying&&p.y<s.ground-p.h-35){if(Math.random()<0.14)s.effects.push({x:e.x,y:e.y-12,text:'🦄 Desviou!',t:28});} else if(p.inv<=0){trailDamage(1,'Cuidado com o obstáculo!')}}}}
 function collectTrailItem(e){
   const s=trailState;
   s.entities=s.entities.filter(x=>x!==e);
@@ -597,7 +788,11 @@ function trailDamage(amount,msg){
   }s.lives=Math.max(0,s.lives-amount);p.inv=36;toast(msg);syncTrailHud();if(s.lives<=0){s.gameOver=true;trailStop();trailUI.status.textContent='Fim de jogo! Voltando para a fase 1...';setTimeout(()=>{restartTrailRun();startTrailGame()},1200);}}
 function rectHit(a,b,pad=0){return a.x+pad<b.x+b.w&&a.x+a.w-pad>b.x&&a.y+pad<b.y+b.h&&a.y+a.h-pad>b.y}
 function drawTrailScene(dt){const ctx=trailCtx,s=trailState||baseTrailState(); ctx.clearRect(0,0,trailCanvas.width,trailCanvas.height);ctx.filter='saturate(1.2) contrast(1.06)'; const phase=s.phase||1; const bossMode=s.mode==='boss'; const sky=ctx.createLinearGradient(0,0,0,trailCanvas.height); const skySets=[['#89dbff','#f7f2ff'],['#98ddff','#fff3ca'],['#6f66d9','#ffb8d0'],['#88dff3','#ffe8ff']][phase%4]; sky.addColorStop(0,skySets[0]); sky.addColorStop(1,skySets[1]); ctx.fillStyle=sky; ctx.fillRect(0,0,trailCanvas.width,trailCanvas.height); drawClouds(ctx,phase); drawSunMoon(ctx,phase); drawFarMountains(ctx,phase); drawMagicCastle(ctx,phase); drawHills(ctx,phase); drawGround(ctx,phase); if(phase%3===1&&!bossMode)drawRainbow(ctx); if(bossMode)drawBossArenaGlow(ctx);
- if(s.entities)for(const e of s.entities)drawTrailEntity(ctx,e); if(s.bossProjectiles)for(const p of s.bossProjectiles)drawBossProjectile(ctx,p); if(s.projectiles)for(const p of s.projectiles)drawMagicHeart(ctx,p.x,p.y,p.size||18); if(s.boss)drawGhostBoss(ctx,s.boss,s.boss.hitFlash>0); syncTrailEloClone(); if(s.effects)for(const f of s.effects){ctx.save();ctx.globalAlpha=Math.min(1,f.t/30);ctx.font='28px system-ui';ctx.fillText(f.text,f.x,f.y);ctx.restore()} if(!trailRunning&&trailState&&trailUI.status.textContent.startsWith('Toque em iniciar')){ctx.save();ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillRect(250,160,400,80);ctx.fillStyle='#6949b4';ctx.font='900 26px system-ui';ctx.textAlign='center';ctx.fillText('Pronta para a aventura?',450,210);ctx.restore()}ctx.filter='none'}
+ if(s.entities)for(const e of s.entities)drawTrailEntity(ctx,e); if(s.bossProjectiles)for(const p of s.bossProjectiles)drawBossProjectile(ctx,p); if(s.projectiles)for(const p of s.projectiles)drawMagicHeart(ctx,p.x,p.y,p.size||18); if(s.boss)drawGhostBoss(ctx,s.boss,s.boss.hitFlash>0);
+if(s.isFlying || (s.player && s.player.y < s.ground - s.player.h - 8)){
+  drawFlyingUnicorn(ctx, s.player.x - 12, s.player.y + s.player.h - 32, s.isFlying);
+}
+syncTrailEloClone(); if(s.effects)for(const f of s.effects){ctx.save();ctx.globalAlpha=Math.min(1,f.t/30);ctx.font='28px system-ui';ctx.fillText(f.text,f.x,f.y);ctx.restore()} if(!trailRunning&&trailState&&trailUI.status.textContent.startsWith('Toque em iniciar')){ctx.save();ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillRect(250,160,400,80);ctx.fillStyle='#6949b4';ctx.font='900 26px system-ui';ctx.textAlign='center';ctx.fillText('Pronta para a aventura?',450,210);ctx.restore()}ctx.filter='none'}
 function drawClouds(ctx,phase){for(let i=0;i<5;i++){const x=(i*210-(trailTick*8*(i%2?1.1:.8))%1100)+40,y=40+(i%3)*24;ctx.fillStyle='rgba(255,255,255,.78)';ctx.beginPath();ctx.arc(x,y,22,0,Math.PI*2);ctx.arc(x+20,y-8,17,0,Math.PI*2);ctx.arc(x+42,y,20,0,Math.PI*2);ctx.fill();}}
 function drawSunMoon(ctx,phase){ctx.save();if(phase%4===2){ctx.fillStyle='#ffe28c';ctx.beginPath();ctx.arc(120,74,34,0,Math.PI*2);ctx.fill()}else if(phase%4===3){ctx.fillStyle='#fff5b3';ctx.beginPath();ctx.arc(120,74,28,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(111,102,217,.75)';ctx.beginPath();ctx.arc(132,68,25,0,Math.PI*2);ctx.fill()}else{ctx.fillStyle='#fff5cc';ctx.beginPath();ctx.arc(120,74,34,0,Math.PI*2);ctx.fill();}ctx.restore()}
 function drawFarMountains(ctx,phase){ctx.fillStyle=phase%4===3?'#6b60ba':'#b9b0e7';ctx.beginPath();ctx.moveTo(0,250); for(let i=0;i<=10;i++){ctx.lineTo(i*95,180+Math.sin(i*1.4+trailTick*.01)*34)} ctx.lineTo(900,330);ctx.lineTo(0,330);ctx.closePath();ctx.fill(); ctx.fillStyle=phase%4===3?'#8b7fd1':'#d9cef6';ctx.beginPath();ctx.moveTo(0,280); for(let i=0;i<=9;i++){ctx.lineTo(i*110,220+Math.cos(i*1.2+trailTick*.015)*24)} ctx.lineTo(900,340);ctx.lineTo(0,340);ctx.closePath();ctx.fill();}
@@ -634,7 +829,7 @@ function drawPlayerElo(ctx,p,blink){ctx.save();ctx.translate(p.x,p.y);ctx.global
  // braços e pernas
  ctx.fillStyle='#efbd9b';ctx.fillRect(9,48,7,19);ctx.fillRect(42,48,7,19);ctx.fillRect(19,79,7,15);ctx.fillRect(33,79,7,15);ctx.fillStyle='#f6b5d1';ctx.fillRect(18,90,10,5);ctx.fillRect(32,90,10,5);ctx.restore()}
 trailCanvas.addEventListener('pointerdown',e=>{e.preventDefault();trailJump()});const trailWrap=trailCanvas.closest('.trailCanvasWrap');if(trailWrap)trailWrap.addEventListener('pointerdown',e=>{if(e.target===trailCanvas)return;e.preventDefault();trailJump()});
-window.addEventListener('keydown',e=>{if(document.getElementById('gameModal').classList.contains('hidden'))return;if(document.getElementById('trailGame').classList.contains('active')){if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();trailJump()} if(e.code==='KeyZ'||e.code==='Enter'){e.preventDefault();trailMagic()}}});
+window.addEventListener('keydown',e=>{if(document.getElementById('gameModal').classList.contains('hidden'))return;if(document.getElementById('trailGame').classList.contains('active')){if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();trailJump()} if(e.code==='KeyZ'||e.code==='Enter'){e.preventDefault();trailMagic()} if(e.code==='KeyX'||e.code==='KeyW'||e.code==='KeyF'){e.preventDefault();trailFlyStart()}}});
 restartTrailRun();
 
 
@@ -2314,3 +2509,10 @@ try { selectSchoolTrack("letters"); } catch(_) {}
 try { initFreeDrawCanvas(); } catch(_) {}
 try { generateNewChefOrder(); } catch(_) {}
 try { updateStickersCounterUI(); } catch(_) {}
+
+window.addEventListener('keyup',e=>{
+  if(document.getElementById('gameModal')?.classList.contains('hidden'))return;
+  if(document.getElementById('trailGame')?.classList.contains('active')){
+    if(e.code==='KeyX'||e.code==='KeyW'||e.code==='KeyF'){e.preventDefault();trailFlyEnd();}
+  }
+});

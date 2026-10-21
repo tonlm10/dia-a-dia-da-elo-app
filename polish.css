@@ -2826,3 +2826,151 @@ nav {
   background: #10b981;
   color: #fff;
 }
+
+/* ==========================================================
+   v4.2.0 • VOO COM A UNICÓRNIA & ESTÚDIO 3D DA ELO
+   ========================================================== */
+.trailHud {
+  grid-template-columns: repeat(5, 1fr) !important;
+}
+.trailControls {
+  grid-template-columns: 1fr 1.35fr 1fr !important;
+  gap: 8px !important;
+}
+.trailBtn.fly {
+  background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 50%, #f0abfc 100%) !important;
+  color: #701a75 !important;
+  border: 2px solid #f5d0fe !important;
+  box-shadow: 0 8px 20px rgba(192, 38, 211, 0.22) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+.trailBtn.fly:active, .trailBtn.fly.pressed {
+  transform: scale(0.95) !important;
+  background: linear-gradient(135deg, #fae8ff, #e879f9) !important;
+}
+.trailFlyBar {
+  height: 6px;
+  background: #fdf4ff;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.trailFlyBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #f472b6, #c084fc, #38bdf8);
+  width: 100%;
+  transition: width 0.15s ease;
+}
+
+/* Modal Estúdio 3D */
+.modelStudioModal .panelCard {
+  max-width: 680px !important;
+  width: 95vw !important;
+  padding: 18px !important;
+  background: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%) !important;
+}
+.modelPresetsRow {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px 2px 10px;
+  scrollbar-width: none;
+}
+.modelPresetsRow::-webkit-scrollbar {
+  display: none;
+}
+.modelPresetBtn {
+  flex: 0 0 auto;
+  border-radius: 16px;
+  border: 1.5px solid #e9d5ff;
+  background: #ffffff;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 900;
+  color: #581c87;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(88, 28, 135, 0.06);
+  transition: all 0.15s ease;
+}
+.modelPresetBtn:active {
+  transform: scale(0.95);
+}
+.modelPresetBtn.active {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(168, 85, 247, 0.35);
+}
+.modelPresetBtn span {
+  font-size: 18px;
+}
+.modelCanvasContainer {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 3px solid #e9d5ff;
+  box-shadow: 0 14px 32px rgba(46, 16, 101, 0.25);
+  background: #1c152e;
+  touch-action: none;
+}
+#modelStudioCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 600 / 400;
+  max-height: 52vh;
+  cursor: grab;
+}
+#modelStudioCanvas:active {
+  cursor: grabbing;
+}
+.modelCanvasHint {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  background: rgba(15, 10, 25, 0.75);
+  backdrop-filter: blur(8px);
+  color: #fdf4ff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 999px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.modelStudioToolbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.modelStudioToolbar .toolBtn {
+  border-radius: 14px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  padding: 7px 12px;
+  font-size: 11px;
+  font-weight: 900;
+  color: #334155;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  height: auto;
+}
+.modelStudioToolbar .toolBtn.active {
+  background: #3b82f6;
+  color: #ffffff;
+  border-color: transparent;
+}

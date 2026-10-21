@@ -1,10 +1,11 @@
-Versão atual do app: 4.1.0 (Edição Oficial Pronta para Google Play)
-- Correção de Jogos: Respostas de múltipla escolha agora são embaralhadas dinamicamente a cada rodada, distribuindo a resposta certa aleatoriamente entre todas as opções.
-- Banco de Perguntas e Respostas: Expandido para mais de 75 desafios ricamente ilustrados em Letras, Números e Curiosidades.
-- Álbum de Figurinhas Brilhantes: 24 cartas colecionáveis e abertura animada de pacotinhos surpresa.
-- Consultório & Cuidados: Escovação mágica de dentinhos, curativos carinhosos e lancheira saudável.
-- Estúdio de Fotos: Fotos personalizadas da Elo e do Pet com 5 cenários, molduras e download em PNG.
-- Mesa de DJ: Launchpad de ritmos e batida automática dançante.
-- Modo Hora do Soninho: Tema noturno, caixinha de música suave e historinhas com narração relaxante.
-- Copa da Família: Torneio em 3 etapas com cerimônia do troféu.
-- Quarto e Guarda-Roupas: Novos cenários, camas, tapetes, brinquedos, penteados, vestidos e acessórios exclusivos.
+Versão atual do app: 4.2.0 (Edição Oficial Pronta para Google Play - Voo Mágico e Estúdio 3D)
+- Voo Montada na Unicórnia (Trilha Encantada): Elo agora voa montada nas costas da sua amiga unicórnia alada! Controle de voo suave, barra de estamina/energia mágica, asas batendo, rastro de arco-íris e estrelas, sobrevoando e desviando com facilidade de obstáculos no chão.
+- Estúdio 3D da Elo e Unicórnia: Engine 3D interativa de alta performance desenvolvida em JavaScript nativo (sem dependências externas), permitindo órbita 360°, aproximação por pinça/zoom, rotação automática, iluminação direcional suave e modo arames (wireframe).
+- 5 Modelos 3D Exclusivos Criados e Integrados:
+  * Unicórnia Alada: A fiel companheira mágica com chifre dourado, crina arco-íris e grandes asas estelares.
+  * Elo 3D Alada: Elo com seu clássico laço rosa, vestidinho fofo e asas de fada luminosas.
+  * Elo Montada na Unicórnia: Cena completa com Elo voando sobre a sela da unicórnia.
+  * Castelo das Estrelas 3D: Fortaleza de contos de fadas com 4 torres laterais, cúpula central e torreão estelar.
+  * Estrela de Cristal 3D: Joia estelar facetada com cristais flutuantes em órbita.
+- Importador e Exportador 3D Universal: Permite exportar os modelos 3D criados no formato padrão Wavefront (.OBJ) para usar em outros programas, e importar arquivos .OBJ ou .JSON enviados pelo usuário.
+- Acessibilidade do Estúdio 3D: Acesso direto pelo Início (Hero Quick Actions), pelo Ateliê Criativo e pelo Cantinho da Elo.
