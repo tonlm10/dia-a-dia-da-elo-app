@@ -43,3 +43,17 @@ v3.6.0 — Mega Expansão: RPG, Streaming, Personalização Completa e Monetiza�
 - Bichinho Virtual: ciclo de vida completo (Ovo -> Bebê -> Criança -> Adolescente -> Adulto -> Idoso -> Jornada das Estrelas).
 - Bichinho Virtual: se ficar sem cuidados prolongados, em vez de morrer, o bichinho deixa uma cartinha comovente e recomeça com um novo ovinho.
 - Sistema de Partículas: confetes e estrelas explodem na tela comemorando qualquer conquista de estrelas no app.
+
+============================================================
+VERSÃO 4.3.2 (21/10/2026) - MODO DEITADO EXCLUSIVO (LANDSCAPE ONLY)
+============================================================
+1. Bloqueio Obrigatório em Modo Retrato (Em Pé):
+   - O aplicativo agora bloqueia 100% o uso com celular em pé.
+   - Tela animada de aviso impedindo layout espremido.
+   - Botão para virar a tela automaticamente via Fullscreen + Orientation Lock API.
+   - Botão de fallback imediato para forçar giro 90° em CSS mesmo se o celular estiver com a rotação travada no Android/iOS.
+   - Desativação automática do giro forçado assim que o celular é deitado fisicamente.
+
+2. Mapa Panorâmico Horizontal Total:
+   - Cenário horizontal sem cortes nem rolagem excessiva.
+   - Ajuste dinâmico de altura para telas de celulares modernos deitados.

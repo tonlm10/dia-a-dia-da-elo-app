@@ -1,4 +1,7 @@
-VERSAO_APP=4.3.1
-TARGET_VER=4.3.1-r38
-DATA_ATUALIZACAO=2026-10-21
-DESTAQUE=Correcao de travamento no celular: aviso de girar a tela transformado em badge flutuante nao-bloqueante (o app agora abre e funciona 100% livre tanto de pe quanto deitado)
+Versão Atual: 4.3.2
+Data: 21/10/2026
+Modo Exclusivo Deitado (Landscape Only):
+- Bloqueio obrigatório em modo retrato com instruções interativas
+- Virar tela automático (Fullscreen + Screen Orientation Lock)
+- Giro forçado 90° em CSS para celulares com trava de rotação
+- Suporte 100% garantido para tela horizontal panorâmica

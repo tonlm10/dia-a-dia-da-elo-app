@@ -2518,13 +2518,76 @@ window.addEventListener('keyup',e=>{
 });
 
 
-// Trava automática ou solicitação de orientação em modo deitado (Paisagem / Landscape)
+// ==========================================================
+// CONTROLE DE MODO DEITADO OBRIGATÓRIO (LANDSCAPE SYSTEM)
+// ==========================================================
+window.requestLandscapeMode = async function(){
+  try {
+    const el = document.documentElement;
+    if (el.requestFullscreen) {
+      await el.requestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
+      await el.webkitRequestFullscreen();
+    }
+  } catch(e) {
+    console.warn("Fullscreen request:", e);
+  }
+
+  try {
+    if (screen.orientation && typeof screen.orientation.lock === 'function') {
+      await screen.orientation.lock('landscape');
+      toast('Modo Deitado ativado! 🌈');
+      return;
+    }
+  } catch(e) {
+    console.warn("Orientation lock error:", e);
+  }
+
+  // Fallback imediato: se o celular está com a rotação travada pelo Android/iOS, força o giro CSS 90°
+  window.toggleForce90Rotation(true);
+};
+
+window.toggleForce90Rotation = function(forceVal){
+  const shouldForce = typeof forceVal === 'boolean' ? forceVal : !document.body.classList.contains('force-landscape-90');
+  if(shouldForce){
+    document.body.classList.add('force-landscape-90');
+    localStorage.setItem('elo_force_landscape_90', '1');
+    toast('Giro forçado ativado! Celular pronto para deitar 📱🔄');
+  } else {
+    document.body.classList.remove('force-landscape-90');
+    localStorage.removeItem('elo_force_landscape_90');
+    toast('Modo de rotação padrão restaurado');
+  }
+};
+
+function checkAutoLandscapePhysical(){
+  try {
+    if (window.matchMedia && window.matchMedia('(orientation: landscape)').matches) {
+      if (document.body.classList.contains('force-landscape-90')) {
+        document.body.classList.remove('force-landscape-90');
+        localStorage.removeItem('elo_force_landscape_90');
+      }
+    }
+  } catch(_) {}
+}
+
+window.addEventListener('resize', checkAutoLandscapePhysical);
+window.addEventListener('orientationchange', checkAutoLandscapePhysical);
+if (window.screen && window.screen.orientation) {
+  window.screen.orientation.addEventListener('change', checkAutoLandscapePhysical);
+}
+
+// Inicializa preferência gravada caso esteja em modo retrato
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('elo_force_landscape_90') === '1' && window.matchMedia('(orientation: portrait)').matches) {
+    document.body.classList.add('force-landscape-90');
+  }
+});
+
 window.tryLockLandscape = function(){
   try {
-    if(screen.orientation && typeof screen.orientation.lock === 'function') {
+    if(screen.orientation && typeof screen.orientation.lock === 'function' && document.fullscreenElement) {
       screen.orientation.lock('landscape').catch(() => {});
     }
   } catch(_) {}
 };
-window.addEventListener('load', () => { setTimeout(window.tryLockLandscape, 300); });
-document.addEventListener('pointerdown', () => { window.tryLockLandscape(); }, { once: true });
