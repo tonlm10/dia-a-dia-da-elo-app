@@ -1,11 +1,4 @@
-Versão atual do app: 4.2.0 (Edição Oficial Pronta para Google Play - Voo Mágico e Estúdio 3D)
-- Voo Montada na Unicórnia (Trilha Encantada): Elo agora voa montada nas costas da sua amiga unicórnia alada! Controle de voo suave, barra de estamina/energia mágica, asas batendo, rastro de arco-íris e estrelas, sobrevoando e desviando com facilidade de obstáculos no chão.
-- Estúdio 3D da Elo e Unicórnia: Engine 3D interativa de alta performance desenvolvida em JavaScript nativo (sem dependências externas), permitindo órbita 360°, aproximação por pinça/zoom, rotação automática, iluminação direcional suave e modo arames (wireframe).
-- 5 Modelos 3D Exclusivos Criados e Integrados:
-  * Unicórnia Alada: A fiel companheira mágica com chifre dourado, crina arco-íris e grandes asas estelares.
-  * Elo 3D Alada: Elo com seu clássico laço rosa, vestidinho fofo e asas de fada luminosas.
-  * Elo Montada na Unicórnia: Cena completa com Elo voando sobre a sela da unicórnia.
-  * Castelo das Estrelas 3D: Fortaleza de contos de fadas com 4 torres laterais, cúpula central e torreão estelar.
-  * Estrela de Cristal 3D: Joia estelar facetada com cristais flutuantes em órbita.
-- Importador e Exportador 3D Universal: Permite exportar os modelos 3D criados no formato padrão Wavefront (.OBJ) para usar em outros programas, e importar arquivos .OBJ ou .JSON enviados pelo usuário.
-- Acessibilidade do Estúdio 3D: Acesso direto pelo Início (Hero Quick Actions), pelo Ateliê Criativo e pelo Cantinho da Elo.
+VERSAO_APP=4.3.0
+TARGET_VER=4.3.0-r37
+DATA_ATUALIZACAO=2026-10-21
+DESTAQUE=Modo Sempre Deitado (Landscape) & Menu Principal como Mundo Interativo da Elo (sem atalhos rápidos e sem destaque excessivo para o RPG)

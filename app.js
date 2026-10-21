@@ -2516,3 +2516,15 @@ window.addEventListener('keyup',e=>{
     if(e.code==='KeyX'||e.code==='KeyW'||e.code==='KeyF'){e.preventDefault();trailFlyEnd();}
   }
 });
+
+
+// Trava automática ou solicitação de orientação em modo deitado (Paisagem / Landscape)
+window.tryLockLandscape = function(){
+  try {
+    if(screen.orientation && typeof screen.orientation.lock === 'function') {
+      screen.orientation.lock('landscape').catch(() => {});
+    }
+  } catch(_) {}
+};
+window.addEventListener('load', () => { setTimeout(window.tryLockLandscape, 300); });
+document.addEventListener('pointerdown', () => { window.tryLockLandscape(); }, { once: true });
