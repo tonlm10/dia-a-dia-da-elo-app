@@ -2039,3 +2039,69 @@ body:has(#interactiveStoriesPanel.active) #appContainer {
   display: block !important;
   cursor: pointer !important;
 }
+
+/* ==========================================================
+   v4.3.9 • FIXES & OPTIMIZATIONS (15 ITENS DO FEEDBACK)
+   ========================================================== */
+/* 1. Início imediato das telas sem rolagem desnecessária */
+#storiesPanel, #roomPanel, #learnPanel, #playPanel, #createPanel, #achievementsPanel {
+  padding-top: 4px !important;
+  margin-top: 0 !important;
+}
+#storiesPanel.active, #roomPanel.active {
+  display: block !important;
+}
+.roomIntro {
+  display: none !important;
+}
+.cantinhoTopSwitcher {
+  margin: 2px 0 8px !important;
+}
+
+/* 2. Sol interativo para Modo Noturno no Menu */
+.worldSun {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.worldSun:active {
+  transform: scale(0.92) !important;
+  filter: brightness(1.2) !important;
+}
+
+/* 3. Retirar balão atrás da cabeça da Elo no mapa */
+.walkerSpeechBubble, #walkerSpeechBubble {
+  display: none !important;
+}
+
+/* 4. Caça aos Unicórnios sem corte de barras no difícil */
+#unicornChaseGame .chaseBoard {
+  max-height: min(60vh, 440px) !important;
+  max-width: min(60vh, 440px) !important;
+  margin: 0 auto !important;
+}
+#unicornChaseGame .gamePlayRowLandscape {
+  align-items: flex-start !important;
+}
+
+/* 5. Labirinto sem emoji de menina e proporção retangular */
+#mazeGame .mazeLegend span:first-child .legendEloMount,
+#mazeGame .mazeLegend span:first-child span {
+  display: none !important;
+}
+#mazeBoard {
+  max-height: min(58vh, 420px) !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* 6. Garantir visibilidade do Pet no Quarto da Elo */
+#roomPetMount {
+  display: block !important;
+  position: relative !important;
+  width: 76px !important;
+  height: 76px !important;
+}
+#roomPetMount .roomPetCreature, #roomPetMount .roomPetEgg {
+  display: block !important;
+}

@@ -1,5 +1,5 @@
-VERSAO_APP=4.3.8
-CACHE_VERSION=elo-official-4.3.8-r46
-SERVICE_WORKER_PURGE=4.3.8-r46
+VERSAO_APP=4.3.9
+CACHE_VERSION=elo-official-4.3.9-r47
+SERVICE_WORKER_PURGE=4.3.9-r47
 DATA_ATUALIZACAO=2026-10-22
-CORRECOES_REALIZADAS=Biblioteca vira em pe automaticamente, RPG com botoes transparentes em cima do mapa e botao voltar, pizzaria e estudios chef adicionando ingredientes com um toque, pet no quarto visivel com ovinho e bichinho, labirinto com apenas uma Elo no medio e dificil, caca aos unicornios mais dificil com becos sem saida e fantasma esperto, trilha encantada com colisao justa sem perder vida antecipada, toque no numero com 10s 6s 4s sem falar ao sair, album de figurinhas visivel, bau travado apos coletar ate 00h de brasilia, video premiado oficial com travamento ate 00h de brasilia.
+CORRECOES_REALIZADAS=Biblioteca e Quarto abrem no comeco da pagina sem rolagem, RPG com barra superior e objetivo dentro da Bolsa liberando tela ampla e D-Pad apenas com setas sem contorno, Pizzaria e Chef com disposicao simetrica e organizada dos ingredientes, Pet visivel no quarto, mapa sem texto atras da cabeca da Elo, Sol ativa modo noturno, Labirinto retangular horizontal 11x7 17x7 23x7 sem emoji de menina, Caca aos Unicornios com rotas de fuga e ajuste de altura sem corte no dificil, Trilha com colisao de contato real e recuperacao suave da barra de voo, Bau de video premiado sem corte antecipado de 45s, Pacote para Responsaveis funcional e Pacote de Figurinhas abrindo perfeitamente.

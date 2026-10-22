@@ -337,7 +337,11 @@ function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();
         screen.orientation.lock('landscape').catch(() => {});
       }
     } catch(_) {}
-  }if(previous==='parentsPanel'&&id!=='parentsPanel')lockParentAccess();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='parentsPanel')renderParentV2();if(id==='achievementsPanel'){renderV2Album();renderEnglishAlbum()}if(id==='learnPanel'){renderEnglishHomeProgress();if(typeof selectSchoolTrack==='function')selectSchoolTrack('letters', null, false);}if(id==='englishPanel')renderEnglishSchool();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop()}if(id==='createPanel'){renderColoringGallery();renderPalette();if(typeof initFreeDrawCanvas==='function')setTimeout(initFreeDrawCanvas,60);}if(!fromHistory)speakYoungPanelIntro(id);if(!fromHistory)pushAppState(appStateForPanel(id,nav))}
+  }if(previous==='parentsPanel'&&id!=='parentsPanel')lockParentAccess();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo(0,0);
+  if(document.documentElement) document.documentElement.scrollTop = 0;
+  if(document.body) document.body.scrollTop = 0;
+  const targetPanel = document.getElementById(id);
+  if(targetPanel) { targetPanel.scrollTop = 0; }if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='parentsPanel')renderParentV2();if(id==='achievementsPanel'){renderV2Album();renderEnglishAlbum()}if(id==='learnPanel'){renderEnglishHomeProgress();if(typeof selectSchoolTrack==='function')selectSchoolTrack('letters', null, false);}if(id==='englishPanel')renderEnglishSchool();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop()}if(id==='createPanel'){renderColoringGallery();renderPalette();if(typeof initFreeDrawCanvas==='function')setTimeout(initFreeDrawCanvas,60);}if(!fromHistory)speakYoungPanelIntro(id);if(!fromHistory)pushAppState(appStateForPanel(id,nav))}
 function exitDialogOpen(){return !document.getElementById('exitConfirm')?.classList.contains('hidden')}
 function profileChooserOpen(){return !document.getElementById('profileModal')?.classList.contains('hidden')}
 function isAnyModalOpen(){
@@ -564,32 +568,33 @@ function gameEloScale(mode,size){if(mode==='maze')return size<=9?.16:size<=11?.1
 function syncMiniGameLegend(id){const mount=document.getElementById(id),source=document.getElementById('wardrobeElo');if(!mount||!source)return;const doll=source.cloneNode(true);doll.removeAttribute('id');doll.classList.add('gameEloClone');doll.setAttribute('aria-hidden','true');mount.replaceChildren(doll)}
 const gameUnicornImg=new Image();gameUnicornImg.src='assets/game-ui/unicorn.svg';
 // Maze game — three difficulty levels
-const MAZE_LEVELS={easy:{size:11,reward:2},medium:{size:15,reward:3},hard:{size:19,reward:5}};
-let mazeLevel='easy',mazeSize=MAZE_LEVELS.easy.size,mazeMap=[],mazePlayer={x:1,y:1},mazeGoal={x:mazeSize-2,y:mazeSize-2},mazeMoves=0,mazeWon=false,mazeRewarded=false;
+const MAZE_LEVELS={easy:{cols:11,rows:7,reward:2},medium:{cols:17,rows:7,reward:3},hard:{cols:23,rows:7,reward:5}};
+let mazeLevel='easy',mazeCols=11,mazeRows=7,mazeMap=[],mazePlayer={x:1,y:1},mazeGoal={x:9,y:5},mazeMoves=0,mazeWon=false,mazeRewarded=false;
 function setMazeLevel(level,btn){mazeLevel=level;document.querySelectorAll('[data-maze]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startMaze()}
-function makeMaze(size){
-  const grid=Array.from({length:size},()=>Array(size).fill('#'));
+function makeMaze(cols,rows){
+  if(cols%2===0)cols++;
+  if(rows%2===0)rows++;
+  const grid=Array.from({length:rows},()=>Array(cols).fill('#'));
   const dirs=[[2,0],[-2,0],[0,2],[0,-2]];
   function dig(x,y){
     grid[y][x]='.';
     const order=shuffle(dirs);
     for(const [dx,dy] of order){
       const nx=x+dx, ny=y+dy;
-      if(nx<=0||ny<=0||nx>=size-1||ny>=size-1||grid[ny][nx]!=='#')continue;
+      if(nx<=0||ny<=0||nx>=cols-1||ny>=rows-1||grid[ny][nx]!=='#')continue;
       grid[y+dy/2][x+dx/2]='.';
       dig(nx,ny);
     }
   }
   dig(1,1);
-  // Add deceptive dead-end branches from existing paths
-  for(let i=0; i<Math.floor(size/2); i++){
-    const rx = 1 + 2*Math.floor(Math.random()*((size-2)/2));
-    const ry = 1 + 2*Math.floor(Math.random()*((size-2)/2));
-    if(grid[ry][rx]==='.'){
+  for(let i=0; i<Math.floor(cols/2); i++){
+    const rx = 1 + 2*Math.floor(Math.random()*((cols-2)/2));
+    const ry = 1 + 2*Math.floor(Math.random()*((rows-2)/2));
+    if(grid[ry] && grid[ry][rx]==='.'){
       const order=shuffle(dirs);
       for(const [dx,dy] of order){
         const nx=rx+dx, ny=ry+dy;
-        if(nx>0 && ny>0 && nx<size-1 && ny<size-1 && grid[ny][nx]==='#'){
+        if(nx>0 && ny>0 && nx<cols-1 && ny<rows-1 && grid[ny][nx]==='#'){
           grid[ry+dy/2][rx+dx/2]='.';
           grid[ny][nx]='.';
           break;
@@ -598,14 +603,15 @@ function makeMaze(size){
     }
   }
   grid[1][1]='S';
-  grid[size-2][size-2]='G';
+  grid[rows-2][cols-2]='G';
   return grid;
 }
 let mazeBonusStars = [];
 function startMaze(){
-  const cfg=MAZE_LEVELS[mazeLevel];
-  mazeSize=cfg.size;
-  mazeMap=makeMaze(mazeSize);
+  const cfg=MAZE_LEVELS[mazeLevel]||MAZE_LEVELS.easy;
+  mazeCols=cfg.cols;
+  mazeRows=cfg.rows;
+  mazeMap=makeMaze(mazeCols,mazeRows);
   mazeMoves=0;
   mazeWon=false;
   mazeRewarded=false;
@@ -618,9 +624,9 @@ function startMaze(){
       else if(mazeMap[y][x]==='.'){openPaths.push({x,y});}
     }
   }
-  // Spawn 3 to 5 bonus stars inside the maze paths
-  shuffle(openPaths).slice(0, Math.min(4, Math.floor(mazeSize/3))).forEach(p => mazeBonusStars.push(p));
-  document.getElementById('mazeBoard').style.gridTemplateColumns=`repeat(${mazeSize},1fr)`;
+  shuffle(openPaths).slice(0, Math.min(4, Math.floor(mazeCols/5))).forEach(p => mazeBonusStars.push(p));
+  const board=document.getElementById('mazeBoard');
+  if(board) board.style.gridTemplateColumns=`repeat(${mazeCols},1fr)`;
   document.getElementById('mazeMoves').textContent='Movimentos: 0';
   document.getElementById('mazeStatus').textContent='Pegue as estrelinhas e encontre o unicórnio!';
   renderMaze();
@@ -669,39 +675,39 @@ mazeBoard.addEventListener('touchend',e=>{if(!mazeTouchStart)return;const t=e.ch
 
 
 // Caça aos Unicórnios — arena aberta com espaço real para fugir
-const CHASE_LEVELS={easy:{size:13,total:4,ghostMs:1400,reward:2,smart:0.75,startDelay:1800},medium:{size:15,total:5,ghostMs:1000,reward:3,smart:0.92,startDelay:1400},hard:{size:17,total:6,ghostMs:700,reward:5,smart:1.0,startDelay:1000}};
+const CHASE_LEVELS={easy:{size:11,total:4,ghostMs:1500,reward:2,smart:0.70,startDelay:1800},medium:{size:13,total:5,ghostMs:1100,reward:3,smart:0.85,startDelay:1400},hard:{size:15,total:6,ghostMs:800,reward:5,smart:0.95,startDelay:1000}};
 let chaseLevel='easy',chaseSize=CHASE_LEVELS.easy.size,chaseTotal=CHASE_LEVELS.easy.total,chaseMap=[],chasePlayer={x:1,y:1},chaseGhost={x:chaseSize-2,y:chaseSize-2},chaseUnicorns=[],chaseInterval=null,chaseWon=false,chaseLost=false,chaseCollected=0;
 function setChaseLevel(level,btn){chaseLevel=level;document.querySelectorAll('[data-chase]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startChase()}
 function chaseKey(x,y){return `${x},${y}`}
 function makeChaseMap(){
-  const n=chaseSize;
-  const grid=Array.from({length:n},(_,y)=>Array.from({length:n},(_,x)=>(x===0||y===0||x===n-1||y===n-1)?'#':'.'));
-  const reserved=(x,y)=>(x<=2 && y<=2) || (x>=n-3 && y>=n-3);
-  
-  // Create structured maze walls with dead ends and pockets
+  const n = chaseSize;
+  const grid = Array.from({length:n}, (_,y) => Array.from({length:n}, (_,x) => (x===0||y===0||x===n-1||y===n-1)?'#':'.'));
+  const reserved = (x,y) => (x<=2 && y<=2) || (x>=n-3 && y>=n-3);
+
+  // Paredes em ilhas com anéis e rotas de fuga ao redor para se esquivar do fantasma
   for(let y=2; y<n-2; y+=2){
     for(let x=2; x<n-2; x+=2){
       if(reserved(x,y)) continue;
-      grid[y][x]='#';
-      // Branch in one random direction to make cul-de-sacs / dead ends
-      const dirs = [[0,1], [1,0], [0,-1], [-1,0]];
-      const d = dirs[Math.floor(Math.random()*dirs.length)];
-      const bx = x+d[0], by = y+d[1];
-      if(bx>0 && by>0 && bx<n-1 && by<n-1 && !reserved(bx,by)){
-        grid[by][bx]='#';
+      // Deixa passagens alternadas criando corredores duplos de fuga
+      if((x + y) % 4 !== 0){
+        grid[y][x] = '#';
       }
     }
   }
-  // Add specific dead-end corridors in corners and edges
-  if(n >= 13) {
-    grid[1][4] = '#'; grid[2][4] = '#';
-    grid[4][1] = '#'; grid[4][2] = '#';
-    grid[n-2][n-5] = '#'; grid[n-3][n-5] = '#';
-    grid[n-5][n-2] = '#'; grid[n-5][n-3] = '#';
+
+  // Desobstrui corredores estratégicos de fuga
+  for(let i=1; i<n-1; i++){
+    grid[1][i] = '.';
+    grid[n-2][i] = '.';
+    grid[i][1] = '.';
+    grid[i][n-2] = '.';
   }
-  // Guarantee player start and ghost start are open
-  grid[1][1]='.'; grid[1][2]='.'; grid[2][1]='.';
-  grid[n-2][n-2]='.'; grid[n-2][n-3]='.'; grid[n-3][n-2]='.';
+  const mid = Math.floor(n/2);
+  grid[mid][mid-1] = '.'; grid[mid][mid] = '.'; grid[mid][mid+1] = '.';
+  grid[mid-1][mid] = '.'; grid[mid+1][mid] = '.';
+
+  grid[1][1] = '.';
+  grid[n-2][n-2] = '.';
   return grid;
 }
 function chaseOpenCells(){const cells=[];for(let y=1;y<chaseSize-1;y++)for(let x=1;x<chaseSize-1;x++)if(chaseMap[y][x]==='.')cells.push({x,y});return cells}
@@ -902,7 +908,7 @@ if(s.isFlying && s.flyStamina > 0){
       p.jumpBuffer = 0;
       p.vy = -TRAIL_LEVELS[trailLevel].jump;
     }
-    s.flyStamina = Math.min(100, s.flyStamina + dt * 0.72);
+    s.flyStamina = Math.min(100, s.flyStamina + dt * 0.18);
   }
 }
 if(p.inv>0)p.inv-=dt;
@@ -934,16 +940,10 @@ if(s.magnetTimer > 0) s.magnetTimer -= dt; s.entities=s.entities.filter(e=>e.x+e
       if(s.isFlying && p.y < s.ground-p.h-35){
         if(Math.random()<0.14) s.effects.push({x:e.x,y:e.y-12,text:'🦄 Desviou!',t:28});
       } else if(p.inv<=0){
-        // Colisão justa e precisa: a Elo precisa visivelmente bater no obstáculo
-        const pLeft = p.x + 22;
-        const pRight = p.x + p.w - 18;
-        const pTop = p.y + 18;
-        const pBottom = p.y + p.h - 12;
-        const eLeft = e.x + 8;
-        const eRight = e.x + e.w - 8;
-        const eTop = e.y + 10;
-        const eBottom = e.y + e.h;
-        if(pRight > eLeft && pLeft < eRight && pBottom > eTop && pTop < eBottom) {
+        // Colisão justa e precisa: Elo só toma dano se encostar fisicamente no obstáculo
+        const hitX = (e.x <= p.x + 22) && (e.x + e.w >= p.x + 8);
+        const hitY = (p.y + p.h > e.y + 16);
+        if(hitX && hitY) {
           trailDamage(1,'Cuidado com o obstáculo!');
         }
       }
@@ -2542,40 +2542,40 @@ window.renderStickersAlbum = function(){
 let currentOpenedStickers = [];
 
 window.openStickerPack = function(){
-  const prof = getActiveProfile();
-  if((prof.stars || 0) < 5){
+  const curStars = (typeof stars !== 'undefined') ? stars : Number(pget('eloStars') || 0);
+  if(curStars < 5){
     toast("Você precisa de 5 estrelinhas para abrir um pacotinho surpresa! ⭐");
     return;
   }
-  prof.stars -= 5;
-  saveProfiles();
+  if(typeof addStars === 'function') {
+    addStars(-5, "Pacotinho aberto! -5 ⭐");
+  }
   playCuteSfx("coin");
 
-  // Sorteia 3 figurinhas
+  // Sorteia 3 figurinhas mágicas
   const shuffled = shuffle([...STICKER_COLLECTION_DATA]);
   currentOpenedStickers = shuffled.slice(0, 3);
 
-  const packArea = document.getElementById("revealedPackArea");
-  const revealCards = document.getElementById("revealedStickersCards");
+  const packBtn = document.getElementById("boosterPackBtn");
+  const cardsArea = document.getElementById("cardsRevealArea");
   const collectBtn = document.getElementById("collectStickersBtn");
-  if(packArea) packArea.classList.remove("hidden");
-  if(collectBtn) collectBtn.classList.remove("hidden");
 
-  if(revealCards){
-    revealCards.innerHTML = currentOpenedStickers.map(s => `
-      <div class="stickerPackRevealCard ${s.rarity}">
-        <div style="font-size:54px;animation:dollCelebration .6s infinite alternate;">${s.emoji}</div>
-        <h4 style="margin:6px 0 2px;">${s.name}</h4>
-        <p style="font-size:12px;color:var(--muted);margin:0 0 4px;">${s.desc}</p>
-        <span class="badge" style="background:#fce7f3;color:#d84376;font-size:11px;">
-          ${s.rarity === "gold" ? "✨ HOLOGRÁFICA!" : (s.rarity === "rare" ? "💎 RARA!" : "🌸 LINDA!")}
-        </span>
+  if(packBtn) packBtn.classList.add("hidden");
+  if(cardsArea) {
+    cardsArea.classList.remove("hidden");
+    cardsArea.innerHTML = currentOpenedStickers.map(s => `
+      <div class="stickerCardItem ${s.rarity}">
+        <span class="sEmoji">${s.emoji}</span>
+        <b class="sName">${s.name}</b>
+        <span class="sRarity">${s.rarity === "gold" ? "✨ DOURADA" : (s.rarity === "rare" ? "💎 RARA" : "COMUM")}</span>
       </div>
     `).join("");
   }
+  if(collectBtn) collectBtn.classList.remove("hidden");
+
   playCuteSfx("win");
   triggerStarConfetti();
-  toast("Pacotinho aberto! Veja que figurinhas lindas você tirou! 🎁🎉");
+  toast("Pacotinho aberto! 3 novas figurinhas! 📦✨");
 };
 
 window.collectRevealedStickers = function(){
@@ -2587,8 +2587,14 @@ window.collectRevealedStickers = function(){
   saveCollectedStickers(collected);
   currentOpenedStickers = [];
 
-  const packArea = document.getElementById("revealedPackArea");
-  if(packArea) packArea.classList.add("hidden");
+  const packBtn = document.getElementById("boosterPackBtn");
+  const cardsArea = document.getElementById("cardsRevealArea");
+  const collectBtn = document.getElementById("collectStickersBtn");
+
+  if(cardsArea) cardsArea.classList.add("hidden");
+  if(collectBtn) collectBtn.classList.add("hidden");
+  if(packBtn) packBtn.classList.remove("hidden");
+
   renderStickersAlbum();
   playCuteSfx("win");
   triggerStarConfetti();
@@ -3374,10 +3380,18 @@ window.addChefIngredient = function(id, emoji, name) {
     toast('O prato já está bem cheio! 😋');
     return;
   }
-  const angle = Math.random() * Math.PI * 2;
-  const dist = 8 + Math.random() * 32;
-  const x = 50 + Math.cos(angle) * dist;
-  const y = 50 + Math.sin(angle) * dist;
+  // Disposição organizada e simétrica no prato
+  const CHEF_SLOTS = [
+    { x: 50, y: 50 }, // Centro
+    { x: 50, y: 28 }, { x: 72, y: 50 }, { x: 50, y: 72 }, { x: 28, y: 50 }, // Cruz
+    { x: 35, y: 35 }, { x: 65, y: 35 }, { x: 65, y: 65 }, { x: 35, y: 65 }, // Diagonais
+    { x: 50, y: 16 }, { x: 76, y: 24 }, { x: 84, y: 50 }, { x: 76, y: 76 }, // Anel externo
+    { x: 50, y: 84 }, { x: 24, y: 76 }, { x: 16, y: 50 }, { x: 24, y: 24 }
+  ];
+  const slotIdx = placedChefItems.length % CHEF_SLOTS.length;
+  const slot = CHEF_SLOTS[slotIdx];
+  const x = slot.x;
+  const y = slot.y;
   placedChefItems.push({ id: ing.id, emoji: ing.emoji, name: ing.name, x, y });
   renderChefStudio();
   if(typeof playCuteSfx === 'function') playCuteSfx('coin');
@@ -3499,4 +3513,13 @@ window.addEventListener('DOMContentLoaded', () => {
   try { renderPianoKeys(); } catch(_) {}
   try { renderChefStudio(); } catch(_) {}
   try { initTeethStage(); } catch(_) {}
+});
+
+/* orientationchange-scroll-top */
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    if(document.documentElement) document.documentElement.scrollTop = 0;
+    if(document.body) document.body.scrollTop = 0;
+  }, 60);
 });

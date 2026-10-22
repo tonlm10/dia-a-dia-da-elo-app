@@ -1,1 +1,1 @@
-self.ELO_APP_VERSION = '4.3.8';
+self.ELO_APP_VERSION = '4.3.9';

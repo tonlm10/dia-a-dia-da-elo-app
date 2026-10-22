@@ -1,3 +1,22 @@
+# Versão 4.3.9 (r47) - 22/10/2026
+- Biblioteca e Histórias: conteúdo abre imediatamente no topo da tela sem espaço em branco inicial ou rolagem.
+- Quarto da Elo e Telas: início imediato sem exigir rolagem vertical para visualizar o quarto e itens.
+- Bichinho Virtual no Quarto: corrigido carregamento e exibição contínua do mascote e ovinho no quarto.
+- RPG Reino das Estrelas:
+  * Barra de título, voltar, som e menu movidos para dentro da Bolsa.
+  * Barra de objetivo destacada no topo da Bolsa e retirada da tela principal.
+  * Status bars (Nível, HP, MP, XP, Moedas) em formato ultra-compacto liberando espaço total para o jogo.
+  * Contorno dos botões direcionais removido, deixando apenas as setas brilhantes.
+- Pizzaria, Confeitaria e Estúdios Chef: disposição simétrica e organizada dos ingredientes (sem amontoamento caótico).
+- Menu Principal: retirado balão de texto atrás da cabeça da Elo no mapa.
+- Sol do Menu: toque no Sol ativa/desativa o Modo Noturno / Soninho.
+- Labirinto: remoção do emoji de menina e expansão retangular (11x7, 17x7, 23x7) crescendo para a direita sem forçar rolagem vertical.
+- Caça aos Unicórnios: adição de rotas de fuga/desvios e dimensionamento ajustado (11, 13, 15) sem corte das barras no Difícil.
+- Trilha Encantada: colisão precisa por contato físico real da Elo nos obstáculos e desaceleração da recuperação de energia de voo.
+- Baú e Vídeo Premiado: remoção do corte arbitrário aos 45 segundos, permitindo assistir até o final real do vídeo para liberar +10 estrelas.
+- Pacotes para Responsáveis: implementado diálogo protegido por PIN com opções de 50, 200 e 500 estrelas.
+- Pacote de Figurinhas: corrigida verificação de estrelas e animação de abertura dos pacotinhos mágicos.
+
 ============================================================
 VERSÃO 4.3.8 (2026-10-22) — PACOTE FINAL DE INSTALAÇÃO & TESTES
 ============================================================

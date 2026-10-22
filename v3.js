@@ -459,21 +459,33 @@ window.renderCollection=renderCollection;
 let roomDecorCategory='wall';
 function roomUnlocked(item){return true}
 window.selectRoomCategory=function(kind){roomDecorCategory=kind;renderRoom()};
+function getRoomPetDataSafe(){
+  if(typeof window.loadPet === 'function') return window.loadPet();
+  if(typeof window.rawLoad === 'function') return window.rawLoad();
+  if(typeof loadPet === 'function') return loadPet();
+  if(typeof rawLoad === 'function') return rawLoad();
+  try{
+    const raw = (typeof pget === 'function') ? pget('eloVirtualPetV1') : localStorage.getItem('eloProfile:elo:eloVirtualPetV1');
+    if(raw) return JSON.parse(raw);
+  }catch(_){}
+  return { stage:'egg', name:'Ovinho misterioso', eggCare:0 };
+}
+
 function syncRoomPet(){
   const mount = document.getElementById('roomPetMount');
   const bubble = document.querySelector('.roomPetBubble');
   if(!mount) return;
-  const p = (typeof loadPet === 'function') ? loadPet() : (typeof rawLoad === 'function' ? rawLoad() : null);
+  const p = getRoomPetDataSafe();
   if(!p) return;
   if(bubble) {
     bubble.textContent = p.stage === 'egg' ? '🥚 Cuidar' : `🐾 ${p.name || 'Bichinho'}`;
   }
   if(p.stage === 'egg'){
-    mount.innerHTML = '<div class="petEgg roomPetEgg" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.52);cursor:pointer;"><span></span></div>';
+    mount.innerHTML = '<div class="petEgg roomPetEgg" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.65);cursor:pointer;"><span></span></div>';
   } else {
     const species = p.species || 'unicorn';
     const acc = p.accessory === 'bow' ? '🎀' : p.accessory === 'star' ? '⭐' : p.accessory === 'crown' ? '👑' : '';
-    mount.innerHTML = `<div class="petCreature species-${species} stage-${p.stage || 'baby'} roomPetCreature" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.44);cursor:pointer;">
+    mount.innerHTML = `<div class="petCreature species-${species} stage-${p.stage || 'baby'} roomPetCreature" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.55);cursor:pointer;">
       <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
       <span class="petBody"></span><span class="petHead"><i class="petEye e1"></i><i class="petEye e2"></i><i class="petMouth"></i><i class="petCheek c1"></i><i class="petCheek c2"></i></span>
       <span class="petAccessory" style="top:2px;left:50%;font-size:24px;">${acc}</span>
@@ -746,9 +758,9 @@ window.watchRewardedAd = function(){
    if(statusEl && !rewardVideoFinished) {
      statusEl.textContent = `▶ Assistindo vídeo oficial da Elo (${rewardVideoSecondsWatched}s)... Não feche antes de acabar! ⭐`;
    }
-   // If watched for at least 45 seconds or video finished event
-   if(rewardVideoSecondsWatched >= 45 && !rewardVideoFinished) {
-     grantVideoReward();
+   // O vídeo premiado roda até o final para liberar as estrelas
+   if(rewardVideoSecondsWatched >= 240 && !rewardVideoFinished) {
+     // Apenas salvaguarda de tempo máximo
    }
  }, 1000);
 };
@@ -788,3 +800,33 @@ window.closeRewardedAd = function(){
  if(overlay) overlay.classList.add('hidden');
  if(host) host.innerHTML = '';
 };
+
+window.buyParentPack = function(packId){
+  requestParentAccess(()=>{
+    let amount = 50, label = 'Pacote Estrelinha (50 ⭐)';
+    if(packId === 'pack200') { amount = 200; label = 'Pacote Reino Mágico (200 ⭐)'; }
+    else if(packId === 'pack500') { amount = 500; label = 'Passe Super Elo Tudo Liberado (500 ⭐)'; }
+    
+    const choice = prompt('Pacotes para Responsáveis:\n1 = Pacote 50 ⭐\n2 = Pacote 200 ⭐\n3 = Pacote 500 ⭐\n\nDigite 1, 2 ou 3 para liberar:', packId === 'pack200' ? '2' : (packId === 'pack500' ? '3' : '1'));
+    if(!choice) return;
+    if(choice === '2'){ amount = 200; label = 'Pacote 200 ⭐'; }
+    else if(choice === '3'){ amount = 500; label = 'Pacote 500 ⭐'; }
+    else { amount = 50; label = 'Pacote 50 ⭐'; }
+
+    if(typeof addStars === 'function') addStars(amount, `Parabéns! ${label} ativado! +${amount} ⭐`);
+    if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
+    toast(`Pacote ativado com sucesso! +${amount} ⭐`);
+    if(typeof closeStarShop === 'function') closeStarShop();
+  }, 'Digite o PIN dos responsáveis para desbloquear pacotes de estrelas.');
+};
+
+window.addEventListener('message', function(e){
+  try {
+    const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+    if(data && (data.event === 'onStateChange' || data.info === 0)){
+      if(data.info === 0 || data.data === 0){
+        if(typeof grantVideoReward === 'function') grantVideoReward();
+      }
+    }
+  } catch(_) {}
+});
