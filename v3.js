@@ -123,7 +123,7 @@ function defaultV3(){return{collections:{stars:0,bows:0,unicorns:0,rainbows:0,st
 function v3Load(){try{return Object.assign(defaultV3(),JSON.parse(pget(V3_KEY)||'{}'))}catch(_){return defaultV3()}}
 function v3Save(v){pset(V3_KEY,JSON.stringify(v));renderV3Counters()}
 function v3Total(v=v3Load()){return Object.values(v.collections||{}).reduce((a,b)=>a+Number(b||0),0)}
-function addCollectible(type,n=1,message){const v=v3Load();if(!(type in V3_COLLECTIONS))return;v.collections[type]=Math.min(V3_COLLECTIONS[type].goal,Number(v.collections[type]||0)+n);v3Save(v);if(message)toast(message);renderCollection();renderRoom();renderWardrobe();}
+function addCollectible(type,n=1,message){const v=v3Load();if(!(type in V3_COLLECTIONS))return;v.collections[type]=Math.min(V3_COLLECTIONS[type].goal,Number(v.collections[type]||0)+n);v3Save(v);if(message)toast(message);renderCollection();renderRoom();renderWardrobe();initWorldMapElo();}
 const WORLD_META={
   room:{title:'Quarto 3D da Elo',sub:'Decore móveis e divirta-se'},
   wardrobe:{title:'Guarda-roupa da Elo',sub:'Monte looks e estilos lindos'},
@@ -146,6 +146,269 @@ window.openContinueSpot=function(){const p=pget('v3LastPlace');if(p&&WORLD_META[
 window.playEloVoice=function(clip){const map={intro:'assets/audio/elo-intro.m4a'};const src=map[clip];if(!src)return false;try{let a=window.__eloVoiceAudio;if(!a){a=new Audio();a.preload='auto';window.__eloVoiceAudio=a}a.pause();a.currentTime=0;a.src=`${src}?v=${(self.ELO_APP_VERSION||'3.5.3')}`;a.play().catch(()=>{});return true}catch(_){return false}};
 window.eloGuideSay=function(text,clip=''){const b=document.getElementById('eloGuideText');if(b)b.textContent=text;const played=clip?window.playEloVoice(clip):false;if(!played&&typeof speakText==='function')speakText(text)};
 window.worldPlaceSpeak=function(text){if(getActiveProfile().ageRange==='3-5'&&typeof speakText==='function')speakText(text)};
+// ==========================================================
+// SISTEMA DE CAMINHADA DA ELO PELA ESTRADA DO MUNDO
+// ==========================================================
+const WORLD_ROAD_NODES = {
+  room:     { x: 10.0, y: 40.0 },
+  U_west:   { x: 24.0, y: 38.0 }, // perto do Pet
+  U_mid1:   { x: 36.0, y: 52.0 }, // curva da estrada superior
+  U_center: { x: 50.0, y: 32.0 }, // perto da Escolinha
+  U_mid2:   { x: 63.0, y: 54.0 }, // curva da estrada superior
+  U_east:   { x: 74.0, y: 34.0 }, // perto dos Jogos
+  cinema:   { x: 91.0, y: 33.0 }, // perto do Cinema
+
+  wardrobe: { x: 11.0, y: 72.0 }, // perto do Guarda-roupa
+  L_west:   { x: 26.0, y: 76.0 }, // perto do Estúdio 3D
+  L_mid1:   { x: 36.0, y: 75.0 }, // curva da estrada inferior
+  creative: { x: 44.0, y: 71.0 }, // perto do Ateliê
+  family:   { x: 63.0, y: 76.0 }, // perto da Festa Família
+  rpg:      { x: 81.0, y: 70.0 }, // perto do RPG
+  library:  { x: 93.0, y: 62.0 }, // perto da Biblioteca
+
+  // Conexões transversais
+  T_west:   { x: 25.0, y: 57.0 },
+  T_center: { x: 47.0, y: 52.0 },
+  T_east:   { x: 78.0, y: 52.0 }
+};
+
+const WORLD_ROAD_EDGES = [
+  // Estrada Superior
+  ['room', 'U_west'],
+  ['U_west', 'U_mid1'],
+  ['U_mid1', 'U_center'],
+  ['U_center', 'U_mid2'],
+  ['U_mid2', 'U_east'],
+  ['U_east', 'cinema'],
+
+  // Estrada Inferior
+  ['wardrobe', 'L_west'],
+  ['L_west', 'L_mid1'],
+  ['L_mid1', 'creative'],
+  ['creative', 'family'],
+  ['family', 'rpg'],
+  ['rpg', 'library'],
+
+  // Transversal Oeste
+  ['U_west', 'T_west'],
+  ['T_west', 'L_west'],
+
+  // Transversal Central
+  ['U_center', 'T_center'],
+  ['T_center', 'creative'],
+
+  // Transversal Leste
+  ['U_east', 'T_east'],
+  ['T_east', 'rpg']
+];
+
+const BUILDING_TO_ROAD_NODE = {
+  room: 'room',
+  wardrobe: 'wardrobe',
+  pet: 'U_west',
+  studio3d: 'L_west',
+  school: 'U_center',
+  creative: 'creative',
+  family: 'family',
+  play: 'U_east',
+  rpg: 'rpg',
+  cinema: 'cinema',
+  library: 'library',
+  club: 'U_center'
+};
+
+function getRoadNeighbors(nodeId) {
+  const neighbors = [];
+  for(const [u, v] of WORLD_ROAD_EDGES) {
+    if(u === nodeId) neighbors.push(v);
+    else if(v === nodeId) neighbors.push(u);
+  }
+  return neighbors;
+}
+
+function findShortestRoadPath(startId, goalId) {
+  if(!WORLD_ROAD_NODES[startId] || !WORLD_ROAD_NODES[goalId]) return [goalId || 'U_center'];
+  if(startId === goalId) return [startId];
+  
+  const dist = {};
+  const prev = {};
+  const unvisited = new Set(Object.keys(WORLD_ROAD_NODES));
+  
+  for(const id of unvisited) dist[id] = Infinity;
+  dist[startId] = 0;
+  
+  while(unvisited.size > 0) {
+    let closest = null;
+    let minD = Infinity;
+    for(const id of unvisited) {
+      if(dist[id] < minD) {
+        minD = dist[id];
+        closest = id;
+      }
+    }
+    if(!closest || minD === Infinity) break;
+    if(closest === goalId) break;
+    unvisited.delete(closest);
+    
+    const p1 = WORLD_ROAD_NODES[closest];
+    for(const nxt of getRoadNeighbors(closest)) {
+      if(!unvisited.has(nxt)) continue;
+      const p2 = WORLD_ROAD_NODES[nxt];
+      const d = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+      const alt = dist[closest] + d;
+      if(alt < dist[nxt]) {
+        dist[nxt] = alt;
+        prev[nxt] = closest;
+      }
+    }
+  }
+  
+  const path = [];
+  let curr = goalId;
+  while(curr) {
+    path.unshift(curr);
+    curr = prev[curr];
+  }
+  return path.length > 0 && path[0] === startId ? path : [startId, goalId];
+}
+
+let isEloWalkingOnRoad = false;
+let eloWalkTimeoutChain = [];
+
+function clearEloWalkAnimation() {
+  eloWalkTimeoutChain.forEach(t => clearTimeout(t));
+  eloWalkTimeoutChain = [];
+  const eloWalker = document.getElementById('worldEloWalker');
+  if(eloWalker) {
+    eloWalker.classList.remove('isWalking', 'hasArrived');
+  }
+  isEloWalkingOnRoad = false;
+}
+
+function syncWorldMapElo(v) {
+  const mount = document.getElementById('worldMapEloMount');
+  const source = document.getElementById('wardrobeElo');
+  if(!mount) return;
+  if(!v) v = v3Load();
+  let doll = mount.querySelector('.worldMapEloClone');
+  if(!doll && source) {
+    doll = source.cloneNode(true);
+    doll.removeAttribute('id');
+    doll.classList.add('worldMapEloClone');
+    doll.setAttribute('aria-hidden', 'true');
+    mount.replaceChildren(doll);
+  }
+  if(doll && typeof applyWardrobeToDoll === 'function') {
+    applyWardrobeToDoll(doll, v);
+  }
+}
+
+function initWorldMapElo() {
+  const eloWalker = document.getElementById('worldEloWalker');
+  if(!eloWalker) return;
+  syncWorldMapElo();
+  let currentNodeId = pget('v3EloCurrentNode');
+  if(!currentNodeId || !WORLD_ROAD_NODES[currentNodeId]) {
+    currentNodeId = 'U_center';
+    pset('v3EloCurrentNode', currentNodeId);
+  }
+  const pos = WORLD_ROAD_NODES[currentNodeId];
+  if(pos) {
+    eloWalker.style.transition = 'none';
+    eloWalker.style.left = pos.x + '%';
+    eloWalker.style.top = pos.y + '%';
+  }
+}
+
+function walkEloAlongRoad(targetPlace, onArrival) {
+  const eloWalker = document.getElementById('worldEloWalker');
+  const speech = document.getElementById('walkerSpeechBubble');
+  if(!eloWalker) {
+    if(onArrival) onArrival();
+    return;
+  }
+
+  const targetNodeId = BUILDING_TO_ROAD_NODE[targetPlace] || 'U_center';
+  let currentNodeId = pget('v3EloCurrentNode') || 'U_center';
+  if(!WORLD_ROAD_NODES[currentNodeId]) currentNodeId = 'U_center';
+
+  // Se já está na mesma casa/nó da estrada
+  if(currentNodeId === targetNodeId) {
+    eloWalker.classList.remove('isWalking');
+    eloWalker.classList.add('hasArrived');
+    if(speech) speech.textContent = 'Já estamos aqui! 💗';
+    if(typeof playCuteSfx === 'function') playCuteSfx('coin');
+    setTimeout(() => {
+      eloWalker.classList.remove('hasArrived');
+      if(onArrival) onArrival();
+    }, 280);
+    return;
+  }
+
+  // Cancela caminhada anterior se houver
+  clearEloWalkAnimation();
+  isEloWalkingOnRoad = true;
+
+  const pathNodeIds = findShortestRoadPath(currentNodeId, targetNodeId);
+  eloWalker.classList.add('isWalking');
+  eloWalker.classList.remove('hasArrived');
+  if(speech) speech.textContent = 'Passeando pela estrada... 🎶';
+
+  const waypoints = pathNodeIds.map(id => ({ id, ...WORLD_ROAD_NODES[id] }));
+  let stepIdx = 1;
+
+  function runNextStep() {
+    if(stepIdx >= waypoints.length) {
+      // Chegou no destino!
+      pset('v3EloCurrentNode', targetNodeId);
+      isEloWalkingOnRoad = false;
+      eloWalker.classList.remove('isWalking');
+      eloWalker.classList.add('hasArrived');
+      if(speech) speech.textContent = 'Chegamos! ✨';
+      if(typeof playCuteSfx === 'function') playCuteSfx('win');
+      if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
+
+      const finishTimer = setTimeout(() => {
+        eloWalker.classList.remove('hasArrived');
+        if(speech) speech.textContent = 'Onde vamos parar? 💗';
+        if(onArrival) onArrival();
+      }, 300);
+      eloWalkTimeoutChain.push(finishTimer);
+      return;
+    }
+
+    const prevPt = waypoints[stepIdx - 1];
+    const nextPt = waypoints[stepIdx];
+
+    // Orientação do olhar/caminhada (virar para a esquerda ou direita)
+    const dx = nextPt.x - prevPt.x;
+    if(dx > 0.5) {
+      eloWalker.classList.remove('facingLeft');
+      eloWalker.classList.add('facingRight');
+    } else if(dx < -0.5) {
+      eloWalker.classList.remove('facingRight');
+      eloWalker.classList.add('facingLeft');
+    }
+
+    const dist = Math.hypot(nextPt.x - prevPt.x, nextPt.y - prevPt.y);
+    const stepDuration = Math.max(220, Math.min(360, Math.round(dist * 18)));
+
+    eloWalker.style.transition = 'left ' + stepDuration + 'ms linear, top ' + stepDuration + 'ms linear';
+    eloWalker.style.left = nextPt.x + '%';
+    eloWalker.style.top = nextPt.y + '%';
+
+    if(typeof playCuteSfx === 'function') {
+      playCuteSfx('pop');
+    }
+
+    stepIdx++;
+    const stepTimer = setTimeout(runNextStep, stepDuration);
+    eloWalkTimeoutChain.push(stepTimer);
+  }
+
+  runNextStep();
+}
+
 window.openWorldPlace=function(place){
   const map={
     room:['roomPanel','home','Vamos para o meu Quarto 3D! Você pode decorar tudo e trocar meus looks!'],
@@ -166,26 +429,8 @@ window.openWorldPlace=function(place){
   pset('v3LastPlace', place);
   if(typeof renderHomeContinue === 'function') renderHomeContinue();
   if(typeof eloGuideSay === 'function') eloGuideSay(a[2]);
-  if(typeof playCuteSfx === 'function') playCuteSfx('coin');
 
-  const world = document.getElementById('eloWorldMap');
-  const eloWalker = document.getElementById('worldEloWalker');
-  const targetPlaceEl = world ? world.querySelector('.wp-' + place) : null;
-
-  if(eloWalker && targetPlaceEl && world) {
-    try {
-      const worldRect = world.getBoundingClientRect();
-      const placeRect = targetPlaceEl.getBoundingClientRect();
-      const targetLeftPct = Math.max(8, Math.min(90, ((placeRect.left + placeRect.width/2 - worldRect.left) / worldRect.width) * 100));
-      const targetTopPct = Math.max(22, Math.min(84, ((placeRect.top + placeRect.height/2 - worldRect.top) / worldRect.height) * 100));
-      eloWalker.classList.add('isWalking');
-      eloWalker.style.left = targetLeftPct + '%';
-      eloWalker.style.top = targetTopPct + '%';
-    } catch(_) {}
-  }
-
-  setTimeout(() => {
-    if(eloWalker) eloWalker.classList.remove('isWalking');
+  walkEloAlongRoad(place, () => {
     if(a[0] === 'rpg') {
       openRpg();
     } else if(a[0] === 'modelStudio' || place === 'studio3d') {
@@ -196,7 +441,7 @@ window.openWorldPlace=function(place){
     } else {
       openPanel(a[0], a[1]);
     }
-  }, 220);
+  });
 };
 window.findWorldSecret=function(id){const typeMap={star:'stars',unicorn:'unicorns',bow:'bows'},v=v3Load();if(v.secrets.includes(id))return toast('Você já encontrou este segredo 💗');v.secrets.push(id);v3Save(v);addCollectible(typeMap[id],1,`Segredo encontrado! ${V3_COLLECTIONS[typeMap[id]].icon}`);addStars(1,'Você encontrou um segredo! +1 ⭐')};
 
@@ -243,7 +488,7 @@ function renderRoom(){
  if(toyEl){const shape=toy?.shape||'unicorn';toyEl.className=`roomToy roomInteractive ${shape==='none'?'hidden':''} toy-${shape}`.trim();toyEl.textContent='';}
  if(bedEl){const bedClass={bedPink:'bed-pink',bedBlue:'bed-blue',bedLilac:'bed-lilac',bedStar:'bed-star',bedMint:'bed-mint',bedPeach:'bed-peach',bedCloud:'bed-cloud',bedCastle:'bed-castle',bedRainbow:'bed-rainbow',bedRocket:'bed-rocket'}[bed?.id]||'bed-pink';bedEl.className=`roomBed roomInteractive ${bedClass}`;}
  if(rugEl){const rugClass={rugHeart:'rug-heart',rugRainbow:'rug-rainbow',rugCloud:'rug-cloud',rugFlower:'rug-flower',rugStar:'rug-star',rugComet:'rug-comet',rugPaw:'rug-paw',rugButterfly:'rug-butterfly',rugWatermelon:'rug-watermelon'}[rug?.id]||'rug-heart';rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rugClass}`.trim();}
- syncRoomElo(v);
+ syncRoomElo(v);syncWorldMapElo(v);
  const tabs=document.getElementById('roomDecorTabs');if(tabs){const kinds=[['wall','🎨','Parede'],['art','🖼️','Quadros'],['bed','🛏️','Camas'],['rug','🧶','Tapetes'],['toy','🧸','Brinquedos']];tabs.innerHTML=kinds.map(([id,ic,name])=>`<button class="roomDecorTab ${roomDecorCategory===id?'on':''}" onclick="selectRoomCategory('${id}')"><span>${ic}</span>${name}</button>`).join('')}grid.innerHTML=ROOM_DECOR.filter(it=>it.kind===roomDecorCategory).map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')">${unlock?roomDecorThumb(it):'<span>🔒</span>'}<b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');
 }window.renderRoom=renderRoom;
 window.selectRoomDecor=function(id){const it=ROOM_DECOR.find(x=>x.id===id);if(!it)return;if(!roomUnlocked(it))return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load();v.room[it.kind]=it.id;v3Save(v);renderRoom();if(typeof playCuteSfx==='function')playCuteSfx('pop');toast(it.name+' colocado no quarto! ✨');if(typeof speakText==='function'&&getActiveProfile().ageRange==='3-5')speakText(it.name)};
@@ -280,15 +525,15 @@ function garmentThumb(it){
  return `<span class="garmentThumb ${shape} ${tone}"><i></i><b></b></span>`;
 }
 function renderWardrobePresets(){const box=document.getElementById('wardrobePresets');if(!box)return;box.innerHTML=WARDROBE_PRESETS.map(p=>`<button class="lookPreset " onclick="applyWardrobePreset('${p.id}')"><span>${p.icon}</span><b>${p.name}</b><small>'Vestir'</small></button>`).join('')}
-window.applyWardrobePreset=function(id){const p=WARDROBE_PRESETS.find(x=>x.id===id);if(!p)return;const v=v3Load();v.wardrobe=Object.assign({},normalizeWardrobe(v),p.set);v3Save(v);renderWardrobe();toast(`${p.name} escolhido! ✨`)};
+window.applyWardrobePreset=function(id){const p=WARDROBE_PRESETS.find(x=>x.id===id);if(!p)return;const v=v3Load();v.wardrobe=Object.assign({},normalizeWardrobe(v),p.set);v3Save(v);renderWardrobe();initWorldMapElo();toast(`${p.name} escolhido! ✨`)};
 window.selectWardrobeCategory=function(cat){if(!WARDROBE_CATEGORIES.some(x=>x.id===cat))return;wardrobeCategory=cat;renderWardrobe()};
-function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);syncRoomElo(v);if(n){const top=wardrobeItem(w.top)?.name||'',bottom=wardrobeItem(w.bottom)?.name||'',dress=w.dress&&w.dress!=='noneDress'?wardrobeItem(w.dress)?.name:'';n.textContent=dress||[top,bottom].filter(Boolean).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=true,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');renderWardrobePresets()}
+function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);syncRoomElo(v);syncWorldMapElo(v);if(n){const top=wardrobeItem(w.top)?.name||'',bottom=wardrobeItem(w.bottom)?.name||'',dress=w.dress&&w.dress!=='noneDress'?wardrobeItem(w.dress)?.name:'';n.textContent=dress||[top,bottom].filter(Boolean).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=true,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');renderWardrobePresets()}
 window.renderWardrobe=renderWardrobe;
-window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();
+window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();initWorldMapElo();
  const doll=document.getElementById('wardrobeElo');
  if(doll){doll.classList.remove('dollCelebration');void doll.offsetWidth;doll.classList.add('dollCelebration');}
  toast(`${it.name} escolhido! ✨`)};
-window.resetV3Wardrobe=function(){const v=v3Load();v.wardrobe=wardrobeDefaults();v3Save(v);renderWardrobe();toast('Look original restaurado 💗')};
+window.resetV3Wardrobe=function(){const v=v3Load();v.wardrobe=wardrobeDefaults();v3Save(v);renderWardrobe();initWorldMapElo();toast('Look original restaurado 💗')};
 // Compatibilidade com botões/estado antigos
 window.equipV3Outfit=function(){openPanel('wardrobePanel','home')};
 
@@ -363,17 +608,17 @@ function renderParentV3(){const root=document.getElementById('v3ParentProgress')
 
 // Hook seguro de navegação sem alterar o RPG restaurado.
 const oldOpenPanel=window.openPanel;
-window.openPanel=function(id,nav,fromHistory=false){oldOpenPanel(id,nav,fromHistory);if(id==='collectionPanel')renderCollection();if(id==='roomPanel')renderRoom();if(id==='wardrobePanel')renderWardrobe();if(id==='creativePanel')renderCreative();if(id==='familyPanel'&&!familyType){const fg=document.getElementById('familyGameBox');if(fg)fg.innerHTML='<p class="muted">Escolha uma brincadeira acima.</p>'}if(id==='interactiveStoriesPanel')renderInteractiveList();if(id==='parentsPanel')renderParentV3();};
+window.openPanel=function(id,nav,fromHistory=false){oldOpenPanel(id,nav,fromHistory);if(id==='collectionPanel')renderCollection();if(id==='roomPanel')renderRoom();if(id==='wardrobePanel')renderWardrobe();initWorldMapElo();if(id==='creativePanel')renderCreative();if(id==='familyPanel'&&!familyType){const fg=document.getElementById('familyGameBox');if(fg)fg.innerHTML='<p class="muted">Escolha uma brincadeira acima.</p>'}if(id==='interactiveStoriesPanel')renderInteractiveList();if(id==='parentsPanel')renderParentV3();};
 
 // Coleções por marcos reais, sem recompensas a cada clique.
 const oldAddStars=window.addStars;
-window.addStars=function(n=1,msg){const before=stars;oldAddStars(n,msg);const after=stars;const milestones=[[10,'bows'],[25,'rainbows'],[45,'unicorns'],[70,'stickers']];for(const [m,t] of milestones){if(before<m&&after>=m)addCollectible(t,1,`Nova descoberta na coleção! ${V3_COLLECTIONS[t].icon}`)}renderV3Counters();renderWardrobe();renderRoom()};
+window.addStars=function(n=1,msg){const before=stars;oldAddStars(n,msg);const after=stars;const milestones=[[10,'bows'],[25,'rainbows'],[45,'unicorns'],[70,'stickers']];for(const [m,t] of milestones){if(before<m&&after>=m)addCollectible(t,1,`Nova descoberta na coleção! ${V3_COLLECTIONS[t].icon}`)}renderV3Counters();renderWardrobe();initWorldMapElo();renderRoom()};
 
 // Amplia o painel dos pais já existente sem regressão.
 const oldRenderParentV2=window.renderParentV2;
 window.renderParentV2=function(){oldRenderParentV2();renderParentV3()};
 
-function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent=APP_VERSION);renderHomeContinue();if(!pget('tutorial-v304'))setTimeout(()=>showTutorialOnce('v304','A casa da Elo ficou mais organizada! ✨',['O menu inicial voltou a ficar mais direto, com botões grandes para entrar em cada área.','O quarto ganhou ainda mais opções de decoração, com novas paredes, quadros, camas, tapetes e brinquedos.','O guarda-roupa também recebeu várias peças novas: cabelos, roupas, acessórios e maquiagem.','Os brinquedos do quarto ficaram desenhados em estilo próprio, sem depender de emoji.']),950)}
+function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();initWorldMapElo();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent=APP_VERSION);renderHomeContinue();if(!pget('tutorial-v304'))setTimeout(()=>showTutorialOnce('v304','A casa da Elo ficou mais organizada! ✨',['O menu inicial voltou a ficar mais direto, com botões grandes para entrar em cada área.','O quarto ganhou ainda mais opções de decoração, com novas paredes, quadros, camas, tapetes e brinquedos.','O guarda-roupa também recebeu várias peças novas: cabelos, roupas, acessórios e maquiagem.','Os brinquedos do quarto ficaram desenhados em estilo próprio, sem depender de emoji.']),950)}
 window.addEventListener('DOMContentLoaded',initV3);
 })();
 

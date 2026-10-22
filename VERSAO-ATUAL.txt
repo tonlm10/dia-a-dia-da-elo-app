@@ -1,10 +1,7 @@
-Versão Atual: 4.3.4
-Data: 21/10/2026
-Auditoria Geral de Todas as Atividades e Responsividade Completa no Modo Deitado (Landscape):
-- Todos os 126 botões e funções auditados e 100% funcionais (sem funções faltando ou travadas)
-- Escolinha Mágica: Piano Arco-Íris interativo de 8 teclas com modo livre e canções guiadas, sons sintetizados de animais (gatinho, cachorrinho, patinho, sapinho, passarinho) e trilhas educativas
-- Ateliê Criativo: Pintura Livre com pincel comum, suave, arco-íris giratório, brilho estelar, carimbos, borracha e 4 papéis de fundo (Branco, Céu, Galáxia, Jardim); Pizzaria & Chef dinâmica com 4 estações (Pizza, Bolo, Sorvete, Robô)
-- Consultório: Escovar dentes interativo, curativos mágicos com estilos e lancheira saudável
-- Festa da Família: Mímica com cronômetro, Duelo de reflexo 2 jogadores, Copa e Roleta/Placar
-- Jogos: Layout lateral (split landscape) para Trilha Encantada, Labirinto, Caça aos Unicórnios, Quebra-cabeça, Ache a estrela, Toque no número e Memória
-- Modais: Adaptação completa para telas deitadas (altura máxima 94vh) com botões e controles sempre visíveis
+VERSAO_APP=4.3.5
+CACHE_VERSION=elo-official-4.3.5-r43
+SERVICE_WORKER_PURGE=4.3.5-r43
+DATA_ATUALIZACAO=2026-10-22
+MODO_MAPA=Landscape Panoramico com Caminhada Real pela Estrada
+AVATAR_MAPA=Boneca Elo Ilustrada e Animada (Sem Foto) com Roupas Sincronizadas
+LAGO_PATINHO=Reposicionado em clareira livre e aberta (fora da estrada)

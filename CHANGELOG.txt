@@ -1,3 +1,9 @@
+# v4.3.5 (2026-10-22)
+- Caminhada Real da Elo pela Estrada: a Elo agora percorre o caminho de terra passo a passo com pernas animadas, balanço de bracinhos, salto alegre e orientação para a esquerda/direita até chegar ao menu escolhido.
+- Avatar Oficial Ilustrado (Sem Foto Estática): removida a foto redonda no mapa inicial. Agora a própria boneca da Elo (com cabelos, roupas e acessórios escolhidos no guarda-roupa) caminha pelo mapa com sombra suave e balão de fala.
+- Reposicionamento do Lago com Patinho: o lago e patinho foram movidos para a clareira verde aberta entre a Escolinha e o Mundo dos Jogos, completamente livre de estradas, com vitórias-régias e ondas d'água.
+- Limpeza e purga automática de cache atualizada para 4.3.5-r43.
+
 v4.2.0 — Voo Montada na Unicórnia, Modelos 3D Criados e Estúdio 3D Interativo
 - Voo Montada na Unicórnia na Trilha Encantada:
   * Elo agora pode planar e voar montada em sua amiga unicórnia alada em todas as fases da Trilha Encantada.

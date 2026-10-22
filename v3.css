@@ -1487,29 +1487,65 @@ nav .navin {
   100% { transform: translateX(0); }
 }
 
-/* Lago mágico com patinhos e peixinhos */
+/* Lago com patinho e vitórias-régias - posicionado fora da estrada */
 .worldPondLandscape {
   position: absolute;
-  top: 50%;
-  left: 36%;
-  width: 140px;
-  height: 80px;
+  top: 36%;
+  left: 62%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: 72px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, #70d9f7 0%, #38bdf8 60%, #0284c7 100%);
-  border: 4px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 8px 18px rgba(2, 132, 199, 0.25);
-  z-index: 2;
+  background: radial-gradient(ellipse at 45% 40%, #70d9f7 0%, #38bdf8 55%, #0284c7 100%);
+  border: 3.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 22px rgba(2, 132, 199, 0.28), inset 0 2px 6px rgba(255, 255, 255, 0.6);
+  z-index: 3;
+  overflow: hidden;
 }
 .worldPondLandscape .duck {
   position: absolute;
-  top: 24px;
-  left: 48px;
-  font-size: 20px;
-  animation: duckFloat 4s infinite ease-in-out;
+  top: 20px;
+  left: 45px;
+  font-size: 22px;
+  animation: duckSwim 5s infinite ease-in-out;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
-@keyframes duckFloat {
+.worldPondLandscape .pondLily {
+  position: absolute;
+  top: 14px;
+  left: 84px;
+  font-size: 16px;
+  opacity: 0.9;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
+}
+.worldPondLandscape .pondRipple {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  animation: pondRipple 3s infinite linear;
+}
+.worldPondLandscape .pondRipple.r1 {
+  width: 24px;
+  height: 14px;
+  top: 28px;
+  left: 42px;
+}
+.worldPondLandscape .pondRipple.r2 {
+  width: 38px;
+  height: 20px;
+  top: 25px;
+  left: 35px;
+  animation-delay: 1.5s;
+}
+@keyframes duckSwim {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(12px, -4px) rotate(4deg); }
+  25% { transform: translate(14px, -3px) rotate(4deg); }
+  50% { transform: translate(22px, 3px) rotate(-3deg); }
+  75% { transform: translate(8px, 5px) rotate(2deg); }
+}
+@keyframes pondRipple {
+  0% { transform: scale(0.6); opacity: 0.7; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
 /* Árvores, flores e borboletas decorativas pelo mapa */
@@ -1600,47 +1636,176 @@ nav .navin {
 .wp-cinema .stopIconBubble   { background: linear-gradient(135deg, #ffe4e6, #f43f5e); color: #fff; }
 .wp-library .stopIconBubble  { background: linear-gradient(135deg, #fef3c7, #d97706); color: #fff; }
 
-/* 7. AVATAR DA ELO QUE PASSEIA PELO MUNDO */
+/* 7. AVATAR DA ELO ANIMADA QUE PASSEIA PELA ESTRADA */
 .worldEloWalker {
   position: absolute;
-  top: 52%;
-  left: 49%;
-  transform: translate(-50%, -75%);
+  top: 32%;
+  left: 50%;
+  transform: translate(-50%, -92%);
   z-index: 25;
   cursor: pointer;
   pointer-events: auto;
-  transition: left 0.45s cubic-bezier(0.25, 1, 0.5, 1), top 0.45s cubic-bezier(0.25, 1, 0.5, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: none;
 }
-.worldEloWalker .walkerDoll {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  border: 4px solid #ffffff;
-  box-shadow: 0 10px 24px rgba(113, 85, 199, 0.35);
-  background: #ffcce3;
-  overflow: hidden;
+
+.walkerSpeechBubble {
+  background: #ffffff;
+  color: #3b2050;
+  border-radius: 16px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 1000;
+  box-shadow: 0 6px 18px rgba(60, 30, 90, 0.18);
+  border: 2px solid #ffd6e8;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  position: relative;
+  pointer-events: none;
+  animation: bubblePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.walkerSpeechBubble::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0;
+  border-style: solid;
+  border-color: #ffd6e8 transparent;
+  display: block;
+  width: 0;
+}
+
+.walkerDollStage {
+  position: relative;
+  width: 46px;
+  height: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.worldMapEloMount {
+  position: relative;
+  width: 46px;
+  height: 90px;
+  transform-origin: center bottom;
   animation: eloBreatheWalker 2.5s infinite ease-in-out alternate;
 }
-.worldEloWalker .walkerDoll img {
-  width: 155%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 8% 50%;
-  transform: translateX(-2%);
+
+.worldMapEloClone {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 0 !important;
+  top: auto !important;
+  margin: 0 !important;
+  width: 150px !important;
+  height: 325px !important;
+  transform: translateX(-50%) scale(0.27) !important;
+  transform-origin: center bottom !important;
+  filter: drop-shadow(0 4px 8px rgba(45, 15, 75, 0.28)) !important;
+  transition: transform 0.15s ease !important;
 }
-.worldEloWalker.isWalking .walkerDoll {
-  animation: eloWalkingJump 0.22s infinite alternate ease-in-out !important;
+
+.worldEloWalker.facingLeft .worldMapEloClone {
+  transform: translateX(-50%) scale(0.27) scaleX(-1) !important;
+}
+
+.worldEloWalker.facingRight .worldMapEloClone {
+  transform: translateX(-50%) scale(0.27) scaleX(1) !important;
+}
+
+.walkerShadow {
+  width: 34px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(30, 15, 50, 0.28);
+  margin-top: -3px;
+  filter: blur(1.5px);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Animações de caminhada passo a passo */
+.worldEloWalker.isWalking .worldMapEloMount {
+  animation: eloWalkingHop 0.22s infinite alternate ease-in-out !important;
+}
+
+.worldEloWalker.isWalking .walkerShadow {
+  animation: eloShadowPulse 0.22s infinite alternate ease-in-out !important;
+}
+
+@keyframes eloWalkingHop {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes eloShadowPulse {
+  0%   { transform: scale(1); opacity: 0.28; }
+  100% { transform: scale(0.72); opacity: 0.15; }
+}
+
+/* Pernas e sapatos com movimento rítmico */
+.worldEloWalker.isWalking .worldMapEloClone .leg.l1 {
+  animation: eloWalkerLegL 0.22s infinite alternate ease-in-out !important;
+}
+.worldEloWalker.isWalking .worldMapEloClone .leg.l2 {
+  animation: eloWalkerLegR 0.22s infinite alternate ease-in-out !important;
+}
+.worldEloWalker.isWalking .worldMapEloClone .shoe.sh1 {
+  animation: eloWalkerShoeL 0.22s infinite alternate ease-in-out !important;
+}
+.worldEloWalker.isWalking .worldMapEloClone .shoe.sh2 {
+  animation: eloWalkerShoeR 0.22s infinite alternate ease-in-out !important;
+}
+.worldEloWalker.isWalking .worldMapEloClone .arm.a1 {
+  animation: eloWalkerArmL 0.22s infinite alternate ease-in-out !important;
+}
+.worldEloWalker.isWalking .worldMapEloClone .arm.a2 {
+  animation: eloWalkerArmR 0.22s infinite alternate ease-in-out !important;
+}
+
+@keyframes eloWalkerLegL {
+  0%   { transform: translateY(-5px) rotate(16deg); }
+  100% { transform: translateY(3px) rotate(-16deg); }
+}
+@keyframes eloWalkerLegR {
+  0%   { transform: translateY(3px) rotate(-16deg); }
+  100% { transform: translateY(-5px) rotate(16deg); }
+}
+@keyframes eloWalkerShoeL {
+  0%   { transform: translateY(-6px) rotate(12deg); }
+  100% { transform: translateY(2px) rotate(-12deg); }
+}
+@keyframes eloWalkerShoeR {
+  0%   { transform: translateY(2px) rotate(-12deg); }
+  100% { transform: translateY(-6px) rotate(12deg); }
+}
+@keyframes eloWalkerArmL {
+  0%   { transform: rotate(16deg); }
+  100% { transform: rotate(-16deg); }
+}
+@keyframes eloWalkerArmR {
+  0%   { transform: rotate(-16deg); }
+  100% { transform: rotate(16deg); }
+}
+
+/* Comemoração ao chegar no destino */
+.worldEloWalker.hasArrived .worldMapEloMount {
+  animation: eloArriveJoy 0.35s ease-out 2 !important;
+}
+@keyframes eloArriveJoy {
+  0%   { transform: translateY(0) scale(1); }
+  50%  { transform: translateY(-16px) scale(1.1) rotate(-4deg); }
+  100% { transform: translateY(0) scale(1); }
 }
 @keyframes eloBreatheWalker {
   0% { transform: translateY(0) scale(1); }
-  100% { transform: translateY(-4px) scale(1.05); }
-}
-@keyframes eloWalkingJump {
-  0% { transform: translateY(0) rotate(-4deg); }
-  100% { transform: translateY(-12px) rotate(4deg); }
+  100% { transform: translateY(-3px) scale(1.03); }
 }
 .walkerSpeechBubble {
   position: absolute;

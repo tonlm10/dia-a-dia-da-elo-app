@@ -5,7 +5,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.3.4-r40";
+    var TARGET_VER = "4.3.5-r43";
     localStorage.removeItem("elo_force_landscape_90");
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
@@ -116,8 +116,11 @@
       <path d="M 100 450 Q 250 480 440 430 T 780 440 T 930 380" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="10 12" opacity="0.7"/>
     </svg>
 
-    <!-- Lago com patinho -->
-    <div class="worldPondLandscape">
+    <!-- Lago com patinho e vitórias-régias (em área livre de estradas) -->
+    <div class="worldPondLandscape" aria-label="Lago dos Patinhos">
+      <span class="pondRipple r1"></span>
+      <span class="pondRipple r2"></span>
+      <span class="pondLily">🪷</span>
       <span class="duck">🦆</span>
     </div>
 
@@ -126,7 +129,7 @@
     <span class="natureDecorItem" style="top:84%;left:6%;">🌸</span>
     <span class="natureDecorItem" style="top:28%;left:34%;">🌲</span>
     <span class="natureDecorItem" style="top:86%;left:36%;">🌷</span>
-    <span class="natureDecorItem" style="top:26%;left:63%;">🌳</span>
+    <span class="natureDecorItem" style="top:23%;left:62%;">🌳</span>
     <span class="natureDecorItem" style="top:84%;left:54%;">🌼</span>
     <span class="natureDecorItem" style="top:86%;left:73%;">🦋</span>
     <span class="natureDecorItem" style="top:24%;left:82%;">🌲</span>
@@ -203,16 +206,17 @@
       <span class="stopLabelPill">Biblioteca</span>
     </button>
 
-    <!-- AVATAR DA ELO QUE CAMINHA E ESCOLHE ONDE PARAR -->
+    <!-- AVATAR DA ELO ANIMADA QUE PASSEIA PELA ESTRADA -->
     <div id="worldEloWalker" class="worldEloWalker" onclick="eloGuideSay('Para onde você quer que eu vá? Toque em qualquer casinha ou lugar do mapa!')" aria-label="Elo passeando pelo mundo">
-      <div class="walkerSpeechBubble">Onde vamos parar? 💗</div>
-      <div class="walkerDoll">
-        <img src="assets/home-icons/home-card.webp" alt="Elo passeando">
+      <div id="walkerSpeechBubble" class="walkerSpeechBubble">Onde vamos parar? 💗</div>
+      <div class="walkerDollStage">
+        <div id="worldMapEloMount" class="worldMapEloMount"></div>
+        <div class="walkerShadow"></div>
       </div>
     </div>
   </div>
 
-  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.4</span></div>
+  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.5</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
