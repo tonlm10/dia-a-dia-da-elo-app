@@ -1,3 +1,20 @@
+# v4.3.7-r45 (2026-10-22)
+- Correção de Fala na Abertura: Removida a chamada automática de leitura por voz que dizia 'qual letrinha começa a palavra' ao carregar o app. Agora a voz só é acionada quando a criança toca para ouvir.
+- Biblioteca em Modo Retrato (Em Pé): Celular pode ser mantido de pé para ler histórias confortavelmente nas Aventuras da Elo e Histórias Interativas sem tela de bloqueio.
+- RPG 'Reino das Estrelas' Ajustado: Tela de apresentação inicial com tamanho responsivo, imagem proporcional e botões 'Começar a aventura' e 'Continuar' 100% visíveis em qualquer tela.
+- Alarme da Mímica Alto: Som de alarme digital de tempo esgotado bem alto com pulsos marcantes e vibração para todos na sala ouvirem.
+- Duelo 2 Jogadores Aprimorado: O texto da pergunta agora é exibido para ambos os jogadores (virado corretamente para cada lado da mesa) e os botões 'Nova Rodada' e 'Zerar' ficam fixos na barra central, eliminando a rolagem de tela.
+- Remoção da Copa: Modo Copa da Família removido do painel Festa da Família.
+- Pizzaria e Confeitaria com Pedidos Reais: A Elo faz pedidos com ingredientes e quantidades específicas; se a criança entregar certo ganha estrelas e comemoração, se errar ou faltar ingrediente ela não pontua e pode tentar de novo.
+- Remoção do Estúdio de Fotos: Seção de fotos com emoji removida do Ateliê Criativo.
+- Pet no Quarto da Elo: O bichinho de estimação agora aparece dentro do quarto da Elo no mesmo tamanho e estágio do jogo (inclusive se for ovo); ao tocar nele abre a tela de cuidados.
+- Piano com Modo Guiado e 'Dó, Ré, Mi, Fá': As músicas não tocam mais sozinhas; as teclas piscam no ritmo da melodia para a criança tocar e aprender; adicionada a música 'Dó, Ré, Mi, Fá' e corrigidas as notas das canções.
+- Labirinto Mais Desafiador: Tamanhos ampliados (11x11, 15x15, 19x19) com bifurcações e becos sem saída reais para haver desafio de verdade.
+- Botão 'Novo Jogo' Afastado na Caça aos Unicórnios: Botão movido para o topo, longe das setas de direção, evitando toques acidentais.
+- Cronômetro no 'Toque no Número': Tempo agora corre visivelmente com contagem regressiva em décimos de segundo e barra encolhendo em tempo real.
+- Unicórnio na Trilha Apenas ao Voar: O unicórnio agora só surge quando acionado o botão 'Voar com Unicórnia'; o pulo comum é apenas a Elo pulando.
+- Modo Soninho Totalmente Funcional: Corrigido o áudio Web Audio da caixinha de música suave e adicionadas 3 historinhas calmas narradas com exibição do texto na tela.
+
 # v4.3.5 (2026-10-22)
 - Caminhada Real da Elo pela Estrada: a Elo agora percorre o caminho de terra passo a passo com pernas animadas, balanço de bracinhos, salto alegre e orientação para a esquerda/direita até chegar ao menu escolhido.
 - Avatar Oficial Ilustrado (Sem Foto Estática): removida a foto redonda no mapa inicial. Agora a própria boneca da Elo (com cabelos, roupas e acessórios escolhidos no guarda-roupa) caminha pelo mapa com sombra suave e balão de fala.

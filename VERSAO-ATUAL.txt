@@ -1,7 +1,5 @@
-VERSAO_APP=4.3.5
-CACHE_VERSION=elo-official-4.3.5-r43
-SERVICE_WORKER_PURGE=4.3.5-r43
+VERSAO_APP=4.3.7
+CACHE_VERSION=elo-official-4.3.7-r45
+SERVICE_WORKER_PURGE=4.3.7-r45
 DATA_ATUALIZACAO=2026-10-22
-MODO_MAPA=Landscape Panoramico com Caminhada Real pela Estrada
-AVATAR_MAPA=Boneca Elo Ilustrada e Animada (Sem Foto) com Roupas Sincronizadas
-LAGO_PATINHO=Reposicionado em clareira livre e aberta (fora da estrada)
+CORRECOES_REALIZADAS=Sem fala ao abrir, biblioteca em pe, RPG tela ajustada, alarme mimica alto, duelo sem rolagem, sem copa, chef com pedidos e vitoria/derrota, sem estudio fotos, pet no quarto da Elo, piano guiado piscando com Do Re Mi Fa, labirinto mais dificil, botao novo jogo caca unicornios afastado, tempo correndo no toque no numero, unicornio na trilha apenas ao voar, modo noturno com musica e historia funcionando.

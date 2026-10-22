@@ -1,3 +1,4 @@
+window.getAudioContext = function(){ return (typeof getAudioFxCtx === "function") ? getAudioFxCtx() : null; };
 
 function drawFlyingUnicorn(ctx, x, y, isFlying){
   ctx.save();
@@ -321,7 +322,12 @@ let appRestoringHistory=false,appExitArmed=false,appExitFallback=null;
 function currentPanelId(){return document.querySelector('.panel.active')?.id||'homePanel'}
 function appStateForPanel(id,nav){return {eloApp:true,type:id==='homePanel'?'home':'panel',id,nav}}
 function pushAppState(state){if(appRestoringHistory)return;const cur=history.state||{};if(cur.eloApp&&cur.type===state.type&&cur.id===state.id)return;history.pushState(state,'')}
-function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();if(previous==='parentsPanel'&&id!=='parentsPanel')lockParentAccess();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='parentsPanel')renderParentV2();if(id==='achievementsPanel'){renderV2Album();renderEnglishAlbum()}if(id==='learnPanel'){renderEnglishHomeProgress();if(typeof selectSchoolTrack==='function')selectSchoolTrack('letters');}if(id==='englishPanel')renderEnglishSchool();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop()}if(id==='createPanel'){renderColoringGallery();renderPalette();if(typeof initFreeDrawCanvas==='function')setTimeout(initFreeDrawCanvas,60);}if(!fromHistory)speakYoungPanelIntro(id);if(!fromHistory)pushAppState(appStateForPanel(id,nav))}
+function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();
+  if(['storiesPanel','readerPanel','interactiveStoriesPanel'].includes(id)){
+    document.body.classList.add('reading-portrait-allowed');
+  } else {
+    document.body.classList.remove('reading-portrait-allowed');
+  }if(previous==='parentsPanel'&&id!=='parentsPanel')lockParentAccess();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='parentsPanel')renderParentV2();if(id==='achievementsPanel'){renderV2Album();renderEnglishAlbum()}if(id==='learnPanel'){renderEnglishHomeProgress();if(typeof selectSchoolTrack==='function')selectSchoolTrack('letters', null, false);}if(id==='englishPanel')renderEnglishSchool();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop()}if(id==='createPanel'){renderColoringGallery();renderPalette();if(typeof initFreeDrawCanvas==='function')setTimeout(initFreeDrawCanvas,60);}if(!fromHistory)speakYoungPanelIntro(id);if(!fromHistory)pushAppState(appStateForPanel(id,nav))}
 function exitDialogOpen(){return !document.getElementById('exitConfirm')?.classList.contains('hidden')}
 function profileChooserOpen(){return !document.getElementById('profileModal')?.classList.contains('hidden')}
 function isAnyModalOpen(){
@@ -349,7 +355,8 @@ function showExitConfirm(){document.getElementById('exitConfirm')?.classList.rem
 function cancelAppExit(){document.getElementById('exitConfirm')?.classList.add('hidden');document.body.style.overflow=''}
 function confirmAppExit(){appExitArmed=true;document.getElementById('exitConfirm')?.classList.add('hidden');document.body.style.overflow='';clearTimeout(appExitFallback);history.back();appExitFallback=setTimeout(()=>{try{window.close()}catch(_){/* navegadores podem ignorar */}},900)}
 function setupAppHistory(){if(history.state?.eloGuard||history.state?.eloApp)return;history.replaceState({eloGuard:true},'');history.pushState({eloApp:true,type:'home',id:'homePanel',nav:'home'},'')}
-function restoreAppHistoryState(s){appRestoringHistory=true;try{document.getElementById('profileModal')?.classList.add('hidden');document.getElementById('gameModal')?.classList.add('hidden');document.getElementById('coloringModal')?.classList.add('hidden');document.getElementById('rpgOverlay')?.classList.add('hidden');closeCinemaPlayer();if(s?.type!=='rpg'){const rf=document.getElementById('rpgFrame');if(rf)rf.src='about:blank'}document.body.style.overflow='';clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop();if(!s||s.type==='home')openPanel('homePanel','home',true);else if(s.type==='panel')openPanel(s.id||'homePanel',s.nav||'home',true);else if(s.type==='game'){openPanel('playPanel','play',true);openGame(s.id,s.title,true)}else if(s.type==='coloring'){openPanel('createPanel','create',true);openColoring(Number(s.index)||0,true)}else if(s.type==='rpg'){openPanel('playPanel','play',true);openRpg(true)}else if(s.type==='profile'){const b=s.base||{type:'home'};if(b.type==='panel')openPanel(b.id||'homePanel',b.nav||'home',true);else openPanel('homePanel','home',true);openProfileChooser(true)}}finally{appRestoringHistory=false}}
+function restoreAppHistoryState(s){appRestoringHistory=true;try{document.getElementById('profileModal')?.classList.add('hidden');document.getElementById('gameModal')?.classList.add('hidden');document.getElementById('coloringModal')?.classList.add('hidden');document.getElementById('rpgOverlay')?.classList.add('hidden');closeCinemaPlayer();if(s?.type!=='rpg'){const rf=document.getElementById('rpgFrame');if(rf)rf.src='about:blank'}document.body.style.overflow='';clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop();document.body.classList.toggle('reading-portrait-allowed', ['storiesPanel','readerPanel','interactiveStoriesPanel'].includes(s?.id));
+if(!s||s.type==='home')openPanel('homePanel','home',true);else if(s.type==='panel')openPanel(s.id||'homePanel',s.nav||'home',true);else if(s.type==='game'){openPanel('playPanel','play',true);openGame(s.id,s.title,true)}else if(s.type==='coloring'){openPanel('createPanel','create',true);openColoring(Number(s.index)||0,true)}else if(s.type==='rpg'){openPanel('playPanel','play',true);openRpg(true)}else if(s.type==='profile'){const b=s.base||{type:'home'};if(b.type==='panel')openPanel(b.id||'homePanel',b.nav||'home',true);else openPanel('homePanel','home',true);openProfileChooser(true)}}finally{appRestoringHistory=false}}
 window.addEventListener('popstate',e=>{
  if(appExitArmed){if(e.state?.eloApp||e.state?.eloGuard){setTimeout(()=>history.back(),0);return}clearTimeout(appExitFallback);appExitArmed=false;return}
  /* Se o usuário já está visualmente no menu principal, Voltar não reabre telas antigas: pede saída. */
@@ -507,10 +514,43 @@ function gameEloScale(mode,size){if(mode==='maze')return size<=9?.16:size<=11?.1
 function syncMiniGameLegend(id){const mount=document.getElementById(id),source=document.getElementById('wardrobeElo');if(!mount||!source)return;const doll=source.cloneNode(true);doll.removeAttribute('id');doll.classList.add('gameEloClone');doll.setAttribute('aria-hidden','true');mount.replaceChildren(doll)}
 const gameUnicornImg=new Image();gameUnicornImg.src='assets/game-ui/unicorn.svg';
 // Maze game — three difficulty levels
-const MAZE_LEVELS={easy:{size:9,reward:2},medium:{size:11,reward:3},hard:{size:13,reward:5}};
+const MAZE_LEVELS={easy:{size:11,reward:2},medium:{size:15,reward:3},hard:{size:19,reward:5}};
 let mazeLevel='easy',mazeSize=MAZE_LEVELS.easy.size,mazeMap=[],mazePlayer={x:1,y:1},mazeGoal={x:mazeSize-2,y:mazeSize-2},mazeMoves=0,mazeWon=false,mazeRewarded=false;
 function setMazeLevel(level,btn){mazeLevel=level;document.querySelectorAll('[data-maze]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startMaze()}
-function makeMaze(size){const grid=Array.from({length:size},()=>Array(size).fill('#'));const dirs=[[2,0],[-2,0],[0,2],[0,-2]];function dig(x,y){grid[y][x]='.';const order=shuffle(dirs);for(const [dx,dy] of order){const nx=x+dx,ny=y+dy;if(nx<=0||ny<=0||nx>=size-1||ny>=size-1||grid[ny][nx]!=='#')continue;grid[y+dy/2][x+dx/2]='.';dig(nx,ny)}}dig(1,1);grid[1][1]='S';grid[size-2][size-2]='G';return grid}
+function makeMaze(size){
+  const grid=Array.from({length:size},()=>Array(size).fill('#'));
+  const dirs=[[2,0],[-2,0],[0,2],[0,-2]];
+  function dig(x,y){
+    grid[y][x]='.';
+    const order=shuffle(dirs);
+    for(const [dx,dy] of order){
+      const nx=x+dx, ny=y+dy;
+      if(nx<=0||ny<=0||nx>=size-1||ny>=size-1||grid[ny][nx]!=='#')continue;
+      grid[y+dy/2][x+dx/2]='.';
+      dig(nx,ny);
+    }
+  }
+  dig(1,1);
+  // Add deceptive dead-end branches from existing paths
+  for(let i=0; i<Math.floor(size/2); i++){
+    const rx = 1 + 2*Math.floor(Math.random()*((size-2)/2));
+    const ry = 1 + 2*Math.floor(Math.random()*((size-2)/2));
+    if(grid[ry][rx]==='.'){
+      const order=shuffle(dirs);
+      for(const [dx,dy] of order){
+        const nx=rx+dx, ny=ry+dy;
+        if(nx>0 && ny>0 && nx<size-1 && ny<size-1 && grid[ny][nx]==='#'){
+          grid[ry+dy/2][rx+dx/2]='.';
+          grid[ny][nx]='.';
+          break;
+        }
+      }
+    }
+  }
+  grid[1][1]='S';
+  grid[size-2][size-2]='G';
+  return grid;
+}
 let mazeBonusStars = [];
 function startMaze(){
   const cfg=MAZE_LEVELS[mazeLevel];
@@ -654,9 +694,41 @@ function tapPuzzlePiece(pos){if(puzzleComplete)return;if(puzzleSelected<0){puzzl
 const TAP_LEVELS={easy:{start:5000,min:3000,step:100,reward:2},medium:{start:3500,min:1800,step:90,reward:3},hard:{start:2500,min:900,step:80,reward:5}},TAP_GOAL=10;
 let tapLevel='easy',tapTarget=1,tapScore=0,tapTimer=null,tapRound=0,tapDelay=TAP_LEVELS.easy.start,tapWon=false;
 function setTapLevel(level,btn){tapLevel=level;document.querySelectorAll('[data-tap]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startTapGame()}
-function buildTapRound(){clearTimeout(tapTimer);if(tapWon)return;tapRound++;tapTarget=Math.floor(Math.random()*9)+1;document.getElementById('tapPrompt').textContent=`Toque no número ${tapTarget} antes que ele mude!`;if(getActiveProfile().ageRange==='3-5')setTimeout(()=>speakText(`Toque no número ${tapTarget}`),120);const nums=Array.from({length:9},(_,i)=>i+1).sort(()=>Math.random()-.5);document.getElementById('tapGame').innerHTML=nums.map(n=>`<button class="tapNum" onclick="tapAnswer(${n})">${n}</button>`).join('');const cfg=TAP_LEVELS[tapLevel];tapDelay=Math.max(cfg.min,cfg.start-tapScore*cfg.step);document.getElementById('tapTimeText').textContent=(tapDelay/1000).toFixed(1).replace('.',',')+'s';const bar=document.getElementById('tapTimerBar');bar.style.transition='none';bar.style.transform='scaleX(1)';requestAnimationFrame(()=>requestAnimationFrame(()=>{bar.style.transition=`transform ${tapDelay}ms linear`;bar.style.transform='scaleX(0)'}));tapTimer=setTimeout(()=>{toast('Mudou! Seja mais rápido 😄');buildTapRound()},tapDelay)}
-function startTapGame(){clearTimeout(tapTimer);tapScore=0;tapRound=0;tapWon=false;document.getElementById('tapScore').textContent=`Acertos: 0/${TAP_GOAL}`;buildTapRound()}
-function tapAnswer(n){if(tapWon)return;if(n===tapTarget){tapScore++;document.getElementById('tapScore').textContent=`Acertos: ${tapScore}/${TAP_GOAL}`;if(tapScore>=TAP_GOAL){tapWon=true;clearTimeout(tapTimer);const bar=document.getElementById('tapTimerBar');bar.style.transition='none';bar.style.transform='scaleX(1)';document.getElementById('tapPrompt').textContent='Desafio concluído! 🎉';document.getElementById('tapGame').innerHTML='';const cfg=TAP_LEVELS[tapLevel];addStars(cfg.reward,`10 acertos! +${cfg.reward} ⭐`);unlockGameMedal('tap',tapLevel);return}if(tapScore%3===0)addStars(1,'Boa sequência! +1 ⭐');else toast('Acertou! 🎯');buildTapRound()}else toast('Ops! Esse não era o número 😊')}
+let tapInterval = null;
+function buildTapRound(){
+  clearTimeout(tapTimer);
+  if(tapInterval) clearInterval(tapInterval);
+  if(tapWon) return;
+  tapRound++;
+  tapTarget = Math.floor(Math.random()*9) + 1;
+  document.getElementById('tapPrompt').textContent = `Toque no número ${tapTarget} antes que o tempo acabe!`;
+  if(getActiveProfile().ageRange==='3-5') setTimeout(()=>speakText(`Toque no número ${tapTarget}`), 120);
+  const nums = Array.from({length:9}, (_,i)=>i+1).sort(()=>Math.random()-.5);
+  document.getElementById('tapGame').innerHTML = nums.map(n=>`<button class="tapNum" onclick="tapAnswer(${n})">${n}</button>`).join('');
+  const cfg = TAP_LEVELS[tapLevel];
+  tapDelay = Math.max(cfg.min, cfg.start - tapScore * cfg.step);
+  
+  const roundStartTime = Date.now();
+  const timeEl = document.getElementById('tapTimeText');
+  const bar = document.getElementById('tapTimerBar');
+  if(bar){ bar.style.transition = 'none'; bar.style.width = '100%'; }
+  if(timeEl) timeEl.textContent = (tapDelay / 1000).toFixed(1).replace('.', ',') + 's';
+
+  tapInterval = setInterval(()=>{
+    const elapsed = Date.now() - roundStartTime;
+    const remaining = Math.max(0, tapDelay - elapsed);
+    if(timeEl) timeEl.textContent = (remaining / 1000).toFixed(1).replace('.', ',') + 's';
+    if(bar) bar.style.width = ((remaining / tapDelay) * 100) + '%';
+    if(remaining <= 0){
+      clearInterval(tapInterval);
+      tapInterval = null;
+      toast('Mudou! Seja mais rápido 😄');
+      buildTapRound();
+    }
+  }, 45);
+}
+function startTapGame(){clearTimeout(tapTimer);if(tapInterval)clearInterval(tapInterval);tapScore=0;tapRound=0;tapWon=false;document.getElementById('tapScore').textContent=`Acertos: 0/${TAP_GOAL}`;buildTapRound()}
+function tapAnswer(n){if(tapWon)return;if(n===tapTarget){tapScore++;document.getElementById('tapScore').textContent=`Acertos: ${tapScore}/${TAP_GOAL}`;if(tapScore>=TAP_GOAL){tapWon=true;clearTimeout(tapTimer);if(tapInterval)clearInterval(tapInterval);const bar=document.getElementById('tapTimerBar');bar.style.transition='none';bar.style.transform='scaleX(1)';document.getElementById('tapPrompt').textContent='Desafio concluído! 🎉';document.getElementById('tapGame').innerHTML='';const cfg=TAP_LEVELS[tapLevel];addStars(cfg.reward,`10 acertos! +${cfg.reward} ⭐`);unlockGameMedal('tap',tapLevel);return}if(tapScore%3===0)addStars(1,'Boa sequência! +1 ⭐');else toast('Acertou! 🎯');buildTapRound()}else toast('Ops! Esse não era o número 😊')}
 
 
 
@@ -789,7 +861,7 @@ function trailDamage(amount,msg){
 function rectHit(a,b,pad=0){return a.x+pad<b.x+b.w&&a.x+a.w-pad>b.x&&a.y+pad<b.y+b.h&&a.y+a.h-pad>b.y}
 function drawTrailScene(dt){const ctx=trailCtx,s=trailState||baseTrailState(); ctx.clearRect(0,0,trailCanvas.width,trailCanvas.height);ctx.filter='saturate(1.2) contrast(1.06)'; const phase=s.phase||1; const bossMode=s.mode==='boss'; const sky=ctx.createLinearGradient(0,0,0,trailCanvas.height); const skySets=[['#89dbff','#f7f2ff'],['#98ddff','#fff3ca'],['#6f66d9','#ffb8d0'],['#88dff3','#ffe8ff']][phase%4]; sky.addColorStop(0,skySets[0]); sky.addColorStop(1,skySets[1]); ctx.fillStyle=sky; ctx.fillRect(0,0,trailCanvas.width,trailCanvas.height); drawClouds(ctx,phase); drawSunMoon(ctx,phase); drawFarMountains(ctx,phase); drawMagicCastle(ctx,phase); drawHills(ctx,phase); drawGround(ctx,phase); if(phase%3===1&&!bossMode)drawRainbow(ctx); if(bossMode)drawBossArenaGlow(ctx);
  if(s.entities)for(const e of s.entities)drawTrailEntity(ctx,e); if(s.bossProjectiles)for(const p of s.bossProjectiles)drawBossProjectile(ctx,p); if(s.projectiles)for(const p of s.projectiles)drawMagicHeart(ctx,p.x,p.y,p.size||18); if(s.boss)drawGhostBoss(ctx,s.boss,s.boss.hitFlash>0);
-if(s.isFlying || (s.player && s.player.y < s.ground - s.player.h - 8)){
+if(s.isFlying){
   drawFlyingUnicorn(ctx, s.player.x - 12, s.player.y + s.player.h - 32, s.isFlying);
 }
 syncTrailEloClone(); if(s.effects)for(const f of s.effects){ctx.save();ctx.globalAlpha=Math.min(1,f.t/30);ctx.font='28px system-ui';ctx.fillText(f.text,f.x,f.y);ctx.restore()} if(!trailRunning&&trailState&&trailUI.status.textContent.startsWith('Toque em iniciar')){ctx.save();ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillRect(250,160,400,80);ctx.fillStyle='#6949b4';ctx.font='900 26px system-ui';ctx.textAlign='center';ctx.fillText('Pronta para a aventura?',450,210);ctx.restore()}ctx.filter='none'}
@@ -1097,6 +1169,9 @@ window.triggerStarConfetti = function(x, y){
 // --- 0. SISTEMA DE ÁUDIO WEB AUDIO API (SONS, PIANO E ANIMAIS) ---
 let audioFxCtx = null;
 function getAudioFxCtx(){
+  // Fallback alias
+  window.getAudioContext = getAudioFxCtx;
+
   if(!audioFxCtx){
     try {
       const AC = window.AudioContext || window.webkitAudioContext;
@@ -1193,6 +1268,33 @@ window.closeEloHubModal = function(){
 
 // --- 2. FESTA DA FAMÍLIA (MÍMICA, DUELO 2 JOGADORES & ROLETA/PLACAR) ---
 let familyActiveMode = "mime";
+
+window.playMimeTimeUpAlarm = function(){
+  if("vibrate" in navigator){
+    try { navigator.vibrate([250, 100, 250, 100, 450]); } catch(_) {}
+  }
+  const ctx = (typeof getAudioFxCtx === 'function') ? getAudioFxCtx() : null;
+  if(!ctx) return;
+  try {
+    const now = ctx.currentTime;
+    for(let i=0; i<4; i++){
+      const t = now + i * 0.24;
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = "square";
+      osc.frequency.setValueAtTime(880, t);
+      osc.frequency.setValueAtTime(740, t + 0.08);
+      g.gain.setValueAtTime(0.35, t);
+      g.gain.setValueAtTime(0.35, t + 0.15);
+      g.gain.linearRampToValueAtTime(0.0001, t + 0.18);
+      osc.connect(g);
+      g.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.19);
+    }
+  } catch(_) {}
+};
+
 let mimeTimer = null, mimeSecondsLeft = 45, currentMimeCategory = "animals";
 let duelActive = false, duelCurrentChallenge = null, duelP1Points = 0, duelP2Points = 0, duelRoundTimeout = null;
 let team1Pts = 0, team2Pts = 0;
@@ -1319,7 +1421,7 @@ window.startMimeRound = function(){
     if(mimeSecondsLeft <= 0){
       clearInterval(mimeTimer);
       mimeTimer = null;
-      playCuteSfx("wrong");
+      playMimeTimeUpAlarm();
       box.innerHTML = `<div class="mimeActiveCard">
         <span style="font-size:46px;">⏰</span>
         <h3>O tempo acabou!</h3>
@@ -1369,9 +1471,13 @@ window.startDuelRound = function(){
   duelActive = false;
   if(duelRoundTimeout) clearTimeout(duelRoundTimeout);
   const cmdEl = document.getElementById("duelCenterCommand");
+  const p1Cmd = document.getElementById("duelP1Command");
+  const p2Cmd = document.getElementById("duelP2Command");
   const p1El = document.getElementById("duelP1Prompt");
   const p2El = document.getElementById("duelP2Prompt");
   if(cmdEl) cmdEl.textContent = "Preparem os dedos... ⏳";
+  if(p1Cmd) p1Cmd.textContent = "Preparem os dedos... ⏳";
+  if(p2Cmd) p2Cmd.textContent = "Preparem os dedos... ⏳";
   if(p1El) p1El.innerHTML = "<div class='duelWait'>⏳ Atenção...</div>";
   if(p2El) p2El.innerHTML = "<div class='duelWait'>⏳ Atenção...</div>";
 
@@ -1381,6 +1487,8 @@ window.startDuelRound = function(){
     duelActive = true;
     playCuteSfx("pop");
     if(cmdEl) cmdEl.textContent = c.cmd;
+    if(p1Cmd) p1Cmd.textContent = c.cmd;
+    if(p2Cmd) p2Cmd.textContent = c.cmd;
     const opts1 = shuffle(c.options);
     const opts2 = shuffle(c.options);
     if(p1El){
@@ -1602,7 +1710,7 @@ window.selectSchoolTrack = function(track){
   renderModernSchoolQuestion();
 };
 
-window.renderModernSchoolQuestion = function(){
+window.renderModernSchoolQuestion = function(autoSpeak = false){
   if(!activeSchoolDeck.length){
     activeSchoolDeck = shuffle(SCHOOL_TRACK_DATA[activeSchoolTrack] || SCHOOL_TRACK_DATA.letters).slice(0, 8);
   }
@@ -1641,7 +1749,7 @@ window.renderModernSchoolQuestion = function(){
     </button>
   `).join("");
 
-  if(typeof speakText === "function"){
+  if(autoSpeak && typeof speakText === "function" && document.getElementById('learnPanel')?.classList.contains('active')){
     setTimeout(()=>speakText(q.prompt), 180);
   }
 };
@@ -2433,61 +2541,73 @@ window.toggleSleepMode = function(force){
 
 window.toggleLullabyPlay = function(){
   const btn = document.getElementById("lullabyToggleBtn");
-  const ctx = getAudioContext();
+  const ctx = (typeof getAudioFxCtx === 'function') ? getAudioFxCtx() : null;
   if(sleepLullabyPlaying){
     sleepLullabyPlaying = false;
     if(lullabyTimer) clearInterval(lullabyTimer);
+    lullabyTimer = null;
     if(btn) {
-      btn.textContent = "🎵 Tocar Caixinha de Música Suave";
+      btn.textContent = "▶ Tocar Canção de Ninar";
       btn.style.background = "";
     }
     toast("Música de ninar pausada 🌙");
   } else {
     sleepLullabyPlaying = true;
     if(btn) {
-      btn.textContent = "⏸ Pausar Caixinha de Música";
-      btn.style.background = "#6366f1";
+      btn.textContent = "⏸ Pausar Canção de Ninar";
+      btn.style.background = "#8b5cf6";
     }
     toast("Tocando caixinha de música dos sonhos... 🎶✨");
     
-    // Melodia de ninar relaxante e suave (Brahms' Lullaby / Nana Neném)
+    // Melodia suave e relaxante de ninar
     const notes = [
       261.63, 261.63, 293.66, 261.63, 349.23, 329.63,
       261.63, 261.63, 293.66, 261.63, 392.00, 349.23,
       261.63, 261.63, 523.25, 440.00, 349.23, 329.63, 293.66,
-      466.16, 466.16, 440.00, 349.23, 392.00, 349.23
+      349.23, 392.00, 349.23
     ];
     let noteIdx = 0;
+    if(typeof playTone === 'function') playTone(notes[0], 0.8, "sine");
     lullabyTimer = setInterval(()=>{
       if(!sleepLullabyPlaying) return;
-      playTone(notes[noteIdx], 0.75, "sine");
       noteIdx = (noteIdx + 1) % notes.length;
-    }, 900);
+      if(typeof playTone === 'function') playTone(notes[noteIdx], 0.8, "sine");
+    }, 850);
   }
 };
 
-window.readBedtimeStory = function(idx){
+window.readBedtimeStory = function(idx = null){
   const stories = [
     {
-      title: "O Pônei que Queria Voar com as Estrelas",
-      text: "Era uma vez um pônei fofinho chamado Jujuba. Todas as noites, ele olhava para o céu e via as estrelinhas cintilando. Certa noite, uma fada amiga borrifou pozinho de sonhos em suas crinas. Jujuba deu um saltinho suave e flutuou entre as nuvens macias, descansando em um travesseirinho de algodão bem quentinho..."
+      title: "O Pônei que Queria Voar com as Estrelas 🦄⭐",
+      text: "Era uma vez um pônei fofinho chamado Jujuba. Todas as noites, ele olhava para o céu e via as estrelinhas brilhando. Certa noite, uma fada amiga borrifou pozinho de sonhos em sua crina. Jujuba deu um saltinho suave e flutuou entre nuvens macias de algodão, aconchegado em um soninho quentinho e feliz."
     },
     {
-      title: "O Ursinho e o Abraço da Lua",
-      text: "Lá na floresta dos sonhos encantados, o ursinho Pingo estava com muito soninho. A Lua cheia desceu bem devagarinho e cobriu o ursinho com um cobertor de luz prateada. Pingo fechou os olhinhos, respirou fundo e dormiu um sono profundo e feliz..."
+      title: "O Ursinho e o Abraço da Lua 🐻🌙",
+      text: "Na floresta mágica dos sonhos, o ursinho Pingo estava com muito soninho após brincar o dia inteiro. A Lua cheia desceu suavemente pelo céu e cobriu o ursinho com um cobertor de luz prateada. Pingo fechou os olhinhos, respirou fundo e adormeceu tranquilo com lindos sonhos."
+    },
+    {
+      title: "O Barquinho das Nuvens Cor-de-Rosa ⛵☁️",
+      text: "No reino do soninho, um barquinho feito de nuvem navega devagarinho pelo rio das estrelas. A água é calma como um sussurro. Elo e seu bichinho sobem a bordo, abraçam seus travesseiros e navegam em paz até a terra dos sonhos felizes."
     }
   ];
-  const s = stories[idx] || stories[0];
+  const pickIdx = (idx !== null) ? idx : Math.floor(Math.random() * stories.length);
+  const s = stories[pickIdx];
   const content = document.getElementById("sleepStoryContent");
   if(content){
     content.innerHTML = `
-      <div style="background:rgba(255,255,255,0.1);padding:18px;border-radius:18px;margin-top:12px;border:1px solid rgba(255,255,255,0.2);">
-        <h4 style="margin:0 0 8px;color:#fbcfe8;">📖 ${s.title}</h4>
-        <p style="font-size:15px;line-height:1.6;margin:0;color:#f1f5f9;">${s.text}</p>
+      <div style="background:rgba(255,255,255,0.14);backdrop-filter:blur(10px);padding:14px 16px;border-radius:20px;margin-top:12px;border:1.5px solid rgba(255,255,255,0.25);text-align:left;">
+        <h4 style="margin:0 0 6px;color:#fde047;font-size:15px;">📖 ${s.title}</h4>
+        <p style="font-size:13px;line-height:1.55;margin:0;color:#f8fafc;">${s.text}</p>
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button class="btn" style="padding:6px 12px;font-size:11px;background:#8b5cf6;" onclick="readBedtimeStory()">Outra História 📖</button>
+          <button class="btn secondary" style="padding:6px 12px;font-size:11px;" onclick="speakText('${s.text.replace(/'/g, "\'")}')">🔊 Ouvir Novamente</button>
+        </div>
       </div>
     `;
-    if(typeof speakText === "function") speakText(s.text);
   }
+  toast(`📖 ${s.title}`);
+  if(typeof speakText === "function") speakText(s.text);
 };
 
 // --- FEEDBACKS DE SONS E INICIALIZAÇÃO SEGURA ---
@@ -2505,7 +2625,7 @@ document.addEventListener("pointerdown", e => {
 }, { passive: true, capture: true });
 
 // Inicializações automáticas com tratamento de erro
-try { selectSchoolTrack("letters"); } catch(_) {}
+try { selectSchoolTrack("letters", null, false); } catch(_) {}
 try { initFreeDrawCanvas(); } catch(_) {}
 try { generateNewChefOrder(); } catch(_) {}
 try { updateStickersCounterUI(); } catch(_) {}
@@ -2605,39 +2725,121 @@ window.playTone = function(freq, duration = 0.35, type = 'triangle') {
   } catch(_) {}
 };
 
+// ==========================================================
+// PIANO ARCO-ÍRIS DA ELO COM MODO GUIADO & CANÇÕES VERIFICADAS
+// ==========================================================
+const PIANO_SONGS = {
+  twinkle: {
+    title: "⭐ Brilha Estrelinha",
+    notes: ['do', 'do', 'sol', 'sol', 'la', 'la', 'sol', 'fa', 'fa', 'mi', 'mi', 're', 're', 'do'],
+    labels: ['Dó', 'Dó', 'Sol', 'Sol', 'Lá', 'Lá', 'Sol', 'Fá', 'Fá', 'Mi', 'Mi', 'Ré', 'Ré', 'Dó']
+  },
+  butterfly: {
+    title: "🦋 Borboletinha",
+    notes: ['sol', 'mi', 'mi', 'sol', 'mi', 'mi', 'fa', 're', 're', 'fa', 're', 're', 'mi', 'fa', 'sol'],
+    labels: ['Sol', 'Mi', 'Mi', 'Sol', 'Mi', 'Mi', 'Fá', 'Ré', 'Ré', 'Fá', 'Ré', 'Ré', 'Mi', 'Fá', 'Sol']
+  },
+  happy: {
+    title: "🎂 Parabéns pra Você",
+    notes: ['do', 'do', 're', 'do', 'fa', 'mi', 'do', 'do', 're', 'do', 'sol', 'fa', 'do', 'do', 'do2', 'la', 'fa', 'mi', 're'],
+    labels: ['Dó', 'Dó', 'Ré', 'Dó', 'Fá', 'Mi', 'Dó', 'Dó', 'Ré', 'Dó', 'Sol', 'Fá', 'Dó', 'Dó', 'Dó²', 'Lá', 'Fá', 'Mi', 'Ré']
+  },
+  balloon: {
+    title: "🎈 Cai Cai Balão",
+    notes: ['sol', 'sol', 'mi', 'mi', 'sol', 'sol', 'mi', 'fa', 'fa', 're', 're', 'fa', 'fa', 're', 'mi', 're', 'do'],
+    labels: ['Sol', 'Sol', 'Mi', 'Mi', 'Sol', 'Sol', 'Mi', 'Fá', 'Fá', 'Ré', 'Ré', 'Fá', 'Fá', 'Ré', 'Mi', 'Ré', 'Dó']
+  },
+  doremi: {
+    title: "🎵 Dó, Ré, Mi, Fá",
+    notes: ['do', 're', 'mi', 'fa', 'fa', 'fa', 'do', 're', 'do', 're', 're', 're', 'do', 'sol', 'fa', 'mi', 'mi', 'mi', 'do', 're', 'mi', 'fa', 'fa', 'fa'],
+    labels: ['Dó', 'Ré', 'Mi', 'Fá', 'Fá', 'Fá', 'Dó', 'Ré', 'Dó', 'Ré', 'Ré', 'Ré', 'Dó', 'Sol', 'Fá', 'Mi', 'Mi', 'Mi', 'Dó', 'Ré', 'Mi', 'Fá', 'Fá', 'Fá']
+  }
+};
+
+let currentPianoSongKey = 'free';
+let currentSongStep = 0;
+
+function updatePianoGuideDisplay() {
+  const guide = document.getElementById('pianoSongGuide');
+  document.querySelectorAll('.pianoKey3D').forEach(k => k.classList.remove('guideTarget'));
+  
+  if(!currentPianoSongKey || currentPianoSongKey === 'free') {
+    if(guide) guide.textContent = 'Toque livremente nas teclas coloridas para fazer música! 🎶';
+    return;
+  }
+  const song = PIANO_SONGS[currentPianoSongKey];
+  if(!song) return;
+  
+  if(currentSongStep >= song.notes.length) {
+    if(guide) guide.innerHTML = `🎉 <b>Parabéns! Você tocou "${song.title}" todinha!</b> (+2 ⭐)`;
+    return;
+  }
+  
+  const targetNote = song.notes[currentSongStep];
+  const targetLabel = song.labels[currentSongStep];
+  const targetKey = document.querySelector(`.pianoKey3D[data-note="${targetNote}"]`);
+  if(targetKey) targetKey.classList.add('guideTarget');
+  
+  if(guide) {
+    guide.innerHTML = `Siga a tecla brilhando! Toque na nota: <b>${targetLabel}</b> (${currentSongStep + 1}/${song.notes.length}) 🎶`;
+  }
+}
+
+window.selectPianoSong = function(songKey, btn) {
+  document.querySelectorAll('.songSelectorRow .songChip').forEach(c => c.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  renderPianoKeys();
+  
+  currentPianoSongKey = songKey;
+  currentSongStep = 0;
+  
+  if(songKey === 'free') {
+    toast('Modo Livre ativado! Toque à vontade 🎹');
+  } else {
+    const song = PIANO_SONGS[songKey];
+    toast(`Música: ${song ? song.title : songKey}! Siga a tecla piscando ✨`);
+  }
+  updatePianoGuideDisplay();
+};
+
 window.playPianoKey = function(note, noteName) {
   const item = PIANO_KEYS_DATA.find(k => k.note === note);
   const freq = item ? item.freq : (PIANO_NOTES_FREQ[note] || 440);
   playTone(freq, 0.45, 'triangle');
   toast('Nota: ' + (noteName || note.toUpperCase()) + ' 🎶');
+  
   const k = document.querySelector('.pianoKey3D[data-note="' + note + '"]');
   if(k) {
     k.classList.add('pressedKey');
     setTimeout(() => k.classList.remove('pressedKey'), 180);
   }
-};
-
-window.selectPianoSong = function(songKey, btn) {
-  document.querySelectorAll('.songSelectorRow .songChip').forEach(c => c.classList.remove('on'));
-  if(btn) btn.classList.add('on');
-  const guide = document.getElementById('pianoSongGuide');
-  renderPianoKeys();
-
-  if(songKey === 'free') {
-    if(guide) guide.textContent = 'Toque livremente nas teclas coloridas para compor sua música! 🎹🌈';
-    toast('Modo Livre ativado! Toque nas teclas!');
-    return;
+  
+  // Guided mode check
+  if(currentPianoSongKey && currentPianoSongKey !== 'free') {
+    const song = PIANO_SONGS[currentPianoSongKey];
+    if(song && currentSongStep < song.notes.length) {
+      if(note === song.notes[currentSongStep]) {
+        currentSongStep++;
+        if(currentSongStep >= song.notes.length) {
+          playCuteSfx('win');
+          triggerStarConfetti();
+          addStars(2, `Você tocou ${song.title} inteira! +2 ⭐`);
+          updatePianoGuideDisplay();
+          setTimeout(() => {
+            currentSongStep = 0;
+            updatePianoGuideDisplay();
+          }, 3000);
+        } else {
+          updatePianoGuideDisplay();
+        }
+      } else {
+        const expected = song.labels[currentSongStep];
+        toast(`Toque na tecla piscando: ${expected} ✨`);
+      }
+    }
   }
-
-  const songTitles = {
-    twinkle: '⭐ Brilha, Brilha Estrelinha',
-    butterfly: '🦋 Borboletinha tá na cozinha',
-    happy: '🎂 Parabéns pra Você',
-    balloon: '🎈 Cai, Cai Balão'
-  };
-  if(guide) guide.textContent = 'Aprenda a tocar: ' + (songTitles[songKey] || 'Canção da Elo') + '! 🎶';
-  playBabySong(songKey === 'twinkle' ? 'estrela' : (songKey === 'butterfly' ? 'ciranda' : (songKey === 'happy' ? 'alecrim' : 'estrela')));
 };
+
 
 window.playAnimalSynth = function(animal) {
   const ctx = getAudioFxCtx();
@@ -2707,7 +2909,7 @@ if(window.SCHOOL_TRACK_DATA) {
   window.SCHOOL_TRACK_DATA.nature = window.SCHOOL_TRACK_DATA.curious;
 }
 
-window.selectSchoolTrack = function(track, btn) {
+window.selectSchoolTrack = function(track, btn, autoSpeak = false) {
   activeSchoolTrack = track;
   currentSchoolQuestionIdx = 0;
   schoolTrackScore = 0;
@@ -2735,7 +2937,7 @@ window.selectSchoolTrack = function(track, btn) {
     if(musicCard) musicCard.classList.add('hidden');
     const bank = (window.SCHOOL_TRACK_DATA && window.SCHOOL_TRACK_DATA[track]) ? window.SCHOOL_TRACK_DATA[track] : (window.SCHOOL_TRACK_DATA ? window.SCHOOL_TRACK_DATA.letters : []);
     activeSchoolDeck = shuffle([...bank]).slice(0, 8);
-    renderModernSchoolQuestion();
+    renderModernSchoolQuestion(autoSpeak);
   }
 };
 
@@ -2911,76 +3113,117 @@ window.initFreeDrawCanvas = function() {
 };
 
 // --- 3. PIZZARIA, CONFEITARIA & CHEF DA ELO ---
+// ==========================================================
+// PIZZARIA, CONFEITARIA, SORVETERIA E OFICINA COM PEDIDOS REAIS
+// ==========================================================
 const CHEF_STATIONS = {
   pizza: {
-    title: '🍕 Pizzaria Mágica da Elo',
-    baseName: 'Massa de Pizza Quentinha',
+    title: 'Pizzaria da Elo 🍕',
     baseEmoji: '🍕',
     ingredients: [
-      { id: 'molho', name: 'Molho Tomate', emoji: '🍅' },
-      { id: 'queijo', name: 'Queijo Derretido', emoji: '🧀' },
+      { id: 'queijo', name: 'Queijo', emoji: '🧀' },
+      { id: 'tomate', name: 'Tomate', emoji: '🍅' },
       { id: 'manjericao', name: 'Manjericão', emoji: '🌿' },
+      { id: 'cogumelo', name: 'Cogumelo', emoji: '🍄' },
+      { id: 'milho', name: 'Milho', emoji: '🌽' },
       { id: 'azeitona', name: 'Azeitona', emoji: '🫒' },
-      { id: 'milho', name: 'Milho Doce', emoji: '🌽' },
-      { id: 'cogumelo', name: 'Cogumelos', emoji: '🍄' },
-      { id: 'calabresa', name: 'Calabrezinha', emoji: '🥓' },
-      { id: 'abacaxi', name: 'Abacaxi', emoji: '🍍' }
+      { id: 'pepperoni', name: 'Pepperoni', emoji: '🥓' },
+      { id: 'oregano', name: 'Orégano', emoji: '🧂' }
+    ],
+    recipes: [
+      { name: 'Pizza Margherita', req: [{ id: 'queijo', count: 2 }, { id: 'tomate', count: 2 }, { id: 'manjericao', count: 1 }] },
+      { name: 'Pizza Quatro Cores', req: [{ id: 'queijo', count: 1 }, { id: 'milho', count: 2 }, { id: 'tomate', count: 1 }, { id: 'azeitona', count: 2 }] },
+      { name: 'Pizza Especial da Casa', req: [{ id: 'queijo', count: 2 }, { id: 'pepperoni', count: 2 }, { id: 'cogumelo', count: 1 }] },
+      { name: 'Pizza Delícia da Elo', req: [{ id: 'queijo', count: 2 }, { id: 'tomate', count: 1 }, { id: 'milho', count: 1 }, { id: 'oregano', count: 1 }] }
     ]
   },
   cake: {
-    title: '🎂 Confeitaria dos Sonhos',
-    baseName: 'Bolo de Festa da Elo',
+    title: 'Confeitaria da Elo 🎂',
     baseEmoji: '🎂',
     ingredients: [
-      { id: 'morango', name: 'Morangos', emoji: '🍓' },
+      { id: 'morango', name: 'Morango', emoji: '🍓' },
       { id: 'chocolate', name: 'Chocolate', emoji: '🍫' },
-      { id: 'chantilly', name: 'Chantilly', emoji: '🧁' },
-      { id: 'cereja', name: 'Cereja', emoji: '🍒' },
       { id: 'confeitos', name: 'Confeitos', emoji: '✨' },
-      { id: 'vela', name: 'Velinha', emoji: '🕯️' },
-      { id: 'biscoito', name: 'Biscoitinho', emoji: '🍪' },
-      { id: 'coracao', name: 'Docinho Coração', emoji: '💖' }
+      { id: 'cereja', name: 'Cereja', emoji: '🍒' },
+      { id: 'chantilly', name: 'Chantilly', emoji: '🍦' },
+      { id: 'estrelas', name: 'Estrelinhas', emoji: '⭐' },
+      { id: 'granulado', name: 'Granulado', emoji: '🍬' },
+      { id: 'framboesa', name: 'Framboesa', emoji: '🫐' }
+    ],
+    recipes: [
+      { name: 'Bolo de Morango com Chantilly', req: [{ id: 'morango', count: 2 }, { id: 'chantilly', count: 2 }, { id: 'cereja', count: 1 }] },
+      { name: 'Bolo Floresta Negra', req: [{ id: 'chocolate', count: 2 }, { id: 'cereja', count: 2 }, { id: 'granulado', count: 1 }] },
+      { name: 'Bolo Festa Mágica', req: [{ id: 'confeitos', count: 2 }, { id: 'estrelas', count: 2 }, { id: 'morango', count: 1 }] },
+      { name: 'Bolo Sonho da Elo', req: [{ id: 'chocolate', count: 2 }, { id: 'chantilly', count: 1 }, { id: 'framboesa', count: 2 }] }
     ]
   },
   icecream: {
-    title: '🍨 Sorveteria Encantada',
-    baseName: 'Taça de Sorvete Gigante',
+    title: 'Sorveteria da Elo 🍨',
     baseEmoji: '🍨',
     ingredients: [
-      { id: 'baunilha', name: 'Baunilha', emoji: '🍦' },
-      { id: 'morango_s', name: 'Morango', emoji: '🍓' },
-      { id: 'chocolate_s', name: 'Chocolate', emoji: '🍫' },
-      { id: 'caramelo', name: 'Caramelo', emoji: '🍯' },
-      { id: 'cereja_s', name: 'Cereja Topo', emoji: '🍒' },
-      { id: 'jujuba', name: 'Jujubas', emoji: '🍬' },
-      { id: 'estrelinhas', name: 'Estrelinhas', emoji: '⭐' },
-      { id: 'wafer', name: 'Canudinho', emoji: '🥢' }
+      { id: 'baunilha', name: 'Baunilha', emoji: '🍨' },
+      { id: 'chocolate', name: 'Chocolate', emoji: '🍫' },
+      { id: 'morango', name: 'Morango', emoji: '🍓' },
+      { id: 'calda', name: 'Calda', emoji: '🍯' },
+      { id: 'confeitos', name: 'Confeitos', emoji: '✨' },
+      { id: 'cereja', name: 'Cereja', emoji: '🍒' },
+      { id: 'waffle', name: 'Biscoito', emoji: '🧇' },
+      { id: 'coco', name: 'Raspas de Coco', emoji: '🥥' }
+    ],
+    recipes: [
+      { name: 'Sundae Encantado', req: [{ id: 'baunilha', count: 2 }, { id: 'calda', count: 1 }, { id: 'cereja', count: 1 }] },
+      { name: 'Taça Tropical', req: [{ id: 'morango', count: 2 }, { id: 'coco', count: 1 }, { id: 'confeitos', count: 2 }] },
+      { name: 'Crocante de Chocolate', req: [{ id: 'chocolate', count: 2 }, { id: 'waffle', count: 1 }, { id: 'calda', count: 1 }] }
     ]
   },
   robot: {
-    title: '🤖 Oficina de Brinquedos',
-    baseName: 'Robô Amigo da Elo',
+    title: 'Oficina de Robôs 🤖',
     baseEmoji: '🤖',
     ingredients: [
       { id: 'engrenagem', name: 'Engrenagem', emoji: '⚙️' },
-      { id: 'rodas', name: 'Rodinhas', emoji: '🛞' },
       { id: 'antena', name: 'Antena', emoji: '📡' },
-      { id: 'laser', name: 'Laser Azul', emoji: '💡' },
-      { id: 'bateria', name: 'Bateria', emoji: '🔋' },
-      { id: 'coracao_r', name: 'Coração', emoji: '💖' },
+      { id: 'rodinha', name: 'Rodinha', emoji: '🛞' },
+      { id: 'parafuso', name: 'Parafuso', emoji: '🔩' },
+      { id: 'coracao', name: 'Coração', emoji: '💖' },
       { id: 'asas', name: 'Asinhas', emoji: '🪽' },
-      { id: 'foguete', name: 'Propulsor', emoji: '🚀' }
+      { id: 'foguete', name: 'Propulsor', emoji: '🚀' },
+      { id: 'olho', name: 'Olho Laser', emoji: '👁️' }
+    ],
+    recipes: [
+      { name: 'Robô Alado', req: [{ id: 'engrenagem', count: 2 }, { id: 'asas', count: 2 }, { id: 'coracao', count: 1 }] },
+      { name: 'Robô Espacial Veloz', req: [{ id: 'rodinha', count: 2 }, { id: 'antena', count: 1 }, { id: 'foguete', count: 2 }] },
+      { name: 'Robô Amigo Protetor', req: [{ id: 'parafuso', count: 2 }, { id: 'coracao', count: 1 }, { id: 'olho', count: 2 }] }
     ]
   }
 };
 
 let currentChefStationKey = 'pizza';
 let placedChefItems = [];
+let currentChefOrder = null;
+
+function pickNewChefOrder(stationKey) {
+  const station = CHEF_STATIONS[stationKey] || CHEF_STATIONS.pizza;
+  const recipe = station.recipes[Math.floor(Math.random() * station.recipes.length)];
+  return {
+    stationKey,
+    name: recipe.name,
+    req: recipe.req.map(r => {
+      const ing = station.ingredients.find(i => i.id === r.id);
+      return {
+        id: r.id,
+        name: ing ? ing.name : r.id,
+        emoji: ing ? ing.emoji : '✨',
+        count: r.count
+      };
+    })
+  };
+}
 
 window.selectChefStation = function(stationKey, btn) {
   if(!CHEF_STATIONS[stationKey]) return;
   currentChefStationKey = stationKey;
   placedChefItems = [];
+  currentChefOrder = pickNewChefOrder(stationKey);
   document.querySelectorAll('.chefStationTabs .chefTabBtn').forEach(b => b.classList.remove('on'));
   if(btn) btn.classList.add('on');
   renderChefStudio();
@@ -2991,20 +3234,33 @@ function renderChefStudio() {
   const root = document.getElementById('chefStudioRoot');
   if(!root) return;
   const s = CHEF_STATIONS[currentChefStationKey];
-  
+  if(!currentChefOrder || currentChefOrder.stationKey !== currentChefStationKey) {
+    currentChefOrder = pickNewChefOrder(currentChefStationKey);
+  }
+
+  // Calculate current counts
+  const counts = {};
+  placedChefItems.forEach(item => {
+    counts[item.id] = (counts[item.id] || 0) + 1;
+  });
+
+  const reqBadgesHtml = currentChefOrder.req.map(r => {
+    const cur = counts[r.id] || 0;
+    const isDone = cur === r.count;
+    return '<span class="chefReqBadge ' + (isDone ? 'ok' : '') + '">' + r.emoji + ' ' + r.name + ': ' + cur + '/' + r.count + (isDone ? ' ✓' : '') + '</span>';
+  }).join(' ');
+
   root.innerHTML = (
     '<div class="chefOrderHeader">' +
       '<div class="chefOrderTitle">' +
         '<span>' + s.baseEmoji + '</span>' +
         '<div>' +
-          '<b>' + s.title + '</b>' +
-          '<small>Toque nos ingredientes para montar sua criação mágica!</small>' +
+          '<b>Pedido da Elo: ' + currentChefOrder.name + '</b>' +
+          '<small>Coloque os ingredientes certinhos na quantidade que a Elo pediu!</small>' +
         '</div>' +
       '</div>' +
       '<div class="chefReqList">' +
-        '<span class="chefReqBadge ' + (placedChefItems.length >= 1 ? 'ok' : '') + '">1. Base Pronta ✓</span>' +
-        '<span class="chefReqBadge ' + (placedChefItems.length >= 3 ? 'ok' : '') + '">2. Recheios (' + placedChefItems.length + '/3+)</span>' +
-        '<span class="chefReqBadge ' + (placedChefItems.length >= 2 ? 'ok' : '') + '">3. Entregar Pedido</span>' +
+        reqBadgesHtml +
       '</div>' +
     '</div>' +
     '<div class="chefStudioLayout">' +
@@ -3021,14 +3277,14 @@ function renderChefStudio() {
       '<div class="chefIngredientsArea">' +
         '<div class="chefIngredientsBar">' +
           s.ingredients.map(ing => (
-            '<button class="chefIngBtn" onclick="addChefIngredient(\'' + ing.id + '\', \'' + ing.emoji + '\', \'' + ing.name + '\')">' +
+            '<button class="chefIngBtn" onclick="addChefIngredient(' + JSON.stringify(ing.id) + ', ' + JSON.stringify(ing.emoji) + ', ' + JSON.stringify(ing.name) + ')">' +
               '<span>' + ing.emoji + '</span>' +
               '<small>' + ing.name + '</small>' +
             '</button>'
           )).join('') +
         '</div>' +
         '<div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap;">' +
-          '<button class="btn" style="background:#00d288;font-weight:900;" onclick="deliverChefOrder()">✨ Entregar para a Elo! (+2 ⭐)</button>' +
+          '<button class="btn" style="background:#00d288;font-weight:900;" onclick="deliverChefOrder()">✨ Entregar para a Elo! (+3 ⭐)</button>' +
           '<button class="btn secondary" onclick="clearChefPlate()">Limpar Prato</button>' +
         '</div>' +
       '</div>' +
@@ -3037,12 +3293,12 @@ function renderChefStudio() {
 }
 
 window.addChefIngredient = function(id, emoji, name) {
-  if(placedChefItems.length >= 16) {
-    toast('O prato já está bem recheado e caprichado! 😋');
+  if(placedChefItems.length >= 18) {
+    toast('O prato já está bem cheio! 😋');
     return;
   }
   const angle = Math.random() * Math.PI * 2;
-  const dist = 10 + Math.random() * 32;
+  const dist = 8 + Math.random() * 32;
   const x = 50 + Math.cos(angle) * dist;
   const y = 50 + Math.sin(angle) * dist;
   placedChefItems.push({ id, emoji, name, x, y });
@@ -3054,25 +3310,63 @@ window.addChefIngredient = function(id, emoji, name) {
 window.clearChefPlate = function() {
   placedChefItems = [];
   renderChefStudio();
-  toast('Prato limpinho para começar de novo! 🧼');
+  toast('Prato limpinho! 🧼');
 };
 
 window.deliverChefOrder = function() {
-  if(placedChefItems.length < 2) {
-    toast('Coloque pelo menos 2 ingredientes antes de entregar! 👩‍🍳');
-    if(typeof playCuteSfx === 'function') playCuteSfx('wrong');
-    return;
+  if(!currentChefOrder) return;
+  
+  // Count placed items
+  const counts = {};
+  placedChefItems.forEach(item => {
+    counts[item.id] = (counts[item.id] || 0) + 1;
+  });
+  
+  // Check if requirements match exactly
+  let isCorrect = true;
+  let missingMsg = '';
+  
+  for(const r of currentChefOrder.req) {
+    const placed = counts[r.id] || 0;
+    if(placed !== r.count) {
+      isCorrect = false;
+      if(placed < r.count) {
+        missingMsg = 'Falta colocar mais ' + r.name + ' (' + placed + '/' + r.count + ')!';
+      } else {
+        missingMsg = 'Colocou ' + r.name + ' demais! O pedido pedia só ' + r.count + '.';
+      }
+      break;
+    }
   }
-  if(typeof playCuteSfx === 'function') playCuteSfx('win');
-  if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
-  if(typeof addStars === 'function') addStars(2, 'Receita deliciosa entregue com sucesso! +2 ⭐');
-  toast('Que delícia! A Elo amou o seu pedido! 😋⭐');
-  setTimeout(() => {
-    placedChefItems = [];
-    renderChefStudio();
-  }, 1200);
+  
+  // Check for unauthorized extra items
+  if(isCorrect) {
+    const reqIds = new Set(currentChefOrder.req.map(r => r.id));
+    for(const id of Object.keys(counts)) {
+      if(!reqIds.has(id)) {
+        isCorrect = false;
+        const extraItem = placedChefItems.find(p => p.id === id);
+        missingMsg = 'O ingrediente ' + (extraItem ? extraItem.name : id) + ' não foi pedido pela Elo!';
+        break;
+      }
+    }
+  }
+  
+  if(isCorrect) {
+    if(typeof playCuteSfx === 'function') playCuteSfx('win');
+    if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
+    if(typeof addStars === 'function') addStars(3, 'Pedido certinho! A Elo amou o pedido de ' + currentChefOrder.name + '! +3 ⭐');
+    toast('🎉 Pedido perfeito! A Elo agradeceu com estrelinhas! ⭐');
+    setTimeout(() => {
+      placedChefItems = [];
+      currentChefOrder = pickNewChefOrder(currentChefStationKey);
+      renderChefStudio();
+    }, 1500);
+  } else {
+    if(typeof playCuteSfx === 'function') playCuteSfx('wrong');
+    toast('Ops! ' + missingMsg + ' Confira o pedido ou limpe o prato e tente de novo! 👩‍🍳');
+  }
 };
-
 // --- 4. CONSULTÓRIO DA ELO (CURATIVOS E FINALIZAÇÃO) ---
 let currentBandageStyle = '🦄';
 

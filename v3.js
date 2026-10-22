@@ -451,6 +451,24 @@ window.renderCollection=renderCollection;
 let roomDecorCategory='wall';
 function roomUnlocked(item){return true}
 window.selectRoomCategory=function(kind){roomDecorCategory=kind;renderRoom()};
+function syncRoomPet(){
+  const mount = document.getElementById('roomPetMount');
+  if(!mount) return;
+  const p = (typeof loadPet === 'function') ? loadPet() : (typeof rawLoad === 'function' ? rawLoad() : null);
+  if(!p) return;
+  if(p.stage === 'egg'){
+    mount.innerHTML = '<div class="petEgg roomPetEgg" style="position:relative;left:auto;top:auto;transform:scale(0.55);transform-origin:center bottom;cursor:pointer;"><span></span></div>';
+  } else {
+    const acc = p.accessory === 'bow' ? '🎀' : p.accessory === 'star' ? '⭐' : p.accessory === 'crown' ? '👑' : '';
+    mount.innerHTML = `<div class="petCreature species-${p.species} stage-${p.stage} roomPetCreature" style="position:relative;left:auto;top:auto;transform:scale(0.55);transform-origin:center bottom;cursor:pointer;">
+      <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
+      <span class="petBody"></span><span class="petHead"><i class="petEye e1"></i><i class="petEye e2"></i><i class="petMouth"></i><i class="petCheek c1"></i><i class="petCheek c2"></i></span>
+      <span class="petAccessory" style="top:2px;left:50%;">${acc}</span>
+    </div>`;
+  }
+}
+window.syncRoomPet = syncRoomPet;
+
 function syncRoomElo(v){
  const mount=document.getElementById('roomEloMount'),source=document.getElementById('wardrobeElo');
  if(!mount||!source)return;
@@ -488,7 +506,7 @@ function renderRoom(){
  if(toyEl){const shape=toy?.shape||'unicorn';toyEl.className=`roomToy roomInteractive ${shape==='none'?'hidden':''} toy-${shape}`.trim();toyEl.textContent='';}
  if(bedEl){const bedClass={bedPink:'bed-pink',bedBlue:'bed-blue',bedLilac:'bed-lilac',bedStar:'bed-star',bedMint:'bed-mint',bedPeach:'bed-peach',bedCloud:'bed-cloud',bedCastle:'bed-castle',bedRainbow:'bed-rainbow',bedRocket:'bed-rocket'}[bed?.id]||'bed-pink';bedEl.className=`roomBed roomInteractive ${bedClass}`;}
  if(rugEl){const rugClass={rugHeart:'rug-heart',rugRainbow:'rug-rainbow',rugCloud:'rug-cloud',rugFlower:'rug-flower',rugStar:'rug-star',rugComet:'rug-comet',rugPaw:'rug-paw',rugButterfly:'rug-butterfly',rugWatermelon:'rug-watermelon'}[rug?.id]||'rug-heart';rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rugClass}`.trim();}
- syncRoomElo(v);syncWorldMapElo(v);
+ syncRoomElo(v);syncWorldMapElo(v);syncRoomPet();
  const tabs=document.getElementById('roomDecorTabs');if(tabs){const kinds=[['wall','🎨','Parede'],['art','🖼️','Quadros'],['bed','🛏️','Camas'],['rug','🧶','Tapetes'],['toy','🧸','Brinquedos']];tabs.innerHTML=kinds.map(([id,ic,name])=>`<button class="roomDecorTab ${roomDecorCategory===id?'on':''}" onclick="selectRoomCategory('${id}')"><span>${ic}</span>${name}</button>`).join('')}grid.innerHTML=ROOM_DECOR.filter(it=>it.kind===roomDecorCategory).map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')">${unlock?roomDecorThumb(it):'<span>🔒</span>'}<b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');
 }window.renderRoom=renderRoom;
 window.selectRoomDecor=function(id){const it=ROOM_DECOR.find(x=>x.id===id);if(!it)return;if(!roomUnlocked(it))return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load();v.room[it.kind]=it.id;v3Save(v);renderRoom();if(typeof playCuteSfx==='function')playCuteSfx('pop');toast(it.name+' colocado no quarto! ✨');if(typeof speakText==='function'&&getActiveProfile().ageRange==='3-5')speakText(it.name)};
@@ -527,7 +545,7 @@ function garmentThumb(it){
 function renderWardrobePresets(){const box=document.getElementById('wardrobePresets');if(!box)return;box.innerHTML=WARDROBE_PRESETS.map(p=>`<button class="lookPreset " onclick="applyWardrobePreset('${p.id}')"><span>${p.icon}</span><b>${p.name}</b><small>'Vestir'</small></button>`).join('')}
 window.applyWardrobePreset=function(id){const p=WARDROBE_PRESETS.find(x=>x.id===id);if(!p)return;const v=v3Load();v.wardrobe=Object.assign({},normalizeWardrobe(v),p.set);v3Save(v);renderWardrobe();initWorldMapElo();toast(`${p.name} escolhido! ✨`)};
 window.selectWardrobeCategory=function(cat){if(!WARDROBE_CATEGORIES.some(x=>x.id===cat))return;wardrobeCategory=cat;renderWardrobe()};
-function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);syncRoomElo(v);syncWorldMapElo(v);if(n){const top=wardrobeItem(w.top)?.name||'',bottom=wardrobeItem(w.bottom)?.name||'',dress=w.dress&&w.dress!=='noneDress'?wardrobeItem(w.dress)?.name:'';n.textContent=dress||[top,bottom].filter(Boolean).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=true,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');renderWardrobePresets()}
+function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);syncRoomElo(v);syncWorldMapElo(v);syncRoomPet();if(n){const top=wardrobeItem(w.top)?.name||'',bottom=wardrobeItem(w.bottom)?.name||'',dress=w.dress&&w.dress!=='noneDress'?wardrobeItem(w.dress)?.name:'';n.textContent=dress||[top,bottom].filter(Boolean).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=true,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');renderWardrobePresets()}
 window.renderWardrobe=renderWardrobe;
 window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();initWorldMapElo();
  const doll=document.getElementById('wardrobeElo');

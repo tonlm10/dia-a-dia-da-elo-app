@@ -1853,3 +1853,142 @@ nav .navin {
     margin-bottom: 6px !important;
   }
 }
+
+
+/* ==========================================================
+   v4.3.7-r45 • CORREÇÕES DE ROTAÇÃO DA BIBLIOTECA, PET NO QUARTO E DUELO
+   ========================================================== */
+
+/* 1. Leitura com celular em pé (Retrato) permitida na Biblioteca e Histórias */
+body.reading-portrait-allowed #mandatoryLandscapeBlocker {
+  display: none !important;
+}
+body.reading-portrait-allowed #appContainer {
+  display: block !important;
+  position: relative !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+  transform: none !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+@media screen and (orientation: portrait) {
+  body.reading-portrait-allowed #storiesPanel,
+  body.reading-portrait-allowed #readerPanel,
+  body.reading-portrait-allowed #interactiveStoriesPanel {
+    display: block !important;
+    padding: 12px 14px 80px !important;
+    min-height: 100vh !important;
+  }
+  body.reading-portrait-allowed .readerBox {
+    max-width: 540px !important;
+    margin: 0 auto !important;
+  }
+  body.reading-portrait-allowed .storyPage {
+    width: 100% !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    aspect-ratio: 1 !important;
+  }
+  body.reading-portrait-allowed .libraryGrid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* 2. Bichinho de estimação no Quarto da Elo */
+.roomPetSpot {
+  position: absolute !important;
+  left: 17% !important;
+  bottom: 5% !important;
+  width: 90px !important;
+  height: 90px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  z-index: 5 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+.roomPetSpot:active {
+  transform: scale(0.94);
+}
+.roomPetBubble {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.92);
+  color: #7c3aed;
+  font-size: 10px;
+  font-weight: 1000;
+  padding: 2px 7px;
+  border-radius: 999px;
+  box-shadow: 0 3px 8px rgba(70, 30, 90, 0.18);
+  margin-top: 2px;
+  border: 1px solid #f3e8ff;
+  white-space: nowrap;
+}
+
+/* 3. Duelo de 2 Jogadores sem rolagem e com pergunta para os dois lados */
+.duelSubHeader {
+  background: #fdf4ff;
+  border: 1.5px dashed #c084fc;
+  border-radius: 14px;
+  padding: 6px 12px;
+  text-align: center;
+  font-size: 11px;
+  color: #6b21a8;
+  margin-bottom: 8px;
+}
+.duelPlayerCommand {
+  font-size: 15px;
+  font-weight: 1000;
+  margin: 5px 0 8px;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  line-height: 1.2;
+}
+.duelDivider {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  background: #1e1b4b !important;
+  color: #fde047 !important;
+  padding: 6px 12px !important;
+}
+.duelRoundBtn {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #fff !important;
+  font-size: 11px !important;
+  padding: 6px 12px !important;
+  border-radius: 12px !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-weight: 900 !important;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.35) !important;
+}
+.duelResetBtn {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+  font-size: 10px !important;
+  padding: 5px 10px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+.duelDividerText {
+  font-size: 12px;
+  font-weight: 900;
+  color: #fef08a;
+}
+
+/* 4. Caixa da História do Sono */
+.sleepStoryContent {
+  width: 100%;
+  max-width: 440px;
+  margin: 10px 0 6px;
+}
