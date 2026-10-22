@@ -1152,10 +1152,10 @@ body:has(#petPanel.active) header {
   aspect-ratio: auto !important;
 }
 #unicornChaseGame .chaseBoard {
-  width: min(44vw, 52vh) !important;
-  height: min(44vw, 52vh) !important;
-  max-width: 52vh !important;
-  max-height: 52vh !important;
+  width: min(54vw, 76vh) !important;
+  height: min(54vw, 76vh) !important;
+  max-width: 76vh !important;
+  max-height: 76vh !important;
 }
 #storiesPanel .libraryHero,
 #roomPanel .roomIntro,

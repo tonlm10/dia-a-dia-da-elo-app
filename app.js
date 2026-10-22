@@ -856,7 +856,7 @@ function tapAnswer(n){if(tapWon)return;if(n===tapTarget){tapScore++;document.get
 
 
 // Elo na Trilha Encantada
-const TRAIL_LEVELS={easy:{speed:1.05,jump:18.7,bossHp:6,reward:4,spawnMin:118,spawnVar:52,collectMin:38,collectVar:30,bossAttack:145,bossRest:125,bossShot:66},medium:{speed:1.55,jump:19.1,bossHp:8,reward:5,spawnMin:86,spawnVar:38,collectMin:31,collectVar:26,bossAttack:165,bossRest:105,bossShot:52},hard:{speed:2.05,jump:19.5,bossHp:10,reward:6,spawnMin:64,spawnVar:30,collectMin:25,collectVar:21,bossAttack:185,bossRest:90,bossShot:43}};
+const TRAIL_LEVELS={easy:{speed:1.05,jump:18.7,bossHp:6,reward:4,spawnMin:155,spawnVar:50,collectMin:38,collectVar:30,bossAttack:145,bossRest:125,bossShot:66},medium:{speed:1.55,jump:19.1,bossHp:8,reward:5,spawnMin:130,spawnVar:45,collectMin:31,collectVar:26,bossAttack:165,bossRest:105,bossShot:52},hard:{speed:2.05,jump:19.5,bossHp:10,reward:6,spawnMin:105,spawnVar:35,collectMin:25,collectVar:21,bossAttack:185,bossRest:90,bossShot:43}};
 let trailLevel='easy',trailAnim=0,trailTick=0,trailCanvas=document.getElementById('trailCanvas'),trailCtx=trailCanvas.getContext('2d');
 let trailRunning=false,trailLast=0,trailState=null;
 const trailUI={phase:document.getElementById('trailPhase'),lives:document.getElementById('trailLives'),collected:document.getElementById('trailCollected'),score:document.getElementById('trailScore'),status:document.getElementById('trailStatus'),mode:document.getElementById('trailMode'),bossBar:document.getElementById('trailBossBar'),bossFill:document.getElementById('trailBossFill')};
@@ -928,7 +928,7 @@ if(p.inv>0)p.inv-=dt;
  if(s.mode==='run'){const cfg=TRAIL_LEVELS[trailLevel];s.phaseDistance+=s.worldSpeed*dt*3; s.spawnTimer-=dt; s.collectTimer-=dt; if(s.spawnTimer<=0){spawnTrailObstacle(); s.spawnTimer=Math.max(42,cfg.spawnMin+Math.random()*cfg.spawnVar-Math.min(14,s.phase*.8))} if(s.collectTimer<=0){spawnTrailCollectible(); s.collectTimer=cfg.collectMin+Math.random()*cfg.collectVar} }
  if(s.mode==='boss')updateTrailBoss(dt);
  updateTrailEntities(dt); updateTrailProjectiles(dt); updateTrailEffects(dt); if(s.mode==='run'&&s.phaseDistance>=s.phaseDistanceGoal&&s.phaseCollected>=s.phaseGoal){completeTrailPhase()} syncTrailHud()}
-function spawnTrailObstacle(){const themes=['mushroom','crate','crystal','bush'];const type=themes[Math.floor(Math.random()*themes.length)];const h=type==='crate'?48:type==='crystal'?60:type==='bush'?44:42;const w=type==='crate'?46:type==='crystal'?36:type==='bush'?52:40;trailState.entities.push({kind:'obstacle',type,x:950+Math.random()*80,y:trailState.ground-h,w,h})}
+function spawnTrailObstacle(){const themes=['crystal','crate','mushroom'];const type=themes[Math.floor(Math.random()*themes.length)];const h=type==='crate'?48:type==='crystal'?60:44;const w=type==='crate'?46:type==='crystal'?36:42;trailState.entities.push({kind:'obstacle',type,x:950+Math.random()*80,y:trailState.ground-h,w,h,hit:false})}
 function spawnTrailCollectible(){
   const randVal=Math.random();
   const kind = randVal < 0.08 ? 'magnet' : (randVal < 0.16 ? 'shield' : (randVal < 0.36 ? 'unicorn' : 'star'));const arc=Math.random();let y=trailState.ground-110-Math.random()*120;if(arc>.6)y=trailState.ground-170-Math.random()*75;trailState.entities.push({kind:'collectible',type:kind,x:930+Math.random()*60,y,w:kind==='unicorn'?32:28,h:kind==='unicorn'?32:28,spin:Math.random()*6.28})}
@@ -955,15 +955,15 @@ function updateTrailEntities(dt){
         collectTrailItem(e);
       }
     } else if(e.kind === 'obstacle'){
-      if(s.isFlying && p.y < s.ground - p.h - 30){
+      if(s.isFlying && p.y < s.ground - p.h - 25){
         if(Math.random() < 0.14) s.effects.push({x:e.x, y:e.y-12, text:'🦄 Desviou!', t:28});
-      } else if(p.inv <= 0){
-        // Imunidade total no ar: se a Elo pulou, os pés dela passam por cima do obstáculo!
-        const isJumping = (p.y + p.h < s.ground - 10);
+      } else if(p.inv <= 0 && !e.hit){
+        // Imunidade total no ar: se a Elo pulou, os pés dela passam por cima do obstáculo com folga!
+        const isJumping = (p.y + p.h < s.ground - 8);
         if(!isJumping){
-          // No chão: dano apenas quando o obstáculo realmente encostar no corpo da Elo (X=124)
-          const hitX = (e.x <= 126) && (e.x + e.w >= 118);
-          if(hitX){
+          // Contato físico real no chão: borda frontal do obstáculo entra no corpo da Elo (X=120 a 138)
+          if(e.x <= 138 && (e.x + e.w) >= 120){
+            e.hit = true;
             trailDamage(1, 'Cuidado com o obstáculo!');
           }
         }
@@ -1025,10 +1025,24 @@ function drawBossArenaGlow(ctx){const g=ctx.createRadialGradient(710,160,10,710,
 function drawTrailEntity(ctx,e){if(e.kind==='collectible'){ctx.save();ctx.translate(e.x+e.w/2,e.y+e.h/2);ctx.rotate(Math.sin(e.spin||0)*0.2); if(e.type==='unicorn'){if(gameUnicornImg.complete&&gameUnicornImg.naturalWidth)ctx.drawImage(gameUnicornImg,-18,-18,38,34);else{ctx.font='28px system-ui';ctx.fillText('🦄',-14,10)}}
 else if(e.type==='magnet'){ctx.font='30px system-ui';ctx.fillText('🧲',-15,10)}
 else if(e.type==='shield'){ctx.font='30px system-ui';ctx.fillText('🛡️',-15,10)}
-else {ctx.font='26px system-ui';ctx.fillText('⭐',-12,10)} ctx.restore(); return;} ctx.save(); if(e.type==='crate'){ctx.fillStyle='#c69058';ctx.fillRect(e.x,e.y,e.w,e.h);ctx.strokeStyle='#8b5d35';ctx.lineWidth=4;ctx.strokeRect(e.x+2,e.y+2,e.w-4,e.h-4);ctx.beginPath();ctx.moveTo(e.x+6,e.y+6);ctx.lineTo(e.x+e.w-6,e.y+e.h-6);ctx.moveTo(e.x+e.w-6,e.y+6);ctx.lineTo(e.x+6,e.y+e.h-6);ctx.stroke();}
- else if(e.type==='crystal'){ctx.fillStyle='#b47dff';ctx.beginPath();ctx.moveTo(e.x+e.w/2,e.y);ctx.lineTo(e.x+e.w,e.y+e.h*.4);ctx.lineTo(e.x+e.w*.7,e.y+e.h);ctx.lineTo(e.x+e.w*.3,e.y+e.h);ctx.lineTo(e.x,e.y+e.h*.4);ctx.closePath();ctx.fill();ctx.fillStyle='rgba(255,255,255,.35)';ctx.fillRect(e.x+e.w*.45,e.y+8,6,e.h-14)}
- else if(e.type==='bush'){ctx.fillStyle='#4da06f';ctx.beginPath();ctx.ellipse(e.x+16,e.y+20,18,20,0,0,Math.PI*2);ctx.ellipse(e.x+32,e.y+18,18,20,0,0,Math.PI*2);ctx.ellipse(e.x+43,e.y+22,16,18,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#a8ecae';ctx.fillRect(e.x+20,e.y+28,4,10)}
- else {ctx.fillStyle='#f24f9f';ctx.beginPath();ctx.arc(e.x+14,e.y+14,12,0,Math.PI*2);ctx.arc(e.x+26,e.y+18,14,0,Math.PI*2);ctx.fillStyle='#f45ea8';ctx.fill();ctx.fillStyle='#fff29b';ctx.fillRect(e.x+18,e.y+24,6,14)} ctx.restore()}
+else {ctx.font='26px system-ui';ctx.fillText('⭐',-12,10)} ctx.restore(); return;} ctx.save();
+  if(e.type==='crate'){
+    ctx.fillStyle='#d97706';ctx.fillRect(e.x,e.y,e.w,e.h);
+    ctx.strokeStyle='#78350f';ctx.lineWidth=3.5;ctx.strokeRect(e.x+2,e.y+2,e.w-4,e.h-4);
+    ctx.beginPath();ctx.moveTo(e.x+5,e.y+5);ctx.lineTo(e.x+e.w-5,e.y+e.h-5);ctx.moveTo(e.x+e.w-5,e.y+5);ctx.lineTo(e.x+5,e.y+e.h-5);ctx.stroke();
+  } else if(e.type==='crystal'){
+    ctx.fillStyle='#a855f7';ctx.beginPath();
+    ctx.moveTo(e.x+e.w/2,e.y);ctx.lineTo(e.x+e.w,e.y+e.h*.4);ctx.lineTo(e.x+e.w*.75,e.y+e.h);ctx.lineTo(e.x+e.w*.25,e.y+e.h);ctx.lineTo(e.x,e.y+e.h*.4);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#e9d5ff';ctx.beginPath();
+    ctx.moveTo(e.x+e.w/2,e.y+4);ctx.lineTo(e.x+e.w*.7,e.y+e.h*.4);ctx.lineTo(e.x+e.w*.5,e.y+e.h-6);ctx.closePath();ctx.fill();
+  } else {
+    // Cogumelo vermelho vivo com bolinhas brancas em relevo (100% distinto do cenário)
+    ctx.fillStyle='#ffffff';ctx.fillRect(e.x+14,e.y+18,14,e.h-18);
+    ctx.fillStyle='#ef4444';ctx.beginPath();ctx.arc(e.x+21,e.y+18,20,Math.PI,0);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#ffffff';ctx.beginPath();
+    ctx.arc(e.x+14,e.y+12,3.5,0,Math.PI*2);ctx.arc(e.x+26,e.y+10,4,0,Math.PI*2);ctx.arc(e.x+20,e.y+6,3,0,Math.PI*2);ctx.fill();
+  }
+  ctx.restore()}
 function drawBossProjectile(ctx,p){ctx.save(); if(p.type==='ghost'){ctx.font='30px system-ui';ctx.fillText('👻',p.x,p.y+26)} else {const g=ctx.createRadialGradient(p.x+14,p.y+14,2,p.x+14,p.y+14,14);g.addColorStop(0,'#fff');g.addColorStop(.45,'#d6b2ff');g.addColorStop(1,'#8f63ff');ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x+14,p.y+14,14,0,Math.PI*2);ctx.fill();} ctx.restore()}
 function drawMagicHeart(ctx,x,y,size){ctx.save();ctx.translate(x,y);ctx.fillStyle='#ff6fae';ctx.beginPath();ctx.moveTo(0,size*.28);ctx.bezierCurveTo(0,-size*.05,-size*.42,-size*.06,-size*.42,size*.22);ctx.bezierCurveTo(-size*.42,size*.45,-size*.12,size*.62,0,size*.8);ctx.bezierCurveTo(size*.12,size*.62,size*.42,size*.45,size*.42,size*.22);ctx.bezierCurveTo(size*.42,-size*.06,0,-size*.05,0,size*.28);ctx.fill();ctx.restore()}
 function drawGhostBoss(ctx,b,flash){ctx.save();ctx.translate(b.x,b.y+Math.sin(b.float)*10);ctx.globalAlpha=.96;ctx.fillStyle=flash?'#ffd0f2':'#f1e6ff';ctx.beginPath();ctx.arc(58,40,34,Math.PI,0);ctx.lineTo(92,92);for(let i=0;i<5;i++)ctx.quadraticCurveTo(84-i*14,102,77-i*14,92);ctx.lineTo(24,92);for(let i=0;i<4;i++)ctx.quadraticCurveTo(18+i*12,102,12+i*12,92);ctx.closePath();ctx.fill();ctx.fillStyle='#6d59b8';ctx.beginPath();ctx.arc(45,42,6,0,Math.PI*2);ctx.arc(71,42,6,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#c77be8';ctx.lineWidth=4;ctx.beginPath();ctx.arc(58,58,14,.2,Math.PI-.2);ctx.stroke();ctx.font='28px system-ui';ctx.fillText('👑',46,16);ctx.restore()}
@@ -2776,16 +2790,12 @@ window.addEventListener('keyup',e=>{
 // CONTROLE DE MODO DEITADO OBRIGATÓRIO (LANDSCAPE SYSTEM)
 // ==========================================================
 window.requestLandscapeMode = async function(){
+  // Nunca requisita fullscreen do navegador para não exibir o banner invasivo do Chrome
   try {
-    const el = document.documentElement;
-    if (el.requestFullscreen) {
-      await el.requestFullscreen();
-    } else if (el.webkitRequestFullscreen) {
-      await el.webkitRequestFullscreen();
+    if (document.fullscreenElement && document.exitFullscreen) {
+      await document.exitFullscreen();
     }
-  } catch(e) {
-    console.warn("Fullscreen request:", e);
-  }
+  } catch(_) {}
 
   try {
     if (screen.orientation && typeof screen.orientation.lock === 'function') {
@@ -2797,7 +2807,7 @@ window.requestLandscapeMode = async function(){
     console.warn("Orientation lock error:", e);
   }
 
-  toast('Ative a "Rotação automática" no seu celular e deite o aparelho! 📱🔄');
+  toast('Gire o celular de lado para a brincadeira ficar muito mais divertida! 📱🔄');
 };
 
 // Limpa qualquer trava anterior no localStorage

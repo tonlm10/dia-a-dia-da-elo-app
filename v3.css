@@ -1203,10 +1203,13 @@ html, body {
 /* Quando o aparelho está em pé (retrato), exibe o bloqueio e ESCONDE 100% o app para não mostrar nada quebrado */
 @media screen and (orientation: portrait) {
   #mandatoryLandscapeBlocker {
-    display: flex !important;
+    display: none !important;
   }
   #appContainer {
-    display: none !important;
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    min-height: 100vh !important;
   }
 }
 
@@ -2155,9 +2158,9 @@ body:has(#petPanel.active) header {
 
 /* Caça aos unicórnios livre de sobreposição */
 #unicornChaseGame .chaseBoard {
-  width: min(44vw, 52vh) !important;
-  height: min(44vw, 52vh) !important;
-  max-width: 52vh !important;
-  max-height: 52vh !important;
+  width: min(54vw, 76vh) !important;
+  height: min(54vw, 76vh) !important;
+  max-width: 76vh !important;
+  max-height: 76vh !important;
   margin: 0 auto !important;
 }

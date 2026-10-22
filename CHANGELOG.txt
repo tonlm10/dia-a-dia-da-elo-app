@@ -1,3 +1,10 @@
+# Versão 4.3.11 (r49) - 22/10/2026
+- Biblioteca, Quarto, Guarda-roupa e Bichinho: corrigida a estrutura HTML de fechamento do contêiner principal (#appContainer), garantindo que todas as telas abram imediatamente visíveis no topo da tela, sem tela em branco.
+- Mensagem de Tela Cheia do Navegador: removida requisição de fullscreen do navegador que disparava o aviso cinza persistente do Chrome ('tonlm10.github.io – Para sair da tela cheia...'), desobstruindo a visualização da tela.
+- RPG Reino das Estrelas — D-Pad 100% Limpo: removido completamente o efeito de vidro fosco (backdrop-filter: blur) em volta dos botões direcionais. O mapa do jogo agora é visível com 100% de nitidez ao redor dos botões, ficando apenas os 4 botões destacados com borda contrastante e setas táteis.
+- Caça aos Unicórnios — Arena Ampliada: ampliado o tamanho máximo do tabuleiro de 52vh para 76vh (min(54vw, 76vh)), preenchendo o espaço útil da tela e melhorando a visibilidade no modo 15×15.
+- Trilha Encantada — Ajuste Fino de Colisão e Obstáculos: removido o arbusto verde que se camuflava na grama, padronizando os obstáculos em cristais roxos, caixotes de madeira e cogumelos vermelhos vibrantes; ampliado o intervalo mínimo de surgimento e ajustada a detecção para contato físico real com o corpo da Elo (X=120 a 138) com trava de dano único por obstáculo.
+
 # Versão 4.3.10 (r48) - 22/10/2026
 - Biblioteca, Quarto, Guarda-roupa e Bichinho: conteúdo abre imediatamente no topo da tela (header global duplicado ocultado nos subpainéis, cartões de introdução removidos e rolagem zerada).
 - RPG Reino das Estrelas: botões direcionais do D-Pad com acabamento sólido limpo e nítido (removido efeito fosco/auréola em volta das setas).
