@@ -1487,36 +1487,36 @@ nav .navin {
   100% { transform: translateX(0); }
 }
 
-/* Lago com patinho e vitórias-régias - posicionado fora da estrada */
+/* Lago com patinho e vitórias-régias - proporção reduzida e delicada */
 .worldPondLandscape {
   position: absolute;
   top: 36%;
   left: 62%;
   transform: translate(-50%, -50%);
-  width: 130px;
-  height: 72px;
+  width: 82px;
+  height: 45px;
   border-radius: 50%;
   background: radial-gradient(ellipse at 45% 40%, #70d9f7 0%, #38bdf8 55%, #0284c7 100%);
-  border: 3.5px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 8px 22px rgba(2, 132, 199, 0.28), inset 0 2px 6px rgba(255, 255, 255, 0.6);
+  border: 2.5px solid rgba(255, 255, 255, 0.88);
+  box-shadow: 0 5px 15px rgba(2, 132, 199, 0.25), inset 0 2px 5px rgba(255, 255, 255, 0.55);
   z-index: 3;
   overflow: hidden;
 }
 .worldPondLandscape .duck {
   position: absolute;
-  top: 20px;
-  left: 45px;
-  font-size: 22px;
+  top: 13px;
+  left: 28px;
+  font-size: 15px;
   animation: duckSwim 5s infinite ease-in-out;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
 }
 .worldPondLandscape .pondLily {
   position: absolute;
-  top: 14px;
-  left: 84px;
-  font-size: 16px;
+  top: 8px;
+  left: 54px;
+  font-size: 11px;
   opacity: 0.9;
-  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
 }
 .worldPondLandscape .pondRipple {
   position: absolute;
@@ -1525,23 +1525,23 @@ nav .navin {
   animation: pondRipple 3s infinite linear;
 }
 .worldPondLandscape .pondRipple.r1 {
-  width: 24px;
-  height: 14px;
-  top: 28px;
-  left: 42px;
+  width: 16px;
+  height: 9px;
+  top: 20px;
+  left: 28px;
 }
 .worldPondLandscape .pondRipple.r2 {
-  width: 38px;
-  height: 20px;
-  top: 25px;
-  left: 35px;
+  width: 26px;
+  height: 14px;
+  top: 18px;
+  left: 23px;
   animation-delay: 1.5s;
 }
 @keyframes duckSwim {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(14px, -3px) rotate(4deg); }
-  50% { transform: translate(22px, 3px) rotate(-3deg); }
-  75% { transform: translate(8px, 5px) rotate(2deg); }
+  25% { transform: translate(8px, -2px) rotate(4deg); }
+  50% { transform: translate(14px, 2px) rotate(-3deg); }
+  75% { transform: translate(6px, 3px) rotate(2deg); }
 }
 @keyframes pondRipple {
   0% { transform: scale(0.6); opacity: 0.7; }
