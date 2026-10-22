@@ -325,13 +325,23 @@ function pushAppState(state){if(appRestoringHistory)return;const cur=history.sta
 function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();
   if(['storiesPanel','readerPanel','interactiveStoriesPanel'].includes(id)){
     document.body.classList.add('reading-portrait-allowed');
+    try {
+      if(screen.orientation && typeof screen.orientation.unlock === 'function') {
+        screen.orientation.unlock();
+      }
+    } catch(_) {}
   } else {
     document.body.classList.remove('reading-portrait-allowed');
+    try {
+      if(screen.orientation && typeof screen.orientation.lock === 'function' && document.fullscreenElement) {
+        screen.orientation.lock('landscape').catch(() => {});
+      }
+    } catch(_) {}
   }if(previous==='parentsPanel'&&id!=='parentsPanel')lockParentAccess();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.nav===nav));window.scrollTo({top:0,behavior:'smooth'});if(id==='storiesPanel')renderLibrary();if(id==='parentsPanel'||id==='achievementsPanel')renderBadges();if(id==='parentsPanel')renderParentV2();if(id==='achievementsPanel'){renderV2Album();renderEnglishAlbum()}if(id==='learnPanel'){renderEnglishHomeProgress();if(typeof selectSchoolTrack==='function')selectSchoolTrack('letters', null, false);}if(id==='englishPanel')renderEnglishSchool();if(id==='playPanel'){clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop()}if(id==='createPanel'){renderColoringGallery();renderPalette();if(typeof initFreeDrawCanvas==='function')setTimeout(initFreeDrawCanvas,60);}if(!fromHistory)speakYoungPanelIntro(id);if(!fromHistory)pushAppState(appStateForPanel(id,nav))}
 function exitDialogOpen(){return !document.getElementById('exitConfirm')?.classList.contains('hidden')}
 function profileChooserOpen(){return !document.getElementById('profileModal')?.classList.contains('hidden')}
 function isAnyModalOpen(){
-  const ids = ['gameModal', 'coloringModal', 'rpgOverlay', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'modelStudioModal', 'rewardVideoOverlay', 'profileModal', 'exitConfirm'];
+  const ids = ['rpgOverlay', 'gameModal', 'coloringModal', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'modelStudioModal', 'rewardVideoOverlay', 'profileModal', 'exitConfirm'];
   return ids.some(id => {
     const el = document.getElementById(id);
     return el && !el.classList.contains('hidden');
@@ -342,6 +352,7 @@ function mainMenuVisible(){
 }
 function appBack(){
   if(exitDialogOpen()) return cancelAppExit();
+  if(!document.getElementById('rpgOverlay')?.classList.contains('hidden')) return closeRpg();
   if(!document.getElementById('rewardVideoOverlay')?.classList.contains('hidden')){ document.getElementById('rewardVideoOverlay').classList.add('hidden'); return; }
   if(!document.getElementById('starShopModal')?.classList.contains('hidden')){ closeStarShop(); return; }
   if(!document.getElementById('modelStudioModal')?.classList.contains('hidden')){ closeModelStudio(); return; }
@@ -355,7 +366,12 @@ function showExitConfirm(){document.getElementById('exitConfirm')?.classList.rem
 function cancelAppExit(){document.getElementById('exitConfirm')?.classList.add('hidden');document.body.style.overflow=''}
 function confirmAppExit(){appExitArmed=true;document.getElementById('exitConfirm')?.classList.add('hidden');document.body.style.overflow='';clearTimeout(appExitFallback);history.back();appExitFallback=setTimeout(()=>{try{window.close()}catch(_){/* navegadores podem ignorar */}},900)}
 function setupAppHistory(){if(history.state?.eloGuard||history.state?.eloApp)return;history.replaceState({eloGuard:true},'');history.pushState({eloApp:true,type:'home',id:'homePanel',nav:'home'},'')}
-function restoreAppHistoryState(s){appRestoringHistory=true;try{document.getElementById('profileModal')?.classList.add('hidden');document.getElementById('gameModal')?.classList.add('hidden');document.getElementById('coloringModal')?.classList.add('hidden');document.getElementById('rpgOverlay')?.classList.add('hidden');closeCinemaPlayer();if(s?.type!=='rpg'){const rf=document.getElementById('rpgFrame');if(rf)rf.src='about:blank'}document.body.style.overflow='';clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop();document.body.classList.toggle('reading-portrait-allowed', ['storiesPanel','readerPanel','interactiveStoriesPanel'].includes(s?.id));
+function restoreAppHistoryState(s){appRestoringHistory=true;try{document.getElementById('profileModal')?.classList.add('hidden');document.getElementById('gameModal')?.classList.add('hidden');document.getElementById('coloringModal')?.classList.add('hidden');document.getElementById('rpgOverlay')?.classList.add('hidden');closeCinemaPlayer();if(s?.type!=='rpg'){
+  const rf=document.getElementById('rpgFrame');
+  const rov=document.getElementById('rpgOverlay');
+  if(rov) rov.classList.add('hidden');
+  if(rf){ try{ if(rf.contentWindow) rf.contentWindow.location.replace('about:blank'); else rf.src='about:blank'; }catch(_){ rf.src='about:blank'; } }
+}document.body.style.overflow='';clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop();document.body.classList.toggle('reading-portrait-allowed', ['storiesPanel','readerPanel','interactiveStoriesPanel'].includes(s?.id));
 if(!s||s.type==='home')openPanel('homePanel','home',true);else if(s.type==='panel')openPanel(s.id||'homePanel',s.nav||'home',true);else if(s.type==='game'){openPanel('playPanel','play',true);openGame(s.id,s.title,true)}else if(s.type==='coloring'){openPanel('createPanel','create',true);openColoring(Number(s.index)||0,true)}else if(s.type==='rpg'){openPanel('playPanel','play',true);openRpg(true)}else if(s.type==='profile'){const b=s.base||{type:'home'};if(b.type==='panel')openPanel(b.id||'homePanel',b.nav||'home',true);else openPanel('homePanel','home',true);openProfileChooser(true)}}finally{appRestoringHistory=false}}
 window.addEventListener('popstate',e=>{
  if(appExitArmed){if(e.state?.eloApp||e.state?.eloGuard){setTimeout(()=>history.back(),0);return}clearTimeout(appExitFallback);appExitArmed=false;return}
@@ -384,7 +400,20 @@ function openMemberWithGate(){openExternal(MEMBER_URL)}
 function openSubscribe(){openExternal(SUBSCRIBE_URL)}
 function openInstagram(){openExternal(INSTAGRAM_URL)}
 function openGame(id,title,fromHistory=false){if(!fromHistory)trackActivity('games');clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop();document.getElementById('gameModalTitle').textContent=title;document.querySelectorAll('.gameSection').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('gameModal').classList.remove('hidden');document.body.style.overflow='hidden';if(!fromHistory)pushAppState({eloApp:true,type:'game',id,title});if(id==='findGame')resetFind(true);if(id==='mazeGame')startMaze();if(id==='unicornChaseGame')startChase();if(id==='memoryGame')startMemory();if(id==='puzzleGame')startPuzzle(false);if(id==='tapGameSection')startTapGame();if(id==='trailGame')startTrailGame();if(!fromHistory){const tips={findGame:['Procure a pequena estrela escondida no cenário.','Quanto maior a dificuldade, menor a estrela e menor o tempo.'],mazeGame:['Leve a Elo até o unicórnio.','Use as setas ou deslize o dedo pelo labirinto.'],unicornChaseGame:['Colete os unicórnios e fuja do fantasminha.','Planeje rotas abertas e não fique presa em cantos.'],memoryGame:['Vire duas cartas de cada vez e encontre os pares.'],puzzleGame:['Toque em duas peças para trocar de lugar.','Quando tudo estiver certo, as peças ficam bloqueadas.'],tapGameSection:['Leia o número pedido e toque nele antes do tempo acabar.'],trailGame:['Toque em Pular para desviar e coletar objetos.','No chefão, o Poder funciona o tempo todo. Use quando quiser e aproveite os intervalos sem tiros para atacar com mais segurança.']};showTutorialOnce('game-'+id,title,tips[id]||['Divirta-se e complete o desafio!'])}}
-function closeGame(fromHistory=false){if(!fromHistory&&history.state?.type==='game')return history.back();clearInterval(findTimer);clearTimeout(tapTimer);clearInterval(chaseInterval);trailStop();document.getElementById('gameModal').classList.add('hidden');document.body.style.overflow=''}
+function closeGame(fromHistory=false){
+  if(!fromHistory && history.state?.type==='game') return history.back();
+  tapWon = true;
+  clearTimeout(tapTimer);
+  if(typeof tapInterval !== 'undefined' && tapInterval) { clearInterval(tapInterval); tapInterval = null; }
+  clearInterval(findTimer);
+  clearInterval(chaseInterval);
+  trailStop();
+  if('speechSynthesis' in window) {
+    try { speechSynthesis.cancel(); } catch(_) {}
+  }
+  document.getElementById('gameModal').classList.add('hidden');
+  document.body.style.overflow='';
+}
 function openRpg(fromHistory=false){
   if(!fromHistory) trackActivity('rpg');
   trailStop();
@@ -394,7 +423,13 @@ function openRpg(fromHistory=false){
   const frame = document.getElementById('rpgFrame');
   const overlay = document.getElementById('rpgOverlay');
   const wanted = new URL('./rpg.html?v=' + encodeURIComponent(APP_VERSION) + '&profile=' + encodeURIComponent(activeProfileId), location.href).href;
-  if(frame) frame.src = wanted;
+  if(frame) {
+    if(frame.contentWindow) {
+      try { frame.contentWindow.location.replace(wanted); } catch(_) { frame.src = wanted; }
+    } else {
+      frame.src = wanted;
+    }
+  }
   if(overlay) overlay.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   if(!fromHistory){
@@ -402,7 +437,22 @@ function openRpg(fromHistory=false){
   }
 }
 window.openRpg = openRpg;
-function closeRpg(fromHistory=false){if(!fromHistory&&history.state?.type==='rpg')return history.back();const frame=document.getElementById('rpgFrame');document.getElementById('rpgOverlay').classList.add('hidden');document.body.style.overflow='';if(frame)frame.src='about:blank';renderBadges()}
+function closeRpg(fromHistory=false){
+  if(!fromHistory && history.state?.type==='rpg') return history.back();
+  const overlay = document.getElementById('rpgOverlay');
+  if(overlay) overlay.classList.add('hidden');
+  document.body.style.overflow = '';
+  const frame = document.getElementById('rpgFrame');
+  if(frame) {
+    try {
+      if(frame.contentWindow) frame.contentWindow.location.replace('about:blank');
+      else frame.src = 'about:blank';
+    } catch(_) {
+      frame.src = 'about:blank';
+    }
+  }
+  renderBadges();
+}
 window.addEventListener('message',e=>{const d=e.data||{};if(d.type==='rpg-close')closeRpg();if(d.type==='rpg-open-youtube')openExternal(CHANNEL_URL);if(d.type==='rpg-medal')renderBadges();if(d.type==='rpg-stars')addStars(Number(d.amount)||1,d.msg||'Você ganhou estrelas no RPG! ⭐');});
 function openColoring(i,fromHistory=false){if(!fromHistory)trackActivity('coloring');chooseColoring(i,true);if(!fromHistory)pushAppState({eloApp:true,type:'coloring',index:i})}
 function closeColoring(fromHistory=false){if(!fromHistory&&history.state?.type==='coloring')return history.back();document.getElementById('coloringModal').classList.add('hidden');document.body.style.overflow='';if(typeof resetColorZoom==='function')resetColorZoom()}
@@ -575,13 +625,33 @@ function startMaze(){
   document.getElementById('mazeStatus').textContent='Pegue as estrelinhas e encontre o unicórnio!';
   renderMaze();
 }
-function renderMaze(){const board=document.getElementById('mazeBoard');board.innerHTML='';board.style.setProperty('--maze-size',mazeSize);const scale=gameEloScale('maze',mazeSize);mazeMap.forEach((row,y)=>row.forEach((cell,x)=>{const d=document.createElement('div');const isPlayer=mazePlayer.x===x&&mazePlayer.y===y,isGoal=mazeGoal.x===x&&mazeGoal.y===y,isStar=mazeBonusStars.some(s=>s.x===x&&s.y===y);
-d.className='mazeCell '+(cell==='#'?'wall':'path')+(isPlayer?' player':'')+(isGoal?' goal':'')+(isStar?' hasStar':'');
-if(isPlayer){const elo=gameEloClone('maze',scale);if(elo)d.appendChild(elo)}
-else if(isGoal){d.innerHTML='<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio">'}
-else if(isStar){d.innerHTML='<span class="mazeStarItem" style="font-size:22px;animation:dollHappy .6s infinite alternate;">⭐</span>'}
-else if(cell==='#'&&(x+y)%7===0)d.innerHTML='<span class="mazeLeaf">🌿</span>';
-board.appendChild(d)}));syncMiniGameLegend('mazeLegendElo')}
+function renderMaze(){
+  const board=document.getElementById('mazeBoard');
+  if(!board) return;
+  board.innerHTML='';
+  board.style.setProperty('--maze-size',mazeSize);
+  const scale=gameEloScale('maze',mazeSize);
+  let playerPlaced = false;
+  mazeMap.forEach((row,y)=>row.forEach((cell,x)=>{
+    const d=document.createElement('div');
+    const isPlayer=!playerPlaced && (mazePlayer.x===x && mazePlayer.y===y);
+    if(isPlayer) playerPlaced = true;
+    const isGoal=!isPlayer && (mazeGoal.x===x && mazeGoal.y===y);
+    const isStar=!isPlayer && !isGoal && mazeBonusStars.some(s=>s.x===x && s.y===y);
+    d.className='mazeCell '+(cell==='#'?'wall':'path')+(isPlayer?' player':'')+(isGoal?' goal':'')+(isStar?' hasStar':'');
+    if(isPlayer){
+      const elo=gameEloClone('maze',scale);
+      if(elo) d.appendChild(elo);
+    } else if(isGoal){
+      d.innerHTML='<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio">';
+    } else if(isStar){
+      d.innerHTML='<span class="mazeStarItem" style="font-size:22px;animation:dollHappy .6s infinite alternate;">⭐</span>';
+    } else if(cell==='#'&&(x+y)%7===0){
+      d.innerHTML='<span class="mazeLeaf">🌿</span>';
+    }
+    board.appendChild(d);
+  }));
+}
 function moveMaze(dx,dy){if(!mazeMap.length||mazeWon)return;const nx=mazePlayer.x+dx,ny=mazePlayer.y+dy;if(ny<0||ny>=mazeMap.length||nx<0||nx>=mazeMap[0].length)return;if(mazeMap[ny][nx]==='#'){toast('Parede! Tente outro caminho 😊');return}mazePlayer={x:nx,y:ny};
 mazeMoves++;
 document.getElementById('mazeMoves').textContent='Movimentos: '+mazeMoves;
@@ -599,11 +669,41 @@ mazeBoard.addEventListener('touchend',e=>{if(!mazeTouchStart)return;const t=e.ch
 
 
 // Caça aos Unicórnios — arena aberta com espaço real para fugir
-const CHASE_LEVELS={easy:{size:13,total:4,ghostMs:2200,reward:2,smart:.62,startDelay:2200},medium:{size:15,total:5,ghostMs:1550,reward:3,smart:.82,startDelay:1800},hard:{size:17,total:6,ghostMs:1100,reward:5,smart:1,startDelay:1400}};
+const CHASE_LEVELS={easy:{size:13,total:4,ghostMs:1400,reward:2,smart:0.75,startDelay:1800},medium:{size:15,total:5,ghostMs:1000,reward:3,smart:0.92,startDelay:1400},hard:{size:17,total:6,ghostMs:700,reward:5,smart:1.0,startDelay:1000}};
 let chaseLevel='easy',chaseSize=CHASE_LEVELS.easy.size,chaseTotal=CHASE_LEVELS.easy.total,chaseMap=[],chasePlayer={x:1,y:1},chaseGhost={x:chaseSize-2,y:chaseSize-2},chaseUnicorns=[],chaseInterval=null,chaseWon=false,chaseLost=false,chaseCollected=0;
 function setChaseLevel(level,btn){chaseLevel=level;document.querySelectorAll('[data-chase]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startChase()}
 function chaseKey(x,y){return `${x},${y}`}
-function makeChaseMap(){const n=chaseSize,grid=Array.from({length:n},(_,y)=>Array.from({length:n},(_,x)=>(x===0||y===0||x===n-1||y===n-1)?'#':'.'));const mid=Math.floor(n/2);const reserved=(x,y)=>x<=2&&y<=2||x>=n-3&&y>=n-3||x===1||y===1||x===n-2||y===n-2||x===mid||y===mid;for(let y=3;y<n-3;y+=4){for(let x=3;x<n-3;x+=4){if(reserved(x,y))continue;const shape=(x+y)%3;if(shape===0){grid[y][x]='#';if(x+1<n-2&&!reserved(x+1,y))grid[y][x+1]='#'}else if(shape===1){grid[y][x]='#';if(y+1<n-2&&!reserved(x,y+1))grid[y+1][x]='#'}else grid[y][x]='#'}}for(let i=0;i<Math.floor(n/3);i++){const x=2+Math.floor(Math.random()*(n-4)),y=2+Math.floor(Math.random()*(n-4));if(!reserved(x,y)&&Math.random()>.35)grid[y][x]='#'}grid[1][1]='.';grid[n-2][n-2]='.';return grid}
+function makeChaseMap(){
+  const n=chaseSize;
+  const grid=Array.from({length:n},(_,y)=>Array.from({length:n},(_,x)=>(x===0||y===0||x===n-1||y===n-1)?'#':'.'));
+  const reserved=(x,y)=>(x<=2 && y<=2) || (x>=n-3 && y>=n-3);
+  
+  // Create structured maze walls with dead ends and pockets
+  for(let y=2; y<n-2; y+=2){
+    for(let x=2; x<n-2; x+=2){
+      if(reserved(x,y)) continue;
+      grid[y][x]='#';
+      // Branch in one random direction to make cul-de-sacs / dead ends
+      const dirs = [[0,1], [1,0], [0,-1], [-1,0]];
+      const d = dirs[Math.floor(Math.random()*dirs.length)];
+      const bx = x+d[0], by = y+d[1];
+      if(bx>0 && by>0 && bx<n-1 && by<n-1 && !reserved(bx,by)){
+        grid[by][bx]='#';
+      }
+    }
+  }
+  // Add specific dead-end corridors in corners and edges
+  if(n >= 13) {
+    grid[1][4] = '#'; grid[2][4] = '#';
+    grid[4][1] = '#'; grid[4][2] = '#';
+    grid[n-2][n-5] = '#'; grid[n-3][n-5] = '#';
+    grid[n-5][n-2] = '#'; grid[n-5][n-3] = '#';
+  }
+  // Guarantee player start and ghost start are open
+  grid[1][1]='.'; grid[1][2]='.'; grid[2][1]='.';
+  grid[n-2][n-2]='.'; grid[n-2][n-3]='.'; grid[n-3][n-2]='.';
+  return grid;
+}
 function chaseOpenCells(){const cells=[];for(let y=1;y<chaseSize-1;y++)for(let x=1;x<chaseSize-1;x++)if(chaseMap[y][x]==='.')cells.push({x,y});return cells}
 function chaseDistance(a,b){return Math.abs(a.x-b.x)+Math.abs(a.y-b.y)}
 function startChase(){clearInterval(chaseInterval);const cfg=CHASE_LEVELS[chaseLevel];chaseSize=cfg.size;chaseTotal=cfg.total;chaseMap=makeChaseMap();chasePlayer={x:1,y:1};chaseGhost={x:chaseSize-2,y:chaseSize-2};chaseWon=false;chaseLost=false;chaseCollected=0;let candidates=shuffle(chaseOpenCells().filter(p=>chaseDistance(p,chasePlayer)>Math.max(5,Math.floor(chaseSize/3))&&chaseDistance(p,chaseGhost)>4));chaseUnicorns=[];
@@ -691,18 +791,22 @@ function renderPuzzle(){const n=PUZZLE_LEVELS[puzzleLevel],board=document.getEle
 function tapPuzzlePiece(pos){if(puzzleComplete)return;if(puzzleSelected<0){puzzleSelected=pos;document.getElementById('puzzleStatus').textContent='Agora escolha onde colocar essa peça.';renderPuzzle();return}if(puzzleSelected===pos){puzzleSelected=-1;document.getElementById('puzzleStatus').textContent='Escolha uma peça.';renderPuzzle();return}const a=puzzleSelected;[puzzleOrder[a],puzzleOrder[pos]]=[puzzleOrder[pos],puzzleOrder[a]];puzzleSelected=-1;puzzleMoves++;document.getElementById('puzzleMoves').textContent='Jogadas: '+puzzleMoves;const solved=puzzleOrder.every((v,i)=>v===i);if(solved){puzzleComplete=true;renderPuzzle();document.getElementById('puzzleStatus').textContent='Quebra-cabeça completo! 🎉';document.getElementById('puzzleCompleteNote').classList.remove('hidden');if(!puzzleRewarded){puzzleRewarded=true;pset('eloPuzzleWon','1');addStars(puzzleLevel==='hard'?5:puzzleLevel==='medium'?3:2,'Quebra-cabeça completo! ⭐');unlockGameMedal('puzzle',puzzleLevel)}}else{renderPuzzle();document.getElementById('puzzleStatus').textContent='Muito bem! Continue montando.'}}
 
 // Tap the number — 10 correct answers complete each level
-const TAP_LEVELS={easy:{start:5000,min:3000,step:100,reward:2},medium:{start:3500,min:1800,step:90,reward:3},hard:{start:2500,min:900,step:80,reward:5}},TAP_GOAL=10;
+const TAP_LEVELS={easy:{start:10000,min:10000,step:0,reward:2},medium:{start:6000,min:6000,step:0,reward:3},hard:{start:4000,min:4000,step:0,reward:5}},TAP_GOAL=10;
 let tapLevel='easy',tapTarget=1,tapScore=0,tapTimer=null,tapRound=0,tapDelay=TAP_LEVELS.easy.start,tapWon=false;
 function setTapLevel(level,btn){tapLevel=level;document.querySelectorAll('[data-tap]').forEach(x=>x.classList.remove('on'));btn.classList.add('on');startTapGame()}
 let tapInterval = null;
 function buildTapRound(){
   clearTimeout(tapTimer);
   if(tapInterval) clearInterval(tapInterval);
-  if(tapWon) return;
+  const modal = document.getElementById('gameModal');
+  const section = document.getElementById('tapGameSection');
+  if(tapWon || !modal || modal.classList.contains('hidden') || !section || !section.classList.contains('active')) return;
   tapRound++;
   tapTarget = Math.floor(Math.random()*9) + 1;
   document.getElementById('tapPrompt').textContent = `Toque no número ${tapTarget} antes que o tempo acabe!`;
-  if(getActiveProfile().ageRange==='3-5') setTimeout(()=>speakText(`Toque no número ${tapTarget}`), 120);
+  if(getActiveProfile().ageRange==='3-5' && !tapWon && !modal.classList.contains('hidden')) {
+    speakText(`Toque no número ${tapTarget}`);
+  }
   const nums = Array.from({length:9}, (_,i)=>i+1).sort(()=>Math.random()-.5);
   document.getElementById('tapGame').innerHTML = nums.map(n=>`<button class="tapNum" onclick="tapAnswer(${n})">${n}</button>`).join('');
   const cfg = TAP_LEVELS[tapLevel];
@@ -821,7 +925,29 @@ function updateTrailEntities(dt){const s=trailState,p=s.player; s.entities.forEa
     }
   }
 });
-if(s.magnetTimer > 0) s.magnetTimer -= dt; s.entities=s.entities.filter(e=>e.x+e.w>-60); for(const e of [...s.entities]){if(rectHit(p,e,16)){if(e.kind==='collectible'){collectTrailItem(e)} else if(e.kind==='obstacle'&&s.isFlying&&p.y<s.ground-p.h-35){if(Math.random()<0.14)s.effects.push({x:e.x,y:e.y-12,text:'🦄 Desviou!',t:28});} else if(p.inv<=0){trailDamage(1,'Cuidado com o obstáculo!')}}}}
+if(s.magnetTimer > 0) s.magnetTimer -= dt; s.entities=s.entities.filter(e=>e.x+e.w>-60); for(const e of [...s.entities]){if(rectHit(p,e,16)){if(e.kind==='collectible'){
+      // Coleta suave e generosa
+      if(p.x + p.w + 6 > e.x && p.x - 6 < e.x + e.w && p.y + p.h + 8 > e.y && p.y - 8 < e.y + e.h) {
+        collectTrailItem(e);
+      }
+    } else if(e.kind==='obstacle'){
+      if(s.isFlying && p.y < s.ground-p.h-35){
+        if(Math.random()<0.14) s.effects.push({x:e.x,y:e.y-12,text:'🦄 Desviou!',t:28});
+      } else if(p.inv<=0){
+        // Colisão justa e precisa: a Elo precisa visivelmente bater no obstáculo
+        const pLeft = p.x + 22;
+        const pRight = p.x + p.w - 18;
+        const pTop = p.y + 18;
+        const pBottom = p.y + p.h - 12;
+        const eLeft = e.x + 8;
+        const eRight = e.x + e.w - 8;
+        const eTop = e.y + 10;
+        const eBottom = e.y + e.h;
+        if(pRight > eLeft && pLeft < eRight && pBottom > eTop && pTop < eBottom) {
+          trailDamage(1,'Cuidado com o obstáculo!');
+        }
+      }
+    }}}}
 function collectTrailItem(e){
   const s=trailState;
   s.entities=s.entities.filter(x=>x!==e);
@@ -1932,7 +2058,7 @@ window.switchCreativeMode = function(mode, btn){
   if(pSec) pSec.classList.toggle("hidden", mode !== "photo");
 
   if(mode === "freeDraw") setTimeout(initFreeDrawCanvas, 60);
-  if(mode === "chef") setTimeout(generateNewChefOrder, 60);
+  if(mode === "chef") setTimeout(() => { if(typeof selectChefStation === "function") selectChefStation(currentChefStationKey || "pizza"); }, 60);
   if(mode === "photo") setTimeout(initPhotoStudio, 60);
 };
 
@@ -2149,59 +2275,7 @@ window.savePhotoStudioArt = function(){
   toast("Foto baixada com sucesso! Ficou linda! 📸✨");
 };
 
-// --- MINI CHEF DA ELO ---
-const CHEF_RECIPES = [
-  { name: "Bolo da Princesa", req: ["Ovos", "Farinha", "Morangos", "Confeitos"], icon: "🎂" },
-  { name: "Hambúrguer Fofinho", req: ["Pão", "Queijo", "Tomate", "Alface"], icon: "🍔" },
-  { name: "Taça de Sorvete Encantado", req: ["Sorvete", "Calda", "Confeitos", "Morangos"], icon: "🍨" },
-  { name: "Pizza de Coração", req: ["Farinha", "Tomate", "Queijo", "Cogumelos"], icon: "🍕" }
-];
-let currentChefRecipe = null, selectedChefIngredients = [];
-
-window.generateNewChefOrder = function(){
-  currentChefRecipe = CHEF_RECIPES[Math.floor(Math.random() * CHEF_RECIPES.length)];
-  selectedChefIngredients = [];
-  const nameEl = document.getElementById("chefRecipeName");
-  const iconEl = document.getElementById("chefRecipeIcon");
-  const reqEl = document.getElementById("chefRecipeReq");
-  const bowlEl = document.getElementById("chefBowlContent");
-  if(nameEl) nameEl.textContent = currentChefRecipe.name;
-  if(iconEl) iconEl.textContent = currentChefRecipe.icon;
-  if(reqEl) reqEl.innerHTML = currentChefRecipe.req.map(i => `<span class="badge" style="background:#fce7f3;color:#be185d;">${i}</span>`).join(" ");
-  if(bowlEl) bowlEl.textContent = "Tigela Vazia 🥣";
-  document.querySelectorAll(".chefIngBtn").forEach(b => b.classList.remove("selected"));
-};
-
-window.toggleChefIngredient = function(ing, btn){
-  const idx = selectedChefIngredients.indexOf(ing);
-  if(idx > -1){
-    selectedChefIngredients.splice(idx, 1);
-    if(btn) btn.classList.remove("selected");
-  } else {
-    selectedChefIngredients.push(ing);
-    if(btn) btn.classList.add("selected");
-    playCuteSfx("pop");
-  }
-  const bowlEl = document.getElementById("chefBowlContent");
-  if(bowlEl){
-    bowlEl.textContent = selectedChefIngredients.length ? `🥣 Misturando: ${selectedChefIngredients.join(" + ")}` : "Tigela Vazia 🥣";
-  }
-};
-
-window.deliverChefOrder = function(){
-  if(!currentChefRecipe) return;
-  const missing = currentChefRecipe.req.filter(i => !selectedChefIngredients.includes(i));
-  if(missing.length > 0){
-    playCuteSfx("wrong");
-    toast(`Faltam ingredientes para o ${currentChefRecipe.name}: ${missing.join(", ")}! 👩‍🍳`);
-    return;
-  }
-  playCuteSfx("win");
-  triggerStarConfetti();
-  addStars(4, `Receita entregue! O ${currentChefRecipe.name} ficou delicioso! +4 ⭐`);
-  toast("Chef 5 estrelas! Prato perfeito! 👩‍🍳⭐");
-  setTimeout(generateNewChefOrder, 1000);
-};
+// Old chef recipes removed in favor of CHEF_STATIONS
 
 // --- 5. CONSULTÓRIO & SALÃO DE CUIDADOS DA ELO ---
 let teethCleanCount = 0;
@@ -3277,7 +3351,7 @@ function renderChefStudio() {
       '<div class="chefIngredientsArea">' +
         '<div class="chefIngredientsBar">' +
           s.ingredients.map(ing => (
-            '<button class="chefIngBtn" onclick="addChefIngredient(' + JSON.stringify(ing.id) + ', ' + JSON.stringify(ing.emoji) + ', ' + JSON.stringify(ing.name) + ')">' +
+            '<button type="button" class="chefIngBtn" data-ing="' + ing.id + '" onclick="addChefIngredient(\'' + ing.id + '\')">' +
               '<span>' + ing.emoji + '</span>' +
               '<small>' + ing.name + '</small>' +
             '</button>'
@@ -3293,6 +3367,9 @@ function renderChefStudio() {
 }
 
 window.addChefIngredient = function(id, emoji, name) {
+  const station = CHEF_STATIONS[currentChefStationKey] || CHEF_STATIONS.pizza;
+  const ing = station.ingredients.find(i => i.id === id);
+  if(!ing) return;
   if(placedChefItems.length >= 18) {
     toast('O prato já está bem cheio! 😋');
     return;
@@ -3301,10 +3378,10 @@ window.addChefIngredient = function(id, emoji, name) {
   const dist = 8 + Math.random() * 32;
   const x = 50 + Math.cos(angle) * dist;
   const y = 50 + Math.sin(angle) * dist;
-  placedChefItems.push({ id, emoji, name, x, y });
+  placedChefItems.push({ id: ing.id, emoji: ing.emoji, name: ing.name, x, y });
   renderChefStudio();
   if(typeof playCuteSfx === 'function') playCuteSfx('coin');
-  toast('Adicionou ' + name + '! ' + emoji);
+  toast('Adicionou ' + ing.name + '! ' + ing.emoji);
 };
 
 window.clearChefPlate = function() {
@@ -3402,7 +3479,7 @@ window.finishBandages = function() {
 // Atualiza isAnyModalOpen e appBack para fechar todos os modais perfeitamente
 const origIsAnyModalOpen = isAnyModalOpen;
 isAnyModalOpen = function() {
-  const ids = ['gameModal', 'coloringModal', 'rpgOverlay', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'modelStudioModal', 'stickersModal', 'sleepModeOverlay', 'rewardVideoOverlay', 'profileModal', 'parentPinModal', 'exitConfirm'];
+  const ids = ['rpgOverlay', 'gameModal', 'coloringModal', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'modelStudioModal', 'stickersModal', 'sleepModeOverlay', 'rewardVideoOverlay', 'profileModal', 'parentPinModal', 'exitConfirm'];
   return ids.some(id => {
     const el = document.getElementById(id);
     return el && !el.classList.contains('hidden');

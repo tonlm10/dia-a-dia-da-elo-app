@@ -1,3 +1,34 @@
+============================================================
+VERSÃO 4.3.8 (2026-10-22) — PACOTE FINAL DE INSTALAÇÃO & TESTES
+============================================================
+1. BIBLIOTECA AUTOMÁTICA EM PÉ (PORTRAIT):
+   - A biblioteca de histórias (storiesPanel, readerPanel, interactiveStoriesPanel) vira para retrato (em pé) de forma 100% automática, chamando screen.orientation.unlock() imediatamente ao clicar na casinha e no painel, sem exigir pressionar voltar no celular.
+2. RPG REINO DAS ESTRELAS (BOTÕES TRANSPARENTES & BOTÃO VOLTAR):
+   - Botões direcionais (D-pad) e de ação (Falar/Bolsa) agora flutuam com efeito translúcido (glassmorphism) diretamente em cima do mapa, aproveitando 100% da tela do celular.
+   - Adicionado botão físico '‹ Voltar ao Início' na tela de introdução do RPG.
+   - Corrigido o fluxo de saída pelo botão nativo do celular, eliminando qualquer tela branca.
+3. PIZZARIA, CONFEITARIA, SORVETERIA & OFICINA:
+   - Corrigido o bug de aspas nos atributos HTML que impedia os ingredientes de serem adicionados ao prato. Agora tocar em qualquer ingrediente adiciona imediatamente ao prato com som e feedback visual.
+4. BICHINHO VIRTUAL NO QUARTO DA ELO:
+   - O bichinho agora aparece com modelo completo (ouvinho ou criatura com espécie e acessórios) no cantinho do quarto, junto com a etiqueta personalizada e balãozinho.
+5. LABIRINTO SEM ELO DUPLICADA:
+   - Resolvido o problema em que apareciam duas Eloises no modo Médio e Difícil. O tabuleiro garante estritamente uma única Eloise jogadora.
+6. CAÇA AOS UNICÓRNIOS MAIS DESAFIADORA:
+   - Mapa reestruturado com becos sem saída, esquinas fechadas e corredores reais.
+   - Fantasma com movimentação inteligente mais veloz (700ms no difícil) usando busca em largura (BFS).
+7. TRILHA ENCANTADA COM COLISÃO JUSTA:
+   - Hitbox dos obstáculos ajustada com precisão. A Elo não perde mais vidas prematuramente antes de tocar no obstáculo, permitindo saltos perfeitos.
+8. TOQUE NO NÚMERO (10s, 6s, 4s):
+   - Temporizadores exatos: 10 segundos no Fácil, 6 segundos no Médio e 4 segundos no Difícil.
+   - Ao sair do jogo, a voz da Elo e os temporizadores são imediatamente cancelados, sem continuar pedindo números em segundo plano.
+9. ÁLBUM DE FIGURINHAS RESTAURADO:
+   - Botão 'Álbum' adicionado na barra principal do Mundo da Elo, no Cantinho da Elo e no Baú de Estrelas para fácil acesso a qualquer momento.
+10. BAÚ DAS ESTRELAS (RESET ÀS 00H DE BRASÍLIA):
+   - O resgate diário (+10 estrelas) agora trava após coletado e só é liberado novamente às 00:00 no Horário Oficial de Brasília (UTC-3).
+11. VÍDEO PREMIADO OFICIAL (RESET ÀS 00H DE BRASÍLIA):
+   - Integrado o vídeo oficial mais recente do canal. A recompensa (+10 estrelas) exige assistir o vídeo completo até o fim sem fechar.
+   - Limitado a uma vez por dia, liberando novamente às 00:00 de Brasília.
+
 # v4.3.7-r45 (2026-10-22)
 - Correção de Fala na Abertura: Removida a chamada automática de leitura por voz que dizia 'qual letrinha começa a palavra' ao carregar o app. Agora a voz só é acionada quando a criança toca para ouvir.
 - Biblioteca em Modo Retrato (Em Pé): Celular pode ser mantido de pé para ler histórias confortavelmente nas Aventuras da Elo e Histórias Interativas sem tela de bloqueio.

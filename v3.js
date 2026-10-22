@@ -429,6 +429,14 @@ window.openWorldPlace=function(place){
   pset('v3LastPlace', place);
   if(typeof renderHomeContinue === 'function') renderHomeContinue();
   if(typeof eloGuideSay === 'function') eloGuideSay(a[2]);
+  if(place === 'library') {
+    document.body.classList.add('reading-portrait-allowed');
+    try {
+      if(screen.orientation && typeof screen.orientation.unlock === 'function') {
+        screen.orientation.unlock();
+      }
+    } catch(_) {}
+  }
 
   walkEloAlongRoad(place, () => {
     if(a[0] === 'rpg') {
@@ -453,17 +461,22 @@ function roomUnlocked(item){return true}
 window.selectRoomCategory=function(kind){roomDecorCategory=kind;renderRoom()};
 function syncRoomPet(){
   const mount = document.getElementById('roomPetMount');
+  const bubble = document.querySelector('.roomPetBubble');
   if(!mount) return;
   const p = (typeof loadPet === 'function') ? loadPet() : (typeof rawLoad === 'function' ? rawLoad() : null);
   if(!p) return;
+  if(bubble) {
+    bubble.textContent = p.stage === 'egg' ? '🥚 Cuidar' : `🐾 ${p.name || 'Bichinho'}`;
+  }
   if(p.stage === 'egg'){
-    mount.innerHTML = '<div class="petEgg roomPetEgg" style="position:relative;left:auto;top:auto;transform:scale(0.55);transform-origin:center bottom;cursor:pointer;"><span></span></div>';
+    mount.innerHTML = '<div class="petEgg roomPetEgg" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.52);cursor:pointer;"><span></span></div>';
   } else {
+    const species = p.species || 'unicorn';
     const acc = p.accessory === 'bow' ? '🎀' : p.accessory === 'star' ? '⭐' : p.accessory === 'crown' ? '👑' : '';
-    mount.innerHTML = `<div class="petCreature species-${p.species} stage-${p.stage} roomPetCreature" style="position:relative;left:auto;top:auto;transform:scale(0.55);transform-origin:center bottom;cursor:pointer;">
+    mount.innerHTML = `<div class="petCreature species-${species} stage-${p.stage || 'baby'} roomPetCreature" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.44);cursor:pointer;">
       <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
       <span class="petBody"></span><span class="petHead"><i class="petEye e1"></i><i class="petEye e2"></i><i class="petMouth"></i><i class="petCheek c1"></i><i class="petCheek c2"></i></span>
-      <span class="petAccessory" style="top:2px;left:50%;">${acc}</span>
+      <span class="petAccessory" style="top:2px;left:50%;font-size:24px;">${acc}</span>
     </div>`;
   }
 }
@@ -644,6 +657,19 @@ window.addEventListener('DOMContentLoaded',initV3);
 // ==========================================================
 // LOJA DAS ESTRELAS & MONETIZAÇÃO ÉTICA
 // ==========================================================
+
+// Horário oficial de Brasília (UTC-3)
+function getBrasiliaDateStr() {
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const brasiliaTime = new Date(utc - (3 * 3600000));
+  const year = brasiliaTime.getFullYear();
+  const month = String(brasiliaTime.getMonth() + 1).padStart(2, '0');
+  const day = String(brasiliaTime.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+window.getBrasiliaDateStr = getBrasiliaDateStr;
+
 window.openStarShop = function(){
  const m = document.getElementById('starShopModal');
  if(!m) return;
@@ -659,60 +685,106 @@ window.closeStarShop = function(){
 };
 
 function renderStarShop(){
- const todayKey = 'eloStarDaily_' + new Date().toDateString();
+ const todayKey = 'eloStarDaily_' + getBrasiliaDateStr();
  const claimed = pget(todayKey) === '1';
  const dailyBtn = document.getElementById('claimDailyBonusBtn');
  if(dailyBtn){
    dailyBtn.disabled = claimed;
-   dailyBtn.textContent = claimed ? 'Coletado hoje ✓' : 'Resgatar +10 ⭐';
+   dailyBtn.textContent = claimed ? 'Coletado hoje ✓ (Volta às 00h)' : 'Resgatar +10 ⭐';
+   dailyBtn.style.opacity = claimed ? '0.6' : '1';
+ }
+ const videoKey = 'eloRewardVideoDate_' + getBrasiliaDateStr();
+ const videoWatched = pget(videoKey) === '1';
+ const videoBtn = document.getElementById('watchRewardVideoBtn');
+ if(videoBtn){
+   videoBtn.disabled = videoWatched;
+   videoBtn.textContent = videoWatched ? 'Assistido hoje ✓ (Volta às 00h)' : 'Assistir Vídeo (+10 ⭐)';
+   videoBtn.style.opacity = videoWatched ? '0.6' : '1';
  }
  const countEl = document.getElementById('shopStarBalance');
  if(countEl) countEl.textContent = typeof stars !== 'undefined' ? stars : '0';
 }
 
 window.claimDailyBonus = function(){
- const todayKey = 'eloStarDaily_' + new Date().toDateString();
- if(pget(todayKey) === '1') return toast('Você já pegou suas estrelas de hoje! Volte amanhã 💗');
+ const todayKey = 'eloStarDaily_' + getBrasiliaDateStr();
+ if(pget(todayKey) === '1') return toast('Você já pegou suas estrelas de hoje! O baú abre novamente amanhã às 00h (horário de Brasília) 💗');
  pset(todayKey, '1');
  if(typeof addStars === 'function') addStars(10, 'Oba! +10 estrelas da visita diária! ⭐');
  renderStarShop();
 };
 
-let adTimer = null;
+let rewardVideoPlayer = null;
+let rewardVideoInterval = null;
+let rewardVideoSecondsWatched = 0;
+let rewardVideoDuration = 0;
+let rewardVideoFinished = false;
+
 window.watchRewardedAd = function(){
+ const todayKey = 'eloRewardVideoDate_' + getBrasiliaDateStr();
+ if(pget(todayKey) === '1') return toast('Você já assistiu ao vídeo premiado de hoje! Ele volta amanhã às 00h (horário de Brasília) 💗');
+ 
  const overlay = document.getElementById('rewardVideoOverlay');
  if(!overlay) return;
  overlay.classList.remove('hidden');
- let sec = 7;
- const txt = document.getElementById('rewardVideoTimer');
- const bar = document.getElementById('rewardVideoBar');
- if(txt) txt.textContent = `${sec}s`;
- if(bar) bar.style.width = '0%';
+ rewardVideoFinished = false;
+ rewardVideoSecondsWatched = 0;
  
- adTimer = setInterval(()=>{
-   sec--;
-   if(txt) txt.textContent = `${sec}s`;
-   if(bar) bar.style.width = `${((7-sec)/7)*100}%`;
-   if(sec <= 0){
-     clearInterval(adTimer);
-     overlay.classList.add('hidden');
-     if(typeof addStars === 'function') addStars(10, 'Parabéns! Você assistiu e ganhou +10 estrelas! ⭐');
-     toast('✨ +10 Estrelas creditadas com sucesso! ✨');
-     renderStarShop();
+ const host = document.getElementById('rewardVideoHost');
+ const statusEl = document.getElementById('rewardVideoStatus');
+ if(statusEl) statusEl.textContent = 'Carregando vídeo oficial da Elo... 🎬';
+ 
+ if(host) {
+   // Embed the latest video or channel playlist with YouTube Iframe API
+   host.innerHTML = '<iframe id="rewardVideoIframe" style="width:100%;height:100%;border:0;" src="https://www.youtube-nocookie.com/embed/videoseries?list=UUBPBaYweoBPjr8XlfOz1dwQ&autoplay=1&enablejsapi=1&rel=0&playsinline=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+ }
+ 
+ if(rewardVideoInterval) clearInterval(rewardVideoInterval);
+ 
+ // Track elapsed watch time
+ rewardVideoInterval = setInterval(() => {
+   rewardVideoSecondsWatched++;
+   if(statusEl && !rewardVideoFinished) {
+     statusEl.textContent = `▶ Assistindo vídeo oficial da Elo (${rewardVideoSecondsWatched}s)... Não feche antes de acabar! ⭐`;
+   }
+   // If watched for at least 45 seconds or video finished event
+   if(rewardVideoSecondsWatched >= 45 && !rewardVideoFinished) {
+     grantVideoReward();
    }
  }, 1000);
 };
 
-window.buyParentPack = function(packId){
- requestParentAccess(()=>{
-   let amount = 50, label = 'Pacote Estrelinha';
-   if(packId === 'pack200'){ amount = 200; label = 'Pacote Reino Mágico'; }
-   if(packId === 'pack500'){ amount = 500; label = 'Passe Super Elo Tudo Liberado'; }
-   
-   if(confirm(`Confirmar liberação do ${label} (+${amount} ⭐) para este perfil?`)){
-     if(typeof addStars === 'function') addStars(amount, `Parabéns! ${label} ativado com +${amount} estrelas! ⭐`);
-     toast(`Compra confirmada com sucesso! +${amount} ⭐`);
-     closeStarShop();
-   }
- }, 'Digite o PIN dos responsáveis para compras ou pacotes.');
+window.grantVideoReward = function() {
+ if(rewardVideoFinished) return;
+ rewardVideoFinished = true;
+ if(rewardVideoInterval) { clearInterval(rewardVideoInterval); rewardVideoInterval = null; }
+ const todayKey = 'eloRewardVideoDate_' + getBrasiliaDateStr();
+ pset(todayKey, '1');
+ if(typeof addStars === 'function') addStars(10, '🎉 Vídeo assistido até o final! +10 estrelas ganhas! ⭐');
+ if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
+ toast('✨ Parabéns! Recompensa diária de vídeo concluída (+10 ⭐)!');
+ const statusEl = document.getElementById('rewardVideoStatus');
+ if(statusEl) statusEl.textContent = '🏆 Parabéns! Você assistiu e ganhou +10 ⭐!';
+ setTimeout(() => {
+   closeRewardedAd();
+   renderStarShop();
+ }, 1500);
+};
+
+window.cancelRewardedAd = function(){
+ if(rewardVideoInterval) { clearInterval(rewardVideoInterval); rewardVideoInterval = null; }
+ const overlay = document.getElementById('rewardVideoOverlay');
+ const host = document.getElementById('rewardVideoHost');
+ if(overlay) overlay.classList.add('hidden');
+ if(host) host.innerHTML = '';
+ if(!rewardVideoFinished) {
+   toast('Você fechou antes de assistir o vídeo completo! Nenhuma estrela ganha 😊');
+ }
+};
+
+window.closeRewardedAd = function(){
+ if(rewardVideoInterval) { clearInterval(rewardVideoInterval); rewardVideoInterval = null; }
+ const overlay = document.getElementById('rewardVideoOverlay');
+ const host = document.getElementById('rewardVideoHost');
+ if(overlay) overlay.classList.add('hidden');
+ if(host) host.innerHTML = '';
 };

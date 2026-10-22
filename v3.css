@@ -1860,10 +1860,16 @@ nav .navin {
    ========================================================== */
 
 /* 1. Leitura com celular em pé (Retrato) permitida na Biblioteca e Histórias */
-body.reading-portrait-allowed #mandatoryLandscapeBlocker {
+body.reading-portrait-allowed #mandatoryLandscapeBlocker,
+#storiesPanel.active ~ #mandatoryLandscapeBlocker,
+#readerPanel.active ~ #mandatoryLandscapeBlocker,
+#interactiveStoriesPanel.active ~ #mandatoryLandscapeBlocker {
   display: none !important;
 }
-body.reading-portrait-allowed #appContainer {
+body.reading-portrait-allowed #appContainer,
+body:has(#storiesPanel.active) #appContainer,
+body:has(#readerPanel.active) #appContainer,
+body:has(#interactiveStoriesPanel.active) #appContainer {
   display: block !important;
   position: relative !important;
   width: 100% !important;
@@ -1873,24 +1879,30 @@ body.reading-portrait-allowed #appContainer {
   top: 0 !important;
 }
 @media screen and (orientation: portrait) {
-  body.reading-portrait-allowed #storiesPanel,
-  body.reading-portrait-allowed #readerPanel,
-  body.reading-portrait-allowed #interactiveStoriesPanel {
+  body.reading-portrait-allowed #storiesPanel.active,
+  body.reading-portrait-allowed #readerPanel.active,
+  body.reading-portrait-allowed #interactiveStoriesPanel.active,
+  body:has(#storiesPanel.active) #storiesPanel,
+  body:has(#readerPanel.active) #readerPanel,
+  body:has(#interactiveStoriesPanel.active) #interactiveStoriesPanel {
     display: block !important;
     padding: 12px 14px 80px !important;
     min-height: 100vh !important;
   }
-  body.reading-portrait-allowed .readerBox {
+  body.reading-portrait-allowed .readerBox,
+  body:has(#readerPanel.active) .readerBox {
     max-width: 540px !important;
     margin: 0 auto !important;
   }
-  body.reading-portrait-allowed .storyPage {
+  body.reading-portrait-allowed .storyPage,
+  body:has(#readerPanel.active) .storyPage {
     width: 100% !important;
     max-width: 480px !important;
     margin: 0 auto !important;
     aspect-ratio: 1 !important;
   }
-  body.reading-portrait-allowed .libraryGrid {
+  body.reading-portrait-allowed .libraryGrid,
+  body:has(#storiesPanel.active) .libraryGrid {
     grid-template-columns: 1fr 1fr !important;
   }
 }
@@ -1991,4 +2003,39 @@ body.reading-portrait-allowed #appContainer {
   width: 100%;
   max-width: 440px;
   margin: 10px 0 6px;
+}
+
+
+/* Quarto da Elo: Bichinho Virtual bem renderizado e visível */
+#roomPetMount {
+  width: 76px !important;
+  height: 76px !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  margin-bottom: 2px !important;
+}
+#roomPetMount .roomPetEgg {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 90px !important;
+  height: 115px !important;
+  transform: translate(-50%, -50%) scale(0.52) !important;
+  transform-origin: center center !important;
+  display: block !important;
+  cursor: pointer !important;
+}
+#roomPetMount .roomPetCreature {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 140px !important;
+  height: 170px !important;
+  transform: translate(-50%, -50%) scale(0.44) !important;
+  transform-origin: center center !important;
+  display: block !important;
+  cursor: pointer !important;
 }

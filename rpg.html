@@ -59,6 +59,7 @@
 @keyframes rpgPulse{from{transform:scale(1);filter:brightness(1)}to{transform:scale(1.012);filter:brightness(1.04)}}
 .battleText.rpgHit{animation:rpgHit .24s ease-out}@keyframes rpgHit{0%{transform:translateX(0)}35%{transform:translateX(-4px)}70%{transform:translateX(4px)}100%{transform:translateX(0)}}
 
+.mobileControls{position:absolute;left:10px;right:10px;bottom:8px;height:auto;display:flex;justify-content:space-between;align-items:flex-end;padding:0;pointer-events:none;z-index:50}.dpad{pointer-events:auto;background:rgba(255,255,255,0.40);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:22px;padding:5px;border:1.5px solid rgba(255,255,255,0.7);box-shadow:0 4px 16px rgba(0,0,0,0.18);display:grid;grid-template:repeat(3,38px)/repeat(3,38px);gap:3px}.dpad button{border:1px solid rgba(255,255,255,0.8);border-radius:12px;background:rgba(255,255,255,0.7);color:#4c1d95;font-weight:1000;font-size:17px;box-shadow:0 2px 6px rgba(0,0,0,0.12);touch-action:none;opacity:0.92}.dpad button[data-dir=up]{grid-column:2}.dpad button[data-dir=left]{grid-column:1;grid-row:2}.dpad button[data-dir=down]{grid-column:2;grid-row:3}.dpad button[data-dir=right]{grid-column:3;grid-row:2}.actionBtns{pointer-events:auto;display:flex;gap:10px;align-items:center}.act{width:64px;height:64px;border:2px solid rgba(255,255,255,0.8);border-radius:50%;background:rgba(255,255,255,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#4c1d95;font-size:10px;font-weight:900;box-shadow:0 4px 16px rgba(0,0,0,0.18);opacity:0.92;touch-action:manipulation}.act span{display:block;font-size:22px}.act small{display:block;font-size:10px;line-height:1.05}.act.primary{width:76px;height:76px;background:rgba(236,72,153,0.65);border-color:rgba(255,255,255,0.95);color:#fff}.act:active,.dpad button:active{transform:scale(.92);opacity:1}
 </style>
 </head>
 <body>
@@ -83,18 +84,18 @@
       <div id="rpgEloLayer" class="rpgEloLayer" aria-hidden="true"></div>
       <div id="locationTag" class="locationTag">Casa da Elo</div>
       <div id="toastRpg" class="toastRpg"></div>
-    </div>
 
-    <div class="mobileControls" aria-label="Controles do jogo">
-      <div class="dpad">
-        <button data-dir="up">▲</button>
-        <button data-dir="left">◀</button>
-        <button data-dir="down">▼</button>
-        <button data-dir="right">▶</button>
-      </div>
-      <div class="actionBtns">
-        <button id="actionBtn" class="act primary"><span>A</span><small id="actionLabel">Falar</small></button>
-        <button id="quickBtn" class="act"><span>B</span>Bolsa</button>
+      <div class="mobileControls" aria-label="Controles do jogo">
+        <div class="dpad">
+          <button data-dir="up">▲</button>
+          <button data-dir="left">◀</button>
+          <button data-dir="down">▼</button>
+          <button data-dir="right">▶</button>
+        </div>
+        <div class="actionBtns">
+          <button id="actionBtn" class="act primary"><span>A</span><small id="actionLabel">Falar</small></button>
+          <button id="quickBtn" class="act"><span>B</span>Bolsa</button>
+        </div>
       </div>
     </div>
   </main>
@@ -169,6 +170,7 @@
       <p>Agora ela precisa explorar o mundo, fazer amigos, ficar mais forte e descobrir quem está escondendo a luz do Reino.</p>
       <button id="startStoryBtn" class="mainBtn">Começar a aventura</button>
       <button id="continueStoryBtn" class="softBtn hidden">Continuar meu jogo</button>
+      <button id="backFromIntroBtn" class="softBtn" style="margin-top:8px;background:rgba(255,255,255,0.85);color:#5b21b6;font-weight:900;" onclick="window.parent.postMessage({type:'rpg-close'}, '*')">‹ Voltar ao Início</button>
     </div>
   </div>
 </div>

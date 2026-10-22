@@ -1,5 +1,5 @@
-VERSAO_APP=4.3.7
-CACHE_VERSION=elo-official-4.3.7-r45
-SERVICE_WORKER_PURGE=4.3.7-r45
+VERSAO_APP=4.3.8
+CACHE_VERSION=elo-official-4.3.8-r46
+SERVICE_WORKER_PURGE=4.3.8-r46
 DATA_ATUALIZACAO=2026-10-22
-CORRECOES_REALIZADAS=Sem fala ao abrir, biblioteca em pe, RPG tela ajustada, alarme mimica alto, duelo sem rolagem, sem copa, chef com pedidos e vitoria/derrota, sem estudio fotos, pet no quarto da Elo, piano guiado piscando com Do Re Mi Fa, labirinto mais dificil, botao novo jogo caca unicornios afastado, tempo correndo no toque no numero, unicornio na trilha apenas ao voar, modo noturno com musica e historia funcionando.
+CORRECOES_REALIZADAS=Biblioteca vira em pe automaticamente, RPG com botoes transparentes em cima do mapa e botao voltar, pizzaria e estudios chef adicionando ingredientes com um toque, pet no quarto visivel com ovinho e bichinho, labirinto com apenas uma Elo no medio e dificil, caca aos unicornios mais dificil com becos sem saida e fantasma esperto, trilha encantada com colisao justa sem perder vida antecipada, toque no numero com 10s 6s 4s sem falar ao sair, album de figurinhas visivel, bau travado apos coletar ate 00h de brasilia, video premiado oficial com travamento ate 00h de brasilia.

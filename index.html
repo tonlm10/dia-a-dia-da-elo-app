@@ -5,7 +5,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.3.7-r45";
+    var TARGET_VER = "4.3.8-r46";
     localStorage.removeItem("elo_force_landscape_90");
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
@@ -37,11 +37,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800;900&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4.3.7">
-<link rel="stylesheet" href="v3.css?v=4.3.7">
-<link rel="stylesheet" href="polish.css?v=4.3.7">
-<link rel="stylesheet" href="games-v350.css?v=4.3.7">
-<link rel="stylesheet" href="landscape.css?v=4.3.7">
+<link rel="stylesheet" href="styles.css?v=4.3.8">
+<link rel="stylesheet" href="v3.css?v=4.3.8">
+<link rel="stylesheet" href="polish.css?v=4.3.8">
+<link rel="stylesheet" href="games-v350.css?v=4.3.8">
+<link rel="stylesheet" href="landscape.css?v=4.3.8">
 </head>
 <body>
 
@@ -89,6 +89,7 @@
     </div>
     <div class="worldHeaderActions">
       <button class="btn" style="background:linear-gradient(135deg,#ff4fa1,#8f56e8);font-size:12px;padding:8px 12px;border-radius:16px;" onclick="openStarShop()">🎁 Baú ⭐</button>
+      <button class="btn" style="background:linear-gradient(135deg,#ec4899,#8b5cf6);font-size:12px;padding:8px 12px;border-radius:16px;" onclick="openStickersAlbum()">📦 Álbum</button>
       <button class="btn secondary" style="font-size:12px;padding:8px 12px;border-radius:16px;" onclick="openParents()">🔐 Pais</button>
     </div>
   </div>
@@ -216,7 +217,7 @@
     </div>
   </div>
 
-  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.7</span></div>
+  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.8</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -868,11 +869,11 @@
 <div id="gameModal" class="fullOverlay hidden" role="dialog" aria-modal="true">
   <div class="overlayBody"><div class="overlayTop"><button class="closeOverlay" onclick="closeGame()">‹</button><h2 id="gameModalTitle">Jogo</h2><div style="width:46px"></div></div>
     <div id="findGame" class="gameSection"><div class="card gamebox"><p class="muted">A estrela agora se mistura de verdade com um cenário cheio de elementos. Toque rápido quando encontrar!</p><div class="gamePlayRowLandscape"><div id="findStage" class="find-stage"></div><div class="gameControlsColLandscape"><div class="diffRow"><button class="chip on" data-find="easy" onclick="setFindLevel('easy',this)">Fácil</button><button class="chip" data-find="medium" onclick="setFindLevel('medium',this)">Médio</button><button class="chip" data-find="hard" onclick="setFindLevel('hard',this)">Difícil</button></div><div class="gameStats"><span id="findStatus">Ache a estrela!</span><span id="findTime">20s</span></div><div style="margin-top:10px"><button class="btn secondary" onclick="resetFind(true)">Nova rodada</button></div></div></div></div></div>
-    <div id="mazeGame" class="gameSection"><div class="card gamebox"><p class="muted">Ajude a Elo a chegar ao unicórnio. Cada nível aumenta o tamanho e a dificuldade do caminho.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape"><div class="mazeWrap"><div id="mazeBoard" class="mazeBoard" aria-label="Labirinto da Elo"></div></div><div class="mazeLegend gameLegend"><span><i id="mazeLegendElo" class="legendEloMount"></i>Elo</span><span><img src="assets/game-ui/unicorn.svg" alt="">Unicórnio</span></div></div><div class="gameControlsColLandscape"><div class="diffRow"><button class="chip on" data-maze="easy" onclick="setMazeLevel('easy',this)">Fácil • 9×9</button><button class="chip" data-maze="medium" onclick="setMazeLevel('medium',this)">Médio • 11×11</button><button class="chip" data-maze="hard" onclick="setMazeLevel('hard',this)">Difícil • 13×13</button></div><div class="gameStats"><span id="mazeStatus">Encontre o caminho!</span><span id="mazeMoves">Movimentos: 0</span></div><div class="mazeControls"><div></div><button class="mazeBtn" onclick="moveMaze(0,-1)">↑</button><div></div><button class="mazeBtn" onclick="moveMaze(-1,0)">←</button><div></div><button class="mazeBtn" onclick="moveMaze(1,0)">→</button><div></div><button class="mazeBtn" onclick="moveMaze(0,1)">↓</button><div></div></div><div style="margin-top:8px"><button class="btn secondary" onclick="startMaze()">Novo labirinto</button></div></div></div></div></div>
+    <div id="mazeGame" class="gameSection"><div class="card gamebox"><p class="muted">Ajude a Elo a chegar ao unicórnio. Cada nível aumenta o tamanho e a dificuldade do caminho.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape"><div class="mazeWrap"><div id="mazeBoard" class="mazeBoard" aria-label="Labirinto da Elo"></div></div><div class="mazeLegend gameLegend"><span><span style="font-size:18px;margin-right:2px;">👧</span>Elo</span><span><img src="assets/game-ui/unicorn.svg" alt="">Unicórnio</span></div></div><div class="gameControlsColLandscape"><div class="diffRow"><button class="chip on" data-maze="easy" onclick="setMazeLevel('easy',this)">Fácil • 9×9</button><button class="chip" data-maze="medium" onclick="setMazeLevel('medium',this)">Médio • 11×11</button><button class="chip" data-maze="hard" onclick="setMazeLevel('hard',this)">Difícil • 13×13</button></div><div class="gameStats"><span id="mazeStatus">Encontre o caminho!</span><span id="mazeMoves">Movimentos: 0</span></div><div class="mazeControls"><div></div><button class="mazeBtn" onclick="moveMaze(0,-1)">↑</button><div></div><button class="mazeBtn" onclick="moveMaze(-1,0)">←</button><div></div><button class="mazeBtn" onclick="moveMaze(1,0)">→</button><div></div><button class="mazeBtn" onclick="moveMaze(0,1)">↓</button><div></div></div><div style="margin-top:8px"><button class="btn secondary" onclick="startMaze()">Novo labirinto</button></div></div></div></div></div>
     <div id="unicornChaseGame" class="gameSection"><div class="card gamebox"><p class="muted">Corra por uma arena aberta, pegue os unicórnios e use os caminhos para despistar o fantasminha.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape"><div id="chaseBoard" class="chaseBoard" aria-label="Caça aos Unicórnios"></div><div class="chaseLegend gameLegend"><span><i id="chaseLegendElo" class="legendEloMount"></i>Elo</span><span><img src="assets/game-ui/unicorn.svg" alt="">Unicórnio</span><span><img src="assets/game-ui/ghost.svg" alt="">Fantasminha</span></div></div><div class="gameControlsColLandscape"><div class="diffRow"><button class="chip on" data-chase="easy" onclick="setChaseLevel('easy',this)">Fácil • 4 🦄</button><button class="chip" data-chase="medium" onclick="setChaseLevel('medium',this)">Médio • 5 🦄</button><button class="chip" data-chase="hard" onclick="setChaseLevel('hard',this)">Difícil • 6 🦄</button></div><div class="gameStats"><span id="chaseStatus">Pegue todos os unicórnios!</span><span id="chaseCount">🦄 0/4</span></div><div style="margin-bottom:12px;margin-top:4px"><button class="btn secondary" style="width:100%;font-size:12px;padding:6px 10px;" onclick="startChase()">↻ Novo jogo</button></div><div class="chaseControls"><div></div><button class="mazeBtn" onclick="moveChase(0,-1)">↑</button><div></div><button class="mazeBtn" onclick="moveChase(-1,0)">←</button><div></div><button class="mazeBtn" onclick="moveChase(1,0)">→</button><div></div><button class="mazeBtn" onclick="moveChase(0,1)">↓</button><div></div></div></div></div></div></div>
     <div id="memoryGame" class="gameSection"><div class="card gamebox"><p class="muted">Escolha o nível. Encontre os pares com desenhos da Elo e temas divertidos.</p><div class="gamePlayRowLandscape"><div id="memory" class="memory easy" style="flex:1 1 65%;"></div><div class="gameControlsColLandscape" style="flex:0 0 32%;"><div class="diffRow"><button class="chip on" data-memory="easy" onclick="setMemoryLevel('easy',this)">Fácil • 8</button><button class="chip" data-memory="medium" onclick="setMemoryLevel('medium',this)">Médio • 16</button><button class="chip" data-memory="hard" onclick="setMemoryLevel('hard',this)">Difícil • 32</button></div><div class="gameStats"><span id="memoryStatus">Encontre os pares!</span><span id="memoryMoves">Jogadas: 0</span></div><div style="margin-top:10px"><button class="btn secondary" onclick="startMemory()">Novo jogo</button></div></div></div></div></div>
     <div id="puzzleGame" class="gameSection"><div class="card gamebox"><p class="muted">Escolha uma das 16 imagens da Elo e monte o quebra-cabeça. Toque em duas peças para trocar de lugar.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape"><div id="puzzleBoard" class="puzzleBoard"></div><div id="puzzleCompleteNote" class="hidden" style="margin:6px 0;padding:8px 12px;border-radius:14px;background:#e9fff5;color:#297a5d;font-weight:900;font-size:12px;">🏆 Conseguiu! As peças foram bloqueadas para mostrar que o quebra-cabeça está completo.</div></div><div class="gameControlsColLandscape"><div class="diffRow"><button class="chip on" data-puzzle="easy" onclick="setPuzzleLevel('easy',this)">Fácil • 3×3</button><button class="chip" data-puzzle="medium" onclick="setPuzzleLevel('medium',this)">Médio • 4×4</button><button class="chip" data-puzzle="hard" onclick="setPuzzleLevel('hard',this)">Difícil • 5×5</button></div><div class="puzzleTop"><img id="puzzlePreview" class="puzzlePreview" src="assets/puzzle/puzzle-01.webp" alt="Imagem da Elo"><div><b>Escolha uma imagem da Elo</b><div id="puzzleChoices" class="puzzleChoices"></div></div></div><div class="gameStats"><span id="puzzleStatus">Monte a imagem!</span><span id="puzzleMoves">Jogadas: 0</span></div><div style="margin-top:8px" class="row"><button class="btn secondary" onclick="startPuzzle(true)">Outra imagem</button><button class="btn secondary" onclick="startPuzzle(false)">Embaralhar</button></div></div></div></div></div>
-    <div id="tapGameSection" class="gameSection"><div class="card gamebox"><p class="muted">Escolha o nível e toque no número certo antes que o tempo acabe.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape" style="flex:1 1 45%;"><div class="diffRow"><button class="chip on" data-tap="easy" onclick="setTapLevel('easy',this)">Fácil • 5s</button><button class="chip" data-tap="medium" onclick="setTapLevel('medium',this)">Médio • 3,5s</button><button class="chip" data-tap="hard" onclick="setTapLevel('hard',this)">Difícil • 2,5s</button></div><div class="gameStats"><span id="tapScore">Acertos: 0/10</span><span id="tapTimeText">5,0s</span></div><div class="timerTrack"><i id="tapTimerBar"></i></div><div id="tapPrompt" class="quiz-q"></div><div style="margin-top:8px"><button class="btn secondary" onclick="startTapGame()">Novo desafio</button></div></div><div class="gameControlsColLandscape" style="flex:1 1 50%;"><div id="tapGame" class="tapGame"></div></div></div></div></div>
+    <div id="tapGameSection" class="gameSection"><div class="card gamebox"><p class="muted">Escolha o nível e toque no número certo antes que o tempo acabe.</p><div class="gamePlayRowLandscape"><div class="gameStageColLandscape" style="flex:1 1 45%;"><div class="diffRow"><button class="chip on" data-tap="easy" onclick="setTapLevel('easy',this)">Fácil • 10s</button><button class="chip" data-tap="medium" onclick="setTapLevel('medium',this)">Médio • 6s</button><button class="chip" data-tap="hard" onclick="setTapLevel('hard',this)">Difícil • 4s</button></div><div class="gameStats"><span id="tapScore">Acertos: 0/10</span><span id="tapTimeText">5,0s</span></div><div class="timerTrack"><i id="tapTimerBar"></i></div><div id="tapPrompt" class="quiz-q"></div><div style="margin-top:8px"><button class="btn secondary" onclick="startTapGame()">Novo desafio</button></div></div><div class="gameControlsColLandscape" style="flex:1 1 50%;"><div id="tapGame" class="tapGame"></div></div></div></div></div>
     <div id="trailGame" class="gameSection"><div class="card gamebox"><div class="trailHeader"><div class="trailBadge">✨ Trilha Encantada</div><div class="diffRow" style="margin:0"><button class="chip on" data-trail="easy" onclick="setTrailLevel('easy',this)">Fácil</button><button class="chip" data-trail="medium" onclick="setTrailLevel('medium',this)">Médio</button><button class="chip" data-trail="hard" onclick="setTrailLevel('hard',this)">Difícil</button></div></div><p class="muted">Corra com a Elo por cenários mágicos, pegue estrelas e unicórnios, enfrente chefões a cada 5 fases e ganhe 1 vida extra a cada 100 pontos coletados. ⭐ vale 1 e 🦄 vale 2. Use <b>Voar com Unicórnia</b> (ou tecla X) para planar nas alturas e desviar de obstáculos no céu!</p><div class="trailHud"><div class="trailStat"><b>FASE</b><span id="trailPhase">1</span></div><div class="trailStat"><b>VIDAS</b><span id="trailLives">3</span></div><div class="trailStat"><b>COLETA</b><span id="trailCollected">0/100</span></div><div class="trailStat"><b>SCORE</b><span id="trailScore">0</span></div><div class="trailStat"><b>VOO</b><span id="trailFlyEnergy">100%</span><div class="trailFlyBar"><div id="trailFlyBarFill" class="trailFlyBarFill"></div></div></div></div><div class="trailInfo"><span id="trailStatus">Toque em iniciar e ajude a Elo a atravessar a trilha encantada.</span><span id="trailMode">Modo aventura</span></div><div id="trailBossBar" class="trailBossBar"><i id="trailBossFill"></i></div><div class="trailPlayRowLandscape"><div class="trailCanvasWrap"><canvas id="trailCanvas" class="trailCanvas" width="900" height="500"></canvas><div id="trailEloMount" class="trailEloMount" aria-hidden="true"></div></div><div class="trailControls"><button class="trailBtn jump" onpointerdown="trailJump();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">⤴️ Pular</button><button class="trailBtn fly" onpointerdown="trailFlyStart();this.classList.add('pressed')" onpointerup="trailFlyEnd();this.classList.remove('pressed')" onpointercancel="trailFlyEnd();this.classList.remove('pressed')">🦄 Voar com Unicórnia</button><button class="trailBtn magic" onpointerdown="trailMagic();this.classList.add('pressed')" onpointerup="this.classList.remove('pressed')" onpointercancel="this.classList.remove('pressed')">💖 Poder</button></div></div><p class="trailHint">Dica: contra o chefão, <b>Poder</b> funciona o tempo todo enquanto ele estiver vivo. Você pode atacar quando quiser; os intervalos sem tiros são apenas mais seguros.</p><div class="premiumNote">🏅 Medalha deste jogo: derrote o primeiro chefão no nível escolhido para liberar bronze, prata ou ouro.</div><div class="row" style="margin-top:12px;justify-content:center"><button class="btn secondary" onclick="restartTrailRun();startTrailGame()">↻ Recomeçar do início</button></div></div></div>
   </div>
 </div>
@@ -945,9 +946,9 @@
         <div class="cardIcon">🎬</div>
         <div class="cardBody">
           <b>Vídeo Premiado da Elo</b>
-          <small>Assista a um vídeo curto e ganhe estrelas grátis!</small>
+          <small>Assista ao vídeo oficial do canal até o final para ganhar +10 estrelas!</small>
         </div>
-        <button onclick="watchRewardedAd()">Assistir (+10 ⭐)</button>
+        <button id="watchRewardVideoBtn" onclick="watchRewardedAd()">Assistir (+10 ⭐)</button>
       </div>
 
       <!-- Pacotes para os Pais -->
@@ -961,22 +962,30 @@
       </div>
     </div>
 
+    <div style="margin-bottom:10px;">
+      <button class="btn" style="width:100%;background:linear-gradient(135deg,#ec4899,#8b5cf6);font-size:13px;padding:10px 14px;border-radius:16px;" onclick="closeStarShop();openStickersAlbum()">📦 Ver Meu Álbum de Figurinhas</button>
+    </div>
     <div style="background:#f9f6ff;border-radius:14px;padding:8px 12px;font-size:11px;color:#675883;text-align:center;">
       🔒 Ambiente infantil seguro e protegido. Compras protegidas por PIN dos pais.
     </div>
   </div>
 </div>
 
-<!-- Overlay de Vídeo Premiado da Elo -->
+<!-- Overlay de Vídeo Premiado da Elo (Vídeo Oficial do Canal) -->
 <div id="rewardVideoOverlay" class="overlay hidden panelOverlay" style="z-index:9999;">
-  <div class="panelCard" style="max-width:360px;text-align:center;padding:24px;">
-    <div style="font-size:48px;animation:dollHappy .6s infinite alternate;">⭐</div>
-    <h3 style="margin:10px 0 6px;color:#ff549b;">Vídeo Especial da Elo</h3>
-    <p class="muted" style="margin-bottom:14px;">Preparando sua recompensa estelar...</p>
-    <div style="width:100%;height:12px;background:#eee;border-radius:6px;overflow:hidden;margin:12px 0;">
-      <div id="rewardVideoBar" style="width:0%;height:100%;background:linear-gradient(90deg,#ff68a7,#8f56e8);transition:width 1s linear;"></div>
+  <div class="panelCard" style="max-width:540px;width:94vw;text-align:center;padding:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <h3 style="margin:0;color:#ff549b;font-size:17px;">🎬 Vídeo Oficial da Elo (+10 ⭐)</h3>
+      <button class="miniClose" onclick="cancelRewardedAd()" aria-label="Fechar">×</button>
     </div>
-    <div id="rewardVideoTimer" style="font-weight:900;color:#8f56e8;font-size:16px;">7s</div>
+    <p class="muted" style="margin:0 0 10px;font-size:11.5px;">Assista ao vídeo do canal até o final para ganhar +10 ⭐!</p>
+    <div id="rewardVideoPlayerWrap" style="position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.25);">
+      <div id="rewardVideoHost" style="width:100%;height:100%;"></div>
+    </div>
+    <div id="rewardVideoStatus" style="font-weight:900;color:#8f56e8;font-size:12.5px;margin-top:10px;">▶ Reproduzindo vídeo oficial...</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;">
+      <button class="btn secondary" style="font-size:11.5px;padding:8px 14px;" onclick="cancelRewardedAd()">✕ Sair sem estrelas</button>
+    </div>
   </div>
 </div>
 
@@ -1013,6 +1022,12 @@
         <span class="hubTileIcon">💎</span>
         <b>Estúdio 3D</b>
         <small>Modelos da Elo, Unicórnia e Castelo</small>
+      </button>
+
+      <button class="hubTile" style="background:linear-gradient(135deg,#ec4899,#8b5cf6);" onclick="closeEloHubModal();openStickersAlbum()">
+        <span class="hubTileIcon">📦</span>
+        <b>Álbum de Figurinhas</b>
+        <small>Abra pacotinhos e cole figurinhas</small>
       </button>
     </div>
   </div>
@@ -1147,6 +1162,6 @@
 
 </div><!-- #appContainer -->
 
-<script src="version.js?v=4.3.7"></script><script src="models3d.js?v=4.3.7"></script><script src="app.js?v=4.3.7"></script><script src="v3.js?v=4.3.7"></script><script src="pet.js?v=4.3.7"></script>
+<script src="version.js?v=4.3.8"></script><script src="models3d.js?v=4.3.8"></script><script src="app.js?v=4.3.8"></script><script src="v3.js?v=4.3.8"></script><script src="pet.js?v=4.3.8"></script>
 </body>
 </html>
