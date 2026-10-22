@@ -1,5 +1,5 @@
-VERSAO_APP=4.3.9
-CACHE_VERSION=elo-official-4.3.9-r47
-SERVICE_WORKER_PURGE=4.3.9-r47
+VERSAO_APP=4.3.10
+CACHE_VERSION=elo-official-4.3.10-r48
+SERVICE_WORKER_PURGE=4.3.10-r48
 DATA_ATUALIZACAO=2026-10-22
-CORRECOES_REALIZADAS=Biblioteca e Quarto abrem no comeco da pagina sem rolagem, RPG com barra superior e objetivo dentro da Bolsa liberando tela ampla e D-Pad apenas com setas sem contorno, Pizzaria e Chef com disposicao simetrica e organizada dos ingredientes, Pet visivel no quarto, mapa sem texto atras da cabeca da Elo, Sol ativa modo noturno, Labirinto retangular horizontal 11x7 17x7 23x7 sem emoji de menina, Caca aos Unicornios com rotas de fuga e ajuste de altura sem corte no dificil, Trilha com colisao de contato real e recuperacao suave da barra de voo, Bau de video premiado sem corte antecipado de 45s, Pacote para Responsaveis funcional e Pacote de Figurinhas abrindo perfeitamente.
+CORRECOES_REALIZADAS=Biblioteca, Quarto, Guarda-roupa e Bichinho iniciando imediatamente no topo da tela sem header duplicado e sem cartoes de texto desnecessarios; RPG com D-Pad limpo de 4 botoes solidos sem fosco/aureola; Labirinto com proporcao retangular proporcional e visualizacao garantida da Elo e unicornio; Caca aos Unicornios 15x15 com a legenda de texto movida para a coluna de controles sem sobreposicao no tabuleiro; Trilha Encantada com imunidade total a obstaculos terrestres durante o salto no ar e colisao precisa apenas ao atingir fisicamente a Elo no chao; Pacote dos Responsaveis fechando o bau automaticamente com trava diaria ate 00h de Brasilia; Pacotinho de figurinhas com limite estrito de 1 figurinha por dia e bloqueio ate o dia seguinte.

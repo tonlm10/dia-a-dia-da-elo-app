@@ -2105,3 +2105,59 @@ body:has(#interactiveStoriesPanel.active) #appContainer {
 #roomPetMount .roomPetCreature, #roomPetMount .roomPetEgg {
   display: block !important;
 }
+
+
+/* v4.3.10: Subpainéis sem rolagem excessiva e sem header redundante */
+body:has(#storiesPanel.active) header,
+body:has(#roomPanel.active) header,
+body:has(#wardrobePanel.active) header,
+body:has(#petPanel.active) header {
+  display: none !important;
+}
+
+#storiesPanel, #roomPanel, #wardrobePanel, #petPanel {
+  padding: 4px 10px 80px !important;
+  margin-top: 0 !important;
+}
+
+#storiesPanel .libraryHero,
+#roomPanel .roomIntro,
+#roomPanel .roomPlayHint,
+#petPanel .petIntro {
+  display: none !important;
+}
+
+#storiesPanel .topTitle,
+#roomPanel .topTitle,
+#wardrobePanel .topTitle,
+#petPanel .topTitle {
+  margin: 4px 0 6px !important;
+  padding: 0 !important;
+}
+
+.cantinhoTopSwitcher {
+  margin: 2px 0 6px !important;
+}
+
+/* Labirinto ajustado sem colapso e proporcional à grade retangular */
+#mazeGame .mazeBoard {
+  width: min(58vw, 560px) !important;
+  max-width: 580px !important;
+  height: auto !important;
+  aspect-ratio: auto !important;
+  margin: 0 auto !important;
+  padding: 6px !important;
+}
+.mazeCell {
+  aspect-ratio: 1 !important;
+  min-width: 0 !important;
+}
+
+/* Caça aos unicórnios livre de sobreposição */
+#unicornChaseGame .chaseBoard {
+  width: min(44vw, 52vh) !important;
+  height: min(44vw, 52vh) !important;
+  max-width: 52vh !important;
+  max-height: 52vh !important;
+  margin: 0 auto !important;
+}

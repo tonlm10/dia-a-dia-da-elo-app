@@ -1136,3 +1136,29 @@
 #mazeBoard {
   max-height: min(58vh, 400px) !important;
 }
+
+
+/* v4.3.10 overrides */
+body:has(#storiesPanel.active) header,
+body:has(#roomPanel.active) header,
+body:has(#wardrobePanel.active) header,
+body:has(#petPanel.active) header {
+  display: none !important;
+}
+#mazeGame .mazeBoard {
+  width: min(58vw, 560px) !important;
+  height: auto !important;
+  max-width: 580px !important;
+  aspect-ratio: auto !important;
+}
+#unicornChaseGame .chaseBoard {
+  width: min(44vw, 52vh) !important;
+  height: min(44vw, 52vh) !important;
+  max-width: 52vh !important;
+  max-height: 52vh !important;
+}
+#storiesPanel .libraryHero,
+#roomPanel .roomIntro,
+#petPanel .petIntro {
+  display: none !important;
+}

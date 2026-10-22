@@ -1,3 +1,10 @@
+function getBrasiliaDateStrApp(){
+  if(typeof window.getBrasiliaDateStr === 'function') return window.getBrasiliaDateStr();
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const b = new Date(utc - (3 * 3600000));
+  return `${b.getFullYear()}-${String(b.getMonth()+1).padStart(2,'0')}-${String(b.getDate()).padStart(2,'0')}`;
+}
 window.getAudioContext = function(){ return (typeof getAudioFxCtx === "function") ? getAudioFxCtx() : null; };
 
 function drawFlyingUnicorn(ctx, x, y, isFlying){
@@ -632,28 +639,34 @@ function startMaze(){
   renderMaze();
 }
 function renderMaze(){
-  const board=document.getElementById('mazeBoard');
+  const board = document.getElementById('mazeBoard');
   if(!board) return;
-  board.innerHTML='';
-  board.style.setProperty('--maze-size',mazeSize);
-  const scale=gameEloScale('maze',mazeSize);
+  board.innerHTML = '';
+  const maxDim = Math.max(mazeCols || 11, mazeRows || 7);
+  board.style.setProperty('--maze-size', String(maxDim));
+  const scale = gameEloScale('maze', maxDim);
+  board.style.gridTemplateColumns = `repeat(${mazeCols || 11}, 1fr)`;
+  board.style.gridTemplateRows = `repeat(${mazeRows || 7}, 1fr)`;
+
   let playerPlaced = false;
-  mazeMap.forEach((row,y)=>row.forEach((cell,x)=>{
-    const d=document.createElement('div');
-    const isPlayer=!playerPlaced && (mazePlayer.x===x && mazePlayer.y===y);
+  mazeMap.forEach((row, y) => row.forEach((cell, x) => {
+    const d = document.createElement('div');
+    const isPlayer = !playerPlaced && (mazePlayer.x === x && mazePlayer.y === y);
     if(isPlayer) playerPlaced = true;
-    const isGoal=!isPlayer && (mazeGoal.x===x && mazeGoal.y===y);
-    const isStar=!isPlayer && !isGoal && mazeBonusStars.some(s=>s.x===x && s.y===y);
-    d.className='mazeCell '+(cell==='#'?'wall':'path')+(isPlayer?' player':'')+(isGoal?' goal':'')+(isStar?' hasStar':'');
+    const isGoal = !isPlayer && (mazeGoal.x === x && mazeGoal.y === y);
+    const isStar = !isPlayer && !isGoal && mazeBonusStars.some(s => s.x === x && s.y === y);
+    d.className = 'mazeCell ' + (cell === '#' ? 'wall' : 'path') + (isPlayer ? ' player' : '') + (isGoal ? ' goal' : '') + (isStar ? ' hasStar' : '');
+    
     if(isPlayer){
-      const elo=gameEloClone('maze',scale);
+      const elo = gameEloClone('maze', scale);
       if(elo) d.appendChild(elo);
+      else d.innerHTML = '<span style="font-size:22px;display:inline-block;animation:dollHappy .6s infinite alternate;">👧</span>';
     } else if(isGoal){
-      d.innerHTML='<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio">';
+      d.innerHTML = '<img class="gameCreature unicornSprite" src="assets/game-ui/unicorn.svg" alt="Unicórnio" style="width:26px;height:26px;object-fit:contain;">';
     } else if(isStar){
-      d.innerHTML='<span class="mazeStarItem" style="font-size:22px;animation:dollHappy .6s infinite alternate;">⭐</span>';
-    } else if(cell==='#'&&(x+y)%7===0){
-      d.innerHTML='<span class="mazeLeaf">🌿</span>';
+      d.innerHTML = '<span class="mazeStarItem" style="font-size:22px;animation:dollHappy .6s infinite alternate;">⭐</span>';
+    } else if(cell === '#' && (x + y) % 7 === 0){
+      d.innerHTML = '<span class="mazeLeaf">🌿</span>';
     }
     board.appendChild(d);
   }));
@@ -919,35 +932,45 @@ function spawnTrailObstacle(){const themes=['mushroom','crate','crystal','bush']
 function spawnTrailCollectible(){
   const randVal=Math.random();
   const kind = randVal < 0.08 ? 'magnet' : (randVal < 0.16 ? 'shield' : (randVal < 0.36 ? 'unicorn' : 'star'));const arc=Math.random();let y=trailState.ground-110-Math.random()*120;if(arc>.6)y=trailState.ground-170-Math.random()*75;trailState.entities.push({kind:'collectible',type:kind,x:930+Math.random()*60,y,w:kind==='unicorn'?32:28,h:kind==='unicorn'?32:28,spin:Math.random()*6.28})}
-function updateTrailEntities(dt){const s=trailState,p=s.player; s.entities.forEach(e=>{
-  e.x-=s.worldSpeed*dt*3.2;
-  if(e.spin!=null)e.spin+=0.08*dt;
-  // Se o ímã estiver ativo, puxa estrelas e unicórnios em direção à Elo
-  if(s.magnetTimer > 0 && e.kind === 'collectible'){
-    const dx = p.x - e.x, dy = p.y - e.y, dist = Math.hypot(dx, dy) || 1;
-    if(dist < 420){
-      e.x += (dx / dist) * 7.5 * dt;
-      e.y += (dy / dist) * 7.5 * dt;
+function updateTrailEntities(dt){
+  const s = trailState, p = s.player;
+  s.entities.forEach(e => {
+    e.x -= s.worldSpeed * dt * 3.2;
+    if(e.spin != null) e.spin += 0.08 * dt;
+    if(s.magnetTimer > 0 && e.kind === 'collectible'){
+      const dx = p.x - e.x, dy = p.y - e.y, dist = Math.hypot(dx, dy) || 1;
+      if(dist < 420){
+        e.x += (dx / dist) * 7.5 * dt;
+        e.y += (dy / dist) * 7.5 * dt;
+      }
     }
-  }
-});
-if(s.magnetTimer > 0) s.magnetTimer -= dt; s.entities=s.entities.filter(e=>e.x+e.w>-60); for(const e of [...s.entities]){if(rectHit(p,e,16)){if(e.kind==='collectible'){
-      // Coleta suave e generosa
-      if(p.x + p.w + 6 > e.x && p.x - 6 < e.x + e.w && p.y + p.h + 8 > e.y && p.y - 8 < e.y + e.h) {
+  });
+  if(s.magnetTimer > 0) s.magnetTimer -= dt;
+  s.entities = s.entities.filter(e => e.x + e.w > -60);
+
+  for(const e of [...s.entities]){
+    if(e.kind === 'collectible'){
+      // Coleta generosa e gostosa
+      if(p.x + p.w + 14 > e.x && p.x - 14 < e.x + e.w && p.y + p.h + 16 > e.y && p.y - 16 < e.y + e.h){
         collectTrailItem(e);
       }
-    } else if(e.kind==='obstacle'){
-      if(s.isFlying && p.y < s.ground-p.h-35){
-        if(Math.random()<0.14) s.effects.push({x:e.x,y:e.y-12,text:'🦄 Desviou!',t:28});
-      } else if(p.inv<=0){
-        // Colisão justa e precisa: Elo só toma dano se encostar fisicamente no obstáculo
-        const hitX = (e.x <= p.x + 22) && (e.x + e.w >= p.x + 8);
-        const hitY = (p.y + p.h > e.y + 16);
-        if(hitX && hitY) {
-          trailDamage(1,'Cuidado com o obstáculo!');
+    } else if(e.kind === 'obstacle'){
+      if(s.isFlying && p.y < s.ground - p.h - 30){
+        if(Math.random() < 0.14) s.effects.push({x:e.x, y:e.y-12, text:'🦄 Desviou!', t:28});
+      } else if(p.inv <= 0){
+        // Imunidade total no ar: se a Elo pulou, os pés dela passam por cima do obstáculo!
+        const isJumping = (p.y + p.h < s.ground - 10);
+        if(!isJumping){
+          // No chão: dano apenas quando o obstáculo realmente encostar no corpo da Elo (X=124)
+          const hitX = (e.x <= 126) && (e.x + e.w >= 118);
+          if(hitX){
+            trailDamage(1, 'Cuidado com o obstáculo!');
+          }
         }
       }
-    }}}}
+    }
+  }
+}
 function collectTrailItem(e){
   const s=trailState;
   s.entities=s.entities.filter(x=>x!==e);
@@ -2502,6 +2525,28 @@ function updateStickersCounterUI(){
 window.openStickersAlbum = function(){
   const modal = document.getElementById("stickersModal");
   if(modal) modal.classList.remove("hidden");
+  const todayKey = 'eloStickerPackDate_' + getBrasiliaDateStrApp();
+  const opened = pget(todayKey) === '1';
+  const packBtn = document.getElementById("boosterPackBtn");
+  const packBadge = document.getElementById("modalPackBadge");
+  if(packBtn && opened){
+    packBtn.style.opacity = "0.7";
+    packBtn.innerHTML = `
+      <span class="boosterIcon">📦</span>
+      <span class="boosterTitle">JÁ ABERTO HOJE ✓</span>
+      <small style="font-size:10px;opacity:0.9;">Volta amanhã às 00h</small>
+    `;
+  } else if(packBtn){
+    packBtn.style.opacity = "1";
+    packBtn.innerHTML = `
+      <span class="boosterIcon">📦</span>
+      <span class="boosterTitle">TOQUE PARA ABRIR</span>
+      <small style="font-size:10px;opacity:0.9;">1 Figurinha Mágica do Dia</small>
+    `;
+  }
+  if(packBadge){
+    packBadge.textContent = opened ? "📦 Pacote de Hoje Coletado" : "📦 1 Pacote Disponível";
+  }
   renderStickersAlbum();
   updateStickersCounterUI();
 };
@@ -2542,19 +2587,20 @@ window.renderStickersAlbum = function(){
 let currentOpenedStickers = [];
 
 window.openStickerPack = function(){
-  const curStars = (typeof stars !== 'undefined') ? stars : Number(pget('eloStars') || 0);
-  if(curStars < 5){
-    toast("Você precisa de 5 estrelinhas para abrir um pacotinho surpresa! ⭐");
+  const todayKey = 'eloStickerPackDate_' + getBrasiliaDateStrApp();
+  if(pget(todayKey) === '1'){
+    toast("Você já abriu seu pacotinho diário de hoje! Volte amanhã às 00h (horário de Brasília) para abrir mais um 📦✨");
     return;
   }
-  if(typeof addStars === 'function') {
-    addStars(-5, "Pacotinho aberto! -5 ⭐");
-  }
+  pset(todayKey, '1');
   playCuteSfx("coin");
 
-  // Sorteia 3 figurinhas mágicas
-  const shuffled = shuffle([...STICKER_COLLECTION_DATA]);
-  currentOpenedStickers = shuffled.slice(0, 3);
+  // Sorteia exatamente 1 figurinha por dia, priorizando figurinhas novas
+  const collected = getCollectedStickers();
+  const unowned = STICKER_COLLECTION_DATA.filter(s => !collected.includes(s.id));
+  const pool = unowned.length > 0 ? unowned : STICKER_COLLECTION_DATA;
+  const picked = pool[Math.floor(Math.random() * pool.length)];
+  currentOpenedStickers = [picked];
 
   const packBtn = document.getElementById("boosterPackBtn");
   const cardsArea = document.getElementById("cardsRevealArea");
@@ -2563,19 +2609,19 @@ window.openStickerPack = function(){
   if(packBtn) packBtn.classList.add("hidden");
   if(cardsArea) {
     cardsArea.classList.remove("hidden");
-    cardsArea.innerHTML = currentOpenedStickers.map(s => `
-      <div class="stickerCardItem ${s.rarity}">
-        <span class="sEmoji">${s.emoji}</span>
-        <b class="sName">${s.name}</b>
-        <span class="sRarity">${s.rarity === "gold" ? "✨ DOURADA" : (s.rarity === "rare" ? "💎 RARA" : "COMUM")}</span>
+    cardsArea.innerHTML = `
+      <div class="stickerCardItem ${picked.rarity}" style="max-width:200px;margin:0 auto;">
+        <span class="sEmoji" style="font-size:52px;animation:dollHappy .6s infinite alternate;">${picked.emoji}</span>
+        <b class="sName" style="font-size:15px;margin:6px 0;">${picked.name}</b>
+        <span class="sRarity" style="font-size:11px;">${picked.rarity === "gold" ? "✨ DOURADA" : (picked.rarity === "rare" ? "💎 RARA" : "🌸 LINDA")}</span>
       </div>
-    `).join("");
+    `;
   }
   if(collectBtn) collectBtn.classList.remove("hidden");
 
   playCuteSfx("win");
   triggerStarConfetti();
-  toast("Pacotinho aberto! 3 novas figurinhas! 📦✨");
+  toast("Figurinha do dia revelada! 📦✨");
 };
 
 window.collectRevealedStickers = function(){
@@ -2593,12 +2639,20 @@ window.collectRevealedStickers = function(){
 
   if(cardsArea) cardsArea.classList.add("hidden");
   if(collectBtn) collectBtn.classList.add("hidden");
-  if(packBtn) packBtn.classList.remove("hidden");
+  if(packBtn) {
+    packBtn.classList.remove("hidden");
+    packBtn.style.opacity = "0.7";
+    packBtn.innerHTML = `
+      <span class="boosterIcon">📦</span>
+      <span class="boosterTitle">JÁ ABERTO HOJE ✓</span>
+      <small style="font-size:10px;opacity:0.9;">Volta amanhã às 00h</small>
+    `;
+  }
 
   renderStickersAlbum();
   playCuteSfx("win");
   triggerStarConfetti();
-  toast("Figurinhas coladas com sucesso no seu álbum! 📖💖");
+  toast("Figurinha colada com sucesso no seu álbum! 📖💖");
 };
 
 // --- 8. MODO HORA DO SONINHO & CANÇÃO DE NINAR ---

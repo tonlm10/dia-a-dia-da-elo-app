@@ -802,22 +802,20 @@ window.closeRewardedAd = function(){
 };
 
 window.buyParentPack = function(packId){
+  if(typeof closeStarShop === 'function') closeStarShop();
+  const todayKey = 'eloParentPackClaimed_' + getBrasiliaDateStr();
+  if(pget(todayKey) === '1'){
+    toast('Você já resgatou o pacote dos responsáveis de hoje! Ele volta amanhã às 00h (horário de Brasília) 💗');
+    return;
+  }
   requestParentAccess(()=>{
-    let amount = 50, label = 'Pacote Estrelinha (50 ⭐)';
-    if(packId === 'pack200') { amount = 200; label = 'Pacote Reino Mágico (200 ⭐)'; }
-    else if(packId === 'pack500') { amount = 500; label = 'Passe Super Elo Tudo Liberado (500 ⭐)'; }
-    
-    const choice = prompt('Pacotes para Responsáveis:\n1 = Pacote 50 ⭐\n2 = Pacote 200 ⭐\n3 = Pacote 500 ⭐\n\nDigite 1, 2 ou 3 para liberar:', packId === 'pack200' ? '2' : (packId === 'pack500' ? '3' : '1'));
-    if(!choice) return;
-    if(choice === '2'){ amount = 200; label = 'Pacote 200 ⭐'; }
-    else if(choice === '3'){ amount = 500; label = 'Pacote 500 ⭐'; }
-    else { amount = 50; label = 'Pacote 50 ⭐'; }
-
-    if(typeof addStars === 'function') addStars(amount, `Parabéns! ${label} ativado! +${amount} ⭐`);
+    pset(todayKey, '1');
+    const amount = 50;
+    if(typeof addStars === 'function') addStars(amount, 'Parabéns! Pacote de Responsáveis ativado com +50 ⭐!');
     if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
-    toast(`Pacote ativado com sucesso! +${amount} ⭐`);
-    if(typeof closeStarShop === 'function') closeStarShop();
-  }, 'Digite o PIN dos responsáveis para desbloquear pacotes de estrelas.');
+    toast('Pacote dos responsáveis ativado com sucesso! +50 ⭐ (Bloqueado até amanhã às 00h)');
+    renderStarShop();
+  }, 'Digite o PIN dos responsáveis para autorizar o pacote diário de 50 ⭐.');
 };
 
 window.addEventListener('message', function(e){

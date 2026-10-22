@@ -1,3 +1,12 @@
+# Versão 4.3.10 (r48) - 22/10/2026
+- Biblioteca, Quarto, Guarda-roupa e Bichinho: conteúdo abre imediatamente no topo da tela (header global duplicado ocultado nos subpainéis, cartões de introdução removidos e rolagem zerada).
+- RPG Reino das Estrelas: botões direcionais do D-Pad com acabamento sólido limpo e nítido (removido efeito fosco/auréola em volta das setas).
+- Labirinto da Elo: corrigido dimensionamento da grade retangular (11×7, 17×7, 23×7) e renderização estável da Elo, unicórnio e estrelinhas.
+- Caça aos Unicórnios (15×15): legenda movida para a coluna lateral de controles, eliminando qualquer sobreposição ou corte das últimas linhas do tabuleiro.
+- Trilha Encantada: pulo com imunidade total a obstáculos terrestres no ar e dano ativado exclusivamente com contato físico real no corpo da Elo no chão.
+- Pacote dos Responsáveis: fechamento automático da janela do Baú ao clicar, trava estrita de 1 resgate por dia (até 00h de Brasília) e pacote fixo protegido por PIN de 50 ⭐.
+- Pacotinho de Figurinhas: limite de 1 figurinha mágica por dia, impedindo aberturas contínuas e bloqueando o botão até as 00h de Brasília do dia seguinte.
+
 # Versão 4.3.9 (r47) - 22/10/2026
 - Biblioteca e Histórias: conteúdo abre imediatamente no topo da tela sem espaço em branco inicial ou rolagem.
 - Quarto da Elo e Telas: início imediato sem exigir rolagem vertical para visualizar o quarto e itens.
