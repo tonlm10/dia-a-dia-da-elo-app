@@ -118,10 +118,10 @@
 .garmentThumb.shirt.heart:before{background:#fff0f5}.garmentThumb.shirt.heart:after{content:'♥';position:absolute;left:35px;top:31px;color:#ff61a3;font-size:16px}.garmentThumb.shirt.sun:before{background:#ffd768}.garmentThumb.shirt.sun:after{content:'☀';position:absolute;left:34px;top:30px;color:white}.garmentThumb.shirt.game:before{background:#353044}.garmentThumb.shirt.game:after{content:'★';position:absolute;left:35px;top:31px;color:#7ae5ff}.garmentThumb.shirt.pop:before{background:linear-gradient(135deg,#171522,#6b40ad,#ff4f9e)}.garmentThumb.shirt.pop:after{content:'✦';position:absolute;left:35px;top:31px;color:#8df6f0}.garmentThumb.shirt.sport:before{background:linear-gradient(90deg,#61cfe7 0 48%,#fff 48% 55%,#785bd4 55%)}.garmentThumb.short.pink:before{background:#ff8bb6}.garmentThumb.skirt.lilac:before{background:#9e82dd}.garmentThumb.skirt.pop:before{background:linear-gradient(90deg,#292536,#8656bf,#292536)}.garmentThumb.pants.black:before{background:#2d2b38}.garmentThumb.pants.cargo:before{background:#8c75bb}.garmentThumb.dress.princess:before{background:linear-gradient(#bb9be9,#e5ceff,#9775d1)}.garmentThumb.dress.unicorn:before{background:linear-gradient(#ff83b5,#ffda66,#75d3ad,#72c5e9,#a385e5)}.garmentThumb.dress.pop:before{background:linear-gradient(135deg,#171522,#6b40ad,#ff4f9e)}.garmentThumb.shoes.black:before,.garmentThumb.shoes.black:after{height:27px;background:#2b2937}.garmentThumb.shoes.cyan:before,.garmentThumb.shoes.cyan:after{background:#52c9e2}.garmentThumb.tiara.pearl:before{border-color:#fff;filter:drop-shadow(0 0 2px #bb9de7)}.garmentThumb.tiara.pop:before{border-color:#6cf0e8}.garmentThumb.ear.moon:before,.garmentThumb.ear.moon:after{background:#9b83ef}.garmentThumb.ring.moon:before{border-color:#8a70dc}.garmentThumb.bracelet.pop:before{border-color:#69e9e2;border-right-color:#d95af4;border-bottom-color:#ff4e9b}.garmentThumb.necklace.moon:after{content:'☾';position:absolute;left:31px;top:38px;color:#9276e5;font-size:21px}.garmentThumb.makeup.pop:before{box-shadow:inset 12px 15px 0 -9px rgba(200,70,180,.42),inset -12px 15px 0 -9px rgba(200,70,180,.42),0 0 10px #bdfaff}
 
 /* Trilha Encantada maior e mais fácil de tocar */
-#trailGame .trailCanvasWrap{min-height:220px;cursor:pointer;touch-action:manipulation}#trailGame .trailCanvas{width:100%;height:auto;min-height:220px;object-fit:fill}#trailGame .trailBtn{min-height:62px;font-size:19px}
+#trailGame .trailCanvasWrap{max-width:min(92vw,520px);max-height:min(44vh,240px);aspect-ratio:900/500;margin:0 auto;min-height:0;cursor:pointer;touch-action:manipulation}#trailGame .trailCanvas{width:100%;height:100%;max-height:min(44vh,240px);aspect-ratio:900/500;object-fit:contain;min-height:0}#trailGame .trailBtn{min-height:40px;font-size:13px}
 
-@media(max-width:520px){#wardrobePanel .topTitle,#roomPanel .topTitle{margin:8px 0 6px}.roomIntro{display:none}.room-premium{height:min(38vh,300px)}.wardrobeStudio{grid-template-columns:42% 58%;margin:0 4px 6px}.wardrobeStage{min-height:min(36vh,285px)}.wardrobeStage .eloDoll{transform:scale(.66)}.wardrobeInfo{align-items:flex-start;text-align:left}.wardrobeInfo span{display:none}.wardrobeControlDock{margin:0 4px}.wardrobeGrid302 .wardrobeItem302{flex-basis:94px}.lookPreset{flex-basis:76px}.roomControlDock{margin:0}.decorGridCompact .decorItem{flex-basis:96px}#trailGame .trailCanvasWrap,#trailGame .trailCanvas{min-height:235px}}
-@media(max-width:390px){.wardrobeStage .eloDoll{transform:scale(.61)}.wardrobeInfo b{font-size:13px}.wardrobeInfo small{font-size:8px}.wardrobeControlDock{padding:6px}.wardrobePresets{padding-bottom:5px}.lookPreset{flex-basis:70px;padding:4px 3px}.lookPreset span{font-size:18px}.wardrobeTab{padding:5px 7px}.wardrobeGrid302 .wardrobeItem302{flex-basis:88px;min-height:101px}.room-premium{height:min(36vh,280px)}#trailGame .trailCanvasWrap,#trailGame .trailCanvas{min-height:245px}}
+@media(max-width:520px){#wardrobePanel .topTitle,#roomPanel .topTitle{margin:8px 0 6px}.roomIntro{display:none}.room-premium{height:min(38vh,300px)}.wardrobeStudio{grid-template-columns:42% 58%;margin:0 4px 6px}.wardrobeStage{min-height:min(36vh,285px)}.wardrobeStage .eloDoll{transform:scale(.66)}.wardrobeInfo{align-items:flex-start;text-align:left}.wardrobeInfo span{display:none}.wardrobeControlDock{margin:0 4px}.wardrobeGrid302 .wardrobeItem302{flex-basis:94px}.lookPreset{flex-basis:76px}.roomControlDock{margin:0}.decorGridCompact .decorItem{flex-basis:96px}#trailGame .trailCanvasWrap,#trailGame .trailCanvas{min-height:0}}
+@media(max-width:390px){.wardrobeStage .eloDoll{transform:scale(.61)}.wardrobeInfo b{font-size:13px}.wardrobeInfo small{font-size:8px}.wardrobeControlDock{padding:6px}.wardrobePresets{padding-bottom:5px}.lookPreset{flex-basis:70px;padding:4px 3px}.lookPreset span{font-size:18px}.wardrobeTab{padding:5px 7px}.wardrobeGrid302 .wardrobeItem302{flex-basis:88px;min-height:101px}.room-premium{height:min(36vh,280px)}#trailGame .trailCanvasWrap,#trailGame .trailCanvas{min-height:0}}
 
 
 /* v3.0.4 — home clássico, quarto ampliado e ajustes do guarda-roupa */
@@ -2160,4 +2160,55 @@ body:has(#petPanel.active) header {
   max-width: 76vh !important;
   max-height: 76vh !important;
   margin: 0 auto !important;
+}
+
+/* Trilha Encantada — tela ajustada e compacta para celulares e tablets */
+#trailGame .trailCanvasWrap {
+  max-width: min(92vw, 520px) !important;
+  max-height: min(44vh, 240px) !important;
+  aspect-ratio: 900 / 500 !important;
+  margin: 0 auto !important;
+  min-height: 0 !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+#trailGame .trailCanvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: min(44vh, 240px) !important;
+  aspect-ratio: 900 / 500 !important;
+  object-fit: contain !important;
+  min-height: 0 !important;
+  display: block !important;
+}
+#trailGame .trailHud {
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 4px !important;
+  margin: 4px 0 !important;
+}
+#trailGame .trailStat {
+  padding: 4px 5px !important;
+  border-radius: 12px !important;
+}
+#trailGame .trailStat b {
+  font-size: 8px !important;
+  margin-bottom: 2px !important;
+}
+#trailGame .trailStat span {
+  font-size: 13px !important;
+}
+#trailGame .trailInfo {
+  font-size: 11px !important;
+  margin-bottom: 4px !important;
+}
+#trailGame .trailControls {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 6px !important;
+  margin-top: 8px !important;
+}
+#trailGame .trailBtn {
+  min-height: 38px !important;
+  font-size: 12px !important;
+  padding: 6px 4px !important;
+  border-radius: 12px !important;
 }

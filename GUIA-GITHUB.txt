@@ -1,4 +1,4 @@
-COMO ATUALIZAR SEU APP NO GITHUB (v4.3.14)
+COMO ATUALIZAR SEU APP NO GITHUB (v4.3.15)
 
 IMPORTANTE: O botão verde '<> Code' serve apenas para BAIXAR/CLONAR o código no seu computador. NÃO é por ali que se envia a atualização.
 

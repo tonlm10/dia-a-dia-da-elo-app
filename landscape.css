@@ -227,21 +227,21 @@
     min-width: 0 !important;
   }
 
-  /* Trilha Encantada em Landscape */
+  /* Trilha Encantada em Landscape (ajustada para não ficar gigante) */
   #trailGame .trailHeader {
     margin-bottom: 2px !important;
   }
   #trailGame .trailBadge {
-    padding: 4px 10px !important;
-    font-size: 12px !important;
+    padding: 3px 8px !important;
+    font-size: 11px !important;
   }
   #trailGame .trailHud {
     grid-template-columns: repeat(5, 1fr) !important;
-    margin: 2px 0 4px !important;
+    margin: 2px 0 3px !important;
     gap: 4px !important;
   }
   #trailGame .trailStat {
-    padding: 3px 4px !important;
+    padding: 2px 4px !important;
     border-radius: 10px !important;
   }
   #trailGame .trailStat b {
@@ -249,47 +249,52 @@
     margin-bottom: 1px !important;
   }
   #trailGame .trailStat span {
-    font-size: 13px !important;
+    font-size: 12px !important;
   }
   #trailGame .trailInfo {
-    font-size: 11px !important;
-    margin-bottom: 3px !important;
+    font-size: 10px !important;
+    margin-bottom: 2px !important;
   }
   #trailGame .trailPlayRowLandscape {
     display: flex !important;
-    gap: 12px !important;
+    gap: 10px !important;
     align-items: center !important;
-    justify-content: space-between !important;
+    justify-content: center !important;
     width: 100% !important;
   }
   #trailGame .trailPlayRowLandscape .trailCanvasWrap {
-    flex: 1 1 68% !important;
-    max-width: 68% !important;
-    max-height: 56vh !important;
+    flex: 0 1 auto !important;
+    width: 58vw !important;
+    max-width: 440px !important;
+    max-height: min(48vh, 220px) !important;
+    aspect-ratio: 900 / 500 !important;
     margin: 0 !important;
+    min-height: 0 !important;
+    border-radius: 16px !important;
   }
   #trailGame .trailPlayRowLandscape .trailCanvas {
     width: 100% !important;
-    height: auto !important;
-    max-height: 56vh !important;
+    height: 100% !important;
+    max-height: min(48vh, 220px) !important;
     aspect-ratio: 900 / 500 !important;
     object-fit: contain !important;
     min-height: 0 !important;
+    display: block !important;
   }
   #trailGame .trailPlayRowLandscape .trailControls {
-    flex: 0 0 30% !important;
+    flex: 0 0 32% !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 6px !important;
+    gap: 5px !important;
     margin-top: 0 !important;
   }
   #trailGame .trailBtn {
-    padding: 10px 6px !important;
-    font-size: 13px !important;
-    min-height: 44px !important;
-    border-radius: 14px !important;
+    padding: 6px 8px !important;
+    font-size: 11px !important;
+    min-height: 36px !important;
+    border-radius: 12px !important;
   }
-  #trailGame .trailHint, #trailGame .premiumNote {
+  #trailGame .trailHint, #trailGame .premiumNote, #trailGame p.muted {
     display: none !important;
   }
 

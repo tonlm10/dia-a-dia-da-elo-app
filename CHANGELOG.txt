@@ -1,3 +1,18 @@
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.15-r53)
+Data: 23/10/2026
+
+Detalhamento das correções e calibrações de tela:
+
+1. Reino das Estrelas (RPG) — Enquadramento 16:9 e Controles Ergonômicos:
+   - Moldura Arcade 16:9 (.canvasFrame): Limitada a max-width: min(88vw, 760px) e max-height: min(72vh, 420px) com proporção 16:9 fixa e centralizada, resolvendo o problema de tela excessivamente grande e esticada.
+   - D-Pad e Ações Compactos: Botões direcionais ajustados de 46px para 34px e botões de ação A/B reduzidos de 64px/76px para 48px/58px, desobstruindo a visão do mapa e personagens.
+   - Ocultação na Bolsa: Mantida a lógica em que os botões somem apenas ao abrir o menu da bolsa.
+
+2. Trilha Encantada — Redução e Enquadramento Perfeito:
+   - Remoção de min-height forçado: Eliminada a expansão forçada de 220px/245px no canvas, permitindo que a Trilha Encantada mantenha proporção 900x500 e altura calibrada (max-height: min(48vh, 220px)).
+   - Layout Horizontal Otimizado: Controles laterais reduzidos para 36px e HUD condensado em 5 colunas, permitindo que todo o jogo caiba no campo de visão em aparelhos deitados ou em pé, sem barra de rolagem.
+   - Física de Contato Real Preservada: Colisão calibrada para X <= 116 e superação de obstáculos no salto.
+
 # Relatório de Atualização - Dia a Dia da Elo (v4.3.14-r52)
 Data: 23/10/2026
 
