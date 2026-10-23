@@ -961,18 +961,37 @@ function updateTrailEntities(dt){
         continue;
       }
 
-      // 2. Imunidade total no ar: se a Elo pulou, os pés dela passam por cima do obstáculo
+      // Já superado ou já causou dano
+      if(e.cleared || e.hit) continue;
+
+      // 2. Imunidade total no pulo: se a Elo pulou, supera o obstáculo sem dano ao aterrissar
       const feetY = p.y + p.h;
-      if(feetY <= e.y + 10 || feetY < s.ground - 8){
+      const inAir = feetY < s.ground - 4 || p.vy !== 0;
+
+      // Se estiver no ar e os pés passarem por cima da base do obstáculo
+      if(inAir && (feetY <= e.y + 16 || feetY < s.ground - 10)){
+        if(e.x < 155){
+          e.cleared = true; // Marca como superado com sucesso
+        }
+        continue;
+      }
+
+      // Se o obstáculo já passou da Elo (ficou para trás)
+      if(e.x + e.w < 112){
+        e.cleared = true;
         continue;
       }
 
       // 3. Contato no chão: dano apenas quando o obstáculo realmente encostar fisicamente no corpo da Elo!
-      if(p.inv <= 0 && !e.hit){
-        const obsFront = e.x + (e.type === 'mushroom' ? 8 : (e.type === 'crystal' ? 6 : 2));
+      if(p.inv <= 0){
+        // Leading edge real do obstáculo
+        const obsFront = e.x + (e.type === 'mushroom' ? 6 : (e.type === 'crystal' ? 4 : 2));
         const obsBack = e.x + e.w;
-        if(obsFront <= 124 && obsBack >= 110){
+
+        // Elo está com o corpo em X ~ 118..148. Dano exige penetração física real (obsFront <= 116)
+        if(obsFront <= 116 && obsBack >= 104){
           e.hit = true;
+          s.effects.push({x: e.x + 10, y: e.y, text: '💥', t: 28});
           trailDamage(1, 'Cuidado com o obstáculo!');
         }
       }

@@ -1,14 +1,18 @@
-VERSÃO ATUAL DO APP: 4.3.13
-CACHE PWA: elo-official-4.3.13-r51
-PURGE SW: 4.3.13-r51
-DATA: 22/10/2026
+VERSÃO ATUAL DO APP: 4.3.14
+CACHE PWA: elo-official-4.3.14-r52
+PURGE SW: 4.3.14-r52
+DATA: 23/10/2026
 
 CORREÇÕES IMPLEMENTADAS:
-1. RPG Reino das Estrelas — Controles Móveis (D-Pad e A/B) Restaurados:
-   - Os controles direcionais e botões de ação ficam 100% visíveis e operantes na exploração e batalhas normais.
-   - Os botões são ocultados EXCLUSIVAMENTE quando a Bolsa (#menuOverlay) é aberta, deixando a tela limpa para leitura dos itens e status.
+1. Trilha Encantada — Eliminação Definitiva de Mortes Prematuras:
+   - Contato Físico Real no Chão: O limite de impacto foi reduzido para penetração física no corpo da Elo (X <= 116), eliminando qualquer dano à distância ou prematuro.
+   - Imunidade Total no Pulo e Aterrissagem Segura: Ao saltar por cima de qualquer obstáculo, ele é automaticamente marcado como superado ('cleared'), impedindo qualquer dano durante a queda ou pouso.
+   - Voo com Unicórnia (isFlying): 100% imune a obstáculos terrestres com animação mágica de sobrevoo.
 
-2. Trilha Encantada — Imunidade na Unicórnia e Fim das Mortes Prematuras:
-   - Ao voar com a Unicórnia amiga (s.isFlying), a Elo ganha imunidade completa aos obstáculos terrestres.
-   - No pulo, se os pés da Elo estiverem acima do topo do obstáculo, não há colisão.
-   - No chão, o dano só é ativado quando o obstáculo realmente toca fisicamente no corpo da Elo (X <= 124), sem mortes à distância.
+2. RPG Reino das Estrelas — Controles Móveis (D-Pad e A/B):
+   - Controles visíveis e operantes na exploração e batalhas.
+   - Ocultados exclusivamente durante a abertura da Bolsa (#menuOverlay) para desobstruir a leitura dos itens.
+
+3. Instruções Claras para Envio no GitHub:
+   - Esclarecido que o botão '<> Code' serve para clonar/baixar o projeto.
+   - Para atualizar: basta arrastar 'app-upload.zip' para a tela do GitHub ou clicar em 'Add file' > 'Upload files' e 'Commit changes'.

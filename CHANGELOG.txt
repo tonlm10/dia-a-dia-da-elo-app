@@ -1,3 +1,19 @@
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.14-r52)
+Data: 23/10/2026
+
+Detalhamento das correções implementadas:
+
+1. Trilha Encantada — Ajuste Definitivo de Colisão e Física de Contato Real:
+   - Contato Físico Real no Solo: O limite de colisão horizontal foi ajustado para X <= 116 (com corpo da Elo em 118..148), exigindo que o obstáculo encoste fisicamente no corpo da personagem para causar dano, acabando de vez com mortes prematuras ou com espaço visível.
+   - Superação de Obstáculos no Pulo ('cleared'): Se a Elo saltar sobre o obstáculo, ele é imediatamente marcado como superado. Ao descer do pulo e aterrissar no chão, a Elo não sofre mais dano do obstáculo que acabou de passar por baixo dela.
+   - Voo Seguro com a Unicórnia: Imunidade garantida durante todo o tempo de voo nas alturas.
+
+2. RPG Reino das Estrelas — Controles Ativos no Mapa e Ocultos Apenas na Bolsa:
+   - D-Pad e botões de ação A/B 100% presentes no jogo, sumindo unicamente quando a Bolsa (#menuOverlay) é aberta.
+
+3. Guia de Atualização no GitHub Atualizado:
+   - Explicado detalhadamente o fluxo de envio do app-upload.zip no repositório GitHub para disparo do workflow automático.
+
 # Relatório de Atualização - Dia a Dia da Elo (v4.3.13-r51)
 Data: 22/10/2026
 
