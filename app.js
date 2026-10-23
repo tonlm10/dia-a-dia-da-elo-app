@@ -2790,12 +2790,16 @@ window.addEventListener('keyup',e=>{
 // CONTROLE DE MODO DEITADO OBRIGATÓRIO (LANDSCAPE SYSTEM)
 // ==========================================================
 window.requestLandscapeMode = async function(){
-  // Nunca requisita fullscreen do navegador para não exibir o banner invasivo do Chrome
   try {
-    if (document.fullscreenElement && document.exitFullscreen) {
-      await document.exitFullscreen();
+    const el = document.documentElement;
+    if (el.requestFullscreen) {
+      await el.requestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
+      await el.webkitRequestFullscreen();
     }
-  } catch(_) {}
+  } catch(e) {
+    console.warn("Fullscreen request:", e);
+  }
 
   try {
     if (screen.orientation && typeof screen.orientation.lock === 'function') {
@@ -2807,7 +2811,7 @@ window.requestLandscapeMode = async function(){
     console.warn("Orientation lock error:", e);
   }
 
-  toast('Gire o celular de lado para a brincadeira ficar muito mais divertida! 📱🔄');
+  toast('Ative a "Rotação automática" no seu celular e deite o aparelho! 📱🔄');
 };
 
 // Limpa qualquer trava anterior no localStorage

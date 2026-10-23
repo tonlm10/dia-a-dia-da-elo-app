@@ -1203,13 +1203,10 @@ html, body {
 /* Quando o aparelho está em pé (retrato), exibe o bloqueio e ESCONDE 100% o app para não mostrar nada quebrado */
 @media screen and (orientation: portrait) {
   #mandatoryLandscapeBlocker {
-    display: none !important;
+    display: flex !important;
   }
   #appContainer {
-    display: block !important;
-    position: relative !important;
-    width: 100% !important;
-    min-height: 100vh !important;
+    display: none !important;
   }
 }
 

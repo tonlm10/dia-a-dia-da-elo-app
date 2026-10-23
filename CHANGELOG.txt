@@ -1,3 +1,8 @@
+# Versão 4.3.12 (r50) - 22/10/2026
+- RPG Reino das Estrelas — D-Pad Oculto na Bolsa: ao abrir a Bolsa (#menuOverlay) ou qualquer modal (Loja, TV, Diálogo, Batalha), os botões direcionais e os botões de ação somem automaticamente da tela, liberando espaço total para ler a lista de itens, missões e estatísticas com clareza. Ao fechar a Bolsa, os controles reaparecem instantaneamente.
+- Modo Deitado (Paisagem) Restaurado: restabelecido o bloqueio de orientação em modo retrato com o botão "Deitar a Tela Automaticamente" e suporte a rotação do aparelho. Agora o aplicativo deita a tela e roda 100% no formato panorâmico/widescreen ideal para todos os jogos, mapas e cantinhos.
+- Dica de Orientação sem Aviso do Chrome: mantida a orientação para o usuário ativar a "Rotação automática" do próprio celular e virar o aparelho de lado caso prefira jogar sem o modo de tela cheia do Android.
+
 # Versão 4.3.11 (r49) - 22/10/2026
 - Biblioteca, Quarto, Guarda-roupa e Bichinho: corrigida a estrutura HTML de fechamento do contêiner principal (#appContainer), garantindo que todas as telas abram imediatamente visíveis no topo da tela, sem tela em branco.
 - Mensagem de Tela Cheia do Navegador: removida requisição de fullscreen do navegador que disparava o aviso cinza persistente do Chrome ('tonlm10.github.io – Para sair da tela cheia...'), desobstruindo a visualização da tela.

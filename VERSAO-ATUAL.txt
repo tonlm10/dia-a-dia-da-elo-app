@@ -1,3 +1,3 @@
-Versão: 4.3.11 (elo-official-4.3.11-r49)
+Versão: 4.3.12 (elo-official-4.3.12-r50)
 Data: 22/10/2026
-Status: Oficial - Correções Críticas (Subpainéis, Fullscreen, D-Pad, Caça Unicórnio, Trilha Encantada)
+Status: Oficial - Modo Deitado Restaurado e D-Pad Oculto na Bolsa do RPG

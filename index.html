@@ -5,7 +5,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.3.11-r49";
+    var TARGET_VER = "4.3.12-r50";
     localStorage.removeItem("elo_force_landscape_90");
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
@@ -37,11 +37,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800;900&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4.3.11">
-<link rel="stylesheet" href="v3.css?v=4.3.11">
-<link rel="stylesheet" href="polish.css?v=4.3.11">
-<link rel="stylesheet" href="games-v350.css?v=4.3.11">
-<link rel="stylesheet" href="landscape.css?v=4.3.11">
+<link rel="stylesheet" href="styles.css?v=4.3.12">
+<link rel="stylesheet" href="v3.css?v=4.3.12">
+<link rel="stylesheet" href="polish.css?v=4.3.12">
+<link rel="stylesheet" href="games-v350.css?v=4.3.12">
+<link rel="stylesheet" href="landscape.css?v=4.3.12">
 </head>
 <body>
 
@@ -217,7 +217,7 @@
     </div>
   </div>
 
-  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.11</span></div>
+  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.12</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -486,7 +486,7 @@
 
 <section id="storiesPanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Aventuras da Elo</h2></div>
-  <div class="libraryHero" style="display:none!important;" style="padding:8px 12px;margin-bottom:8px;border-radius:18px;"><img src="assets/aventuras-icon.webp" alt="Aventuras da Elo" style="width:48px;height:48px;"><div style="margin-left:8px;"><h3 style="font-size:16px;margin:0 0 2px;">Biblioteca de Aventuras</h3><p style="margin:0;font-size:11px;">Histórias que ensinam, inspiram e fazem sonhar 💗</p></div></div>
+  <div class="libraryHero"  style="padding:8px 12px;margin-bottom:8px;border-radius:18px;"><img src="assets/aventuras-icon.webp" alt="Aventuras da Elo" style="width:48px;height:48px;"><div style="margin-left:8px;"><h3 style="font-size:16px;margin:0 0 2px;">Biblioteca de Aventuras</h3><p style="margin:0;font-size:11px;">Histórias que ensinam, inspiram e fazem sonhar 💗</p></div></div>
   <div id="libraryGrid" class="libraryGrid"></div>
   <button class="interactiveStoryEntry" onclick="openPanel('interactiveStoriesPanel','stories')"><span>🌳🏰</span><div><b>Histórias Interativas</b><small>Você escolhe o caminho e muda o final.</small></div><i>›</i></button>
 </section>
@@ -518,7 +518,7 @@
   <div class="card parentClubCard"><h3>Clubinho da Elo 👑</h3><p class="muted">Informações de assinatura e valores ficam somente na Área dos Pais.</p><button class="btn secondary" onclick="openPanel('clubPanel','parents')">Ver planos e benefícios</button></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.11</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.12</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -533,7 +533,7 @@
     <button class="cSwitchBtn" onclick="openPanel('wardrobePanel','home')">👗 Guarda-roupa</button>
     <button class="cSwitchBtn" onclick="openPet()">🐾 Bichinho</button>
   </div>
-  <div class="roomIntro" style="display:none!important;"><div><small>MEU CANTINHO</small><h3>Decore do seu jeito</h3><p>Itens novos aparecem conforme você brinca, aprende e explora. Toque nos móveis e objetos para ver a Elo reagir.</p></div><button onclick="eloGuideSay('Este é o meu quarto! Toque nas opções abaixo para decorar do seu jeito.')">🔊</button></div>
+  <div class="roomIntro" ><div><small>MEU CANTINHO</small><h3>Decore do seu jeito</h3><p>Itens novos aparecem conforme você brinca, aprende e explora. Toque nos móveis e objetos para ver a Elo reagir.</p></div><button onclick="eloGuideSay('Este é o meu quarto! Toque nas opções abaixo para decorar do seu jeito.')">🔊</button></div>
   <div class="roomLayoutLandscape">
     <div id="eloRoom" class="eloRoom room-premium">
       <div class="roomCeilingGlow"></div>
@@ -579,7 +579,7 @@
     <button class="cSwitchBtn" onclick="openPanel('wardrobePanel','home')">👗 Guarda-roupa</button>
     <button class="cSwitchBtn on" onclick="openPet()">🐾 Bichinho</button>
   </div>
-  <div class="petIntro" style="display:none!important;"><div><small>MEU COMPANHEIRO</small><h3>Um bichinho virtual para cuidar</h3><p>Ele cresce com carinho e brincadeiras. Não morre e não perde progresso se você ficar um tempo sem entrar.</p></div><button class="smallBtn" onclick="petSpeakStatus()">🔊</button></div>
+  <div class="petIntro" ><div><small>MEU COMPANHEIRO</small><h3>Um bichinho virtual para cuidar</h3><p>Ele cresce com carinho e brincadeiras. Não morre e não perde progresso se você ficar um tempo sem entrar.</p></div><button class="smallBtn" onclick="petSpeakStatus()">🔊</button></div>
   <div class="petLayoutLandscape">
     <div class="petDevice">
       <div class="petDeviceTop"><span id="petStageLabel">Ovinho</span><b id="petNameLabel">Ovinho misterioso</b><button id="petRenameBtn" class="petMiniBtn" onclick="renamePet()">✏️</button></div>
@@ -1159,6 +1159,6 @@
 </div>
 
 
-<script src="version.js?v=4.3.11"></script><script src="models3d.js?v=4.3.11"></script><script src="app.js?v=4.3.11"></script><script src="v3.js?v=4.3.11"></script><script src="pet.js?v=4.3.11"></script>
+<script src="version.js?v=4.3.12"></script><script src="models3d.js?v=4.3.12"></script><script src="app.js?v=4.3.12"></script><script src="v3.js?v=4.3.12"></script><script src="pet.js?v=4.3.12"></script>
 </body>
 </html>

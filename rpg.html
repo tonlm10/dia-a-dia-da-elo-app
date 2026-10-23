@@ -74,6 +74,24 @@
 .dpad { display: grid !important; grid-template: repeat(3, 46px) / repeat(3, 46px) !important; gap: 4px !important; background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; padding: 0 !important; }
 .dpad button { border: 2.5px solid #6f54c2 !important; border-radius: 14px !important; background: #ffffff !important; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important; color: #6f54c2 !important; font-weight: 1000 !important; font-size: 24px !important; display: flex !important; align-items: center !important; justify-content: center !important; text-shadow: none !important; filter: none !important; outline: none !important; -webkit-tap-highlight-color: transparent !important; touch-action: none !important; }
 .dpad button:active { transform: scale(0.92) !important; background: #ff6ea9 !important; color: #ffffff !important; border-color: #ff6ea9 !important; }
+
+/* Quando a Bolsa (#menuOverlay) ou qualquer outro modal estiver aberto, os botões direcionais e de ação somem para não atrapalhar a leitura */
+.mobileControls.hidden,
+body:has(#menuOverlay:not(.hidden)) .mobileControls,
+body:has(#dialogOverlay:not(.hidden)) .mobileControls,
+body:has(#shopOverlay:not(.hidden)) .mobileControls,
+body:has(#tvOverlay:not(.hidden)) .mobileControls,
+body:has(#battleOverlay:not(.hidden)) .mobileControls,
+body:has(#battleMagicOverlay:not(.hidden)) .mobileControls,
+body:has(#battleItemOverlay:not(.hidden)) .mobileControls,
+body:has(#introOverlay:not(.hidden)) .mobileControls,
+body:has(.overlay:not(.hidden)) .mobileControls {
+  display: none !important;
+}
+.overlay {
+  z-index: 1000 !important;
+}
+
 </style>
 
 </head>
@@ -169,7 +187,7 @@
           <small style="color:#78350f;font-weight:1000;font-size:10px;display:block;letter-spacing:0.05em;">OBJETIVO ATUAL</small>
           <b id="bagObjectiveText" style="color:#92400e;font-size:13px;line-height:1.2;display:block;">Explore a casa da Elo.</b>
         </div>
-        <button class="objectiveGuide" onclick="showQuestGuide();document.getElementById('menuOverlay').classList.add('hidden');" style="background:#f59e0b;color:#fff;border:0;border-radius:12px;padding:7px 12px;font-size:11px;font-weight:900;cursor:pointer;">✨ Caminho</button>
+        <button class="objectiveGuide" onclick="showQuestGuide();closeOverlay('menuOverlay');" style="background:#f59e0b;color:#fff;border:0;border-radius:12px;padding:7px 12px;font-size:11px;font-weight:900;cursor:pointer;">✨ Caminho</button>
       </div>
       <div class="bagQuickActions" style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
         <button id="bagCloseRpgBtn" class="btn" style="flex:1;min-width:110px;background:#ffe4e6;color:#be123c;border:1.5px solid #fda4af;padding:9px 8px;font-size:12px;font-weight:900;border-radius:14px;cursor:pointer;">‹ Sair do Jogo</button>
@@ -877,7 +895,7 @@ function interactObject(o){
    if(state.quest===16){state.flags.beaconLit=true;state.quest=17;medal('skyroad');addCoins(60);saveGame(true);updateHud();dialog('Elo','O Farol das Estrelas acendeu! Agora o Portão de Retorno pode me levar de volta para casa. ✨','npc');return}
    dialog('Elo','O Farol das Estrelas continua brilhando e mostrando o caminho para a vila. ✨');return
  }
- if(o.type==='tv'){medal('tv-fan');state.flags.tv=true;checkHomeExplorer();$('#tvOverlay').classList.remove('hidden');return}
+ if(o.type==='tv'){medal('tv-fan');state.flags.tv=true;checkHomeExplorer();$('#tvOverlay').classList.remove('hidden');updateMobileControlsVisibility();return}
  if(o.type==='fridge'||o.type==='stove'){heal(10);state.mp=Math.min(state.maxMp,state.mp+4);updateHud();medal('good-meal');state.flags.kitchen=true;checkHomeExplorer();dialog('Elo','Hummm! A refeição recuperou energia e +4 MP. 🍎✨');return}
  if(o.type==='questPickup'||o.type==='treasureChest'){collectQuestItem(o);return}
  if(o.type==='bed'){restoreAll();medal('rested');state.flags.bed=true;checkHomeExplorer();dialog('Elo','Depois de um bom descanso, a energia e a magia estão novinhas! 🌙');return}
@@ -910,20 +928,20 @@ function guardianDialog(){
  if(state.quest>=4&&!state.chapterComplete){dialog('Guardião Sol','A partir daqui, siga sempre em frente. Os amigos que encontrar pelo caminho vão indicar a próxima etapa; você não precisa voltar aqui a cada missão.','npc');return}
  dialog('Guardião Sol','O Reino das Estrelas está em paz. E o Portão Norte agora liga a vila ao Caminho Celeste.','npc')
 }
-function dialog(name,line,portrait='npc',choices=[]){$('#dialogName').textContent=name;$('#dialogLine').textContent=line;$('#dialogPortrait').textContent=portrait==='npc'?(name==='Elo'?'E':'★'):portrait;const box=$('#dialogChoices');box.innerHTML='';if(choices.length){for(const c of choices){const b=document.createElement('button');b.textContent=c.label;b.onclick=()=>{closeDialog();c.fn?.()};box.appendChild(b)}}else{const b=document.createElement('button');b.textContent='Continuar';b.onclick=closeDialog;box.appendChild(b)}$('#dialogOverlay').classList.remove('hidden')}
-function closeDialog(){$('#dialogOverlay').classList.add('hidden');saveGame(true)}
+function dialog(name,line,portrait='npc',choices=[]){$('#dialogName').textContent=name;$('#dialogLine').textContent=line;$('#dialogPortrait').textContent=portrait==='npc'?(name==='Elo'?'E':'★'):portrait;const box=$('#dialogChoices');box.innerHTML='';if(choices.length){for(const c of choices){const b=document.createElement('button');b.textContent=c.label;b.onclick=()=>{closeDialog();c.fn?.()};box.appendChild(b)}}else{const b=document.createElement('button');b.textContent='Continuar';b.onclick=closeDialog;box.appendChild(b)}$('#dialogOverlay').classList.remove('hidden');updateMobileControlsVisibility()}
+function closeDialog(){$('#dialogOverlay').classList.add('hidden');saveGame(true);updateMobileControlsVisibility()}
 
-function openInn(){currentShop='inn';$('#shopTitle').textContent='🌙 Pousada Lua';$('#shopSubtitle').textContent='Descanse por 8 moedas e recupere energia e magia.';$('#shopItems').innerHTML=`<div class="shopItem"><div class="shopIcon">🛏️</div><h3>Uma noite tranquila</h3><p>Recupera toda a energia e a magia.</p><button id="innBuy">Dormir • 8 🪙</button></div>`;$('#shopOverlay').classList.remove('hidden');$('#innBuy').onclick=()=>{if(state.coins<8)return toast('Você não tem moedas suficientes.');state.coins-=8;restoreAll();medal('rested');toast('Boa noite! Energia recuperada 🌙');closeOverlay('shopOverlay')}}
-function openShop(type){currentShop=type;if(type==='magic'){$('#shopTitle').textContent='🔮 Poções do Guardião Sol';$('#shopSubtitle').textContent='Poções mágicas com diferentes quantidades de recuperação de MP.'}else{$('#shopTitle').textContent=type==='items'?'⭐ Loja Estrelinha':'🌈 Boutique Arco-Íris';$('#shopSubtitle').textContent=type==='items'?'Itens úteis para suas aventuras.':'Encantos de aventura que dão bônus. O visual da Elo continua sendo o escolhido no guarda-roupa principal.'}renderShop();$('#shopOverlay').classList.remove('hidden')}
+function openInn(){currentShop='inn';$('#shopTitle').textContent='🌙 Pousada Lua';$('#shopSubtitle').textContent='Descanse por 8 moedas e recupere energia e magia.';$('#shopItems').innerHTML=`<div class="shopItem"><div class="shopIcon">🛏️</div><h3>Uma noite tranquila</h3><p>Recupera toda a energia e a magia.</p><button id="innBuy">Dormir • 8 🪙</button></div>`;$('#shopOverlay').classList.remove('hidden');updateMobileControlsVisibility();$('#innBuy').onclick=()=>{if(state.coins<8)return toast('Você não tem moedas suficientes.');state.coins-=8;restoreAll();medal('rested');toast('Boa noite! Energia recuperada 🌙');closeOverlay('shopOverlay')}}
+function openShop(type){currentShop=type;if(type==='magic'){$('#shopTitle').textContent='🔮 Poções do Guardião Sol';$('#shopSubtitle').textContent='Poções mágicas com diferentes quantidades de recuperação de MP.'}else{$('#shopTitle').textContent=type==='items'?'⭐ Loja Estrelinha':'🌈 Boutique Arco-Íris';$('#shopSubtitle').textContent=type==='items'?'Itens úteis para suas aventuras.':'Encantos de aventura que dão bônus. O visual da Elo continua sendo o escolhido no guarda-roupa principal.'}renderShop();$('#shopOverlay').classList.remove('hidden');updateMobileControlsVisibility()}
 function renderShop(){const box=$('#shopItems');box.innerHTML='';if(currentShop==='items'||currentShop==='magic'){const entries=Object.entries(ITEMS).filter(([id,it])=>currentShop==='magic'?it.magicPotion:(id==='potion'||id==='tea'||id==='apple'));entries.forEach(([id,it])=>{const d=document.createElement('div');d.className='shopItem';d.innerHTML=`<div class="shopIcon">${it.icon}</div><h3>${it.name}</h3><p>${it.desc}</p><button>Comprar • ${it.price} 🪙</button>`;d.querySelector('button').onclick=()=>buyItem(id);box.appendChild(d)})}else{Object.entries(OUTFITS).filter(([id])=>id!=='starter').forEach(([id,it])=>{const owned=state.ownedOutfits.includes(id);const d=document.createElement('div');d.className='shopItem';d.innerHTML=`<div class="shopIcon">${it.icon}</div><h3>${it.name}</h3><p>${it.desc}</p><button>${owned?(state.outfit===id?'Ativo':'Ativar'):`Comprar • ${it.price} 🪙`}</button>`;d.querySelector('button').onclick=()=>owned?equipOutfit(id):buyOutfit(id);box.appendChild(d)})}}
 function buyItem(id){const it=ITEMS[id];if(state.coins<it.price)return toast('Moedas insuficientes.');state.coins-=it.price;state.inventory[id]=(state.inventory[id]||0)+1;medal('shopper');updateHud();renderShop();saveGame(true);toast(`${it.name} comprado!`)}
 function buyOutfit(id){const it=OUTFITS[id];if(state.coins<it.price)return toast('Moedas insuficientes.');state.coins-=it.price;state.ownedOutfits.push(id);medal('shopper');equipOutfit(id);renderShop();updateHud();saveGame(true)}
 function equipOutfit(id){if(!state.ownedOutfits.includes(id))return;state.outfit=id;medal('stylish');toast(`${OUTFITS[id].name} ativado!`);renderShop();saveGame(true)}
 
 function magicTier(){return magicTierForLevel(Number(state.level||1))}
-function startBattle(enemyRef){if(battle||state.hp<=0)return;const template=ENEMIES[enemyRef.type];battle={ref:enemyRef,type:enemyRef.type,name:template.name,hp:template.hp,maxHp:template.hp,atk:template.atk,def:template.def,xp:template.xp,coins:template.coins,boss:!!template.boss,recommended:template.recommended||0,defending:false,turnLocked:false};$('#enemyName').textContent=battle.name;$('#battleText').textContent=battle.boss?`${battle.name} é um chefão! Nível recomendado: ${battle.recommended}. Treinar antes faz diferença.`:`${battle.name} apareceu!`;$('#battleOverlay').classList.remove('hidden');sfx(battle.boss?'boss':'battle');musicStep=0;updateBattleUI();drawBattle()}
+function startBattle(enemyRef){if(battle||state.hp<=0)return;const template=ENEMIES[enemyRef.type];battle={ref:enemyRef,type:enemyRef.type,name:template.name,hp:template.hp,maxHp:template.hp,atk:template.atk,def:template.def,xp:template.xp,coins:template.coins,boss:!!template.boss,recommended:template.recommended||0,defending:false,turnLocked:false};$('#enemyName').textContent=battle.name;$('#battleText').textContent=battle.boss?`${battle.name} é um chefão! Nível recomendado: ${battle.recommended}. Treinar antes faz diferença.`:`${battle.name} apareceu!`;$('#battleOverlay').classList.remove('hidden');updateMobileControlsVisibility();sfx(battle.boss?'boss':'battle');musicStep=0;updateBattleUI();drawBattle()}
 function updateBattleUI(){$('#enemyHpText').textContent=`${Math.max(0,battle.hp)}/${battle.maxHp}`;$('#enemyHpBar').style.width=`${Math.max(0,battle.hp/battle.maxHp*100)}%`;const hpText=$('#battleHpText'),hpBar=$('#battleHpBar'),mpText=$('#battleMpText'),mpBar=$('#battleMpBar'),magicBtn=$('#magicBattleBtn'),mt=magicTier();if(hpText)hpText.textContent=`${Math.max(0,state.hp)}/${state.maxHp}`;if(hpBar)hpBar.style.width=`${Math.max(0,state.hp/state.maxHp*100)}%`;if($('#battleMpLabel'))$('#battleMpLabel').textContent=`💙 Magia • ${mt.name}: ${mt.cost} MP`;if(mpText)mpText.textContent=`${state.mp}/${state.maxMp} MP`;if(mpBar)mpBar.style.width=`${Math.max(0,state.mp/state.maxMp*100)}%`;if(magicBtn){magicBtn.textContent=`${mt.icon} ${mt.name} • ${mt.cost} MP`;magicBtn.disabled=state.mp<mt.cost;magicBtn.style.opacity=state.mp<mt.cost?'.45':'1'}updateHud();drawBattle()}
-function openBattleItemPicker(){const list=$('#battleItemList');const usable=Object.entries(ITEMS).filter(([id])=>(state.inventory[id]||0)>0);if(!usable.length){$('#battleText').textContent='A bolsa está vazia.';return}list.innerHTML=usable.map(([id,it])=>`<div class="listCard"><div class="ico">${it.icon}</div><div class="grow"><b>${it.name}</b><small>${it.desc} • ${state.inventory[id]} disponível(is)</small></div><button class="softBtn" onclick="window.__battleUseItem('${id}')">Usar</button></div>`).join('');$('#battleItemOverlay').classList.remove('hidden')}
+function openBattleItemPicker(){const list=$('#battleItemList');const usable=Object.entries(ITEMS).filter(([id])=>(state.inventory[id]||0)>0);if(!usable.length){$('#battleText').textContent='A bolsa está vazia.';return}list.innerHTML=usable.map(([id,it])=>`<div class="listCard"><div class="ico">${it.icon}</div><div class="grow"><b>${it.name}</b><small>${it.desc} • ${state.inventory[id]} disponível(is)</small></div><button class="softBtn" onclick="window.__battleUseItem('${id}')">Usar</button></div>`).join('');$('#battleItemOverlay').classList.remove('hidden');updateMobileControlsVisibility()}
 function useBattleItem(id){if(!battle||battle.turnLocked)return;if(!useItem(id,true))return;closeOverlay('battleItemOverlay');battle.turnLocked=true;$('#battleText').textContent=`Elo usou ${ITEMS[id].name}.`;sfx('item');updateBattleUI();setTimeout(enemyTurn,500)}
 window.__battleUseItem=useBattleItem;
 function battleAction(type){if(!battle||battle.turnLocked)return;battle.turnLocked=true;const st=stats();if(type==='attack'){const dmg=Math.max(2,Math.floor(st.atk+Math.random()*4-battle.def));battle.hp-=dmg;sfx('attack');$('#battleText').textContent=`Elo lançou um brilho e causou ${dmg} de dano!`;afterPlayerTurn()}else if(type==='magic'){const mt=magicTier();if(state.mp<mt.cost){battle.turnLocked=false;$('#battleText').textContent=`Magia insuficiente. ${mt.name} precisa de ${mt.cost} MP.`;return}state.mp-=mt.cost;const dmg=Math.max(4,Math.floor(st.mag*mt.mult+mt.bonus+Math.random()*6-battle.def));battle.hp-=dmg;sfx('magic');$('#battleText').textContent=`${mt.name}! ${dmg} de dano mágico ${mt.icon}`;afterPlayerTurn()}else if(type==='defend'){battle.defending=true;$('#battleText').textContent='Elo se protegeu para reduzir o próximo dano.';setTimeout(enemyTurn,550)}else if(type==='item'){battle.turnLocked=false;openBattleItemPicker();return}}
@@ -942,7 +960,22 @@ function winBattle(){const b=battle;if(!b)return;state.defeated++;medal('first-w
 function loseBattle(){sfx('lose');battle=null;$('#battleOverlay').classList.add('hidden');state.hp=Math.max(1,Math.floor(state.maxHp*.4));state.mp=Math.floor(state.maxMp*.5);changeMap('home',8*TILE,8*TILE);dialog('Elo','Ufa! Voltei para casa para descansar. Vou me preparar melhor e tentar de novo.','npc')}
 function useItem(id,inBattle=false){const it=ITEMS[id];if(!it||!(state.inventory[id]>0))return false;state.inventory[id]--;if(it.full)state.hp=state.maxHp;else if(it.heal)heal(it.heal);if(it.fullMp)state.mp=state.maxMp;else if(it.mp)state.mp=Math.min(state.maxMp,state.mp+it.mp);medal('potion');updateHud();if(!inBattle)toast(`${it.name} usado!`);saveGame(true);return true}
 
-function openMenu(tab='missions'){$('#menuOverlay').classList.remove('hidden');renderMenu(tab)}
+function updateMobileControlsVisibility(){
+  const mc = document.querySelector('.mobileControls');
+  if(!mc) return;
+  const anyOpen = document.querySelectorAll('.overlay:not(.hidden)').length > 0;
+  if(anyOpen){
+    mc.classList.add('hidden');
+    input.up = input.down = input.left = input.right = false;
+  } else {
+    mc.classList.remove('hidden');
+  }
+}
+function openMenu(tab='missions'){
+  $('#menuOverlay').classList.remove('hidden');
+  updateMobileControlsVisibility();
+  renderMenu(tab);
+}
 function renderMenu(tab){$$('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===tab));const st=stats();$('#statsGrid').innerHTML=`<div><b>NÍVEL</b><span>${state.level}</span></div><div><b>ATAQUE</b><span>${st.atk}</span></div><div><b>DEFESA</b><span>${st.def}</span></div><div><b>MAGIA</b><span>${st.mag}</span></div><div><b>VELOCIDADE</b><span>${st.spd.toFixed(1)}</span></div><div><b>ENERGIA</b><span>${state.hp}/${state.maxHp}</span></div><div><b>MAGIA</b><span>${state.mp}/${state.maxMp}</span></div><div><b>MOEDAS</b><span>${state.coins}</span></div>`;const c=$('#menuContent');
  if(tab==='missions'){c.innerHTML=`<div class="listCard"><div class="ico">📜</div><div class="grow"><b>Missão principal</b><small>${currentObjective()}</small></div></div><div class="listCard"><div class="ico">⭐</div><div class="grow"><b>Progresso da jornada</b><small>Cristais ${state.starCrystals}/3 • Runas ${state.forestRunes}/3 • Chamas ${state.starFlames}/3 • Fragmentos ${state.skyShards}/3</small></div></div>`}
  else if(tab==='bag'){c.innerHTML=Object.entries(ITEMS).map(([id,it])=>`<div class="listCard"><div class="ico">${it.icon}</div><div class="grow"><b>${it.name}</b><small>${it.desc} • Você tem ${state.inventory[id]||0}</small></div><button class="softBtn" ${state.inventory[id]?`onclick="window.__useItem('${id}')"`:'disabled'}>Usar</button></div>`).join('')}
@@ -952,7 +985,7 @@ function renderMenu(tab){$$('.tab').forEach(t=>t.classList.toggle('on',t.dataset
 }
 window.__useItem=id=>{if(useItem(id))renderMenu('bag')};window.__equip=id=>{equipOutfit(id);renderMenu('clothes')};
 
-function closeOverlay(id){$('#'+id).classList.add('hidden')}
+function closeOverlay(id){$('#'+id).classList.add('hidden');updateMobileControlsVisibility()}
 function toast(msg){const t=$('#toastRpg');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1800)}
 
 function camera(){const map=maps[state.map],vw=canvas.width,vh=canvas.height;return{x:Math.max(0,Math.min(map.w*TILE-vw,state.x+24-vw/2)),y:Math.max(0,Math.min(map.h*TILE-vh,state.y+28-vh/2))}}
@@ -1380,7 +1413,7 @@ drawBattle=function(){if(!battle)return;rpgxBattleBg();drawBattleEnemy(485,110,b
 
 function rpgxIntent(text,on=true){const el=$('#bossIntent');if(!el)return;el.textContent=text||'';el.classList.toggle('on',!!on&&!!text)}
 function rpgxBossSpecial(type){if(type==='boss')return{key:'storm',name:'Tempestade Nublada',mult:1.65,mp:2,warning:'⚠️ A Sombra Nublada está juntando uma tempestade! Defender reduz muito o golpe.'};if(type==='forestBoss')return{key:'thorns',name:'Chuva de Espinhos',mult:1.75,warning:'⚠️ O Cervo das Sombras ergueu os chifres! Uma chuva de espinhos vem aí.'};if(type==='golem')return{key:'smash',name:'Impacto de Pedra',mult:1.9,warning:'⚠️ O Golem levantou os braços! Ele prepara um impacto de pedra.'};if(type==='finalBoss')return{key:'nova',name:'Supernova Sombria',mult:2.05,mp:3,warning:'⚠️ A Sombra da Noite concentra uma Supernova Sombria!'};if(type==='starWarden')return{key:'circle',name:'Círculo Celeste',mult:2.1,mp:2,warning:'⚠️ O Guardião do Desafio está formando um círculo de estrelas!'};return null}
-startBattle=function(enemyRef){if(battle||state.hp<=0)return;const template=ENEMIES[enemyRef.type];battle={ref:enemyRef,type:enemyRef.type,name:template.name,hp:template.hp,maxHp:template.hp,atk:template.atk,def:template.def,xp:template.xp,coins:template.coins,boss:!!template.boss,recommended:template.recommended||0,defending:false,turnLocked:false,turnCount:0,nextSpecial:null,phase:1,shield:false};$('#enemyName').textContent=battle.name;$('#battleText').textContent=battle.boss?`${battle.name} é um chefão! Observe os avisos e escolha a melhor ação.`:`${battle.name} apareceu!`;rpgxIntent('',false);$('#battleOverlay').classList.remove('hidden');sfx(battle.boss?'boss':'battle');musicStep=0;updateBattleUI();drawBattle()};
+startBattle=function(enemyRef){if(battle||state.hp<=0)return;const template=ENEMIES[enemyRef.type];battle={ref:enemyRef,type:enemyRef.type,name:template.name,hp:template.hp,maxHp:template.hp,atk:template.atk,def:template.def,xp:template.xp,coins:template.coins,boss:!!template.boss,recommended:template.recommended||0,defending:false,turnLocked:false,turnCount:0,nextSpecial:null,phase:1,shield:false};$('#enemyName').textContent=battle.name;$('#battleText').textContent=battle.boss?`${battle.name} é um chefão! Observe os avisos e escolha a melhor ação.`:`${battle.name} apareceu!`;rpgxIntent('',false);$('#battleOverlay').classList.remove('hidden');updateMobileControlsVisibility();sfx(battle.boss?'boss':'battle');musicStep=0;updateBattleUI();drawBattle()};
 
 battleAction=function(type){if(!battle||battle.turnLocked)return;battle.turnLocked=true;const st=stats();
  if(type==='attack'){let dmg=Math.max(2,Math.floor(st.atk+Math.random()*4-battle.def));if(battle.type==='golem'&&battle.shield){dmg=Math.max(1,Math.floor(dmg*.38));$('#battleText').textContent=`O escudo de pedra segurou parte do golpe. ${dmg} de dano.`}else $('#battleText').textContent=`Elo lançou um brilho e causou ${dmg} de dano!`;battle.hp-=dmg;sfx('attack');rpgxSetFx('attack');afterPlayerTurn()}
@@ -1450,7 +1483,7 @@ function openBattleMagicPicker(){
       <button class="softBtn" ${can ? `onclick="window.__castSpell('${s.id}')"` : 'disabled'}>${can ? 'Conjurar ✨' : 'Sem MP'}</button>
     </div>`;
   }).join('');
-  $('#battleMagicOverlay').classList.remove('hidden');
+  $('#battleMagicOverlay').classList.remove('hidden');updateMobileControlsVisibility();
 }
 window.__castSpell = function(id){
   closeOverlay('battleMagicOverlay');
@@ -1756,7 +1789,7 @@ renderMenu = function(tab){
 };
 
 const hadSave=loadSave();bind();updateHud();$('#locationTag').textContent=maps[state.map].name;if(hadSave){$('#continueStoryBtn').classList.remove('hidden');$('#startStoryBtn').classList.add('hidden')}
-state.started=hadSave?true:false;if(hadSave)$('#introOverlay').classList.remove('hidden');
+state.started=hadSave?true:false;if(hadSave)$('#introOverlay').classList.remove('hidden');updateMobileControlsVisibility();
 raf=requestAnimationFrame(loop);
 })();
 
