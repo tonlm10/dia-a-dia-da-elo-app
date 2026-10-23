@@ -75,17 +75,9 @@
 .dpad button { border: 2.5px solid #6f54c2 !important; border-radius: 14px !important; background: #ffffff !important; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important; color: #6f54c2 !important; font-weight: 1000 !important; font-size: 24px !important; display: flex !important; align-items: center !important; justify-content: center !important; text-shadow: none !important; filter: none !important; outline: none !important; -webkit-tap-highlight-color: transparent !important; touch-action: none !important; }
 .dpad button:active { transform: scale(0.92) !important; background: #ff6ea9 !important; color: #ffffff !important; border-color: #ff6ea9 !important; }
 
-/* Quando a Bolsa (#menuOverlay) ou qualquer outro modal estiver aberto, os botões direcionais e de ação somem para não atrapalhar a leitura */
-.mobileControls.hidden,
-body:has(#menuOverlay:not(.hidden)) .mobileControls,
-body:has(#dialogOverlay:not(.hidden)) .mobileControls,
-body:has(#shopOverlay:not(.hidden)) .mobileControls,
-body:has(#tvOverlay:not(.hidden)) .mobileControls,
-body:has(#battleOverlay:not(.hidden)) .mobileControls,
-body:has(#battleMagicOverlay:not(.hidden)) .mobileControls,
-body:has(#battleItemOverlay:not(.hidden)) .mobileControls,
-body:has(#introOverlay:not(.hidden)) .mobileControls,
-body:has(.overlay:not(.hidden)) .mobileControls {
+/* Quando a Bolsa (#menuOverlay) estiver aberta, os botões direcionais e de ação somem para não atrapalhar a leitura */
+.mobileControls.bag-open,
+body:has(#menuOverlay:not(.hidden)) .mobileControls {
   display: none !important;
 }
 .overlay {
@@ -963,11 +955,13 @@ function useItem(id,inBattle=false){const it=ITEMS[id];if(!it||!(state.inventory
 function updateMobileControlsVisibility(){
   const mc = document.querySelector('.mobileControls');
   if(!mc) return;
-  const anyOpen = document.querySelectorAll('.overlay:not(.hidden)').length > 0;
-  if(anyOpen){
-    mc.classList.add('hidden');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const bagOpen = menuOverlay && !menuOverlay.classList.contains('hidden');
+  if(bagOpen){
+    mc.classList.add('bag-open');
     input.up = input.down = input.left = input.right = false;
   } else {
+    mc.classList.remove('bag-open');
     mc.classList.remove('hidden');
   }
 }
@@ -1101,8 +1095,8 @@ function bind(){
  $$('[data-battle]').forEach(b=>b.onclick=()=>battleAction(b.dataset.battle));$('#battleEscape').onclick=()=>{if(battle?.boss){toast('Não dá para fugir do chefão!');return}battle=null;$('#battleOverlay').classList.add('hidden');state.x-=40;state.y+=40};
  window.addEventListener('keydown',e=>{const k={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'}[e.key];if(k){input[k]=true;e.preventDefault()}if(e.key==='Enter'||e.key===' '){action();e.preventDefault()}if(e.key==='Escape')openMenu('missions')});
  window.addEventListener('keyup',e=>{const k={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'}[e.key];if(k)input[k]=false});
- $('#startStoryBtn').onclick=()=>{state.started=true;state.map='home';state.x=8*TILE;state.y=8*TILE;medal('first-step');$('#introOverlay').classList.add('hidden');saveGame(true);updateHud()};
- $('#continueStoryBtn').onclick=()=>{state.started=true;$('#introOverlay').classList.add('hidden');updateHud()};
+ $('#startStoryBtn').onclick=()=>{state.started=true;state.map='home';state.x=8*TILE;state.y=8*TILE;medal('first-step');$('#introOverlay').classList.add('hidden');saveGame(true);updateHud();updateMobileControlsVisibility();};
+ $('#continueStoryBtn').onclick=()=>{state.started=true;$('#introOverlay').classList.add('hidden');updateHud();updateMobileControlsVisibility();};
 }
 
 

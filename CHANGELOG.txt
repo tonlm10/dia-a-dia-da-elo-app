@@ -1,3 +1,17 @@
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.13-r51)
+Data: 22/10/2026
+
+Detalhamento das correções implementadas:
+
+1. RPG Reino das Estrelas — Controles Ativos no Mapa e Ocultos Apenas na Bolsa:
+   - Os controles direcionais (D-Pad) e botões de ação (A/B) estão totalmente ativos e visíveis durante o jogo normal, exploração e batalhas.
+   - Os botões somem unicamente ao abrir a Bolsa (#menuOverlay), garantindo leitura desobstruída dos itens, status e equipamentos.
+
+2. Trilha Encantada — Voo com a Unicórnia e Ajuste Fino de Contato Físico:
+   - Imunidade total a obstáculos terrestres ao voar na Unicórnia amiga (isFlying).
+   - Imunidade total ao pular com folga por cima de cogumelos, caixotes e cristais.
+   - Ajuste milimétrico de colisão no solo: o dano só ocorre no contato físico real (X <= 124), eliminando mortes antecipadas antes do objeto alcançar a Elo.
+
 # Versão 4.3.12 (r50) - 22/10/2026
 - RPG Reino das Estrelas — D-Pad Oculto na Bolsa: ao abrir a Bolsa (#menuOverlay) ou qualquer modal (Loja, TV, Diálogo, Batalha), os botões direcionais e os botões de ação somem automaticamente da tela, liberando espaço total para ler a lista de itens, missões e estatísticas com clareza. Ao fechar a Bolsa, os controles reaparecem instantaneamente.
 - Modo Deitado (Paisagem) Restaurado: restabelecido o bloqueio de orientação em modo retrato com o botão "Deitar a Tela Automaticamente" e suporte a rotação do aparelho. Agora o aplicativo deita a tela e roda 100% no formato panorâmico/widescreen ideal para todos os jogos, mapas e cantinhos.

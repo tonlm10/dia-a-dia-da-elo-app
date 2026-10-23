@@ -1,3 +1,14 @@
-Versão: 4.3.12 (elo-official-4.3.12-r50)
-Data: 22/10/2026
-Status: Oficial - Modo Deitado Restaurado e D-Pad Oculto na Bolsa do RPG
+VERSÃO ATUAL DO APP: 4.3.13
+CACHE PWA: elo-official-4.3.13-r51
+PURGE SW: 4.3.13-r51
+DATA: 22/10/2026
+
+CORREÇÕES IMPLEMENTADAS:
+1. RPG Reino das Estrelas — Controles Móveis (D-Pad e A/B) Restaurados:
+   - Os controles direcionais e botões de ação ficam 100% visíveis e operantes na exploração e batalhas normais.
+   - Os botões são ocultados EXCLUSIVAMENTE quando a Bolsa (#menuOverlay) é aberta, deixando a tela limpa para leitura dos itens e status.
+
+2. Trilha Encantada — Imunidade na Unicórnia e Fim das Mortes Prematuras:
+   - Ao voar com a Unicórnia amiga (s.isFlying), a Elo ganha imunidade completa aos obstáculos terrestres.
+   - No pulo, se os pés da Elo estiverem acima do topo do obstáculo, não há colisão.
+   - No chão, o dano só é ativado quando o obstáculo realmente toca fisicamente no corpo da Elo (X <= 124), sem mortes à distância.

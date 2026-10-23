@@ -955,17 +955,25 @@ function updateTrailEntities(dt){
         collectTrailItem(e);
       }
     } else if(e.kind === 'obstacle'){
-      if(s.isFlying && p.y < s.ground - p.h - 25){
-        if(Math.random() < 0.14) s.effects.push({x:e.x, y:e.y-12, text:'🦄 Desviou!', t:28});
-      } else if(p.inv <= 0 && !e.hit){
-        // Imunidade total no ar: se a Elo pulou, os pés dela passam por cima do obstáculo com folga!
-        const isJumping = (p.y + p.h < s.ground - 8);
-        if(!isJumping){
-          // Contato físico real no chão: borda frontal do obstáculo entra no corpo da Elo (X=120 a 138)
-          if(e.x <= 138 && (e.x + e.w) >= 120){
-            e.hit = true;
-            trailDamage(1, 'Cuidado com o obstáculo!');
-          }
+      // 1. Imunidade total ao voar com a Unicórnia sobre os obstáculos terrestres
+      if(s.isFlying){
+        if(Math.random() < 0.08) s.effects.push({x: e.x, y: e.y - 12, text: '🦄 Sobrevoou!', t: 26});
+        continue;
+      }
+
+      // 2. Imunidade total no ar: se a Elo pulou, os pés dela passam por cima do obstáculo
+      const feetY = p.y + p.h;
+      if(feetY <= e.y + 10 || feetY < s.ground - 8){
+        continue;
+      }
+
+      // 3. Contato no chão: dano apenas quando o obstáculo realmente encostar fisicamente no corpo da Elo!
+      if(p.inv <= 0 && !e.hit){
+        const obsFront = e.x + (e.type === 'mushroom' ? 8 : (e.type === 'crystal' ? 6 : 2));
+        const obsBack = e.x + e.w;
+        if(obsFront <= 124 && obsBack >= 110){
+          e.hit = true;
+          trailDamage(1, 'Cuidado com o obstáculo!');
         }
       }
     }
