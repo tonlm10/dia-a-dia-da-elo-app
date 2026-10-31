@@ -1,0 +1,61 @@
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.9-r47)
+Data: 22/10/2026
+
+Detalhamento da resolução de todos os 15 itens reportados:
+
+1. Tela de Histórias iniciando no topo:
+   - Removido o scroll smooth que travava o deslocamento em aparelhos móveis.
+   - Implementado reset instantâneo de rolagem (window.scrollTo(0,0)) ao abrir qualquer painel e na rotação de tela.
+   - Compactação do cabeçalho da biblioteca para que os livros apareçam imediatamente no topo.
+
+2. RPG Reino das Estrelas (Tela Ampla, Bolsa e D-Pad):
+   - Barra superior (título, voltar, som, menu) removida da tela de exploração.
+   - Opções movidas para dentro da Bolsa: botão "‹ Sair do Jogo", botão "🔊 Som: Ligado/Mudo" e botão de salvar.
+   - Barra de Objetivo retirada da tela do jogo e colocada em destaque no topo da Bolsa com o botão "✨ Caminho".
+   - Status do jogador (Nível, Energia, Magia, XP, Moedas) condensados em uma única barra fina de 22px, liberando mais de 120px de altura para a tela do jogo.
+   - Botões direcionais (D-Pad) totalmente sem contorno/caixas, exibindo apenas as setas brilhantes com relevo.
+
+3. Pizzaria, Confeitaria e Estúdios Chef:
+   - Substituída a distribuição aleatória por slots simétricos e organizados (anel central, cruz e anel externo).
+   - Os ingredientes em cima da pizza, bolo, sorvete e robô agora ficam harmoniosos e com visual de chef profissional.
+
+4. Quarto da Elo no topo e Bichinho Virtual Visível:
+   - O quarto da Elo agora inicia no topo da tela (removido card redundante de introdução).
+   - Exportadas as funções de carregamento do Pet (window.loadPet / rawLoad) e adicionado fallback de segurança. O ovinho e o mascote agora são desenhados de forma estável no cantinho do quarto.
+
+5. Verificação geral de rolagem nas páginas:
+   - Reduzidos os paddings e margens superiores de todas as seções (Histórias, Quarto, Escolinha, Ateliê, Jogos e Conquistas).
+   - O conteúdo principal de cada tela agora começa visível logo abaixo da barra superior.
+
+6. Texto atrás da cabeça da Elo no Menu Principal:
+   - Removido o balão de fala (.walkerSpeechBubble) que ficava sobreposto atrás da cabeça da Elo que passeia pelo mapa.
+
+7. Jogo do Labirinto sem emoji de menina:
+   - Removido o emoji 👧 da legenda e substituído por indicação direta do objetivo ("Objetivo: Chegar ao Unicórnio 🦄").
+
+8. Labirinto com expansão retangular para a direita:
+   - O labirinto não cresce mais para baixo no Médio e Difícil (evitando rolagem vertical).
+   - A altura foi fixada em 7 linhas e a largura foi expandida para a direita: Fácil 11×7, Médio 17×7 e Difícil 23×7.
+
+9. Caça aos Unicórnios com rotas de fuga e sem corte:
+   - O mapa da arena ganhou corredores e anéis de contorno estratégicos para a Elo despistar o fantasma.
+   - Ajustadas as dimensões da arena (11×11, 13×13 e 15×15) e limitado o tamanho máximo do tabuleiro (max-height: 60vh) para que as barras e botões nunca fiquem escondidos atrás de textos.
+
+10. Trilha Encantada com colisão de contato real:
+    - Corrigido o cálculo de colisão dos obstáculos: a Elo só perde vida se houver contato físico real entre o corpo/pés dela e o obstáculo, eliminando mortes antecipadas no ar ou à distância.
+
+11. Barra de Voo com recuperação suave:
+    - Reduzida a taxa de recuperação de energia de voo de 0.72 para 0.18 por frame, tornando a recarga gradual (~10 segundos no chão para recarregar 100%).
+
+12. Sol do Menu Principal como atalho do Modo Noturno:
+    - O Sol (.worldSun) agora é interativo (cursor pointer) e aciona diretamente o Modo Soninho / Noturno (toggleSleepMode()) ao ser tocado.
+
+13. Vídeo Premiado no Baú sem corte antecipado:
+    - Removido o corte forçado aos 45 segundos que interrompia a exibição antes do final.
+    - Adicionado ouvinte de término real do vídeo e botão de confirmação para liberação correta das +10 estrelas.
+
+14. Pacote para Responsáveis funcional:
+    - Implementada a função buyParentPack com diálogo de seleção (50, 200 ou 500 estrelas) protegido por PIN dos pais e crédito imediato com confetes.
+
+15. Pacote de Figurinhas abrindo perfeitamente:
+    - Corrigida a validação de estrelas do perfil ativo e sincronizados os identificadores do botão de pacote, área de revelação e botão de colar no álbum.

@@ -55,3 +55,37 @@
 .cinemaLatestDynamic>b{font-size:14px;margin-top:10px}
 .cinemaLatestDynamic>small{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.35}
 @media(max-width:520px){.cinemaLatestDynamic{width:100%}}
+
+/* v3.6.0 — Melhorias nos Minijogos */
+.mazeStarItem {
+  display: inline-block;
+  filter: drop-shadow(0 2px 5px rgba(255,215,0,0.8));
+}
+
+.mem {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  perspective: 600px;
+}
+.mem:active {
+  transform: scale(0.94);
+}
+.mem.done {
+  animation: matchCardGlow 0.6s ease forwards;
+}
+
+@keyframes matchCardGlow {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.08); filter: brightness(1.25) drop-shadow(0 0 10px #ffe169); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+.puzzleChoice img {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.puzzleChoice:active img {
+  transform: scale(0.94);
+}
+
+.trailEloClone.trailFacingRight {
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.18));
+}

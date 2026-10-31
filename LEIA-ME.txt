@@ -1,14 +1,20 @@
-DIA A DIA DA ELO v3.5.3
+DIA A DIA DA ELO v4.2.0
 
-Para atualizar pelo workflow do GitHub, envie o arquivo com o nome exato:
+Para atualizar pelo workflow automático do GitHub Actions, envie o arquivo com o nome exato:
 app-upload.zip
 
 Conteúdo do ZIP fica diretamente na raiz, sem pasta externa.
 
-Destaques da v3.5.3:
-- Cinema da Elo em formato de catálogo, com vídeos e Shorts dentro do app.
-- Labirinto com a mesma Elo do guarda-roupa e unicórnio redesenhado.
-- Caça aos Unicórnios com a mesma Elo, unicórnios redesenhados e fantasminha próprio.
-- Trilha Encantada com revisão da direção visual da personagem e novo unicórnio.
-
-Nenhum item bloqueado ou requisito de estrelas do quarto/guarda-roupa foi alterado.
+Destaques da v4.2.0:
+- Voo Montada na Unicórnia Amiga na Trilha Encantada:
+  * Elo voa montada nas costas da unicórnia alada (botão "Voar com Unicórnia" ou teclas X, W ou F).
+  * Barra de estamina de voo no HUD com regeneração automática no chão.
+  * Sobrevoo seguro sobre obstáculos terrestres para alcançar constelações no céu.
+  * Efeitos visuais e sonoros: asas batendo, crina arco-íris e rastro de confetes mágicos.
+- Estúdio 3D da Elo & 5 Modelos 3D Exclusivos:
+  * Motor 3D nativo em Canvas 2D (sem dependências externas, 100% offline).
+  * Rotação orbital 360°, zoom por pinça/scroll, rotação automática suave e modo wireframe.
+  * 5 modelos 3D: Unicórnia Alada, Elo 3D Alada, Elo Montada na Unicórnia, Castelo das Estrelas e Estrela de Cristal.
+  * Importador & Exportador universal Wavefront (.OBJ) e JSON.
+- Acesso ao Estúdio 3D pelo menu inicial (Ações Rápidas), Ateliê Criativo e Cantinho da Elo.
+- Service Worker atualizado para 4.2.0-r36 com sincronização offline sem falhas de cache.

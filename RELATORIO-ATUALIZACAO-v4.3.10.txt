@@ -1,0 +1,32 @@
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.10-r48)
+Data: 22/10/2026
+
+Detalhamento de todas as correções implementadas conforme o feedback:
+
+1. Início imediato no topo da Biblioteca, Quarto, Guarda-roupa e Bichinho:
+   - Nas telas de subpainéis (Histórias, Quarto, Guarda-roupa e Pet), o cabeçalho global do site foi ocultado para não duplicar navegação nem consumir 80px de altura útil.
+   - Foram ocultados os cartões de texto introdutórios (.libraryHero na biblioteca, .roomIntro no quarto, .petIntro no bichinho), fazendo com que as histórias, o quarto 3D e o bichinho apareçam imediatamente na primeira linha da tela, sem exigir rolagem.
+
+2. RPG Reino das Estrelas — D-Pad Limpo sem fosco em volta:
+   - Removido o filtro drop-shadow e o text-shadow rosa que criavam a névoa fosca em volta das setas.
+   - Os 4 botões direcionais agora são botões brancos sólidos, arredondados, nítidos e táteis com setas em roxo escuro contrastante, garantindo visual limpo e perfeito.
+
+3. Labirinto da Elo (Restaurado e Proporcional):
+   - Corrigido o cálculo de proporção e dimensionamento da grade retangular nos modos Fácil (11×7), Médio (17×7) e Difícil (23×7).
+   - O tabuleiro agora se ajusta automaticamente à largura sem esticar verticalmente e o clone da Elo, o Unicórnio e as estrelinhas bônus aparecem perfeitamente posicionados em suas células.
+
+4. Caça aos Unicórnios (15×15 sem corte no final):
+   - A legenda com os nomes "Elo, Unicórnio e Fantasminha" foi retirada de baixo do tabuleiro e movida para a coluna lateral de controles.
+   - O tabuleiro 15×15 agora ocupa 100% da área útil do palco sem nenhuma barra ou texto obstruindo as últimas linhas.
+
+5. Trilha Encantada (Fim das mortes antecipadas):
+   - Reformulado o sistema de colisão: quando a Elo pula e está no ar (mais de 10px acima do solo), ela ganha imunidade completa aos obstáculos terrestres.
+   - No chão, o dano agora só é ativado quando o obstáculo atinge fisicamente o corpo da Elo (X=124), eliminando qualquer morte prematura antes do objeto encostar nela.
+
+6. Pacote dos Responsáveis (Fechamento automático e trava diária):
+   - Ao tocar em "Liberar Pacote", a janela do Baú das Estrelas fecha imediatamente para que a tela do PIN e autorização não fique oculta atrás dela.
+   - O pacote foi configurado com 50 ⭐ fixas e ganha bloqueio automático diário até as 00h de Brasília após o resgate, impedindo resgates repetidos contínuos.
+
+7. Pacotinho de Figurinhas (1 figurinha por dia com trava):
+   - Agora cada pacotinho concede estritamente 1 figurinha mágica por abertura.
+   - Implementada trava diária: após abrir o pacotinho do dia, ele fica bloqueado até as 00h de Brasília do dia seguinte, preservando o desafio e a diversão de colecionar diariamente.

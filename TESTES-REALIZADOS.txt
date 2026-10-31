@@ -1,8 +1,13 @@
-DIA A DIA DA ELO v3.5.3 — TESTES
+DIA A DIA DA ELO v3.6.0 — TESTES REALIZADOS
 
-- Sintaxe de app.js, v3.js, pet.js e service worker.
-- Conferência da versão 3.5.3 e cache r17.
-- Verificação de preservação do scroll horizontal das prateleiras durante re-render.
-- Verificação de player de vídeo específico sem parâmetro de playlist.
-- Verificação de modo Short 9:16 ocupando 100% da largura do modal.
-- Verificação de host/iframe com largura e altura 100%.
+- Sintaxe estrita validada em app.js, v3.js, pet.js, sw.js e rpg.html.
+- Menu Principal (Home): reformulado em 6 Grandes Portais vibrantes com estilo console moderno, eliminando rolagem excessiva.
+- Cantinho da Elo: modal hub unificado dando acesso rápido ao Quarto, Guarda-roupa e Bichinho Virtual.
+- Festa da Família: 100% interativo com Mímica cronometrada (30s/45s), Duelo de Toque 2 Jogadores na mesma tela e Placar com confetes.
+- Escolinha Mágica: 4 trilhas ilustradas com voz ativa da Elo, desafios de alfabetização, matemática e ciências.
+- Ateliê Criativo: adicionado modo Desenho Livre com Pincel Mágico de Arco-Íris, carimbos da Elo e salvamento de obras.
+- RPG: magias estratégicas, efeitos de partículas na batalha, Clareira dos Unicórnios e Gruta dos Cristais.
+- Guarda-roupa: 4 tons de pele, 5 cores de olhos e novos cabelos afro/modernos com comemoração.
+- Quarto e Loja: Baú de Estrelas com recompensa diária, vídeo premiado (+10 ⭐) e pacotes VIP com PIN.
+- Bichinho Virtual: 6 espécies aleatórias, 5 fases de evolução, recomeço com cartinha de fuga carinhosa e Jornada das Estrelas.
+- Partículas: confetes e estrelas explodindo na tela a cada conquista.

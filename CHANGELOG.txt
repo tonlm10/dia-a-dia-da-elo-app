@@ -1,96 +1,213 @@
-v3.5.3
-- Cinema da Elo: a seção Mais recente agora usa diretamente a playlist automática de uploads do canal e sempre aponta para o conteúdo mais novo publicado, sem exigir atualização do app.
-- O card de Mais recente deixa de depender da leitura do catálogo por API e passa a acompanhar o canal dinamicamente.
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.15-r54)
+Data: 31/10/2026
 
-v3.5.3
-- Cinema: prateleiras horizontais agora mantêm a posição enquanto títulos e playlists carregam.
-- Cinema: adição de botões laterais para avançar/voltar nas prateleiras.
-- Cinema: removido o contexto de playlist ao abrir um vídeo específico, evitando voltar ao primeiro vídeo da lista.
-- Cinema: Shorts passam a usar toda a largura disponível do modal em proporção 9:16.
-- Cinema: vídeos comuns e iframe ocupam 100% da área de reprodução disponível.
-- Cinema: host do player recebeu dimensões explícitas para evitar player menor que o contêiner.
+Detalhamento das alterações:
 
-v3.5.1
-- Labirinto: Elo agora fica centralizada exatamente no quadrado do jogador.
-- Caça aos Unicórnios: mesma correção de posicionamento da Elo.
-- Cinema da Elo: playlists carregadas separadamente para impedir conteúdo duplicado/da categoria anterior.
-- Cinema da Elo: títulos reais são lidos do player oficial do YouTube em vez de “Vídeo 1/2”.
-- Cinema da Elo: reprodução refeita com iframe oficial direto, sem depender do player de catálogo oculto.
-- Tela cheia preservada.
+1. Cloudflare Web Analytics:
+   - Inclusão do beacon oficial da Cloudflare Web Analytics no <head> do index.html com o token fornecido (90c3450f7aeb46d0840ac525d5ac0da8).
+   - Carregamento deferido sem impacto na performance ou inicialização do app.
 
-v3.5.1
-- Cinema da Elo reconstruído em formato de catálogo: playlists viram categorias e os vídeos/Shorts aparecem em prateleiras com thumbnails.
-- Reprodução do YouTube ocorre dentro do app, sem autoplay, com player compacto e opção de tela cheia.
-- Labirinto da Elo agora clona a personagem atual do guarda-roupa e usa unicórnio vetorial redesenhado.
-- Caça aos Unicórnios agora clona a mesma Elo do guarda-roupa, usa unicórnios redesenhados e fantasminha vetorial próprio.
-- Trilha Encantada: revisão da orientação da Elo em corrida para impedir aparência de estar andando de costas com penteados/roupas assimétricos.
-- Trilha Encantada: unicórnios coletáveis passam a usar a nova arte vetorial.
-- Itens bloqueados, preços em estrelas e regras de desbloqueio do quarto/guarda-roupa não foram alterados.
+2. Atualização de Cache e Service Worker:
+   - Cache PWA elevado para a revisão 'elo-official-4.3.15-r54'.
+   - TARGET_VER no index.html atualizado para '4.3.15-r54', garantindo purga e atualização automática para todos os usuários.
+   - Versão funcional do aplicativo preservada em 4.3.15.
+   - Integridade total mantida em todos os módulos, jogos, RPG, guarda-roupa, Trilha Encantada e persistência local.
 
-v3.5.1 — RPG Definitivo
-- Monstros redesenhados com 11 identidades visuais e comportamentos diferentes.
-- Chefões com ataques especiais avisados, defesa estratégica, escudo do Golem e duas fases na Sombra da Noite.
-- Cenários de batalha específicos por bioma e novos efeitos visuais.
-- NPCs redesenhados, marcadores de missão e personagens de ambiente em movimento.
-- Casas/prédios com silhuetas próprias e duas casas antes fechadas agora visitáveis.
-- Mapas enriquecidos com dezenas de objetos decorativos e efeitos ambientais.
-- Botão Caminho agora mostra uma trilha visual de estrelas até o objetivo.
-- Três missões secundárias opcionais com recompensas em moedas, XP e itens.
-- Câmera suavizada.
-- Pós-jogo com Guardião do Desafio reaparecendo no Caminho Celeste.
-- Compatibilidade preservada com saves existentes e com a Elo sincronizada ao guarda-roupa.
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.15-r53)
+Data: 23/10/2026
 
-v3.5.1
-- RPG: revisão completa da orientação horizontal da Elo com qualquer look do guarda-roupa.
-- Perfil lateral ficou mais explícito (olho, blush, boca e nariz apontam para o sentido do movimento).
-- Cabelos assimétricos (rabo baixo, rabo lateral e trança) agora ficam atrás da cabeça ao andar para os lados.
-- Laços e presilha lateral também acompanham corretamente a direção.
-- Auditoria confirmou os 75 itens do guarda-roupa mapeados no RPG.
+Detalhamento das correções e calibrações de tela:
 
-v3.5.1
-- RPG: botão “Recomeçar aventura” agora apaga corretamente o save atual e qualquer save legado.
-- RPG: ao reiniciar, a Elo volta imediatamente para a Casa da Elo no nível 1, missão 0, moedas e inventário iniciais.
-- Guarda-roupa escolhido no app é preservado, pois não faz parte do progresso do RPG.
+1. Reino das Estrelas (RPG) — Enquadramento 16:9 e Controles Ergonômicos:
+   - Moldura Arcade 16:9 (.canvasFrame): Limitada a max-width: min(88vw, 760px) e max-height: min(72vh, 420px) com proporção 16:9 fixa e centralizada, resolvendo o problema de tela excessivamente grande e esticada.
+   - D-Pad e Ações Compactos: Botões direcionais ajustados de 46px para 34px e botões de ação A/B reduzidos de 64px/76px para 48px/58px, desobstruindo a visão do mapa e personagens.
+   - Ocultação na Bolsa: Mantida a lógica em que os botões somem apenas ao abrir o menu da bolsa.
 
-v3.5.1
-- Cabeçalho compactado: perfil separado visualmente das estrelas, contador ⭐ no topo e botão de voz mantido.
-- Home simplificada: removidos textos repetidos, botão Ouvir Elo duplicado e contador flutuante.
-- Cartão “Oi! Vamos brincar?” agora é curto e tocável para ouvir a voz da Elo.
-- Botão Voltar do Android navega apenas dentro do app até o menu principal.
-- No menu principal, Voltar sempre abre a confirmação de saída.
-- “Não, continuar” mantém o usuário no menu principal; “Sim, sair” percorre o histórico interno e sai do app quando o ambiente permite.
-- Seletor de perfis agora participa do histórico e fecha corretamente com o botão Voltar.
-- Itens bloqueados, preços em estrelas e regras de desbloqueio não foram alterados.
+2. Trilha Encantada — Redução e Enquadramento Perfeito:
+   - Remoção de min-height forçado: Eliminada a expansão forçada de 220px/245px no canvas, permitindo que a Trilha Encantada mantenha proporção 900x500 e altura calibrada (max-height: min(48vh, 220px)).
+   - Layout Horizontal Otimizado: Controles laterais reduzidos para 36px e HUD condensado em 5 colunas, permitindo que todo o jogo caiba no campo de visão em aparelhos deitados ou em pé, sem barra de rolagem.
+   - Física de Contato Real Preservada: Colisão calibrada para X <= 116 e superação de obstáculos no salto.
 
-v3.3.0
-- Quarto mais vivo: janela, cama, brinquedo, quadro, prateleira e guarda-roupa agora respondem ao toque.
-- Perfis 3–5 anos recebem apresentações curtas em voz nas áreas principais, uma vez por sessão.
-- RPG ganhou “✨ Caminho”, uma ajuda opcional que explica para onde seguir sem completar a missão pela criança.
-- Clubinho/valores saiu do menu infantil e ficou concentrado na Área dos Pais.
-- Tutorial da Trilha corrigido para refletir que o Poder funciona durante toda a batalha do chefão.
-- Política e Termos atualizados para a versão atual.
-- test_room.html e três imagens de quebra-cabeça já removidas do app foram retirados do pacote.
-- Nenhum item bloqueado, custo em estrelas ou requisito do quarto/guarda-roupa foi alterado.
-- Novas melhorias visuais foram isoladas em polish.css para reduzir novos remendos no v3.css legado.
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.14-r52)
+Data: 23/10/2026
 
-v3.2.4
-- Trilha Encantada: botão Poder passou a funcionar durante toda a luta contra o chefão.
-- O chefão pode receber dano mesmo enquanto está atacando.
-- Os intervalos sem tiros ficaram como momento mais seguro, não obrigatório.
+Detalhamento das correções implementadas:
 
-v3.2.3
-- Trilha Encantada: corrigida a ancoragem vertical da Elo em telas estreitas.
-- Os pés passaram a ser posicionados pela escala vertical do canvas.
+1. Trilha Encantada — Ajuste Definitivo de Colisão e Física de Contato Real:
+   - Contato Físico Real no Solo: O limite de colisão horizontal foi ajustado para X <= 116 (com corpo da Elo em 118..148), exigindo que o obstáculo encoste fisicamente no corpo da personagem para causar dano, acabando de vez com mortes prematuras ou com espaço visível.
+   - Superação de Obstáculos no Pulo ('cleared'): Se a Elo saltar sobre o obstáculo, ele é imediatamente marcado como superado. Ao descer do pulo e aterrissar no chão, a Elo não sofre mais dano do obstáculo que acabou de passar por baixo dela.
+   - Voo Seguro com a Unicórnia: Imunidade garantida durante todo o tempo de voo nas alturas.
 
-v3.2.1
-- RPG: Elo passou a mudar visualmente de direção ao andar.
-- Saves antigos foram corrigidos para não pular as missões novas do Caminho Celeste.
-- Trilha Encantada recebeu a Elo sincronizada com o guarda-roupa.
+2. RPG Reino das Estrelas — Controles Ativos no Mapa e Ocultos Apenas na Bolsa:
+   - D-Pad e botões de ação A/B 100% presentes no jogo, sumindo unicamente quando a Bolsa (#menuOverlay) é aberta.
 
-v3.2.0
-- RPG expandido para uma jornada progressiva, com menos retornos ao mago.
-- Novo Caminho Celeste, Fragmentos do Céu, Farol das Estrelas e Portão Norte.
-- Elo do RPG passou a usar o visual escolhido no guarda-roupa.
-- Bichinho virtual preservado sem alterações.
+3. Guia de Atualização no GitHub Atualizado:
+   - Explicado detalhadamente o fluxo de envio do app-upload.zip no repositório GitHub para disparo do workflow automático.
 
---- Histórico anterior preservado no projeto de origem ---
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.13-r51)
+Data: 22/10/2026
+
+Detalhamento das correções implementadas:
+
+1. RPG Reino das Estrelas — Controles Ativos no Mapa e Ocultos Apenas na Bolsa:
+   - Os controles direcionais (D-Pad) e botões de ação (A/B) estão totalmente ativos e visíveis durante o jogo normal, exploração e batalhas.
+   - Os botões somem unicamente ao abrir a Bolsa (#menuOverlay), garantindo leitura desobstruída dos itens, status e equipamentos.
+
+2. Trilha Encantada — Voo com a Unicórnia e Ajuste Fino de Contato Físico:
+   - Imunidade total a obstáculos terrestres ao voar na Unicórnia amiga (isFlying).
+   - Imunidade total ao pular com folga por cima de cogumelos, caixotes e cristais.
+   - Ajuste milimétrico de colisão no solo: o dano só ocorre no contato físico real (X <= 124), eliminando mortes antecipadas antes do objeto alcançar a Elo.
+
+# Versão 4.3.12 (r50) - 22/10/2026
+- RPG Reino das Estrelas — D-Pad Oculto na Bolsa: ao abrir a Bolsa (#menuOverlay) ou qualquer modal (Loja, TV, Diálogo, Batalha), os botões direcionais e os botões de ação somem automaticamente da tela, liberando espaço total para ler a lista de itens, missões e estatísticas com clareza. Ao fechar a Bolsa, os controles reaparecem instantaneamente.
+- Modo Deitado (Paisagem) Restaurado: restabelecido o bloqueio de orientação em modo retrato com o botão "Deitar a Tela Automaticamente" e suporte a rotação do aparelho. Agora o aplicativo deita a tela e roda 100% no formato panorâmico/widescreen ideal para todos os jogos, mapas e cantinhos.
+- Dica de Orientação sem Aviso do Chrome: mantida a orientação para o usuário ativar a "Rotação automática" do próprio celular e virar o aparelho de lado caso prefira jogar sem o modo de tela cheia do Android.
+
+# Versão 4.3.11 (r49) - 22/10/2026
+- Biblioteca, Quarto, Guarda-roupa e Bichinho: corrigida a estrutura HTML de fechamento do contêiner principal (#appContainer), garantindo que todas as telas abram imediatamente visíveis no topo da tela, sem tela em branco.
+- Mensagem de Tela Cheia do Navegador: removida requisição de fullscreen do navegador que disparava o aviso cinza persistente do Chrome ('tonlm10.github.io – Para sair da tela cheia...'), desobstruindo a visualização da tela.
+- RPG Reino das Estrelas — D-Pad 100% Limpo: removido completamente o efeito de vidro fosco (backdrop-filter: blur) em volta dos botões direcionais. O mapa do jogo agora é visível com 100% de nitidez ao redor dos botões, ficando apenas os 4 botões destacados com borda contrastante e setas táteis.
+- Caça aos Unicórnios — Arena Ampliada: ampliado o tamanho máximo do tabuleiro de 52vh para 76vh (min(54vw, 76vh)), preenchendo o espaço útil da tela e melhorando a visibilidade no modo 15×15.
+- Trilha Encantada — Ajuste Fino de Colisão e Obstáculos: removido o arbusto verde que se camuflava na grama, padronizando os obstáculos em cristais roxos, caixotes de madeira e cogumelos vermelhos vibrantes; ampliado o intervalo mínimo de surgimento e ajustada a detecção para contato físico real com o corpo da Elo (X=120 a 138) com trava de dano único por obstáculo.
+
+# Versão 4.3.10 (r48) - 22/10/2026
+- Biblioteca, Quarto, Guarda-roupa e Bichinho: conteúdo abre imediatamente no topo da tela (header global duplicado ocultado nos subpainéis, cartões de introdução removidos e rolagem zerada).
+- RPG Reino das Estrelas: botões direcionais do D-Pad com acabamento sólido limpo e nítido (removido efeito fosco/auréola em volta das setas).
+- Labirinto da Elo: corrigido dimensionamento da grade retangular (11×7, 17×7, 23×7) e renderização estável da Elo, unicórnio e estrelinhas.
+- Caça aos Unicórnios (15×15): legenda movida para a coluna lateral de controles, eliminando qualquer sobreposição ou corte das últimas linhas do tabuleiro.
+- Trilha Encantada: pulo com imunidade total a obstáculos terrestres no ar e dano ativado exclusivamente com contato físico real no corpo da Elo no chão.
+- Pacote dos Responsáveis: fechamento automático da janela do Baú ao clicar, trava estrita de 1 resgate por dia (até 00h de Brasília) e pacote fixo protegido por PIN de 50 ⭐.
+- Pacotinho de Figurinhas: limite de 1 figurinha mágica por dia, impedindo aberturas contínuas e bloqueando o botão até as 00h de Brasília do dia seguinte.
+
+# Versão 4.3.9 (r47) - 22/10/2026
+- Biblioteca e Histórias: conteúdo abre imediatamente no topo da tela sem espaço em branco inicial ou rolagem.
+- Quarto da Elo e Telas: início imediato sem exigir rolagem vertical para visualizar o quarto e itens.
+- Bichinho Virtual no Quarto: corrigido carregamento e exibição contínua do mascote e ovinho no quarto.
+- RPG Reino das Estrelas:
+  * Barra de título, voltar, som e menu movidos para dentro da Bolsa.
+  * Barra de objetivo destacada no topo da Bolsa e retirada da tela principal.
+  * Status bars (Nível, HP, MP, XP, Moedas) em formato ultra-compacto liberando espaço total para o jogo.
+  * Contorno dos botões direcionais removido, deixando apenas as setas brilhantes.
+- Pizzaria, Confeitaria e Estúdios Chef: disposição simétrica e organizada dos ingredientes (sem amontoamento caótico).
+- Menu Principal: retirado balão de texto atrás da cabeça da Elo no mapa.
+- Sol do Menu: toque no Sol ativa/desativa o Modo Noturno / Soninho.
+- Labirinto: remoção do emoji de menina e expansão retangular (11x7, 17x7, 23x7) crescendo para a direita sem forçar rolagem vertical.
+- Caça aos Unicórnios: adição de rotas de fuga/desvios e dimensionamento ajustado (11, 13, 15) sem corte das barras no Difícil.
+- Trilha Encantada: colisão precisa por contato físico real da Elo nos obstáculos e desaceleração da recuperação de energia de voo.
+- Baú e Vídeo Premiado: remoção do corte arbitrário aos 45 segundos, permitindo assistir até o final real do vídeo para liberar +10 estrelas.
+- Pacotes para Responsáveis: implementado diálogo protegido por PIN com opções de 50, 200 e 500 estrelas.
+- Pacote de Figurinhas: corrigida verificação de estrelas e animação de abertura dos pacotinhos mágicos.
+
+============================================================
+VERSÃO 4.3.8 (2026-10-22) — PACOTE FINAL DE INSTALAÇÃO & TESTES
+============================================================
+1. BIBLIOTECA AUTOMÁTICA EM PÉ (PORTRAIT):
+   - A biblioteca de histórias (storiesPanel, readerPanel, interactiveStoriesPanel) vira para retrato (em pé) de forma 100% automática, chamando screen.orientation.unlock() imediatamente ao clicar na casinha e no painel, sem exigir pressionar voltar no celular.
+2. RPG REINO DAS ESTRELAS (BOTÕES TRANSPARENTES & BOTÃO VOLTAR):
+   - Botões direcionais (D-pad) e de ação (Falar/Bolsa) agora flutuam com efeito translúcido (glassmorphism) diretamente em cima do mapa, aproveitando 100% da tela do celular.
+   - Adicionado botão físico '‹ Voltar ao Início' na tela de introdução do RPG.
+   - Corrigido o fluxo de saída pelo botão nativo do celular, eliminando qualquer tela branca.
+3. PIZZARIA, CONFEITARIA, SORVETERIA & OFICINA:
+   - Corrigido o bug de aspas nos atributos HTML que impedia os ingredientes de serem adicionados ao prato. Agora tocar em qualquer ingrediente adiciona imediatamente ao prato com som e feedback visual.
+4. BICHINHO VIRTUAL NO QUARTO DA ELO:
+   - O bichinho agora aparece com modelo completo (ouvinho ou criatura com espécie e acessórios) no cantinho do quarto, junto com a etiqueta personalizada e balãozinho.
+5. LABIRINTO SEM ELO DUPLICADA:
+   - Resolvido o problema em que apareciam duas Eloises no modo Médio e Difícil. O tabuleiro garante estritamente uma única Eloise jogadora.
+6. CAÇA AOS UNICÓRNIOS MAIS DESAFIADORA:
+   - Mapa reestruturado com becos sem saída, esquinas fechadas e corredores reais.
+   - Fantasma com movimentação inteligente mais veloz (700ms no difícil) usando busca em largura (BFS).
+7. TRILHA ENCANTADA COM COLISÃO JUSTA:
+   - Hitbox dos obstáculos ajustada com precisão. A Elo não perde mais vidas prematuramente antes de tocar no obstáculo, permitindo saltos perfeitos.
+8. TOQUE NO NÚMERO (10s, 6s, 4s):
+   - Temporizadores exatos: 10 segundos no Fácil, 6 segundos no Médio e 4 segundos no Difícil.
+   - Ao sair do jogo, a voz da Elo e os temporizadores são imediatamente cancelados, sem continuar pedindo números em segundo plano.
+9. ÁLBUM DE FIGURINHAS RESTAURADO:
+   - Botão 'Álbum' adicionado na barra principal do Mundo da Elo, no Cantinho da Elo e no Baú de Estrelas para fácil acesso a qualquer momento.
+10. BAÚ DAS ESTRELAS (RESET ÀS 00H DE BRASÍLIA):
+   - O resgate diário (+10 estrelas) agora trava após coletado e só é liberado novamente às 00:00 no Horário Oficial de Brasília (UTC-3).
+11. VÍDEO PREMIADO OFICIAL (RESET ÀS 00H DE BRASÍLIA):
+   - Integrado o vídeo oficial mais recente do canal. A recompensa (+10 estrelas) exige assistir o vídeo completo até o fim sem fechar.
+   - Limitado a uma vez por dia, liberando novamente às 00:00 de Brasília.
+
+# v4.3.7-r45 (2026-10-22)
+- Correção de Fala na Abertura: Removida a chamada automática de leitura por voz que dizia 'qual letrinha começa a palavra' ao carregar o app. Agora a voz só é acionada quando a criança toca para ouvir.
+- Biblioteca em Modo Retrato (Em Pé): Celular pode ser mantido de pé para ler histórias confortavelmente nas Aventuras da Elo e Histórias Interativas sem tela de bloqueio.
+- RPG 'Reino das Estrelas' Ajustado: Tela de apresentação inicial com tamanho responsivo, imagem proporcional e botões 'Começar a aventura' e 'Continuar' 100% visíveis em qualquer tela.
+- Alarme da Mímica Alto: Som de alarme digital de tempo esgotado bem alto com pulsos marcantes e vibração para todos na sala ouvirem.
+- Duelo 2 Jogadores Aprimorado: O texto da pergunta agora é exibido para ambos os jogadores (virado corretamente para cada lado da mesa) e os botões 'Nova Rodada' e 'Zerar' ficam fixos na barra central, eliminando a rolagem de tela.
+- Remoção da Copa: Modo Copa da Família removido do painel Festa da Família.
+- Pizzaria e Confeitaria com Pedidos Reais: A Elo faz pedidos com ingredientes e quantidades específicas; se a criança entregar certo ganha estrelas e comemoração, se errar ou faltar ingrediente ela não pontua e pode tentar de novo.
+- Remoção do Estúdio de Fotos: Seção de fotos com emoji removida do Ateliê Criativo.
+- Pet no Quarto da Elo: O bichinho de estimação agora aparece dentro do quarto da Elo no mesmo tamanho e estágio do jogo (inclusive se for ovo); ao tocar nele abre a tela de cuidados.
+- Piano com Modo Guiado e 'Dó, Ré, Mi, Fá': As músicas não tocam mais sozinhas; as teclas piscam no ritmo da melodia para a criança tocar e aprender; adicionada a música 'Dó, Ré, Mi, Fá' e corrigidas as notas das canções.
+- Labirinto Mais Desafiador: Tamanhos ampliados (11x11, 15x15, 19x19) com bifurcações e becos sem saída reais para haver desafio de verdade.
+- Botão 'Novo Jogo' Afastado na Caça aos Unicórnios: Botão movido para o topo, longe das setas de direção, evitando toques acidentais.
+- Cronômetro no 'Toque no Número': Tempo agora corre visivelmente com contagem regressiva em décimos de segundo e barra encolhendo em tempo real.
+- Unicórnio na Trilha Apenas ao Voar: O unicórnio agora só surge quando acionado o botão 'Voar com Unicórnia'; o pulo comum é apenas a Elo pulando.
+- Modo Soninho Totalmente Funcional: Corrigido o áudio Web Audio da caixinha de música suave e adicionadas 3 historinhas calmas narradas com exibição do texto na tela.
+
+# v4.3.5 (2026-10-22)
+- Caminhada Real da Elo pela Estrada: a Elo agora percorre o caminho de terra passo a passo com pernas animadas, balanço de bracinhos, salto alegre e orientação para a esquerda/direita até chegar ao menu escolhido.
+- Avatar Oficial Ilustrado (Sem Foto Estática): removida a foto redonda no mapa inicial. Agora a própria boneca da Elo (com cabelos, roupas e acessórios escolhidos no guarda-roupa) caminha pelo mapa com sombra suave e balão de fala.
+- Reposicionamento do Lago com Patinho: o lago e patinho foram movidos para a clareira verde aberta entre a Escolinha e o Mundo dos Jogos, completamente livre de estradas, com vitórias-régias e ondas d'água.
+- Limpeza e purga automática de cache atualizada para 4.3.5-r43.
+
+v4.2.0 — Voo Montada na Unicórnia, Modelos 3D Criados e Estúdio 3D Interativo
+- Voo Montada na Unicórnia na Trilha Encantada:
+  * Elo agora pode planar e voar montada em sua amiga unicórnia alada em todas as fases da Trilha Encantada.
+  * Botão de voo dedicado (🦄 Voar com Unicórnia) e suporte a atalhos de teclado (KeyX, KeyW, KeyF).
+  * Barra de estamina/energia de voo com regeneração automática ao pousar no chão.
+  * Visual animado da unicórnia alada com asas batendo, crina arco-íris, chifre dourado e rastro de partículas estelares.
+  * Voo permite sobrevoar com segurança obstáculos terrestres (cogumelos, caixotes, cristais e arbustos) e alcançar estrelas altas no céu.
+- Estúdio 3D e Criação dos Modelos 3D:
+  * Motor 3D completo em Canvas nativo com renderização poligonal, backface culling, cálculo de normais, iluminação difusa Lambertiana e ordenação por profundidade (Painter's algorithm).
+  * 5 Modelos 3D poligonais construídos do zero: Unicórnia Alada (293 vértices, 223 faces), Elo 3D Alada (198 vértices, 148 faces), Elo Montada na Unicórnia (381 vértices, 289 faces), Castelo das Estrelas (169 vértices, 129 faces) e Estrela de Cristal (70 vértices, 68 faces).
+  * Controles orbitais interativos de toque e mouse para rotação 360°, zoom por roda do mouse e pinça multitoque.
+  * Botões de alternância para rotação automática suave e modo arames (wireframe).
+  * Exportação de arquivos 3D padrão Wavefront (.OBJ) para download e reutilização em softwares de modelagem 3D.
+  * Importador universal de modelos 3D permitindo carregar arquivos externos .OBJ e .JSON no estúdio.
+- Integração e Navegação:
+  * Botões de acesso rápido ao Estúdio 3D no Início, no Ateliê Criativo e no menu Cantinho da Elo.
+  * Atualização de cache Service Worker para versão 4.2.0-r36 com suporte offline total.
+
+v4.1.0 — Grande Pacote de Atualização: Fix de Embaralhamento, 75+ Perguntas, Álbum, Consultório, Estúdio, DJ, Soninho e Copa da Família
+- Correção Crítica de Jogabilidade: As opções de múltipla escolha na Escolinha Mágica agora são embaralhadas dinamicamente a cada pergunta, distribuindo a resposta correta de forma aleatória entre todos os botões (0, 1 e 2), eliminando o padrão onde a resposta correta caía sempre na primeira opção.
+- Banco de Perguntas e Respostas Expandido: Mais de 75 desafios ricamente ilustrados com emojis, fonética, contagem, comparação, formas geométricas, animais, cores, hábitos saudáveis e ciência.
+- Álbum de Figurinhas Brilhantes & Pacotinhos Surpresa: 24 cards colecionáveis (Comuns, Raros e Holográficos Dourados) com abertura animada de pacotinhos por 5 estrelas e álbum interativo completo.
+- Consultório & Salão de Cuidados da Elo: Três atividades de rotina e saúde — escovação mágica com remoção de placa e espuminha de morango, curativos com pomadinha e band-aids decorados, e montagem de lancheira saudável nutritiva.
+- Estúdio de Fotos & Cartões (Elo + Pet): Criação de fotos personalizadas com 5 cenários (Castelo, Floresta Encantada, Praia, Espaço Sideral e Arco-Íris), molduras coloridas, sprites da Elo e do bichinho virtual, com download em PNG de alta resolução.
+- Banda & Mesa de DJ da Elo: Launchpad interativo com 6 pads (Bumbo, Caixa, Prato, Palmas, Synths) e botão de Ritmo Automático em 110 BPM com animação dançante.
+- Modo Hora do Soninho: Tema noturno relaxante, caixinha de música suave (Brahms' Lullaby / Nana Neném em ondas senoidais confortáveis) e historinhas para dormir com narração suave.
+- Copa da Família: Modo torneio em 3 etapas com pontuação e grande cerimônia do Troféu Dourado da Família.
+- Expansão de Itens no Quarto & Guarda-Roupas: Novos papéis de parede (Fundo do Mar), quadros (Dragão Fofinho), camas (Foguete Espacial), tapetes (Melancia Fresquinha), brinquedos (Trenzinho Encantado), além de novos penteados (Trança Dupla, Espetado), vestidos (Neve Encantada, Dino Camiseta), chapéu pirata, óculos estrela e sapatilhas de balé.
+- Service Worker & Cache: Otimização do Service Worker para cache bust limpo da versão 4.1.0 sem erros de navegação no Chrome.
+
+v3.6.0 — Mega Expansão: RPG, Streaming, Personalização Completa e Monetização
+- RPG: novo menu de Magias com 4 poderes estratégicos (Raio Estelar, Cura Florida, Escudo Arco-Íris e Chuva de Meteoros).
+- RPG: efeitos visuais mágicos dedicados na tela de batalha (raios cintilantes, pétalas curativas, domo arco-íris e chuva de meteoros).
+- RPG: novas regiões exploráveis (Clareira Secreta dos Unicórnios e Gruta dos Cristais Cintilantes) com baús de tesouro e NPCs.
+- RPG: vitórias e missões agora premiam com ⭐ estrelas reais creditadas diretamente no perfil do app principal.
+- Guarda-roupa: personalização completa com 4 tons de pele, 5 cores de olhos e novos cabelos (Afro Estrelar, Curto Moderno, Tranças e Mechas).
+- Guarda-roupa: novos vestidos (Fada Borboleta, Astronauta, Sereia) e acessórios (Asinhas Luminosas, Fone Gatinho, Óculos Coração).
+- Guarda-roupa: animação comemorativa com saltinho e estrelas sempre que a criança experimenta um novo visual.
+- Quarto da Elo: novas decorações (Parede Galáxia, Cama Nuvem, Tapete Cometa, Robô Amigo, Dragãozinho e Casinha Encantada).
+- Monetização Ética: Baú das Estrelas com Recompensa Diária (+10 ⭐), Vídeo Premiado da Elo (+10 ⭐) e Pacotes VIP protegidos por PIN dos pais.
+- Cinema da Elo: visual de plataforma de streaming moderna com banner de lançamento do canal e filtros rápidos (Aventuras, Músicas, Shorts, Escolinha).
+- Bichinho Virtual: 6 espécies aleatórias no nascimento (Unicórnio, Gatinho, Cachorrinho, Coelhinho, Dragãozinho e Pônei).
+- Bichinho Virtual: ciclo de vida completo (Ovo -> Bebê -> Criança -> Adolescente -> Adulto -> Idoso -> Jornada das Estrelas).
+- Bichinho Virtual: se ficar sem cuidados prolongados, em vez de morrer, o bichinho deixa uma cartinha comovente e recomeça com um novo ovinho.
+- Sistema de Partículas: confetes e estrelas explodem na tela comemorando qualquer conquista de estrelas no app.
+
+============================================================
+VERSÃO 4.3.2 (21/10/2026) - MODO DEITADO EXCLUSIVO (LANDSCAPE ONLY)
+============================================================
+1. Bloqueio Obrigatório em Modo Retrato (Em Pé):
+   - O aplicativo agora bloqueia 100% o uso com celular em pé.
+   - Tela animada de aviso impedindo layout espremido.
+   - Botão para virar a tela automaticamente via Fullscreen + Orientation Lock API.
+   - Botão de fallback imediato para forçar giro 90° em CSS mesmo se o celular estiver com a rotação travada no Android/iOS.
+   - Desativação automática do giro forçado assim que o celular é deitado fisicamente.
+
+2. Mapa Panorâmico Horizontal Total:
+   - Cenário horizontal sem cortes nem rolagem excessiva.
+   - Ajuste dinâmico de altura para telas de celulares modernos deitados.

@@ -1,13 +1,15 @@
-Dia a Dia da Elo — v3.5.3
+Dia a Dia da Elo — v4.2.0
 
-Atualização principal:
-- RPG com progressão mais longa e menos retornos obrigatórios ao Guardião Sol.
-- Novo Caminho Celeste após o Templo das Estrelas.
-- Retorno final à Vila das Estrelas pelo novo Portão Norte.
-- Portão Norte começa trancado e fica liberado em ambos os sentidos depois do retorno.
-- Elo do RPG usa a mesma personagem e o mesmo look do guarda-roupa principal.
-- Trilha Encantada também usa a mesma Elo do guarda-roupa.
-- Ajuste encontrado na revisão geral: novas camas, tapetes e paredes do quarto agora aplicam corretamente seus visuais.
-- O bichinho virtual não foi alterado nesta atualização.
+Atualização v4.2.0:
+- Voo Montada na Unicórnia Amiga na Trilha Encantada:
+  * Elo agora pode voar montada na unicórnia alada em todas as fases da Trilha Encantada.
+  * Controle com estamina de voo, regeneração no chão e desvio de obstáculos terrestres.
+  * Botão no HUD e atalhos de teclado (X, W, F).
+- Estúdio 3D da Elo & 5 Modelos 3D Exclusivos:
+  * Motor 3D em JavaScript puro no Canvas 2D (órbita 360°, zoom, wireframe e rotação contínua).
+  * 5 modelos: Unicórnia Alada, Elo 3D Alada, Elo Montada na Unicórnia, Castelo das Estrelas e Estrela de Cristal.
+  * Exportação padrão Wavefront (.OBJ) e importação universal de modelos externos.
+- Integração no Início, Ateliê Criativo e Cantinho da Elo.
+- Service Worker 4.2.0-r36 garantindo funcionamento offline e renovação imediata de cache.
 
-Para atualizar no GitHub, envie app-upload.zip com esse nome exato.
+Para atualizar no GitHub pelo workflow automático, envie app-upload.zip para a raiz do repositório.

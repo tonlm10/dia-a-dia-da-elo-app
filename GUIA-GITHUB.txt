@@ -1,9 +1,21 @@
-ATUALIZAÇÃO AUTOMÁTICA — V3.0.2
+COMO ATUALIZAR SEU APP NO GITHUB (v4.3.15)
 
-1. Baixe app-upload.zip.
-2. Envie app-upload.zip para a RAIZ do repositório.
-3. Commit direto na main.
-4. Aguarde o workflow “Importar ZIP do app” concluir.
-5. O ZIP é removido automaticamente e os arquivos da nova versão são publicados.
+IMPORTANTE: O botão verde '<> Code' serve apenas para BAIXAR/CLONAR o código no seu computador. NÃO é por ali que se envia a atualização.
 
-Não descompacte o arquivo manualmente no GitHub.
+Para atualizar o site com o arquivo 'app-upload.zip':
+
+MÉTODO 1 — O Mais Rápido (Arrastar e Soltar):
+1. Acesse o seu repositório no navegador do computador:
+   https://github.com/tonlm10/dia-a-dia-da-elo-app
+2. Abra a pasta do seu computador onde está o arquivo 'app-upload.zip' (normalmente Downloads).
+3. ARRASTE o arquivo 'app-upload.zip' e SOLTE diretamente sobre a página do GitHub (em cima da lista de arquivos).
+4. Uma tela de upload vai se abrir mostrando o arquivo 'app-upload.zip'.
+5. Role até o final da página e clique no botão verde 'Commit changes'.
+6. Pronto! O robô do GitHub Actions começará a descompactar tudo sozinho. Em 1 a 2 minutos o site estará atualizado!
+
+MÉTODO 2 — Pelo Botão 'Add file':
+1. Na página do seu repositório, clique no botão 'Add file' (fica ao lado da barra 'Go to file').
+2. Escolha a opção 'Upload files'.
+3. Clique em 'choose your files' e selecione o 'app-upload.zip' (ou arraste-o para o retângulo).
+4. Clique no botão verde 'Commit changes' no final da tela.
+5. Pronto!
