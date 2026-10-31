@@ -1,18 +1,2 @@
-VERSÃO ATUAL DO APP: 4.3.15
-CACHE PWA: elo-official-4.3.15-r53
-PURGE SW: 4.3.15-r53
-DATA: 23/10/2026
-
-CORREÇÕES E AJUSTES DE TAMANHO DE TELA:
-1. Reino das Estrelas (RPG) — Tela e Controles Calibrados:
-   - Formato Arcade 16:9 Centralizado: A moldura do jogo (.canvasFrame) foi ajustada com max-width: min(88vw, 760px), max-height: min(72vh, 420px) e aspect-ratio: 16/9, eliminando a tela gigante esticada e mantendo proporções visuais perfeitas.
-   - Controles Redimensionados (D-Pad e Botões de Ação): O direcional foi reduzido de 46px para 34px por tecla (compacto e ergonômico), e os botões A/B foram reduzidos para 48px/58px, liberando mais de 40% de área visual do jogo.
-   - Bolsa (#menuOverlay): Ocultação automática dos controles mantida quando a bolsa está aberta.
-
-2. Trilha Encantada — Tela Ajustada e Compacta:
-   - Fim da Tela Gigante: Removidos todos os min-height forçados (220px/235px/245px). A área do canvas agora respeita proporção 900x500 (1.8) com max-width e max-height calibrados (max-height: min(48vh, 220px)).
-   - HUD e Controles Compactados: HUD em linha única com 5 colunas compactas, botões ergonômicos e ocultação de textos explicativos longos durante a partida, cabendo 100% na tela sem exigir rolagem vertical.
-   - Colisão Fisiológica Real (X <= 116) e Voo com Unicórnia preservados.
-
-3. Como Atualizar no GitHub:
-   - Arraste 'app-upload.zip' para o repositório ou use 'Add file' > 'Upload files' e confirme em 'Commit changes'.
+Versão atual do app: 3.5.3
+Cinema da Elo: seção Mais recente dinâmica, sempre ligada ao último upload do canal.

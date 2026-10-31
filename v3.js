@@ -41,49 +41,12 @@ const ROOM_DECOR=[
  {id:'kite',kind:'toy',icon:'🪁',name:'Pipa',need:22,shape:'kite'},
  {id:'cat',kind:'toy',icon:'🐱',name:'Gatinho',need:30,shape:'cat'},
  {id:'blocks',kind:'toy',icon:'🧱',name:'Blocos',need:36,shape:'blocks'},
- {id:'rocket',kind:'toy',icon:'🚀',name:'Foguete',need:42,shape:'rocket'},
- {id:'wallGalaxy',kind:'wall',icon:'🌌',name:'Parede Galáxia',need:30,className:'wall-galaxy'},
- {id:'wallCandy',kind:'wall',icon:'🍭',name:'Parede Confeitos',need:22,className:'wall-candy'},
- {id:'wallCastle',kind:'wall',icon:'🏰',name:'Parede Castelo',need:35,className:'wall-castle'},
- {id:'artUnicorn',kind:'art',icon:'🦄',name:'Quadro Unicórnio',need:20},
- {id:'artFriends',kind:'art',icon:'👭',name:'Quadro Amigas',need:15},
- {id:'artSpace',kind:'art',icon:'🚀',name:'Quadro Espacial',need:25},
- {id:'bedCloud',kind:'bed',icon:'☁️',name:'Cama Nuvem',need:28},
- {id:'bedCastle',kind:'bed',icon:'🏰',name:'Cama Castelo',need:40},
- {id:'bedRainbow',kind:'bed',icon:'🌈',name:'Cama Arco-Íris',need:35},
- {id:'rugComet',kind:'rug',icon:'☄️',name:'Tapete Cometa',need:20},
- {id:'rugPaw',kind:'rug',icon:'🐾',name:'Tapete Patinha',need:12},
- {id:'rugButterfly',kind:'rug',icon:'🦋',name:'Tapete Borboleta',need:18},
- {id:'robotToy',kind:'toy',icon:'🤖',name:'Robô Amigo',need:20,shape:'robot'},
- {id:'dragonToy',kind:'toy',icon:'🐲',name:'Dragãozinho',need:28,shape:'dragon'},
- {id:'dollhouseToy',kind:'toy',icon:'🏡',name:'Casinha Mágica',need:32,shape:'dollhouse'}
-
+ {id:'rocket',kind:'toy',icon:'🚀',name:'Foguete',need:42,shape:'rocket'}
 ];
 const WARDROBE_CATEGORIES=[
- {id:'skin',name:'Tom de Pele',icon:'🎨'},
- {id:'eyes',name:'Olhos',icon:'👀'},
- {id:'hairstyle',name:'Cabelos',icon:'💇‍♀️'},
- {id:'top',name:'Camisetas',icon:'👚'},
- {id:'bottom',name:'Shorts e saias',icon:'🩳'},
- {id:'dress',name:'Vestidos',icon:'👗'},
- {id:'shoes',name:'Sapatos',icon:'👟'},
- {id:'hair',name:'Laços e tiaras',icon:'🎀'},
- {id:'earrings',name:'Brincos',icon:'💎'},
- {id:'ring',name:'Anéis',icon:'💍'},
- {id:'bracelet',name:'Pulseiras',icon:'⌚'},
- {id:'necklace',name:'Colares',icon:'📿'},
- {id:'makeup',name:'Maquiagem',icon:'💄'}
+ {id:'hairstyle',name:'Cabelos',icon:'💇‍♀️'},{id:'top',name:'Camisetas',icon:'👚'},{id:'bottom',name:'Shorts, saias e calças',icon:'🩳'},{id:'dress',name:'Vestidos',icon:'👗'},{id:'shoes',name:'Sapatos',icon:'👟'},{id:'hair',name:'Laços e tiaras',icon:'🎀'},{id:'earrings',name:'Brincos',icon:'💎'},{id:'ring',name:'Anéis',icon:'💍'},{id:'bracelet',name:'Pulseiras',icon:'⌚'},{id:'necklace',name:'Colares',icon:'📿'},{id:'makeup',name:'Maquiagem',icon:'💄'}
 ];
 const WARDROBE_ITEMS=[
- {id:'skinFair',cat:'skin',name:'Pele Clara',need:0,cls:'skin-fair',color:'#fde0cb',thumb:'skin fair'},
- {id:'skinWarm',cat:'skin',name:'Pele Pêssego',need:0,cls:'skin-warm',color:'#f1b884',thumb:'skin warm'},
- {id:'skinTan',cat:'skin',name:'Pele Morena',need:0,cls:'skin-tan',color:'#d99a63',thumb:'skin tan'},
- {id:'skinDark',cat:'skin',name:'Pele Negra',need:0,cls:'skin-dark',color:'#8f5835',thumb:'skin dark'},
- {id:'eyeBrown',cat:'eyes',name:'Castanhos',need:0,cls:'eye-brown',color:'#503222',thumb:'eye brown'},
- {id:'eyeGreen',cat:'eyes',name:'Verdes',need:0,cls:'eye-green',color:'#2f7a4c',thumb:'eye green'},
- {id:'eyeBlue',cat:'eyes',name:'Azuis',need:0,cls:'eye-blue',color:'#2f69a8',thumb:'eye blue'},
- {id:'eyeViolet',cat:'eyes',name:'Violeta',need:10,cls:'eye-violet',color:'#7a46b6',thumb:'eye violet'},
- {id:'eyeHoney',cat:'eyes',name:'Olhos Mel',need:15,cls:'eye-honey',color:'#b87c28',thumb:'eye honey'},
  {id:'hairCurly',cat:'hairstyle',name:'Cacheado com rabo',need:0,cls:'style-curly',thumb:'hairstyle curly'},{id:'hairLowPony',cat:'hairstyle',name:'Rabo baixo',need:6,cls:'style-lowpony',thumb:'hairstyle lowpony'},{id:'hairLoose',cat:'hairstyle',name:'Cacheado solto',need:12,cls:'style-loose',thumb:'hairstyle loose'},{id:'hairSidePony',cat:'hairstyle',name:'Rabo lateral',need:14,cls:'style-sidepony',thumb:'hairstyle sidepony'},{id:'hairBun',cat:'hairstyle',name:'Coque',need:20,cls:'style-bun',thumb:'hairstyle bun'},{id:'hairHalfBun',cat:'hairstyle',name:'Meio coque',need:26,cls:'style-halfbun',thumb:'hairstyle halfbun'},{id:'hairTwins',cat:'hairstyle',name:'Maria-chiquinha',need:28,cls:'style-twins',thumb:'hairstyle twins'},{id:'hairBraid',cat:'hairstyle',name:'Trança longa',need:40,cls:'style-braid',thumb:'hairstyle braid'},
  {id:'teePink',cat:'top',name:'Camiseta Rosa',need:0,cls:'top-pink',thumb:'shirt pink'},{id:'teeMint',cat:'top',name:'Camiseta Menta',need:6,cls:'top-mint',thumb:'shirt mint'},{id:'teeLilac',cat:'top',name:'Camiseta Lilás',need:8,cls:'top-lilac',thumb:'shirt lilac'},{id:'teeHeart',cat:'top',name:'Camiseta Coração',need:12,cls:'top-heart',thumb:'shirt heart'},{id:'teeSun',cat:'top',name:'Camiseta Sol',need:18,cls:'top-sun',thumb:'shirt sun'},{id:'teeRainbow',cat:'top',name:'Camiseta Arco-íris',need:22,cls:'top-rainbow',thumb:'shirt rainbow'},{id:'teeStarry',cat:'top',name:'Camiseta Estrelas',need:26,cls:'top-starry',thumb:'shirt starry'},{id:'teeGame',cat:'top',name:'Camiseta Gamer',need:32,cls:'top-game',thumb:'shirt game'},{id:'teeSport',cat:'top',name:'Camiseta Esporte',need:38,cls:'top-sport',thumb:'shirt sport'},{id:'teePop',cat:'top',name:'Guerreira Pop',need:55,cls:'top-pop',thumb:'shirt pop'},
  {id:'shortDenim',cat:'bottom',name:'Shorts Jeans',need:0,cls:'bottom-shorts',thumb:'short denim'},{id:'shortPink',cat:'bottom',name:'Shorts Rosa',need:8,cls:'bottom-shorts-pink',thumb:'short pink'},{id:'skirtPink',cat:'bottom',name:'Saia Rosa',need:10,cls:'bottom-skirt',thumb:'skirt rose'},{id:'skirtBlue',cat:'bottom',name:'Saia Azul',need:14,cls:'bottom-skirt-blue',thumb:'skirt blue'},{id:'skirtLilac',cat:'bottom',name:'Saia Lilás',need:16,cls:'bottom-skirt-lilac',thumb:'skirt lilac'},{id:'leggingsPink',cat:'bottom',name:'Legging Rosa',need:22,cls:'bottom-leggings-pink',thumb:'pants pink'},{id:'pantsBlue',cat:'bottom',name:'Calça Azul',need:24,cls:'bottom-pants',thumb:'pants blue'},{id:'pantsBlack',cat:'bottom',name:'Calça Preta',need:42,cls:'bottom-pants-black',thumb:'pants black'},{id:'pantsCargo',cat:'bottom',name:'Calça Cargo Lilás',need:50,cls:'bottom-pants-cargo',thumb:'pants cargo'},{id:'skirtPop',cat:'bottom',name:'Saia Guerreira Pop',need:60,cls:'bottom-pop',thumb:'skirt pop'},
@@ -94,20 +57,7 @@ const WARDROBE_ITEMS=[
  {id:'noneRing',cat:'ring',name:'Sem anel',need:0,cls:'ring-none',thumb:'none'},{id:'ringPink',cat:'ring',name:'Anel Rosa',need:18,cls:'ring-pink',thumb:'ring pink'},{id:'ringHeart',cat:'ring',name:'Anel Coração',need:22,cls:'ring-heart',thumb:'ring heart'},{id:'ringStar',cat:'ring',name:'Anel Estrela',need:38,cls:'ring-star',thumb:'ring star'},{id:'ringMoon',cat:'ring',name:'Anel Lua',need:50,cls:'ring-moon',thumb:'ring moon'},
  {id:'noneBracelet',cat:'bracelet',name:'Sem pulseira',need:0,cls:'bracelet-none',thumb:'none'},{id:'braceletPink',cat:'bracelet',name:'Pulseira Rosa',need:10,cls:'bracelet-pink',thumb:'bracelet pink'},{id:'braceletPearl',cat:'bracelet',name:'Pulseira Pérola',need:18,cls:'bracelet-pearl',thumb:'bracelet pearl'},{id:'braceletRainbow',cat:'bracelet',name:'Pulseira Arco-íris',need:28,cls:'bracelet-rainbow',thumb:'bracelet rainbow'},{id:'braceletPop',cat:'bracelet',name:'Pulseira Neon',need:52,cls:'bracelet-pop',thumb:'bracelet pop'},
  {id:'noneNecklace',cat:'necklace',name:'Sem colar',need:0,cls:'necklace-none',thumb:'none'},{id:'neckHeart',cat:'necklace',name:'Colar Coração',need:16,cls:'neck-heart',thumb:'necklace heart'},{id:'neckRainbow',cat:'necklace',name:'Colar Arco-íris',need:22,cls:'neck-rainbow',thumb:'necklace rainbow'},{id:'neckStar',cat:'necklace',name:'Colar Estrela',need:34,cls:'neck-star',thumb:'necklace star'},{id:'neckMoon',cat:'necklace',name:'Colar Lua',need:54,cls:'neck-moon',thumb:'necklace moon'},
- {id:'makeupSoft',cat:'makeup',name:'Natural',need:0,cls:'makeup-soft',thumb:'makeup soft'},{id:'makeupPeach',cat:'makeup',name:'Pêssego',need:12,cls:'makeup-peach',thumb:'makeup peach'},{id:'makeupPink',cat:'makeup',name:'Rosa Suave',need:20,cls:'makeup-pink',thumb:'makeup pink'},{id:'makeupParty',cat:'makeup',name:'Brilho de Festa',need:42,cls:'makeup-party',thumb:'makeup party'},{id:'makeupPop',cat:'makeup',name:'Palco Pop',need:64,cls:'makeup-pop',thumb:'makeup pop'},
- {id:'hairAfro',cat:'hairstyle',name:'Black Power Estrelar',need:10,cls:'style-afro',thumb:'hairstyle afro'},
- {id:'hairShort',cat:'hairstyle',name:'Curto Moderno',need:8,cls:'style-short',thumb:'hairstyle short'},
- {id:'hairBoxBraids',cat:'hairstyle',name:'Tranças com Miçangas',need:18,cls:'style-boxbraids',thumb:'hairstyle boxbraids'},
- {id:'hairPastel',cat:'hairstyle',name:'Ondulado com Mechas',need:22,cls:'style-pastel',thumb:'hairstyle pastel'},
- {id:'dressFairy',cat:'dress',name:'Fada Borboleta',need:25,cls:'dress-fairy',thumb:'dress fairy'},
- {id:'dressSpace',cat:'dress',name:'Astronauta Estelar',need:35,cls:'dress-space',thumb:'dress space'},
- {id:'dressMermaid',cat:'dress',name:'Sereia Encantada',need:45,cls:'dress-mermaid',thumb:'dress mermaid'},
- {id:'teeArtist',cat:'top',name:'Camiseta Artista',need:10,cls:'top-artist',thumb:'shirt artist'},
- {id:'teeFairy',cat:'top',name:'Top Brilho Encantado',need:15,cls:'top-fairy',thumb:'shirt fairy'},
- {id:'wingsFairy',cat:'hair',name:'Asinhas Luminosas',need:20,cls:'hair-wings',thumb:'hair wings'},
- {id:'headCat',cat:'hair',name:'Fone Gatinho Gamer',need:25,cls:'hair-headcat',thumb:'hair cat'},
- {id:'glassesHeart',cat:'hair',name:'Óculos Coração Glitter',need:15,cls:'hair-glasses',thumb:'hair glasses'}
-
+ {id:'makeupSoft',cat:'makeup',name:'Natural',need:0,cls:'makeup-soft',thumb:'makeup soft'},{id:'makeupPeach',cat:'makeup',name:'Pêssego',need:12,cls:'makeup-peach',thumb:'makeup peach'},{id:'makeupPink',cat:'makeup',name:'Rosa Suave',need:20,cls:'makeup-pink',thumb:'makeup pink'},{id:'makeupParty',cat:'makeup',name:'Brilho de Festa',need:42,cls:'makeup-party',thumb:'makeup party'},{id:'makeupPop',cat:'makeup',name:'Palco Pop',need:64,cls:'makeup-pop',thumb:'makeup pop'}
 ];
 const WARDROBE_PRESETS=[
  {id:'original',name:'Original',icon:'💗',need:0,set:{hairstyle:'hairCurly',top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',earrings:'noneEarring',ring:'noneRing',bracelet:'noneBracelet',necklace:'noneNecklace',makeup:'makeupSoft'}},
@@ -119,25 +69,12 @@ const WARDROBE_PRESETS=[
  {id:'pop',name:'Guerreira Pop',icon:'🎤',need:72,set:{hairstyle:'hairBraid',top:'teePop',bottom:'skirtPop',dress:'noneDress',shoes:'shoeBlack',hair:'headPop',earrings:'earMoon',ring:'ringMoon',bracelet:'braceletPop',necklace:'neckMoon',makeup:'makeupPop'}}
 ];
 let wardrobeCategory='top';
-function defaultV3(){return{collections:{stars:0,bows:0,unicorns:0,rainbows:0,stickers:0},secrets:[],room:{wall:'wallPink',art:'rainbow',bed:'bedPink',rug:'rugHeart',toy:'unicorn'},outfit:'pink',wardrobe:{skin:'skinWarm',eyes:'eyeBrown',hairstyle:'hairCurly',top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',earrings:'noneEarring',ring:'noneRing',bracelet:'noneBracelet',necklace:'noneNecklace',makeup:'makeupSoft'},weekly:{key:'',opened:false},creativeDone:[],interactiveDone:[],familyRounds:0,schoolProgress:{colors:0,numbers:0,shapes:0,animals:0}}}
+function defaultV3(){return{collections:{stars:0,bows:0,unicorns:0,rainbows:0,stickers:0},secrets:[],room:{wall:'wallPink',art:'rainbow',bed:'bedPink',rug:'rugHeart',toy:'unicorn'},outfit:'pink',wardrobe:{hairstyle:'hairCurly',top:'teePink',bottom:'shortDenim',dress:'noneDress',shoes:'shoePink',hair:'bowPink',earrings:'noneEarring',ring:'noneRing',bracelet:'noneBracelet',necklace:'noneNecklace',makeup:'makeupSoft'},weekly:{key:'',opened:false},creativeDone:[],interactiveDone:[],familyRounds:0,schoolProgress:{colors:0,numbers:0,shapes:0,animals:0}}}
 function v3Load(){try{return Object.assign(defaultV3(),JSON.parse(pget(V3_KEY)||'{}'))}catch(_){return defaultV3()}}
 function v3Save(v){pset(V3_KEY,JSON.stringify(v));renderV3Counters()}
 function v3Total(v=v3Load()){return Object.values(v.collections||{}).reduce((a,b)=>a+Number(b||0),0)}
-function addCollectible(type,n=1,message){const v=v3Load();if(!(type in V3_COLLECTIONS))return;v.collections[type]=Math.min(V3_COLLECTIONS[type].goal,Number(v.collections[type]||0)+n);v3Save(v);if(message)toast(message);renderCollection();renderRoom();renderWardrobe();initWorldMapElo();}
-const WORLD_META={
-  room:{title:'Quarto 3D da Elo',sub:'Decore móveis e divirta-se'},
-  wardrobe:{title:'Guarda-roupa da Elo',sub:'Monte looks e estilos lindos'},
-  pet:{title:'Bichinho Virtual',sub:'Alimente e brinque com seu pet'},
-  studio3d:{title:'Estúdio 3D & Voo',sub:'Modelos 3D e voo na Unicórnia'},
-  school:{title:'Escolinha Mágica',sub:'Letras, números e piano colorido'},
-  creative:{title:'Ateliê Criativo',sub:'Pinte, desenhe e faça receitas'},
-  play:{title:'Mundo dos Jogos',sub:'Minijogos da Trilha, Labirinto e Memória'},
-  rpg:{title:'Reino das Estrelas',sub:'Grande aventura RPG da Elo'},
-  cinema:{title:'Cinema da Elo',sub:'Vídeos oficiais e historinhas'},
-  family:{title:'Festa da Família',sub:'Mímica, duelos e brincadeiras em grupo'},
-  library:{title:'Biblioteca de Histórias',sub:'Livros ilustrados e narrados'},
-  club:{title:'Clubinho da Elo',sub:'Área oficial para membros e novidades'}
-};
+function addCollectible(type,n=1,message){const v=v3Load();if(!(type in V3_COLLECTIONS))return;v.collections[type]=Math.min(V3_COLLECTIONS[type].goal,Number(v.collections[type]||0)+n);v3Save(v);if(message)toast(message);renderCollection();renderRoom();renderWardrobe();}
+const WORLD_META={room:{title:'Quarto da Elo',sub:'Continue decorando seu cantinho'},school:{title:'Escolinha da Elo',sub:'Continue aprendendo brincando'},play:{title:'Jogos da Elo',sub:'Escolha uma nova brincadeira'},rpg:{title:'Reino das Estrelas',sub:'Continue sua aventura no RPG'},creative:{title:'Ateliê da Elo',sub:'Crie, pinte e invente'},cinema:{title:'Cinema da Elo',sub:'Veja vídeos e playlists'},library:{title:'Biblioteca',sub:'Continue uma história'},club:{title:'Clubinho da Elo',sub:'Veja o espaço especial'}};
 function renderHomeContinue(){const id=pget('v3LastPlace')||'',m=WORLD_META[id],t=document.getElementById('continueTitle'),s=document.getElementById('continueSub');if(t)t.textContent=m?.title||'Escolha uma aventura';if(s)s.textContent=m?.sub||'O app lembra seu último lugar.'}
 function renderV3Counters(){const v=v3Load(),el=document.getElementById('collectionHomeCount');if(el)el.textContent=`${v3Total(v)} itens`;const wk=document.getElementById('weeklySurpriseStatus');if(wk)wk.textContent=v.weekly?.opened&&v.weekly.key===weekKey()?'Já descoberta ✓':'Toque para abrir';renderHomeContinue();}
 window.renderV3Counters=renderV3Counters;
@@ -146,354 +83,15 @@ window.openContinueSpot=function(){const p=pget('v3LastPlace');if(p&&WORLD_META[
 window.playEloVoice=function(clip){const map={intro:'assets/audio/elo-intro.m4a'};const src=map[clip];if(!src)return false;try{let a=window.__eloVoiceAudio;if(!a){a=new Audio();a.preload='auto';window.__eloVoiceAudio=a}a.pause();a.currentTime=0;a.src=`${src}?v=${(self.ELO_APP_VERSION||'3.5.3')}`;a.play().catch(()=>{});return true}catch(_){return false}};
 window.eloGuideSay=function(text,clip=''){const b=document.getElementById('eloGuideText');if(b)b.textContent=text;const played=clip?window.playEloVoice(clip):false;if(!played&&typeof speakText==='function')speakText(text)};
 window.worldPlaceSpeak=function(text){if(getActiveProfile().ageRange==='3-5'&&typeof speakText==='function')speakText(text)};
-// ==========================================================
-// SISTEMA DE CAMINHADA DA ELO PELA ESTRADA DO MUNDO
-// ==========================================================
-const WORLD_ROAD_NODES = {
-  room:     { x: 10.0, y: 40.0 },
-  U_west:   { x: 24.0, y: 38.0 }, // perto do Pet
-  U_mid1:   { x: 36.0, y: 52.0 }, // curva da estrada superior
-  U_center: { x: 50.0, y: 32.0 }, // perto da Escolinha
-  U_mid2:   { x: 63.0, y: 54.0 }, // curva da estrada superior
-  U_east:   { x: 74.0, y: 34.0 }, // perto dos Jogos
-  cinema:   { x: 91.0, y: 33.0 }, // perto do Cinema
-
-  wardrobe: { x: 11.0, y: 72.0 }, // perto do Guarda-roupa
-  L_west:   { x: 26.0, y: 76.0 }, // perto do Estúdio 3D
-  L_mid1:   { x: 36.0, y: 75.0 }, // curva da estrada inferior
-  creative: { x: 44.0, y: 71.0 }, // perto do Ateliê
-  family:   { x: 63.0, y: 76.0 }, // perto da Festa Família
-  rpg:      { x: 81.0, y: 70.0 }, // perto do RPG
-  library:  { x: 93.0, y: 62.0 }, // perto da Biblioteca
-
-  // Conexões transversais
-  T_west:   { x: 25.0, y: 57.0 },
-  T_center: { x: 47.0, y: 52.0 },
-  T_east:   { x: 78.0, y: 52.0 }
-};
-
-const WORLD_ROAD_EDGES = [
-  // Estrada Superior
-  ['room', 'U_west'],
-  ['U_west', 'U_mid1'],
-  ['U_mid1', 'U_center'],
-  ['U_center', 'U_mid2'],
-  ['U_mid2', 'U_east'],
-  ['U_east', 'cinema'],
-
-  // Estrada Inferior
-  ['wardrobe', 'L_west'],
-  ['L_west', 'L_mid1'],
-  ['L_mid1', 'creative'],
-  ['creative', 'family'],
-  ['family', 'rpg'],
-  ['rpg', 'library'],
-
-  // Transversal Oeste
-  ['U_west', 'T_west'],
-  ['T_west', 'L_west'],
-
-  // Transversal Central
-  ['U_center', 'T_center'],
-  ['T_center', 'creative'],
-
-  // Transversal Leste
-  ['U_east', 'T_east'],
-  ['T_east', 'rpg']
-];
-
-const BUILDING_TO_ROAD_NODE = {
-  room: 'room',
-  wardrobe: 'wardrobe',
-  pet: 'U_west',
-  studio3d: 'L_west',
-  school: 'U_center',
-  creative: 'creative',
-  family: 'family',
-  play: 'U_east',
-  rpg: 'rpg',
-  cinema: 'cinema',
-  library: 'library',
-  club: 'U_center'
-};
-
-function getRoadNeighbors(nodeId) {
-  const neighbors = [];
-  for(const [u, v] of WORLD_ROAD_EDGES) {
-    if(u === nodeId) neighbors.push(v);
-    else if(v === nodeId) neighbors.push(u);
-  }
-  return neighbors;
-}
-
-function findShortestRoadPath(startId, goalId) {
-  if(!WORLD_ROAD_NODES[startId] || !WORLD_ROAD_NODES[goalId]) return [goalId || 'U_center'];
-  if(startId === goalId) return [startId];
-  
-  const dist = {};
-  const prev = {};
-  const unvisited = new Set(Object.keys(WORLD_ROAD_NODES));
-  
-  for(const id of unvisited) dist[id] = Infinity;
-  dist[startId] = 0;
-  
-  while(unvisited.size > 0) {
-    let closest = null;
-    let minD = Infinity;
-    for(const id of unvisited) {
-      if(dist[id] < minD) {
-        minD = dist[id];
-        closest = id;
-      }
-    }
-    if(!closest || minD === Infinity) break;
-    if(closest === goalId) break;
-    unvisited.delete(closest);
-    
-    const p1 = WORLD_ROAD_NODES[closest];
-    for(const nxt of getRoadNeighbors(closest)) {
-      if(!unvisited.has(nxt)) continue;
-      const p2 = WORLD_ROAD_NODES[nxt];
-      const d = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-      const alt = dist[closest] + d;
-      if(alt < dist[nxt]) {
-        dist[nxt] = alt;
-        prev[nxt] = closest;
-      }
-    }
-  }
-  
-  const path = [];
-  let curr = goalId;
-  while(curr) {
-    path.unshift(curr);
-    curr = prev[curr];
-  }
-  return path.length > 0 && path[0] === startId ? path : [startId, goalId];
-}
-
-let isEloWalkingOnRoad = false;
-let eloWalkTimeoutChain = [];
-
-function clearEloWalkAnimation() {
-  eloWalkTimeoutChain.forEach(t => clearTimeout(t));
-  eloWalkTimeoutChain = [];
-  const eloWalker = document.getElementById('worldEloWalker');
-  if(eloWalker) {
-    eloWalker.classList.remove('isWalking', 'hasArrived');
-  }
-  isEloWalkingOnRoad = false;
-}
-
-function syncWorldMapElo(v) {
-  const mount = document.getElementById('worldMapEloMount');
-  const source = document.getElementById('wardrobeElo');
-  if(!mount) return;
-  if(!v) v = v3Load();
-  let doll = mount.querySelector('.worldMapEloClone');
-  if(!doll && source) {
-    doll = source.cloneNode(true);
-    doll.removeAttribute('id');
-    doll.classList.add('worldMapEloClone');
-    doll.setAttribute('aria-hidden', 'true');
-    mount.replaceChildren(doll);
-  }
-  if(doll && typeof applyWardrobeToDoll === 'function') {
-    applyWardrobeToDoll(doll, v);
-  }
-}
-
-function initWorldMapElo() {
-  const eloWalker = document.getElementById('worldEloWalker');
-  if(!eloWalker) return;
-  syncWorldMapElo();
-  let currentNodeId = pget('v3EloCurrentNode');
-  if(!currentNodeId || !WORLD_ROAD_NODES[currentNodeId]) {
-    currentNodeId = 'U_center';
-    pset('v3EloCurrentNode', currentNodeId);
-  }
-  const pos = WORLD_ROAD_NODES[currentNodeId];
-  if(pos) {
-    eloWalker.style.transition = 'none';
-    eloWalker.style.left = pos.x + '%';
-    eloWalker.style.top = pos.y + '%';
-  }
-}
-
-function walkEloAlongRoad(targetPlace, onArrival) {
-  const eloWalker = document.getElementById('worldEloWalker');
-  const speech = document.getElementById('walkerSpeechBubble');
-  if(!eloWalker) {
-    if(onArrival) onArrival();
-    return;
-  }
-
-  const targetNodeId = BUILDING_TO_ROAD_NODE[targetPlace] || 'U_center';
-  let currentNodeId = pget('v3EloCurrentNode') || 'U_center';
-  if(!WORLD_ROAD_NODES[currentNodeId]) currentNodeId = 'U_center';
-
-  // Se já está na mesma casa/nó da estrada
-  if(currentNodeId === targetNodeId) {
-    eloWalker.classList.remove('isWalking');
-    eloWalker.classList.add('hasArrived');
-    if(speech) speech.textContent = 'Já estamos aqui! 💗';
-    if(typeof playCuteSfx === 'function') playCuteSfx('coin');
-    setTimeout(() => {
-      eloWalker.classList.remove('hasArrived');
-      if(onArrival) onArrival();
-    }, 280);
-    return;
-  }
-
-  // Cancela caminhada anterior se houver
-  clearEloWalkAnimation();
-  isEloWalkingOnRoad = true;
-
-  const pathNodeIds = findShortestRoadPath(currentNodeId, targetNodeId);
-  eloWalker.classList.add('isWalking');
-  eloWalker.classList.remove('hasArrived');
-  if(speech) speech.textContent = 'Passeando pela estrada... 🎶';
-
-  const waypoints = pathNodeIds.map(id => ({ id, ...WORLD_ROAD_NODES[id] }));
-  let stepIdx = 1;
-
-  function runNextStep() {
-    if(stepIdx >= waypoints.length) {
-      // Chegou no destino!
-      pset('v3EloCurrentNode', targetNodeId);
-      isEloWalkingOnRoad = false;
-      eloWalker.classList.remove('isWalking');
-      eloWalker.classList.add('hasArrived');
-      if(speech) speech.textContent = 'Chegamos! ✨';
-      if(typeof playCuteSfx === 'function') playCuteSfx('win');
-      if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
-
-      const finishTimer = setTimeout(() => {
-        eloWalker.classList.remove('hasArrived');
-        if(speech) speech.textContent = 'Onde vamos parar? 💗';
-        if(onArrival) onArrival();
-      }, 300);
-      eloWalkTimeoutChain.push(finishTimer);
-      return;
-    }
-
-    const prevPt = waypoints[stepIdx - 1];
-    const nextPt = waypoints[stepIdx];
-
-    // Orientação do olhar/caminhada (virar para a esquerda ou direita)
-    const dx = nextPt.x - prevPt.x;
-    if(dx > 0.5) {
-      eloWalker.classList.remove('facingLeft');
-      eloWalker.classList.add('facingRight');
-    } else if(dx < -0.5) {
-      eloWalker.classList.remove('facingRight');
-      eloWalker.classList.add('facingLeft');
-    }
-
-    const dist = Math.hypot(nextPt.x - prevPt.x, nextPt.y - prevPt.y);
-    const stepDuration = Math.max(220, Math.min(360, Math.round(dist * 18)));
-
-    eloWalker.style.transition = 'left ' + stepDuration + 'ms linear, top ' + stepDuration + 'ms linear';
-    eloWalker.style.left = nextPt.x + '%';
-    eloWalker.style.top = nextPt.y + '%';
-
-    if(typeof playCuteSfx === 'function') {
-      playCuteSfx('pop');
-    }
-
-    stepIdx++;
-    const stepTimer = setTimeout(runNextStep, stepDuration);
-    eloWalkTimeoutChain.push(stepTimer);
-  }
-
-  runNextStep();
-}
-
-window.openWorldPlace=function(place){
-  const map={
-    room:['roomPanel','home','Vamos para o meu Quarto 3D! Você pode decorar tudo e trocar meus looks!'],
-    wardrobe:['wardrobePanel','home','Vamos para o Guarda-roupa escolher um look bem lindo!'],
-    pet:['petPanel','home','Vamos visitar e cuidar do meu Bichinho Virtual fofinho!'],
-    studio3d:['modelStudio',null,'Bem-vinda ao Estúdio 3D! Vamos girar modelos e voar com a Unicórnia!'],
-    school:['learnPanel','learn','Hora de aprender e tocar piano na Escolinha Mágica!'],
-    creative:['createPanel','create','Vamos pintar, desenhar e inventar receitas no Ateliê!'],
-    play:['playPanel','play','Bem-vinda à Ilha dos Jogos! Escolha seu minijogo favorito!'],
-    rpg:['rpg',null,'O portal do Reino das Estrelas está aberto! Vamos para a aventura!'],
-    cinema:['watchPanel','watch','Pegue a pipoca! O Cinema e os episódios da Elo vão começar!'],
-    family:['familyPanel','home','Festa da Família! Vamos jogar mímica e duelos juntos!'],
-    library:['storiesPanel','stories','Na biblioteca, cada livrinho é uma linda aventura!'],
-    club:['clubPanel','club','Bem-vinda ao Clubinho especial da Elo!']
-  };
-  const a = map[place];
-  if(!a) return;
-  pset('v3LastPlace', place);
-  if(typeof renderHomeContinue === 'function') renderHomeContinue();
-  if(typeof eloGuideSay === 'function') eloGuideSay(a[2]);
-  if(place === 'library') {
-    document.body.classList.add('reading-portrait-allowed');
-    try {
-      if(screen.orientation && typeof screen.orientation.unlock === 'function') {
-        screen.orientation.unlock();
-      }
-    } catch(_) {}
-  }
-
-  walkEloAlongRoad(place, () => {
-    if(a[0] === 'rpg') {
-      openRpg();
-    } else if(a[0] === 'modelStudio' || place === 'studio3d') {
-      if(typeof openModelStudio === 'function') openModelStudio();
-    } else if(place === 'pet') {
-      if(typeof openPet === 'function') openPet();
-      else openPanel('petPanel', 'home');
-    } else {
-      openPanel(a[0], a[1]);
-    }
-  });
-};
+window.openWorldPlace=function(place){const map={room:['roomPanel','home','Vamos para casa! Você pode decorar o quarto e trocar o visual da Elo.'],school:['learnPanel','learn','Hora de aprender brincando!'],play:['playPanel','play','Escolha um jogo e divirta-se!'],rpg:['rpg',null,'O portal do Reino das Estrelas está aberto!'],creative:['createPanel','create','Vamos criar alguma coisa bem legal!'],cinema:['watchPanel','watch','Pegue a pipoca! O Cinema da Elo vai começar.'],library:['storiesPanel','stories','Na biblioteca, cada história é uma aventura.'],club:['clubPanel','club','Bem-vinda ao Clubinho da Elo!']};const a=map[place];if(!a)return;pset('v3LastPlace',place);renderHomeContinue();eloGuideSay(a[2]);if(a[0]==='rpg')setTimeout(()=>openRpg(),180);else setTimeout(()=>openPanel(a[0],a[1]),140)};
 window.findWorldSecret=function(id){const typeMap={star:'stars',unicorn:'unicorns',bow:'bows'},v=v3Load();if(v.secrets.includes(id))return toast('Você já encontrou este segredo 💗');v.secrets.push(id);v3Save(v);addCollectible(typeMap[id],1,`Segredo encontrado! ${V3_COLLECTIONS[typeMap[id]].icon}`);addStars(1,'Você encontrou um segredo! +1 ⭐')};
 
 function renderCollection(){const root=document.getElementById('collectionGrid');if(!root)return;const v=v3Load();root.innerHTML=Object.entries(V3_COLLECTIONS).map(([id,c])=>{const n=Number(v.collections[id]||0),pct=Math.round(n/c.goal*100);return `<div class="collectionCard"><span>${c.icon}</span><b>${c.name}</b><small>${n}/${c.goal}</small><div class="collectionMeter"><i style="width:${pct}%"></i></div></div>`}).join('')}
 window.renderCollection=renderCollection;
 
 let roomDecorCategory='wall';
-function roomUnlocked(item){return true}
+function roomUnlocked(item){return stars>=item.need}
 window.selectRoomCategory=function(kind){roomDecorCategory=kind;renderRoom()};
-function getRoomPetDataSafe(){
-  if(typeof window.loadPet === 'function') return window.loadPet();
-  if(typeof window.rawLoad === 'function') return window.rawLoad();
-  if(typeof loadPet === 'function') return loadPet();
-  if(typeof rawLoad === 'function') return rawLoad();
-  try{
-    const raw = (typeof pget === 'function') ? pget('eloVirtualPetV1') : localStorage.getItem('eloProfile:elo:eloVirtualPetV1');
-    if(raw) return JSON.parse(raw);
-  }catch(_){}
-  return { stage:'egg', name:'Ovinho misterioso', eggCare:0 };
-}
-
-function syncRoomPet(){
-  const mount = document.getElementById('roomPetMount');
-  const bubble = document.querySelector('.roomPetBubble');
-  if(!mount) return;
-  const p = getRoomPetDataSafe();
-  if(!p) return;
-  if(bubble) {
-    bubble.textContent = p.stage === 'egg' ? '🥚 Cuidar' : `🐾 ${p.name || 'Bichinho'}`;
-  }
-  if(p.stage === 'egg'){
-    mount.innerHTML = '<div class="petEgg roomPetEgg" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.65);cursor:pointer;"><span></span></div>';
-  } else {
-    const species = p.species || 'unicorn';
-    const acc = p.accessory === 'bow' ? '🎀' : p.accessory === 'star' ? '⭐' : p.accessory === 'crown' ? '👑' : '';
-    mount.innerHTML = `<div class="petCreature species-${species} stage-${p.stage || 'baby'} roomPetCreature" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.55);cursor:pointer;">
-      <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
-      <span class="petBody"></span><span class="petHead"><i class="petEye e1"></i><i class="petEye e2"></i><i class="petMouth"></i><i class="petCheek c1"></i><i class="petCheek c2"></i></span>
-      <span class="petAccessory" style="top:2px;left:50%;font-size:24px;">${acc}</span>
-    </div>`;
-  }
-}
-window.syncRoomPet = syncRoomPet;
-
 function syncRoomElo(v){
  const mount=document.getElementById('roomEloMount'),source=document.getElementById('wardrobeElo');
  if(!mount||!source)return;
@@ -526,57 +124,34 @@ function renderRoom(){
  const wallClasses=ROOM_DECOR.filter(x=>x.kind==='wall').map(x=>x.className).filter(Boolean);room.classList.remove(...wallClasses);const wall=ROOM_DECOR.find(x=>x.id===v.room.wall);if(wall?.className)room.classList.add(wall.className);
  const art=ROOM_DECOR.find(x=>x.id===v.room.art),toy=ROOM_DECOR.find(x=>x.id===v.room.toy),bed=ROOM_DECOR.find(x=>x.id===v.room.bed),rug=ROOM_DECOR.find(x=>x.id===v.room.rug);
  const artEl=room.querySelector('.roomWallArt'),toyEl=room.querySelector('.roomToy'),bedEl=room.querySelector('.roomBed'),rugEl=room.querySelector('.roomRug');
- const artMap={rainbow:'art-rainbow',butterflies:'art-butterflies',flowers:'art-flowers',stars:'art-stars',castle:'art-castle',clouds:'art-clouds',heart:'art-heart',artUnicorn:'art-unicorn',artFriends:'art-friends',artSpace:'art-space',artDragon:'art-dragon'};
- if(artEl)artEl.className=`roomWallArt roomInteractive ${!art||art.id==='noneArt'?'hidden':''} ${artMap[art?.id]||'art-rainbow'}`.trim();
- if(toyEl){const shape=toy?.shape||'unicorn';toyEl.className=`roomToy roomInteractive ${shape==='none'?'hidden':''} toy-${shape}`.trim();toyEl.textContent='';}
- if(bedEl){const bedClass={bedPink:'bed-pink',bedBlue:'bed-blue',bedLilac:'bed-lilac',bedStar:'bed-star',bedMint:'bed-mint',bedPeach:'bed-peach',bedCloud:'bed-cloud',bedCastle:'bed-castle',bedRainbow:'bed-rainbow',bedRocket:'bed-rocket'}[bed?.id]||'bed-pink';bedEl.className=`roomBed roomInteractive ${bedClass}`;}
- if(rugEl){const rugClass={rugHeart:'rug-heart',rugRainbow:'rug-rainbow',rugCloud:'rug-cloud',rugFlower:'rug-flower',rugStar:'rug-star',rugComet:'rug-comet',rugPaw:'rug-paw',rugButterfly:'rug-butterfly',rugWatermelon:'rug-watermelon'}[rug?.id]||'rug-heart';rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rugClass}`.trim();}
- syncRoomElo(v);syncWorldMapElo(v);syncRoomPet();
+ if(artEl)artEl.className=`roomWallArt ${!art||art.id==='noneArt'?'hidden':''} art-${art?.id||'rainbow'}`.trim();
+ if(toyEl){const shape=toy?.shape||'unicorn';toyEl.className=`roomToy ${shape==='none'?'hidden':''} toy-${shape}`.trim();toyEl.textContent='';}
+ if(bedEl){const bedClass={bedBlue:'bed-blue',bedLilac:'bed-lilac',bedStar:'bed-star',bedMint:'bed-mint',bedPeach:'bed-peach'}[bed?.id]||'bed-pink';bedEl.className=`roomBed ${bedClass}`;}
+ if(rugEl){const rugClass={rugRainbow:'rug-rainbow',rugCloud:'rug-cloud',rugFlower:'rug-flower',rugStar:'rug-star'}[rug?.id]||'rug-heart';rugEl.className=`roomRug ${!rug||rug.id==='noneRug'?'hidden':''} ${rugClass}`.trim();}
+ syncRoomElo(v);
  const tabs=document.getElementById('roomDecorTabs');if(tabs){const kinds=[['wall','🎨','Parede'],['art','🖼️','Quadros'],['bed','🛏️','Camas'],['rug','🧶','Tapetes'],['toy','🧸','Brinquedos']];tabs.innerHTML=kinds.map(([id,ic,name])=>`<button class="roomDecorTab ${roomDecorCategory===id?'on':''}" onclick="selectRoomCategory('${id}')"><span>${ic}</span>${name}</button>`).join('')}grid.innerHTML=ROOM_DECOR.filter(it=>it.kind===roomDecorCategory).map(it=>{const on=v.room[it.kind]===it.id,unlock=roomUnlocked(it);return `<button class="decorItem ${on?'on':''} ${unlock?'':'locked'}" onclick="selectRoomDecor('${it.id}')">${unlock?roomDecorThumb(it):'<span>🔒</span>'}<b>${it.name}</b><small>${unlock?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');
 }window.renderRoom=renderRoom;
-window.selectRoomDecor=function(id){const it=ROOM_DECOR.find(x=>x.id===id);if(!it)return;if(!roomUnlocked(it))return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load();v.room[it.kind]=it.id;v3Save(v);renderRoom();if(typeof playCuteSfx==='function')playCuteSfx('pop');toast(it.name+' colocado no quarto! ✨');if(typeof speakText==='function'&&getActiveProfile().ageRange==='3-5')speakText(it.name)};
+window.selectRoomDecor=function(id){const it=ROOM_DECOR.find(x=>x.id===id);if(!it)return;if(!roomUnlocked(it))return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load();v.room[it.kind]=it.id;v3Save(v);renderRoom();if(typeof speakText==='function'&&getActiveProfile().ageRange==='3-5')speakText(it.name)};
 
 function wardrobeItem(id){return WARDROBE_ITEMS.find(x=>x.id===id)}
 function roomDecorThumb(it){
  if(!it) return '';
- if(it.id==='noneArt'||it.id==='noneRug'||it.id==='noneToy') return '<span class="decorThumbNone">🚫</span>';
- if(it.kind==='wall') return `<span class="roomWallThumb thumb-${it.id}"><i>${it.icon}</i></span>`;
- if(it.kind==='art'){
-   const artCls={rainbow:'art-rainbow',butterflies:'art-butterflies',flowers:'art-flowers',stars:'art-stars',castle:'art-castle',clouds:'art-clouds',heart:'art-heart',artUnicorn:'art-unicorn',artFriends:'art-friends',artSpace:'art-space',artDragon:'art-dragon'}[it.id]||'art-rainbow';
-   return `<span class="roomArtThumb ${artCls}"></span>`;
- }
- if(it.kind==='bed'){
-   const bedCls={bedPink:'bed-pink',bedBlue:'bed-blue',bedLilac:'bed-lilac',bedStar:'bed-star',bedMint:'bed-mint',bedPeach:'bed-peach',bedCloud:'bed-cloud',bedCastle:'bed-castle',bedRainbow:'bed-rainbow',bedRocket:'bed-rocket'}[it.id]||'bed-pink';
-   return `<span class="roomBedThumb ${bedCls}"><i class="tHead"></i><i class="tBlanket"></i><i class="tPillow"></i></span>`;
- }
- if(it.kind==='rug'){
-   const rugCls={rugHeart:'rug-heart',rugRainbow:'rug-rainbow',rugCloud:'rug-cloud',rugFlower:'rug-flower',rugStar:'rug-star',rugComet:'rug-comet',rugPaw:'rug-paw',rugButterfly:'rug-butterfly',rugWatermelon:'rug-watermelon'}[it.id]||'rug-heart';
-   return `<span class="roomRugThumb ${rugCls}"></span>`;
- }
+ if(it.kind!=='toy') return `<span>${it.icon}</span>`;
  const shape=it.shape||'none';
- if(shape==='none') return '<span class="decorThumbNone">🚫</span>';
+ if(shape==='none') return '<span>🚫</span>';
  return `<span class="roomToyThumb toy-${shape}" aria-hidden="true"></span>`;
 }
 function wardrobeDefaults(){return defaultV3().wardrobe}
 function normalizeWardrobe(v){v.wardrobe=Object.assign({},wardrobeDefaults(),v.wardrobe||{});return v.wardrobe}
 function applyWardrobeToDoll(doll,v){if(!doll)return;const w=normalizeWardrobe(v);const all=WARDROBE_ITEMS.map(x=>x.cls).filter(Boolean);doll.classList.remove(...all);for(const id of Object.values(w)){const it=wardrobeItem(id);if(it?.cls)doll.classList.add(it.cls)};if(w.dress&&w.dress!=='noneDress')doll.classList.add('wearing-dress');else doll.classList.remove('wearing-dress')}
-function garmentThumb(it){
- if(!it||it.thumb==='none')return '<span class="garmentThumb none"><i></i></span>';
- if(it.cat==='skin')return `<span class="garmentThumb skinThumb" style="background:${it.color||'#f1b884'};border-radius:50%;width:34px;height:34px;display:inline-block;box-shadow:0 3px 8px rgba(0,0,0,.15);border:2px solid #fff"></span>`;
- if(it.cat==='eyes')return `<span class="garmentThumb eyeThumb" style="background:#fff;border-radius:50%;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.15);border:2px solid #e0dbed"><i style="width:16px;height:16px;border-radius:50%;background:${it.color||'#503222'};display:block"></i></span>`;
- const parts=it.thumb.split(' '),shape=parts[0],tone=parts.slice(1).join('-');
- return `<span class="garmentThumb ${shape} ${tone}"><i></i><b></b></span>`;
-}
-function renderWardrobePresets(){const box=document.getElementById('wardrobePresets');if(!box)return;box.innerHTML=WARDROBE_PRESETS.map(p=>`<button class="lookPreset " onclick="applyWardrobePreset('${p.id}')"><span>${p.icon}</span><b>${p.name}</b><small>'Vestir'</small></button>`).join('')}
-window.applyWardrobePreset=function(id){const p=WARDROBE_PRESETS.find(x=>x.id===id);if(!p)return;const v=v3Load();v.wardrobe=Object.assign({},normalizeWardrobe(v),p.set);v3Save(v);renderWardrobe();initWorldMapElo();toast(`${p.name} escolhido! ✨`)};
+function garmentThumb(it){if(it.thumb==='none')return '<span class="garmentThumb none"><i></i></span>';const parts=it.thumb.split(' '),shape=parts[0],tone=parts.slice(1).join('-');return `<span class="garmentThumb ${shape} ${tone}"><i></i><b></b></span>`}
+function renderWardrobePresets(){const box=document.getElementById('wardrobePresets');if(!box)return;box.innerHTML=WARDROBE_PRESETS.map(p=>`<button class="lookPreset ${stars>=p.need?'':'locked'}" onclick="applyWardrobePreset('${p.id}')"><span>${stars>=p.need?p.icon:'🔒'}</span><b>${p.name}</b><small>${stars>=p.need?'Vestir':`${p.need} ⭐`}</small></button>`).join('')}
+window.applyWardrobePreset=function(id){const p=WARDROBE_PRESETS.find(x=>x.id===id);if(!p)return;if(stars<p.need)return toast(`Este look libera com ${p.need} estrelas ⭐`);const v=v3Load();v.wardrobe=Object.assign({},normalizeWardrobe(v),p.set);v3Save(v);renderWardrobe();toast(`${p.name} escolhido! ✨`)};
 window.selectWardrobeCategory=function(cat){if(!WARDROBE_CATEGORIES.some(x=>x.id===cat))return;wardrobeCategory=cat;renderWardrobe()};
-function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);syncRoomElo(v);syncWorldMapElo(v);syncRoomPet();if(n){const top=wardrobeItem(w.top)?.name||'',bottom=wardrobeItem(w.bottom)?.name||'',dress=w.dress&&w.dress!=='noneDress'?wardrobeItem(w.dress)?.name:'';n.textContent=dress||[top,bottom].filter(Boolean).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=true,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');renderWardrobePresets()}
+function renderWardrobe(){const grid=document.getElementById('wardrobeGrid'),tabs=document.getElementById('wardrobeTabs');if(!grid||!tabs)return;const v=v3Load(),w=normalizeWardrobe(v);const doll=document.getElementById('wardrobeElo'),n=document.getElementById('wardrobeName');applyWardrobeToDoll(doll,v);syncRoomElo(v);if(n){const top=wardrobeItem(w.top)?.name||'',bottom=wardrobeItem(w.bottom)?.name||'',dress=w.dress&&w.dress!=='noneDress'?wardrobeItem(w.dress)?.name:'';n.textContent=dress||[top,bottom].filter(Boolean).join(' + ')||'Look da Elo'}tabs.innerHTML=WARDROBE_CATEGORIES.map(c=>`<button class="wardrobeTab ${wardrobeCategory===c.id?'on':''}" onclick="selectWardrobeCategory('${c.id}')"><span>${c.icon}</span>${c.name}</button>`).join('');grid.innerHTML=WARDROBE_ITEMS.filter(it=>it.cat===wardrobeCategory).map(it=>{const unlocked=stars>=it.need,on=w[it.cat]===it.id;return `<button class="wardrobeItem wardrobeItem302 ${on?'on':''} ${unlocked?'':'locked'}" onclick="equipWardrobeItem('${it.id}')">${unlocked?garmentThumb(it):'<span class="garmentLock">🔒</span>'}<b>${it.name}</b><small>${unlocked?(on?'Usando':'Usar'):`${it.need} ⭐`}</small></button>`}).join('');renderWardrobePresets()}
 window.renderWardrobe=renderWardrobe;
-window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();initWorldMapElo();
- const doll=document.getElementById('wardrobeElo');
- if(doll){doll.classList.remove('dollCelebration');void doll.offsetWidth;doll.classList.add('dollCelebration');}
- toast(`${it.name} escolhido! ✨`)};
-window.resetV3Wardrobe=function(){const v=v3Load();v.wardrobe=wardrobeDefaults();v3Save(v);renderWardrobe();initWorldMapElo();toast('Look original restaurado 💗')};
+window.equipWardrobeItem=function(id){const it=wardrobeItem(id);if(!it)return;if(stars<it.need)return toast(`Este item libera com ${it.need} estrelas ⭐`);const v=v3Load(),w=normalizeWardrobe(v);w[it.cat]=it.id;if(it.cat==='dress'&&id!=='noneDress'){}else if((it.cat==='top'||it.cat==='bottom')&&w.dress!=='noneDress')w.dress='noneDress';v3Save(v);renderWardrobe();toast(`${it.name} escolhido! ✨`)};
+window.resetV3Wardrobe=function(){const v=v3Load();v.wardrobe=wardrobeDefaults();v3Save(v);renderWardrobe();toast('Look original restaurado 💗')};
 // Compatibilidade com botões/estado antigos
 window.equipV3Outfit=function(){openPanel('wardrobePanel','home')};
 
@@ -651,180 +226,16 @@ function renderParentV3(){const root=document.getElementById('v3ParentProgress')
 
 // Hook seguro de navegação sem alterar o RPG restaurado.
 const oldOpenPanel=window.openPanel;
-window.openPanel=function(id,nav,fromHistory=false){oldOpenPanel(id,nav,fromHistory);if(id==='collectionPanel')renderCollection();if(id==='roomPanel')renderRoom();if(id==='wardrobePanel')renderWardrobe();initWorldMapElo();if(id==='creativePanel')renderCreative();if(id==='familyPanel'&&!familyType){const fg=document.getElementById('familyGameBox');if(fg)fg.innerHTML='<p class="muted">Escolha uma brincadeira acima.</p>'}if(id==='interactiveStoriesPanel')renderInteractiveList();if(id==='parentsPanel')renderParentV3();};
+window.openPanel=function(id,nav,fromHistory=false){oldOpenPanel(id,nav,fromHistory);if(id==='collectionPanel')renderCollection();if(id==='roomPanel')renderRoom();if(id==='wardrobePanel')renderWardrobe();if(id==='creativePanel')renderCreative();if(id==='familyPanel'&&!familyType){document.getElementById('familyGameBox').innerHTML='<p class="muted">Escolha uma brincadeira acima.</p>'}if(id==='interactiveStoriesPanel')renderInteractiveList();if(id==='parentsPanel')renderParentV3();};
 
 // Coleções por marcos reais, sem recompensas a cada clique.
 const oldAddStars=window.addStars;
-window.addStars=function(n=1,msg){const before=stars;oldAddStars(n,msg);const after=stars;const milestones=[[10,'bows'],[25,'rainbows'],[45,'unicorns'],[70,'stickers']];for(const [m,t] of milestones){if(before<m&&after>=m)addCollectible(t,1,`Nova descoberta na coleção! ${V3_COLLECTIONS[t].icon}`)}renderV3Counters();renderWardrobe();initWorldMapElo();renderRoom()};
+window.addStars=function(n=1,msg){const before=stars;oldAddStars(n,msg);const after=stars;const milestones=[[10,'bows'],[25,'rainbows'],[45,'unicorns'],[70,'stickers']];for(const [m,t] of milestones){if(before<m&&after>=m)addCollectible(t,1,`Nova descoberta na coleção! ${V3_COLLECTIONS[t].icon}`)}renderV3Counters();renderWardrobe();renderRoom()};
 
 // Amplia o painel dos pais já existente sem regressão.
 const oldRenderParentV2=window.renderParentV2;
 window.renderParentV2=function(){oldRenderParentV2();renderParentV3()};
 
-function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();initWorldMapElo();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent=APP_VERSION);renderHomeContinue();if(!pget('tutorial-v304'))setTimeout(()=>showTutorialOnce('v304','A casa da Elo ficou mais organizada! ✨',['O menu inicial voltou a ficar mais direto, com botões grandes para entrar em cada área.','O quarto ganhou ainda mais opções de decoração, com novas paredes, quadros, camas, tapetes e brinquedos.','O guarda-roupa também recebeu várias peças novas: cabelos, roupas, acessórios e maquiagem.','Os brinquedos do quarto ficaram desenhados em estilo próprio, sem depender de emoji.']),950)}
+function initV3(){renderV3Counters();renderCollection();renderRoom();renderWardrobe();renderCreative();renderInteractiveList();ensureWeeklyOverlay();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent=APP_VERSION);renderHomeContinue();if(!pget('tutorial-v304'))setTimeout(()=>showTutorialOnce('v304','A casa da Elo ficou mais organizada! ✨',['O menu inicial voltou a ficar mais direto, com botões grandes para entrar em cada área.','O quarto ganhou ainda mais opções de decoração, com novas paredes, quadros, camas, tapetes e brinquedos.','O guarda-roupa também recebeu várias peças novas: cabelos, roupas, acessórios e maquiagem.','Os brinquedos do quarto ficaram desenhados em estilo próprio, sem depender de emoji.']),950)}
 window.addEventListener('DOMContentLoaded',initV3);
 })();
-
-
-// ==========================================================
-// LOJA DAS ESTRELAS & MONETIZAÇÃO ÉTICA
-// ==========================================================
-
-// Horário oficial de Brasília (UTC-3)
-function getBrasiliaDateStr() {
-  const now = new Date();
-  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const brasiliaTime = new Date(utc - (3 * 3600000));
-  const year = brasiliaTime.getFullYear();
-  const month = String(brasiliaTime.getMonth() + 1).padStart(2, '0');
-  const day = String(brasiliaTime.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-window.getBrasiliaDateStr = getBrasiliaDateStr;
-
-window.openStarShop = function(){
- const m = document.getElementById('starShopModal');
- if(!m) return;
- m.classList.remove('hidden');
- document.body.style.overflow = 'hidden';
- renderStarShop();
-};
-
-window.closeStarShop = function(){
- const m = document.getElementById('starShopModal');
- if(m) m.classList.add('hidden');
- document.body.style.overflow = '';
-};
-
-function renderStarShop(){
- const todayKey = 'eloStarDaily_' + getBrasiliaDateStr();
- const claimed = pget(todayKey) === '1';
- const dailyBtn = document.getElementById('claimDailyBonusBtn');
- if(dailyBtn){
-   dailyBtn.disabled = claimed;
-   dailyBtn.textContent = claimed ? 'Coletado hoje ✓ (Volta às 00h)' : 'Resgatar +10 ⭐';
-   dailyBtn.style.opacity = claimed ? '0.6' : '1';
- }
- const videoKey = 'eloRewardVideoDate_' + getBrasiliaDateStr();
- const videoWatched = pget(videoKey) === '1';
- const videoBtn = document.getElementById('watchRewardVideoBtn');
- if(videoBtn){
-   videoBtn.disabled = videoWatched;
-   videoBtn.textContent = videoWatched ? 'Assistido hoje ✓ (Volta às 00h)' : 'Assistir Vídeo (+10 ⭐)';
-   videoBtn.style.opacity = videoWatched ? '0.6' : '1';
- }
- const countEl = document.getElementById('shopStarBalance');
- if(countEl) countEl.textContent = typeof stars !== 'undefined' ? stars : '0';
-}
-
-window.claimDailyBonus = function(){
- const todayKey = 'eloStarDaily_' + getBrasiliaDateStr();
- if(pget(todayKey) === '1') return toast('Você já pegou suas estrelas de hoje! O baú abre novamente amanhã às 00h (horário de Brasília) 💗');
- pset(todayKey, '1');
- if(typeof addStars === 'function') addStars(10, 'Oba! +10 estrelas da visita diária! ⭐');
- renderStarShop();
-};
-
-let rewardVideoPlayer = null;
-let rewardVideoInterval = null;
-let rewardVideoSecondsWatched = 0;
-let rewardVideoDuration = 0;
-let rewardVideoFinished = false;
-
-window.watchRewardedAd = function(){
- const todayKey = 'eloRewardVideoDate_' + getBrasiliaDateStr();
- if(pget(todayKey) === '1') return toast('Você já assistiu ao vídeo premiado de hoje! Ele volta amanhã às 00h (horário de Brasília) 💗');
- 
- const overlay = document.getElementById('rewardVideoOverlay');
- if(!overlay) return;
- overlay.classList.remove('hidden');
- rewardVideoFinished = false;
- rewardVideoSecondsWatched = 0;
- 
- const host = document.getElementById('rewardVideoHost');
- const statusEl = document.getElementById('rewardVideoStatus');
- if(statusEl) statusEl.textContent = 'Carregando vídeo oficial da Elo... 🎬';
- 
- if(host) {
-   // Embed the latest video or channel playlist with YouTube Iframe API
-   host.innerHTML = '<iframe id="rewardVideoIframe" style="width:100%;height:100%;border:0;" src="https://www.youtube-nocookie.com/embed/videoseries?list=UUBPBaYweoBPjr8XlfOz1dwQ&autoplay=1&enablejsapi=1&rel=0&playsinline=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
- }
- 
- if(rewardVideoInterval) clearInterval(rewardVideoInterval);
- 
- // Track elapsed watch time
- rewardVideoInterval = setInterval(() => {
-   rewardVideoSecondsWatched++;
-   if(statusEl && !rewardVideoFinished) {
-     statusEl.textContent = `▶ Assistindo vídeo oficial da Elo (${rewardVideoSecondsWatched}s)... Não feche antes de acabar! ⭐`;
-   }
-   // O vídeo premiado roda até o final para liberar as estrelas
-   if(rewardVideoSecondsWatched >= 240 && !rewardVideoFinished) {
-     // Apenas salvaguarda de tempo máximo
-   }
- }, 1000);
-};
-
-window.grantVideoReward = function() {
- if(rewardVideoFinished) return;
- rewardVideoFinished = true;
- if(rewardVideoInterval) { clearInterval(rewardVideoInterval); rewardVideoInterval = null; }
- const todayKey = 'eloRewardVideoDate_' + getBrasiliaDateStr();
- pset(todayKey, '1');
- if(typeof addStars === 'function') addStars(10, '🎉 Vídeo assistido até o final! +10 estrelas ganhas! ⭐');
- if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
- toast('✨ Parabéns! Recompensa diária de vídeo concluída (+10 ⭐)!');
- const statusEl = document.getElementById('rewardVideoStatus');
- if(statusEl) statusEl.textContent = '🏆 Parabéns! Você assistiu e ganhou +10 ⭐!';
- setTimeout(() => {
-   closeRewardedAd();
-   renderStarShop();
- }, 1500);
-};
-
-window.cancelRewardedAd = function(){
- if(rewardVideoInterval) { clearInterval(rewardVideoInterval); rewardVideoInterval = null; }
- const overlay = document.getElementById('rewardVideoOverlay');
- const host = document.getElementById('rewardVideoHost');
- if(overlay) overlay.classList.add('hidden');
- if(host) host.innerHTML = '';
- if(!rewardVideoFinished) {
-   toast('Você fechou antes de assistir o vídeo completo! Nenhuma estrela ganha 😊');
- }
-};
-
-window.closeRewardedAd = function(){
- if(rewardVideoInterval) { clearInterval(rewardVideoInterval); rewardVideoInterval = null; }
- const overlay = document.getElementById('rewardVideoOverlay');
- const host = document.getElementById('rewardVideoHost');
- if(overlay) overlay.classList.add('hidden');
- if(host) host.innerHTML = '';
-};
-
-window.buyParentPack = function(packId){
-  if(typeof closeStarShop === 'function') closeStarShop();
-  const todayKey = 'eloParentPackClaimed_' + getBrasiliaDateStr();
-  if(pget(todayKey) === '1'){
-    toast('Você já resgatou o pacote dos responsáveis de hoje! Ele volta amanhã às 00h (horário de Brasília) 💗');
-    return;
-  }
-  requestParentAccess(()=>{
-    pset(todayKey, '1');
-    const amount = 50;
-    if(typeof addStars === 'function') addStars(amount, 'Parabéns! Pacote de Responsáveis ativado com +50 ⭐!');
-    if(typeof triggerStarConfetti === 'function') triggerStarConfetti();
-    toast('Pacote dos responsáveis ativado com sucesso! +50 ⭐ (Bloqueado até amanhã às 00h)');
-    renderStarShop();
-  }, 'Digite o PIN dos responsáveis para autorizar o pacote diário de 50 ⭐.');
-};
-
-window.addEventListener('message', function(e){
-  try {
-    const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
-    if(data && (data.event === 'onStateChange' || data.info === 0)){
-      if(data.info === 0 || data.data === 0){
-        if(typeof grantVideoReward === 'function') grantVideoReward();
-      }
-    }
-  } catch(_) {}
-});

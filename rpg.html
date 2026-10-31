@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#7155c7">
 <title>Elo e o Reino das Estrelas</title>
-<link rel="stylesheet" href="v3.css?v=3.6.0">
+<link rel="stylesheet" href="v3.css?v=3.5.3">
 <style>
 :root{--ink:#302546;--pink:#ff69a9;--purple:#7357c9;--paper:#fffafd;--muted:#796f86;--shadow:0 18px 42px rgba(55,37,86,.18)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f6f0ff;color:var(--ink);user-select:none}button{font:inherit}.hidden{display:none!important}#rpgApp{height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff4fa,#f1edff)}
@@ -18,10 +18,10 @@
 .panelOverlay{place-items:end center}.panelCard{width:min(780px,100%);max-height:88vh;overflow:auto;background:#fffafd;border-radius:28px 28px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -12px 40px rgba(39,22,65,.22)}.panelHead,.battleHead{display:flex;justify-content:space-between;align-items:center;gap:10px}.panelHead h2,.battleHead h2{margin:0}.miniClose{border:0;width:38px;height:38px;border-radius:50%;background:#eee9ff;color:var(--purple);font-size:22px;font-weight:900}.statsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}.statsGrid div{background:#f7f4ff;border-radius:14px;padding:9px;text-align:center}.statsGrid b{display:block;font-size:9px;color:var(--muted)}.statsGrid span{font-weight:900;color:var(--purple)}.tabs{display:flex;gap:6px;overflow:auto;padding:2px 0 10px}.tab{border:0;border-radius:999px;padding:8px 11px;background:#f0ecff;color:var(--purple);font-weight:800;white-space:nowrap}.tab.on{background:var(--pink);color:white}.menuContent{min-height:180px}.listCard{display:flex;align-items:center;justify-content:space-between;gap:10px;background:white;border:1px solid #eee5f5;border-radius:16px;padding:11px;margin-bottom:8px}.listCard .ico{font-size:28px}.listCard .grow{flex:1}.listCard b{display:block}.listCard small{color:var(--muted)}.panelFooter{display:flex;gap:8px;justify-content:center;margin-top:12px}.danger{color:#c74468!important;background:#ffe9f0!important}.medalGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.medal{border-radius:16px;padding:10px;background:#f5f3f8;filter:grayscale(1);opacity:.55;text-align:center}.medal.on{background:linear-gradient(145deg,#fff3c6,#ffe9f5);filter:none;opacity:1}.medal span{display:block;font-size:30px}.medal b{font-size:11px;display:block}.medal small{font-size:9px;color:var(--muted)}
 .shopItems{display:grid;grid-template-columns:1fr 1fr;gap:10px}.shopItem{border:1px solid #eee5f5;border-radius:18px;padding:13px;background:#fff}.shopItem .shopIcon{font-size:34px}.shopItem h3{font-size:15px;margin:6px 0 3px}.shopItem p{font-size:11px;color:var(--muted);min-height:32px}.shopItem button{width:100%;border:0;border-radius:12px;padding:9px;background:#f0ebff;color:var(--purple);font-weight:900}.shopItem button:disabled{opacity:.45}.muted,.parentNote{color:var(--muted);font-size:12px}.tvScreen{border-radius:18px;background:linear-gradient(145deg,#211c35,#594383);color:white;padding:18px;text-align:center;box-shadow:inset 0 0 0 4px #2d2542;margin:10px 0 14px}.tvLogo{font-size:22px;font-weight:900}.episodeRow{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:14px 0}.episodeRow span{background:rgba(255,255,255,.14);padding:7px 9px;border-radius:11px;font-size:11px}
 .battleOverlay{place-items:center}.battleCard{width:min(700px,96vw);max-height:94vh;overflow-y:auto;background:#fffafd;border-radius:26px;padding:16px;box-shadow:var(--shadow)}.pill{display:inline-block;background:#eee7ff;color:var(--purple);padding:5px 9px;border-radius:99px;font-size:9px;font-weight:900}.battleCard canvas{display:block;width:100%;height:auto;border-radius:18px;background:linear-gradient(#c9e9ff,#fbe8ff);margin:10px 0}.eloBattleStatus{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 10px;position:relative;z-index:2}.eloBattleStatus::before{content:'STATUS DA ELO';grid-column:1/-1;font-size:10px;font-weight:1000;color:#7054bd;letter-spacing:.4px;margin-bottom:-2px}.eloBattleBox{background:#f8f5ff;border-radius:14px;padding:9px 10px;border:1px solid #eee8f7}.eloBattleBox strong{display:block;font-size:11px;color:#5f4a86;margin-bottom:4px}.eloBattleBox small{display:block;font-size:11px;color:#594d68;margin-top:3px;font-weight:800}.enemyBar{font-size:11px;color:var(--muted)}.battleText{min-height:38px;background:#f7f4ff;border-radius:14px;padding:10px;font-weight:700}.battleActions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.battleActions button{border:0;border-radius:14px;padding:12px;background:#f0ebff;color:var(--purple);font-weight:900}
-.storyOverlay{background:radial-gradient(circle at 50% 20%,rgba(255,255,255,.45),rgba(42,28,69,.78)),linear-gradient(145deg,#7b60d8,#ff78b1);overflow-y:auto;padding:8px!important}.storyCard{width:min(520px,96vw);max-height:92vh;overflow-y:auto;background:rgba(255,250,253,.98);border-radius:24px;padding:14px 18px;text-align:center;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center}.storyCard .introCoverImg{max-height:110px;width:auto;max-width:92%;object-fit:contain;border-radius:16px;margin:0 auto 6px;box-shadow:0 8px 18px rgba(72,45,102,.16);display:block}.storyStars{font-size:22px;margin:2px 0}.storyCard h1{font-size:20px;margin:2px 0 4px;color:#6c4fbd}.storyCard p{line-height:1.35;font-size:12px;margin:3px 0;color:#5d536a}.storyCard .mainBtn,.storyCard .softBtn{width:100%;max-width:320px;margin:6px auto 0;padding:11px 16px;font-size:15px;font-weight:900}@media(max-height:520px),(orientation:landscape){.storyCard{padding:10px 14px;max-height:95vh}.storyCard .introCoverImg{max-height:75px;margin-bottom:3px}.storyCard h1{font-size:18px;margin:1px 0}.storyCard p{font-size:11px;margin:1px 0 3px}.storyCard .mainBtn,.storyCard .softBtn{padding:9px 12px;font-size:13px;margin-top:4px}}
+.storyOverlay{background:radial-gradient(circle at 50% 20%,rgba(255,255,255,.45),rgba(42,28,69,.78)),linear-gradient(145deg,#7b60d8,#ff78b1)}.storyCard{width:min(620px,94vw);background:rgba(255,250,253,.96);border-radius:30px;padding:26px;text-align:center;box-shadow:var(--shadow)}.storyStars{font-size:34px}.storyCard h1{font-size:28px;margin:8px 0;color:#6c4fbd}.storyCard p{line-height:1.5;color:#5d536a}.storyCard .mainBtn,.storyCard .softBtn{width:100%;margin-top:8px}
 
 .rpgEloLayer{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}.rpgEloLayer .rpgEloClone{position:absolute!important;width:150px!important;height:325px!important;transform-origin:top left!important;will-change:left,top,transform;filter:drop-shadow(0 5px 4px rgba(44,28,54,.18))}
-/* v3.6.0 — direção visual da Elo mantendo exatamente o look do guarda-roupa */
+/* v3.5.3 — direção visual da Elo mantendo exatamente o look do guarda-roupa */
 .rpgEloClone.rpg-dir-up .dollHead .eye,.rpgEloClone.rpg-dir-up .dollHead .mouth,.rpgEloClone.rpg-dir-up .dollHead .blush{opacity:0!important}
 .rpgEloClone.rpg-dir-up .dollHairFront{left:34px!important;top:24px!important;width:82px!important;height:80px!important;border-radius:48% 48% 40% 40%!important;clip-path:none!important;z-index:4!important}
 .rpgEloClone.rpg-dir-up .dollEarring,.rpgEloClone.rpg-dir-up .dollNecklace{opacity:0!important}
@@ -53,172 +53,19 @@
 @media(max-width:560px){.rpgTop{height:64px}.gameTitle strong{font-size:15px}.hud{grid-template-columns:48px 1fr 1fr 1fr 58px}.hudBox{padding:6px 5px}.mobileControls{height:128px}.statsGrid{grid-template-columns:repeat(2,1fr)}.shopItems{grid-template-columns:1fr 1fr}.medalGrid{grid-template-columns:repeat(3,1fr)}.dialogCard{grid-template-columns:58px 1fr;padding:13px}.portrait{width:58px;height:58px;font-size:30px}.objective p{max-width:72vw}.panelCard{max-height:92vh}.battleCard{padding:13px;max-height:95vh}.battleCard canvas{margin:7px 0;height:auto}.eloBattleStatus{gap:6px}.eloBattleBox{padding:8px}.eloBattleBox strong{font-size:10px}.eloBattleBox small{font-size:10px}}
 
 
-/* v3.6.0 RPG Definitivo */
+/* v3.5.3 RPG Definitivo */
 .bossIntent{display:none;margin:8px 0;padding:9px 12px;border-radius:14px;background:linear-gradient(135deg,#fff2b8,#ffe3ee);border:1px solid #f0cf77;color:#594366;font-weight:1000;font-size:12px;box-shadow:0 5px 14px rgba(105,76,132,.10)}
 .bossIntent.on{display:block;animation:rpgPulse .8s ease-in-out infinite alternate}
 @keyframes rpgPulse{from{transform:scale(1);filter:brightness(1)}to{transform:scale(1.012);filter:brightness(1.04)}}
 .battleText.rpgHit{animation:rpgHit .24s ease-out}@keyframes rpgHit{0%{transform:translateX(0)}35%{transform:translateX(-4px)}70%{transform:translateX(4px)}100%{transform:translateX(0)}}
 
-.mobileControls{position:absolute;left:10px;right:10px;bottom:8px;height:auto;display:flex;justify-content:space-between;align-items:flex-end;padding:0;pointer-events:none;z-index:50}.dpad{pointer-events:auto;background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:none!important;box-shadow:none!important;border-radius:0!important;padding:0!important;display:grid;grid-template:repeat(3,46px)/repeat(3,46px);gap:4px}.dpad button{border:1px solid rgba(255,255,255,0.8);border-radius:12px;background:rgba(255,255,255,0.7);color:#4c1d95;font-weight:1000;font-size:17px;box-shadow:0 2px 6px rgba(0,0,0,0.12);touch-action:none;opacity:0.92}.dpad button[data-dir=up]{grid-column:2}.dpad button[data-dir=left]{grid-column:1;grid-row:2}.dpad button[data-dir=down]{grid-column:2;grid-row:3}.dpad button[data-dir=right]{grid-column:3;grid-row:2}.actionBtns{pointer-events:auto;display:flex;gap:10px;align-items:center}.act{width:64px;height:64px;border:2px solid rgba(255,255,255,0.8);border-radius:50%;background:rgba(255,255,255,0.55);backdrop-filter:none;-webkit-backdrop-filter:none;color:#4c1d95;font-size:10px;font-weight:900;box-shadow:0 4px 16px rgba(0,0,0,0.18);opacity:0.92;touch-action:manipulation}.act span{display:block;font-size:22px}.act small{display:block;font-size:10px;line-height:1.05}.act.primary{width:76px;height:76px;background:rgba(236,72,153,0.65);border-color:rgba(255,255,255,0.95);color:#fff}.act:active,.dpad button:active{transform:scale(.92);opacity:1}
-
-/* v4.3.15 - Reino das Estrelas com tela ajustada (16:9 arcade) e controles calibrados */
-.rpgTop { display: none !important; }
-#objectiveBox { display: none !important; }
-.gameShell {
-  padding: 2px 8px 4px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  height: 100vh !important;
-  box-sizing: border-box !important;
-}
-.hud {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 4px !important;
-  height: 20px !important;
-  padding: 2px 8px !important;
-  margin: 0 auto 3px !important;
-  width: 100% !important;
-  max-width: min(88vw, 760px) !important;
-  background: rgba(255,255,255,0.92) !important;
-  border-radius: 999px !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12) !important;
-  font-size: 10px !important;
-  flex-shrink: 0 !important;
-}
-.hudBox { display: flex !important; align-items: center !important; gap: 4px !important; padding: 0 4px !important; background: transparent !important; box-shadow: none !important; min-width: 0 !important; border-radius: 0 !important; }
-.hudBox b { font-size: 10px !important; margin: 0 !important; color: #6b21a8 !important; line-height: 1 !important; }
-.hudBox.wide .bar { width: 50px !important; height: 7px !important; border-radius: 999px !important; }
-.hudBox.wide small { font-size: 9px !important; margin-left: 2px !important; }
-.canvasFrame {
-  position: relative !important;
-  flex: 0 1 auto !important;
-  width: 100% !important;
-  max-width: min(88vw, 760px) !important;
-  max-height: min(72vh, 420px) !important;
-  aspect-ratio: 16 / 9 !important;
-  margin: 0 auto !important;
-  border-radius: 18px !important;
-  overflow: hidden !important;
-  box-shadow: 0 10px 30px rgba(55, 37, 86, 0.25) !important;
-  border: 2px solid rgba(255, 255, 255, 0.9) !important;
-  min-height: 0 !important;
-}
-#world {
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-  image-rendering: pixelated !important;
-  touch-action: none !important;
-  object-fit: contain !important;
-}
-.mobileControls {
-  position: absolute !important;
-  left: 8px !important;
-  right: 8px !important;
-  bottom: 6px !important;
-  height: auto !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: flex-end !important;
-  padding: 0 !important;
-  pointer-events: none !important;
-  z-index: 50 !important;
-}
-.dpad {
-  pointer-events: auto !important;
-  display: grid !important;
-  grid-template: repeat(3, 34px) / repeat(3, 34px) !important;
-  gap: 3px !important;
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-}
-.dpad button {
-  border: 2px solid #6f54c2 !important;
-  border-radius: 10px !important;
-  background: #ffffff !important;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25) !important;
-  color: #6f54c2 !important;
-  font-weight: 1000 !important;
-  font-size: 18px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-shadow: none !important;
-  filter: none !important;
-  outline: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-  touch-action: none !important;
-}
-.dpad button:active {
-  transform: scale(0.92) !important;
-  background: #ff6ea9 !important;
-  color: #ffffff !important;
-  border-color: #ff6ea9 !important;
-}
-.actionBtns {
-  pointer-events: auto !important;
-  display: flex !important;
-  gap: 8px !important;
-  align-items: center !important;
-}
-.act {
-  width: 48px !important;
-  height: 48px !important;
-  border: 2px solid rgba(255, 255, 255, 0.9) !important;
-  border-radius: 50% !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  color: #4c1d95 !important;
-  font-size: 9px !important;
-  font-weight: 900 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16) !important;
-  touch-action: manipulation !important;
-}
-.act span {
-  display: block !important;
-  font-size: 18px !important;
-}
-.act small {
-  display: block !important;
-  font-size: 8px !important;
-  line-height: 1 !important;
-}
-.act.primary {
-  width: 58px !important;
-  height: 58px !important;
-  background: linear-gradient(145deg, #ff7eb7, #ff4d94) !important;
-  border-color: rgba(255, 255, 255, 0.95) !important;
-  color: #ffffff !important;
-}
-.act:active, .dpad button:active {
-  transform: scale(0.92) !important;
-}
-
-/* Quando a Bolsa (#menuOverlay) estiver aberta, os botões direcionais e de ação somem para não atrapalhar a leitura */
-.mobileControls.bag-open,
-body:has(#menuOverlay:not(.hidden)) .mobileControls {
-  display: none !important;
-}
-.overlay {
-  z-index: 1000 !important;
-}
-
 </style>
-
 </head>
 <body>
 <div id="rpgApp">
   <header class="rpgTop">
     <button id="closeRpg" class="topBtn" aria-label="Voltar">‹</button>
-    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v3.6.0</span></div>
+    <div class="gameTitle"><strong>Elo e o Reino das Estrelas</strong><span>A Jornada das Estrelas • v3.5.3</span></div>
     <button id="musicBtn" class="topBtn" aria-label="Música">🔊</button><button id="menuBtn" class="topBtn" aria-label="Menu">☰</button>
   </header>
 
@@ -236,18 +83,18 @@ body:has(#menuOverlay:not(.hidden)) .mobileControls {
       <div id="rpgEloLayer" class="rpgEloLayer" aria-hidden="true"></div>
       <div id="locationTag" class="locationTag">Casa da Elo</div>
       <div id="toastRpg" class="toastRpg"></div>
+    </div>
 
-      <div class="mobileControls" aria-label="Controles do jogo">
-        <div class="dpad">
-          <button data-dir="up">▲</button>
-          <button data-dir="left">◀</button>
-          <button data-dir="down">▼</button>
-          <button data-dir="right">▶</button>
-        </div>
-        <div class="actionBtns">
-          <button id="actionBtn" class="act primary"><span>A</span><small id="actionLabel">Falar</small></button>
-          <button id="quickBtn" class="act"><span>B</span>Bolsa</button>
-        </div>
+    <div class="mobileControls" aria-label="Controles do jogo">
+      <div class="dpad">
+        <button data-dir="up">▲</button>
+        <button data-dir="left">◀</button>
+        <button data-dir="down">▼</button>
+        <button data-dir="right">▶</button>
+      </div>
+      <div class="actionBtns">
+        <button id="actionBtn" class="act primary"><span>A</span><small id="actionLabel">Falar</small></button>
+        <button id="quickBtn" class="act"><span>B</span>Bolsa</button>
       </div>
     </div>
   </main>
@@ -278,16 +125,6 @@ body:has(#menuOverlay:not(.hidden)) .mobileControls {
     </div>
   </div>
 
-  
-  <!-- Overlay de Seleção de Magias da Elo -->
-  <div id="battleMagicOverlay" class="overlay hidden panelOverlay">
-    <div class="panelCard">
-      <div class="panelHead"><h2>💖 Escolha uma Magia</h2><button class="miniClose" data-close="battleMagicOverlay">×</button></div>
-      <p class="muted">Escolha o poder mágico que a Elo vai conjurar nesta rodada.</p>
-      <div id="battleMagicList" class="panelList"></div>
-    </div>
-  </div>
-
   <div id="battleItemOverlay" class="overlay hidden panelOverlay">
     <div class="panelCard">
       <div class="panelHead"><h2>🧪 Escolha um item</h2><button class="miniClose" data-close="battleItemOverlay">×</button></div>
@@ -299,20 +136,6 @@ body:has(#menuOverlay:not(.hidden)) .mobileControls {
   <div id="menuOverlay" class="overlay hidden panelOverlay">
     <div class="panelCard">
       <div class="panelHead"><h2>Menu da Elo</h2><button class="miniClose" data-close="menuOverlay">×</button></div>
-      <!-- v4.3.9: Objetivo destacado e Ações Rápidas na Bolsa -->
-      <div id="bagObjectiveHighlight" class="bagObjectiveHighlight" style="background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #f59e0b;border-radius:18px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;">
-        <span style="font-size:26px;">📜</span>
-        <div style="flex:1;">
-          <small style="color:#78350f;font-weight:1000;font-size:10px;display:block;letter-spacing:0.05em;">OBJETIVO ATUAL</small>
-          <b id="bagObjectiveText" style="color:#92400e;font-size:13px;line-height:1.2;display:block;">Explore a casa da Elo.</b>
-        </div>
-        <button class="objectiveGuide" onclick="showQuestGuide();closeOverlay('menuOverlay');" style="background:#f59e0b;color:#fff;border:0;border-radius:12px;padding:7px 12px;font-size:11px;font-weight:900;cursor:pointer;">✨ Caminho</button>
-      </div>
-      <div class="bagQuickActions" style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-        <button id="bagCloseRpgBtn" class="btn" style="flex:1;min-width:110px;background:#ffe4e6;color:#be123c;border:1.5px solid #fda4af;padding:9px 8px;font-size:12px;font-weight:900;border-radius:14px;cursor:pointer;">‹ Sair do Jogo</button>
-        <button id="bagMusicBtn" class="btn" style="flex:1;min-width:110px;background:#f1f5f9;color:#334155;border:1.5px solid #cbd5e1;padding:9px 8px;font-size:12px;font-weight:900;border-radius:14px;cursor:pointer;">🔊 Som: Ligado</button>
-      </div>
-
       <div class="statsGrid" id="statsGrid"></div>
       <div class="tabs"><button class="tab on" data-tab="missions">Missões</button><button class="tab" data-tab="bag">Bolsa</button><button class="tab" data-tab="clothes">Bônus</button><button class="tab" data-tab="medals">Medalhas</button><button class="tab" data-tab="map">Mapa</button></div>
       <div id="menuContent" class="menuContent"></div>
@@ -330,13 +153,12 @@ body:has(#menuOverlay:not(.hidden)) .mobileControls {
 
   <div id="introOverlay" class="overlay storyOverlay">
     <div class="storyCard">
-      <img src="assets/rpg-cover-v1-5.png" alt="Elo e o Reino das Estrelas" class="introCoverImg"><div class="storyStars">✨ ⭐ ✨</div>
+      <img src="assets/rpg-cover-v1-5.png" alt="Elo e o Reino das Estrelas" style="width:100%;border-radius:22px;margin-bottom:12px;box-shadow:0 12px 28px rgba(72,45,102,.16)"><div class="storyStars">✨ ⭐ ✨</div>
       <h1>Elo e o Reino das Estrelas</h1>
       <p>Uma manhã, Elo acordou e percebeu que o brilho das estrelas mágicas da cidade estava desaparecendo.</p>
       <p>Agora ela precisa explorar o mundo, fazer amigos, ficar mais forte e descobrir quem está escondendo a luz do Reino.</p>
       <button id="startStoryBtn" class="mainBtn">Começar a aventura</button>
       <button id="continueStoryBtn" class="softBtn hidden">Continuar meu jogo</button>
-      <button id="backFromIntroBtn" class="softBtn" style="margin-top:8px;background:rgba(255,255,255,0.85);color:#5b21b6;font-weight:900;" onclick="window.parent.postMessage({type:'rpg-close'}, '*')">‹ Voltar ao Início</button>
     </div>
   </div>
 </div>
@@ -894,7 +716,7 @@ function currentGuideHint(){
 function rpgSpeak(text){try{if(!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/\bElo\b/g,'Elô'));u.lang='pt-BR';u.rate=.95;u.pitch=1.05;window.speechSynthesis.speak(u)}catch(_){}}
 function showQuestGuide(){const msg=currentGuideHint();toast(msg);rpgSpeak(msg)}
 function updateHud(){
- $('#hudLevel').textContent=state.level;$('#hpText').textContent=`${Math.max(0,state.hp)}/${state.maxHp}`;$('#hpBar').style.width=`${Math.max(0,state.hp/state.maxHp*100)}%`;$('#mpText').textContent=`${state.mp}/${state.maxMp}`;$('#mpBar').style.width=`${Math.max(0,state.mp/state.maxMp*100)}%`;$('#xpText').textContent=`${state.xp}/${state.nextXp}`;$('#xpBar').style.width=`${Math.max(0,state.xp/state.nextXp*100)}%`;$('#coinText').textContent=state.coins;const curObj = currentObjective(); $('#objectiveText').textContent = curObj; const bagObj = $('#bagObjectiveText'); if(bagObj) bagObj.textContent = curObj;
+ $('#hudLevel').textContent=state.level;$('#hpText').textContent=`${Math.max(0,state.hp)}/${state.maxHp}`;$('#hpBar').style.width=`${Math.max(0,state.hp/state.maxHp*100)}%`;$('#mpText').textContent=`${state.mp}/${state.maxMp}`;$('#mpBar').style.width=`${Math.max(0,state.mp/state.maxMp*100)}%`;$('#xpText').textContent=`${state.xp}/${state.nextXp}`;$('#xpBar').style.width=`${Math.max(0,state.xp/state.nextXp*100)}%`;$('#coinText').textContent=state.coins;$('#objectiveText').textContent=currentObjective();
 }
 
 let transitionLockUntil=0;
@@ -1014,7 +836,7 @@ function interactObject(o){
    if(state.quest===16){state.flags.beaconLit=true;state.quest=17;medal('skyroad');addCoins(60);saveGame(true);updateHud();dialog('Elo','O Farol das Estrelas acendeu! Agora o Portão de Retorno pode me levar de volta para casa. ✨','npc');return}
    dialog('Elo','O Farol das Estrelas continua brilhando e mostrando o caminho para a vila. ✨');return
  }
- if(o.type==='tv'){medal('tv-fan');state.flags.tv=true;checkHomeExplorer();$('#tvOverlay').classList.remove('hidden');updateMobileControlsVisibility();return}
+ if(o.type==='tv'){medal('tv-fan');state.flags.tv=true;checkHomeExplorer();$('#tvOverlay').classList.remove('hidden');return}
  if(o.type==='fridge'||o.type==='stove'){heal(10);state.mp=Math.min(state.maxMp,state.mp+4);updateHud();medal('good-meal');state.flags.kitchen=true;checkHomeExplorer();dialog('Elo','Hummm! A refeição recuperou energia e +4 MP. 🍎✨');return}
  if(o.type==='questPickup'||o.type==='treasureChest'){collectQuestItem(o);return}
  if(o.type==='bed'){restoreAll();medal('rested');state.flags.bed=true;checkHomeExplorer();dialog('Elo','Depois de um bom descanso, a energia e a magia estão novinhas! 🌙');return}
@@ -1047,20 +869,20 @@ function guardianDialog(){
  if(state.quest>=4&&!state.chapterComplete){dialog('Guardião Sol','A partir daqui, siga sempre em frente. Os amigos que encontrar pelo caminho vão indicar a próxima etapa; você não precisa voltar aqui a cada missão.','npc');return}
  dialog('Guardião Sol','O Reino das Estrelas está em paz. E o Portão Norte agora liga a vila ao Caminho Celeste.','npc')
 }
-function dialog(name,line,portrait='npc',choices=[]){$('#dialogName').textContent=name;$('#dialogLine').textContent=line;$('#dialogPortrait').textContent=portrait==='npc'?(name==='Elo'?'E':'★'):portrait;const box=$('#dialogChoices');box.innerHTML='';if(choices.length){for(const c of choices){const b=document.createElement('button');b.textContent=c.label;b.onclick=()=>{closeDialog();c.fn?.()};box.appendChild(b)}}else{const b=document.createElement('button');b.textContent='Continuar';b.onclick=closeDialog;box.appendChild(b)}$('#dialogOverlay').classList.remove('hidden');updateMobileControlsVisibility()}
-function closeDialog(){$('#dialogOverlay').classList.add('hidden');saveGame(true);updateMobileControlsVisibility()}
+function dialog(name,line,portrait='npc',choices=[]){$('#dialogName').textContent=name;$('#dialogLine').textContent=line;$('#dialogPortrait').textContent=portrait==='npc'?(name==='Elo'?'E':'★'):portrait;const box=$('#dialogChoices');box.innerHTML='';if(choices.length){for(const c of choices){const b=document.createElement('button');b.textContent=c.label;b.onclick=()=>{closeDialog();c.fn?.()};box.appendChild(b)}}else{const b=document.createElement('button');b.textContent='Continuar';b.onclick=closeDialog;box.appendChild(b)}$('#dialogOverlay').classList.remove('hidden')}
+function closeDialog(){$('#dialogOverlay').classList.add('hidden');saveGame(true)}
 
-function openInn(){currentShop='inn';$('#shopTitle').textContent='🌙 Pousada Lua';$('#shopSubtitle').textContent='Descanse por 8 moedas e recupere energia e magia.';$('#shopItems').innerHTML=`<div class="shopItem"><div class="shopIcon">🛏️</div><h3>Uma noite tranquila</h3><p>Recupera toda a energia e a magia.</p><button id="innBuy">Dormir • 8 🪙</button></div>`;$('#shopOverlay').classList.remove('hidden');updateMobileControlsVisibility();$('#innBuy').onclick=()=>{if(state.coins<8)return toast('Você não tem moedas suficientes.');state.coins-=8;restoreAll();medal('rested');toast('Boa noite! Energia recuperada 🌙');closeOverlay('shopOverlay')}}
-function openShop(type){currentShop=type;if(type==='magic'){$('#shopTitle').textContent='🔮 Poções do Guardião Sol';$('#shopSubtitle').textContent='Poções mágicas com diferentes quantidades de recuperação de MP.'}else{$('#shopTitle').textContent=type==='items'?'⭐ Loja Estrelinha':'🌈 Boutique Arco-Íris';$('#shopSubtitle').textContent=type==='items'?'Itens úteis para suas aventuras.':'Encantos de aventura que dão bônus. O visual da Elo continua sendo o escolhido no guarda-roupa principal.'}renderShop();$('#shopOverlay').classList.remove('hidden');updateMobileControlsVisibility()}
+function openInn(){currentShop='inn';$('#shopTitle').textContent='🌙 Pousada Lua';$('#shopSubtitle').textContent='Descanse por 8 moedas e recupere energia e magia.';$('#shopItems').innerHTML=`<div class="shopItem"><div class="shopIcon">🛏️</div><h3>Uma noite tranquila</h3><p>Recupera toda a energia e a magia.</p><button id="innBuy">Dormir • 8 🪙</button></div>`;$('#shopOverlay').classList.remove('hidden');$('#innBuy').onclick=()=>{if(state.coins<8)return toast('Você não tem moedas suficientes.');state.coins-=8;restoreAll();medal('rested');toast('Boa noite! Energia recuperada 🌙');closeOverlay('shopOverlay')}}
+function openShop(type){currentShop=type;if(type==='magic'){$('#shopTitle').textContent='🔮 Poções do Guardião Sol';$('#shopSubtitle').textContent='Poções mágicas com diferentes quantidades de recuperação de MP.'}else{$('#shopTitle').textContent=type==='items'?'⭐ Loja Estrelinha':'🌈 Boutique Arco-Íris';$('#shopSubtitle').textContent=type==='items'?'Itens úteis para suas aventuras.':'Encantos de aventura que dão bônus. O visual da Elo continua sendo o escolhido no guarda-roupa principal.'}renderShop();$('#shopOverlay').classList.remove('hidden')}
 function renderShop(){const box=$('#shopItems');box.innerHTML='';if(currentShop==='items'||currentShop==='magic'){const entries=Object.entries(ITEMS).filter(([id,it])=>currentShop==='magic'?it.magicPotion:(id==='potion'||id==='tea'||id==='apple'));entries.forEach(([id,it])=>{const d=document.createElement('div');d.className='shopItem';d.innerHTML=`<div class="shopIcon">${it.icon}</div><h3>${it.name}</h3><p>${it.desc}</p><button>Comprar • ${it.price} 🪙</button>`;d.querySelector('button').onclick=()=>buyItem(id);box.appendChild(d)})}else{Object.entries(OUTFITS).filter(([id])=>id!=='starter').forEach(([id,it])=>{const owned=state.ownedOutfits.includes(id);const d=document.createElement('div');d.className='shopItem';d.innerHTML=`<div class="shopIcon">${it.icon}</div><h3>${it.name}</h3><p>${it.desc}</p><button>${owned?(state.outfit===id?'Ativo':'Ativar'):`Comprar • ${it.price} 🪙`}</button>`;d.querySelector('button').onclick=()=>owned?equipOutfit(id):buyOutfit(id);box.appendChild(d)})}}
 function buyItem(id){const it=ITEMS[id];if(state.coins<it.price)return toast('Moedas insuficientes.');state.coins-=it.price;state.inventory[id]=(state.inventory[id]||0)+1;medal('shopper');updateHud();renderShop();saveGame(true);toast(`${it.name} comprado!`)}
 function buyOutfit(id){const it=OUTFITS[id];if(state.coins<it.price)return toast('Moedas insuficientes.');state.coins-=it.price;state.ownedOutfits.push(id);medal('shopper');equipOutfit(id);renderShop();updateHud();saveGame(true)}
 function equipOutfit(id){if(!state.ownedOutfits.includes(id))return;state.outfit=id;medal('stylish');toast(`${OUTFITS[id].name} ativado!`);renderShop();saveGame(true)}
 
 function magicTier(){return magicTierForLevel(Number(state.level||1))}
-function startBattle(enemyRef){if(battle||state.hp<=0)return;const template=ENEMIES[enemyRef.type];battle={ref:enemyRef,type:enemyRef.type,name:template.name,hp:template.hp,maxHp:template.hp,atk:template.atk,def:template.def,xp:template.xp,coins:template.coins,boss:!!template.boss,recommended:template.recommended||0,defending:false,turnLocked:false};$('#enemyName').textContent=battle.name;$('#battleText').textContent=battle.boss?`${battle.name} é um chefão! Nível recomendado: ${battle.recommended}. Treinar antes faz diferença.`:`${battle.name} apareceu!`;$('#battleOverlay').classList.remove('hidden');updateMobileControlsVisibility();sfx(battle.boss?'boss':'battle');musicStep=0;updateBattleUI();drawBattle()}
+function startBattle(enemyRef){if(battle||state.hp<=0)return;const template=ENEMIES[enemyRef.type];battle={ref:enemyRef,type:enemyRef.type,name:template.name,hp:template.hp,maxHp:template.hp,atk:template.atk,def:template.def,xp:template.xp,coins:template.coins,boss:!!template.boss,recommended:template.recommended||0,defending:false,turnLocked:false};$('#enemyName').textContent=battle.name;$('#battleText').textContent=battle.boss?`${battle.name} é um chefão! Nível recomendado: ${battle.recommended}. Treinar antes faz diferença.`:`${battle.name} apareceu!`;$('#battleOverlay').classList.remove('hidden');sfx(battle.boss?'boss':'battle');musicStep=0;updateBattleUI();drawBattle()}
 function updateBattleUI(){$('#enemyHpText').textContent=`${Math.max(0,battle.hp)}/${battle.maxHp}`;$('#enemyHpBar').style.width=`${Math.max(0,battle.hp/battle.maxHp*100)}%`;const hpText=$('#battleHpText'),hpBar=$('#battleHpBar'),mpText=$('#battleMpText'),mpBar=$('#battleMpBar'),magicBtn=$('#magicBattleBtn'),mt=magicTier();if(hpText)hpText.textContent=`${Math.max(0,state.hp)}/${state.maxHp}`;if(hpBar)hpBar.style.width=`${Math.max(0,state.hp/state.maxHp*100)}%`;if($('#battleMpLabel'))$('#battleMpLabel').textContent=`💙 Magia • ${mt.name}: ${mt.cost} MP`;if(mpText)mpText.textContent=`${state.mp}/${state.maxMp} MP`;if(mpBar)mpBar.style.width=`${Math.max(0,state.mp/state.maxMp*100)}%`;if(magicBtn){magicBtn.textContent=`${mt.icon} ${mt.name} • ${mt.cost} MP`;magicBtn.disabled=state.mp<mt.cost;magicBtn.style.opacity=state.mp<mt.cost?'.45':'1'}updateHud();drawBattle()}
-function openBattleItemPicker(){const list=$('#battleItemList');const usable=Object.entries(ITEMS).filter(([id])=>(state.inventory[id]||0)>0);if(!usable.length){$('#battleText').textContent='A bolsa está vazia.';return}list.innerHTML=usable.map(([id,it])=>`<div class="listCard"><div class="ico">${it.icon}</div><div class="grow"><b>${it.name}</b><small>${it.desc} • ${state.inventory[id]} disponível(is)</small></div><button class="softBtn" onclick="window.__battleUseItem('${id}')">Usar</button></div>`).join('');$('#battleItemOverlay').classList.remove('hidden');updateMobileControlsVisibility()}
+function openBattleItemPicker(){const list=$('#battleItemList');const usable=Object.entries(ITEMS).filter(([id])=>(state.inventory[id]||0)>0);if(!usable.length){$('#battleText').textContent='A bolsa está vazia.';return}list.innerHTML=usable.map(([id,it])=>`<div class="listCard"><div class="ico">${it.icon}</div><div class="grow"><b>${it.name}</b><small>${it.desc} • ${state.inventory[id]} disponível(is)</small></div><button class="softBtn" onclick="window.__battleUseItem('${id}')">Usar</button></div>`).join('');$('#battleItemOverlay').classList.remove('hidden')}
 function useBattleItem(id){if(!battle||battle.turnLocked)return;if(!useItem(id,true))return;closeOverlay('battleItemOverlay');battle.turnLocked=true;$('#battleText').textContent=`Elo usou ${ITEMS[id].name}.`;sfx('item');updateBattleUI();setTimeout(enemyTurn,500)}
 window.__battleUseItem=useBattleItem;
 function battleAction(type){if(!battle||battle.turnLocked)return;battle.turnLocked=true;const st=stats();if(type==='attack'){const dmg=Math.max(2,Math.floor(st.atk+Math.random()*4-battle.def));battle.hp-=dmg;sfx('attack');$('#battleText').textContent=`Elo lançou um brilho e causou ${dmg} de dano!`;afterPlayerTurn()}else if(type==='magic'){const mt=magicTier();if(state.mp<mt.cost){battle.turnLocked=false;$('#battleText').textContent=`Magia insuficiente. ${mt.name} precisa de ${mt.cost} MP.`;return}state.mp-=mt.cost;const dmg=Math.max(4,Math.floor(st.mag*mt.mult+mt.bonus+Math.random()*6-battle.def));battle.hp-=dmg;sfx('magic');$('#battleText').textContent=`${mt.name}! ${dmg} de dano mágico ${mt.icon}`;afterPlayerTurn()}else if(type==='defend'){battle.defending=true;$('#battleText').textContent='Elo se protegeu para reduzir o próximo dano.';setTimeout(enemyTurn,550)}else if(type==='item'){battle.turnLocked=false;openBattleItemPicker();return}}
@@ -1079,24 +901,7 @@ function winBattle(){const b=battle;if(!b)return;state.defeated++;medal('first-w
 function loseBattle(){sfx('lose');battle=null;$('#battleOverlay').classList.add('hidden');state.hp=Math.max(1,Math.floor(state.maxHp*.4));state.mp=Math.floor(state.maxMp*.5);changeMap('home',8*TILE,8*TILE);dialog('Elo','Ufa! Voltei para casa para descansar. Vou me preparar melhor e tentar de novo.','npc')}
 function useItem(id,inBattle=false){const it=ITEMS[id];if(!it||!(state.inventory[id]>0))return false;state.inventory[id]--;if(it.full)state.hp=state.maxHp;else if(it.heal)heal(it.heal);if(it.fullMp)state.mp=state.maxMp;else if(it.mp)state.mp=Math.min(state.maxMp,state.mp+it.mp);medal('potion');updateHud();if(!inBattle)toast(`${it.name} usado!`);saveGame(true);return true}
 
-function updateMobileControlsVisibility(){
-  const mc = document.querySelector('.mobileControls');
-  if(!mc) return;
-  const menuOverlay = document.getElementById('menuOverlay');
-  const bagOpen = menuOverlay && !menuOverlay.classList.contains('hidden');
-  if(bagOpen){
-    mc.classList.add('bag-open');
-    input.up = input.down = input.left = input.right = false;
-  } else {
-    mc.classList.remove('bag-open');
-    mc.classList.remove('hidden');
-  }
-}
-function openMenu(tab='missions'){
-  $('#menuOverlay').classList.remove('hidden');
-  updateMobileControlsVisibility();
-  renderMenu(tab);
-}
+function openMenu(tab='missions'){$('#menuOverlay').classList.remove('hidden');renderMenu(tab)}
 function renderMenu(tab){$$('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===tab));const st=stats();$('#statsGrid').innerHTML=`<div><b>NÍVEL</b><span>${state.level}</span></div><div><b>ATAQUE</b><span>${st.atk}</span></div><div><b>DEFESA</b><span>${st.def}</span></div><div><b>MAGIA</b><span>${st.mag}</span></div><div><b>VELOCIDADE</b><span>${st.spd.toFixed(1)}</span></div><div><b>ENERGIA</b><span>${state.hp}/${state.maxHp}</span></div><div><b>MAGIA</b><span>${state.mp}/${state.maxMp}</span></div><div><b>MOEDAS</b><span>${state.coins}</span></div>`;const c=$('#menuContent');
  if(tab==='missions'){c.innerHTML=`<div class="listCard"><div class="ico">📜</div><div class="grow"><b>Missão principal</b><small>${currentObjective()}</small></div></div><div class="listCard"><div class="ico">⭐</div><div class="grow"><b>Progresso da jornada</b><small>Cristais ${state.starCrystals}/3 • Runas ${state.forestRunes}/3 • Chamas ${state.starFlames}/3 • Fragmentos ${state.skyShards}/3</small></div></div>`}
  else if(tab==='bag'){c.innerHTML=Object.entries(ITEMS).map(([id,it])=>`<div class="listCard"><div class="ico">${it.icon}</div><div class="grow"><b>${it.name}</b><small>${it.desc} • Você tem ${state.inventory[id]||0}</small></div><button class="softBtn" ${state.inventory[id]?`onclick="window.__useItem('${id}')"`:'disabled'}>Usar</button></div>`).join('')}
@@ -1106,7 +911,7 @@ function renderMenu(tab){$$('.tab').forEach(t=>t.classList.toggle('on',t.dataset
 }
 window.__useItem=id=>{if(useItem(id))renderMenu('bag')};window.__equip=id=>{equipOutfit(id);renderMenu('clothes')};
 
-function closeOverlay(id){$('#'+id).classList.add('hidden');updateMobileControlsVisibility()}
+function closeOverlay(id){$('#'+id).classList.add('hidden')}
 function toast(msg){const t=$('#toastRpg');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1800)}
 
 function camera(){const map=maps[state.map],vw=canvas.width,vh=canvas.height;return{x:Math.max(0,Math.min(map.w*TILE-vw,state.x+24-vw/2)),y:Math.max(0,Math.min(map.h*TILE-vh,state.y+28-vh/2))}}
@@ -1190,7 +995,7 @@ function ensureMusic(){if(!musicEnabled)return;try{if(!musicCtx){musicCtx=new (w
 function stopMusic(){if(musicTimer){clearTimeout(musicTimer);musicTimer=null}if(musicCtx&&musicCtx.state==='running')musicCtx.suspend().catch(()=>{})}
 function sfx(kind){if(!musicEnabled)return;ensureMusic();const seq={door:[[392,.08],[523,.12]],collect:[[784,.08],[988,.12]],chest:[[523,.08],[659,.08],[988,.15]],battle:[[220,.10],[330,.12]],boss:[[147,.13],[196,.13],[247,.18]],attack:[[659,.06]],magic:[[784,.07],[988,.09],[1175,.12]],hurt:[[196,.10]],item:[[523,.08],[659,.10]],win:[[659,.08],[784,.08],[988,.16]],bossWin:[[523,.08],[659,.08],[784,.08],[1047,.20]],lose:[[330,.12],[247,.18]],level:[[659,.08],[784,.08],[988,.08],[1175,.18]]}[kind]||[];let d=0;for(const [f,t] of seq){musicTone(f,t,.07,'square',d);d+=t*.75}}
 function toggleMusic(){musicEnabled=!musicEnabled;localStorage.setItem('eloRpgMusic',musicEnabled?'1':'0');const b=$('#musicBtn');if(b)b.textContent=musicEnabled?'🔊':'🔇';if(musicEnabled){ensureMusic();toast('Música ligada 🎵')}else{stopMusic();toast('Música desligada')}}
-function updateMusicButton(){const b=$('#musicBtn');if(b)b.textContent=musicEnabled?'🔊':'🔇';const bm=$('#bagMusicBtn');if(bm)bm.textContent=musicEnabled?'🔊 Som: Ligado':'🔇 Som: Mudo';}
+function updateMusicButton(){const b=$('#musicBtn');if(b)b.textContent=musicEnabled?'🔊':'🔇'}
 function loop(ts){const dt=Math.min(.035,(ts-last)/1000||.016);last=ts;update(dt);draw();raf=requestAnimationFrame(loop)}
 
 function resetRpgAdventure(){
@@ -1214,22 +1019,20 @@ function bind(){
  updateMusicButton();$('#musicBtn').onclick=toggleMusic;document.addEventListener('pointerdown',ensureMusic,{once:true,capture:true});document.addEventListener('keydown',ensureMusic,{once:true,capture:true});
  $$('.dpad button').forEach(b=>{const d=b.dataset.dir;const on=e=>{e.preventDefault();input[d]=true},off=e=>{e.preventDefault();input[d]=false};b.addEventListener('pointerdown',on);b.addEventListener('pointerup',off);b.addEventListener('pointercancel',off);b.addEventListener('pointerleave',off)});
  $('#actionBtn').onclick=action;$('#quickBtn').onclick=()=>openMenu('bag');$('#menuBtn').onclick=()=>openMenu('missions');$('#closeRpg').onclick=()=>{saveGame(true);stopMusic();parent.postMessage({type:'rpg-close'},'*')};
- const bClose=$('#bagCloseRpgBtn');if(bClose)bClose.onclick=()=>{saveGame(true);stopMusic();parent.postMessage({type:'rpg-close'},'*')};
- const bMusic=$('#bagMusicBtn');if(bMusic)bMusic.onclick=toggleMusic;
  $('#watchChannelBtn').onclick=()=>{medal('tv-fan');closeOverlay('tvOverlay');toast('A Elo curtiu o programa! 📺💗')};
  $$('.miniClose,[data-close]').forEach(b=>b.onclick=()=>closeOverlay(b.dataset.close||b.closest('.overlay').id));
  $$('.tab').forEach(b=>b.onclick=()=>renderMenu(b.dataset.tab));$('#saveBtn').onclick=()=>saveGame();$('#resetSaveBtn').onclick=()=>{if(confirm('Quer mesmo recomeçar o RPG desde o início? Todo o progresso do RPG será apagado.')){resetRpgAdventure()}};
  $$('[data-battle]').forEach(b=>b.onclick=()=>battleAction(b.dataset.battle));$('#battleEscape').onclick=()=>{if(battle?.boss){toast('Não dá para fugir do chefão!');return}battle=null;$('#battleOverlay').classList.add('hidden');state.x-=40;state.y+=40};
  window.addEventListener('keydown',e=>{const k={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'}[e.key];if(k){input[k]=true;e.preventDefault()}if(e.key==='Enter'||e.key===' '){action();e.preventDefault()}if(e.key==='Escape')openMenu('missions')});
  window.addEventListener('keyup',e=>{const k={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'}[e.key];if(k)input[k]=false});
- $('#startStoryBtn').onclick=()=>{state.started=true;state.map='home';state.x=8*TILE;state.y=8*TILE;medal('first-step');$('#introOverlay').classList.add('hidden');saveGame(true);updateHud();updateMobileControlsVisibility();};
- $('#continueStoryBtn').onclick=()=>{state.started=true;$('#introOverlay').classList.add('hidden');updateHud();updateMobileControlsVisibility();};
+ $('#startStoryBtn').onclick=()=>{state.started=true;state.map='home';state.x=8*TILE;state.y=8*TILE;medal('first-step');$('#introOverlay').classList.add('hidden');saveGame(true);updateHud()};
+ $('#continueStoryBtn').onclick=()=>{state.started=true;$('#introOverlay').classList.add('hidden');updateHud()};
 }
 
 
 
 /* ==========================================================
-   v3.6.0 — RPG DEFINITIVO
+   v3.5.3 — RPG DEFINITIVO
    Polimento visual, IA, chefões, mapas, NPCs, guia, extras e pós-jogo.
    Mantém a campanha principal e saves existentes.
    ========================================================== */
@@ -1534,7 +1337,7 @@ drawBattle=function(){if(!battle)return;rpgxBattleBg();drawBattleEnemy(485,110,b
 
 function rpgxIntent(text,on=true){const el=$('#bossIntent');if(!el)return;el.textContent=text||'';el.classList.toggle('on',!!on&&!!text)}
 function rpgxBossSpecial(type){if(type==='boss')return{key:'storm',name:'Tempestade Nublada',mult:1.65,mp:2,warning:'⚠️ A Sombra Nublada está juntando uma tempestade! Defender reduz muito o golpe.'};if(type==='forestBoss')return{key:'thorns',name:'Chuva de Espinhos',mult:1.75,warning:'⚠️ O Cervo das Sombras ergueu os chifres! Uma chuva de espinhos vem aí.'};if(type==='golem')return{key:'smash',name:'Impacto de Pedra',mult:1.9,warning:'⚠️ O Golem levantou os braços! Ele prepara um impacto de pedra.'};if(type==='finalBoss')return{key:'nova',name:'Supernova Sombria',mult:2.05,mp:3,warning:'⚠️ A Sombra da Noite concentra uma Supernova Sombria!'};if(type==='starWarden')return{key:'circle',name:'Círculo Celeste',mult:2.1,mp:2,warning:'⚠️ O Guardião do Desafio está formando um círculo de estrelas!'};return null}
-startBattle=function(enemyRef){if(battle||state.hp<=0)return;const template=ENEMIES[enemyRef.type];battle={ref:enemyRef,type:enemyRef.type,name:template.name,hp:template.hp,maxHp:template.hp,atk:template.atk,def:template.def,xp:template.xp,coins:template.coins,boss:!!template.boss,recommended:template.recommended||0,defending:false,turnLocked:false,turnCount:0,nextSpecial:null,phase:1,shield:false};$('#enemyName').textContent=battle.name;$('#battleText').textContent=battle.boss?`${battle.name} é um chefão! Observe os avisos e escolha a melhor ação.`:`${battle.name} apareceu!`;rpgxIntent('',false);$('#battleOverlay').classList.remove('hidden');updateMobileControlsVisibility();sfx(battle.boss?'boss':'battle');musicStep=0;updateBattleUI();drawBattle()};
+startBattle=function(enemyRef){if(battle||state.hp<=0)return;const template=ENEMIES[enemyRef.type];battle={ref:enemyRef,type:enemyRef.type,name:template.name,hp:template.hp,maxHp:template.hp,atk:template.atk,def:template.def,xp:template.xp,coins:template.coins,boss:!!template.boss,recommended:template.recommended||0,defending:false,turnLocked:false,turnCount:0,nextSpecial:null,phase:1,shield:false};$('#enemyName').textContent=battle.name;$('#battleText').textContent=battle.boss?`${battle.name} é um chefão! Observe os avisos e escolha a melhor ação.`:`${battle.name} apareceu!`;rpgxIntent('',false);$('#battleOverlay').classList.remove('hidden');sfx(battle.boss?'boss':'battle');musicStep=0;updateBattleUI();drawBattle()};
 
 battleAction=function(type){if(!battle||battle.turnLocked)return;battle.turnLocked=true;const st=stats();
  if(type==='attack'){let dmg=Math.max(2,Math.floor(st.atk+Math.random()*4-battle.def));if(battle.type==='golem'&&battle.shield){dmg=Math.max(1,Math.floor(dmg*.38));$('#battleText').textContent=`O escudo de pedra segurou parte do golpe. ${dmg} de dano.`}else $('#battleText').textContent=`Elo lançou um brilho e causou ${dmg} de dano!`;battle.hp-=dmg;sfx('attack');rpgxSetFx('attack');afterPlayerTurn()}
@@ -1565,352 +1368,8 @@ const oldLoadSaveRpgx=loadSave;
 loadSave=function(){const ok=oldLoadSaveRpgx();state.flags=state.flags||{};rpgxSide();state.flags.rpg340=true;return ok};
 
 
-
-/* ==========================================================
-   v3.6.0 — EXPANSÃO MÁGICA, NOVAS REGIÕES E SINCRONIA COM O APP
-   - Menu dinâmico de Magias com 4 poderes selecionáveis.
-   - Efeitos visuais mágicos dedicados na tela de batalha.
-   - Novas regiões: Clareira dos Unicórnios e Gruta dos Cristais.
-   - Sincronização de estrelas reais com o app principal da Elo.
-   ========================================================== */
-
-function sendStarsToParent(amount, msg){
-  try {
-    if(window.parent && window.parent !== window){
-      window.parent.postMessage({type: 'rpg-stars', amount: Number(amount)||1, msg: msg || 'Você ganhou estrelas no RPG! ⭐'}, '*');
-    }
-  } catch(_){}
-}
-
-const RPG_SPELLS_V360 = [
-  {id:'starRay', name:'Raio Estelar', icon:'✨', cost:3, minLv:1, desc:'Feixe de luz estelar rápido com dano mágico concentrado.'},
-  {id:'flowerHeal', name:'Cura Florida', icon:'🌸', cost:4, minLv:2, desc:'Restaura 40 de Energia e recupera 2 MP da Elo.'},
-  {id:'rainbowShield', name:'Escudo Arco-Íris', icon:'🌈', cost:4, minLv:3, desc:'Reduz 75% do dano e reflete parte do golpe no inimigo.'},
-  {id:'meteorShower', name:'Chuva de Meteoros', icon:'🌠', cost:6, minLv:4, desc:'Poder supremo das estrelas: causa dano mágico massivo.'}
-];
-
-function openBattleMagicPicker(){
-  const list = $('#battleMagicList');
-  if(!list) return;
-  const unlocked = RPG_SPELLS_V360.filter(s => state.level >= s.minLv);
-  list.innerHTML = unlocked.map(s => {
-    const can = state.mp >= s.cost;
-    return `<div class="listCard ${can ? '' : 'locked'}">
-      <div class="ico">${s.icon}</div>
-      <div class="grow">
-        <b>${s.name}</b>
-        <small>${s.desc} • Custo: ${s.cost} MP</small>
-      </div>
-      <button class="softBtn" ${can ? `onclick="window.__castSpell('${s.id}')"` : 'disabled'}>${can ? 'Conjurar ✨' : 'Sem MP'}</button>
-    </div>`;
-  }).join('');
-  $('#battleMagicOverlay').classList.remove('hidden');updateMobileControlsVisibility();
-}
-window.__castSpell = function(id){
-  closeOverlay('battleMagicOverlay');
-  castBattleSpellV360(id);
-};
-
-function castBattleSpellV360(id){
-  if(!battle || battle.turnLocked) return;
-  const s = RPG_SPELLS_V360.find(x => x.id === id);
-  if(!s || state.mp < s.cost){
-    $('#battleText').textContent = `Magia insuficiente para ${s?.name || 'este poder'}.`;
-    return;
-  }
-  battle.turnLocked = true;
-  state.mp -= s.cost;
-  const st = stats();
-
-  if(id === 'flowerHeal'){
-    heal(40);
-    state.mp = Math.min(state.maxMp, state.mp + 2);
-    sfx('magic');
-    rpgxSetFx('flowerHeal');
-    $('#battleText').textContent = `🌸 Cura Florida! Elo recuperou 40 de energia e perfumou o campo!`;
-    updateBattleUI();
-    setTimeout(enemyTurn, 650);
-  } else if(id === 'rainbowShield'){
-    battle.rainbowShield = true;
-    sfx('magic');
-    rpgxSetFx('rainbowShield');
-    $('#battleText').textContent = `🌈 Escudo Arco-Íris! Elo criou uma cúpula protetora refletora!`;
-    updateBattleUI();
-    setTimeout(enemyTurn, 650);
-  } else {
-    const isMeteor = id === 'meteorShower';
-    const mult = isMeteor ? 2.5 : 1.6;
-    const bonus = isMeteor ? 16 : 6;
-    let dmg = Math.max(4, Math.floor(st.mag * mult + bonus + Math.random()*6 - battle.def));
-    if(battle.type === 'golem' && battle.shield){
-      battle.shield = false;
-      dmg = Math.floor(dmg * 1.35);
-      $('#battleText').textContent = `💥 ${s.name} quebrou o escudo do Golem! ${dmg} de dano!`;
-    } else {
-      $('#battleText').textContent = `${s.name}! ${dmg} de dano mágico ${s.icon}`;
-    }
-    battle.hp -= dmg;
-    sfx('magic');
-    rpgxSetFx(isMeteor ? 'meteorShower' : 'starRay');
-    afterPlayerTurn();
-  }
-}
-
-// Hook de batalha no battleAction para abrir seletor
-const prevBattleActionV353 = battleAction;
-battleAction = function(type){
-  if(type === 'magic'){
-    openBattleMagicPicker();
-    return;
-  }
-  prevBattleActionV353(type);
-};
-
-// Hook no turno do inimigo para aplicar reflexão do Escudo Arco-Íris
-const prevEnemyTurnV353 = enemyTurn;
-enemyTurn = function(){
-  if(battle && battle.rainbowShield){
-    const st = stats();
-    battle.turnCount = (battle.turnCount || 0) + 1;
-    let baseDmg = Math.max(2, Math.floor(battle.atk + Math.random()*4 - st.def));
-    let absorbedDmg = Math.max(1, Math.floor(baseDmg * 0.25));
-    let reflectedDmg = Math.max(3, Math.floor(baseDmg * 0.75 + 4));
-    state.hp -= absorbedDmg;
-    battle.hp -= reflectedDmg;
-    battle.rainbowShield = false;
-    sfx('magic');
-    rpgxSetFx('rainbowShield');
-    $('#battleText').textContent = `🌈 O Escudo Arco-Íris absorveu o golpe! Elo sofreu só ${absorbedDmg} e refletiu ${reflectedDmg} no adversário!`;
-    updateBattleUI();
-    if(battle.hp <= 0) return setTimeout(winBattle, 650);
-    if(state.hp <= 0) return setTimeout(loseBattle, 700);
-    battle.turnLocked = false;
-    return;
-  }
-  prevEnemyTurnV353();
-};
-
-// Novos efeitos visuais de batalha no canvas
-const prevDrawFxV353 = rpgxDrawFx;
-rpgxDrawFx = function(){
-  const fx = RPGX.battleFx;
-  if(!fx){ return; }
-  const p = (performance.now() - fx.start) / fx.dur;
-  if(p >= 1){ RPGX.battleFx = null; return; }
-
-  if(fx.kind === 'starRay'){
-    bctx.save();
-    bctx.globalAlpha = 1 - p;
-    // Raio estelar de Elo ao Inimigo
-    const grd = bctx.createLinearGradient(120, 130, 485, 110);
-    grd.addColorStop(0, '#fff4a8');
-    grd.addColorStop(0.5, '#76e4ff');
-    grd.addColorStop(1, '#ff84ca');
-    bctx.strokeStyle = grd;
-    bctx.lineWidth = 10 * (1 - p) + 3;
-    bctx.beginPath();
-    bctx.moveTo(120, 130);
-    bctx.lineTo(485, 110);
-    bctx.stroke();
-    // Explosão estelar no alvo
-    bctx.fillStyle = '#fff8bd';
-    bctx.beginPath();
-    bctx.arc(485, 110, 15 + p * 55, 0, Math.PI*2);
-    bctx.fill();
-    bctx.restore();
-    return;
-  }
-  if(fx.kind === 'flowerHeal'){
-    bctx.save();
-    bctx.globalAlpha = 1 - p;
-    // Círculo florido e pétalas subindo
-    bctx.strokeStyle = '#85f59c';
-    bctx.lineWidth = 6 * (1 - p) + 2;
-    bctx.beginPath();
-    bctx.ellipse(110, 150, 45, 18, 0, 0, Math.PI*2);
-    bctx.stroke();
-    // Flores flutuando
-    bctx.font = `${Math.floor(18 + p * 6)}px system-ui`;
-    bctx.textAlign = 'center';
-    const flowers = ['🌸', '✨', '💗', '🌺'];
-    for(let i=0; i<4; i++){
-      const a = (i * Math.PI / 2) + p * 3;
-      const fxX = 110 + Math.cos(a) * 36;
-      const fxY = 145 - p * 60 + Math.sin(a) * 14;
-      bctx.fillText(flowers[i], fxX, fxY);
-    }
-    bctx.restore();
-    return;
-  }
-  if(fx.kind === 'rainbowShield'){
-    bctx.save();
-    bctx.globalAlpha = 1 - p * 0.7;
-    // Domo de arco-íris sobre a Elo
-    const rainbowColors = ['#ff6f91', '#ff9671', '#ffc75f', '#48cfae', '#4fc1e9', '#ac92ec'];
-    for(let i=0; i<rainbowColors.length; i++){
-      bctx.strokeStyle = rainbowColors[i];
-      bctx.lineWidth = 3.5;
-      bctx.beginPath();
-      bctx.arc(110, 155, 36 + i * 4 + Math.sin(p * 8) * 3, Math.PI, Math.PI*2);
-      bctx.stroke();
-    }
-    bctx.restore();
-    return;
-  }
-  if(fx.kind === 'meteorShower'){
-    bctx.save();
-    bctx.globalAlpha = 1 - p;
-    // Meteoros caindo
-    for(let i=0; i<5; i++){
-      const startX = 280 + i * 65 - p * 70;
-      const startY = 10 + i * 25 - p * 30;
-      const endX = 420 + i * 20;
-      const endY = 85 + i * 18;
-      bctx.strokeStyle = i%2 ? '#ffd45c' : '#a8e7ff';
-      bctx.lineWidth = 4;
-      bctx.beginPath();
-      bctx.moveTo(startX, startY);
-      bctx.lineTo(endX, endY);
-      bctx.stroke();
-      bctx.fillStyle = '#fff';
-      bctx.beginPath();
-      bctx.arc(endX, endY, 6 + p * 12, 0, Math.PI*2);
-      bctx.fill();
-    }
-    bctx.restore();
-    return;
-  }
-  prevDrawFxV353();
-};
-
-// Sincronização de estrelas reais com o app ao vencer batalhas
-const prevWinBattleV353 = winBattle;
-winBattle = function(){
-  if(battle){
-    const rewardStars = battle.boss ? 10 : 2;
-    const msg = battle.boss ? `Grande vitória contra ${battle.name}! +${rewardStars} ⭐ para seu Quarto!` : `Vitória no RPG! +${rewardStars} ⭐`;
-    sendStarsToParent(rewardStars, msg);
-  }
-  prevWinBattleV353();
-};
-
-// ==========================================================
-// NOVAS REGIÕES EXPANDIDAS
-// ==========================================================
-
-// 1. Clareira dos Unicórnios (ligada ao Bosque)
-maps.unicornGlade = {
-  name: 'Clareira dos Unicórnios',
-  w: 24, h: 18,
-  bg: '#c5f2db', floor: '#82d989',
-  walls: [
-    rect(0, 0, 24*TILE, 24),
-    rect(0, 0, 24, 18*TILE),
-    rect(24*TILE-24, 0, 24, 18*TILE),
-    rect(0, 18*TILE-24, 9*TILE, 24),
-    rect(15*TILE, 18*TILE-24, 9*TILE, 24)
-  ],
-  objects: [],
-  npcs: [],
-  enemies: []
-};
-INTERIOR_MAPS.add('unicornGlade');
-
-// Decorações da Clareira
-addObj('unicornGlade', 'pond', 9*TILE, 6*TILE, 6*TILE, 4*TILE, {label: 'Lago dos Sonhos'});
-addObj('unicornGlade', 'glowPool', 10*TILE, 7*TILE, 4*TILE, 2*TILE);
-addObj('unicornGlade', 'flowerbed', 3*TILE, 3*TILE, 4*TILE, 2*TILE);
-addObj('unicornGlade', 'flowerbed', 17*TILE, 3*TILE, 4*TILE, 2*TILE);
-addObj('unicornGlade', 'butterflies', 7*TILE, 5*TILE, 1*TILE, 1*TILE);
-addObj('unicornGlade', 'butterflies', 16*TILE, 11*TILE, 1*TILE, 1*TILE);
-addObj('unicornGlade', 'sparkles', 12*TILE, 8*TILE, 1*TILE, 1*TILE);
-addObj('unicornGlade', 'treasureChest', 20*TILE, 5*TILE, 1*TILE, 1*TILE, {id: 'unicornGladeChest', label: 'Baú dos Sonhos'});
-addObj('unicornGlade', 'houseDoor', 10.5*TILE, 16.8*TILE, 3*TILE, 1.2*TILE, {label: 'Voltar ao Bosque', to: 'forest', spawn: {x: 36*TILE, y: 7*TILE}});
-
-// NPCs da Clareira
-addNpc('unicornGlade', 'lumaBaby', 'Luminho', 12*TILE, 5.2*TILE, '', ['Oi, Elo! Eu sou o Luminho, o bebê unicórnio! 🦄✨'], {wander: true, wanderRadius: 40, wanderAxis: 'x'});
-addNpc('unicornGlade', 'fadaCeleste', 'Fada Celeste', 5*TILE, 7.5*TILE, '', ['Bem-vinda à nossa Clareira Secreta! Os unicórnios adoram sua energia gentil.']);
-
-// Passagem no Bosque para a Clareira
-addObj('forest', 'houseDoor', 36*TILE, 4.8*TILE, 2.6*TILE, 1.5*TILE, {label: 'Clareira dos Unicórnios', to: 'unicornGlade', spawn: {x: 12*TILE, y: 15*TILE}});
-addObj('forest', 'butterflies', 35*TILE, 5.8*TILE, 1*TILE, 1*TILE);
-
-// 2. Gruta dos Cristais Cintilantes (ligada à Caverna do Brilho)
-maps.crystalCave = {
-  name: 'Gruta dos Cristais',
-  w: 22, h: 20,
-  bg: '#251e39', floor: '#493868',
-  walls: [
-    rect(0, 0, 22*TILE, 24),
-    rect(0, 0, 24, 20*TILE),
-    rect(22*TILE-24, 0, 24, 20*TILE),
-    rect(0, 20*TILE-24, 8*TILE, 24),
-    rect(14*TILE, 20*TILE-24, 8*TILE, 24)
-  ],
-  objects: [],
-  npcs: [],
-  enemies: []
-};
-INTERIOR_MAPS.add('crystalCave');
-
-// Decorações da Gruta
-addObj('crystalCave', 'glowPool', 8*TILE, 8*TILE, 5*TILE, 3*TILE);
-addObj('crystalCave', 'crystal', 4*TILE, 4*TILE, 2*TILE, 2*TILE);
-addObj('crystalCave', 'crystal', 16*TILE, 4*TILE, 2*TILE, 2*TILE);
-addObj('crystalCave', 'sparkles', 10*TILE, 11*TILE, 2*TILE, 2*TILE);
-addObj('crystalCave', 'treasureChest', 17*TILE, 6*TILE, 1*TILE, 1*TILE, {id: 'crystalGrottoChest', label: 'Baú de Safira'});
-addObj('crystalCave', 'serviceExit', 9.5*TILE, 18.7*TILE, 3*TILE, 1.2*TILE, {label: 'Voltar à Caverna', to: 'cave', spawn: {x: 24*TILE, y: 7*TILE}});
-
-// NPCs e Inimigos da Gruta
-addNpc('crystalCave', 'sabioCristal', 'Mestre Cristal', 11*TILE, 5.5*TILE, '', ['Estes cristais guardam o brilho puro das constelações. Sinta a magia fluir! 💎']);
-addEnemy('crystalCave', 'crystSpark1', 'spark', 6*TILE, 12*TILE);
-addEnemy('crystalCave', 'crystSpark2', 'spark', 15*TILE, 13*TILE);
-
-// Passagem na Caverna do Brilho para a Gruta
-addObj('cave', 'caveEntrance', 23.5*TILE, 4.5*TILE, 3*TILE, 2*TILE, {label: 'Gruta dos Cristais Cintilantes', to: 'crystalCave', spawn: {x: 11*TILE, y: 17*TILE}});
-
-// NPCs de estilo e perfis estéticos
-RPGX_NPC.lumaBaby = {skin:'#fff', hair:'#ff70be', shirt:'#fff', robe:'#ffd765', kind:'fairy'};
-RPGX_NPC.fadaCeleste = {skin:'#edd2ff', hair:'#8a6fff', shirt:'#c9b5ff', robe:'#eadaff', kind:'celestial'};
-RPGX_NPC.sabioCristal = {skin:'#c5dfff', hair:'#608eff', shirt:'#4466b0', robe:'#98baff', kind:'wizard'};
-
-// Recompensa de baú especial
-const prevInteractObjV353 = interactObject;
-interactObject = function(o){
-  if(o.type === 'treasureChest' && (o.id === 'unicornGladeChest' || o.id === 'crystalGrottoChest') && !state.flags['collected_' + o.id]){
-    state.flags['collected_' + o.id] = true;
-    sfx('chest');
-    addCoins(75);
-    state.inventory.potion = (state.inventory.potion || 0) + 2;
-    state.inventory.manaMedium = (state.inventory.manaMedium || 0) + 2;
-    sendStarsToParent(5, 'Tesouro especial encontrado! +5 ⭐');
-    saveGame(true);
-    dialog('Elo', o.id === 'unicornGladeChest' ? 'Uau! Encontrei 75 moedas, 2 Poções e 5 Estrelas no Baú dos Sonhos! 🦄⭐' : 'Incrível! Encontrei 75 moedas, 2 Poções Safira e 5 Estrelas na Gruta! 💎⭐', 'npc');
-    return;
-  }
-  prevInteractObjV353(o);
-};
-
-// Nomes de mapas no menu
-const prevRenderMenuV353 = renderMenu;
-renderMenu = function(tab){
-  prevRenderMenuV353(tab);
-  if(tab === 'map'){
-    const names = {
-      home:'🏠 Casa da Elo', city:'🏘️ Vila das Estrelas', neighbor:'🏡 Casa da Sofia', blueHouse:'🏡 Casa Azul', flowerHouse:'🌸 Casa das Flores',
-      wizardHouse:'🔮 Casa do Mago', meadow:'🌿 Campina Encantada', cave:'💎 Caverna do Brilho', crystalCave:'🔮 Gruta dos Cristais',
-      forest:'🌲 Bosque Sussurrante', unicornGlade:'🦄 Clareira dos Unicórnios', market:'🏘️ Vila do Mercado', bridge:'🌉 Ponte Antiga',
-      temple:'🌠 Templo das Estrelas', starRoad:'💠 Caminho Celeste'
-    };
-    const c = $('#menuContent');
-    if(c){
-      c.innerHTML = Object.keys(names).map(k => `<div class="listCard"><div class="ico">${state.discovered.includes(k) ? names[k].split(' ')[0] : '❓'}</div><div class="grow"><b>${state.discovered.includes(k) ? names[k].slice(2) : 'Lugar ainda não descoberto'}</b><small>${k === state.map ? 'Você está aqui' : ''}</small></div></div>`).join('');
-    }
-  }
-};
-
 const hadSave=loadSave();bind();updateHud();$('#locationTag').textContent=maps[state.map].name;if(hadSave){$('#continueStoryBtn').classList.remove('hidden');$('#startStoryBtn').classList.add('hidden')}
-state.started=hadSave?true:false;if(hadSave)$('#introOverlay').classList.remove('hidden');updateMobileControlsVisibility();
+state.started=hadSave?true:false;if(hadSave)$('#introOverlay').classList.remove('hidden');
 raf=requestAnimationFrame(loop);
 })();
 
