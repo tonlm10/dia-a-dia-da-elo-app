@@ -712,6 +712,11 @@ window.exportCurrentModelObj = function(){
 window.importCustomModelFile = function(input){
   const file = input?.files?.[0];
   if(!file) return;
+  if(file.size > 8 * 1024 * 1024){
+    if(typeof toast === 'function') toast('Arquivo 3D muito grande (máximo 8 MB).');
+    input.value = '';
+    return;
+  }
 
   const reader = new FileReader();
   reader.onload = e => {
@@ -740,6 +745,35 @@ window.importCustomModelFile = function(input){
   reader.readAsText(file);
 };
 
+function validateMesh(mesh){
+  const MAX_V = 60000, MAX_F = 120000;
+  const vs = Array.isArray(mesh.vertices) ? mesh.vertices : [];
+  const fs = Array.isArray(mesh.faces) ? mesh.faces : [];
+  if(vs.length < 3 || vs.length > MAX_V || fs.length > MAX_F) throw new Error('Tamanho de modelo inválido');
+  const cleanV = [];
+  for(const v of vs){
+    const x = Array.isArray(v) ? Number(v[0]) : Number(v && v.x);
+    const y = Array.isArray(v) ? Number(v[1]) : Number(v && v.y);
+    const z = Array.isArray(v) ? Number(v[2]) : Number(v && v.z);
+    if(!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) throw new Error('Vértice inválido');
+    cleanV.push({ x, y, z });
+  }
+  const n = cleanV.length, cleanF = [], HEX = /^#[0-9a-fA-F]{3,8}$/;
+  for(const f of fs){
+    const idx = Array.isArray(f) ? f : (f && f.indices);
+    if(!Array.isArray(idx) || idx.length < 3 || idx.length > 64) continue;
+    if(!idx.every(i => Number.isInteger(i) && i >= 0 && i < n)) continue;
+    const color = (f && typeof f.color === 'string' && HEX.test(f.color)) ? f.color : '#f472b6';
+    const wireColor = (f && typeof f.wireColor === 'string' && HEX.test(f.wireColor)) ? f.wireColor : '#ec4899';
+    cleanF.push({ indices: idx.slice(), color, wireColor });
+  }
+  if(!cleanF.length) throw new Error('Modelo sem faces válidas');
+  mesh.vertices = cleanV;
+  mesh.faces = cleanF;
+  mesh.stats = `${cleanV.length} vértices • ${cleanF.length} polígonos`;
+  return mesh;
+}
+
 function parseObjModel(objText, fileName){
   const mesh = createMesh();
   mesh.name = 'custom';
@@ -755,6 +789,7 @@ function parseObjModel(objText, fileName){
       const parts = line.split(/\s+/).slice(1).map(Number);
       if(parts.length >= 3){
         const v = { x: parts[0], y: parts[1], z: parts[2] };
+        if(!Number.isFinite(v.x) || !Number.isFinite(v.y) || !Number.isFinite(v.z)) throw new Error('Vértice inválido na linha ' + (i + 1));
         mesh.vertices.push(v);
         minX = Math.min(minX, v.x); maxX = Math.max(maxX, v.x);
         minY = Math.min(minY, v.y); maxY = Math.max(maxY, v.y);
@@ -794,8 +829,7 @@ function parseObjModel(objText, fileName){
     }
   }
 
-  mesh.stats = `${mesh.vertices.length} vértices • ${mesh.faces.length} polígonos`;
-  return mesh;
+  return validateMesh(mesh);
 }
 
 function parseJsonModel(jsonText){
@@ -806,8 +840,7 @@ function parseJsonModel(jsonText){
   mesh.desc = data.desc || 'Modelo importado em formato JSON.';
   mesh.vertices = data.vertices || [];
   mesh.faces = data.faces || [];
-  mesh.stats = `${mesh.vertices.length} vértices • ${mesh.faces.length} polígonos`;
-  return mesh;
+  return validateMesh(mesh);
 }
 
 // ==========================================================

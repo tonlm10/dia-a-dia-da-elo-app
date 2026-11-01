@@ -1116,9 +1116,15 @@
     margin: 8px 0 !important;
   }
   #parentPinModal .pinPad {
-    grid-template-columns: repeat(6, 46px) !important;
+    grid-template-columns: repeat(5, 46px) 84px !important;
     gap: 6px !important;
   }
+  /* v4.3.16: 1-5 + Cancelar / 6-9,0 + Apagar (antes "Cancelar" ficava cortado) */
+  #parentPinModal .pinKey:nth-child(-n+5) { order: 1; }
+  #parentPinModal .pinKey:nth-child(10) { order: 2; }
+  #parentPinModal .pinKey:nth-child(n+6):nth-child(-n+9), #parentPinModal .pinKey:nth-child(11) { order: 3; }
+  #parentPinModal .pinKey:nth-child(12) { order: 4; }
+  #parentPinModal .pinKey.action { font-size: 12px !important; white-space: nowrap; padding-left: 0 !important; padding-right: 0 !important; }
   #parentPinModal .pinKey {
     padding: 8px 0 !important;
     font-size: 18px !important;

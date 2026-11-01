@@ -2974,3 +2974,6 @@ nav {
   color: #ffffff;
   border-color: transparent;
 }
+
+/* v4.3.16: filtro de cor da Trilha aplicado via CSS (antes era ctx.filter por quadro, custava ~57 FPS) */
+#trailCanvas { filter: saturate(1.2) contrast(1.06); }

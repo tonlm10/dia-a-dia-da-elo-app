@@ -1,3 +1,44 @@
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.16-r55)
+Data: 01/11/2026
+
+Correções (resultado da análise por execução do app):
+
+1. Trilha Encantada - desempenho:
+   - Removido ctx.filter='saturate(1.2) contrast(1.06)' que era aplicado a cada quadro num canvas 900x500
+     (caía de 60 para ~3 FPS em renderização por CPU). O mesmo visual agora é aplicado uma única vez via CSS
+     em #trailCanvas (polish.css).
+
+2. Área dos Pais - PIN:
+   - PIN deixa de ser gravado em texto puro: agora fica como hash com sal (PBKDF2-SHA256, 100 mil iterações;
+     fallback com hash iterado quando crypto.subtle não está disponível) na chave eloParentPinV2.
+     PIN antigo (eloParentPin) é migrado automaticamente na primeira abertura e a chave antiga é apagada.
+   - O desbloqueio de 5 minutos passa a ficar só em memória (antes ficava em sessionStorage e podia ser forjado).
+     Efeito: recarregar a página trava a Área dos Pais novamente.
+   - Limite de tentativas: a cada 5 erros seguidos o teclado trava (30 s, 60 s, 120 s ... máximo 15 min).
+   - Observação: é proteção contra criança curiosa, não segurança forte. Um PIN de 4 dígitos sempre pode ser
+     descoberto por quem tiver acesso ao DevTools do aparelho.
+
+3. Estúdio 3D - importação de .OBJ/.JSON:
+   - Nova validação (validateMesh): vértices precisam ser números finitos, índices de face dentro do intervalo,
+     cores hexadecimais válidas, mínimo de 3 vértices e 1 face, máximo de 60 mil vértices / 120 mil faces e
+     arquivo de até 8 MB. Arquivo inválido mostra o aviso "Não foi possível ler o arquivo 3D" em vez de gerar
+     erro no laço de renderização (reading 'pz').
+
+4. Backup - validação na importação:
+   - Valida tipos, nome das chaves (padrão seguro), tamanho, JSON das chaves estruturadas e saldo de estrelas
+     (inteiro >= 0). Backup inválido é rejeitado por inteiro, sem tocar no progresso atual.
+   - Restauração "substituir" agora faz rollback se a gravação falhar no meio.
+   - Avatar/faixa etária vindos do arquivo são validados e o avatar passa a ser escapado ao listar perfis
+     (evitava HTML injetado por backup adulterado).
+   - Saldo de estrelas lido do armazenamento agora é sempre numérico (antes um valor corrompido virava NaN).
+
+5. Interface:
+   - Teclado do PIN em tela deitada: "Cancelar" não fica mais cortado (layout 1-5 + Cancelar / 6-9,0 + Apagar).
+   - Texto do Baú das Estrelas corrigido: "as estrelas são ganhas brincando; assinaturas e links externos só
+     abrem com o PIN dos pais" (antes citava "compras", que não existem no app).
+
+Versão: cache PWA elo-official-4.3.16-r55; TARGET_VER 4.3.16-r55 (purga e atualização automática).
+
 # Relatório de Atualização - Dia a Dia da Elo (v4.3.15-r54)
 Data: 31/10/2026
 
