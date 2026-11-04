@@ -5,7 +5,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.3.16-r55";
+    var TARGET_VER = "4.3.18-r57";
     localStorage.removeItem("elo_force_landscape_90");
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
@@ -37,11 +37,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800;900&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4.3.16">
-<link rel="stylesheet" href="v3.css?v=4.3.16">
-<link rel="stylesheet" href="polish.css?v=4.3.16">
-<link rel="stylesheet" href="games-v350.css?v=4.3.16">
-<link rel="stylesheet" href="landscape.css?v=4.3.16">
+<link rel="stylesheet" href="styles.css?v=4.3.18">
+<link rel="stylesheet" href="v3.css?v=4.3.18">
+<link rel="stylesheet" href="polish.css?v=4.3.18">
+<link rel="stylesheet" href="games-v350.css?v=4.3.18">
+<link rel="stylesheet" href="landscape.css?v=4.3.18">
+<link rel="stylesheet" href="pet.css?v=4.3.18">
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "90c3450f7aeb46d0840ac525d5ac0da8"}'></script>
 <!-- End Cloudflare Web Analytics -->
@@ -220,7 +221,7 @@
     </div>
   </div>
 
-  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.16</span></div>
+  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.18</span></div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -521,7 +522,7 @@
   <div class="card parentClubCard"><h3>Clubinho da Elo 👑</h3><p class="muted">Informações de assinatura e valores ficam somente na Área dos Pais.</p><button class="btn secondary" onclick="openPanel('clubPanel','parents')">Ver planos e benefícios</button></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.16</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.18</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -576,51 +577,91 @@
 
 
 <section id="petPanel" class="panel">
-  <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Bichinho da Elo 🐾</h2></div>
-  <div class="cantinhoTopSwitcher">
-    <button class="cSwitchBtn" onclick="openPanel('roomPanel','home')">🛏️ Quarto 3D</button>
-    <button class="cSwitchBtn" onclick="openPanel('wardrobePanel','home')">👗 Guarda-roupa</button>
-    <button class="cSwitchBtn on" onclick="openPet()">🐾 Bichinho</button>
+  <div class="pzTop">
+    <button class="back" onclick="appBack()" aria-label="Voltar">‹</button>
+    <h2 class="pzTitle">Bichinho da Elo 🐾</h2>
+    <div class="pzTabs" role="group" aria-label="Cantinho da Elo">
+      <button onclick="openPanel('roomPanel','home')" title="Quarto 3D" aria-label="Quarto 3D">🛏️</button>
+      <button onclick="openPanel('wardrobePanel','home')" title="Guarda-roupa" aria-label="Guarda-roupa">👗</button>
+      <button class="on" onclick="openPet()" title="Bichinho" aria-label="Bichinho">🐾</button>
+      <button onclick="openPanel('carePanel','home')" title="Cuidados" aria-label="Cuidados">🦷</button>
+    </div>
+    <span class="pzSpacer"></span>
+    <button class="pzIcon" onclick="petOpenSheet('album')" title="Álbum de bichinhos" aria-label="Álbum de bichinhos">📖</button>
+    <button id="pzNotifyBtn" class="pzIcon" onclick="petOpenSheet('notify')" title="Lembretes" aria-label="Lembretes">🔔</button>
+    <button id="pzSfxBtn" class="pzIcon" onclick="petToggleSfx()" title="Sons" aria-label="Sons">🔊</button>
+    <button class="pzIcon" onclick="petOpenSheet('more')" title="Mais" aria-label="Mais opções">⚙️</button>
   </div>
-  <div class="petIntro" ><div><small>MEU COMPANHEIRO</small><h3>Um bichinho virtual para cuidar</h3><p>Ele cresce com carinho e brincadeiras. Não morre e não perde progresso se você ficar um tempo sem entrar.</p></div><button class="smallBtn" onclick="petSpeakStatus()">🔊</button></div>
-  <div class="petLayoutLandscape">
-    <div class="petDevice">
-      <div class="petDeviceTop"><span id="petStageLabel">Ovinho</span><b id="petNameLabel">Ovinho misterioso</b><button id="petRenameBtn" class="petMiniBtn" onclick="renamePet()">✏️</button></div>
-      <div class="petScreen">
-        <div class="petScreenBg"><i></i><i></i><i></i></div>
-        <div id="petEgg" class="petEgg"><span></span></div>
-        <div id="petCreature" class="petCreature hidden">
-          <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
+
+  <div class="pzMain">
+    <div class="pzDevice">
+      <div class="pzHead"><span id="petStageLabel" class="pzStage">Ovinho</span><b id="petNameLabel" class="pzName">Ovinho misterioso</b><button id="petRenameBtn" class="pzEdit" onclick="renamePet()" aria-label="Mudar o nome">✏️</button></div>
+      <div id="pzScreen" class="pzScreen" data-scene="meadow">
+        <div id="pzEgg" class="pzEgg" onclick="petTapEgg()"><span></span></div>
+        <div id="petCreature" class="petCreature hidden" onclick="petTap()">
+          <span class="petWing wL"></span><span class="petWing wR"></span>
+          <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petMane"></span><span class="petTail"></span>
           <span class="petBody"></span><span class="petHead"><i class="petEye e1"></i><i class="petEye e2"></i><i class="petMouth"></i><i class="petCheek c1"></i><i class="petCheek c2"></i></span>
           <span id="petAccessory" class="petAccessory"></span>
         </div>
-        <div id="petStats" class="petStats hidden" aria-label="Necessidades do bichinho"></div>
-        <div id="petActionFx" class="petActionFx" aria-hidden="true"></div>
-        <div id="petBubble" class="petBubble">Cuide do ovo para descobrir quem vai nascer! 💗</div>
-      </div>
-      <div id="petEggControls" class="petEggControls">
-        <div class="eggProgress"><b id="eggCareText">0/5 cuidados</b><div><i id="eggCareBar"></i></div></div>
-        <button id="eggCareButton" class="petAction primary" onclick="careForEgg()"><span>💗</span><b>Cuidar do ovo</b><small id="eggCooldownText">Aquecer e fazer carinho</small></button>
+        <div id="pzDark" class="pzDark" aria-hidden="true"><span>🌙</span><i>✦</i><i>✧</i><i>✦</i></div>
+        <div id="petStats" class="pzStats hidden" aria-label="Necessidades do bichinho"></div>
+        <div id="pzFx" class="pzFx" aria-hidden="true"></div>
+        <div id="petBubble" class="pzBubble">Cuide do ovo para descobrir quem vai nascer! 💗</div>
       </div>
     </div>
-    <div id="petCareArea" class="petCareAreaLandscape hidden">
-      <div id="petGrade" class="petGrade">📚 Nota: 8,0</div>
-      <div class="petActions">
-        <button data-pet-action="feed" onclick="petAction('feed')"><span>🥣</span><b>Comida</b><small>Fome</small></button>
-        <button data-pet-action="sleep" onclick="petAction('sleep')"><span>🌙</span><b>Apagar luz</b><small>Dormir</small></button>
-        <button data-pet-action="bath" onclick="petAction('bath')"><span>🚿</span><b>Banho</b><small>Higiene</small></button>
-        <button data-pet-action="hygiene" onclick="petAction('hygiene')"><span>🪥</span><b>Higiene</b><small>Limpar</small></button>
-        <button data-pet-action="play" onclick="petAction('play')"><span>🎾</span><b>Brincar</b><small>Diversão</small></button>
-        <button data-pet-action="love" onclick="petAction('love')"><span>💗</span><b>Carinho</b><small>Carinho</small></button>
-        <button data-pet-action="study" onclick="petAction('study')"><span>📚</span><b>Estudar</b><small>Nota</small></button>
+
+    <div class="pzSide">
+      <div class="pzGrowth"><div class="t"><b id="petGrowthText">Crescimento</b><small id="petGrowthSub">Cada cuidado ajuda seu amigo a crescer.</small></div><div class="pzBar"><i id="petGrowthBar"></i></div><button id="petAscensionBtn" class="pzAscend hidden" onclick="startPetAscension()">✨ Jornada (+25 ⭐)</button></div>
+      <div id="pzMode" class="pzMode">
+        <div class="pzView" data-view="home">
+          <div class="pzActions">
+            <button data-pet-action="feed" class="pzBtn" onclick="petAction('feed')"><span>🥣</span><b>Comida</b></button>
+            <button data-pet-action="play" class="pzBtn" onclick="petAction('play')"><span>🎈</span><b>Brincar</b></button>
+            <button data-pet-action="bath" class="pzBtn" onclick="petAction('bath')"><span>🚿</span><b>Banho</b></button>
+            <button data-pet-action="hygiene" class="pzBtn" onclick="petAction('hygiene')"><span>🪥</span><b>Dentinhos</b></button>
+            <button data-pet-action="love" class="pzBtn" onclick="petAction('love')"><span>💗</span><b>Carinho</b></button>
+            <button data-pet-action="study" class="pzBtn" onclick="petAction('study')"><span>📚</span><b>Estudar</b></button>
+            <button data-pet-action="sleep" class="pzBtn" onclick="petAction('sleep')"><span>🌙</span><b>Apagar luz</b></button>
+            <button data-pet-action="style" class="pzBtn" onclick="petOpenSheet('style')"><span>🎀</span><b>Estilo</b></button>
+          </div>
+          <div id="pzTip" class="pzTip">💡 Toque no seu bichinho para fazer cócegas!</div>
+        </div>
+        <div class="pzView hidden" data-view="egg">
+          <div class="pzEggCard">
+            <b id="eggCareText">0/5 cuidados</b>
+            <div class="pzBar"><i id="eggCareBar"></i></div>
+            <button id="eggCareButton" class="pzEggBtn" onclick="careForEgg()"><span>💗 Cuidar do ovo</span><small id="eggCooldownText">Aquecer e fazer carinho</small></button>
+          </div>
+        </div>
+        <div class="pzView hidden" data-view="feed">
+          <div class="pzHint" id="pzFeedHint">Arraste a comidinha até a boquinha — ou toque nela! 🍓</div>
+          <div class="pzFoods" id="pzFoods"></div>
+          <button class="pzGhost" onclick="petSetMode('home')">‹ Voltar</button>
+        </div>
+        <div class="pzView hidden" data-view="play">
+          <div class="pzHint">🎈 Toque nos balões para estourar!</div>
+          <div class="pzMeter"><i id="pzPlayBar"></i></div>
+          <div class="pzTip" id="pzPlayScore">0 estourados</div>
+          <button class="pzGhost" onclick="petEndPlay(true)">Parar de brincar</button>
+        </div>
+        <div class="pzView hidden" data-view="study">
+          <div class="pzHint" id="pzStudyHint">Pergunta 1 de 3</div>
+          <div class="pzQ"><div class="e" id="pzQE"></div><div class="q" id="pzQT"></div><div class="pzOpts" id="pzQOpts"></div></div>
+          <button class="pzGhost" onclick="petSetMode('home')">‹ Voltar</button>
+        </div>
+        <div class="pzView hidden" data-view="bath">
+          <div class="pzHint">🧽 Esfregue o bichinho com o dedo!</div>
+          <div class="pzMeter"><i id="pzBathBar"></i></div>
+          <div class="pzTip">Passe o dedo por cima dele para fazer espuminha 🫧</div>
+          <button class="pzGhost" onclick="petSetMode('home')">‹ Cancelar</button>
+        </div>
       </div>
-      <div id="petCareCooldown" class="petCareCooldown">Pronto para cuidar 💗</div>
-      <div class="petActionHelper"><button id="petResetBtn" class="smallBtn petResetBtn" onclick="resetPetProgress()">🥚 Recomeçar do ovo</button></div>
-      <div class="petGrowth"><div><b id="petGrowthText">Crescimento</b><small id="petGrowthSub">Cada cuidado ajuda seu amigo a crescer.</small></div><div class="petGrowthBar"><i id="petGrowthBar"></i></div></div>
-      <button id="petAscensionBtn" class="btn hidden" style="width:100%;margin:6px 0;background:linear-gradient(135deg,#ffd554,#ff72b1);font-weight:900" onclick="startPetAscension()">✨ Realizar Jornada das Estrelas (+25 ⭐)</button>
-      <div class="petAccessories"><b>Acessórios</b><div id="petAccessoryGrid"></div></div>
     </div>
   </div>
+
+  <div id="pzLetter" class="pzLetter hidden"></div>
+  <div id="pzOverlay" class="pzOverlay hidden"><div id="pzSheet" class="pzSheet" role="dialog" aria-modal="true"></div></div>
 </section>
 
 <section id="carePanel" class="panel">
@@ -1162,6 +1203,9 @@
 </div>
 
 
-<script src="version.js?v=4.3.16"></script><script src="models3d.js?v=4.3.16"></script><script src="app.js?v=4.3.16"></script><script src="v3.js?v=4.3.16"></script><script src="pet.js?v=4.3.16"></script>
+<script src="version.js?v=4.3.18"></script><script src="models3d.js?v=4.3.18"></script><script src="app.js?v=4.3.18"></script><script src="v3.js?v=4.3.18"></script><script src="pet-core.js?v=4.3.18"></script>
+<script src="push-config.js?v=4.3.18"></script>
+<script src="pet-notify.js?v=4.3.18"></script>
+<script src="pet.js?v=4.3.18"></script>
 </body>
 </html>

@@ -1,3 +1,79 @@
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.18-r57)
+Data: 02/11/2026
+
+BICHINHO VIRTUAL — reformulação completa
+
+Tela fixa (sem rolagem):
+ - O painel do bichinho ocupa exatamente a tela, acima da barra inferior; tudo cabe dentro dela (testado de 568x320 a 1280x720,
+   em 70 combinações de estado/modo/tamanho). Medidores, balão, botões, ovo, carta e janelas se adaptam sozinhos.
+ - Tamanho do bichinho e dos controles calculado conforme a tela, com ajuste automático de segurança.
+
+Brincadeiras interativas (antes eram só botões):
+ - Comida: arraste a comidinha até a boquinha (ou toque). 6 comidas; cada espécie tem uma favorita (mais carinho).
+ - Brincar: estoure balões flutuantes. Banho: esfregue o bichinho com o dedo e faça espuma.
+ - Estudar: 3 perguntinhas (letra inicial, contagem, cores) com figurinhas. Tocar no bichinho: cócegas, sons e coraçõezinhos.
+ - Sons sintetizados (sem arquivos) para cada ação; botão 🔊/🔇.
+
+Crescimento e coleção:
+ - Evolução visível: tamanho e visual próprios em cada fase; asas e brilho a partir de Adulto; celebração ao crescer (+⭐).
+ - Dragãozinho e Pônei Estelar com visual próprio (asas, crina). Quarto 3D mostra a mesma fase/espécie/acessório.
+ - Álbum do bichinho (coleção de espécies) e Diário; ovos priorizam espécies ainda não descobertas.
+ - Estilo: 7 acessórios e 4 cenários (campinho, praia, castelo, espaço); desbloqueie com cuidados ou compre com estrelas.
+ - Ovo choca em ~8 minutos (descanso de 2 min entre cuidados; antes 5 min).
+
+Despedida mais gentil:
+ - Passa a "ir passear" só após 72 h sem cuidados (antes 48 h), com aviso de saudade antes (também por lembrete).
+ - Deixa uma carta e um ovinho (agora com "Receber o novo ovinho" sempre visível); fica guardado no Álbum e,
+   se foi bem cuidado, o novo ovo já vem com carinho guardado. Acessórios e cenários comprados são mantidos.
+ - "Recomeçar do ovo" agora pede o PIN dos pais; renomear e confirmações usam janelas do app (sem prompt/confirm nativos).
+ - "Apagar a luz" só conta como cuidado quando há sono e no máximo a cada 10 min (antes dava para farmar cuidados).
+ - Bônus de carinho quando a criança conclui uma rotina em Cuidados (dentes, lancheira, curativos), 1x ao dia por rotina.
+
+LEMBRETES NO CELULAR (opcional, ligado pelos pais com PIN em Bichinho → 🔔):
+ - Avisos quando o bichinho precisa de cuidados (fome, banho, sono, saudade, ovo esperando, carta), com horário de silêncio
+   (padrão 20:30–8h), no máximo 3 por dia e intervalo mínimo de 4 h. Tocar na notificação abre o bichinho.
+ - Funcionam com o app fechado via service worker: Periodic Background Sync (Chrome/Android, app instalado) e Web Push.
+ - Pasta separada push-server/ (Cloudflare Workers, gratuito) para entrega garantida e para iPhone. Opcional; ver README.
+ - Nada é enviado a servidores sem esse servidor opcional; política de privacidade atualizada (seção 8).
+
+Correções técnicas:
+ - O painel era recriado a cada segundo (cliques podiam se perder); agora só atualiza o que mudou.
+ - Service worker: navegação offline com ?open=pet, novos arquivos no cache (pet.css, pet-core.js, pet-notify.js, push-config.js).
+ - Backup/restauração inclui bichinho, álbum e diário.
+
+Versão: cache PWA elo-official-4.3.18-r57.
+
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.17-r56)
+Data: 01/11/2026
+
+Bichinho virtual - correções reportadas e achados da auditoria:
+
+1. Carta de despedida + novo ovo (jogo ficava parado):
+   - A carta agora aparece inteira (layout em duas colunas para tela deitada) e o botão
+     "Receber o novo ovinho" fica sempre visível acima da barra inferior (testado em 640x360 até 915x412).
+   - Antes: o cartão era maior que a tela, o botão ficava fora da tela/atrás da barra e o balão cobria o texto.
+   - A carta não é mais recriada a cada segundo (antes o toque no botão podia se perder no meio do clique).
+   - Texto personalizado com o nome do perfil e a assinatura do bichinho (ex.: "Com carinho, Luma").
+
+2. Medidores (Fome, Diversão, Energia, Carinho, Higiene, Estudo):
+   - Causa raiz: remendos antigos no v3.css aplicavam translateX(28px) nos medidores da direita e usavam colunas
+     de largura fixa em px maiores que a moldura. Substituído por um layout único e robusto (chips compactos nas
+     laterais, sem sobreposição com o bichinho, balão de fala no topo).
+   - Telas largas (>=800px) mostram o nome; telas menores mostram ícone + porcentagem. Medidor abaixo de 35%
+     fica vermelho. Tocar num medidor mostra o nome e o valor.
+   - Moldura do bichinho encolhe em telas baixas (<=400px e <=370px de altura) para não ficar atrás da barra inferior.
+   - Medidores e acessórios deixam de ser recriados a cada segundo.
+   - Mensagens do bichinho mais curtas (cabem no balão pequeno).
+
+3. Tela do ovo: o botão "Cuidar do ovo" ficava ATRÁS da barra inferior em todos os tamanhos de tela
+   (parecia que o jogo estava parado). Os controles do ovo foram para a coluna direita, ao lado do ovo,
+   com botão grande sempre visível.
+
+4. Quarto 3D: se o bichinho foi embora, o quarto mostra o ovinho com o balão "Ver cartinha"
+   (antes continuava mostrando o bichinho que já tinha saído).
+
+Versão: cache PWA elo-official-4.3.17-r56.
+
 # Relatório de Atualização - Dia a Dia da Elo (v4.3.16-r55)
 Data: 01/11/2026
 

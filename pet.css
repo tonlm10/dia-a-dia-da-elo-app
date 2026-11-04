@@ -1,0 +1,229 @@
+/* ===== Bichinho da Elo — tela fixa (sem rolagem) • v4.3.18 =====
+   Contêineres usam classes "pz*" (novas). O corpo do bichinho mantém as classes antigas (petCreature, petHead…). */
+body.pz-lock { overflow: hidden !important; }
+#petPanel.active { display: flex !important; flex-direction: column; position: fixed; left: 0; right: 0; top: 0; height: var(--pzH, calc(100dvh - 58px)); box-sizing: border-box; padding: max(6px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 0 max(10px, env(safe-area-inset-left)) !important; overflow: hidden; z-index: 30; }
+#petPanel .hidden { display: none !important; }
+
+/* ---------- barra superior ---------- */
+#petPanel .pzTop { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; height: 34px; }
+#petPanel .pzTop .back { flex: 0 0 auto; width: 30px; height: 30px; min-width: 0; padding: 0; font-size: 20px; line-height: 1; }
+#petPanel .pzTitle { margin: 0; font-size: clamp(13px, 2.1vw, 17px); white-space: nowrap; color: #3a2551; }
+#petPanel .pzTabs { display: flex; gap: 3px; background: rgba(255,255,255,.72); border-radius: 14px; padding: 2px; margin-left: 4px; }
+#petPanel .pzTabs button { width: 30px; height: 26px; border: 0; border-radius: 11px; background: transparent; font-size: 15px; padding: 0; cursor: pointer; }
+#petPanel .pzTabs button.on { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
+#petPanel .pzSpacer { flex: 1; }
+#petPanel .pzIcon { flex: 0 0 auto; position: relative; width: 30px; height: 30px; border-radius: 50%; border: 0; background: #fff; box-shadow: 0 2px 8px rgba(70,43,96,.14); font-size: 15px; padding: 0; cursor: pointer; }
+#petPanel .pzIcon.on::after { content: ''; position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 50%; background: #2fbf71; }
+
+/* ---------- layout principal ---------- */
+#petPanel .pzMain { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: minmax(0,45fr) minmax(0,55fr); gap: 10px; padding: 2px 0 8px; }
+#petPanel.petRunaway .pzMain { display: none; }
+#petPanel .pzDevice { display: flex; flex-direction: column; min-height: 0; min-width: 0; padding: 6px; border-radius: 24px; background: linear-gradient(145deg,#ff9ec9,#b79cff); box-shadow: 0 10px 24px rgba(115,70,150,.22), inset 0 0 0 3px rgba(255,255,255,.35); }
+#petPanel .pzHead { flex: 0 0 26px; display: flex; align-items: center; gap: 6px; color: #fff; padding: 0 4px 4px; }
+#petPanel .pzStage { background: rgba(255,255,255,.9); color: #8a3a78; border-radius: 999px; padding: 2px 8px; font-size: 10px; font-weight: 900; white-space: nowrap; }
+#petPanel .pzName { flex: 1; min-width: 0; text-align: center; font-size: clamp(13px, 2.3vw, 17px); font-weight: 900; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-shadow: 0 1px 2px rgba(80,30,110,.28); }
+#petPanel .pzEdit { width: 24px; height: 24px; border-radius: 50%; border: 0; background: #fff; font-size: 11px; padding: 0; cursor: pointer; }
+
+/* ---------- tela do bichinho + cenários ---------- */
+#petPanel .pzScreen { --pzS: .8; --pzChip: 46px; flex: 1 1 0; min-height: 0; position: relative; overflow: hidden; border-radius: 18px; isolation: isolate; touch-action: manipulation; background: #c8edff; }
+@media (min-width: 800px) { #petPanel .pzScreen { --pzChip: 92px; } }
+#petPanel .pzScreen[data-scene="meadow"] { background: radial-gradient(ellipse 46% 16% at 20% 70%, #97d489 0 99%, transparent 100%), radial-gradient(ellipse 52% 18% at 84% 72%, #86c97a 0 99%, transparent 100%), linear-gradient(180deg, #c4ebff 0 68%, #d8e7a0 68% 74%, #e2c98d 74% 100%); }
+#petPanel .pzScreen[data-scene="beach"] { background: linear-gradient(180deg, #bfeaff 0 50%, #62cfee 50% 66%, #f6e0a8 66% 100%); }
+#petPanel .pzScreen[data-scene="castle"] { background: linear-gradient(180deg, #ffd3ea 0 62%, #d3b0f7 62% 100%); }
+#petPanel .pzScreen[data-scene="space"] { background: radial-gradient(circle at 20% 24%, #fff 0 1px, transparent 2px), radial-gradient(circle at 70% 16%, #fff 0 1.5px, transparent 2.5px), radial-gradient(circle at 86% 40%, #ffe9a8 0 1px, transparent 2px), radial-gradient(circle at 40% 44%, #fff 0 1px, transparent 2px), linear-gradient(180deg, #1d1450 0 64%, #7566d4 64% 100%); }
+#petPanel .pzScreen::before, #petPanel .pzScreen::after { position: absolute; bottom: 33%; font-size: clamp(22px, 7vh, 40px); z-index: 0; pointer-events: none; }
+#petPanel .pzScreen[data-scene="meadow"]::before { content: '🌳'; left: 4%; }
+#petPanel .pzScreen[data-scene="meadow"]::after { content: '🌷'; right: 6%; bottom: 28%; }
+#petPanel .pzScreen[data-scene="beach"]::before { content: '🌴'; left: 4%; bottom: 30%; }
+#petPanel .pzScreen[data-scene="beach"]::after { content: '⛱️'; right: 5%; bottom: 28%; }
+#petPanel .pzScreen[data-scene="castle"]::before { content: '🏰'; left: 50%; transform: translateX(-50%); bottom: 36%; opacity: .55; font-size: clamp(40px, 15vh, 80px); }
+#petPanel .pzScreen[data-scene="space"]::before { content: '🪐'; right: 8%; top: 20%; bottom: auto; }
+#petPanel .pzDark { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .6s; background: linear-gradient(180deg, rgba(18,16,66,.8), rgba(40,30,92,.62)); }
+#petPanel .pzDark span { position: absolute; left: 10px; top: 8px; font-size: 24px; }
+#petPanel .pzDark i { position: absolute; font-style: normal; color: #fff7c2; font-size: 12px; animation: pzTwinkle 2.4s ease-in-out infinite; }
+#petPanel .pzDark i:nth-of-type(1) { right: 22%; top: 12%; } #petPanel .pzDark i:nth-of-type(2) { right: 38%; top: 26%; animation-delay: .8s; } #petPanel .pzDark i:nth-of-type(3) { right: 10%; top: 32%; animation-delay: 1.4s; }
+#petPanel .pzScreen.night .pzDark { opacity: 1; }
+@keyframes pzTwinkle { 50% { opacity: .35; } }
+
+/* ---------- medidores (chips laterais) ---------- */
+#petPanel .pzStats { position: absolute; inset: 6px; z-index: 8; display: grid; grid-template-columns: var(--pzChip) minmax(0,1fr) var(--pzChip); grid-template-rows: repeat(3, 1fr); pointer-events: none; }
+#petPanel .pzStat { appearance: none; -webkit-appearance: none; font: inherit; cursor: pointer; pointer-events: auto; display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "i n v" "m m m"; align-items: center; column-gap: 3px; row-gap: 3px; align-self: center; width: var(--pzChip); min-width: 0; padding: 4px; margin: 0; text-align: left; border: 1px solid rgba(110,82,149,.16); border-radius: 12px; background: rgba(255,255,255,.93); box-shadow: 0 2px 7px rgba(70,43,96,.1); }
+#petPanel .pzStat:nth-child(odd) { grid-column: 1; justify-self: start; }
+#petPanel .pzStat:nth-child(even) { grid-column: 3; justify-self: end; }
+#petPanel .pzStat:nth-child(1), #petPanel .pzStat:nth-child(2) { grid-row: 1; }
+#petPanel .pzStat:nth-child(3), #petPanel .pzStat:nth-child(4) { grid-row: 2; }
+#petPanel .pzStat:nth-child(5), #petPanel .pzStat:nth-child(6) { grid-row: 3; }
+#petPanel .pzStat .i { grid-area: i; font-size: 14px; line-height: 1; }
+#petPanel .pzStat .n { grid-area: n; display: none; font-size: 7px; font-weight: 800; color: #5b3f86; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1; }
+#petPanel .pzStat .v { grid-area: v; font-style: normal; font-size: 9px; font-weight: 900; color: #6b4c9a; line-height: 1; justify-self: end; }
+#petPanel .pzStat .m { grid-area: m; display: block; width: 100%; height: 4px; border-radius: 999px; background: #eadff6; overflow: hidden; }
+#petPanel .pzStat .m i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg,#ff79af,#9e83df); transition: width .3s ease; }
+@media (min-width: 800px) { #petPanel .pzStat .n { display: block; } }
+#petPanel .pzStat.low { background: #fff1f4; border-color: #ff9db6; }
+#petPanel .pzStat.low .v { color: #d63b5e; }
+#petPanel .pzStat.low .m i { background: linear-gradient(90deg,#ff5d5d,#ffa26b); }
+@media (prefers-reduced-motion: no-preference) { #petPanel .pzStat.low .i { animation: pzNeed 1.6s ease-in-out infinite; } }
+@keyframes pzNeed { 50% { transform: scale(1.22); } }
+
+/* ---------- balão de fala ---------- */
+#petPanel .pzBubble { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); z-index: 10; max-width: calc(100% - 20px); padding: 5px 9px; border-radius: 12px; background: rgba(255,255,255,.95); color: #5a3d7e; font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; box-shadow: 0 3px 10px rgba(70,43,96,.14); pointer-events: none; }
+#petPanel .pzScreen.hasStats .pzBubble { max-width: calc(100% - (var(--pzChip) * 2) - 20px); }
+@media (min-height: 420px) { #petPanel .pzBubble { font-size: 10px; } }
+
+/* ---------- corpo do bichinho (reaproveita as classes antigas) ---------- */
+#petPanel .pzScreen .petCreature { position: absolute !important; left: 50% !important; top: var(--pzTop, 62%) !important; width: 150px !important; height: 185px !important; transform: translate(-50%,-50%) !important; transform-origin: 50% 50%; --stage: 1; --cs: calc(var(--pzS) * var(--stage)); scale: var(--cs); translate: calc(-50% * (1 - var(--cs))) calc(-50% * (1 - var(--cs))); z-index: 6; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+#petPanel .petCreature.stage-baby { --stage: .88; } #petPanel .petCreature.stage-child { --stage: .95; } #petPanel .petCreature.stage-teen { --stage: 1; } #petPanel .petCreature.stage-adult { --stage: 1.05; } #petPanel .petCreature.stage-elder { --stage: 1.08; }
+#petPanel .petCreature.react { animation: pzPop .5s ease-out !important; }
+@keyframes pzPop { 30% { scale: calc(var(--cs) * 1.16); } 60% { scale: calc(var(--cs) * .96); } }
+/* evolução visível: cada fase tem um visual próprio */
+#petPanel .stage-baby .petHead { scale: 1.12; transform-origin: 50% 100%; } #petPanel .stage-baby .petBody { scale: .9; transform-origin: 50% 0; } #petPanel .stage-baby .petTail { display: none; }
+#petPanel .stage-teen .petCheek { background: rgba(243,95,144,.42); }
+#petPanel .stage-teen .petHead::before { content: '✦'; position: absolute; right: -6px; top: -8px; font-size: 16px; color: #ffcf4a; text-shadow: 0 0 6px #fff; }
+#petPanel .stage-adult::before, #petPanel .stage-elder::before { content: ''; position: absolute; inset: -10px -14px; border-radius: 50%; z-index: 0; background: radial-gradient(circle, rgba(255,226,128,.55), rgba(255,226,128,0) 66%); }
+#petPanel .stage-elder::before { background: radial-gradient(circle, rgba(190,160,255,.7), rgba(255,226,128,.25) 55%, rgba(255,226,128,0) 70%); animation: pzTwinkle 2.6s ease-in-out infinite; }
+/* asas e crina (novas) */
+#petPanel .petWing, #petPanel .petMane { display: none; position: absolute; }
+#petPanel .petWing { top: 58px; width: 38px; height: 78px; z-index: 1; border-radius: 90% 10% 80% 20% / 85% 15% 75% 25%; background: linear-gradient(160deg,#fff,#cfe6ff); box-shadow: inset -4px -4px 0 rgba(90,120,200,.16); transform-origin: 90% 80%; }
+#petPanel .petWing.wL { left: -6px; transform: rotate(-34deg); } #petPanel .petWing.wR { right: -6px; transform: scaleX(-1) rotate(-34deg); }
+#petPanel .stage-adult .petWing { display: block; scale: .6; } #petPanel .stage-elder .petWing { display: block; }
+#petPanel .species-dragon .petWing, #petPanel .species-pony .petWing { display: block; scale: .85; }
+@media (prefers-reduced-motion: no-preference) { #petPanel .petWing.wL, #petPanel .petWing.wR { animation: pzFlap 1.8s ease-in-out infinite; } }
+@keyframes pzFlap { 50% { rotate: -9deg; } }
+/* Dragãozinho */
+#petPanel .species-dragon .petBody { background: #63d3a2; } #petPanel .species-dragon .petHead { background: #86e6bb; } #petPanel .species-dragon .petEar { background: #86e6bb; border-radius: 50% 50% 10% 10%; height: 34px; width: 22px; top: 18px; }
+#petPanel .species-dragon .petTail { border-color: #63d3a2; } #petPanel .species-dragon .petHorn { display: block; border-bottom-color: #ffb347; left: 70px; top: 0; border-bottom-width: 26px; }
+#petPanel .species-dragon .petWing { background: linear-gradient(160deg,#9af0c8,#3fb98a); }
+#petPanel .species-dragon .petCheek { background: rgba(255,140,90,.35); }
+/* Pônei Estelar */
+#petPanel .species-pony .petBody { background: #b6a1f5; } #petPanel .species-pony .petHead { background: #d4c7ff; } #petPanel .species-pony .petEar { background: #d4c7ff; }
+#petPanel .species-pony .petTail { border-color: #ff9bd0; }
+#petPanel .species-pony .petMane { display: block; left: 18px; top: 18px; width: 40px; height: 96px; z-index: 2; border-radius: 60% 20% 60% 40%; background: linear-gradient(180deg,#ff8fc9,#8fd3ff 60%,#ffd66b); transform: rotate(-8deg); }
+#petPanel .species-pony .petWing { background: linear-gradient(160deg,#fff,#ffd6f0); }
+
+/* ---------- ovo ---------- */
+#petPanel .pzEgg { position: absolute; left: 50%; top: 60%; width: 96px; height: 126px; z-index: 6; --es: calc(var(--pzS) * 1.05); transform: translate(-50%,-50%); scale: var(--es); translate: calc(-50% * (1 - var(--es))) calc(-50% * (1 - var(--es))); border-radius: 50% 50% 48% 48% / 62% 62% 38% 38%; background: radial-gradient(circle at 35% 30%, #fff, #ffe6f3 55%, #ffc4e0); box-shadow: inset -8px -10px 0 rgba(160,90,150,.13), 0 8px 14px rgba(90,50,110,.2); cursor: pointer; }
+#petPanel .pzEgg span { position: absolute; left: 24px; top: 32px; width: 16px; height: 16px; border-radius: 50%; background: #7fd3ff; box-shadow: 32px 18px 0 -2px #ffd36a, 8px 50px 0 -3px #c4a3ff, 40px 60px 0 -4px #ff8fc0; }
+@media (prefers-reduced-motion: no-preference) { #petPanel .pzEgg { animation: pzWobble 2.6s ease-in-out infinite; } }
+@keyframes pzWobble { 0%,100% { rotate: -3deg; } 50% { rotate: 3deg; } }
+
+/* ---------- efeitos e brincadeiras dentro da tela ---------- */
+#petPanel .pzFx { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 14; }
+#petPanel .pzFx i { position: absolute; font-style: normal; animation: pzFloat 1.5s ease-out forwards; }
+@keyframes pzFloat { 0% { opacity: 0; transform: translate(0,0) scale(.6); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx,0), var(--dy,-60px)) scale(1.25); } }
+#petPanel .pzBalloon { position: absolute; bottom: -46px; width: 32px; height: 40px; border: 0; padding: 0; border-radius: 50% 50% 46% 46%; box-shadow: inset -5px -6px 0 rgba(0,0,0,.1); cursor: pointer; z-index: 12; animation: pzRise var(--dur,4.6s) linear forwards; touch-action: manipulation; }
+#petPanel .pzBalloon::after { content: ''; position: absolute; left: 50%; top: 100%; width: 1px; height: 12px; background: rgba(90,60,120,.5); }
+#petPanel .pzBalloon.pop { animation: pzBurst .22s ease-out forwards !important; }
+@keyframes pzRise { to { transform: translateY(calc(-1 * var(--h,280px))); } }
+@keyframes pzBurst { to { transform: scale(1.7); opacity: 0; } }
+#petPanel .pzScreen.scrub { touch-action: none; cursor: grab; }
+#petPanel .pzDrag { position: fixed; z-index: 90; font-size: 40px; pointer-events: none; transform: translate(-50%,-60%); filter: drop-shadow(0 4px 4px rgba(0,0,0,.25)); }
+
+/* ---------- coluna da direita ---------- */
+#petPanel .pzSide { display: flex; flex-direction: column; gap: 6px; min-height: 0; min-width: 0; }
+#petPanel .pzGrowth { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.92); border-radius: 16px; padding: 6px 10px; box-shadow: 0 4px 12px rgba(75,46,105,.1); }
+#petPanel .pzGrowth .t { flex: 0 1 46%; min-width: 0; display: flex; flex-direction: column; }
+#petPanel .pzGrowth b { font-size: 11px; color: #5b3f86; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#petPanel .pzGrowth small { font-size: 9px; color: #8a73a6; line-height: 1.2; }
+#petPanel .pzBar { flex: 1; height: 10px; border-radius: 999px; background: #eadff6; overflow: hidden; }
+#petPanel .pzBar i { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg,#ff79af,#9e83df); transition: width .4s; }
+#petPanel .pzAscend { flex: 0 0 auto; border: 0; border-radius: 12px; padding: 5px 8px; font-size: 10px; font-weight: 900; color: #5a2d00; background: linear-gradient(135deg,#ffd554,#ff72b1); cursor: pointer; }
+#petPanel .pzMode { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+#petPanel .pzView { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 6px; }
+#petPanel .pzActions { flex: 1 1 0; min-height: 0; max-height: 210px; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); grid-template-rows: repeat(2, minmax(0,1fr)); gap: 6px; }
+#petPanel .pzBtn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-height: 0; padding: 2px; border: 0; border-radius: 16px; background: #fff; color: #5b3f86; box-shadow: 0 4px 12px rgba(75,46,105,.12); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+#petPanel .pzBtn:active { transform: scale(.95); }
+#petPanel .pzBtn span { font-size: clamp(18px, 4.4vh, 26px); line-height: 1; }
+#petPanel .pzBtn b { font-size: clamp(8.5px, 1.9vh, 11px); line-height: 1.1; text-align: center; }
+#petPanel .pzBtn.suggest { box-shadow: 0 0 0 3px #ff9db6, 0 4px 12px rgba(75,46,105,.12); }
+@media (prefers-reduced-motion: no-preference) { #petPanel .pzBtn.suggest { animation: pzNudge 1.6s ease-in-out infinite; } }
+@keyframes pzNudge { 50% { transform: scale(1.06); } }
+#petPanel .pzBtn.lights { background: #2b2a63; color: #fff; }
+#petPanel .pzBtn:disabled { opacity: .5; }
+#petPanel .pzTip { flex: 0 0 auto; background: rgba(255,255,255,.78); border-radius: 14px; padding: 6px 10px; font-size: 10px; font-weight: 700; color: #6a4c8f; text-align: center; line-height: 1.3; }
+#petPanel .pzHint { flex: 0 0 auto; text-align: center; font-size: 11px; font-weight: 800; color: #5b3f86; background: rgba(255,255,255,.85); border-radius: 14px; padding: 6px 8px; }
+#petPanel .pzFoods { flex: 1 1 0; min-height: 0; max-height: 190px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); grid-template-rows: repeat(2, minmax(0,1fr)); gap: 6px; }
+#petPanel .pzFood { display: flex; flex-direction: column; align-items: center; justify-content: center; border: 0; border-radius: 18px; background: #fff; box-shadow: 0 4px 12px rgba(75,46,105,.12); cursor: grab; touch-action: none; min-height: 0; color: #5b3f86; }
+#petPanel .pzFood span { font-size: clamp(24px, 6.4vh, 36px); line-height: 1; } #petPanel .pzFood b { font-size: 9px; }
+#petPanel .pzFood.pzFav { box-shadow: 0 0 0 3px #ffd36a, 0 4px 12px rgba(75,46,105,.12); }
+#petPanel .pzGhost { flex: 0 0 auto; border: 0; border-radius: 14px; padding: 7px 10px; font-size: 11px; font-weight: 900; background: rgba(255,255,255,.9); color: #7a5aa6; cursor: pointer; }
+#petPanel .pzQ { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: #fff; border-radius: 18px; padding: 6px; box-shadow: 0 4px 12px rgba(75,46,105,.1); }
+#petPanel .pzQ .e { font-size: clamp(28px, 8vh, 46px); line-height: 1; } #petPanel .pzQ .q { font-size: 11px; font-weight: 900; color: #5b3f86; text-align: center; }
+#petPanel .pzOpts { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 6px; width: 100%; }
+#petPanel .pzOpt { border: 0; border-radius: 14px; padding: 6px 0; font-size: clamp(16px, 4.4vh, 24px); font-weight: 900; background: #f2ebff; color: #5b3f86; cursor: pointer; }
+#petPanel .pzOpt.ok { background: #bff0cf; } #petPanel .pzOpt.no { background: #ffd2d9; }
+#petPanel .pzMeter { flex: 0 0 auto; height: 12px; border-radius: 999px; background: rgba(255,255,255,.85); overflow: hidden; }
+#petPanel .pzMeter i { display: block; width: 0; height: 100%; background: linear-gradient(90deg,#7fd3ff,#9e83df); transition: width .2s; }
+#petPanel .pzEggCard { flex: 0 1 auto; margin: auto 0; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; background: rgba(255,255,255,.9); border: 3px solid #ffd0e3; border-radius: 22px; box-shadow: 0 10px 26px rgba(105,65,128,.14); }
+#petPanel .pzEggCard b { font-size: 13px; color: #5b3f86; }
+#petPanel .pzEggBtn { min-height: 60px; border: 0; border-radius: 20px; cursor: pointer; color: #fff; font-weight: 900; font-size: 15px; background: linear-gradient(135deg,#ff6fae,#9a7cf0); box-shadow: 0 8px 20px rgba(154,60,140,.28); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+#petPanel .pzEggBtn small { font-size: 10px; font-weight: 700; color: #fff; }
+#petPanel .pzEggBtn:disabled { opacity: .55; }
+
+/* ---------- carta de despedida ---------- */
+#petPanel .pzLetter { flex: 1 1 0; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 0 0 10px; }
+#petPanel .pzLetter .cardL { display: flex; gap: 16px; align-items: center; width: 100%; max-width: 660px; padding: 14px 18px; background: linear-gradient(145deg,#fff,#fff3f9); border: 3px solid #ffb3d1; border-radius: 24px; box-shadow: 0 12px 30px rgba(105,65,128,.16); }
+#petPanel .pzLetter .art { flex: 0 0 74px; text-align: center; } #petPanel .pzLetter .art .l { font-size: 46px; line-height: 1; } #petPanel .pzLetter .art .g { font-size: 32px; margin-top: 6px; }
+#petPanel .pzLetter .body { flex: 1; min-width: 0; } #petPanel .pzLetter h3 { margin: 0 0 6px; font-size: 16px; color: #d84376; }
+#petPanel .pzLetter p { margin: 0 0 10px; font-size: 12px; line-height: 1.45; color: #4f3d54; } #petPanel .pzLetter p i { display: block; margin-top: 5px; font-weight: 800; color: #8a5a99; }
+#petPanel .pzLetter .go { width: 100%; min-height: 46px; border: 0; border-radius: 18px; cursor: pointer; color: #fff; font-size: 14px; font-weight: 900; background: linear-gradient(135deg,#ff6fae,#9a7cf0); box-shadow: 0 8px 18px rgba(154,60,140,.26); }
+
+/* ---------- sheets (álbum, estilo, lembretes, mais, diálogos) ---------- */
+#petPanel .pzOverlay { position: absolute; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 6px 4px 10px; background: rgba(46,28,78,.5); backdrop-filter: blur(2px); }
+#petPanel .pzSheet { display: flex; flex-direction: column; gap: 6px; width: min(100%, 620px); max-height: 100%; padding: 10px 12px; background: #fff; border-radius: 22px; box-shadow: 0 16px 40px rgba(46,28,78,.35); overflow: hidden; }
+#petPanel .pzSheet h3 { margin: 0; font-size: 15px; color: #4a2f72; display: flex; align-items: center; gap: 6px; }
+#petPanel .pzSheet h3 .x { margin-left: auto; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #f2ebff; color: #6b4c9a; font-size: 14px; cursor: pointer; }
+#petPanel .pzSheet p { margin: 0; font-size: 11px; color: #6a5a80; line-height: 1.4; }
+#petPanel .pzTabsS { display: flex; gap: 6px; } #petPanel .pzTabsS button { flex: 1; border: 0; border-radius: 12px; padding: 6px; font-size: 11px; font-weight: 900; background: #f2ebff; color: #7a5aa6; cursor: pointer; } #petPanel .pzTabsS button.on { background: linear-gradient(135deg,#ec4899,#8b5cf6); color: #fff; }
+#petPanel .pzGrid { display: grid; gap: 6px; } #petPanel .pzGrid.c3 { grid-template-columns: repeat(3, minmax(0,1fr)); } #petPanel .pzGrid.c6 { grid-template-columns: repeat(6, minmax(0,1fr)); } #petPanel .pzGrid.c4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+#petPanel .pzCard { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 4px; border-radius: 14px; background: #f7f3ff; border: 2px solid transparent; font-size: 10px; font-weight: 800; color: #5b3f86; text-align: center; cursor: default; }
+#petPanel button.pzCard { cursor: pointer; } #petPanel .pzCard .big { font-size: clamp(22px, 6vh, 32px); line-height: 1.1; } #petPanel .pzCard small { font-size: 9px; color: #8a73a6; font-weight: 700; }
+#petPanel .pzCard.on { border-color: #ec4899; background: #fff0f8; } #petPanel .pzCard.isLocked { opacity: .75; } #petPanel .pzCard.unk .big { filter: grayscale(1) brightness(.5); opacity: .5; }
+#petPanel .pzList { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: #5b3f86; } #petPanel .pzList div { background: #f7f3ff; border-radius: 10px; padding: 4px 8px; display: flex; gap: 6px; } #petPanel .pzList small { color: #9a86b5; white-space: nowrap; }
+#petPanel .pzRow { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+#petPanel .pzBtnP { border: 0; border-radius: 14px; padding: 9px 12px; font-size: 12px; font-weight: 900; cursor: pointer; color: #fff; background: linear-gradient(135deg,#ff6fae,#9a7cf0); flex: 1; }
+#petPanel .pzBtnS { border: 0; border-radius: 14px; padding: 9px 12px; font-size: 12px; font-weight: 900; cursor: pointer; color: #6b4c9a; background: #f2ebff; flex: 1; }
+#petPanel .pzBtnP:disabled { opacity: .5; }
+#petPanel .pzInput { width: 100%; box-sizing: border-box; border: 2px solid #e3d6f7; border-radius: 12px; padding: 8px 10px; font-size: 16px; font-weight: 800; color: #4a2f72; }
+#petPanel .pzStatus { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; padding: 6px 8px; border-radius: 12px; background: #f7f3ff; color: #5b3f86; } #petPanel .pzStatus.ok { background: #e3f8ec; color: #1f7a48; } #petPanel .pzStatus.warn { background: #fff4de; color: #8a5a00; }
+#petPanel .pzCeleb { text-align: center; align-items: center; } #petPanel .pzCeleb .big { font-size: 54px; line-height: 1.1; } #petPanel .pzCeleb h3 { justify-content: center; font-size: 18px; }
+
+/* acessórios: posição por tipo */
+#petPanel .petAccessory[data-kind="glasses"] { top: 44px !important; font-size: 34px !important; }
+#petPanel .petAccessory[data-kind="hat"] { top: -10px !important; }
+#petPanel .petAccessory[data-kind="flower"] { left: 62% !important; top: 4px !important; }
+
+/* telas muito baixas: janelas mais compactas */
+@media (max-height: 345px) {
+  #petPanel .pzSheet { padding: 8px 10px; gap: 4px; }
+  #petPanel .pzSheet p { font-size: 10px; line-height: 1.3; }
+  #petPanel .pzCard { padding: 3px 2px; } #petPanel .pzCard .big { font-size: 19px; }
+  #petPanel .pzList div { padding: 2px 8px; font-size: 10px; }
+  #petPanel .pzBtnP, #petPanel .pzBtnS { padding: 7px 10px; }
+}
+
+/* Quarto 3D: mesmas fases e espécies do bichinho */
+/* evolução visível: cada fase tem um visual próprio */
+.roomPetCreature.stage-baby .petHead { scale: 1.12; transform-origin: 50% 100%; } .roomPetCreature.stage-baby .petBody { scale: .9; transform-origin: 50% 0; } .roomPetCreature.stage-baby .petTail { display: none; }
+.roomPetCreature.stage-teen .petCheek { background: rgba(243,95,144,.42); }
+.roomPetCreature.stage-teen .petHead::before { content: '✦'; position: absolute; right: -6px; top: -8px; font-size: 16px; color: #ffcf4a; text-shadow: 0 0 6px #fff; }
+.roomPetCreature.stage-adult::before, .roomPetCreature.stage-elder::before { content: ''; position: absolute; inset: -10px -14px; border-radius: 50%; z-index: 0; background: radial-gradient(circle, rgba(255,226,128,.55), rgba(255,226,128,0) 66%); }
+.roomPetCreature.stage-elder::before { background: radial-gradient(circle, rgba(190,160,255,.7), rgba(255,226,128,.25) 55%, rgba(255,226,128,0) 70%); animation: pzTwinkle 2.6s ease-in-out infinite; }
+/* asas e crina (novas) */
+.roomPetCreature .petWing, .roomPetCreature .petMane { display: none; position: absolute; }
+.roomPetCreature .petWing { top: 58px; width: 38px; height: 78px; z-index: 1; border-radius: 90% 10% 80% 20% / 85% 15% 75% 25%; background: linear-gradient(160deg,#fff,#cfe6ff); box-shadow: inset -4px -4px 0 rgba(90,120,200,.16); transform-origin: 90% 80%; }
+.roomPetCreature .petWing.wL { left: -6px; transform: rotate(-34deg); } .roomPetCreature .petWing.wR { right: -6px; transform: scaleX(-1) rotate(-34deg); }
+.roomPetCreature.stage-adult .petWing { display: block; scale: .6; } .roomPetCreature.stage-elder .petWing { display: block; }
+.roomPetCreature.species-dragon .petWing, .roomPetCreature.species-pony .petWing { display: block; scale: .85; }
+@media (prefers-reduced-motion: no-preference) { .roomPetCreature .petWing.wL, .roomPetCreature .petWing.wR { animation: pzFlap 1.8s ease-in-out infinite; } }
+@keyframes pzFlap { 50% { rotate: -9deg; } }
+/* Dragãozinho */
+.roomPetCreature.species-dragon .petBody { background: #63d3a2; } .roomPetCreature.species-dragon .petHead { background: #86e6bb; } .roomPetCreature.species-dragon .petEar { background: #86e6bb; border-radius: 50% 50% 10% 10%; height: 34px; width: 22px; top: 18px; }
+.roomPetCreature.species-dragon .petTail { border-color: #63d3a2; } .roomPetCreature.species-dragon .petHorn { display: block; border-bottom-color: #ffb347; left: 70px; top: 0; border-bottom-width: 26px; }
+.roomPetCreature.species-dragon .petWing { background: linear-gradient(160deg,#9af0c8,#3fb98a); }
+.roomPetCreature.species-dragon .petCheek { background: rgba(255,140,90,.35); }
+/* Pônei Estelar */
+.roomPetCreature.species-pony .petBody { background: #b6a1f5; } .roomPetCreature.species-pony .petHead { background: #d4c7ff; } .roomPetCreature.species-pony .petEar { background: #d4c7ff; }
+.roomPetCreature.species-pony .petTail { border-color: #ff9bd0; }
+.roomPetCreature.species-pony .petMane { display: block; left: 18px; top: 18px; width: 40px; height: 96px; z-index: 2; border-radius: 60% 20% 60% 40%; background: linear-gradient(180deg,#ff8fc9,#8fd3ff 60%,#ffd66b); transform: rotate(-8deg); }
+.roomPetCreature.species-pony .petWing { background: linear-gradient(160deg,#fff,#ffd6f0); }
+

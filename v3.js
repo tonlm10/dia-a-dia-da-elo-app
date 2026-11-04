@@ -477,6 +477,11 @@ function syncRoomPet(){
   if(!mount) return;
   const p = getRoomPetDataSafe();
   if(!p) return;
+  if(p.ranAway){
+    if(bubble) bubble.textContent = '💌 Ver cartinha';
+    mount.innerHTML = '<div class="petEgg roomPetEgg" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.65);cursor:pointer;"><span></span></div>';
+    return;
+  }
   if(bubble) {
     bubble.textContent = p.stage === 'egg' ? '🥚 Cuidar' : `🐾 ${p.name || 'Bichinho'}`;
   }
@@ -484,9 +489,9 @@ function syncRoomPet(){
     mount.innerHTML = '<div class="petEgg roomPetEgg" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.65);cursor:pointer;"><span></span></div>';
   } else {
     const species = p.species || 'unicorn';
-    const acc = p.accessory === 'bow' ? '🎀' : p.accessory === 'star' ? '⭐' : p.accessory === 'crown' ? '👑' : '';
-    mount.innerHTML = `<div class="petCreature species-${species} stage-${p.stage || 'baby'} roomPetCreature" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.55);cursor:pointer;">
-      <span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petTail"></span>
+    const acc = (window.petAccessoryIcon && window.petAccessoryIcon(p.accessory)) || (p.accessory === 'bow' ? '🎀' : p.accessory === 'star' ? '⭐' : p.accessory === 'crown' ? '👑' : '');
+    mount.innerHTML = `<div class="petCreature species-${species} stage-${(window.petStageKey && window.petStageKey(p)) || p.stage || 'baby'} roomPetCreature" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.55);cursor:pointer;">
+      <span class="petWing wL"></span><span class="petWing wR"></span><span class="petEar earL"></span><span class="petEar earR"></span><span class="petHorn"></span><span class="petMane"></span><span class="petTail"></span>
       <span class="petBody"></span><span class="petHead"><i class="petEye e1"></i><i class="petEye e2"></i><i class="petMouth"></i><i class="petCheek c1"></i><i class="petCheek c2"></i></span>
       <span class="petAccessory" style="top:2px;left:50%;font-size:24px;">${acc}</span>
     </div>`;
