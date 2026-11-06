@@ -5,7 +5,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.3.18-r57";
+    var TARGET_VER = "4.3.19-r58";
     localStorage.removeItem("elo_force_landscape_90");
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
@@ -37,12 +37,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800;900&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4.3.18">
-<link rel="stylesheet" href="v3.css?v=4.3.18">
-<link rel="stylesheet" href="polish.css?v=4.3.18">
-<link rel="stylesheet" href="games-v350.css?v=4.3.18">
-<link rel="stylesheet" href="landscape.css?v=4.3.18">
-<link rel="stylesheet" href="pet.css?v=4.3.18">
+<link rel="stylesheet" href="styles.css?v=4.3.19">
+<link rel="stylesheet" href="v3.css?v=4.3.19">
+<link rel="stylesheet" href="polish.css?v=4.3.19">
+<link rel="stylesheet" href="games-v350.css?v=4.3.19">
+<link rel="stylesheet" href="landscape.css?v=4.3.19">
+<link rel="stylesheet" href="pet.css?v=4.3.19">
+<link rel="stylesheet" href="home.css?v=4.3.19">
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "90c3450f7aeb46d0840ac525d5ac0da8"}'></script>
 <!-- End Cloudflare Web Analytics -->
@@ -82,146 +83,56 @@
 <header><div class="brand compactBrand"><img class="brandLogo" src="assets/logo-oficial.webp" alt="Dia a Dia da Elo"><div class="brandText"><h1>Dia a Dia da Elo</h1><div class="handle">@diaadiadaelo</div></div><div class="brandActions"><button id="profileChip" class="profileChip profileCompact" onclick="openProfileChooser()" aria-label="Trocar perfil"><span>👤</span><b>Elo</b><small>perfil</small></button><div class="headerStars" aria-label="Estrelas conquistadas">⭐ <span id="starCount">0</span></div><button id="speechBtn" class="iconBtn" onclick="toggleSpeech()" aria-label="Leitura em voz">🔊</button><button id="sleepModeBtn" class="iconBtn" onclick="toggleSleepMode()" aria-label="Modo Soninho" title="Modo Soninho">🌙</button></div></div></header>
 
 <section id="homePanel" class="panel home active">
-  <!-- Barra Superior do Mundo da Elo -->
-  <div class="worldHeaderBar">
-    <div class="worldHeaderLeft">
-      <img src="assets/logo-oficial.webp" alt="Elo">
-      <div>
-        <h2>Mundo Mágico da Elo 🌈</h2>
-        <p id="eloGuideText">Toque onde você quer que a Elo passeie e brinque!</p>
-      </div>
+  <div id="hmScene" class="hmScene" data-time="day">
+    <div class="hmSky">
+      <button id="hmSun" type="button" class="hmSun" onclick="toggleSleepMode()" aria-label="Sol e lua: ligar ou desligar o modo soninho">☀️</button>
+      <i class="hmCloud c1" aria-hidden="true">☁️</i><i class="hmCloud c2" aria-hidden="true">☁️</i>
+      <i class="hmStar s1" aria-hidden="true">✦</i><i class="hmStar s2" aria-hidden="true">✧</i><i class="hmStar s3" aria-hidden="true">✦</i><i class="hmStar s4" aria-hidden="true">✧</i><i class="hmStar s5" aria-hidden="true">✦</i>
     </div>
-    <div class="worldHeaderActions">
-      <button class="btn" style="background:linear-gradient(135deg,#ff4fa1,#8f56e8);font-size:12px;padding:8px 12px;border-radius:16px;" onclick="openStarShop()">🎁 Baú ⭐</button>
-      <button class="btn" style="background:linear-gradient(135deg,#ec4899,#8b5cf6);font-size:12px;padding:8px 12px;border-radius:16px;" onclick="openStickersAlbum()">📦 Álbum</button>
-      <button class="btn secondary" style="font-size:12px;padding:8px 12px;border-radius:16px;" onclick="openParents()">🔐 Pais</button>
-    </div>
-  </div>
-
-  <!-- Cenário Panorâmico Vivo: O Mundo da Elo (Modo Deitado) -->
-  <div id="eloWorldMap" class="eloWorldLandscape" aria-label="Mapa do Mundo da Elo">
-    <!-- Elementos do céu e natureza -->
-    <div class="worldSkyElements">
-      <div class="worldSun" onclick="toggleSleepMode()" role="button" tabindex="0" title="Ativar Modo Soninho / Noturno 🌙" aria-label="Ativar modo noturno" style="cursor:pointer;pointer-events:auto;"></div>
-      <div class="worldCloud c1"></div>
-      <div class="worldCloud c2"></div>
-    </div>
-
-    <!-- Trilhas e caminhos interligando o mundo -->
-    <svg class="worldPathsSvg" viewBox="0 0 1000 600" preserveAspectRatio="none">
-      <!-- Caminho principal de terra dourada -->
-      <path d="M 90 240 Q 230 200 360 320 T 630 330 T 930 210" fill="none" stroke="#ffe2a0" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
-      <path d="M 100 450 Q 250 480 440 430 T 780 440 T 930 380" fill="none" stroke="#ffe2a0" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
-      <!-- Conexões transversais -->
-      <path d="M 250 220 C 250 330 260 380 260 450" fill="none" stroke="#ffe2a0" stroke-width="38" stroke-linecap="round" opacity="0.85"/>
-      <path d="M 500 200 C 490 320 460 360 450 430" fill="none" stroke="#ffe2a0" stroke-width="38" stroke-linecap="round" opacity="0.85"/>
-      <path d="M 740 220 C 760 300 780 370 800 440" fill="none" stroke="#ffe2a0" stroke-width="38" stroke-linecap="round" opacity="0.85"/>
-      <!-- Pontilhados mágicos decorativos -->
-      <path d="M 90 240 Q 230 200 360 320 T 630 330 T 930 210" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="10 12" opacity="0.7"/>
-      <path d="M 100 450 Q 250 480 440 430 T 780 440 T 930 380" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="10 12" opacity="0.7"/>
+    <div class="hmGround" aria-hidden="true"><i></i><i></i><i></i></div>
+    <svg class="hmRoads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M13,48 C22,44 28,40 35,40 S52,46 59,45 S78,40 85,40"/><path d="M25,84 C34,88 42,88 50,87 S66,84 76,84"/>
+      <path d="M13,48 C16,62 20,72 25,84"/><path d="M35,40 C42,58 46,72 50,87"/><path d="M59,45 C64,60 70,72 76,84"/><path d="M85,40 C86,58 82,72 76,84"/>
+      <path class="dash" d="M13,48 C22,44 28,40 35,40 S52,46 59,45 S78,40 85,40"/><path class="dash" d="M25,84 C34,88 42,88 50,87 S66,84 76,84"/>
     </svg>
-
-    <!-- Lago com patinho e vitórias-régias (em área livre de estradas) -->
-    <div class="worldPondLandscape" aria-label="Lago dos Patinhos">
-      <span class="pondRipple r1"></span>
-      <span class="pondRipple r2"></span>
-      <span class="pondLily">🪷</span>
-      <span class="duck">🦆</span>
-    </div>
-
-    <!-- Decorações de árvores e flores -->
-    <span class="natureDecorItem" style="top:26%;left:4%;">🌳</span>
-    <span class="natureDecorItem" style="top:84%;left:6%;">🌸</span>
-    <span class="natureDecorItem" style="top:28%;left:34%;">🌲</span>
-    <span class="natureDecorItem" style="top:86%;left:36%;">🌷</span>
-    <span class="natureDecorItem" style="top:23%;left:62%;">🌳</span>
-    <span class="natureDecorItem" style="top:84%;left:54%;">🌼</span>
-    <span class="natureDecorItem" style="top:86%;left:73%;">🦋</span>
-    <span class="natureDecorItem" style="top:24%;left:82%;">🌲</span>
-
-    <!-- Segredos escondidos pelo mapa -->
-    <button class="worldSecret secret-star" style="top:22%;left:43%;" onclick="findWorldSecret('star')" aria-label="Segredo estrela">⭐</button>
-    <button class="worldSecret secret-unicorn" style="top:66%;left:33%;" onclick="findWorldSecret('unicorn')" aria-label="Segredo unicórnio">🦄</button>
-    <button class="worldSecret secret-bow" style="top:62%;left:72%;" onclick="findWorldSecret('bow')" aria-label="Segredo laço">🎀</button>
-
-    <!-- Os Locais Interativos onde a Elo passeia e para -->
-    <!-- 1. Quarto 3D da Elo -->
-    <button class="worldStopPoint wp-room" onclick="openWorldPlace('room')" aria-label="Quarto da Elo">
-      <div class="stopIconBubble">🏡</div>
-      <span class="stopLabelPill">Quarto 3D</span>
-    </button>
-
-    <!-- 2. Guarda-roupa da Elo -->
-    <button class="worldStopPoint wp-wardrobe" onclick="openWorldPlace('wardrobe')" aria-label="Guarda-roupa da Elo">
-      <div class="stopIconBubble">👗</div>
-      <span class="stopLabelPill">Guarda-roupa</span>
-    </button>
-
-    <!-- 3. Bichinho Virtual -->
-    <button class="worldStopPoint wp-pet" onclick="openWorldPlace('pet')" aria-label="Bichinho Virtual">
-      <div class="stopIconBubble">🐾</div>
-      <span class="stopLabelPill">Bichinho Pet</span>
-    </button>
-
-    <!-- 4. Estúdio 3D & Voo com Unicórnia -->
-    <button class="worldStopPoint wp-studio3d" onclick="openWorldPlace('studio3d')" aria-label="Estúdio 3D">
-      <div class="stopIconBubble">💎</div>
-      <span class="stopLabelPill">Estúdio 3D & Voo</span>
-    </button>
-
-    <!-- 5. Escolinha Mágica & Piano -->
-    <button class="worldStopPoint wp-school" onclick="openWorldPlace('school')" aria-label="Escolinha Mágica">
-      <div class="stopIconBubble">🎓</div>
-      <span class="stopLabelPill">Escolinha & Piano</span>
-    </button>
-
-    <!-- 6. Ateliê Criativo & Pintura -->
-    <button class="worldStopPoint wp-creative" onclick="openWorldPlace('creative')" aria-label="Ateliê da Elo">
-      <div class="stopIconBubble">🎨</div>
-      <span class="stopLabelPill">Ateliê & Chef</span>
-    </button>
-
-    <!-- 7. Festa da Família (2+ Jogadores) -->
-    <button class="worldStopPoint wp-family" onclick="openWorldPlace('family')" aria-label="Festa da Família">
-      <div class="stopIconBubble">👨‍👩‍👧</div>
-      <span class="stopLabelPill">Festa Família</span>
-    </button>
-
-    <!-- 8. Mundo dos Jogos -->
-    <button class="worldStopPoint wp-play" onclick="openWorldPlace('play')" aria-label="Mundo dos Jogos">
-      <div class="stopIconBubble">🎮</div>
-      <span class="stopLabelPill">Mundo dos Jogos</span>
-    </button>
-
-    <!-- 9. Reino das Estrelas (RPG) -->
-    <button class="worldStopPoint wp-rpg" onclick="openWorldPlace('rpg')" aria-label="Reino das Estrelas RPG">
-      <div class="stopIconBubble">👑</div>
-      <span class="stopLabelPill">RPG das Estrelas</span>
-    </button>
-
-    <!-- 10. Cinema da Elo & Vídeos -->
-    <button class="worldStopPoint wp-cinema" onclick="openWorldPlace('cinema')" aria-label="Cinema da Elo">
-      <div class="stopIconBubble">🎬</div>
-      <span class="stopLabelPill">Cinema & Clipes</span>
-    </button>
-
-    <!-- 11. Biblioteca de Histórias -->
-    <button class="worldStopPoint wp-library" onclick="openWorldPlace('library')" aria-label="Histórias da Elo">
-      <div class="stopIconBubble">📖</div>
-      <span class="stopLabelPill">Biblioteca</span>
-    </button>
-
-    <!-- AVATAR DA ELO ANIMADA QUE PASSEIA PELA ESTRADA -->
-    <div id="worldEloWalker" class="worldEloWalker" onclick="eloGuideSay('Para onde você quer que eu vá? Toque em qualquer casinha ou lugar do mapa!')" aria-label="Elo passeando pelo mundo">
-      
-      <div class="walkerDollStage">
-        <div id="worldMapEloMount" class="worldMapEloMount"></div>
-        <div class="walkerShadow"></div>
+    <div class="hmDecor hmDeco0" aria-hidden="true"><i class="hmDeco" style="left:2%;top:64%">🌳</i><i class="hmDeco" style="left:93%;top:20%">🌲</i><i class="hmDeco" style="left:44%;top:50%">🌷</i><i class="hmDeco" style="left:66%;top:60%">🌼</i><i class="hmDeco" style="left:3%;top:86%">🌸</i><i class="hmDeco" style="left:90%;top:84%">🌳</i></div>
+    <div class="hmPond" aria-hidden="true"></div><button id="hmDuck" type="button" class="hmDuck" onclick="hmDuck()" aria-label="Patinho da lagoa">🦆</button>
+    <button id="hmFly" type="button" class="hmFly" onclick="hmFly()" aria-label="Borboleta">🦋</button>
+    <button type="button" class="hmSecret" data-sec="star" style="left:43%;top:62%" onclick="findWorldSecret('star');renderHomeScene()" aria-label="Segredo estrela">⭐</button>
+    <button type="button" class="hmSecret" data-sec="unicorn" style="left:5%;top:72%" onclick="findWorldSecret('unicorn');renderHomeScene()" aria-label="Segredo unicórnio">🦄</button>
+    <button type="button" class="hmSecret" data-sec="bow" style="left:91%;top:90%" onclick="findWorldSecret('bow');renderHomeScene()" aria-label="Segredo laço">🎀</button>
+    <button type="button" class="hmStop big" data-stop="casa" style="--x:13;--y:40;--c1:#ffb3d6;--c2:#ff6fae;--d:0s" onclick="openWorldPlace('casa')" aria-label="Casa da Elo"><i class="hmNext hidden">▶ continuar</i><span class="hmBub">🏡</span><span class="hmLbl">Casa da Elo</span><i class="hmBadge hidden">!</i></button>
+    <button type="button" class="hmStop" data-stop="school" style="--x:35;--y:33;--c1:#9ae6b4;--c2:#3fb985;--d:.4s" onclick="openWorldPlace('school')" aria-label="Escolinha"><i class="hmNext hidden">▶ continuar</i><span class="hmBub">🎓</span><span class="hmLbl">Escolinha</span></button>
+    <button type="button" class="hmStop" data-stop="play" style="--x:59;--y:38;--c1:#9ccbff;--c2:#5a8dee;--d:.8s" onclick="openWorldPlace('play')" aria-label="Jogos"><i class="hmNext hidden">▶ continuar</i><span class="hmBub">🎮</span><span class="hmLbl">Jogos</span></button>
+    <button type="button" class="hmStop" data-stop="cinema" style="--x:85;--y:33;--c1:#ffc78f;--c2:#ff7a59;--d:1.2s" onclick="openWorldPlace('cinema')" aria-label="Cinema"><i class="hmNext hidden">▶ continuar</i><span class="hmBub">🎬</span><span class="hmLbl">Cinema</span></button>
+    <button type="button" class="hmStop" data-stop="creative" style="--x:25;--y:77;--c1:#ffe08a;--c2:#ff9f43;--d:1.6s" onclick="openWorldPlace('creative')" aria-label="Ateliê"><i class="hmNext hidden">▶ continuar</i><span class="hmBub">🎨</span><span class="hmLbl">Ateliê</span></button>
+    <button type="button" class="hmStop" data-stop="library" style="--x:50;--y:80;--c1:#d6c0ff;--c2:#8f66e8;--d:2s" onclick="openWorldPlace('library')" aria-label="Histórias"><i class="hmNext hidden">▶ continuar</i><span class="hmBub">📖</span><span class="hmLbl">Histórias</span></button>
+    <button type="button" class="hmStop" data-stop="rpg" style="--x:76;--y:77;--c1:#ffe36e;--c2:#ff8fc0;--d:2.4s" onclick="openWorldPlace('rpg')" aria-label="Reino das Estrelas"><i class="hmNext hidden">▶ continuar</i><span class="hmBub">👑</span><span class="hmLbl">Reino das Estrelas</span></button>
+    <div id="worldEloWalker" class="worldEloWalker hmElo" onclick="hmEloTap()" aria-label="Elo passeando pelo mundo"><div class="walkerDollStage"><div id="worldMapEloMount" class="worldMapEloMount"></div><div class="walkerShadow"></div></div></div>
+    <div class="hmHud">
+      <div class="hmGuide"><img src="assets/logo-oficial.webp" alt=""><div class="hmGuideBox"><p id="eloGuideText">Para onde vamos hoje? Toque num lugar do mapa!</p><button id="hmGuideBtn" type="button" class="hmGuideBtn hidden" onclick="hmGuideGo()"></button></div></div>
+      <div class="hmIcons">
+        <button id="hmChest" type="button" class="hmIco" onclick="openStarShop()" aria-label="Baú de estrelas">🎁<i class="hmDot hidden"></i></button>
+        <button type="button" class="hmIco" onclick="openStickersAlbum()" aria-label="Álbum de figurinhas">📦</button>
+        <button type="button" class="hmIco" onclick="openPanel('achievementsPanel','home')" aria-label="Minhas conquistas">🏆</button>
+        <button type="button" class="hmIco chip" onclick="openPanel('collectionPanel','home')" aria-label="Segredos encontrados">🔎<b id="hmSecretCount">0/3</b></button>
+        <button type="button" class="hmIco" onclick="openParents()" aria-label="Área dos pais">🔐</button>
       </div>
     </div>
+    <span class="hmVer">v<span data-app-version>4.3.19</span></span>
   </div>
-
-  <div class="footer-note">Mundo da Elo Oficial • Feito com muito carinho para diversão em família 💗 • v<span data-app-version>4.3.18</span></div>
+</section>
+<section id="casaPanel" class="panel">
+  <div class="csTop"><button class="back" onclick="appBack()" aria-label="Voltar">‹</button><h2>Casa da Elo 🏡</h2><span class="csSpacer"></span><button class="csChest" onclick="openStarShop()">🎁 Baú ⭐</button></div>
+  <div id="csHouse" class="csHouse" data-time="day">
+    <div class="csRoof">Casa da Elo 💗</div>
+    <div class="csFloors">
+      <button type="button" class="csRoom r-bed" data-room="room" onclick="casaGo('room')" aria-label="Quarto 3D: decorar"><span class="csWin"></span><span class="csProps"><b class="p1">🛏️</b><b class="p2">🌈</b><b class="p3">🧸</b></span><span class="csInfo"><strong>Quarto</strong><small>Decore do seu jeito</small></span></button>
+      <button type="button" class="csRoom r-closet" data-room="wardrobe" onclick="casaGo('wardrobe')" aria-label="Guarda-roupa: escolher looks"><span class="csWin"></span><span class="csProps"><b class="p1">👗</b><b class="p2">🪞</b><b class="p3">👠</b></span><span class="csInfo"><strong>Guarda-roupa</strong><small>Escolha o look da Elo</small></span></button>
+      <button type="button" class="csRoom r-pet" data-room="pet" onclick="casaGo('pet')" aria-label="Bichinho virtual"><span class="csProps"><b class="p1">🧺</b><b class="p3">🥣</b></span><span id="csPetStage" class="csPetStage"></span><span class="csInfo"><strong>Bichinho</strong><small id="csPetMood">Cuidar e brincar 🐾</small></span><i id="csPetBadge" class="csBadge hidden">!</i></button>
+      <button type="button" class="csRoom r-bath" data-room="care" onclick="casaGo('care')" aria-label="Consultório: cuidar dos dentinhos"><span class="csWin"></span><span class="csProps"><b class="p1">🛁</b><b class="p2">🦷</b><b class="p3">🧼</b></span><span class="csInfo"><strong>Consultório</strong><small>Dentinhos, curativos e lancheira</small></span></button>
+    </div>
+  </div>
 </section>
 
 <section id="achievementsPanel" class="panel">
@@ -267,7 +178,7 @@
 
 <section id="playPanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Jogos da Elo</h2></div>
-  <div class="card"><p class="muted">Bem-vinda à pasta de jogos da Elo. Aqui tem aventura, memória, labirinto, quebra-cabeça e outros desafios divertidos para brincar.</p><div class="gameLaunchGrid">
+  <div class="card"><button type="button" class="btn" style="width:100%;margin-bottom:10px;background:linear-gradient(135deg,#ff8fc0,#8f56e8)" onclick="openWorldPlace('family')">👨‍👩‍👧 Festa da Família — mímica, duelo e roleta</button><p class="muted">Bem-vinda à pasta de jogos da Elo. Aqui tem aventura, memória, labirinto, quebra-cabeça e outros desafios divertidos para brincar.</p><div class="gameLaunchGrid">
     <button class="gameLaunch rpgLaunch full" onclick="openRpg()"><img class="gameCover" src="assets/game-covers/rpg-cover-v2.webp" alt="Elo e o Reino das Estrelas"><div class="gameInfo"><span class="gameTag">Jogo principal • RPG</span><b>Elo e o Reino das Estrelas</b><small>Explore o mundo, converse com personagens, cumpra missões, evolua, compre roupas e enfrente inimigos em um RPG clássico.</small><div class="rpgFeatures"><span>🏠 Casa da Elo</span><span>🏘️ Cidades</span><span>⚔️ Batalhas</span><span>👗 Roupas</span><span>🏅 Muitas medalhas</span></div><span class="gameArrow">›</span></div></button>
     <button class="gameLaunch" onclick="openGame('findGame','Ache a estrela ⭐')"><img class="gameCover" src="assets/game-covers/find-cover.webp" alt="Ache a estrela"><div class="gameInfo"><b>Ache a estrela</b><small>Encontre a estrela escondida no cenário.</small><span class="gameArrow">›</span></div></button>
     <button class="gameLaunch" onclick="openGame('mazeGame','Labirinto da Elo 🦄')"><img class="gameCover" src="assets/game-covers/maze-cover.webp" alt="Labirinto da Elo"><div class="gameInfo"><b>Labirinto da Elo</b><small>Ajude a Elo a chegar ao unicórnio.</small><span class="gameArrow">›</span></div></button>
@@ -522,7 +433,7 @@
   <div class="card parentClubCard"><h3>Clubinho da Elo 👑</h3><p class="muted">Informações de assinatura e valores ficam somente na Área dos Pais.</p><button class="btn secondary" onclick="openPanel('clubPanel','parents')">Ver planos e benefícios</button></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.18</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.19</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -533,9 +444,11 @@
 <section id="roomPanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Quarto da Elo 🏠</h2><button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Baú de Estrelas</button></div>
   <div class="cantinhoTopSwitcher">
-    <button class="cSwitchBtn on" onclick="openPanel('roomPanel','home')">🛏️ Quarto 3D</button>
-    <button class="cSwitchBtn" onclick="openPanel('wardrobePanel','home')">👗 Guarda-roupa</button>
+    <button class="cSwitchBtn" onclick="openPanel('casaPanel','casa')">🏡 Casa</button>
+    <button class="cSwitchBtn on" onclick="openPanel('roomPanel','casa')">🛏️ Quarto</button>
+    <button class="cSwitchBtn" onclick="openPanel('wardrobePanel','casa')">👗 Guarda-roupa</button>
     <button class="cSwitchBtn" onclick="openPet()">🐾 Bichinho</button>
+    <button class="cSwitchBtn" onclick="openPanel('carePanel','casa')">🦷 Cuidados</button>
   </div>
   <div class="roomIntro" ><div><small>MEU CANTINHO</small><h3>Decore do seu jeito</h3><p>Itens novos aparecem conforme você brinca, aprende e explora. Toque nos móveis e objetos para ver a Elo reagir.</p></div><button onclick="eloGuideSay('Este é o meu quarto! Toque nas opções abaixo para decorar do seu jeito.')">🔊</button></div>
   <div class="roomLayoutLandscape">
@@ -559,9 +472,11 @@
 <section id="wardrobePanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Guarda-roupa da Elo 👗</h2><button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Baú de Estrelas</button></div>
   <div class="cantinhoTopSwitcher">
-    <button class="cSwitchBtn" onclick="openPanel('roomPanel','home')">🛏️ Quarto 3D</button>
-    <button class="cSwitchBtn on" onclick="openPanel('wardrobePanel','home')">👗 Guarda-roupa</button>
+    <button class="cSwitchBtn" onclick="openPanel('casaPanel','casa')">🏡 Casa</button>
+    <button class="cSwitchBtn" onclick="openPanel('roomPanel','casa')">🛏️ Quarto</button>
+    <button class="cSwitchBtn on" onclick="openPanel('wardrobePanel','casa')">👗 Guarda-roupa</button>
     <button class="cSwitchBtn" onclick="openPet()">🐾 Bichinho</button>
+    <button class="cSwitchBtn" onclick="openPanel('carePanel','casa')">🦷 Cuidados</button>
   </div>
   <div class="wardrobeLayoutLandscape">
     <div class="wardrobeStudio">
@@ -581,10 +496,11 @@
     <button class="back" onclick="appBack()" aria-label="Voltar">‹</button>
     <h2 class="pzTitle">Bichinho da Elo 🐾</h2>
     <div class="pzTabs" role="group" aria-label="Cantinho da Elo">
-      <button onclick="openPanel('roomPanel','home')" title="Quarto 3D" aria-label="Quarto 3D">🛏️</button>
-      <button onclick="openPanel('wardrobePanel','home')" title="Guarda-roupa" aria-label="Guarda-roupa">👗</button>
+      <button onclick="openPanel('casaPanel','casa')" title="Casa da Elo" aria-label="Casa da Elo">🏡</button>
+      <button onclick="openPanel('roomPanel','casa')" title="Quarto 3D" aria-label="Quarto 3D">🛏️</button>
+      <button onclick="openPanel('wardrobePanel','casa')" title="Guarda-roupa" aria-label="Guarda-roupa">👗</button>
       <button class="on" onclick="openPet()" title="Bichinho" aria-label="Bichinho">🐾</button>
-      <button onclick="openPanel('carePanel','home')" title="Cuidados" aria-label="Cuidados">🦷</button>
+      <button onclick="openPanel('carePanel','casa')" title="Cuidados" aria-label="Cuidados">🦷</button>
     </div>
     <span class="pzSpacer"></span>
     <button class="pzIcon" onclick="petOpenSheet('album')" title="Álbum de bichinhos" aria-label="Álbum de bichinhos">📖</button>
@@ -672,10 +588,11 @@
   </div>
 
   <div class="cantinhoTopSwitcher">
-    <button class="cSwitchBtn" onclick="openPanel('roomPanel','home')">🛏️ Quarto 3D</button>
-    <button class="cSwitchBtn" onclick="openPanel('wardrobePanel','home')">👗 Guarda-roupa</button>
+    <button class="cSwitchBtn" onclick="openPanel('casaPanel','casa')">🏡 Casa</button>
+    <button class="cSwitchBtn" onclick="openPanel('roomPanel','casa')">🛏️ Quarto</button>
+    <button class="cSwitchBtn" onclick="openPanel('wardrobePanel','casa')">👗 Guarda-roupa</button>
     <button class="cSwitchBtn" onclick="openPet()">🐾 Bichinho</button>
-    <button class="cSwitchBtn on" onclick="openPanel('carePanel','home')">🦷 Cuidados</button>
+    <button class="cSwitchBtn on" onclick="openPanel('carePanel','casa')">🦷 Cuidados</button>
   </div>
 
   <div class="careHero">
@@ -904,7 +821,7 @@
   <div class="card privacyText"><p>O Dia a Dia da Elo oferece jogos, atividades educativas, histórias e acesso a conteúdos oficiais do projeto.</p><h3>Uso infantil</h3><p>Recomenda-se o acompanhamento de um responsável, especialmente para ações que abrem serviços externos.</p><h3>Conteúdo</h3><p>Imagens, histórias, identidade visual e materiais do projeto são destinados ao uso dentro da experiência do aplicativo. Conteúdos de serviços externos permanecem sujeitos aos respectivos termos.</p><h3>Disponibilidade</h3><p>Alguns vídeos e links dependem de conexão com a internet. Jogos, atividades e conteúdos previamente armazenados podem funcionar offline quando disponíveis no cache do aparelho.</p></div>
 </section>
 
-<nav><div class="navin"><button class="navbtn active" data-nav="home" onclick="openPanel('homePanel','home')"><img class="navEloIcon" src="assets/home-icons/home-nav.webp" alt="">Início</button><button class="navbtn" data-nav="watch" onclick="openPanel('watchPanel','watch')"><img class="navEloIcon" src="assets/home-icons/watch-nav.webp" alt="">Assistir</button><button class="navbtn" data-nav="play" onclick="openPanel('playPanel','play')"><img class="navEloIcon" src="assets/home-icons/play-nav.webp" alt="">Jogar</button><button class="navbtn" data-nav="learn" onclick="openPanel('learnPanel','learn')"><img class="navEloIcon" src="assets/home-icons/learn-nav.webp" alt="">Escolinha da Elo</button><button class="navbtn" data-nav="create" onclick="openPanel('createPanel','create')"><img class="navEloIcon" src="assets/home-icons/create-nav.webp" alt="">Criar</button></div></nav>
+<nav><div class="navin"><button class="navbtn active" data-nav="home" onclick="openPanel('homePanel','home')"><img class="navEloIcon" src="assets/home-icons/home-nav.webp" alt="">Início</button><button class="navbtn" data-nav="casa" onclick="openPanel('casaPanel','casa')"><span class="navEloIcon navEmoji" aria-hidden="true">🏡</span>Casa</button><button class="navbtn" data-nav="play" onclick="openPanel('playPanel','play')"><img class="navEloIcon" src="assets/home-icons/play-nav.webp" alt="">Jogar</button><button class="navbtn" data-nav="learn" onclick="openPanel('learnPanel','learn')"><img class="navEloIcon" src="assets/home-icons/learn-nav.webp" alt="">Escolinha</button><button class="navbtn" data-nav="create" onclick="openPanel('createPanel','create')"><img class="navEloIcon" src="assets/home-icons/create-nav.webp" alt="">Criar</button><button class="navbtn" data-nav="watch" onclick="openPanel('watchPanel','watch')"><img class="navEloIcon" src="assets/home-icons/watch-nav.webp" alt="">Cinema</button></div></nav>
 <div id="toast" class="toast">Muito bem! ⭐</div>
 
 </div><!-- #appContainer -->
@@ -1203,9 +1120,10 @@
 </div>
 
 
-<script src="version.js?v=4.3.18"></script><script src="models3d.js?v=4.3.18"></script><script src="app.js?v=4.3.18"></script><script src="v3.js?v=4.3.18"></script><script src="pet-core.js?v=4.3.18"></script>
-<script src="push-config.js?v=4.3.18"></script>
-<script src="pet-notify.js?v=4.3.18"></script>
-<script src="pet.js?v=4.3.18"></script>
+<script src="version.js?v=4.3.19"></script><script src="models3d.js?v=4.3.19"></script><script src="app.js?v=4.3.19"></script><script src="v3.js?v=4.3.19"></script><script src="pet-core.js?v=4.3.19"></script>
+<script src="push-config.js?v=4.3.19"></script>
+<script src="pet-notify.js?v=4.3.19"></script>
+<script src="pet.js?v=4.3.19"></script>
+<script src="home.js?v=4.3.19"></script>
 </body>
 </html>

@@ -1,0 +1,129 @@
+/* ===== Mundo da Elo (início) + Casa da Elo — tela fixa, sem rolagem • v4.3.19 =====
+   Classes novas "hm*" (início) e "cs*" (casa) para não colidir com o CSS antigo. */
+
+/* ---------- barra inferior: some no início (o mapa é o menu) ---------- */
+body:has(#homePanel.active) nav { display: none !important; }
+body:has(#casaPanel.active) header { display: none !important; }
+nav .navbtn { min-width: 0; }
+.navEmoji { display: inline-flex; align-items: center; justify-content: center; font-size: 20px; line-height: 1; border-radius: 50%; background: linear-gradient(135deg,#ffd0e6,#e3d2ff); }
+.navbtn.active .navEmoji { background: linear-gradient(135deg,#ff9ec9,#b79cff); }
+
+/* ---------- INÍCIO ---------- */
+#homePanel.active { position: fixed !important; left: 0; right: 0; bottom: 0; top: var(--hmTop, 40px); margin: 0 !important; padding: 0 !important; overflow: hidden; z-index: 5; display: block !important; }
+#homePanel .hmScene { --hmB: clamp(44px, 15.5vh, 68px); --hmEloS: .75; position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #bfe9ff 0%, #e6f7ff 50%, #d5f1bd 50.1%, #bfe6a0 100%); transition: background .8s; }
+#homePanel .hmScene[data-time="dusk"] { background: linear-gradient(180deg, #ffb48a 0%, #ffd9b8 48%, #cfe3a0 48.1%, #aed48c 100%); }
+#homePanel .hmScene[data-time="night"] { background: linear-gradient(180deg, #1b1750 0%, #3a2b80 52%, #4a6f8a 52.1%, #3f6a73 100%); }
+#homePanel .hmSky, #homePanel .hmGround, #homePanel .hmRoads, #homePanel .hmDecor { position: absolute; inset: 0; pointer-events: none; }
+#homePanel .hmRoads { width: 100%; height: 100%; }
+#homePanel .hmSun { position: absolute; left: 60%; top: 8px; z-index: 6; border: 0; background: none; font-size: clamp(26px, 8vh, 38px); line-height: 1; cursor: pointer; pointer-events: auto; filter: drop-shadow(0 0 12px rgba(255,216,90,.8)); animation: hmSunBob 4s ease-in-out infinite; }
+@keyframes hmSunBob { 50% { transform: translateY(3px) rotate(6deg); } }
+#homePanel .hmCloud { position: absolute; font-style: normal; font-size: clamp(34px, 10vh, 52px); opacity: .92; }
+#homePanel .hmCloud.c1 { top: 12%; left: -12%; animation: hmDrift 46s linear infinite; }
+#homePanel .hmCloud.c2 { top: 22%; left: -12%; font-size: clamp(26px, 8vh, 40px); animation: hmDrift 62s linear infinite -26s; }
+@keyframes hmDrift { to { transform: translateX(130vw); } }
+#homePanel .hmStar { position: absolute; font-style: normal; color: #fff7c2; font-size: 13px; opacity: 0; transition: opacity .8s; }
+#homePanel .hmScene[data-time="night"] .hmStar { opacity: 1; animation: hmTwinkle 2.4s ease-in-out infinite; }
+#homePanel .hmStar.s1 { left: 8%; top: 14%; } #homePanel .hmStar.s2 { left: 30%; top: 8%; animation-delay: .6s !important; } #homePanel .hmStar.s3 { left: 52%; top: 22%; animation-delay: 1.1s !important; } #homePanel .hmStar.s4 { left: 74%; top: 10%; animation-delay: 1.6s !important; } #homePanel .hmStar.s5 { left: 90%; top: 26%; animation-delay: .3s !important; }
+@keyframes hmTwinkle { 50% { opacity: .35; } }
+#homePanel .hmGround i { position: absolute; border-radius: 50%; background: #aedd8c; }
+#homePanel .hmGround i:nth-child(1) { left: -12%; bottom: -26%; width: 62%; height: 62%; }
+#homePanel .hmGround i:nth-child(2) { right: -14%; bottom: -30%; width: 66%; height: 66%; background: #9fd47f; }
+#homePanel .hmGround i:nth-child(3) { left: 34%; bottom: -40%; width: 52%; height: 50%; background: #b6e496; }
+#homePanel .hmScene[data-time="night"] .hmGround i { filter: brightness(.5) saturate(.8); }
+#homePanel .hmRoads path { fill: none; stroke: #ffe8b4; stroke-width: 20; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; opacity: .95; }
+#homePanel .hmRoads path.dash { stroke: #fff8de; stroke-width: 3; stroke-dasharray: 2 9; opacity: .9; }
+#homePanel .hmScene[data-time="night"] .hmRoads path { stroke: #9a8f7a; } #homePanel .hmScene[data-time="night"] .hmRoads path.dash { stroke: #cbbf9d; }
+#homePanel .hmDeco { position: absolute; font-style: normal; font-size: clamp(20px, 6vh, 30px); opacity: .95; }
+#homePanel .hmPond { position: absolute; right: 3%; top: 52%; width: 15%; height: 15%; border-radius: 50%; background: radial-gradient(ellipse, #8fd6ff, #5ec0f2); box-shadow: inset 0 -4px 0 rgba(0,0,0,.08), 0 0 0 4px #c9ecff; pointer-events: none; }
+#homePanel .hmDuck { position: absolute; right: 7%; top: 54%; z-index: 8; border: 0; background: none; padding: 0; font-size: clamp(18px, 5.5vh, 26px); cursor: pointer; animation: hmSwim 9s ease-in-out infinite; }
+@keyframes hmSwim { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-26px) scaleX(-1); } }
+#homePanel .hmDuck.jump { animation: hmDuckJump .6s ease-out; } @keyframes hmDuckJump { 40% { transform: translateY(-16px) rotate(-12deg); } }
+#homePanel .hmFly { position: absolute; z-index: 9; border: 0; background: none; padding: 0; font-size: clamp(16px, 5vh, 24px); cursor: pointer; left: 6%; top: 60%; animation: hmFlutter 18s ease-in-out infinite; }
+@keyframes hmFlutter { 0% { left: 6%; top: 62%; } 25% { left: 30%; top: 54%; } 50% { left: 56%; top: 60%; } 75% { left: 80%; top: 70%; } 100% { left: 6%; top: 62%; } }
+#homePanel .hmSecret { position: absolute; z-index: 7; border: 0; background: none; padding: 4px; font-size: clamp(14px, 4.4vh, 20px); cursor: pointer; opacity: .5; animation: hmTwinkle 3s ease-in-out infinite; }
+#homePanel .hmSecret.found { opacity: .15; animation: none; }
+
+/* destinos */
+#homePanel .hmStop { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 3px; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; z-index: 10; -webkit-tap-highlight-color: transparent; }
+#homePanel .hmBub { width: var(--hmB); height: var(--hmB); border-radius: 50%; display: grid; place-items: center; font-size: calc(var(--hmB) * .52); line-height: 1; background: radial-gradient(circle at 30% 25%, var(--c1), var(--c2)); box-shadow: 0 7px 14px rgba(70,43,96,.26), inset 0 -5px 0 rgba(0,0,0,.08), 0 0 0 4px rgba(255,255,255,.9); transition: transform .18s; }
+@media (prefers-reduced-motion: no-preference) { #homePanel .hmBub { animation: hmBreathe 3.6s ease-in-out infinite; animation-delay: var(--d, 0s); } }
+@keyframes hmBreathe { 50% { transform: translateY(-3px) scale(1.04); } }
+#homePanel .hmStop:active .hmBub { transform: scale(.92); }
+#homePanel .hmStop.big .hmBub { width: calc(var(--hmB) * 1.18); height: calc(var(--hmB) * 1.18); font-size: calc(var(--hmB) * .62); }
+#homePanel .hmLbl { font-size: clamp(9px, 2.7vh, 12px); font-weight: 900; color: #5b3f86; background: rgba(255,255,255,.94); border-radius: 999px; padding: 2px 8px; white-space: nowrap; box-shadow: 0 2px 6px rgba(70,43,96,.16); }
+#homePanel .hmBadge { position: absolute; top: -6px; left: calc(50% + var(--hmB) * .2); min-width: 20px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: #ff3d71; color: #fff; font-size: 12px; font-weight: 900; font-style: normal; display: grid; place-items: center; border: 2px solid #fff; animation: hmPing 1.5s ease-in-out infinite; }
+@keyframes hmPing { 50% { transform: scale(1.18); } }
+#homePanel .hmNext { position: absolute; top: calc(var(--hmB) * -.28); left: 50%; transform: translateX(-50%); font-size: 9px; font-weight: 900; font-style: normal; background: #fff; color: #8f56e8; border-radius: 999px; padding: 1px 7px; white-space: nowrap; box-shadow: 0 2px 6px rgba(70,43,96,.2); }
+
+/* Elo que passeia */
+#homePanel .hmElo { position: absolute !important; left: calc(var(--ex, 47) * 1%) !important; top: calc(var(--ey, 58) * 1%) !important; right: auto !important; bottom: auto !important; transform: translate(-50%, -88%) scale(var(--hmEloS)) !important; transform-origin: 50% 100%; transition: left .85s cubic-bezier(.45,.05,.4,1), top .85s cubic-bezier(.45,.05,.4,1); z-index: 12; cursor: pointer; }
+#homePanel .hmElo.faceLeft .walkerDollStage { transform: scaleX(-1); }
+@media (prefers-reduced-motion: no-preference) { #homePanel .hmElo.walking .walkerDollStage { animation: hmHop .34s ease-in-out infinite; } #homePanel .hmElo.jump .walkerDollStage { animation: hmJump .6s ease-out; } }
+@keyframes hmHop { 50% { translate: 0 -7px; } } @keyframes hmJump { 40% { translate: 0 -18px; } }
+#homePanel .hmElo.walking, #homePanel .hmElo.jump { z-index: 14; }
+
+/* painel superior: guia da Elo + atalhos */
+#homePanel .hmHud { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; padding: 6px 8px; z-index: 30; pointer-events: none; }
+#homePanel .hmHud > * { pointer-events: auto; }
+#homePanel .hmGuide { display: flex; align-items: center; gap: 6px; max-width: 52%; background: rgba(255,255,255,.93); border-radius: 18px; padding: 4px 12px 4px 4px; box-shadow: 0 4px 12px rgba(70,43,96,.16); }
+#homePanel .hmGuide img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; background: #ffe3f1; }
+#homePanel .hmGuideBox { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+#homePanel .hmGuide p { margin: 0; font-size: clamp(9.5px, 2.8vh, 12px); font-weight: 800; line-height: 1.25; color: #5b3f86; }
+#homePanel .hmGuideBtn { border: 0; border-radius: 999px; padding: 3px 10px; font-size: 10px; font-weight: 900; color: #fff; background: linear-gradient(135deg, #ff6fae, #9a7cf0); cursor: pointer; }
+#homePanel .hmIcons { display: flex; gap: 6px; }
+#homePanel .hmIco { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 2px; min-width: 36px; height: 36px; padding: 0; border: 0; border-radius: 999px; background: #fff; box-shadow: 0 3px 10px rgba(70,43,96,.18); font-size: 17px; cursor: pointer; }
+#homePanel .hmIco.chip { padding: 0 9px; } #homePanel .hmIco.chip b { font-size: 10px; color: #6b4c9a; }
+#homePanel .hmDot { position: absolute; top: 1px; right: 1px; width: 11px; height: 11px; border-radius: 50%; background: #ff3d71; border: 2px solid #fff; animation: hmPing 1.5s infinite; }
+#homePanel .hmVer { position: absolute; left: 8px; bottom: 4px; font-size: 8px; color: rgba(40,30,70,.45); z-index: 5; pointer-events: none; }
+#homePanel .hidden { display: none !important; }
+
+/* ---------- CASA DA ELO ---------- */
+#casaPanel.active { display: flex !important; flex-direction: column; position: fixed; left: 0; right: 0; top: 0; height: var(--csH, calc(100dvh - 58px)); box-sizing: border-box; padding: max(6px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 0 max(10px, env(safe-area-inset-left)) !important; overflow: hidden; z-index: 30; }
+#casaPanel .csTop { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; height: 34px; }
+#casaPanel .csTop .back { flex: 0 0 auto; width: 30px; height: 30px; min-width: 0; padding: 0; font-size: 20px; line-height: 1; }
+#casaPanel .csTop h2 { margin: 0; font-size: clamp(14px, 2.4vw, 18px); color: #3a2551; white-space: nowrap; }
+#casaPanel .csSpacer { flex: 1; }
+#casaPanel .csChest { border: 0; border-radius: 16px; padding: 7px 12px; font-size: 12px; font-weight: 900; color: #fff; background: linear-gradient(135deg, #ff4fa1, #8f56e8); cursor: pointer; }
+#casaPanel .csHouse { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; padding: 2px 0 8px; }
+#casaPanel .csRoof { flex: 0 0 clamp(26px, 8.5vh, 38px); position: relative; margin: 0 6%; display: flex; align-items: center; justify-content: center; font-size: clamp(12px, 3.4vh, 16px); font-weight: 900; color: #fff; text-shadow: 0 1px 2px rgba(80,20,60,.35); background: linear-gradient(180deg, #ff7aa8, #e0457f); clip-path: polygon(6% 100%, 15% 0, 85% 0, 94% 100%); }
+#casaPanel .csFloors { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; padding: 8px; background: linear-gradient(180deg, #fff, #fff1f8); border: 5px solid #ffc2dc; border-radius: 22px; box-shadow: 0 10px 26px rgba(105,65,128,.18); }
+#casaPanel .csRoom { --floor: #e6b27a; position: relative; overflow: hidden; border: 4px solid #fff; border-radius: 16px; padding: 0; cursor: pointer; text-align: left; box-shadow: 0 4px 12px rgba(70,43,96,.16); transition: transform .18s, box-shadow .18s, opacity .2s; -webkit-tap-highlight-color: transparent; }
+#casaPanel .csRoom::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 24%; background: linear-gradient(180deg, var(--floor), color-mix(in srgb, var(--floor) 82%, #000)); }
+#casaPanel .csRoom:active { transform: scale(.97); }
+#casaPanel .csRoom.entering { transform: scale(1.08); box-shadow: 0 0 0 6px #ffd54a, 0 12px 26px rgba(70,43,96,.3); z-index: 3; opacity: .85; }
+#casaPanel .r-bed { background: repeating-linear-gradient(90deg, #ffe4f1 0 16px, #ffd3e8 16px 32px); }
+#casaPanel .r-closet { background: repeating-linear-gradient(90deg, #efe6ff 0 16px, #e3d6ff 16px 32px); --floor: #c9a8f0; }
+#casaPanel .r-pet { background: linear-gradient(180deg, #dcf7e8, #c8efd9); --floor: #8fd18a; }
+#casaPanel .r-bath { background: linear-gradient(#fff 0 2px, transparent 2px) 0 0 / 24px 24px, linear-gradient(90deg, #fff 0 2px, transparent 2px) 0 0 / 24px 24px, #d3f0ff; --floor: #9fd0ee; }
+#casaPanel .csWin { position: absolute; top: 12%; right: 8%; width: clamp(26px, 9vh, 40px); height: clamp(26px, 9vh, 40px); border-radius: 8px; border: 3px solid #fff; background: linear-gradient(180deg, #bfe9ff, #eaf9ff); box-shadow: inset 0 0 0 2px rgba(120,170,220,.35); }
+#casaPanel .csHouse[data-time="night"] .csWin { background: linear-gradient(180deg, #2b2a7a, #4b3d99); box-shadow: inset 0 0 0 2px rgba(255,255,255,.2), 0 0 12px rgba(255,226,140,.6); }
+#casaPanel .csHouse[data-time="night"] .csRoom::before { content: ''; position: absolute; inset: 0; background: rgba(38,28,92,.22); z-index: 1; pointer-events: none; }
+#casaPanel .csProps b { position: absolute; font-weight: 400; font-size: clamp(24px, 9vh, 44px); line-height: 1; z-index: 2; }
+#casaPanel .csProps .p1 { left: 8%; bottom: 14%; font-size: clamp(30px, 12vh, 56px); } #casaPanel .csProps .p2 { right: 24%; top: 34%; } #casaPanel .csProps .p3 { right: 8%; bottom: 14%; font-size: clamp(20px, 7vh, 34px); }
+#casaPanel .csInfo { position: absolute; left: 8px; top: 8px; z-index: 4; max-width: 62%; display: flex; flex-direction: column; gap: 1px; padding: 3px 9px; border-radius: 12px; background: rgba(255,255,255,.9); box-shadow: 0 2px 6px rgba(70,43,96,.14); }
+#casaPanel .csInfo strong { font-size: clamp(11px, 3.2vh, 14px); color: #4a2f72; } #casaPanel .csInfo small { font-size: clamp(8.5px, 2.4vh, 10px); color: #7a65a0; font-weight: 700; line-height: 1.2; }
+#casaPanel .csBadge { position: absolute; top: 6px; right: 6px; z-index: 5; min-width: 22px; height: 22px; padding: 0 5px; box-sizing: border-box; border-radius: 999px; background: #ff3d71; color: #fff; font-size: 13px; font-weight: 900; font-style: normal; display: grid; place-items: center; border: 2px solid #fff; animation: hmPing 1.5s ease-in-out infinite; }
+#casaPanel .csBadge.hidden { display: none; }
+#casaPanel .csPetStage { position: absolute; left: 50%; top: 54%; width: 0; height: 0; z-index: 3; }
+#casaPanel .csPetStage .petCreature { position: absolute !important; left: -75px !important; top: -92px !important; width: 150px !important; height: 185px !important; transform: none !important; translate: none !important; transform-origin: 50% 50% !important; scale: var(--csPS, .45); margin: 0 !important; }
+#casaPanel .csPetStage .csEgg, #casaPanel .csPetStage .csLetter { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); font-size: clamp(30px, 11vh, 52px); line-height: 1; }
+#casaPanel .csPetStage .csEgg { animation: csWobble 2.4s ease-in-out infinite; }
+@keyframes csWobble { 0%,100% { rotate: -5deg; } 50% { rotate: 5deg; } }
+#casaPanel .csRoom.r-pet .csProps .p1 { left: 8%; font-size: clamp(22px, 8vh, 36px); }
+#casaPanel .csTipBar { position: absolute; left: 50%; bottom: 3px; transform: translateX(-50%); font-size: 9px; font-weight: 800; color: #6a4c8f; background: rgba(255,255,255,.9); border-radius: 999px; padding: 1px 9px; z-index: 6; pointer-events: none; white-space: nowrap; }
+
+/* abas do Cantinho: ficam compactas e com o botão Casa */
+.cantinhoTopSwitcher { flex-wrap: nowrap; }
+.cantinhoTopSwitcher .cSwitchBtn { white-space: nowrap; }
+
+/* abas do Cantinho: 5 numa linha só */
+.cantinhoTopSwitcher { display: grid !important; grid-template-columns: repeat(5, minmax(0, 1fr)) !important; gap: 4px !important; }
+.cantinhoTopSwitcher .cSwitchBtn { padding: 6px 2px !important; font-size: clamp(9.5px, 2.6vh, 12px) !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- moldura fixa para os demais painéis: cabeçalho e barra fixos, rolagem só no conteúdo ---------- */
+body.shell .panel.active:not(#homePanel):not(#casaPanel):not(#petPanel):not(#readerPanel) { position: fixed; left: 0; right: 0; top: var(--shellTop, 0px); bottom: var(--shellBottom, 0px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; box-sizing: border-box; padding-bottom: 14px !important; margin: 0 !important; z-index: 4; }
+body.shell { overflow: hidden; }
+
+/* Casa: o Consultório também esconde o cabeçalho global; o Quarto ajusta a cena à tela */
+body:has(#carePanel.active) header { display: none !important; }
+#roomPanel.active .roomLayoutLandscape { height: calc(100dvh - var(--shellBottom, 52px) - 112px) !important; min-height: 180px !important; max-height: none !important; }

@@ -1,6 +1,6 @@
-VERSÃO ATUAL DO APP: 4.3.18
-CACHE PWA: elo-official-4.3.18-r57
-PURGE SW: 4.3.18-r57
+VERSÃO ATUAL DO APP: 4.3.19
+CACHE PWA: elo-official-4.3.19-r58
+PURGE SW: 4.3.19-r58
 DATA: 01/11/2026
 
 ATUALIZAÇÃO:
@@ -9,9 +9,9 @@ ATUALIZAÇÃO:
    - Coleta de métricas e desempenho com privacidade sem cookies.
 
 2. Atualização de Cache PWA e Service Worker:
-   - Identificação do cache atualizada para elo-official-4.3.18-r57.
+   - Identificação do cache atualizada para elo-official-4.3.19-r58.
    - TARGET_VER sincronizado no index.html e sw.js para purga consistente do cache anterior.
-   - Versão funcional mantida em 4.3.18 com preservação total de todos os jogos, quartos, guarda-roupa, histórias e RPG.
+   - Versão funcional mantida em 4.3.19 com preservação total de todos os jogos, quartos, guarda-roupa, histórias e RPG.
 
 3. Como Atualizar no GitHub:
    - Arraste 'app-upload.zip' para o repositório ou use 'Add file' > 'Upload files' e confirme em 'Commit changes'.

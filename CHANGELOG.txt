@@ -1,3 +1,33 @@
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.19-r58)
+Data: 03/11/2026
+
+MENU PRINCIPAL REDESENHADO + CASA DA ELO
+
+Início (Mundo da Elo) em tela fixa, sem rolagem:
+ - O mapa agora ocupa a tela toda (350 px de altura em vez de ~200) e não rola mais (antes rolava +145 px).
+   Verificado de 568x320 a 1280x720: nenhum destino cortado ou sobreposto; alvos de toque de 50 a 68 px.
+ - De 11 lugares + 3 escondidos para 7 destinos: Casa da Elo, Escolinha, Jogos, Cinema, Ateliê, Histórias e Reino das Estrelas.
+ - A barra inferior some no início (o mapa é o menu) e aparece nas demais telas, agora com 6 botões:
+   Início, Casa, Jogar, Escolinha, Criar, Cinema. Cabeçalho + faixa "Mundo Mágico" + barra inferior (3 faixas) viraram 1 só.
+ - Atalhos no topo: Baú 🎁 (com ponto vermelho quando há presente do dia), Álbum 📦, Conquistas 🏆, Segredos 🔎 (contador 0/3,
+   abre a Coleção) e Área dos Pais 🔐. Conquistas e Coleção não tinham entrada no menu.
+ - Interações novas: a Elo caminha até o destino tocado (e lembra onde parou); selo vermelho na Casa quando o bichinho precisa de
+   cuidados, carta de despedida ou ovo esperando; a Elo dá uma sugestão com botão ("Ir para a Casa", "Abrir o Baú", "Continuar");
+   etiqueta "▶ continuar" no último lugar; céu de dia, entardecer e noite pelo horário; patinho (5 toques = +1 ⭐ por dia) e borboleta.
+
+Casa da Elo (novo hub, tela fixa):
+ - Reúne Quarto, Guarda-roupa, Bichinho (ao vivo, com a espécie/fase/acessório atuais) e Consultório (Cuidados, que não aparecia em nenhum menu).
+ - As telas de dentro ganharam as mesmas 5 abas (Casa, Quarto, Guarda-roupa, Bichinho, Cuidados) numa só linha; o "voltar" retorna à Casa.
+
+Moldura fixa para as demais telas:
+ - A página não rola mais em nenhum painel; cabeçalho e barra inferior ficam fixos e só o conteúdo rola por dentro, terminando
+   sempre acima da barra (antes até 13 botões ficavam escondidos sob ela). Quarto e Consultório passam a caber inteiros.
+ - Festa da Família saiu do mapa e virou um botão no topo de Jogos; Estúdio 3D fica dentro do Ateliê (aba já existente).
+ - Novo tutorial de boas-vindas descrevendo o novo mundo (aparece uma vez, inclusive para quem já viu o anterior).
+
+Observação: o antigo "Cantinho da Elo" (eloHubModal) não era aberto por nenhum botão e continua apenas como código sem uso.
+Versão: cache PWA elo-official-4.3.19-r58.
+
 # Relatório de Atualização - Dia a Dia da Elo (v4.3.18-r57)
 Data: 02/11/2026
 
