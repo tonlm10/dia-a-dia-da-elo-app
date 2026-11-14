@@ -1,0 +1,10 @@
+Fontes do Dia a Dia da Elo (opcional)
+=====================================
+O app funciona sem estes arquivos (usa as fontes arredondadas do aparelho). Para manter o visual original:
+
+1. Baixe as fontes (licença livre OFL) em https://fonts.google.com/specimen/Fredoka e https://fonts.google.com/specimen/Quicksand
+   (botão "Get font" -> "Download all"). Prefira as versões "variable" (variáveis).
+2. Converta para .woff2 (ex.: https://cloudconvert.com/ttf-to-woff2 ou a ferramenta "woff2_compress").
+3. Salve nesta pasta com os nomes:  Fredoka-Variable.woff2   e   Quicksand-Variable.woff2
+4. Abra o arquivo fonts.css (na raiz do app) e descomente as duas linhas "url('assets/fonts/...')".
+5. Suba o app de novo. A partir daí as fontes vêm do próprio app, sem nenhuma chamada ao Google.

@@ -373,7 +373,7 @@ function openPanel(id,nav,fromHistory=false){const previous=currentPanelId();
 function exitDialogOpen(){return !document.getElementById('exitConfirm')?.classList.contains('hidden')}
 function profileChooserOpen(){return !document.getElementById('profileModal')?.classList.contains('hidden')}
 function isAnyModalOpen(){
-  const ids = ['rpgOverlay', 'gameModal', 'coloringModal', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'modelStudioModal', 'rewardVideoOverlay', 'profileModal', 'exitConfirm'];
+  const ids = ['rpgOverlay', 'gameModal', 'coloringModal', 'cinemaPlayerModal', 'starShopModal', 'modelStudioModal', 'rewardVideoOverlay', 'profileModal', 'exitConfirm'];
   return ids.some(id => {
     const el = document.getElementById(id);
     return el && !el.classList.contains('hidden');
@@ -388,7 +388,6 @@ function appBack(){
   if(!document.getElementById('rewardVideoOverlay')?.classList.contains('hidden')){ document.getElementById('rewardVideoOverlay').classList.add('hidden'); return; }
   if(!document.getElementById('starShopModal')?.classList.contains('hidden')){ closeStarShop(); return; }
   if(!document.getElementById('modelStudioModal')?.classList.contains('hidden')){ closeModelStudio(); return; }
-  if(!document.getElementById('eloHubModal')?.classList.contains('hidden')){ closeEloHubModal(); return; }
   if(!document.getElementById('cinemaPlayerModal')?.classList.contains('hidden')) return closeCinemaPlayer();
   if(profileChooserOpen()) return closeProfileChooser();
   if(mainMenuVisible()) return showExitConfirm();
@@ -1485,24 +1484,6 @@ window.playCuteSfx = function(type){
 };
 
 // --- 1. MODAL HUB DO CANTINHO DA ELO ---
-window.openEloHubModal = function(){
-  const m = document.getElementById("eloHubModal");
-  if(m){
-    m.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-    playCuteSfx("pop");
-    if(typeof eloGuideSay === "function"){
-      eloGuideSay("Bem-vinda ao meu Cantinho! Escolha o Quarto, o Guarda-roupa ou o Bichinho Virtual.");
-    }
-  }
-};
-window.closeEloHubModal = function(){
-  const m = document.getElementById("eloHubModal");
-  if(m){
-    m.classList.add("hidden");
-    document.body.style.overflow = "";
-  }
-};
 
 // --- 2. FESTA DA FAMÍLIA (MÍMICA, DUELO 2 JOGADORES & ROLETA/PLACAR) ---
 let familyActiveMode = "mime";
@@ -3636,7 +3617,7 @@ window.finishBandages = function() {
 // Atualiza isAnyModalOpen e appBack para fechar todos os modais perfeitamente
 const origIsAnyModalOpen = isAnyModalOpen;
 isAnyModalOpen = function() {
-  const ids = ['rpgOverlay', 'gameModal', 'coloringModal', 'cinemaPlayerModal', 'starShopModal', 'eloHubModal', 'modelStudioModal', 'stickersModal', 'sleepModeOverlay', 'rewardVideoOverlay', 'profileModal', 'parentPinModal', 'exitConfirm'];
+  const ids = ['rpgOverlay', 'gameModal', 'coloringModal', 'cinemaPlayerModal', 'starShopModal', 'modelStudioModal', 'stickersModal', 'sleepModeOverlay', 'rewardVideoOverlay', 'profileModal', 'parentPinModal', 'exitConfirm'];
   return ids.some(id => {
     const el = document.getElementById(id);
     return el && !el.classList.contains('hidden');

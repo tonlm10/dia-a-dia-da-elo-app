@@ -1,3 +1,37 @@
+# Relatório de Atualização - Dia a Dia da Elo (v4.3.20-r59)
+Data: 04/11/2026
+
+PRIVACIDADE, SEGURANÇA E LIMPEZA (itens do relatório de 03/11)
+
+Privacidade e conformidade:
+ - Removido o Cloudflare Analytics. O app não faz mais nenhuma chamada ao Google Fonts nem a serviços de análise
+   (as únicas conexões externas são os vídeos do YouTube, que só tocam no Cinema).
+ - Fontes: pilha de fontes arredondadas do aparelho + fonts.css preparado. Para voltar ao visual original (Fredoka e Quicksand),
+   copie 2 arquivos para assets/fonts/ (veja assets/fonts/LEIA-ME.txt). Sem isso o app funciona normalmente.
+ - Política de Privacidade e Termos reescritos e UNIFICADOS (privacy.html, terms.html e os painéis do app com o mesmo texto,
+   versão e data certas; antes havia duas versões diferentes). Seção nova sobre registro de erros; contato por e-mail
+   configurável em legal-config.js (preencha; as lojas exigem).
+ - Manifesto sem número de versão no start_url; README refeito.
+
+Segurança:
+ - "Pergunta para adultos": quem ainda não tem PIN precisa resolver uma conta (ex.: 7 x 8 + 13) antes de criá-lo;
+   3 erros bloqueiam por 30 s. Antes, a criança podia criar o PIN sozinha ao tocar em "Pais" ou num link.
+ - Convite para o responsável criar o PIN nas 3 primeiras aberturas (depois do tutorial).
+ - Tratamento global de erros: em vez de tela quebrada, aparece "Ops!..." com botão para voltar ao início; guarda um registro
+   curto no aparelho (sem enviar a ninguém); ignora ruídos (áudio bloqueado, ResizeObserver) e não repete a tela em menos de 15 s.
+ - CSP (Content-Security-Policy) em index.html, rpg.html e páginas legais: só permite o próprio app e o YouTube.
+
+Acessibilidade:
+ - Zoom por pinça liberado (antes bloqueado); duplo toque não dá zoom; os jogos em canvas mantêm os próprios gestos.
+
+Limpeza e peso:
+ - 19 imagens sem uso apagadas (1,8 MB). Capa do RPG PNG de 2,7 MB virou WebP de ~60 KB; histórias, cartas e quebra-cabeças
+   recomprimidos sem perda visível (medido por PSNR). Os ícones de 512 px saíram do pré-cache.
+   Assets: 17,2 MB -> 9,5 MB. Primeira visita: 4,3 MB -> 3,1 MB; conteúdo em 0,37 s.
+ - Código sem uso removido: Cantinho antigo (eloHubModal), grafo de estradas e caminhada antiga do mapa (-9 KB em v3.js).
+
+Versão: cache PWA elo-official-4.3.20-r59.
+
 # Relatório de Atualização - Dia a Dia da Elo (v4.3.19-r58)
 Data: 03/11/2026
 

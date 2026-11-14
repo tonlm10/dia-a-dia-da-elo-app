@@ -127,3 +127,7 @@ body.shell { overflow: hidden; }
 /* Casa: o Consultório também esconde o cabeçalho global; o Quarto ajusta a cena à tela */
 body:has(#carePanel.active) header { display: none !important; }
 #roomPanel.active .roomLayoutLandscape { height: calc(100dvh - var(--shellBottom, 52px) - 112px) !important; min-height: 180px !important; max-height: none !important; }
+
+/* zoom por pinça liberado (acessibilidade); duplo toque não dá zoom; jogos em canvas controlam os próprios gestos */
+html { touch-action: manipulation; }
+canvas { touch-action: none; }

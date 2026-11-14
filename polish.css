@@ -428,36 +428,6 @@
 .bottomHubBtn b { font-size: 11px; white-space: nowrap; }
 .bottomHubBtn.parentBtn { background: linear-gradient(145deg, #fff7fb, #fbf7ff); }
 
-/* 4. MODAL HUB DO CANTINHO DA ELO */
-.eloHubModal .panelCard { max-width: 420px; }
-.eloHubGrid {
-  display: grid;
-  gap: 12px;
-  margin-top: 14px;
-}
-.hubTile {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px;
-  border-radius: 22px;
-  border: 0;
-  text-align: left;
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.14);
-  transition: transform .18s ease;
-}
-.hubTile:active { transform: scale(0.96); }
-.hubTileIcon { font-size: 34px; width: 50px; height: 50px; border-radius: 16px; background: rgba(255,255,255,0.24); display: grid; place-items: center; }
-.hubTile b { display: block; font-size: 17px; line-height: 1.15; }
-.hubTile small { font-size: 11px; opacity: 0.9; }
-
-.tileRoom { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
-.tileWardrobe { background: linear-gradient(135deg, #a18cd1, #fbc2eb); color: #3b2050; }
-.tileWardrobe .hubTileIcon { background: rgba(255,255,255,0.45); }
-.tilePet { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-
 /* 5. FESTA DA FAMÍLIA (PARTY GAME SYSTEM) */
 .familyPartyHero {
   margin: 8px 12px 12px;
@@ -953,7 +923,7 @@
 
 /* 1. TIPOGRAFIA BUBBLE & MODERNA */
 body, button, input, select, textarea, h1, h2, h3, h4, h5, b, span, p, .app, .navbtn b, .portalCard h3 {
-  font-family: 'Fredoka', 'Quicksand', system-ui, -apple-system, sans-serif !important;
+  font-family: 'Fredoka', 'Quicksand', ui-rounded, 'Segoe UI Rounded', 'Arial Rounded MT Bold', system-ui, -apple-system, sans-serif !important;
   -webkit-font-smoothing: antialiased;
 }
 
