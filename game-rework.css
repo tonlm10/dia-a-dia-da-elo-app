@@ -1,0 +1,213 @@
+/* Dia a Dia da Elo 4.3.25 — telas organizadas para toque e uso sem rolagem acidental. */
+#gameModal{overflow:hidden!important;overscroll-behavior:none;touch-action:pan-y}
+#gameModal>.overlayBody{height:100dvh;max-height:100dvh;overflow:hidden!important;display:flex;flex-direction:column;padding:8px!important;box-sizing:border-box}
+#gameModal>.overlayBody>.overlayTop{flex:0 0 auto;min-height:42px;margin:0 0 6px;padding:3px 4px}
+#gameModal .gameSection.active{display:flex!important;flex:1 1 auto;min-height:0;height:calc(100dvh - 62px);overflow:hidden!important}
+#gameModal .gameSection.active>.gamebox{display:flex;flex:1 1 auto;min-height:0;height:100%;max-height:100%;flex-direction:column;overflow:hidden!important;padding:clamp(8px,1.5vh,16px)}
+#gameModal .gameSection.active>.gamebox>p.muted{display:none!important}
+#gameModal .gamePlayRowLandscape{flex:1 1 auto;min-height:0;align-items:center;gap:10px}
+#gameModal .gameStageColLandscape,#gameModal .gameControlsColLandscape{min-width:0;min-height:0}
+#gameModal .gameStats{min-height:32px;padding:6px 9px;margin:5px 0;font-size:12px}
+#gameModal .diffRow .chip{min-height:38px;padding:6px 10px;font-size:11px}
+#gameModal .btn,#gameModal .mazeBtn{min-height:42px;touch-action:manipulation}
+#findGame .gamePlayRowLandscape{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(150px,.65fr);height:100%}
+#findGame #findStage{position:relative;width:100%;height:min(66vh,620px);min-height:250px;flex:1 1 auto;isolation:isolate;background-color:#dff4ff}
+#findGame #findStage .obj{z-index:1;user-select:none}
+#findGame #findStage .fake{z-index:2;pointer-events:none}
+#findGame #findStage #target{z-index:4;min-width:34px;min-height:34px;cursor:pointer;touch-action:manipulation}
+#findGame .gameControlsColLandscape{display:grid;align-content:center;gap:8px}
+#mazeGame .gamePlayRowLandscape,#unicornChaseGame .gamePlayRowLandscape{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,.43fr);align-items:center;height:100%}
+#mazeGame .mazeWrap{width:100%;max-height:68vh;aspect-ratio:23/8;margin:auto;display:grid;place-items:center}
+#mazeGame .mazeBoard{width:100%;height:100%;max-height:68vh;grid-auto-rows:1fr;touch-action:none;overscroll-behavior:contain}
+#mazeGame .gameControlsColLandscape,#unicornChaseGame .gameControlsColLandscape{display:grid;align-content:center;gap:5px}
+#mazeGame .mazeControls,#unicornChaseGame .chaseControls{width:min(100%,190px);margin:0 auto;gap:4px}
+#mazeGame .mazeBtn,#unicornChaseGame .mazeBtn{min-width:44px;min-height:44px;width:100%;font-size:23px;touch-action:none}
+#unicornChaseGame .chaseBoard{width:min(100%,55vh,500px);aspect-ratio:1;height:auto;margin:auto;grid-auto-rows:1fr;touch-action:none;overscroll-behavior:contain}
+#unicornChaseGame .chaseCell{min-width:0;min-height:0}
+#memoryGame .eloGameToolbar,#puzzleGame .eloGameToolbar{display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin:0 0 6px}
+#memoryGame .eloGameToolbar .diffRow,#puzzleGame .eloGameToolbar .diffRow{flex:1 1 100%;gap:5px}
+#memoryGame .eloGameToolbar .gameStats,#puzzleGame .eloGameToolbar .gameStats{flex:1 1 auto;margin:0;min-height:30px}
+#memoryGame .eloGameToolbar>.row,#puzzleGame .eloGameToolbar>.row{margin:0!important;gap:5px}
+#memoryGame .eloMemoryRow{display:flex;flex:1 1 auto;min-height:0;overflow:hidden}
+#memoryGame #memory{width:min(100%,760px);max-width:100%;max-height:100%;height:100%;margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-auto-rows:minmax(0,1fr);gap:clamp(3px,.8vw,8px);overflow:hidden}
+#memory .mem{width:100%;height:100%;min-width:0;min-height:0!important;aspect-ratio:auto;border-radius:clamp(7px,1.3vw,16px);touch-action:manipulation}
+#memory .memPic{width:100%;height:100%;min-height:0}
+#puzzleGame .eloPuzzleRow{display:flex;flex:1 1 auto;min-height:0;align-items:center;justify-content:center;overflow:hidden}
+#puzzleGame #puzzleBoard{width:min(100%,67vh,590px);height:auto;max-height:100%;aspect-ratio:1;margin:auto;flex:0 1 auto}
+#puzzleGame .puzzleTop{margin:0;grid-template-columns:64px minmax(0,1fr);gap:7px}
+#puzzleGame .puzzlePreview{width:64px;border-radius:10px}
+#puzzleGame .puzzleChoices{gap:4px;padding:2px;max-width:100%}
+#puzzleGame .puzzleChoice{width:34px;min-width:34px;height:34px}
+#puzzleGame .puzzleCompleteNote{max-height:38px;overflow:hidden}
+#tapGameSection .eloTapRow{display:flex;flex:1 1 auto;min-height:0;align-items:center;gap:14px}
+#tapGameSection .eloTapBrief{flex:0 0 40%;display:grid;grid-template-columns:1fr auto;gap:5px;align-content:center;align-items:center}
+#tapGameSection .eloTapBrief>.diffRow{grid-column:1/-1}
+#tapGameSection .eloTapBrief .timerTrack,#tapGameSection .eloTapBrief #tapPrompt{grid-column:1/-1}
+#tapGameSection .eloTapBrief .row{grid-column:1/-1}
+#tapGameSection #tapGame{flex:1 1 auto;min-width:0;max-height:100%;overflow:hidden;display:grid;align-content:center;grid-template-columns:repeat(3,minmax(42px,1fr));gap:8px}
+#tapGameSection #tapGame .tapNum{min-height:clamp(42px,7vh,70px);height:100%}
+#trailGame>.gamebox{gap:5px}
+#trailGame .trailHeader{flex:0 0 auto;margin:0}
+#trailGame .trailBadge{font-size:clamp(13px,2vh,18px)}
+#trailGame .trailHeader .diffRow .chip{min-height:34px;padding:4px 9px}
+#trailGame .trailHud{flex:0 0 auto;margin:4px 0;gap:5px}
+#trailGame .trailStat{padding:4px 6px;min-height:38px}
+#trailGame .trailInfo{flex:0 0 auto;margin:2px 0;font-size:11px}
+#trailGame .trailBossBar{flex:0 0 auto;height:7px;margin:2px 0}
+#trailGame .trailPlayRowLandscape{flex:1 1 auto;min-height:0;align-items:stretch;gap:8px}
+#trailGame .trailCanvasWrap{flex:1 1 70%;min-height:0;max-height:100%;aspect-ratio:900/500;margin:0 auto}
+#trailGame .trailCanvas{width:100%;height:100%;max-height:100%;object-fit:contain}
+#trailGame .trailControls{flex:0 0 min(29%,220px);align-content:center;gap:6px}
+#trailGame .trailControls .trailBtn{min-height:44px}
+#trailGame .trailHint,#trailGame .premiumNote{display:none!important}
+#trailGame .row{flex:0 0 auto;margin:2px!important}
+#playPanel .gameLaunchGrid{align-items:stretch}
+#playPanel .gameLaunch.eloCompactGameCard,.gameLaunch.eloCompactGameCard{grid-column:auto!important;grid-row:auto!important;min-height:0;height:100%}
+#playPanel .gameLaunch.eloCompactGameCard .gameCover{aspect-ratio:16/9;max-height:clamp(80px,15vh,180px);object-fit:cover}
+#playPanel .gameLaunch.eloCompactGameCard .gameInfo{min-height:94px!important;padding:10px 12px 14px}
+#playPanel .gameLaunch.eloCompactGameCard b{font-size:clamp(13px,1.5vw,16px)}
+#watchPanel{overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+#watchPanel .cinemaShelves{display:block;max-height:none;overflow:visible}
+#watchPanel .cinemaShelf{margin:0 0 18px;min-width:0}
+#watchPanel .cinemaRail{display:flex;overflow-x:auto!important;overflow-y:hidden!important;max-width:100%;padding:5px 3px 12px;gap:10px;scroll-snap-type:x proximity;overscroll-behavior-x:contain;touch-action:pan-x;scrollbar-width:thin;scrollbar-color:#b998dd #f3ebfa}
+#watchPanel .cinemaRail>*{scroll-snap-align:start;flex:0 0 auto}
+#watchPanel .cinemaRail::-webkit-scrollbar{height:9px}#watchPanel .cinemaRail::-webkit-scrollbar-thumb{background:#b998dd;border-radius:99px}
+.eloCinemaHint{margin:6px 0 10px;padding:9px 12px;border-radius:13px;background:#f5efff;color:#67547f;font-size:12px;font-weight:700}
+/* Keep touch focus on the music keys; song and color rails remain swipeable. */
+body.eloPianoLock{overflow:hidden!important;overscroll-behavior:none}
+body.eloPianoLock #schoolMusicCard{overflow:hidden;overscroll-behavior:none}
+#schoolMusicCard .songSelectorRow,#schoolMusicCard .animalSoundBar{display:flex;overflow-x:auto;overflow-y:hidden;max-width:100%;gap:6px;touch-action:pan-x;overscroll-behavior-x:contain;scrollbar-width:thin}
+#schoolMusicCard .pianoKeysRow{display:grid;grid-template-columns:repeat(10,minmax(34px,1fr));gap:4px;overflow:hidden;touch-action:none;overscroll-behavior:none}
+#schoolMusicCard .pianoKey3D,#schoolMusicCard .djPadBtn{min-width:0;touch-action:none;user-select:none;-webkit-user-select:none}
+#schoolMusicCard .djPadBtn.eloPadHit{filter:brightness(1.28);transform:translateY(2px) scale(.97)}
+#schoolMusicCard .djPadsGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.eloColorRail,#palette{display:flex!important;flex-wrap:nowrap!important;gap:7px;max-width:100%;overflow-x:auto!important;overflow-y:hidden!important;padding:6px 4px 10px;overscroll-behavior-x:contain;touch-action:pan-x;scrollbar-width:thin;scrollbar-color:#b998dd #f3ebfa}
+.eloColorRail .colorPick{flex:0 0 34px;width:34px;height:34px;min-width:34px;min-height:34px;border:2px solid #fff;box-shadow:0 2px 7px #57406b35}
+#palette .color{flex:0 0 32px;width:32px;height:32px;min-width:32px;min-height:32px;border:2px solid #fff;box-shadow:0 2px 7px #57406b35}
+#coloringModal .overlayBody{overflow:hidden}
+#coloringModal .coloringLayoutLandscape{min-height:0;max-height:calc(100dvh - 62px)}
+#coloringModal .coloringToolsCol{min-width:0;overflow:hidden}
+#stickersModal .albumGrid{max-height:min(58dvh,590px);overflow:auto;overscroll-behavior:contain;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:6px;padding:5px}
+#stickersModal .stickerCard{min-height:112px;padding:7px 4px;border-radius:13px}
+#stickersModal .stickerCard b{font-size:10px;line-height:1.15}
+#stickersModal .stickerCard small{font-size:8px}
+#modelStudioDesc{padding:10px 12px;border-radius:13px;background:linear-gradient(110deg,#f4edff,#fff3fa);line-height:1.5}
+/* Care activities redesigned with clear illustrations, larger targets and feedback. */
+#eloCareGames{display:grid;gap:10px;margin:8px 0 20px}
+.eloCareIntro{padding:14px;border-radius:20px;background:linear-gradient(125deg,#e9f8ff,#fff1f8);text-align:center}
+.eloCareIntro>span{font-size:10px;font-weight:1000;letter-spacing:.08em;color:#8b4dba}
+.eloCareIntro h3{margin:4px 0;color:#55356e;font-size:20px}.eloCareIntro p{margin:0;color:#74637d;font-size:12px}
+.eloCareTabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.eloCareTabs button,.eloSpotChoices button,.eloBandageChoices button,.eloFoodGroup button{min-height:44px;border:1px solid #e5d7f1;border-radius:13px;background:#fff;color:#59436f;font-family:inherit;font-size:12px;font-weight:700;padding:7px;touch-action:manipulation}
+.eloCareTabs button.active,.eloSpotChoices button.selected,.eloBandageChoices button.selected,.eloFoodGroup button.selected{border-color:#9865cb;background:#f4eaff;box-shadow:0 0 0 2px #ddc4f4;color:#5b3489}
+.eloCareActivity{min-height:250px}
+.eloCareCard{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.82fr);gap:16px;align-items:center;max-width:980px;margin:auto;padding:16px;border:1px solid #ebdef5;border-radius:22px;background:linear-gradient(145deg,#fff,#fbf7ff);box-shadow:0 10px 25px #72558d1a}
+.eloCareCopy h4{margin:0 0 5px;font-size:18px;color:#583873}.eloCareCopy p{margin:0 0 10px;color:#72617d;font-size:13px;line-height:1.4}
+.eloCareMeter{padding:8px 10px;border-radius:12px;background:#f5efff;color:#644589;font-weight:900;font-size:13px}
+.eloCareStatus{min-height:34px;margin:7px 0;color:#6b5080;font-size:12px;font-weight:800}
+.eloCarePrimary,.eloCareSecondary{width:100%;min-height:44px;margin-top:6px;border:0;border-radius:13px;background:linear-gradient(135deg,#ff77b0,#9561dc);color:white;font-weight:900;touch-action:manipulation}
+.eloCarePrimary:disabled{opacity:.5;filter:grayscale(.3)}.eloCareSecondary{background:#f0eaf7;color:#654d79}
+.eloMouth{padding:12px;border:6px solid #f3cad8;border-radius:48% 48% 44% 44%;background:linear-gradient(#fee5ed,#f9d3df);box-shadow:inset 0 0 0 3px white;max-width:440px;width:100%;margin:auto;text-align:center}
+.eloGum{padding:14px 9px;border-radius:40% 40% 45% 45%;background:#8e3158;display:grid;gap:9px}
+.eloTeethRow{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.eloTeethRow.lower{transform:scaleY(-1)}
+.eloTooth{min-width:0;min-height:52px;border:2px solid #e9e5ff;border-radius:9px 9px 15px 15px;background:linear-gradient(#fff,#f5f2ff);font-size:27px;box-shadow:0 4px 0 #d7cce8;touch-action:manipulation}
+.eloTooth.cleaned{background:linear-gradient(#effff7,#c7f3dc);border-color:#6bc99a}.eloTooth.cleaned span{font-size:23px}
+.eloSmile{margin-top:7px;color:#714560;font-size:12px;font-weight:900}
+.eloBandageChoices{display:flex;gap:5px;margin:7px 0}.eloBandageChoices button{flex:1;font-size:20px}
+.eloSpotChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.eloCareDoll{position:relative;width:210px;height:255px;margin:auto;display:grid;justify-items:center;align-content:start;padding-top:4px;color:#6f4c7f}
+.dollHead{width:86px;height:82px;display:grid;place-items:center;border:4px solid #f3c6a7;border-radius:50%;background:#ffe5cb;font-size:52px;z-index:2}
+.dollBody{width:105px;height:93px;margin-top:-2px;display:grid;place-items:center;border-radius:42% 42% 30% 30%;background:linear-gradient(145deg,#c89cff,#f6a8d2);font-size:30px}
+.dollArms{position:absolute;top:112px;width:100%;text-align:center;font-size:40px;color:#f0bd98}.dollLegs{margin-top:-2px;font-size:32px;color:#f0bd98}
+.eloWound{position:absolute;z-index:4;width:34px;height:34px;display:grid;place-items:center;border:2px solid white;border-radius:50%;background:#ffe59c;color:#ab536b;font-weight:900}
+.eloWound.arm{left:25px;top:117px}.eloWound.knee{left:89px;top:211px}.eloWound.hand{right:20px;top:117px}.eloWound.covered{width:44px;height:36px;border-radius:13px;background:#ffb2d5}
+.lunchCare{grid-template-columns:minmax(0,1fr) minmax(250px,1fr);align-items:start}
+.eloLunchSlots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:8px 0}
+.eloLunchSlot{min-height:63px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;align-items:center;gap:2px 7px;padding:7px;border:2px dashed #d7c7e7;border-radius:13px;background:#fff;text-align:left}
+.eloLunchSlot small{grid-column:1/-1;color:#765f89;font-size:10px;font-weight:900}.eloLunchSlot b{font-size:21px}.eloLunchSlot span{font-size:10px;font-weight:800;color:#5b486c}.eloLunchSlot.filled{border-style:solid;border-color:#8bcfa7;background:#effbf3}
+.eloFoodPicker{max-height:360px;overflow:auto;padding-right:3px;overscroll-behavior:contain}
+.eloFoodGroup h5{margin:6px 0 4px;color:#68507f;font-size:11px}.eloFoodGroup>div{display:flex;flex-wrap:wrap;gap:5px}
+.eloFoodGroup button{min-width:64px;min-height:64px;display:grid;justify-items:center;align-content:center;gap:1px;padding:4px}.eloFoodGroup button span{font-size:24px}.eloFoodGroup button small{font-size:9px}
+[hidden].hidden{display:none!important}
+@media(max-width:760px){
+ #gameModal>.overlayBody{padding:6px!important}
+ #gameModal>.overlayBody>.overlayTop{min-height:38px;margin-bottom:3px}
+ #gameModal .gameSection.active{height:calc(100dvh - 51px)}
+ #gameModal .gameSection.active>.gamebox{padding:6px;border-radius:17px}
+ #findGame .gamePlayRowLandscape{grid-template-columns:minmax(0,1fr) minmax(100px,.38fr);gap:5px}
+ #findGame #findStage{height:min(58vh,520px);min-height:220px}
+ #mazeGame .gamePlayRowLandscape{grid-template-columns:minmax(0,1fr) minmax(120px,.48fr);gap:5px}
+ #mazeGame .mazeWrap{height:min(46vh,380px);aspect-ratio:auto}
+ #mazeGame .mazeBoard{max-height:100%}
+ #unicornChaseGame .gamePlayRowLandscape{grid-template-columns:minmax(0,1fr) minmax(115px,.68fr);gap:4px}
+ #unicornChaseGame .chaseBoard{width:min(100%,45vh,54vw)}
+ #unicornChaseGame .chaseLegend{gap:2px;font-size:9px;flex-wrap:wrap}
+ #unicornChaseGame .diffRow{gap:3px}
+ #unicornChaseGame .diffRow .chip{min-width:0;flex:1 1 100%;min-height:32px;padding:3px;font-size:9px}
+ #unicornChaseGame .gameStats{font-size:9px;gap:3px;padding:4px}
+ #unicornChaseGame .mazeControls{width:100%;gap:3px}
+ #unicornChaseGame .mazeBtn{min-height:38px;min-width:38px;font-size:19px}
+ #memoryGame .eloGameToolbar .diffRow .chip{min-width:0;flex:1 1 30%;min-height:34px;padding:4px;font-size:9px}
+ #memoryGame .eloMemoryRow{min-height:0}
+ #memoryGame #memory{width:100%;gap:3px}
+ #memory .mem{min-height:0!important;border-width:2px}
+ #memory .mem::before{font-size:16px!important}
+ #puzzleGame .eloGameToolbar .diffRow .chip{min-width:0;flex:1 1 30%;min-height:33px;padding:4px;font-size:9px}
+ #puzzleGame .eloGameToolbar>.row .btn{min-height:32px;padding:4px 8px;font-size:10px}
+ #puzzleGame #puzzleBoard{width:min(100%,53vh,450px)}
+ #puzzleGame .puzzleTop{grid-template-columns:46px minmax(0,1fr);gap:4px}
+ #puzzleGame .puzzlePreview{width:46px}
+ #puzzleGame .puzzleChoice{width:27px;min-width:27px;height:27px}
+ #tapGameSection .eloTapRow{display:grid;grid-template-rows:auto minmax(0,1fr);gap:4px}
+ #tapGameSection .eloTapBrief{grid-template-columns:1fr 1fr;gap:3px;align-items:center}
+ #tapGameSection .eloTapBrief>.diffRow{grid-column:1/-1}
+ #tapGameSection .eloTapBrief .gameStats{margin:0}
+ #tapGameSection .eloTapBrief .timerTrack,#tapGameSection .eloTapBrief #tapPrompt{grid-column:1/-1;margin:0}
+ #tapGameSection .eloTapBrief .row{margin:0!important}
+ #tapGameSection #tapGame{grid-template-columns:repeat(4,minmax(40px,1fr));gap:5px}
+ #tapGameSection #tapGame .tapNum{min-height:clamp(42px,6vh,56px)}
+ #trailGame>.gamebox{gap:3px}
+ #trailGame .trailHeader{display:flex;justify-content:space-between;align-items:center;gap:4px}
+ #trailGame .trailHeader .diffRow{gap:3px}
+ #trailGame .trailHeader .diffRow .chip{min-width:0;min-height:30px;padding:3px 6px;font-size:9px}
+ #trailGame .trailHud{grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+ #trailGame .trailStat{min-height:32px;padding:3px;font-size:9px}
+ #trailGame .trailStat b{font-size:8px}
+ #trailGame .trailInfo{font-size:9px}
+ #trailGame .trailPlayRowLandscape{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:4px}
+ #trailGame .trailCanvasWrap{width:100%;max-width:100%;height:min(41vh,330px);min-height:120px}
+ #trailGame .trailControls{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+ #trailGame .trailControls .trailBtn{grid-column:auto!important;min-height:40px;padding:4px;font-size:10px}
+ #trailGame .row .btn{min-height:32px;padding:3px 8px;font-size:10px}
+ #playPanel .gameLaunch.eloCompactGameCard .gameCover{max-height:100px}
+ #playPanel .gameLaunch.eloCompactGameCard .gameInfo{min-height:80px!important;padding:8px 9px 12px}
+ #watchPanel .cinemaRail{scrollbar-width:thin}
+ #schoolMusicCard .pianoHeader p{display:none}
+ #schoolMusicCard .pianoHeader h3{font-size:15px!important}
+ #schoolMusicCard .pianoKeysRow{gap:2px}
+ #schoolMusicCard .pianoKey3D{min-height:clamp(50px,10vh,80px);padding:3px 1px}
+ #schoolMusicCard .pianoKeyLabel{font-size:9px}
+ #schoolMusicCard .musicBottomRowLandscape{display:grid;grid-template-columns:1fr;gap:5px}
+ #schoolMusicCard .animalSoundBar{max-height:36px}
+ #schoolMusicCard .djPadsGrid{gap:3px}
+ #schoolMusicCard .djPadBtn{min-height:43px;padding:3px;font-size:10px}
+ #learnPanel:has(#schoolMusicCard:not(.hidden)){overflow:hidden!important;height:calc(100dvh - 110px)}
+ #schoolMusicCard:not(.hidden){max-height:calc(100dvh - 175px);overflow:hidden}
+ .eloCareCard,.lunchCare{grid-template-columns:1fr;gap:9px;padding:11px}
+ .eloMouth{max-width:330px}.eloTooth{min-height:43px;font-size:22px}
+ .eloCareDoll{height:205px;transform:scale(.82);transform-origin:top center;margin-bottom:-35px}
+ .eloFoodPicker{max-height:210px}
+ .eloCareIntro{padding:10px}.eloCareIntro h3{font-size:17px}
+ .eloCareTabs button{min-height:42px;font-size:10px;padding:5px 3px}
+}
+@media(max-width:420px){
+ #unicornChaseGame .chaseBoard{width:min(100%,43vh,52vw)}
+ #unicornChaseGame .mazeBtn{min-height:36px}
+ #gameModal .gameStats{font-size:10px}
+ #memoryGame .eloGameToolbar{gap:3px}
+ #memoryGame #memory{gap:2px}
+ #trailGame .trailCanvasWrap{height:min(38vh,285px)}
+ #schoolMusicCard .pianoKeysRow{grid-template-columns:repeat(10,minmax(0,1fr))}
+ .eloCareIntro p{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){#gameModal *,#eloCareGames *{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}

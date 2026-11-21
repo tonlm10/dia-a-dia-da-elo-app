@@ -274,22 +274,33 @@
   }
 
   function tuneVersion() {
-    document.querySelectorAll('[data-app-version]').forEach(node => { node.textContent = '4.3.24'; });
+    document.querySelectorAll('[data-app-version]').forEach(node => { node.textContent = '4.3.25'; });
   }
 
   function loadGameExperience() {
     if (!document.querySelector('link[data-elo-game-experience-style]')) {
-      const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = './game-experience.css?v=4.3.24'; link.dataset.eloGameExperienceStyle = '1';
+      const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = './game-experience.css?v=4.3.25'; link.dataset.eloGameExperienceStyle = '1';
       document.head.appendChild(link);
     }
     if (!document.querySelector('script[data-elo-game-experience]')) {
-      const script = document.createElement('script'); script.src = './game-experience.js?v=4.3.24'; script.dataset.eloGameExperience = '1';
+      const script = document.createElement('script'); script.src = './game-experience.js?v=4.3.25'; script.dataset.eloGameExperience = '1';
+      document.body.appendChild(script);
+    }
+  }
+
+  function loadGameRework() {
+    if (!document.querySelector('link[data-elo-game-rework-style]')) {
+      const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = './game-rework.css?v=4.3.25'; link.dataset.eloGameReworkStyle = '1';
+      document.head.appendChild(link);
+    }
+    if (!document.querySelector('script[data-elo-game-rework]')) {
+      const script = document.createElement('script'); script.src = './game-rework.js?v=4.3.25'; script.dataset.eloGameRework = '1';
       document.body.appendChild(script);
     }
   }
 
   function init() {
-    loadStyle(); tuneVersion(); migrateRunawayPets(); installSessionTracking(); installActivityTracking(); installLearningFeedback(); addParentReport(); addOfflineControls(); installPortraitDestinations(); installPanelTabs(); configureVideoCard(); restrictVideoNavigation(); replaceParentPack(); loadGameExperience();
+    loadStyle(); tuneVersion(); migrateRunawayPets(); installSessionTracking(); installActivityTracking(); installLearningFeedback(); addParentReport(); addOfflineControls(); installPortraitDestinations(); installPanelTabs(); configureVideoCard(); restrictVideoNavigation(); replaceParentPack(); loadGameExperience(); loadGameRework();
     const shop = document.getElementById('starShopModal');
     if (shop) new MutationObserver(() => { configureVideoCard(); replaceParentPack(); }).observe(shop, { attributes: true, attributeFilter: ['class'] });
     if ('serviceWorker' in navigator) navigator.serviceWorker.addEventListener('message', handleWorkerMessage);

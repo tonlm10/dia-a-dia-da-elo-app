@@ -16,7 +16,7 @@ const MAP = {
   room:      ['roomPanel', 'casa', 'Vamos para o meu Quarto 3D! Você pode decorar tudo e trocar meus looks!'],
   wardrobe:  ['wardrobePanel', 'casa', 'Vamos para o Guarda-roupa escolher um look bem lindo!'],
   pet:       ['petPanel', 'casa', 'Vamos visitar e cuidar do meu Bichinho Virtual fofinho!'],
-  care:      ['carePanel', 'casa', 'Hora de cuidar dos dentinhos no Consultório da Elo!'],
+  care:      ['carePanel', 'casa', 'Vamos ao Cantinho dos Cuidados: dentinhos, curativos de faz de conta e lancheira!'],
   studio3d:  ['modelStudio', null, 'Bem-vinda ao Estúdio 3D! Vamos girar modelos e voar com a Unicórnia!'],
   school:    ['learnPanel', 'learn', 'Hora de aprender e tocar piano na Escolinha Mágica!'],
   creative:  ['createPanel', 'create', 'Vamos pintar, desenhar e inventar receitas no Ateliê!'],

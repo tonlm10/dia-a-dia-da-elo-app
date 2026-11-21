@@ -1,0 +1,20 @@
+Dia a Dia da Elo — versão 4.3.25
+=================================
+
+- Escovação: novo desenho de boca sorridente, oito dentes clicáveis, contador e conclusão somente após escovar todos.
+- Curativos: brincadeira de faz de conta em um boneco, com três pontos, escolha de estampas e progresso por toque.
+- Lancheira: quatro grupos de alimentos, opção extra com alimentos reais e reinício explícito de cada rodada; o botão não fica preso após a conclusão.
+- O cômodo agora se chama Cantinho dos Cuidados, separando a preparação de lancheira do consultório.
+- Ache a Estrela, Labirinto, Caça aos Unicórnios, Memória, Quebra-cabeça, Toque no Número e Trilha reorganizados para caber na área de jogo, sem rolagem acidental.
+- Cartões da Trilha e do RPG uniformizados com os outros jogos.
+- Teclado musical com tela protegida contra deslocamento ao tocar; pads de prato e palmas com áudio sintetizado e suporte a retomada do contexto de áudio.
+- Parabéns pra Você agora oferece os quatro trechos completos da melodia guiada (25 notas), com notas de oitava acrescentadas ao teclado.
+- Perguntas ampliadas em letras/palavras, matemática, natureza e animais; vocabulário de Inglês ampliado em cada mundo.
+- Cinema com instrução de rolagem vertical e horizontal; paletas com mais de 40 cores em trilhas roláveis, tanto no desenho livre como no Livro de Colorir. Carimbos removidos.
+- Álbum com 150 figurinhas; Estúdio 3D explica que serve para explorar rotação, volume, formas e posição.
+- Arquivos de melhorias incluídos no cache PWA e na preparação offline.
+
+Limites conhecidos
+- A revisão automatizada não substitui o teste manual em aparelhos reais. Recomenda-se validar toque, orientação, saída de áudio e espaço útil no Android e no iPhone.
+- Os vídeos do Cinema dependem da conexão com o YouTube; não fazem parte do conteúdo offline.
+- Publicação no GitHub não realizada nesta entrega; exige uma sessão autenticada do responsável.

@@ -28,6 +28,6 @@ test('a tela vertical é acessível e não depende do bloqueio paisagem', () => 
   const html = read('index.html');
   assert.match(css, /orientation:portrait/);
   assert.ok(css.includes('#appContainer{display:block!important'));
-  assert.ok(read('completion.js').includes('game-experience.js?v=4.3.24'));
+  assert.ok(read('completion.js').includes('game-experience.js?v=4.3.25'));
   assert.equal(JSON.parse(read('manifest.webmanifest')).orientation, 'any');
 });

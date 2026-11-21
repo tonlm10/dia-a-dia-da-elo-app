@@ -1,19 +1,22 @@
-VERSÃO DO APP: 4.3.24
-CACHE PWA: elo-official-4.3.24-r63
-DATA: 20/11/2026
+VERSÃO DO APP: 4.3.25
+CACHE PWA: elo-official-4.3.25-r64
+DATA: 21/11/2026
 
 JOGOS REVISTOS E MELHORADOS
-- Memória: 13 ilustrações locais novas além dos 16 temas originais (29 motivos disponíveis ao todo), mantendo os três tamanhos de desafio.
-- Ache a Estrela: três cenários extras, barra visual do tempo e dica opcional com intervalo.
-- Labirinto e Caça aos Unicórnios: trilhas opcionais até o objetivo, sem obrigar a usar assistência.
-- Quebra-cabeça: imagem de referência ampliável durante a montagem; a galeria disponível foi corrigida para 13 imagens.
-- Trilha Encantada: pausa/continuação e fim de rodada controlado pela criança, sem reinício automático ao perder todas as vidas.
-- Aparência, alvos de toque, foco, mensagens acessíveis e comportamento responsivo refinados; movimento reduzido respeitado.
-- Arquivos novos estão incluídos no cache do app e na lista de preparação offline.
+- Escovação redesenhada como uma boca sorridente identificável, com oito dentes clicáveis e conclusão após escovar todos.
+- Curativos transformados em uma atividade de faz de conta com três pontos no boneco, escolha de estampas e confirmação de cada curativo.
+- Lancheira agora oferece quatro grupos de alimentos, substitui a estrela por alimento, só conclui após escolhas e permite iniciar outra rodada.
+- Sala renomeada para Cantinho dos Cuidados; não mistura lancheira com consultório.
+- Ache a Estrela recebe recuperação quando a cena abre vazia; labirinto e caça ficam em contêineres de tela fixa.
+- Memória reorganizada com nível e estatísticas acima das cartas; quebra-cabeça, Toque no Número e Trilha têm controles compactados.
+- Teclado musical evita rolagem acidental; prato e palmas usam síntese sonora própria. Parabéns ganhou 25 notas para cobrir as quatro frases da melodia guiada.
+- Banco de perguntas ampliado em Letras e Palavras, Matemática, Mundo e Bichos, Inglês e faixas de idade.
+- Cinema agora orienta a rolagem vertical e horizontal; paletas de desenho usam trilhas roláveis; carimbos removidos.
+- Álbum ampliado para 150 figurinhas. Estúdio 3D passa a explicar sua função de exploração espacial e formas.
+- Cartões de RPG e Trilha ajustados para dimensões equivalentes às demais atividades.
+- Novos arquivos incluídos no cache e na lista de preparação offline.
 
 VALIDAÇÃO E LIMITES
-- Sete minijogos abertos e exercitados em Chromium móvel; o RPG foi verificado em página própria.
-- Testes automatizados: `node --test tests/*.test.cjs`.
-- Simulação de navegador não substitui testes em celulares Android/iPhone reais, especialmente em aparelhos antigos, toque, teclado, áudio, instalação e YouTube.
-- Refatoração integral do app.js, remoção dos onclick inline e limpeza geral dos CSS legados continuam como tarefas separadas.
-- Publicação GitHub não realizada; exige sessão autenticada do responsável.
+- Testes automatizados: `node --test tests/*.test.cjs` (resultado final registrado após validação).
+- Testes em navegador simulado não substituem verificação em celulares Android/iPhone reais, especialmente toque, áudio, YouTube e aparelhos antigos.
+- A publicação no GitHub depende de uma sessão autenticada do responsável.
