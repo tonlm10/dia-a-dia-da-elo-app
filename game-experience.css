@@ -1,0 +1,92 @@
+/* Dia a Dia da Elo 4.3.24 — acabamento visual e acessível dos jogos. */
+#playPanel .gameLaunch{border:1px solid rgba(160,126,206,.14);background:linear-gradient(160deg,#fff 15%,#fbf7ff);box-shadow:0 12px 26px rgba(74,48,105,.12);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+#playPanel .gameLaunch:hover{transform:translateY(-3px);box-shadow:0 17px 32px rgba(74,48,105,.17);border-color:rgba(169,112,220,.38)}
+#playPanel .gameLaunch:focus-visible,#gameModal button:focus-visible{outline:3px solid #8b5cf6;outline-offset:3px}
+#playPanel .gameLaunch .gameInfo{min-height:132px}
+#gameModal .overlayBody{background:radial-gradient(ellipse at 8% 4%,rgba(255,225,240,.55),transparent 40%),linear-gradient(180deg,#f8f3ff,#fff9fc 55%,#f6f8ff)}
+#gameModal .overlayTop{position:sticky;top:0;z-index:20;margin:-2px -2px 12px;padding:8px 4px;background:rgba(250,247,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(125,90,170,.10)}
+#gameModal .overlayTop h2{font-size:clamp(18px,4vw,25px);color:#51376e}
+#gameModal .gamebox{border:1px solid rgba(142,102,190,.16);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(251,247,255,.96));box-shadow:0 14px 34px rgba(75,46,104,.11);padding:clamp(12px,2.5vw,22px)}
+#gameModal .gamebox>p.muted{max-width:850px;margin:0 auto 13px;padding:10px 14px;border-radius:16px;background:linear-gradient(100deg,#fff3f8,#f4f0ff);color:#655879;line-height:1.45;font-size:clamp(12px,1.6vw,14px)}
+#gameModal .diffRow{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+#gameModal .diffRow .chip{min-height:42px;padding:8px 13px;border:1px solid #e9def7;background:#fff;color:#67547f;box-shadow:0 3px 9px rgba(78,50,110,.06)}
+#gameModal .diffRow .chip.on{border-color:#a274e3;background:linear-gradient(135deg,#8b5cf6,#b16ee8);color:#fff;box-shadow:0 6px 14px rgba(126,78,193,.24)}
+#gameModal .gameStats{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0;padding:9px 11px;border-radius:14px;background:#f7f3ff;color:#55416e;font-weight:800;min-height:40px}
+#gameModal .find-stage{position:relative;border:5px solid rgba(255,255,255,.92);outline:1px solid #e9dcf6;border-radius:24px;box-shadow:0 12px 26px rgba(74,45,100,.15);overflow:hidden}
+.gxFindProgress{position:absolute;left:12px;right:12px;bottom:5px;height:8px;border-radius:999px;background:#eee8f8;overflow:hidden;z-index:12}
+.gxFindProgress i{display:block;width:100%;height:100%;transform-origin:left center;transform:scaleX(1);background:linear-gradient(90deg,#4fd1a1,#8b6deb);transition:transform .2s linear,background .2s ease}
+.gxFindProgress.low i{background:linear-gradient(90deg,#ffc45b,#ff77a8)}
+#findStage .target.gxHintReveal{z-index:10!important;filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 15px #ffca42);animation:gxStarPulse .38s ease-in-out 4}
+@keyframes gxStarPulse{50%{scale:1.55}}
+#gameModal .gameControlsColLandscape{min-width:0}
+.gxAssist{display:grid;gap:6px;margin:9px 0 2px;padding:10px;border:1px solid #e9def8;border-radius:18px;background:linear-gradient(135deg,#fff8fc,#f5f1ff)}
+.gxAssistButton,.gxReferenceButton{min-height:44px;border:1px solid #d9c6f4;border-radius:14px;background:linear-gradient(135deg,#fff,#f7efff);color:#6642a4;font:900 13px inherit;box-shadow:0 4px 12px rgba(90,56,135,.08);cursor:pointer}
+.gxAssistButton[aria-pressed="true"]{background:linear-gradient(135deg,#8b5cf6,#cb73cf);color:#fff}
+.gxAssistButton:disabled{opacity:.55;cursor:wait}
+.gxAssistNote{color:#776987;font-size:11px;line-height:1.35;text-align:center}
+#mazeBoard .mazeCell.gxHintPath,#chaseBoard .chaseCell.gxHintPath{position:relative;z-index:2;outline:2px solid #ffcb57;outline-offset:-3px;background:linear-gradient(145deg,#fff7c7,#ffe89b)!important;box-shadow:inset 0 0 0 2px rgba(255,255,255,.88),0 0 8px rgba(255,201,74,.75);animation:gxRouteGlow 1.15s ease-in-out infinite alternate}
+@keyframes gxRouteGlow{to{filter:brightness(1.09);box-shadow:inset 0 0 0 2px #fff,0 0 13px rgba(255,190,58,.85)}}
+.gxPairProgress{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0;padding:9px 11px;border-radius:14px;background:linear-gradient(100deg,#fff3f9,#f2efff);color:#604a79;font-size:12px;font-weight:900}
+.gxPairProgress>i{height:8px;border-radius:999px;background:#e4d9f3;overflow:hidden}
+.gxPairProgress>i>b{display:block;width:100%;height:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#ff84ba,#8d65e8);transition:transform .25s ease}
+#memory .mem{min-height:58px;border:3px solid rgba(255,255,255,.9);background:linear-gradient(145deg,#a98bea,#eea9d1);box-shadow:0 5px 12px rgba(74,45,100,.16)}
+#memory .mem:not(.open):not(.done)::before{content:'✦';display:grid;place-items:center;width:100%;height:100%;border-radius:inherit;color:#fff;font-size:clamp(17px,3vw,26px);text-shadow:0 2px 6px rgba(85,48,130,.45);background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.4),transparent 40%)}
+#memory .mem.done{border-color:#79d5ad;background:#e8fff4;box-shadow:0 0 0 3px rgba(101,211,158,.24)}
+#memory .memPic{background-size:cover!important;background-position:center!important;border-radius:inherit}
+#puzzleGame .puzzleBoard{border:5px solid #fff;border-radius:22px;overflow:hidden;box-shadow:0 12px 25px rgba(75,48,105,.17);background:#efe9f9}
+#puzzleGame .puzzlePiece{border:1px solid rgba(255,255,255,.86);transition:transform .16s ease,filter .16s ease,box-shadow .16s ease}
+#puzzleGame .puzzlePiece.selected{z-index:2;filter:brightness(1.18);box-shadow:inset 0 0 0 4px #ffcf50;transform:scale(.94)}
+.gxReferenceButton{width:100%;margin:0 0 7px}
+#puzzleGame .puzzleTop.gxReferenceOpen{grid-template-columns:minmax(150px,220px) minmax(0,1fr);align-items:start}
+#puzzleGame .puzzleTop.gxReferenceOpen .puzzlePreview{width:100%;max-width:220px;box-shadow:0 10px 24px rgba(75,48,105,.18)}
+#tapGame .tapNum{min-width:52px;min-height:52px;border:2px solid rgba(255,255,255,.86);border-radius:18px;background:linear-gradient(145deg,#fff,#f3eaff);color:#5d3a8e;font-size:clamp(20px,4vw,28px);font-weight:1000;box-shadow:0 5px 12px rgba(78,47,110,.14);transition:transform .14s ease,background .14s ease}
+#tapGame .tapNum:active{transform:scale(.92);background:#ffe5f1}
+#tapGameSection .timerTrack{height:12px;border-radius:999px;background:#eee7f6;overflow:hidden}
+#tapTimerBar{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#38c995,#ffd055,#ff7cab);transition:width .08s linear}
+#trailGame .trailCanvasWrap{position:relative;border:5px solid #fff;border-radius:24px;background:#e6f6ff;box-shadow:0 14px 28px rgba(64,73,135,.17);overflow:hidden}
+#trailGame .trailCanvas{display:block;width:100%;height:auto}
+#trailGame .trailControls .trailBtn{min-height:48px;border:1px solid rgba(255,255,255,.85);box-shadow:0 7px 16px rgba(69,48,101,.16);touch-action:manipulation}
+#trailGame .trailControls .trailBtn:active{transform:translateY(1px) scale(.98)}
+#trailGame .trailControls .gxTrailPause{background:linear-gradient(135deg,#fff,#f3edff);color:#6642a4}
+.gxTrailEnd{position:absolute;inset:0;z-index:15;display:grid;place-items:center;padding:14px;background:rgba(47,36,72,.55);backdrop-filter:blur(5px)}
+.gxTrailEnd.hidden{display:none}
+.gxTrailEndCard{width:min(390px,100%);padding:20px;border:2px solid rgba(255,255,255,.9);border-radius:25px;background:linear-gradient(145deg,#fff,#fff3fa);box-shadow:0 20px 45px rgba(34,23,55,.3);text-align:center;color:#554068}
+.gxTrailEndCard>span{font-size:34px}.gxTrailEndCard h3{margin:5px 0;font-size:22px}.gxTrailEndCard p{margin:8px 0 15px;color:#72647f;line-height:1.45;font-size:13px}
+.gxTrailEndCard>div{display:grid;gap:9px}
+.gxTrailEndCard button{min-height:46px;border:0;border-radius:15px;background:linear-gradient(135deg,#ff85b9,#9467e8);color:#fff;font-weight:900}
+.gxTrailEndCard button+button{background:#f1ecf8;color:#644d7f}
+#familyPanel .familyPartyHero{border:1px solid rgba(144,103,193,.14);border-radius:24px;background:radial-gradient(circle at 90% 20%,rgba(255,255,255,.72),transparent 32%),linear-gradient(120deg,#fff1f8,#f1eaff 60%,#eaf5ff);box-shadow:0 10px 24px rgba(74,48,105,.1)}
+#familyPanel .familyModeTabs{gap:10px}
+#familyPanel .familyTabBtn{min-height:84px;border:1px solid #e8dcf4;border-radius:20px;background:linear-gradient(145deg,#fff,#f8f3ff);box-shadow:0 6px 14px rgba(80,54,110,.09);transition:transform .16s ease,box-shadow .16s ease}
+#familyPanel .familyTabBtn.active{border-color:#b695e5;background:linear-gradient(135deg,#f5eaff,#ffeaf4);box-shadow:0 9px 18px rgba(113,75,161,.16)}
+#familyPanel .familyViewCard{border:1px solid rgba(145,107,187,.15);border-radius:24px;background:linear-gradient(150deg,#fff,#fbf8ff);box-shadow:0 12px 28px rgba(74,48,105,.1)}
+#familyPanel .mimeCardContainer,#familyPanel .familyRouletteCard{border:1px solid rgba(255,255,255,.75);border-radius:22px;box-shadow:0 10px 24px rgba(68,45,99,.12)}
+#familyPanel .duelArena{border-radius:22px;overflow:hidden;box-shadow:0 10px 24px rgba(68,45,99,.12)}
+#familyPanel button:focus-visible{outline:3px solid #8b5cf6;outline-offset:3px}
+@media(max-width:760px){#familyPanel .familyModeTabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}#familyPanel .familyTabBtn{min-width:0;padding:8px 4px}}
+@media(max-width:760px){
+ #gameModal .overlayBody{padding:10px!important}
+ #gameModal .gamePlayRowLandscape{display:flex;flex-direction:column;gap:11px}
+ #gameModal .gameStageColLandscape,#gameModal .gameControlsColLandscape{width:100%;flex:1 1 auto!important}
+ #gameModal .mazeWrap{max-width:min(100%,520px);margin-inline:auto}
+ #gameModal .mazeBoard,#gameModal .chaseBoard{max-width:min(100%,520px);margin-inline:auto}
+ #gameModal .diffRow{gap:6px}
+ #gameModal .diffRow .chip{flex:1 1 auto;min-width:90px;padding-inline:8px;font-size:11px}
+ #gameModal .trailHud{grid-template-columns:repeat(3,minmax(0,1fr))}
+ #trailGame .trailPlayRowLandscape{display:grid;grid-template-columns:1fr;gap:10px}
+ #trailGame .trailCanvasWrap{max-width:min(100%,650px);margin-inline:auto}
+ #trailGame .trailControls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ #trailGame .trailControls .trailBtn.fly{grid-column:span 2}
+}
+@media(max-width:420px){
+ #gameModal .gamebox{padding:10px;border-radius:20px}
+ #gameModal .gameStats{font-size:11px}
+ #memory .mem{min-height:48px}
+ #puzzleGame .puzzleTop{grid-template-columns:82px minmax(0,1fr)}
+ #puzzleGame .puzzlePreview{width:82px}
+ #tapGame .tapNum{min-width:48px;min-height:48px;border-radius:15px}
+}
+@media(prefers-reduced-motion:reduce){
+ #playPanel .gameLaunch,#gameModal button,#puzzleGame .puzzlePiece,#memory .mem{transition:none!important}
+ #findStage .target.gxHintReveal,#mazeBoard .mazeCell.gxHintPath,#chaseBoard .chaseCell.gxHintPath{animation:none!important}
+}

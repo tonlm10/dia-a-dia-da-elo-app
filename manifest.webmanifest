@@ -9,10 +9,10 @@
   "display_override": [
     "standalone"
   ],
-  "orientation": "landscape",
+  "orientation": "any",
   "background_color": "#fff8fc",
   "theme_color": "#ff67a8",
-  "description": "Dia a Dia da Elo — universo infantil com Mundo da Elo, Casa da Elo e bichinho virtual, jogos, Escolinha, Ateliê, Cinema e histórias.",
+  "description": "Dia a Dia da Elo — jogos, aprendizagem, histórias, criação e diversão em família, com progresso local e atividades opcionais.",
   "categories": [
     "education",
     "games",

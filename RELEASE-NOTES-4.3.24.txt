@@ -1,0 +1,21 @@
+Dia a Dia da Elo — versão 4.3.24
+=================================
+
+Jogos revisados e melhorados
+- A Memória da Elo agora mistura 13 ilustrações locais adicionais aos 16 temas existentes, aumentando as combinações sem baixar nada da internet.
+- Ache a Estrela ganhou três cenários adicionais, uma barra de tempo clara e uma dica visual opcional com intervalo para não distrair continuamente.
+- Labirinto e Caça aos Unicórnios oferecem dicas de rota opcionais; o mapa continua jogável sem assistência.
+- O Quebra-cabeça permite ampliar a imagem de referência durante a montagem.
+- A Trilha Encantada ganhou pausa/continuação e uma tela de fim de rodada com escolha explícita para recomeçar ou voltar. O jogo não reinicia sozinho quando as vidas acabam.
+- Controles, cartas, fases, botões, contraste e foco foram refinados para toque e telas menores; as animações respeitam a opção de movimento reduzido do aparelho.
+- Mensagens importantes dos jogos passam a ser anunciadas a leitores de tela.
+
+Validação
+- Abrir e exercitar os sete minijogos em navegador móvel; testar o RPG separadamente.
+- Executar `node --test tests/*.test.cjs`.
+- Testes de navegador simulado não substituem testes em celulares Android/iPhone reais, especialmente em toque, teclado, áudio e desempenho de aparelhos mais antigos.
+
+Notas técnicas
+- Recursos novos são locais e entram no cache offline do app.
+- Esta versão não altera a economia de estrelas, compras, recompensas ou dados existentes.
+- A publicação do repositório GitHub exige sessão autenticada do responsável.

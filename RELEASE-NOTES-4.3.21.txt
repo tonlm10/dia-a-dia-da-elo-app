@@ -1,0 +1,9 @@
+DIA A DIA DA ELO — VERSÃO 4.3.21
+
+Esta compilação reimplementa e valida os itens que constavam como prontos, mas não estavam no pacote 4.3.20:
+- Alvos táteis: controles pequenos recebem uma área efetiva de pelo menos 44 × 44 CSS px, sem mudança visual; arrastos e controles de formulário não são redirecionados.
+- Testes: incluídas oito suítes automatizadas e instruções de execução em tests/README.md.
+- Estúdio 3D: a importação .OBJ/.JSON exige autorização pelo PIN dos responsáveis, valida extensão e tamanho, e falha fechada se a proteção não estiver disponível.
+- Cache: os recursos com parâmetros de versão podem usar a cópia offline sem duplicar entradas; o novo ampliador tátil entra no cache essencial.
+
+Verificações simuladas não substituem o teste em aparelho real, iPhone, notificações e reprodução do YouTube. O endereço de contato oficial ainda precisa ser informado em legal-config.js antes do envio às lojas.

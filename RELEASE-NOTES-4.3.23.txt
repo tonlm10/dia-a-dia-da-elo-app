@@ -1,0 +1,22 @@
+Dia a Dia da Elo — versão 4.3.23
+=================================
+
+Melhorias incluídas
+- O app deixa de bloquear o modo vertical. A tela inicial apresenta os destinos em uma grade própria para celulares em pé; jogos e conteúdo mantêm adaptação à paisagem.
+- O vídeo mais recente abre no player incorporado do Cinema. O fluxo de estrelas não oferece recompensa por assistir; o iframe é isolado para impedir navegação do conteúdo para fora do app, conforme o suporte do navegador.
+- A Missão de Descoberta substitui pacotes pagos para as crianças: concluir uma atividade pode dar estrelas uma vez ao dia, sem sequência ou obrigação de voltar.
+- O presente diário foi removido para não estimular retornos diários por recompensa. A missão não é necessária para usar o app.
+- O bichinho não desaparece por falta de uso. A ausência não acumula necessidades, e estados antigos de bichinhos que foram embora são recuperados no aparelho.
+- O contador de tempo passa a estimar uso ativo: só conta quando o app está visível e houve interação recente. O resumo semanal continua privado e local.
+- O erro de resposta na Escolinha oferece incentivo para tentar novamente sem revelar a resposta de imediato.
+- A área dos responsáveis e as conquistas ficam organizadas em abas; jogos ganham grades adaptadas ao modo vertical e Cinema usa prateleiras compactas.
+- Fontes locais, importação 3D com PIN, recursos de acessibilidade e preparação offline da versão anterior foram preservados.
+
+Validação
+- Execute `node --test tests/*.test.cjs` na pasta do app.
+- Os testes automatizados não substituem a checagem em Android/iPhone real, especialmente para YouTube, instalação, orientação, notificações e cache offline.
+
+Pendências técnicas que exigem uma etapa dedicada
+- Refatorar integralmente o app.js e remover os handlers inline.
+- Limpar os CSS históricos sem regressões visuais.
+- Confirmar a experiência em aparelhos reais e publicar no GitHub (não há sessão autenticada disponível nesta conversa).

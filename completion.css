@@ -1,0 +1,53 @@
+/* Ajustes da versão 4.3.23: navegação, acessibilidade e experiência vertical. */
+.eloSectionTabs{position:sticky;top:0;z-index:20;display:flex;gap:6px;overflow-x:auto;padding:7px 4px;margin:0 0 9px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-radius:14px;scrollbar-width:thin}
+.eloSectionTab{flex:1 0 auto;min-height:44px;border:1px solid #eadcf6;border-radius:12px;background:#fff;color:#5e456d;font-family:inherit;font-size:12px;font-weight:700;padding:8px 13px;cursor:pointer}
+.eloSectionTab.active,.eloSectionTab[aria-selected=true]{background:linear-gradient(135deg,#ff79ae,#9a63e8);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(142,86,232,.2)}
+.card[hidden]{display:none!important}
+.eloWeeklyReport .eloReportStats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.eloReportStats>div{background:#fff6fb;border:1px solid #f5dfef;border-radius:14px;padding:10px;text-align:center;display:grid;gap:2px}
+.eloReportStats b{font-size:22px;color:#843fb7}.eloReportStats small{font-size:11px;color:#675883}
+.eloReportList{list-style:none;margin:8px 0;padding:0;display:grid;gap:5px}.eloReportList li{display:flex;justify-content:space-between;padding:7px 10px;border-radius:10px;background:#f7f3fc;color:#463750}
+.eloOfflineStatus{min-height:1.25em;margin:8px 0 0;color:#5d4670;font-size:12px;font-weight:700}
+#eloOfflineDownload:disabled{opacity:.72;cursor:wait}
+#rewardVideoOverlay,#mandatoryLandscapeBlocker{display:none!important}
+#appContainer{display:block!important}
+#starShopModal .starShopCard:has(#claimDailyBonusBtn){display:none!important}
+#homePanel .hmDot{display:none!important}
+@media (orientation:landscape) and (min-width:760px){
+ #playPanel .gameLaunchGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+ #playPanel .gameLaunchGrid>.gameLaunch.full{grid-column:span 3}
+ #watchPanel .cinemaShelves{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:10px}
+ #watchPanel .cinemaShelf{min-width:0}
+ #parentsPanel>.card,#achievementsPanel>.card{scroll-margin-top:62px}
+ #wardrobePanel .wardrobeLayoutLandscape{gap:8px}
+ #wardrobePanel .wardrobeControlDock{min-height:0;max-height:calc(100dvh - 120px)}
+ #wardrobePanel .wardrobeGrid{max-height:calc(100dvh - 265px);overflow:auto}
+ #createPanel .freeDrawLayoutLandscape{max-height:calc(100dvh - 155px)}
+ #createPanel .freeCanvasContainer{max-height:calc(100dvh - 200px)}
+ #createPanel #freeDrawCanvas{max-height:calc(100dvh - 215px);width:auto;max-width:100%}
+}
+@media (max-width:900px){.eloSectionTab{font-size:11px;padding-inline:10px}}
+@media screen and (orientation:portrait){
+ #mandatoryLandscapeBlocker{display:none!important}
+ #appContainer{display:block!important;position:relative!important;width:100%!important;min-height:100vh!important;transform:none!important;left:0!important;top:0!important}
+ #homePanel .hmScene{overflow:hidden;background:linear-gradient(180deg,#c9edff 0%,#f1faff 42%,#dff2d1 42.1%,#bfe6a0 100%)}
+ #homePanel .hmSky,#homePanel .hmGround,#homePanel .hmRoads,#homePanel .hmDecor,#homePanel .hmPond,#homePanel #hmDuck,#homePanel #hmFly,#homePanel .hmSecret,#worldEloWalker{display:none!important}
+ #homePanel .hmHud{flex-direction:column;align-items:stretch;gap:6px;padding:6px 8px}
+ #homePanel .hmGuide{max-width:none;width:100%;min-height:44px}
+ #homePanel .hmIcons{justify-content:space-around;gap:8px}
+ #homePanel .hmIco{min-width:44px;height:44px}
+ #homePanel .eloPortraitDestinations{position:absolute;inset:112px 10px 12px;z-index:20;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,minmax(68px,1fr));gap:9px;overflow:auto;padding:4px 4px 12px;align-content:stretch}
+ #homePanel .eloPortraitDestinations .hmStop{position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:100%;min-height:68px;display:flex;flex-direction:row;justify-content:flex-start;gap:9px;padding:8px 10px;border-radius:20px;background:rgba(255,255,255,.94);box-shadow:0 4px 12px rgba(70,43,96,.16);z-index:auto}
+ #homePanel .eloPortraitDestinations .hmBub,#homePanel .eloPortraitDestinations .hmStop.big .hmBub{width:48px;height:48px;flex:0 0 48px;font-size:28px;box-shadow:none}
+ #homePanel .eloPortraitDestinations .hmLbl{white-space:normal;text-align:left;font-size:clamp(12px,3.5vw,15px);box-shadow:none;background:transparent;padding:2px 0;line-height:1.2}
+ #homePanel .eloPortraitDestinations .hmNext{display:none!important}
+ #playPanel .gameLaunchGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ #playPanel .gameLaunchGrid>.gameLaunch.full{grid-column:1/-1}
+ #watchPanel .cinemaShelves{display:block}
+ #watchPanel .cinemaShelf{margin-bottom:12px}
+ #wardrobePanel .wardrobeLayoutLandscape,#createPanel .freeDrawLayoutLandscape,#learnPanel .schoolQuizLayoutLandscape{max-height:none;display:flex;flex-direction:column}
+ #wardrobePanel .wardrobeGrid{max-height:36vh;overflow:auto}
+ #createPanel .freeCanvasContainer,#createPanel .freeDrawToolsColLandscape{max-height:none}
+ #createPanel #freeDrawCanvas{width:min(100%,600px);height:auto;max-height:45vh}
+}
+@media (prefers-reduced-motion:reduce){.eloSectionTab,.eloPortraitDestinations *{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}

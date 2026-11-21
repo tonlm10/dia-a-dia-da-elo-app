@@ -1,20 +1,14 @@
-DIA A DIA DA ELO v4.2.0
+DIA A DIA DA ELO — versão 4.3.23
 
-Para atualizar pelo workflow automático do GitHub Actions, envie o arquivo com o nome exato:
-app-upload.zip
+Este ZIP contém o app na raiz. Para publicar pelo workflow existente, envie-o ao repositório como `app-upload.zip` e confirme o commit. Isso requer autenticação GitHub; não foi possível publicar por esta conversa.
 
-Conteúdo do ZIP fica diretamente na raiz, sem pasta externa.
+Novidades desta versão:
+- Início com grade própria para celulares em modo vertical; o app não bloqueia a tela em pé.
+- Player incorporado no Cinema, com tentativa de impedir navegação externa no conteúdo do player. Vídeos são opcionais e não dão estrelas.
+- Missão de Descoberta gratuita, sem obrigação de retorno diário; removido o presente diário.
+- Bichinho não desaparece durante pausas; progresso de estados antigos é recuperado localmente.
+- Relatório semanal e tempo de uso ativo aproximado, guardados no aparelho.
+- Abas para Área dos Pais e Conquistas, grade de jogos adaptável e feedback de aprendizagem mais encorajador.
+- Fontes locais, PIN na importação 3D, áreas táteis ampliadas, acessibilidade e preparação offline preservados.
 
-Destaques da v4.2.0:
-- Voo Montada na Unicórnia Amiga na Trilha Encantada:
-  * Elo voa montada nas costas da unicórnia alada (botão "Voar com Unicórnia" ou teclas X, W ou F).
-  * Barra de estamina de voo no HUD com regeneração automática no chão.
-  * Sobrevoo seguro sobre obstáculos terrestres para alcançar constelações no céu.
-  * Efeitos visuais e sonoros: asas batendo, crina arco-íris e rastro de confetes mágicos.
-- Estúdio 3D da Elo & 5 Modelos 3D Exclusivos:
-  * Motor 3D nativo em Canvas 2D (sem dependências externas, 100% offline).
-  * Rotação orbital 360°, zoom por pinça/scroll, rotação automática suave e modo wireframe.
-  * 5 modelos 3D: Unicórnia Alada, Elo 3D Alada, Elo Montada na Unicórnia, Castelo das Estrelas e Estrela de Cristal.
-  * Importador & Exportador universal Wavefront (.OBJ) e JSON.
-- Acesso ao Estúdio 3D pelo menu inicial (Ações Rápidas), Ateliê Criativo e Cantinho da Elo.
-- Service Worker atualizado para 4.2.0-r36 com sincronização offline sem falhas de cache.
+Validação automatizada: execute `node --test tests/*.test.cjs`. Os testes não substituem testes em Android/iPhone. A refatoração completa do app.js e a limpeza ampla do CSS continuam pendentes de revisão técnica.

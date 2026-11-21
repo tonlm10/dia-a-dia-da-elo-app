@@ -1,17 +1,19 @@
-VERSÃO ATUAL DO APP: 4.3.20
-CACHE PWA: elo-official-4.3.20-r59
-PURGE SW: 4.3.20-r59
-DATA: 01/11/2026
+VERSÃO DO APP: 4.3.24
+CACHE PWA: elo-official-4.3.24-r63
+DATA: 20/11/2026
 
-ATUALIZAÇÃO:
-1. Integração Cloudflare Web Analytics:
-   - Script oficial da Cloudflare Web Analytics adicionado na tag <head> do index.html (token: 90c3450f7aeb46d0840ac525d5ac0da8).
-   - Coleta de métricas e desempenho com privacidade sem cookies.
+JOGOS REVISTOS E MELHORADOS
+- Memória: 13 ilustrações locais novas além dos 16 temas originais (29 motivos disponíveis ao todo), mantendo os três tamanhos de desafio.
+- Ache a Estrela: três cenários extras, barra visual do tempo e dica opcional com intervalo.
+- Labirinto e Caça aos Unicórnios: trilhas opcionais até o objetivo, sem obrigar a usar assistência.
+- Quebra-cabeça: imagem de referência ampliável durante a montagem; a galeria disponível foi corrigida para 13 imagens.
+- Trilha Encantada: pausa/continuação e fim de rodada controlado pela criança, sem reinício automático ao perder todas as vidas.
+- Aparência, alvos de toque, foco, mensagens acessíveis e comportamento responsivo refinados; movimento reduzido respeitado.
+- Arquivos novos estão incluídos no cache do app e na lista de preparação offline.
 
-2. Atualização de Cache PWA e Service Worker:
-   - Identificação do cache atualizada para elo-official-4.3.20-r59.
-   - TARGET_VER sincronizado no index.html e sw.js para purga consistente do cache anterior.
-   - Versão funcional mantida em 4.3.20 com preservação total de todos os jogos, quartos, guarda-roupa, histórias e RPG.
-
-3. Como Atualizar no GitHub:
-   - Arraste 'app-upload.zip' para o repositório ou use 'Add file' > 'Upload files' e confirme em 'Commit changes'.
+VALIDAÇÃO E LIMITES
+- Sete minijogos abertos e exercitados em Chromium móvel; o RPG foi verificado em página própria.
+- Testes automatizados: `node --test tests/*.test.cjs`.
+- Simulação de navegador não substitui testes em celulares Android/iPhone reais, especialmente em aparelhos antigos, toque, teclado, áudio, instalação e YouTube.
+- Refatoração integral do app.js, remoção dos onclick inline e limpeza geral dos CSS legados continuam como tarefas separadas.
+- Publicação GitHub não realizada; exige sessão autenticada do responsável.

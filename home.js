@@ -1,6 +1,10 @@
 /* home.js — Mundo da Elo (início, tela fixa) + Casa da Elo (Quarto, Guarda-roupa, Bichinho e Cuidados) */
 (function () {
 'use strict';
+const touchAssistScript = document.createElement('script');
+touchAssistScript.src = './touch-assist.js';
+touchAssistScript.async = true;
+document.head.appendChild(touchAssistScript);
 const $ = id => document.getElementById(id);
 const reduceMotion = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 const sfx = n => { try { if (typeof playCuteSfx === 'function') playCuteSfx(n); } catch (_) {} };
@@ -46,7 +50,7 @@ function petState() {
     return worst ? { kind: 'need', name: p.name, txt: worst.txt } : { kind: 'ok', name: p.name, species: p.species, stage: p.stage };
   } catch (_) { return null; }
 }
-function giftAvailable() { try { return pget('eloStarDaily_' + dateKey()) !== '1'; } catch (_) { return false; } }
+function giftAvailable() { return false; }
 
 /* ---------------- INÍCIO ---------------- */
 let lastSayAt = 0, currentSuggestion = null;
@@ -62,7 +66,6 @@ function suggestion() {
   if (s && s.kind === 'letter') return { txt: `💌 ${s.name} deixou uma cartinha! Vamos ver?`, btn: '🏡 Ir para a Casa', go: 'casa' };
   if (s && s.kind === 'need') return { txt: `${s.name} ${s.txt}! Vamos cuidar?`, btn: '🏡 Ir para a Casa', go: 'casa' };
   if (s && s.kind === 'egg' && s.ready) return { txt: 'O ovinho quer um carinho para chocar! 🥚', btn: '🏡 Ir para a Casa', go: 'casa' };
-  if (giftAvailable()) return { txt: 'Tem um presente esperando no Baú hoje! 🎁', btn: '🎁 Abrir o Baú', fn: 'chest' };
   let last = null; try { last = pget('v3LastPlace'); } catch (_) {}
   const stop = PLACE_TO_STOP[last];
   if (last && stop && last !== 'casa') return { txt: `Quer continuar ${STOP_IN[stop]}?`, btn: '▶ Continuar', go: last };

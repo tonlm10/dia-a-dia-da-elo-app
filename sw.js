@@ -1,10 +1,23 @@
-importScripts('./version.js','./pet-core.js');
-const APP_VERSION=self.ELO_APP_VERSION||'4.3.20';
-const CACHE=`elo-official-4.3.20-r59`;
-const CORE=['./','./index.html','./version.js','./styles.css','./v3.css','./polish.css','./games-v350.css','./landscape.css','./pet.css','./home.css','./home.js','./fonts.css','./safety.js','./legal-config.js','./privacy.html','./terms.html','./models3d.js','./app.js','./v3.js','./pet-core.js','./push-config.js','./pet-notify.js','./pet.js','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html','./assets/rpg-cover-v1-5.webp','./assets/logo-oficial.webp','./assets/icons/icon-192.png','./assets/icons/icon-maskable-192.png','./assets/icons/apple-touch-icon.png','./assets/audio/elo-intro.m4a','./assets/game-ui/unicorn.svg','./assets/game-ui/ghost.svg'];
+importScripts('./version.js','./pet-core.js','./offline-manifest.js');
+const APP_VERSION=self.ELO_APP_VERSION||'4.3.24';
+const CACHE='elo-official-4.3.24-r63';
+const CORE=['./','./index.html','./version.js','./styles.css','./v3.css','./polish.css','./games-v350.css','./landscape.css','./pet.css','./home.css','./home.js','./touch-assist.js','./completion.js','./completion.css','./game-experience.js','./game-experience.css','./offline-manifest.js','./assets/fonts/Fredoka-Variable.ttf','./assets/fonts/Quicksand-Variable.ttf','./assets/fonts/Fredoka-OFL.txt','./assets/fonts/Quicksand-OFL.txt','./fonts.css','./safety.js','./legal-config.js','./privacy.html','./terms.html','./models3d.js','./app.js','./v3.js','./pet-core.js','./push-config.js','./pet-notify.js','./pet.js','./manifest.webmanifest','./privacy.html','./terms.html','./rpg.html','./assets/rpg-cover-v1-5.webp','./assets/logo-oficial.webp','./assets/icons/icon-192.png','./assets/icons/icon-maskable-192.png','./assets/icons/apple-touch-icon.png','./assets/audio/elo-intro.m4a','./assets/game-ui/unicorn.svg','./assets/game-ui/ghost.svg'];
 async function addSafe(cache,urls){await Promise.allSettled(urls.map(async u=>{try{const r=await fetch(u,{cache:'reload'});if(r.ok)await cache.put(u,r.clone())}catch(_){}}))}
 self.addEventListener('install',e=>e.waitUntil((async()=>{const c=await caches.open(CACHE);await addSafe(c,CORE);await self.skipWaiting()})()));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{const ks=await caches.keys();await Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim()})()));
+self.addEventListener('message',e=>{
+  if(e.data?.type!=='ELO_PREPARE_OFFLINE')return;
+  e.waitUntil((async()=>{
+    const cache=await caches.open(CACHE), files=Array.isArray(self.ELO_OFFLINE_FILES)?self.ELO_OFFLINE_FILES:[];
+    let done=0,saved=0,failed=0,next=0;
+    const source=e.source;
+    const report=(type)=>{try{source?.postMessage({type,done,total:files.length,saved,failed})}catch(_){}};
+    const worker=async()=>{while(true){const i=next++;if(i>=files.length)return;const url=new URL(files[i],self.registration.scope).href;try{const response=await fetch(url,{cache:'reload'});if(response.ok&&response.type!=='opaque'){await cache.put(url,response.clone());saved++}else failed++}catch(_){failed++}done++;if(done%6===0||done===files.length)report('ELO_OFFLINE_PROGRESS')}};
+    await Promise.all(Array.from({length:Math.min(6,files.length)},worker));
+    report('ELO_OFFLINE_DONE');
+  })());
+});
+
 self.addEventListener('fetch',e=>{
   if(e.request.method!=='GET')return;
   const u=new URL(e.request.url);
@@ -19,7 +32,7 @@ self.addEventListener('fetch',e=>{
     })());
     return;
   }
-  e.respondWith(caches.match(e.request).then(cached=>cached||fetch(e.request).then(res=>{if(res.ok&&e.request.url.startsWith('http')&&!e.request.url.includes('youtube.com')&&!e.request.url.includes('ytimg.com')){const copy=res.clone();caches.open(CACHE).then(c=>c.put(e.request,copy))}return res}).catch(()=>cached)));
+  e.respondWith(caches.match(e.request,{ignoreSearch:true}).then(cached=>cached||fetch(e.request).then(res=>{if(res.ok&&e.request.url.startsWith('http')&&!e.request.url.includes('youtube.com')&&!e.request.url.includes('ytimg.com')){const copy=res.clone();caches.open(CACHE).then(c=>c.put(e.request,copy))}return res}).catch(()=>cached)));
 });
 
 /* ===== Lembretes do bichinho (funcionam com o app fechado) ===== */

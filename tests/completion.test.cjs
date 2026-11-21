@@ -1,0 +1,43 @@
+'use strict';
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+const read = name => fs.readFileSync(path.join(root, name), 'utf8');
+test('vídeo permanece no app e não pode conceder estrelas por visualização', () => {
+  const js = read('completion.js');
+  assert.match(js, /openCinemaPlaylist\(VIDEO_PLAYLIST, false\)/);
+  assert.match(js, /grantVideoReward = function \(\) \{ showToast/);
+  assert.doesNotMatch(js, /grantVideoReward = function[\s\S]{0,250}addStars/);
+  assert.match(js, /allow-scripts allow-same-origin allow-presentation/);
+});
+test('modo offline, relatório parental, missão, uso ativo e fontes locais existem', () => {
+  const js = read('completion.js');
+  const sw = read('sw.js');
+  const fonts = read('fonts.css');
+  const html = read('index.html');
+  assert.match(js, /ELO_PREPARE_OFFLINE/);
+  assert.match(js, /eloWeekly/);
+  assert.match(js, /Missão de Descoberta/);
+  assert.match(js, /installSessionTracking/);
+  assert.match(js, /installPortraitDestinations/);
+  assert.match(js, /migrateRunawayPets/);
+  assert.match(js, /game-experience\.js\?v=4\.3\.24/);
+  assert.match(js, /game-experience\.css\?v=4\.3\.24/);
+  assert.match(sw, /ELO_PREPARE_OFFLINE/);
+  assert.match(fonts, /assets\/fonts\/Fredoka-Variable\.ttf/);
+  assert.match(fonts, /assets\/fonts\/Quicksand-Variable\.ttf/);
+  assert.match(html, /contactMail/);
+  assert.ok(fs.existsSync(path.join(root, 'assets/fonts/Fredoka-Variable.ttf')));
+  assert.ok(fs.existsSync(path.join(root, 'assets/fonts/Quicksand-Variable.ttf')));
+});
+test('lista de download contém apenas recursos existentes', () => {
+  const manifest = read('offline-manifest.js');
+  const match = manifest.match(/self\.ELO_OFFLINE_FILES\s*=\s*(\[[\s\S]*\]);/);
+  assert.ok(match, 'Lista de download offline não encontrada.');
+  const files = JSON.parse(match[1]);
+  assert.equal(files.length, 106);
+  for (const file of files) assert.ok(fs.existsSync(path.join(root, file.replace(/^\.\//, ''))), `Recurso offline ausente: ${file}`);
+  assert.match(read('legal-config.js'), /tonlm10@gmail\.com/);
+});

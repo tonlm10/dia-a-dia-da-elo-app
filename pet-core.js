@@ -8,9 +8,9 @@
     sleep: { hunger: .025, clean: .012, fun: .008, love: .004, study: .006 },
     sleepEnergy: .72
   };
-  var AWAY_MS = 72 * 3600e3;       // ausência que faz o bichinho "ir passear"
-  var DANGER_MS = 48 * 3600e3;     // a partir daqui o aviso fica mais forte
-  var MISS_MS = 20 * 3600e3;       // saudade simples
+  var AWAY_MS = Number.MAX_SAFE_INTEGER; // o bichinho nunca desaparece por falta de uso
+  var DANGER_MS = Number.MAX_SAFE_INTEGER;
+  var MISS_MS = 20 * 3600e3;       // aviso opcional e gentil
   var LOW = 40;                    // abaixo disso a necessidade vira lembrete
 
   function clamp(n) { return Math.max(0, Math.min(100, Math.round(Number(n) || 0))); }
@@ -21,8 +21,9 @@
     var q = Object.assign({}, p);
     if (!p || p.stage === 'egg' || p.ranAway) return q;
     var last = Number(p.lastSeen || now), ms = Math.max(0, now - last);
-    if (ms >= AWAY_MS) { q.ranAway = true; return q; }
-    var mins = Math.min(ms / 60000, 72 * 60), k;
+    /* A ausência não causa perda nem necessidades acumuladas: o estado só muda
+       um pouco, até o limite de uma hora, para evitar pressão por uso diário. */
+    var mins = Math.min(ms / 60000, 60), k;
     if (isSleeping(p, now)) {
       q.energy = clamp(p.energy + mins * RATES.sleepEnergy);
       for (k in RATES.sleep) q[k] = clamp(p[k] - mins * RATES.sleep[k]);
@@ -41,12 +42,12 @@
   }
 
   var NEEDS = [
-    ['hunger', '🥣', 'está com fominha! Venha dar uma comidinha'],
-    ['clean',  '🫧', 'está sujinho! Hora do banho'],
-    ['energy', '💤', 'está com sono! Venha apagar a luz para ele dormir'],
-    ['love',   '💗', 'está com saudade! Venha dar um carinho'],
-    ['fun',    '🎾', 'quer brincar! Venha estourar uns balões'],
-    ['study',  '📚', 'quer estudar um pouquinho!']
+    ['hunger', '🥣', 'quer uma comidinha, se você quiser brincar de cuidar'],
+    ['clean',  '🫧', 'pode tomar um banho divertido, se quiser'],
+    ['energy', '💤', 'pode descansar um pouquinho'],
+    ['love',   '💗', 'gosta de receber carinho quando você tiver vontade'],
+    ['fun',    '🎾', 'pode brincar com você, se estiver a fim'],
+    ['study',  '📚', 'pode aprender algo novo com você']
   ];
   var TITLE = 'Dia a Dia da Elo 🐾';
 
@@ -65,14 +66,10 @@
     var e = estimate(st, now);
     var away = now - Number(st.lastSeen || now);
 
-    if (e.ranAway) {
-      if (last.kind === 'letter' && last.at > Number(st.lastSeen || 0)) return null;
-      return { kind: 'letter', tag: 'pet-letter', title: TITLE, body: '💌 ' + name + ' deixou uma cartinha para você e um ovinho! Venha ver.' };
-    }
     if (st.stage === 'egg') {
       var cd = Number(st.eggCooldownMs || 120000);
       if (Number(st.eggCare || 0) < 5 && now - Number(st.lastEggCareAt || 0) >= cd && away >= 2 * 3600e3)
-        return { kind: 'egg', tag: 'pet-egg', title: TITLE, body: '🥚 O ovinho está esperando um carinho para chocar!' };
+        return { kind: 'egg', tag: 'pet-egg', title: TITLE, body: '🥚 Se quiser, venha dar carinho ao ovinho quando tiver vontade.' };
       return null;
     }
     if (isSleeping(st, now)) {
@@ -80,8 +77,6 @@
         return { kind: 'wake', tag: 'pet-wake', title: TITLE, body: '☀️ ' + name + ' já dormiu bastante! Acenda a luz para ele acordar.' };
       return null;
     }
-    if (away >= DANGER_MS)
-      return { kind: 'danger', tag: 'pet-danger', title: TITLE, body: '💌 ' + name + ' está com muita saudade... Ele precisa de você hoje!' };
 
     var worst = null, i, v;
     for (i = 0; i < NEEDS.length; i++) {
@@ -90,7 +85,7 @@
     }
     if (worst) return { kind: 'need-' + worst.n[0], tag: 'pet-need', title: TITLE, body: worst.n[1] + ' ' + name + ' ' + worst.n[2] + '.' };
     if (away >= MISS_MS)
-      return { kind: 'miss', tag: 'pet-miss', title: TITLE, body: '🥰 ' + name + ' sente a sua falta! Venha ver como ele está.' };
+      return { kind: 'miss', tag: 'pet-miss', title: TITLE, body: '🥰 ' + name + ' deixou um oi carinhoso. Brinque quando quiser.' };
     return null;
   }
 

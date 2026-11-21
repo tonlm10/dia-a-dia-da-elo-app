@@ -709,25 +709,23 @@ window.exportCurrentModelObj = function(){
 };
 
 // Importar Arquivo Externo (.OBJ ou .JSON)
-window.importCustomModelFile = function(input){
-  const file = input?.files?.[0];
-  if(!file) return;
+function readCustomModelFile(input, file){
   if(file.size > 8 * 1024 * 1024){
     if(typeof toast === 'function') toast('Arquivo 3D muito grande (máximo 8 MB).');
     input.value = '';
     return;
   }
-
+  const ext = String(file.name || '').toLowerCase().split('.').pop();
+  if(ext !== 'obj' && ext !== 'json'){
+    if(typeof toast === 'function') toast('Formato não aceito. Escolha um arquivo .OBJ ou .JSON.');
+    input.value = '';
+    return;
+  }
   const reader = new FileReader();
   reader.onload = e => {
     try {
       const text = e.target.result;
-      let mesh = null;
-      if(file.name.toLowerCase().endsWith('.json')){
-        mesh = parseJsonModel(text);
-      } else {
-        mesh = parseObjModel(text, file.name);
-      }
+      const mesh = ext === 'json' ? parseJsonModel(text) : parseObjModel(text, file.name);
       if(mesh && mesh.vertices.length > 0){
         customMesh = mesh;
         selectModelPreset('custom');
@@ -742,9 +740,26 @@ window.importCustomModelFile = function(input){
       input.value = '';
     }
   };
+  reader.onerror = () => {
+    input.value = '';
+    if(typeof toast === 'function') toast('Não foi possível ler o arquivo 3D. Tente novamente.');
+  };
   reader.readAsText(file);
+}
+window.importCustomModelFile = function(input){
+  const file = input?.files?.[0];
+  if(!file) return;
+  const proceed = () => {
+    if(input?.files?.[0] !== file) return;
+    readCustomModelFile(input, file);
+  };
+  if(typeof requestParentAccess !== 'function'){
+    if(typeof toast === 'function') toast('A proteção dos responsáveis não está disponível; a importação foi bloqueada.');
+    input.value = '';
+    return;
+  }
+  requestParentAccess(proceed, 'Digite o PIN dos responsáveis para importar um modelo 3D.');
 };
-
 function validateMesh(mesh){
   const MAX_V = 60000, MAX_F = 120000;
   const vs = Array.isArray(mesh.vertices) ? mesh.vertices : [];
@@ -841,6 +856,10 @@ function parseJsonModel(jsonText){
   mesh.vertices = data.vertices || [];
   mesh.faces = data.faces || [];
   return validateMesh(mesh);
+}
+
+if (typeof globalThis !== 'undefined' && globalThis.__ELO_TEST__) {
+  globalThis.__ELO_MODEL_TEST_API__ = { parseObjModel, parseJsonModel, validateMesh };
 }
 
 // ==========================================================

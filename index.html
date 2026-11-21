@@ -6,7 +6,7 @@
 <script>
 (function(){
   try {
-    var TARGET_VER = "4.3.20-r59";
+    var TARGET_VER = "4.3.23-r62";
     localStorage.removeItem("elo_force_landscape_90");
     if (localStorage.getItem("elo_sw_purged") !== TARGET_VER) {
       localStorage.setItem("elo_sw_purged", TARGET_VER);
@@ -28,27 +28,28 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#ff67a8" />
-<meta name="description" content="Dia a Dia da Elo — vídeos, playlists, jogos com capas, Escolinha, colorir e Aventuras da Elo." />
+<meta name="description" content="Dia a Dia da Elo — jogos, atividades educativas, histórias, criação e diversão em família." />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 <title>Dia a Dia da Elo</title>
-<link rel="stylesheet" href="fonts.css?v=4.3.20">
-<link rel="stylesheet" href="styles.css?v=4.3.20">
-<link rel="stylesheet" href="v3.css?v=4.3.20">
-<link rel="stylesheet" href="polish.css?v=4.3.20">
-<link rel="stylesheet" href="games-v350.css?v=4.3.20">
-<link rel="stylesheet" href="landscape.css?v=4.3.20">
-<link rel="stylesheet" href="pet.css?v=4.3.20">
-<link rel="stylesheet" href="home.css?v=4.3.20">
+<link rel="stylesheet" href="fonts.css?v=4.3.23">
+<link rel="stylesheet" href="styles.css?v=4.3.23">
+<link rel="stylesheet" href="v3.css?v=4.3.23">
+<link rel="stylesheet" href="polish.css?v=4.3.23">
+<link rel="stylesheet" href="games-v350.css?v=4.3.23">
+<link rel="stylesheet" href="landscape.css?v=4.3.23">
+<link rel="stylesheet" href="pet.css?v=4.3.23">
+<link rel="stylesheet" href="home.css?v=4.3.23">
+<link rel="stylesheet" href="completion.css?v=4.3.23" data-elo-completion-style="1">
 </head>
 <body>
 
 <div id="splash"><div class="splashCard"><img src="assets/icons/icon-192.png" alt="Dia a Dia da Elo"><h2>Dia a Dia da Elo</h2><p>Brincar • Aprender • Criar</p></div><script>setTimeout(function(){var s=document.getElementById("splash");if(s){s.style.opacity="0";s.style.pointerEvents="none";setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},450);}},1200);</script></div>
 
-<!-- BLOQUEIO OBRIGATÓRIO EM MODO EM PÉ (PORTRAIT): O APP SÓ FUNCIONA DEITADO -->
+<!-- O app adapta o início para modo vertical e mantém paisagem onde ela melhora os jogos. -->
 <div id="mandatoryLandscapeBlocker" class="mandatoryLandscapeBlocker" role="dialog" aria-modal="true" aria-labelledby="blockerTitle">
   <div class="blockerCard">
     <div class="blockerPhoneAnim">
@@ -115,7 +116,7 @@
         <button type="button" class="hmIco" onclick="openParents()" aria-label="Área dos pais">🔐</button>
       </div>
     </div>
-    <span class="hmVer">v<span data-app-version>4.3.20</span></span>
+    <span class="hmVer">v<span data-app-version>4.3.23</span></span>
   </div>
 </section>
 <section id="casaPanel" class="panel">
@@ -146,7 +147,7 @@
   <div class="topTitle">
     <button class="back" onclick="appBack()">‹</button>
     <h2>Cinema da Elo 🎬</h2>
-    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Baú de Estrelas</button>
   </div>
   
   <!-- Streaming Hero Banner -->
@@ -190,7 +191,7 @@
   <div class="topTitle">
     <button class="back" onclick="appBack()">‹</button>
     <h2>Escolinha Mágica 🎓</h2>
-    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Baú de Estrelas</button>
   </div>
 
   <div class="schoolHeroModern">
@@ -296,7 +297,7 @@
   <div class="topTitle">
     <button class="back" onclick="appBack()">‹</button>
     <h2>Ateliê da Elo 🎨</h2>
-    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Baú de Estrelas</button>
   </div>
 
   <div class="creativeModeTabs">
@@ -429,7 +430,7 @@
   <div class="card parentClubCard"><h3>Clubinho da Elo 👑</h3><p class="muted">Informações de assinatura e valores ficam somente na Área dos Pais.</p><button class="btn secondary" onclick="openPanel('clubPanel','parents')">Ver planos e benefícios</button></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.20</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.23</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -580,7 +581,7 @@
   <div class="topTitle">
     <button class="back" onclick="appBack()">‹</button>
     <h2>Consultório da Elo 🦷</h2>
-    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Baú de Estrelas</button>
   </div>
 
   <div class="cantinhoTopSwitcher">
@@ -678,7 +679,7 @@
   <div class="topTitle">
     <button class="back" onclick="appBack()">‹</button>
     <h2>Festa da Família 👨‍👩‍👧</h2>
-    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Ganhar ⭐</button>
+    <button class="btnStarBoutique" onclick="openStarShop()" style="margin-left:auto;padding:6px 12px;font-size:11px">🎁 Baú de Estrelas</button>
   </div>
 
   <div class="familyPartyHero">
@@ -809,7 +810,7 @@
 
 <section id="privacyPanel" class="panel">
   <div class="topTitle"><button class="back" onclick="appBack()">‹</button><h2>Política de Privacidade</h2></div>
-  <div class="card privacyText"><p><strong>Última atualização:</strong> novembro de 2026.</p><h3>1. Resumo</h3><p>O Dia a Dia da Elo <strong>não exige conta, não mostra anúncios, não usa ferramentas de análise (analytics), não pede localização e não tem chat</strong>. O progresso de cada criança fica guardado no próprio aparelho. Não coletamos informações pessoais de crianças.</p><h3>2. Dados e progresso armazenados no aparelho</h3><p>Perfis locais, faixa etária, estrelas, conquistas, favoritos, histórias lidas, progresso da Escolinha e do Inglês, save do RPG, coleções, personalização do quarto, guarda-roupa, bichinho virtual (inclusive álbum e diário), preferências e configurações são armazenados localmente por meio do armazenamento do navegador ou do aplicativo.</p><h3>3. Perfis e Área dos Pais</h3><p>Os perfis separam o progresso das crianças no mesmo aparelho. Criação, edição e exclusão de perfis, links externos, backup e lembretes ficam na Área dos Pais, protegida por um PIN de 4 dígitos criado por um responsável. Antes de criar o PIN, o aplicativo faz uma pergunta para adultos. O app não publica nomes de perfis nem oferece lista pública de usuários.</p><h3>4. Backup</h3><p>Quando um responsável usa o backup, o aplicativo gera um arquivo com o progresso local para ser guardado ou restaurado. O envio ou armazenamento desse arquivo fora do aparelho depende da escolha do responsável.</p><h3>5. Narração e áudio</h3><p>A narração usa a síntese de voz do dispositivo ou do navegador. Os sons do bichinho e dos jogos são gerados pelo próprio aplicativo.</p><h3>6. Serviços externos</h3><p>Os vídeos do canal são incorporados do YouTube; ao reproduzi-los, o YouTube (Google) pode tratar dados conforme as próprias políticas. Links para YouTube e Instagram só abrem depois que um responsável digita o PIN. <strong>Fontes, imagens e códigos do aplicativo vêm do próprio pacote do app; ele não consulta Google Fonts nem serviços de análise.</strong></p><h3>7. Publicidade, compras e comunicação</h3><p>Esta versão não exibe anúncios e não processa compras diretamente. Não há chat aberto, mensagens entre usuários, ranking público, localização compartilhada ou recurso de encontrar outras crianças.</p><h3>8. Recursos infantis</h3><p>Mundo da Elo, Casa da Elo, coleções, quarto, guarda-roupa, bichinho, histórias interativas, Modo Família e segredos usam apenas o progresso local do perfil. O aplicativo não pune a criança por não abrir o app.</p><h3>9. Lembretes do bichinho (opcionais)</h3><p>Os lembretes só são ligados por um responsável, com o PIN, em Bichinho → 🔔. Para avisar com o aplicativo fechado, uma cópia do estado do bichinho (nome, espécie e necessidades) e as configurações de lembrete ficam guardadas apenas neste aparelho. Se quem publica o aplicativo ativar o servidor opcional de lembretes, são armazenados somente o endereço de notificação do aparelho e o horário do próximo lembrete, sem nenhum dado do perfil da criança, apagados ao desligar os lembretes ou após 30 dias. Os responsáveis podem desligar os lembretes a qualquer momento ou bloquear as notificações nas configurações do navegador.</p><h3>10. Registro de erros</h3><p>Se algo falhar, o aplicativo guarda neste aparelho um registro curto do erro (sem dados pessoais) para facilitar a correção. Esse registro não é enviado a ninguém.</p><h3>11. Exclusão de dados locais</h3><p>Os responsáveis podem redefinir o progresso pelos controles do aplicativo ou remover os dados locais nas configurações do dispositivo ou do navegador.</p><h3>12. Contato e transparência</h3><p>Informações oficiais estão no canal Dia a Dia da Elo e nos canais oficiais mostrados na Área dos Pais. <span class="contactMail"></span></p></div>
+  <div class="card privacyText"><p><strong>Última atualização:</strong> novembro de 2026.</p><h3>1. Resumo</h3><p>O Dia a Dia da Elo <strong>não exige conta, não mostra anúncios, não usa ferramentas de análise (analytics), não pede localização e não tem chat</strong>. O progresso de cada criança fica guardado no próprio aparelho. Não coletamos informações pessoais de crianças.</p><h3>2. Dados e progresso armazenados no aparelho</h3><p>Perfis locais, faixa etária, estrelas, conquistas, favoritos, histórias lidas, progresso da Escolinha e do Inglês, save do RPG, coleções, personalização do quarto, guarda-roupa, bichinho virtual (inclusive álbum e diário), registro semanal de atividades para o resumo dos responsáveis, preferências e configurações são armazenados localmente por meio do armazenamento do navegador ou do aplicativo.</p><h3>3. Perfis e Área dos Pais</h3><p>Os perfis separam o progresso das crianças no mesmo aparelho. Criação, edição e exclusão de perfis, links externos, backup e lembretes ficam na Área dos Pais, protegida por um PIN de 4 dígitos criado por um responsável. Antes de criar o PIN, o aplicativo faz uma pergunta para adultos. O app não publica nomes de perfis nem oferece lista pública de usuários.</p><h3>4. Backup</h3><p>Quando um responsável usa o backup, o aplicativo gera um arquivo com o progresso local para ser guardado ou restaurado. O envio ou armazenamento desse arquivo fora do aparelho depende da escolha do responsável.</p><h3>5. Narração e áudio</h3><p>A narração usa a síntese de voz do dispositivo ou do navegador. Os sons do bichinho e dos jogos são gerados pelo próprio aplicativo.</p><h3>6. Serviços externos</h3><p>Os vídeos do canal são incorporados do YouTube; ao reproduzi-los, o YouTube (Google) pode tratar dados conforme as próprias políticas. Links para YouTube e Instagram só abrem depois que um responsável digita o PIN. <strong>Fontes, imagens e códigos do aplicativo vêm do próprio pacote do app; ele não consulta Google Fonts nem serviços de análise.</strong></p><h3>7. Publicidade, compras e comunicação</h3><p>Esta versão não exibe anúncios e não processa compras diretamente. Não há chat aberto, mensagens entre usuários, ranking público, localização compartilhada ou recurso de encontrar outras crianças.</p><h3>8. Recursos infantis</h3><p>Mundo da Elo, Casa da Elo, coleções, quarto, guarda-roupa, bichinho, histórias interativas, Modo Família e segredos usam apenas o progresso local do perfil. O aplicativo não pune a criança por não abrir o app.</p><h3>9. Lembretes do bichinho (opcionais)</h3><p>Os lembretes só são ligados por um responsável, com o PIN, em Bichinho → 🔔. Para avisar com o aplicativo fechado, uma cópia do estado do bichinho (nome, espécie e necessidades) e as configurações de lembrete ficam guardadas apenas neste aparelho. Se quem publica o aplicativo ativar o servidor opcional de lembretes, são armazenados somente o endereço de notificação do aparelho e o horário do próximo lembrete, sem nenhum dado do perfil da criança, apagados ao desligar os lembretes ou após 30 dias. Os responsáveis podem desligar os lembretes a qualquer momento ou bloquear as notificações nas configurações do navegador.</p><h3>10. Registro de erros</h3><p>Se algo falhar, o aplicativo guarda neste aparelho um registro curto do erro (sem dados pessoais) para facilitar a correção. Esse registro não é enviado a ninguém.</p><h3>11. Exclusão de dados locais</h3><p>Os responsáveis podem redefinir o progresso pelos controles do aplicativo ou remover os dados locais nas configurações do dispositivo ou do navegador.</p><h3>12. Contato e transparência</h3><p>Informações oficiais estão no canal Dia a Dia da Elo e nos canais oficiais mostrados na Área dos Pais. <span class="contactMail"></span></p></div>
 </section>
 
 <section id="termsPanel" class="panel">
@@ -886,34 +887,25 @@
     <p class="muted">Seu saldo atual: <strong id="shopStarBalance" style="color:#ff68a7;font-size:16px">0</strong> ⭐</p>
     
     <div class="starShopGrid">
-      <!-- Presente do Dia -->
-      <div class="starShopCard">
-        <div class="cardIcon">📅</div>
-        <div class="cardBody">
-          <b>Presente do Dia</b>
-          <small>Volte todos os dias para resgatar +10 estrelas!</small>
-        </div>
-        <button id="claimDailyBonusBtn" onclick="claimDailyBonus()">Resgatar +10 ⭐</button>
-      </div>
 
       <!-- Vídeo Premiado -->
       <div class="starShopCard">
         <div class="cardIcon">🎬</div>
         <div class="cardBody">
-          <b>Vídeo Premiado da Elo</b>
-          <small>Assista ao vídeo oficial do canal até o final para ganhar +10 estrelas!</small>
+          <b>Vídeos da Elo no app</b>
+          <small>Assista ao vídeo mais recente no Cinema, sem sair do app. Não há estrelas por visualização.</small>
         </div>
-        <button id="watchRewardVideoBtn" onclick="watchRewardedAd()">Assistir (+10 ⭐)</button>
+        <button id="watchRewardVideoBtn" onclick="closeStarShop();openPanel('watchPanel','watch');setTimeout(()=>openCinemaPlaylist('UUBPBaYweoBPjr8XlfOz1dwQ',false),120)">Assistir no Cinema</button>
       </div>
 
       <!-- Pacotes para os Pais -->
       <div class="starShopCard" style="border-left: 4px solid #8f56e8;">
         <div class="cardIcon">👑</div>
         <div class="cardBody">
-          <b>Pacotes para Responsáveis</b>
-          <small>Desbloqueie pacotes protegidos por PIN dos pais.</small>
+          <b>Missão de Descoberta</b>
+          <small>Complete uma atividade do app e ganhe +3 estrelas, uma vez por dia. Sem obrigação de voltar todos os dias.</small>
         </div>
-        <button id="buyParentPackBtn" onclick="buyParentPack('pack50')">Liberar Pacote (+50 ⭐)</button>
+        <button id="buyParentPackBtn" onclick="closeStarShop();openPanel('playPanel','home')">Escolher brincadeira</button>
       </div>
     </div>
 
@@ -1072,12 +1064,13 @@
 </div>
 
 
-<script src="version.js?v=4.3.20"></script><script src="models3d.js?v=4.3.20"></script><script src="legal-config.js?v=4.3.20"></script>
-<script src="safety.js?v=4.3.20"></script>
-<script src="app.js?v=4.3.20"></script><script src="v3.js?v=4.3.20"></script><script src="pet-core.js?v=4.3.20"></script>
-<script src="push-config.js?v=4.3.20"></script>
-<script src="pet-notify.js?v=4.3.20"></script>
-<script src="pet.js?v=4.3.20"></script>
-<script src="home.js?v=4.3.20"></script>
+<script src="version.js?v=4.3.23"></script><script src="models3d.js?v=4.3.23"></script><script src="legal-config.js?v=4.3.23"></script>
+<script src="safety.js?v=4.3.23"></script>
+<script src="app.js?v=4.3.23"></script><script src="v3.js?v=4.3.23"></script><script src="pet-core.js?v=4.3.23"></script>
+<script src="push-config.js?v=4.3.23"></script>
+<script src="pet-notify.js?v=4.3.23"></script>
+<script src="pet.js?v=4.3.23"></script>
+<script src="home.js?v=4.3.23"></script>
+<script src="completion.js?v=4.3.23"></script>
 </body>
 </html>

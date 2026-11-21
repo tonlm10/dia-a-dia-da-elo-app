@@ -1,0 +1,29 @@
+Dia a Dia da Elo — versão 4.3.22
+=================================
+
+Incluído nesta entrega
+- Fontes Fredoka e Quicksand armazenadas localmente e licenciadas pela SIL Open Font License.
+- Vídeos recentes do canal podem ser abertos no player incorporado do Cinema da Elo; assistir não concede estrelas.
+- Pacotes para Responsáveis substituídos pela Missão de Descoberta: +3 estrelas ao concluir uma atividade, no máximo uma vez ao dia, sem sequência obrigatória.
+- Resumo semanal de atividades concluídas e tempo de uso na Área dos Pais. Dados locais; o registro novo começa nesta versão.
+- Abas para organizar Área dos Pais e Conquistas; grade de jogos e prateleiras do Cinema compactadas em telas paisagem.
+- Download dos recursos estáticos para uso offline, acionado pela Área dos Pais. YouTube continua exigindo internet.
+- E-mail de contato informado pelo responsável incluído na configuração legal.
+
+Incluído a partir do trabalho da 4.3.21
+- Alvos de toque com área efetiva de 44 × 44 px.
+- PIN parental antes da leitura de arquivos OBJ/JSON, validação de formato, tamanho e dados.
+- Oito suítes automatizadas existentes mais testes para os complementos da 4.3.22.
+
+A validar fora do navegador simulado
+- Dispositivos Android e iPhone: rotação, telas compactas, cache offline, importação 3D e lembretes.
+- Reprodução de vídeo e comportamento do player em diferentes navegadores.
+
+Ainda não concluído nesta entrega
+- Refatoração integral do app.js em módulos e retirada de todos os handlers inline.
+- Limpeza ampla e revisão visual dos remendos antigos de CSS.
+- Publicação/commit no GitHub (não há sessão autenticada nesta conversa).
+
+Para rodar os testes: node --test tests/*.test.cjs (Node.js 18+).
+Publicação: enviar app-upload.zip à raiz do repositório conectado ao workflow .github/workflows/importar-app.yml e confirmar o commit.
+Fonte das fontes: repositório público google/fonts; licenças incluídas em assets/fonts/.
