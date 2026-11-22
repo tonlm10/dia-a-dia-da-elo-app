@@ -23,10 +23,10 @@ test('modo offline, relatório parental, missão, uso ativo e fontes locais exis
   assert.match(js, /installSessionTracking/);
   assert.match(js, /installPortraitDestinations/);
   assert.match(js, /migrateRunawayPets/);
-  assert.match(js, /game-experience\.js\?v=4\.3\.27/);
-  assert.match(js, /game-experience\.css\?v=4\.3\.27/);
-  assert.match(js, /game-rework\.js\?v=4\.3\.27/);
-  assert.match(js, /game-rework\.css\?v=4\.3\.27/);
+  assert.match(js, /game-experience\.js\?v=4.3.28/);
+  assert.match(js, /game-experience\.css\?v=4.3.28/);
+  assert.match(js, /game-rework\.js\?v=4.3.28/);
+  assert.match(js, /game-rework\.css\?v=4.3.28/);
   assert.match(sw, /ELO_PREPARE_OFFLINE/);
   assert.match(fonts, /assets\/fonts\/Fredoka-Variable\.ttf/);
   assert.match(fonts, /assets\/fonts\/Quicksand-Variable\.ttf/);

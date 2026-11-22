@@ -53,7 +53,7 @@
 @media (prefers-reduced-motion:reduce){.eloSectionTab,.eloPortraitDestinations *{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 
 
-/* v4.3.27 — experiência somente em paisagem; não revelar painéis incompletos em retrato. */
+/* v4.3.28 — experiência somente em paisagem; não revelar painéis incompletos em retrato. */
 @media screen and (orientation:portrait) {
   #mandatoryLandscapeBlocker { display:flex !important; visibility:visible !important; opacity:1 !important; }
   #appContainer { display:none !important; visibility:hidden !important; }

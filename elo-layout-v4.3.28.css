@@ -1,0 +1,225 @@
+/* Ajustes de enquadramento Elo 4.3.28 — paisagem fixa, sem rolagem da página. */
+@media screen and (orientation: landscape) {
+  html,body { width:100%; height:100%; min-height:0; overflow:hidden!important; overscroll-behavior:none; }
+  #appContainer.app { display:flex!important; flex-direction:column!important; height:100dvh!important; max-height:100dvh!important; min-height:0!important; overflow:hidden!important; }
+  #appContainer>header { flex:0 0 40px!important; min-height:40px!important; }
+  #appContainer>nav { flex:0 0 44px!important; }
+  #appContainer>.panel { display:none; }
+  #appContainer>.panel.active { display:flex!important; flex:1 1 auto!important; flex-direction:column!important; min-width:0!important; min-height:0!important; width:100%!important; height:auto!important; max-height:none!important; margin:0 auto!important; padding:5px 10px 50px!important; overflow:hidden!important; overscroll-behavior:none; }
+  #homePanel.active { display:block!important; }
+  #watchPanel.active { display:block!important; overflow-x:hidden!important; overflow-y:auto!important; -webkit-overflow-scrolling:touch; overscroll-behavior-y:contain; touch-action:pan-y; }
+  #watchPanel .topTitle { position:sticky; top:0; z-index:15; background:rgba(255,250,255,.97); }
+  #watchPanel .cinemaShelves { display:block!important; max-height:none!important; height:auto!important; overflow:visible!important; }
+  #watchPanel .cinemaRail { display:flex!important; max-width:100%!important; overflow-x:auto!important; overflow-y:hidden!important; gap:10px; padding:4px 4px 12px; touch-action:pan-x; overscroll-behavior-x:contain; scroll-snap-type:x proximity; }
+  #watchPanel .cinemaRail>* { flex:0 0 clamp(158px,22vw,220px)!important; width:clamp(158px,22vw,220px)!important; min-width:0!important; scroll-snap-align:start; }
+  #watchPanel .cinemaRail img { max-width:100%; }
+  #watchPanel .cinemaRail :is(img,.videoThumb,.cinemaThumb,.videoThumbnail,.cinemaCardThumb) { aspect-ratio:16/9; object-fit:cover; }
+
+  /* Quarto e guarda-roupa: palco e escolhas lado a lado, sem deslocar a página. */
+  #roomPanel.active,#wardrobePanel.active { gap:4px; }
+  #roomPanel .topTitle,#wardrobePanel .topTitle { flex:0 0 34px; min-height:34px; margin:0; padding:0 4px; }
+  .cantinhoTopSwitcher { flex:0 0 36px; min-height:36px; max-height:36px; display:flex!important; flex-wrap:nowrap!important; overflow-x:auto!important; overflow-y:hidden!important; gap:5px; touch-action:pan-x; }
+  .cantinhoTopSwitcher .cSwitchBtn { flex:0 0 auto; min-height:32px; padding:4px 9px; font-size:10px; }
+  #roomPanel .roomIntro { flex:0 0 auto; min-height:0; margin:0 0 3px; padding:4px 10px; }
+  #roomPanel .roomIntro p { display:none; }
+  #roomPanel .roomLayoutLandscape { flex:1 1 auto!important; display:grid!important; grid-template-columns:minmax(0,1.25fr) minmax(220px,.85fr)!important; gap:8px; min-width:0; min-height:0!important; height:100%!important; overflow:hidden!important; }
+  #roomPanel .eloRoom { width:100%!important; height:100%!important; min-height:0!important; max-height:100%!important; aspect-ratio:1.35/1; overflow:hidden; }
+  #roomPanel .roomControlDock { display:grid!important; grid-template-rows:auto auto minmax(0,1fr); min-width:0; min-height:0; max-height:100%; overflow:hidden!important; padding:7px; }
+  #roomPanel .roomDecorTabs { display:flex!important; flex-wrap:nowrap!important; overflow-x:auto!important; touch-action:pan-x; }
+  #roomPanel .decorGrid { min-height:0!important; max-height:100%!important; overflow-y:auto!important; overscroll-behavior:contain; align-content:start; }
+  #wardrobePanel .wardrobeLayoutLandscape { flex:1 1 auto!important; display:grid!important; grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr)!important; grid-template-rows:minmax(0,1fr)!important; align-items:stretch!important; gap:9px; min-width:0; min-height:0!important; height:100%!important; overflow:hidden!important; }
+  #wardrobePanel .wardrobeStudio { display:grid!important; grid-template-rows:minmax(0,1fr) auto; min-width:0; min-height:0; overflow:hidden; }
+  #wardrobePanel .wardrobeStage { min-height:0!important; max-height:100%!important; height:100%!important; overflow:hidden!important; }
+  #wardrobePanel .eloDoll { transform-origin:bottom center; }
+  #wardrobePanel .wardrobeInfo { min-height:32px; padding:3px 6px; }
+  #wardrobePanel .wardrobeControlDock { display:grid!important; grid-template-rows:auto auto auto minmax(0,1fr); min-width:0; min-height:0; max-height:100%; overflow:hidden!important; padding:7px; }
+  #wardrobePanel .wardrobePresets,#wardrobePanel .wardrobeTabs { display:flex!important; flex-wrap:nowrap!important; overflow-x:auto!important; min-width:0; touch-action:pan-x; }
+  #wardrobePanel .wardrobeGrid { min-height:0!important; max-height:100%!important; overflow:auto!important; overscroll-behavior:contain; align-content:start; }
+
+  /* Escolinha em uma tela; piano usa uma composição compacta, não apenas overflow hidden. */
+  #learnPanel.active { gap:3px; }
+  #learnPanel .topTitle { flex:0 0 34px; min-height:34px; margin:0; }
+  #learnPanel .schoolHeroModern { flex:0 0 auto; margin:0; padding:5px 9px; }
+  #learnPanel .schoolHeroModern p { margin:2px 0 0; font-size:10px; }
+  #learnPanel .schoolTracks { display:flex!important; flex:0 0 52px; min-height:52px; max-height:52px; flex-wrap:nowrap!important; overflow-x:auto!important; overflow-y:hidden!important; gap:6px; touch-action:pan-x; }
+  #learnPanel .schoolTrackCard { flex:0 0 152px; min-height:46px; padding:5px 8px; }
+  #learnPanel .schoolTrackCard.fullTrackCard { flex-basis:205px; }
+  #learnPanel .schoolActivityCard:not(.hidden) { display:flex!important; flex:1 1 auto!important; min-height:0!important; max-height:none!important; height:auto!important; overflow:hidden!important; margin:0; }
+  #learnPanel #schoolQuizCard:not(.hidden) .schoolQuizLayoutLandscape { display:grid!important; grid-template-columns:minmax(130px,.75fr) minmax(0,1.25fr); gap:8px; width:100%; min-height:0; align-items:center; }
+  #learnPanel #schoolOptionsGrid { min-height:0; max-height:100%; overflow:auto; align-content:center; }
+  #learnPanel:has(#schoolMusicCard:not(.hidden)) .schoolHeroModern { display:none!important; }
+  #learnPanel:has(#schoolMusicCard:not(.hidden)) .schoolTracks { flex-basis:38px; min-height:38px; max-height:38px; }
+  #learnPanel:has(#schoolMusicCard:not(.hidden)) .schoolTrackCard { min-height:34px; padding:2px 7px; }
+  #schoolMusicCard:not(.hidden) { display:grid!important; flex:1 1 auto!important; grid-template-rows:auto auto auto minmax(54px,1fr) auto!important; gap:3px; min-height:0!important; max-height:none!important; height:auto!important; padding:5px 8px!important; overflow:hidden!important; }
+  #schoolMusicCard .pianoHeader { min-height:0; padding:0; }
+  #schoolMusicCard .pianoHeader p { display:none!important; }
+  #schoolMusicCard .pianoHeader h3 { margin:0!important; font-size:14px!important; }
+  #schoolMusicCard .songSelectorRow { min-height:30px; max-height:32px; overflow-x:auto!important; overflow-y:hidden!important; flex-wrap:nowrap!important; touch-action:pan-x; }
+  #schoolMusicCard .songChip { flex:0 0 auto; min-height:28px; padding:3px 8px; font-size:10px; }
+  #schoolMusicCard .pianoSongGuide { min-height:18px; margin:0; padding:2px 6px; font-size:10px; }
+  #schoolMusicCard .pianoKeysRow { display:grid!important; grid-template-columns:repeat(12,minmax(0,1fr))!important; min-height:0!important; height:100%!important; max-height:100%!important; overflow:hidden!important; gap:3px; touch-action:none; }
+  #schoolMusicCard .pianoKey3D { min-width:0!important; min-height:0!important; height:100%!important; padding:2px!important; touch-action:none; }
+  #schoolMusicCard .pianoKeyLabel { font-size:9px; }
+  #schoolMusicCard .musicBottomRowLandscape { display:grid!important; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)!important; gap:5px; min-height:0; max-height:78px; overflow:hidden; }
+  #schoolMusicCard .animalSoundBar { display:flex!important; flex-wrap:nowrap!important; overflow-x:auto!important; overflow-y:hidden!important; min-width:0; max-height:38px; touch-action:pan-x; }
+  #schoolMusicCard .animalSoundBar button { flex:0 0 auto; min-height:32px; padding:3px 6px; font-size:9px; }
+  #schoolMusicCard .djStationWrap { min-width:0; min-height:0; padding:4px; overflow:hidden; }
+  #schoolMusicCard .djHeader { display:flex; align-items:center; justify-content:space-between; gap:4px; min-height:20px; }
+  #schoolMusicCard .djHeader h4 { margin:0; font-size:10px; }
+  #schoolMusicCard .djHeader small { display:none; }
+  #schoolMusicCard .djBeatLoopBtn { min-height:28px; padding:3px 6px; font-size:9px; }
+  #schoolMusicCard .djPadsGrid { display:grid!important; grid-template-columns:repeat(4,minmax(0,1fr))!important; gap:3px; }
+  #schoolMusicCard .djPadBtn { min-width:0; min-height:38px!important; padding:2px!important; font-size:9px; touch-action:none; }
+  #schoolMusicCard .djPadBtn span { font-size:16px; }
+  #schoolMusicCard .djPadBtn b { font-size:8px; }
+
+  /* Ateliê e atividades culinárias: palco e ferramentas em colunas fixas. */
+  #createPanel.active { gap:3px; }
+  #createPanel .topTitle { flex:0 0 34px; min-height:34px; margin:0; }
+  #createPanel .creativeModeTabs { flex:0 0 38px; min-height:38px; max-height:38px; display:flex!important; flex-wrap:nowrap!important; overflow-x:auto!important; touch-action:pan-x; }
+  #createPanel .cTabBtn { flex:0 0 auto; min-height:34px; padding:4px 9px; font-size:10px; }
+  #createPanel #freeDrawSection:not(.hidden),#createPanel #coloringSection:not(.hidden),#createPanel #chefSection:not(.hidden) { display:flex!important; flex:1 1 auto!important; min-height:0!important; max-height:none!important; height:auto!important; overflow:hidden!important; margin:0; }
+  #createPanel .freeDrawLayoutLandscape { display:grid!important; grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr)!important; flex:1 1 auto; min-height:0; gap:6px; }
+  #createPanel .freeCanvasContainer { min-width:0; min-height:0; max-height:100%; overflow:hidden; }
+  #createPanel #freeDrawCanvas { width:100%!important; height:100%!important; max-height:100%; object-fit:contain; }
+  #createPanel .freeDrawToolsColLandscape { min-width:0; min-height:0; max-height:100%; overflow:hidden; }
+  #createPanel .drawingToolsBar,#createPanel .toolColors { min-width:0; max-width:100%; overflow:hidden; }
+  #createPanel .eloColorRail { flex-wrap:nowrap!important; overflow-x:auto!important; overflow-y:hidden!important; touch-action:pan-x; }
+  #createPanel .toolBrushes { display:flex; flex-wrap:nowrap; overflow-x:auto; touch-action:pan-x; }
+  #createPanel #coloringSection:not(.hidden) { display:grid!important; grid-template-rows:auto minmax(0,1fr); }
+  #createPanel #coloringSection h3,#createPanel #coloringSection p { margin:2px 0; font-size:11px; }
+  #createPanel #coloringGallery { min-height:0; overflow:auto!important; align-content:start; }
+  #createPanel #chefSection:not(.hidden) { display:grid!important; grid-template-rows:auto minmax(0,1fr); }
+  #createPanel .chefStationTabs { display:flex!important; flex-wrap:nowrap!important; overflow-x:auto!important; touch-action:pan-x; }
+  #createPanel #chefStudioRoot { min-width:0; min-height:0; max-height:100%; overflow:auto!important; overscroll-behavior:contain; }
+  #createPanel #chefStudioRoot :is(.chefLayout,.chefStudio,.chefGameLayout,.chefOrderLayout) { max-height:100%; min-height:0; }
+
+  /* Jogos: cada arena ocupa o overlay; controles não se sobrepõem à área de jogo. */
+  #gameModal { position:fixed!important; inset:0!important; overflow:hidden!important; overscroll-behavior:none; }
+  #gameModal>.overlayBody { display:flex!important; flex-direction:column!important; width:100%; height:100dvh!important; max-height:100dvh!important; min-height:0!important; padding:5px 8px!important; overflow:hidden!important; }
+  #gameModal>.overlayBody>.overlayTop { flex:0 0 36px!important; min-height:36px!important; margin:0 0 4px!important; padding:2px 4px!important; }
+  #gameModal .gameSection.active { display:flex!important; flex:1 1 auto!important; min-height:0!important; height:auto!important; max-height:none!important; overflow:hidden!important; }
+  #gameModal .gameSection.active>.gamebox { display:flex!important; flex-direction:column!important; flex:1 1 auto!important; min-width:0; min-height:0!important; height:100%!important; max-height:100%!important; padding:5px 8px!important; gap:4px; overflow:hidden!important; }
+  #gameModal .gameSection.active>.gamebox>p.muted { display:none!important; }
+  #gameModal .gamePlayRowLandscape { display:grid!important; grid-template-columns:minmax(0,1fr) minmax(170px,.48fr)!important; flex:1 1 auto!important; min-width:0; min-height:0!important; height:100%; gap:6px!important; overflow:hidden!important; }
+  #gameModal .gameStageColLandscape,#gameModal .gameControlsColLandscape { display:flex!important; flex-direction:column!important; justify-content:center; align-items:stretch; min-width:0!important; min-height:0!important; max-height:100%; overflow:hidden; }
+  #gameModal .gameControlsColLandscape { gap:3px!important; }
+  #gameModal .diffRow { display:flex!important; flex-wrap:wrap!important; gap:3px!important; }
+  #gameModal .diffRow .chip { flex:1 1 auto; min-width:0; min-height:34px!important; padding:4px 6px!important; font-size:9px!important; }
+  #gameModal .gameStats { min-height:25px!important; margin:2px 0!important; padding:4px 6px!important; font-size:10px!important; }
+  #gameModal .btn,#gameModal .mazeBtn { min-height:38px!important; touch-action:manipulation; }
+  #findGame .gamePlayRowLandscape { grid-template-columns:minmax(0,1.6fr) minmax(150px,.6fr)!important; }
+  #findGame #findStage { width:100%!important; height:100%!important; min-height:0!important; max-height:100%!important; }
+  #mazeGame .gamePlayRowLandscape,#unicornChaseGame .gamePlayRowLandscape { grid-template-columns:minmax(0,1fr) minmax(175px,.50fr)!important; }
+  #mazeGame .mazeWrap { width:min(100%,58vh)!important; height:min(50vh,340px)!important; max-height:100%!important; aspect-ratio:23/8; margin:auto!important; }
+  #mazeGame .mazeBoard { width:100%!important; height:100%!important; max-width:100%!important; max-height:100%!important; }
+  #mazeGame .mazeControls,#unicornChaseGame .chaseControls { width:min(100%,150px)!important; margin:2px auto!important; gap:2px!important; }
+  #mazeGame .mazeBtn,#unicornChaseGame .mazeBtn { min-width:38px!important; width:100%; min-height:36px!important; padding:3px!important; font-size:18px!important; }
+  #unicornChaseGame .chaseBoard { width:min(100%,52vh,440px)!important; height:auto!important; max-height:100%!important; aspect-ratio:1; margin:auto!important; }
+  #unicornChaseGame .chaseCell { min-width:0!important; min-height:0!important; }
+  #unicornChaseGame .chaseLegend { flex-wrap:wrap; gap:2px; margin:0!important; font-size:9px; }
+  #memoryGame .eloGameToolbar,#puzzleGame .eloGameToolbar { flex:0 0 auto; display:flex!important; flex-wrap:wrap; gap:2px; margin:0!important; max-height:58px; overflow:hidden; }
+  #memoryGame .eloGameToolbar .diffRow,#puzzleGame .eloGameToolbar .diffRow { flex:1 1 100%; flex-wrap:nowrap!important; }
+  #memoryGame .eloGameToolbar .gameStats,#puzzleGame .eloGameToolbar .gameStats { min-height:22px!important; margin:0!important; }
+  #memoryGame .eloGameToolbar .btn,#puzzleGame .eloGameToolbar .btn { min-height:28px!important; padding:2px 7px!important; }
+  #memoryGame .eloMemoryRow,#puzzleGame .eloPuzzleRow { display:flex!important; flex:1 1 auto!important; min-width:0; min-height:0!important; overflow:hidden!important; }
+  #memoryGame #memory { display:grid!important; width:100%!important; height:100%!important; max-width:none!important; max-height:100%!important; grid-template-columns:repeat(4,minmax(0,1fr))!important; grid-auto-rows:minmax(0,1fr)!important; align-content:stretch; gap:clamp(2px,.55vw,6px)!important; overflow:hidden!important; }
+  #memoryGame #memory.medium { grid-template-columns:repeat(4,minmax(0,1fr))!important; }
+  #memoryGame #memory.hard { grid-template-columns:repeat(8,minmax(0,1fr))!important; }
+  #memoryGame .mem { width:100%!important; height:100%!important; min-width:0!important; min-height:0!important; aspect-ratio:auto!important; border-radius:8px!important; }
+  #memoryGame .memPic { width:100%; height:100%; min-height:0; }
+  #puzzleGame .eloPuzzleRow { align-items:center; justify-content:center; }
+  #puzzleGame .gameStageColLandscape { display:grid!important; grid-template-columns:minmax(0,1fr) minmax(72px,.24fr); grid-template-rows:minmax(0,1fr) auto; gap:4px; }
+  #puzzleGame #puzzleBoard { grid-row:1/3; width:min(100%,49vh,380px)!important; height:auto!important; max-width:100%!important; max-height:100%!important; aspect-ratio:1; margin:auto!important; }
+  #puzzleGame .puzzleTop { display:flex!important; flex-direction:column; align-items:center; gap:2px; min-width:0; margin:0!important; }
+  #puzzleGame .puzzlePreview { width:64px!important; max-width:100%; }
+  #puzzleGame .puzzleChoices { display:flex; flex-wrap:wrap; justify-content:center; max-height:76px; overflow:auto; }
+  #puzzleGame .puzzleChoice { width:28px!important; min-width:28px!important; height:28px!important; }
+  #puzzleGame #puzzleCompleteNote { grid-column:1/-1; max-height:28px; overflow:hidden; font-size:9px!important; }
+  #tapGameSection .gamePlayRowLandscape { grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)!important; }
+  #tapGameSection .gameStageColLandscape { overflow:hidden; }
+  #tapGameSection .gameStageColLandscape>.diffRow { flex:0 0 auto; }
+  #tapGameSection .gameStageColLandscape>.row { margin:0!important; }
+  #tapGameSection #tapGame { display:grid!important; grid-template-columns:repeat(3,minmax(0,1fr))!important; grid-template-rows:repeat(3,minmax(0,1fr)); flex:1 1 auto; min-height:0; max-height:100%; gap:5px; overflow:hidden; }
+  #tapGameSection #tapGame .tapNum { width:100%; height:100%; min-width:0!important; min-height:0!important; }
+  #trailGame>.gamebox { gap:3px!important; }
+  #trailGame .trailHeader { flex:0 0 auto; margin:0!important; }
+  #trailGame .trailHeader .diffRow .chip { min-height:28px!important; padding:2px 6px!important; }
+  #trailGame .trailHud { flex:0 0 auto; grid-template-columns:repeat(5,minmax(0,1fr))!important; gap:2px!important; margin:1px 0!important; }
+  #trailGame .trailStat { min-height:26px!important; padding:2px!important; }
+  #trailGame .trailStat b { font-size:7px!important; }
+  #trailGame .trailStat span { font-size:10px!important; }
+  #trailGame .trailInfo { flex:0 0 auto; min-height:18px; margin:0!important; font-size:9px!important; }
+  #trailGame .trailHint,#trailGame .premiumNote { display:none!important; }
+  #trailGame .trailPlayRowLandscape { display:grid!important; grid-template-columns:minmax(0,1fr) minmax(120px,.32fr)!important; flex:1 1 auto!important; min-height:0!important; gap:4px!important; }
+  #trailGame .trailCanvasWrap { width:100%!important; height:100%!important; max-width:none!important; max-height:100%!important; min-height:0!important; aspect-ratio:900/500; margin:0!important; }
+  #trailGame .trailCanvas { width:100%!important; height:100%!important; max-height:100%!important; object-fit:fill!important; }
+  #trailGame .trailEloMount { display:none!important; }
+  #trailGame .trailControls { display:grid!important; grid-template-columns:1fr!important; align-content:center; min-width:0; gap:3px!important; margin:0!important; }
+  #trailGame .trailControls .trailBtn { grid-column:auto!important; min-height:34px!important; padding:3px 4px!important; font-size:9px!important; }
+  #playPanel .gameLaunch.eloCompactGameCard { grid-column:auto!important; grid-row:auto!important; min-height:0; height:100%; }
+  #playPanel .familyGameCover { display:grid; place-items:center; aspect-ratio:16/9; max-height:clamp(80px,15vh,180px); background:linear-gradient(135deg,#ffe3ef,#e6dcff); font-size:clamp(28px,5vh,54px); }
+  #familyPanel.active { gap:3px; }
+  #familyPanel .topTitle { flex:0 0 34px; min-height:34px; margin:0; }
+  #familyPanel .familyPartyHero { flex:0 0 auto; margin:0; padding:5px 9px; }
+  #familyPanel .familyPartyHero p { display:none; }
+  #familyPanel .familyModeTabs { flex:0 0 45px; display:grid!important; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px!important; }
+  #familyPanel .familyTabBtn { min-height:42px!important; padding:3px 5px!important; }
+  #familyPanel .familyTabBtn span { font-size:16px; }
+  #familyPanel .familyTabBtn small { display:none; }
+  #familyPanel .familyViewCard:not(.hidden) { display:flex!important; flex:1 1 auto; min-height:0; max-height:100%; overflow:auto; padding:6px!important; }
+  #familyPanel .mimeLayoutLandscape { width:100%; min-height:0; display:grid; grid-template-rows:auto minmax(0,1fr); gap:4px; }
+  #familyPanel .mimeHiddenPrompt { padding:5px!important; }
+  #familyPanel .mimeHiddenPrompt span { font-size:24px!important; margin:0!important; }
+  #familyPanel .mimeHiddenPrompt h3 { margin:2px!important; font-size:15px; }
+  #familyPanel .mimeHiddenPrompt p { margin:2px!important; font-size:10px; }
+  #familyPanel .duelArena { display:grid; grid-template-columns:1fr; grid-template-rows:1fr auto 1fr; min-height:0; }
+  #familyPanel .duelHalf { min-height:0; padding:4px!important; }
+
+  /* Cantinho, cuidados, pinturas e cozinha. */
+  #carePanel.active { gap:3px; }
+  #carePanel .topTitle { flex:0 0 34px; min-height:34px; margin:0; }
+  #eloCareGames { display:grid!important; grid-template-rows:auto auto minmax(0,1fr); flex:1 1 auto; min-height:0; max-height:100%; gap:5px; margin:0!important; overflow:hidden; }
+  .eloCareIntro { padding:4px 8px!important; }
+  .eloCareIntro h3 { margin:1px 0!important; font-size:14px!important; }
+  .eloCareIntro p { display:none; }
+  .eloCareTabs { gap:4px!important; }
+  .eloCareTabs button { min-height:34px!important; padding:3px!important; font-size:9px!important; }
+  #eloCareActivity { min-height:0!important; overflow:hidden!important; }
+  .eloCareCard { height:100%; max-height:100%; min-height:0!important; grid-template-columns:minmax(0,1fr) minmax(0,.9fr)!important; gap:7px!important; padding:7px!important; overflow:hidden; }
+  .eloCareCopy h4 { font-size:13px!important; }
+  .eloCareCopy p { margin:1px 0 4px!important; font-size:10px!important; }
+  .eloCareMeter,.eloCareStatus { min-height:20px!important; margin:2px 0!important; padding:3px 5px!important; font-size:9px!important; }
+  .eloCarePrimary,.eloCareSecondary { min-height:32px!important; margin-top:3px!important; font-size:10px!important; }
+  .eloMouth { max-width:270px!important; padding:6px!important; border-width:4px!important; }
+  .eloGum { padding:7px 5px!important; gap:5px!important; }
+  .eloTooth { min-height:34px!important; font-size:18px!important; }
+  .eloSmile { margin-top:3px!important; font-size:9px!important; }
+  .eloCareDoll { width:150px!important; height:185px!important; transform:scale(.72); transform-origin:center top; margin-bottom:-45px!important; }
+  .eloWound { width:26px!important; height:26px!important; font-size:15px; }
+  .lunchCare { grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr)!important; }
+  .eloLunchSlots { gap:3px!important; margin:3px 0!important; }
+  .eloLunchSlot { min-height:42px!important; padding:3px!important; }
+  .eloFoodPicker { min-height:0; max-height:100%!important; overflow-y:auto!important; overscroll-behavior:contain; }
+  .eloFoodGroup>div { gap:3px!important; }
+  .eloFoodGroup button { min-width:47px!important; min-height:46px!important; padding:2px!important; }
+  .eloFoodGroup button span { font-size:18px!important; }
+  #coloringModal { overflow:hidden!important; }
+  #coloringModal>.overlayBody { height:100dvh!important; max-height:100dvh!important; overflow:hidden!important; display:flex; flex-direction:column; }
+  #coloringModal .coloringLayoutLandscape { display:grid!important; grid-template-columns:minmax(0,1fr) minmax(135px,.3fr)!important; flex:1 1 auto; min-height:0!important; max-height:none!important; }
+  #coloringModal .colorStage,#coloringModal .colorCanvasWrap { min-width:0; min-height:0; max-width:100%; max-height:100%; overflow:auto; }
+  #coloringModal #draw { max-width:100%; max-height:100%; object-fit:contain; }
+  #coloringModal .coloringToolsCol { min-width:0; max-height:100%; overflow:hidden; }
+  #coloringModal #palette { flex-wrap:nowrap!important; overflow-x:auto!important; overflow-y:hidden!important; touch-action:pan-x; }
+}
+@media screen and (orientation:landscape) and (max-height:430px) {
+  #roomPanel .roomIntro { display:none!important; }
+  #learnPanel .topTitle,#createPanel .topTitle,#familyPanel .topTitle,#carePanel .topTitle,#roomPanel .topTitle,#wardrobePanel .topTitle { flex-basis:30px; min-height:30px; }
+  #learnPanel .schoolTracks { flex-basis:40px; min-height:40px; max-height:40px; }
+  #schoolMusicCard .musicBottomRowLandscape { max-height:62px; }
+  #gameModal>.overlayBody>.overlayTop { flex-basis:32px!important; min-height:32px!important; }
+  #trailGame .trailStat { min-height:22px!important; }
+}
+@media (prefers-reduced-motion:reduce) {
+  #gameModal *,#eloCareGames *,#createPanel * { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition:none!important; }
+}

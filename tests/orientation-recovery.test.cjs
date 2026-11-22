@@ -7,10 +7,10 @@ const root = path.resolve(__dirname, '..');
 const read = name => fs.readFileSync(path.join(root, name), 'utf8');
 
 test('versão, service worker e cache usam um único identificador', () => {
-  assert.ok(read('version.js').includes('4.3.27'));
-  assert.ok(read('sw.js').includes('elo-official-4.3.27-r66'));
-  assert.ok(read('index.html').includes('elo_client_repaired_4.3.27-r66'));
-  assert.ok(read('completion.js').includes('game-rework.js?v=4.3.27'));
+  assert.ok(read('version.js').includes('4.3.28'));
+  assert.ok(read('sw.js').includes('elo-official-4.3.28-r67'));
+  assert.ok(read('index.html').includes('elo_client_repaired_4.3.28-r67'));
+  assert.ok(read('completion.js').includes('game-rework.js?v=4.3.28'));
 });
 
 test('o app não aparece em retrato, nem nas exceções de histórias', () => {

@@ -29,5 +29,5 @@ test('o aplicativo só fica disponível em paisagem', () => {
   assert.match(css, /#mandatoryLandscapeBlocker\s*\{[^}]*display:flex\s*!important/s);
   assert.match(css, /#appContainer\s*\{[^}]*display:none\s*!important/s);
   assert.equal(JSON.parse(read('manifest.webmanifest')).orientation, 'landscape');
-  assert.ok(read('completion.js').includes('game-experience.js?v=4.3.27'));
+  assert.ok(read('completion.js').includes('game-experience.js?v=4.3.28'));
 });

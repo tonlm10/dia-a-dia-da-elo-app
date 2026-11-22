@@ -1,4 +1,4 @@
-/* Dia a Dia da Elo 4.3.25 — telas organizadas para toque e uso sem rolagem acidental. */
+/* Dia a Dia da Elo 4.3.28 — telas organizadas para toque e uso sem rolagem acidental. */
 #gameModal{overflow:hidden!important;overscroll-behavior:none;touch-action:pan-y}
 #gameModal>.overlayBody{height:100dvh;max-height:100dvh;overflow:hidden!important;display:flex;flex-direction:column;padding:8px!important;box-sizing:border-box}
 #gameModal>.overlayBody>.overlayTop{flex:0 0 auto;min-height:42px;margin:0 0 6px;padding:3px 4px}

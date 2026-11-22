@@ -1,0 +1,15 @@
+Dia a Dia da Elo — versão 4.3.28
+
+Correções desta atualização
+- Ativadas as melhorias de jogabilidade já incluídas no pacote e antes não carregadas pela página.
+- Reenquadramento em paisagem do quarto, guarda-roupa, Escolinha/piano, jogos, Ateliê, cuidados e Festa da Família.
+- Cartão da Festa da Família no mesmo grid dos jogos; tabuleiro de memória em 8/16/32 cartas sem cobrir dificuldades.
+- Botão de novo jogo do Toque no Número junto às dificuldades; labirinto, unicórnios, quebra-cabeça e Trilha ajustados à área útil.
+- Elo desenhada dentro da cena da Trilha; dano condicionado à colisão física real.
+- Cinema com rolagem vertical e trilhos horizontais de cartões padronizados.
+- Pintura por região reforçada para aceitar áreas internas do desenho e paletas em trilho horizontal.
+- Cache e lista de recursos offline atualizados.
+
+Validação
+- Suíte automatizada e verificações de sintaxe incluídas no pacote.
+- Teste em aparelho real ainda recomendado para diferentes proporções, toque e áudio.

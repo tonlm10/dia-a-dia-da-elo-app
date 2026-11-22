@@ -1,4 +1,4 @@
-/* Dia a Dia da Elo 4.3.25 — revisão de jogabilidade, acessibilidade e conteúdo. */
+/* Dia a Dia da Elo 4.3.28 — revisão de jogabilidade, acessibilidade e conteúdo. */
 (function () {
   'use strict';
   if (window.__eloGameReworkInstalled) return;
@@ -8,7 +8,7 @@
   const toast = text => { try { window.toast?.(text); } catch (_) {} };
   const profileId = () => { try { return window.getActiveProfile?.().id || 'default'; } catch (_) { return 'default'; } };
   const rewardOnce = (id, amount, message) => {
-    const key = `eloGameReward.4.3.25.${profileId()}.${id}.${new Date().toLocaleDateString('en-CA')}`;
+    const key = `eloGameReward.4.3.28.${profileId()}.${id}.${new Date().toLocaleDateString('en-CA')}`;
     if (localStorage.getItem(key) === '1') { toast('Muito bem! Essa atividade já rendeu estrelas hoje.'); return; }
     localStorage.setItem(key, '1'); window.addStars?.(amount, message);
   };
@@ -256,5 +256,5 @@
 
   // Accessible live announcements and direct controls remain usable without page scrolling.
   for(const id of ['findStatus','findTime','mazeStatus','chaseStatus','memoryStatus','puzzleStatus','tapPrompt','trailStatus','pianoSongGuide']){const node=$(`#${id}`);if(node){node.setAttribute('role','status');node.setAttribute('aria-live','polite');}}
-  window.EloGameRework={version:'4.3.25',stickerCount:()=>STICKER_COLLECTION_DATA.length,questionCounts:()=>Object.fromEntries(Object.entries(QUESTIONS).map(([k,v])=>[k,v.length])),careTabs:['teeth','bandage','lunch']};
+  window.EloGameRework={version:'4.3.28',stickerCount:()=>STICKER_COLLECTION_DATA.length,questionCounts:()=>Object.fromEntries(Object.entries(QUESTIONS).map(([k,v])=>[k,v.length])),careTabs:['teeth','bandage','lunch']};
 })();
