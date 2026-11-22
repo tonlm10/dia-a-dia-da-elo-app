@@ -5,25 +5,28 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com; media-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.workers.dev https://www.youtube.com; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'" />
 <script>
 (function(){
-  try {
-    var TARGET_VER = "4.3.26-r65";
-    localStorage.removeItem("elo_force_landscape_90");
-    if (localStorage.getItem("elo_sw_purged") === TARGET_VER) return;
-    localStorage.setItem("elo_sw_purged", TARGET_VER);
-    var cleanup = [];
-    if ("caches" in window) {
-      cleanup.push(caches.keys().then(function(keys){
-        return Promise.all(keys.filter(function(k){ return k.indexOf("elo-official-") === 0; }).map(function(k){ return caches.delete(k); }));
-      }));
-    }
-    if ("serviceWorker" in navigator) {
-      cleanup.push(navigator.serviceWorker.getRegistration(location.href).then(function(reg){
-        return reg ? reg.unregister() : undefined;
-      }));
-    }
-    Promise.all(cleanup.map(function(task){ return Promise.resolve(task).catch(function(){}); }))
-      .then(function(){ location.reload(); });
-  } catch(_) {}
+  var repairKey = 'elo_client_repaired_4.3.27-r66';
+  var started = false;
+  function repairOldCache(){
+    if (started || !navigator.onLine) return;
+    try { if (localStorage.getItem(repairKey) === 'done') return; } catch(_) { return; }
+    started = true;
+    try { localStorage.setItem(repairKey, 'pending'); } catch(_) {}
+    var jobs = [];
+    if ('caches' in window) jobs.push(caches.keys().then(function(keys){
+      return Promise.all(keys.filter(function(key){ return key.indexOf('elo-official-') === 0; }).map(function(key){ return caches.delete(key); }));
+    }));
+    if ('serviceWorker' in navigator) jobs.push(navigator.serviceWorker.getRegistrations().then(function(regs){
+      return Promise.all(regs.map(function(reg){ return reg.unregister(); }));
+    }));
+    Promise.allSettled(jobs).then(function(){
+      try { localStorage.setItem(repairKey, 'done'); } catch(_) {}
+      location.replace(location.href);
+    });
+  }
+  try { localStorage.removeItem('elo_force_landscape_90'); } catch(_) {}
+  repairOldCache();
+  window.addEventListener('online', repairOldCache, {once:true});
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -35,15 +38,15 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 <title>Dia a Dia da Elo</title>
-<link rel="stylesheet" href="fonts.css?v=4.3.26">
-<link rel="stylesheet" href="styles.css?v=4.3.26">
-<link rel="stylesheet" href="v3.css?v=4.3.26">
-<link rel="stylesheet" href="polish.css?v=4.3.26">
-<link rel="stylesheet" href="games-v350.css?v=4.3.26">
-<link rel="stylesheet" href="landscape.css?v=4.3.26">
-<link rel="stylesheet" href="pet.css?v=4.3.26">
-<link rel="stylesheet" href="home.css?v=4.3.26">
-<link rel="stylesheet" href="completion.css?v=4.3.26" data-elo-completion-style="1">
+<link rel="stylesheet" href="fonts.css?v=4.3.27">
+<link rel="stylesheet" href="styles.css?v=4.3.27">
+<link rel="stylesheet" href="v3.css?v=4.3.27">
+<link rel="stylesheet" href="polish.css?v=4.3.27">
+<link rel="stylesheet" href="games-v350.css?v=4.3.27">
+<link rel="stylesheet" href="landscape.css?v=4.3.27">
+<link rel="stylesheet" href="pet.css?v=4.3.27">
+<link rel="stylesheet" href="home.css?v=4.3.27">
+<link rel="stylesheet" href="completion.css?v=4.3.27" data-elo-completion-style="1">
 </head>
 <body>
 
@@ -116,7 +119,7 @@
         <button type="button" class="hmIco" onclick="openParents()" aria-label="Área dos pais">🔐</button>
       </div>
     </div>
-    <span class="hmVer">v<span data-app-version>4.3.26</span></span>
+    <span class="hmVer">v<span data-app-version>4.3.27</span></span>
   </div>
 </section>
 <section id="casaPanel" class="panel">
@@ -430,7 +433,7 @@
   <div class="card parentClubCard"><h3>Clubinho da Elo 👑</h3><p class="muted">Informações de assinatura e valores ficam somente na Área dos Pais.</p><button class="btn secondary" onclick="openPanel('clubPanel','parents')">Ver planos e benefícios</button></div>
   <div class="card"><h3>Privacidade e transparência</h3><div class="row"><button class="btn secondary" onclick="openPanel('privacyPanel','parents')">Política de Privacidade</button><button class="btn secondary" onclick="openPanel('termsPanel','parents')">Termos de Uso</button></div></div>
   <div class="card"><h3>Conquistas da criança</h3><button class="btn secondary" onclick="openPanel('achievementsPanel','achievements')">Ver conquistas</button></div>
-  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.26</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
+  <div class="card"><h3>Sobre o app</h3><p class="muted">Dia a Dia da Elo • versão <span data-app-version>4.3.27</span>.</p><p class="muted">Inclui perfis locais, Inglês por faixa etária, Livro de Conquistas, leitura em voz, acessibilidade, tempo saudável, backup de progresso e o RPG Elo e o Reino das Estrelas.</p></div>
 </section>
 
 <section id="collectionPanel" class="panel">
@@ -1064,13 +1067,13 @@
 </div>
 
 
-<script src="version.js?v=4.3.26"></script><script src="models3d.js?v=4.3.26"></script><script src="legal-config.js?v=4.3.26"></script>
-<script src="safety.js?v=4.3.26"></script>
-<script src="app.js?v=4.3.26"></script><script src="v3.js?v=4.3.26"></script><script src="pet-core.js?v=4.3.26"></script>
-<script src="push-config.js?v=4.3.26"></script>
-<script src="pet-notify.js?v=4.3.26"></script>
-<script src="pet.js?v=4.3.26"></script>
-<script src="home.js?v=4.3.26"></script>
-<script src="completion.js?v=4.3.26"></script>
+<script src="version.js?v=4.3.27"></script><script src="models3d.js?v=4.3.27"></script><script src="legal-config.js?v=4.3.27"></script>
+<script src="safety.js?v=4.3.27"></script>
+<script src="app.js?v=4.3.27"></script><script src="v3.js?v=4.3.27"></script><script src="pet-core.js?v=4.3.27"></script>
+<script src="push-config.js?v=4.3.27"></script>
+<script src="pet-notify.js?v=4.3.27"></script>
+<script src="pet.js?v=4.3.27"></script>
+<script src="home.js?v=4.3.27"></script>
+<script src="completion.js?v=4.3.27"></script>
 </body>
 </html>

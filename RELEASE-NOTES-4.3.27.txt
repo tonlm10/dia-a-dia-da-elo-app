@@ -1,0 +1,11 @@
+Dia a Dia da Elo — versão 4.3.27
+
+Correções
+- Sincronização entre HTML, scripts, service worker e cache.
+- Recuperação coordenada de caches antigos ao atualizar online, sem apagar o progresso local.
+- Orientação paisagem no PWA e bloqueio da tela em retrato, inclusive na leitura de histórias.
+- Reforço da visibilidade dos painéis ativos em paisagem.
+
+Validação
+- `node --test tests/*.test.cjs` e navegação em Chromium simulado.
+- Testes em aparelhos reais ainda recomendados.

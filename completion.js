@@ -1,4 +1,4 @@
-/* Complementos do Dia a Dia da Elo 4.3.24: bem-estar, acessibilidade e uso offline. */
+/* Complementos do Dia a Dia da Elo 4.3.27: bem-estar, acessibilidade e uso offline. */
 (function () {
   'use strict';
   const VIDEO_PLAYLIST = 'UUBPBaYweoBPjr8XlfOz1dwQ';
@@ -16,7 +16,7 @@
   const showToast = text => { try { if (typeof window.toast === 'function') window.toast(text); } catch (_) {} };
   const loadStyle = () => {
     if (document.querySelector('link[data-elo-completion-style]')) return;
-    const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = './completion.css?v=4.3.26'; link.dataset.eloCompletionStyle = '1';
+    const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = './completion.css?v=4.3.27'; link.dataset.eloCompletionStyle = '1';
     document.head.appendChild(link);
   };
 
@@ -274,27 +274,27 @@
   }
 
   function tuneVersion() {
-    document.querySelectorAll('[data-app-version]').forEach(node => { node.textContent = '4.3.26'; });
+    document.querySelectorAll('[data-app-version]').forEach(node => { node.textContent = '4.3.27'; });
   }
 
   function loadGameExperience() {
     if (!document.querySelector('link[data-elo-game-experience-style]')) {
-      const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = './game-experience.css?v=4.3.26'; link.dataset.eloGameExperienceStyle = '1';
+      const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = './game-experience.css?v=4.3.27'; link.dataset.eloGameExperienceStyle = '1';
       document.head.appendChild(link);
     }
     if (!document.querySelector('script[data-elo-game-experience]')) {
-      const script = document.createElement('script'); script.src = './game-experience.js?v=4.3.26'; script.dataset.eloGameExperience = '1';
+      const script = document.createElement('script'); script.src = './game-experience.js?v=4.3.27'; script.dataset.eloGameExperience = '1';
       document.body.appendChild(script);
     }
   }
 
   function loadGameRework() {
     if (!document.querySelector('link[data-elo-game-rework-style]')) {
-      const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = './game-rework.css?v=4.3.26'; link.dataset.eloGameReworkStyle = '1';
+      const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = './game-rework.css?v=4.3.27'; link.dataset.eloGameReworkStyle = '1';
       document.head.appendChild(link);
     }
     if (!document.querySelector('script[data-elo-game-rework]')) {
-      const script = document.createElement('script'); script.src = './game-rework.js?v=4.3.26'; script.dataset.eloGameRework = '1';
+      const script = document.createElement('script'); script.src = './game-rework.js?v=4.3.27'; script.dataset.eloGameRework = '1';
       document.body.appendChild(script);
     }
   }

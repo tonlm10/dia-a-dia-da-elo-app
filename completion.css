@@ -51,3 +51,28 @@
  #createPanel #freeDrawCanvas{width:min(100%,600px);height:auto;max-height:45vh}
 }
 @media (prefers-reduced-motion:reduce){.eloSectionTab,.eloPortraitDestinations *{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+
+/* v4.3.27 — experiência somente em paisagem; não revelar painéis incompletos em retrato. */
+@media screen and (orientation:portrait) {
+  #mandatoryLandscapeBlocker { display:flex !important; visibility:visible !important; opacity:1 !important; }
+  #appContainer { display:none !important; visibility:hidden !important; }
+  body.reading-portrait-allowed #mandatoryLandscapeBlocker,
+  body:has(#storiesPanel.active) #mandatoryLandscapeBlocker,
+  body:has(#readerPanel.active) #mandatoryLandscapeBlocker,
+  body:has(#interactiveStoriesPanel.active) #mandatoryLandscapeBlocker { display:flex !important; }
+  body.reading-portrait-allowed #appContainer,
+  body:has(#storiesPanel.active) #appContainer,
+  body:has(#readerPanel.active) #appContainer,
+  body:has(#interactiveStoriesPanel.active) #appContainer { display:none !important; }
+}
+@media screen and (orientation:landscape) {
+  #mandatoryLandscapeBlocker { display:none !important; }
+  #appContainer { display:block !important; visibility:visible !important; transform:none !important; }
+  #appContainer > .panel.active { visibility:visible !important; opacity:1 !important; animation:none !important; }
+}
+
+/* Altura íntegra para o bichinho, mesmo se o cálculo da barra falhar. */
+@media screen and (orientation:landscape) {
+  #petPanel.active { height:calc(100dvh - var(--shellBottom, 58px)) !important; }
+}

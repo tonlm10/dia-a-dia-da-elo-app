@@ -23,11 +23,11 @@ test('o vídeo fica sem recompensa, com navegação externa bloqueada no iframe'
   assert.ok(!completion.includes('grantVideoReward = function () { addStars('));
 });
 
-test('a tela vertical é acessível e não depende do bloqueio paisagem', () => {
+test('o aplicativo só fica disponível em paisagem', () => {
   const css = read('completion.css');
-  const html = read('index.html');
   assert.match(css, /orientation:portrait/);
-  assert.ok(css.includes('#appContainer{display:block!important'));
-  assert.ok(read('completion.js').includes('game-experience.js?v=4.3.26'));
-  assert.equal(JSON.parse(read('manifest.webmanifest')).orientation, 'any');
+  assert.match(css, /#mandatoryLandscapeBlocker\s*\{[^}]*display:flex\s*!important/s);
+  assert.match(css, /#appContainer\s*\{[^}]*display:none\s*!important/s);
+  assert.equal(JSON.parse(read('manifest.webmanifest')).orientation, 'landscape');
+  assert.ok(read('completion.js').includes('game-experience.js?v=4.3.27'));
 });

@@ -17,3 +17,6 @@ Para verificar apenas a importação 3D ou a ampliação de toque:
 ```sh
 node --test tests/models3d.test.cjs tests/touch-assist.test.cjs
 ```
+
+
+A suíte `orientation-recovery.test.cjs` confere a orientação paisagem, o bloqueio do modo retrato e a recuperação do cache.

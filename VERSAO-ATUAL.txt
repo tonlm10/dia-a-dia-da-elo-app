@@ -1,26 +1,15 @@
-VERSÃO DO APP: 4.3.26
-CACHE PWA: elo-official-4.3.26-r65
+VERSÃO DO APP: 4.3.27
+CACHE PWA: elo-official-4.3.27-r66
 DATA: 21/11/2026
 
-JOGOS REVISTOS E MELHORADOS
-- Escovação redesenhada como uma boca sorridente identificável, com oito dentes clicáveis e conclusão após escovar todos.
-- Curativos transformados em uma atividade de faz de conta com três pontos no boneco, escolha de estampas e confirmação de cada curativo.
-- Lancheira agora oferece quatro grupos de alimentos, substitui a estrela por alimento, só conclui após escolhas e permite iniciar outra rodada.
-- Sala renomeada para Cantinho dos Cuidados; não mistura lancheira com consultório.
-- Ache a Estrela recebe recuperação quando a cena abre vazia; labirinto e caça ficam em contêineres de tela fixa.
-- Memória reorganizada com nível e estatísticas acima das cartas; quebra-cabeça, Toque no Número e Trilha têm controles compactados.
-- Teclado musical evita rolagem acidental; prato e palmas usam síntese sonora própria. Parabéns ganhou 25 notas para cobrir as quatro frases da melodia guiada.
-- Banco de perguntas ampliado em Letras e Palavras, Matemática, Mundo e Bichos, Inglês e faixas de idade.
-- Cinema agora orienta a rolagem vertical e horizontal; paletas de desenho usam trilhas roláveis; carimbos removidos.
-- Álbum ampliado para 150 figurinhas. Estúdio 3D passa a explicar sua função de exploração espacial e formas.
-- Cartões de RPG e Trilha ajustados para dimensões equivalentes às demais atividades.
-- Novos arquivos incluídos no cache e na lista de preparação offline.
-
-CORREÇÃO DE TELA BRANCA
-- A versão declarada, os parâmetros dos arquivos da página e o cache do app estavam divergentes, permitindo que uma instalação reutilizasse recursos antigos.
-- Agora os arquivos usam a versão 4.3.26; a migração aguarda a limpeza do cache do app antes de recarregar e preserva o progresso local.
+CORREÇÃO DE TELA BRANCA E ORIENTAÇÃO
+- Sincronizados os identificadores de versão do HTML, scripts, service worker, cache e recursos carregados dinamicamente.
+- A atualização conectada remove apenas caches elo-official antigos, desregistra o service worker anterior e recarrega uma vez; progresso local preservado.
+- O PWA fica em paisagem; em retrato, o bloqueador de orientação continua visível, inclusive nas Histórias.
+- Reforçada a visibilidade dos painéis ativos em paisagem contra conflitos de estilo.
+- Mantidas as melhorias recentes dos jogos, incluindo o álbum com 150 figurinhas.
 
 VALIDAÇÃO E LIMITES
-- Testes automatizados: `node --test tests/*.test.cjs` (resultado final registrado após validação).
-- Testes em navegador simulado não substituem verificação em celulares Android/iPhone reais, especialmente toque, áudio, YouTube e aparelhos antigos.
-- A publicação no GitHub depende de uma sessão autenticada do responsável.
+- Testes automatizados: node --test tests/*.test.cjs.
+- Navegação simulada em Chromium; validar ainda em Android e iPhone reais.
+- Publicação no GitHub depende de sessão autenticada do responsável.

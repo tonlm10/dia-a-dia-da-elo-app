@@ -43,8 +43,8 @@ test('perguntas, inglês, sons, músicas, paletas e figurinhas foram ampliados',
 });
 
 test('recursos atualizados estão incluídos no cache e no uso offline', () => {
-  assert.match(readApp('version.js'), /4\.3\.26/);
-  assert.match(readApp('sw.js'), /elo-official-4\.3\.26-r65/);
+  assert.match(readApp('version.js'), /4\.3\.27/);
+  assert.match(readApp('sw.js'), /elo-official-4\.3\.27-r66/);
   assert.match(readApp('offline-manifest.js'), /\.\/game-rework\.js/);
   assert.match(readApp('VERSAO-ATUAL.txt'), /150 figurinhas/);
 });

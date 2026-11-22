@@ -1,6 +1,6 @@
-# Dia a Dia da Elo — versão 4.3.26
+# Dia a Dia da Elo — versão 4.3.27
 
-Aplicativo infantil instalável (PWA), em HTML/CSS/JavaScript. Perfis e progresso ficam armazenados no aparelho. O Cinema incorpora vídeos do YouTube e exige conexão; atividades locais disponíveis no cache podem funcionar sem internet.
+Aplicativo infantil instalável (PWA), em HTML/CSS/JavaScript. O uso é em paisagem; em retrato, o app pede que o aparelho seja virado. Perfis e progresso ficam armazenados no aparelho. O Cinema incorpora vídeos do YouTube e exige conexão; atividades locais disponíveis no cache podem funcionar sem internet.
 
 ## Recursos
 - Mundo da Elo, jogos, Escolinha, Inglês, histórias, Ateliê e Festa da Família.

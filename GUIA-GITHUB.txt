@@ -1,4 +1,4 @@
-COMO PUBLICAR O DIA A DIA DA ELO — versão 4.3.26
+COMO PUBLICAR O DIA A DIA DA ELO — versão 4.3.23
 
 O pacote está preparado para o workflow já existente no repositório. A publicação não foi feita nesta conversa porque não há sessão autenticada do GitHub.
 

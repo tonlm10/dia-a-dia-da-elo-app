@@ -195,9 +195,17 @@ function renderCasa() {
   }
   if (badge) { const need = s && (s.kind === 'letter' || s.kind === 'need' || (s.kind === 'egg' && s.ready)); badge.classList.toggle('hidden', !need); badge.textContent = s && s.kind === 'letter' ? '💌' : '!'; }
 }
+function mainNavTop() {
+  const nav = document.querySelector('#appContainer > nav') || document.querySelector('body > nav');
+  if (!nav || getComputedStyle(nav).display === 'none') return window.innerHeight;
+  const r = nav.getBoundingClientRect();
+  if (r.height > 0 && r.top > 0 && r.top < window.innerHeight) return r.top;
+  const reserve = Math.min(64, Math.max(48, Math.round(window.innerHeight * .14)));
+  return Math.max(0, window.innerHeight - reserve);
+}
 function csFit() {
   const cp = $('casaPanel'); if (!cp || !cp.classList.contains('active')) return;
-  const nav = document.querySelector('nav'); const navTop = nav && getComputedStyle(nav).display !== 'none' ? nav.getBoundingClientRect().top : window.innerHeight;
+  const navTop = mainNavTop();
   cp.style.setProperty('--csH', Math.max(200, Math.floor(navTop - 4)) + 'px');
   const room = document.querySelector('#casaPanel .r-pet'); if (room) { const s = Math.max(.3, Math.min(.85, room.clientHeight * .72 / 185)); cp.style.setProperty('--csPS', s.toFixed(3)); }
 }
@@ -214,10 +222,19 @@ window.casaGo = function (room) {
 
 /* ---------------- moldura fixa (todos os painéis) ---------------- */
 function shellFit() {
-  const root = document.documentElement, hd = document.querySelector('header'), nav = document.querySelector('nav');
-  const hv = hd && getComputedStyle(hd).display !== 'none', nv = nav && getComputedStyle(nav).display !== 'none';
-  root.style.setProperty('--shellTop', (hv ? Math.max(0, Math.round(hd.getBoundingClientRect().bottom)) : 0) + 'px');
-  root.style.setProperty('--shellBottom', (nv ? Math.max(0, Math.round(window.innerHeight - nav.getBoundingClientRect().top + 2)) : 0) + 'px');
+  const root = document.documentElement;
+  const hd = document.querySelector('#appContainer > header') || document.querySelector('body > header');
+  const nav = document.querySelector('#appContainer > nav') || document.querySelector('body > nav');
+  const hv = hd && getComputedStyle(hd).display !== 'none';
+  const nv = nav && getComputedStyle(nav).display !== 'none';
+  const hr = hv ? hd.getBoundingClientRect() : null;
+  const nr = nv ? nav.getBoundingClientRect() : null;
+  const headerTop = hr && hr.height > 0 && hr.bottom > 0 ? Math.round(hr.bottom) : (hv ? 40 : 0);
+  const fallback = Math.min(64, Math.max(48, Math.round(window.innerHeight * .14)));
+  const validNav = nr && nr.height > 0 && nr.top > 0 && nr.top < window.innerHeight;
+  const bottom = !nv ? 0 : validNav ? Math.max(0, Math.round(window.innerHeight - nr.top + 2)) : fallback;
+  root.style.setProperty('--shellTop', Math.max(0, headerTop) + 'px');
+  root.style.setProperty('--shellBottom', bottom + 'px');
 }
 document.body.classList.add('shell');
 

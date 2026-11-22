@@ -1,9 +1,9 @@
-DIA A DIA DA ELO — versão 4.3.26
+DIA A DIA DA ELO — versão 4.3.27
 
 Este ZIP contém o app na raiz. Para publicar pelo workflow existente, envie-o ao repositório como `app-upload.zip` e confirme o commit. Isso requer autenticação GitHub; não foi possível publicar por esta conversa.
 
 Novidades desta versão:
-- Início com grade própria para celulares em modo vertical; o app não bloqueia a tela em pé.
+- PWA configurado para paisagem; em retrato o app orienta a virar o aparelho.
 - Player incorporado no Cinema, com tentativa de impedir navegação externa no conteúdo do player. Vídeos são opcionais e não dão estrelas.
 - Missão de Descoberta gratuita, sem obrigação de retorno diário; removido o presente diário.
 - Bichinho não desaparece durante pausas; progresso de estados antigos é recuperado localmente.

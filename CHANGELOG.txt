@@ -1,3 +1,15 @@
+# Relatório de Atualização — Dia a Dia da Elo (v4.3.27-r66)
+Data: 21/11/2026
+
+CORREÇÃO DE TELA BRANCA E ORIENTAÇÃO
+ - Sincronizados os identificadores da página, scripts, service worker e cache para evitar mistura de versões.
+ - A limpeza de cache antigo é coordenada antes da recarga; perfis e progresso local são preservados.
+ - PWA configurado para paisagem; modo retrato bloqueado também durante a biblioteca de histórias.
+ - Painéis ativos reforçados para permanecerem visíveis após atualização.
+ - Testes automatizados e simulação em Chromium; testes em aparelho real continuam recomendados.
+
+Versão: cache PWA elo-official-4.3.27-r66.
+
 # Relatório de Atualização - Dia a Dia da Elo (v4.3.20-r59)
 Data: 04/11/2026
 
