@@ -1,6 +1,8 @@
 Dia a Dia da Elo — leia-me
 ==========================
-Versão 4.3.23 • aplicativo infantil instalável (PWA), feito em HTML/CSS/JavaScript.
+Versão 4.3.26 • aplicativo infantil instalável (PWA), feito em HTML/CSS/JavaScript.
+
+Correção de tela branca: versão, arquivos estáticos e cache agora estão sincronizados. Na primeira abertura, somente o cache antigo do app é removido e a página pode recarregar uma vez. O progresso infantil não é apagado.
 
 Uso e privacidade
 - Perfis e progresso permanecem neste aparelho.

@@ -1,4 +1,4 @@
-DIA A DIA DA ELO — versão 4.3.23
+DIA A DIA DA ELO — versão 4.3.26
 
 Este ZIP contém o app na raiz. Para publicar pelo workflow existente, envie-o ao repositório como `app-upload.zip` e confirme o commit. Isso requer autenticação GitHub; não foi possível publicar por esta conversa.
 

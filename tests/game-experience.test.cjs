@@ -14,10 +14,10 @@ test('novas cartas de memória usam ilustrações locais existentes', () => {
 
 test('controles de dica e pausa estão ligados ao app e ao modo offline', () => {
   const completion = readApp('completion.js'), sw = readApp('sw.js'), offline = readApp('offline-manifest.js'), js = readApp('game-experience.js');
-  assert.match(completion, /game-experience\.css\?v=4\.3\.25/);
-  assert.match(completion, /game-experience\.js\?v=4\.3\.25/);
-  assert.match(completion, /game-rework\.css\?v=4\.3\.25/);
-  assert.match(completion, /game-rework\.js\?v=4\.3\.25/);
+  assert.match(completion, /game-experience\.css\?v=4\.3\.26/);
+  assert.match(completion, /game-experience\.js\?v=4\.3\.26/);
+  assert.match(completion, /game-rework\.css\?v=4\.3\.26/);
+  assert.match(completion, /game-rework\.js\?v=4\.3\.26/);
   assert.match(sw, /\.\/game-experience\.css/);
   assert.match(sw, /\.\/game-experience\.js/);
   assert.match(offline, /game-experience\.css/);
